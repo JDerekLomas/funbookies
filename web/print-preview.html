@@ -130,43 +130,51 @@
       border-bottom: 2px solid #ddd;
     }
 
-    /* Word list TABLE */
-    .word-table {
-      flex: 1;
-      display: table;
-      width: 100%;
-      border-collapse: collapse;
+    /* Word sections */
+    .word-section {
+      margin-bottom: 10px;
     }
 
-    .word-row {
-      display: table-row;
-    }
-
-    .word-label {
-      display: table-cell;
-      width: 90px;
-      padding: 8px 10px;
-      font-size: 10px;
+    .word-section-label {
+      font-size: 9px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      vertical-align: top;
-      border-bottom: 1px solid #eee;
+      margin-bottom: 5px;
     }
 
-    .word-label.sound-out { color: #1565C0; }
-    .word-label.sight { color: #7B1FA2; }
-    .word-label.new { color: #E65100; }
+    .word-section-label.sound-out { color: #1565C0; }
+    .word-section-label.sight { color: #7B1FA2; }
+    .word-section-label.new { color: #E65100; }
 
-    .word-cells {
-      display: table-cell;
-      padding: 8px 10px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #333;
-      vertical-align: top;
-      border-bottom: 1px solid #eee;
-      line-height: 1.6;
+    .word-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .word-box {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      border: 2px solid;
+    }
+
+    .word-box.sound-out {
+      background: #E3F2FD;
+      color: #1565C0;
+      border-color: #90CAF9;
+    }
+    .word-box.sight {
+      background: #F3E5F5;
+      color: #7B1FA2;
+      border-color: #CE93D8;
+    }
+    .word-box.new {
+      background: #FFF3E0;
+      color: #E65100;
+      border-color: #FFCC80;
     }
 
     /* END PAGE */
@@ -269,25 +277,27 @@
       const container = document.getElementById('pageContainer');
       const imgPath = page.image ? `/books/images/${page.image}` : null;
 
-      // WORD LIST PAGE - table format
+      // WORD LIST PAGE - each word in its own box
       if (page.type === 'wordlist') {
         const wl = currentBook.word_list;
+        const makeWordBoxes = (words, cls) => words.map(w =>
+          `<span class="word-box ${cls}">${w}</span>`
+        ).join('');
+
         container.innerHTML = `
           <div class="page-wordlist" style="width:100%;height:100%;">
             <h2>Words to Know</h2>
-            <div class="word-table">
-              <div class="word-row">
-                <div class="word-label sound-out">Sound-out</div>
-                <div class="word-cells">${(wl.sound_out || []).join('   ')}</div>
-              </div>
-              <div class="word-row">
-                <div class="word-label sight">Sight</div>
-                <div class="word-cells">${(wl.sight || []).join('   ')}</div>
-              </div>
-              <div class="word-row">
-                <div class="word-label new">New</div>
-                <div class="word-cells">${(wl.new || []).join('   ')}</div>
-              </div>
+            <div class="word-section">
+              <div class="word-section-label sound-out">Sound-out</div>
+              <div class="word-boxes">${makeWordBoxes(wl.sound_out || [], 'sound-out')}</div>
+            </div>
+            <div class="word-section">
+              <div class="word-section-label sight">Sight</div>
+              <div class="word-boxes">${makeWordBoxes(wl.sight || [], 'sight')}</div>
+            </div>
+            <div class="word-section">
+              <div class="word-section-label new">New</div>
+              <div class="word-boxes">${makeWordBoxes(wl.new || [], 'new')}</div>
             </div>
           </div>
         `;

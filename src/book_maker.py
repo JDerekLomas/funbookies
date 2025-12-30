@@ -83,21 +83,21 @@ RESEARCH-BASED APPROACH (Science of Reading + Mo Willems + Pete the Cat):
    - For 6-7 year olds: they know short vowels, digraphs (sh, ch, th), blends (cr, st, bl)
 
 2. SENTENCE PATTERNS THAT WORK:
-   Simple declarative: "Pip ran up the hill."
-   Dialogue with said: "Look!" said Pip.
+   Simple declarative: "Gus ran up the hill."
+   Dialogue with said: "Look!" said Gus.
    Sound words standalone: "CRACK! POP! BOOM!"
-   Repetition with variation: "Run, Pip, run! Run, run, run!"
+   Repetition with variation: "Run, Gus, run! Run, run, run!"
    Question + answer: "What is that? It is hot lava!"
 
 3. MO WILLEMS STYLE (Elephant & Piggie):
    - Short punchy sentences (3-7 words ideal)
    - Expressive punctuation: ! ! ! and ?
-   - Genuine emotion through simple words: Pip gasps. Pip grins.
+   - Genuine emotion through simple words: Gus gasps. Gus grins.
    - Dialogue carries the story
 
 4. PETE THE CAT STYLE:
    - Rhythmic, almost song-like repetition
-   - "Did Pip fret? Goodness, no!"
+   - "Did Gus fret? Goodness, no!"
    - Pattern: situation → character's cool reaction
 
 5. WHAT TO AVOID:
@@ -105,9 +105,9 @@ RESEARCH-BASED APPROACH (Science of Reading + Mo Willems + Pete the Cat):
    BAD: "They see it drip." (passive, vague "they")
    BAD: Complex sentences with multiple clauses
 
-   GOOD: "Hot! Hot! Hot!" Pip hops back.
+   GOOD: "Hot! Hot! Hot!" Gus hops back.
    GOOD: The lava drips. Drip, drip, drip.
-   GOOD: "Run!" said Pip. And Pip ran fast.
+   GOOD: "Run!" said Gus. And Gus ran fast.
 
 6. STORY ARC (simple but complete):
    - Character wants to explore/discover something
@@ -116,12 +116,16 @@ RESEARCH-BASED APPROACH (Science of Reading + Mo Willems + Pete the Cat):
    - Character responds with courage/cleverness
    - Safe and happy ending with lesson learned
 
-WORD LIST STRUCTURE:
-- Phonetic (6-8): CVC words they can sound out: hot, red, run, big, drip, pop, get, hiss
-- Sight (4-5): Must-know words: the, said, was, to, you, I
-- Special (3-4): Topic vocabulary, easy to say: lava, magma, crater (2-3 syllables max)
+WORD LIST STRUCTURE (must be COMPREHENSIVE - include ALL words used in story):
+- Sound-out words: ALL decodable CVC words from the story: hot, red, run, big, drip, pop, get, hiss, etc.
+- Sight words: ALL high-frequency words used: the, said, was, to, I, a, is, it, up, etc.
+- New words: Topic vocabulary and character names: lava, magma, crater, Gus, etc.
 
-FORMAT: 24 pages, 10x10cm square"""
+FORMAT: 24 pages, 10x10cm square
+- Page 1: Cover
+- Page 2: Words to Know (single page with ALL three word categories)
+- Pages 3-23: Story (21 pages)
+- Page 24: Copyright/credits page"""
 
         user_prompt = f"""Write a beginning reader book: {config.topic}
 
@@ -132,27 +136,34 @@ Return JSON:
   "title": "Exact title from topic",
   "character": "Character name and description",
   "word_list": {{
-    "phonetic": ["hot", "run", "big", "drip", "pop", "hiss", "red", "get"],
-    "sight": ["the", "said", "to", "I", "was"],
-    "special": ["lava", "magma", "crater"]
+    "sound_out": ["hot", "run", "big", "drip", "pop", "hiss", "red", "get", "ran", "top", "got"],
+    "sight": ["the", "said", "to", "I", "was", "a", "is", "it", "up", "look", "what"],
+    "new": ["lava", "magma", "crater", "Gus"]
   }},
   "pages": [
     {{"page": 1, "type": "cover", "text": "Title", "image_prompt": "character in exciting scene"}},
-    {{"page": 2, "type": "wordlist_title", "text": "Words to Know", "image_prompt": "decorative border"}},
-    {{"page": 3, "type": "wordlist", "text": "Sound out: hot, run, big...\\nKnow these: the, said, to...\\nNew words: lava, magma", "image_prompt": "word list with small icons"}},
-    {{"page": 4, "type": "story", "text": "Pip the fox ran up the hill.", "image_prompt": "fox running up grassy hill"}},
-    ... continue through page 24
+    {{"page": 2, "type": "wordlist", "text": "Words to Know", "image_prompt": "decorative border with small character"}},
+    {{"page": 3, "type": "story", "text": "First story sentence.", "image_prompt": "scene description"}},
+    ... pages 4-23: story continues ...
+    {{"page": 24, "type": "copyright", "text": "© 2024 Funbookies\\nfunbookies.com\\nAll rights reserved.", "image_prompt": "small character waving goodbye, simple background"}}
   ]
 }}
+
+WORD LIST REQUIREMENTS:
+- sound_out: Include EVERY decodable word from your story (CVC, blends, digraphs)
+- sight: Include EVERY high-frequency word from your story
+- new: Include topic words AND character name(s)
+- Be COMPREHENSIVE - a parent should be able to practice ALL story words beforehand
 
 CRITICAL RULES:
 1. Max 8 words per page (aim for 5-6)
 2. Use character name, not "they" or "it"
 3. Every page: action verb OR dialogue OR sound word
-4. Repetition is GOOD: "Run, Pip! Run, run, run!"
-5. Pattern for danger: Sound word → "said Pip" → action
-   Example: "CRACK!" / "Run!" said Pip. / Pip ran fast.
-6. End with character safe, happy, and proud"""
+4. Repetition is GOOD: "Run, Gus! Run, run, run!"
+5. Pattern for danger: Sound word → "said [name]" → action
+   Example: "CRACK!" / "Run!" said Gus. / Gus ran fast.
+6. End with character safe, happy, and proud
+7. Page 24 MUST be copyright page"""
 
         headers = {
             "Authorization": f"Bearer {cfg['api_key']}",
@@ -252,19 +263,19 @@ def create_funbookies_series():
 
     topics = [
         BookConfig(
-            topic="volcanoes - how they work, famous volcanoes, lava and eruptions",
+            topic="'Gus and the Volcano' - Gus is a small gray gecko who lives near a volcano. Story about Gus exploring the volcano, seeing lava, and staying safe. Use volcano words: lava, magma, crater, hot, steam.",
             age_range="6-7",
             reading_level="beginning reader",
             include_word_list=True,
         ),
         BookConfig(
-            topic="castles - who lived there, parts of a castle, knights and princesses",
+            topic="'Rats in the Castle' - Rita and Rico are two brave little rats exploring a castle. They cross the moat, find secret passages, and discover treasure. Use castle words: towers, moat, drawbridge, secret.",
             age_range="6-7",
             reading_level="beginning reader",
             include_word_list=True,
         ),
         BookConfig(
-            topic="jungles - rainforest animals, layers of the jungle, amazing plants",
+            topic="'Jungle Sloth' - Zee is a slow-moving but brave green sloth who swings through the jungle canopy. Zee meets jungle animals and has an adventure. Use jungle words: vines, canopy, jungle, swing.",
             age_range="6-7",
             reading_level="beginning reader",
             include_word_list=True,

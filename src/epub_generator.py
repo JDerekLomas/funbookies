@@ -161,6 +161,7 @@ html, body {{ margin: 0; padding: 0; width: {self.width}px; height: {self.height
 .no-image {{ font-size: 32px; font-weight: bold; color: #333; }}
 .cover-text {{ font-size: 48px; font-weight: bold; color: #FF6B35; text-shadow: 2px 2px 0 #fff; }}
 .wordlist {{ font-size: 24px; line-height: 2; }}
+.copyright {{ font-size: 18px; line-height: 1.8; color: #666; }}
 '''
 
     def _page_xhtml(self, page: Page) -> str:
@@ -175,6 +176,7 @@ html, body {{ margin: 0; padding: 0; width: {self.width}px; height: {self.height
             "story": "#FFF8E7",
             "fun_fact": "#E3F2FD",
             "back_cover": "#FFF3E0",
+            "copyright": "#F5F5F5",
         }
         bg = bg_colors.get(page.page_type, page.bg_color)
 
@@ -185,6 +187,8 @@ html, body {{ margin: 0; padding: 0; width: {self.width}px; height: {self.height
             text_class = "text-overlay text-center cover-text"
         elif page.page_type in ["wordlist", "wordlist_title"]:
             text_class = "text-overlay text-center wordlist"
+        elif page.page_type == "copyright":
+            text_class = "text-overlay text-center copyright"
         else:
             text_class = f"text-overlay text-{page.text_position}"
 
@@ -234,7 +238,7 @@ def create_book_from_story(story_path: str, images_dir: str = "output/images") -
             image_path=img_path,
             text=p.get("text", ""),
             page_type=p.get("type", "story"),
-            text_position="center" if p.get("type") in ["cover", "wordlist", "wordlist_title"] else "bottom",
+            text_position="center" if p.get("type") in ["cover", "wordlist", "wordlist_title", "copyright"] else "bottom",
         ))
 
     return Book(

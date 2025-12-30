@@ -279,16 +279,19 @@
       // Handle both old format (array) and new format (object with categories)
       let wordListHTML = '';
       if (typeof wl === 'object' && !Array.isArray(wl)) {
-        if (wl.phonetic?.length) {
+        // Support both old (phonetic/special) and new (sound_out/new) formats
+        const soundOutWords = wl.sound_out || wl.phonetic || [];
+        const newWords = wl.new || wl.special || [];
+        if (soundOutWords.length) {
           wordListHTML += `<div class="word-category phonetic">
-            <div class="word-category-label">Sound it out</div>
-            <div class="word-pills">${wl.phonetic.slice(0,3).map(w => `<span class="word-pill phonetic">${w}</span>`).join('')}</div>
+            <div class="word-category-label">Sound-out words</div>
+            <div class="word-pills">${soundOutWords.slice(0,3).map(w => `<span class="word-pill phonetic">${w}</span>`).join('')}</div>
           </div>`;
         }
-        if (wl.special?.length) {
+        if (newWords.length) {
           wordListHTML += `<div class="word-category special">
             <div class="word-category-label">New words</div>
-            <div class="word-pills">${wl.special.slice(0,3).map(w => `<span class="word-pill special">${w}</span>`).join('')}</div>
+            <div class="word-pills">${newWords.slice(0,3).map(w => `<span class="word-pill special">${w}</span>`).join('')}</div>
           </div>`;
         }
       } else if (Array.isArray(wl)) {
@@ -333,29 +336,35 @@
         wordlist_title: '#E8F5E9',
         story: '#FFF8E7',
         fun_fact: '#E3F2FD',
-        back_cover: '#FFF3E0'
+        back_cover: '#FFF3E0',
+        copyright: '#F5F5F5'
       };
 
       pageDiv.style.background = bgColors[page.type] || '#FFF8E7';
       const imgPath = `/books/images/${slug}_page${String(page.page).padStart(2, '0')}.png`;
 
-      // Special handling for wordlist page (page 3)
+      // Special handling for wordlist page
       if (page.type === 'wordlist' && currentBook.word_list) {
         const wl = currentBook.word_list;
         if (typeof wl === 'object' && !Array.isArray(wl)) {
+          // Support both old (phonetic/special) and new (sound_out/new) formats
+          const soundOutWords = wl.sound_out || wl.phonetic || [];
+          const sightWords = wl.sight || [];
+          const newWords = wl.new || wl.special || [];
           pageDiv.innerHTML = `
             <div class="wordlist-content">
-              ${wl.phonetic?.length ? `<div class="wordlist-section phonetic">
-                <h4>Sound it out</h4>
-                <div class="words">${wl.phonetic.join(' • ')}</div>
+              <h3 style="text-align:center; margin-bottom:12px; color:#333;">Words to Know</h3>
+              ${soundOutWords.length ? `<div class="wordlist-section phonetic">
+                <h4>Sound-out words</h4>
+                <div class="words">${soundOutWords.join(' • ')}</div>
               </div>` : ''}
-              ${wl.sight?.length ? `<div class="wordlist-section sight">
-                <h4>Know these</h4>
-                <div class="words">${wl.sight.join(' • ')}</div>
+              ${sightWords.length ? `<div class="wordlist-section sight">
+                <h4>Sight words</h4>
+                <div class="words">${sightWords.join(' • ')}</div>
               </div>` : ''}
-              ${wl.special?.length ? `<div class="wordlist-section special">
+              ${newWords.length ? `<div class="wordlist-section special">
                 <h4>New words</h4>
-                <div class="words">${wl.special.join(' • ')}</div>
+                <div class="words">${newWords.join(' • ')}</div>
               </div>` : ''}
             </div>
           `;
@@ -365,6 +374,14 @@
             <div class="text-overlay center">${page.text.replace(/\\n/g, '<br>')}</div>
           `;
         }
+      } else if (page.type === 'copyright') {
+        // Copyright page styling
+        pageDiv.innerHTML = `
+          <img src="${imgPath}" onerror="this.style.display='none'" alt="">
+          <div class="text-overlay center" style="font-size: 0.9rem; line-height: 1.6;">
+            ${page.text.replace(/\\n/g, '<br>')}
+          </div>
+        `;
       } else {
         const textStyle = page.type === 'cover'
           ? 'font-size: 1.8rem; font-weight: 700; color: #FF6B35;'

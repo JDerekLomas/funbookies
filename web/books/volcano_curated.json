@@ -1,0 +1,143 @@
+{
+  "title": "Gus and the Volcano",
+  "character": "Gus is a small lime-green gecko with big curious eyes and a curly tail.",
+  "word_list": {
+    "sound_out": ["hot", "run", "big", "drip", "pop", "hiss", "red", "got", "top", "hill"],
+    "sight": ["the", "said", "to", "I", "was", "a", "up", "it"],
+    "new": ["lava", "magma", "crater", "Gus", "volcano"]
+  },
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Gus and the Volcano",
+      "image": "volcano_page01.png"
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know",
+      "image": "volcano_page02.png"
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Gus ran up the hill.",
+      "image": "volcano_page03.png"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "The hill was steep.\nUp, up, up!",
+      "image": "volcano_page04.png"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "Gus saw the top.",
+      "image": "volcano_page05.png"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "A big hole!\nIt was a crater.",
+      "image": "volcano_page06.png"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "Deep in the crater...",
+      "image": "volcano_page07.png"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "Red! Hot! Lava!",
+      "image": "volcano_page08.png"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "\"Wow!\" said Gus.",
+      "image": "volcano_page09.png"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "The magma rose up.",
+      "image": "volcano_page10.png"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "POP! HISS! CRACK!",
+      "image": "volcano_page11.png"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "\"Run!\" said Gus.",
+      "image": "volcano_page12.png"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "Run, Gus, run!",
+      "image": "volcano_page13.png"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "Lava dripped out.\nDrip, drip, drip.",
+      "image": "volcano_page14.png"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "Hot! Hot! Hot!",
+      "image": "volcano_page17.png"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "Gus got safe.",
+      "image": "volcano_page18.png"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "The lava flowed.\nIt was loud!",
+      "image": "volcano_page19.png"
+    },
+    {
+      "page": 18,
+      "type": "story",
+      "text": "\"I saw it all!\" said Gus.",
+      "image": "volcano_page20.png"
+    },
+    {
+      "page": 19,
+      "type": "story",
+      "text": "No more close looks!",
+      "image": "volcano_page21.png"
+    },
+    {
+      "page": 20,
+      "type": "story",
+      "text": "\"But I was brave,\" said Gus.",
+      "image": "volcano_page22.png"
+    },
+    {
+      "page": 21,
+      "type": "story",
+      "text": "Gus went home happy.",
+      "image": "volcano_page23.png"
+    },
+    {
+      "page": 22,
+      "type": "story",
+      "text": "The End",
+      "image": "volcano_page24.png"
+    }
+  ]
+}

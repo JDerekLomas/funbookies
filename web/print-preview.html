@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Funbookies - Print Preview</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -36,9 +36,7 @@
       cursor: pointer;
     }
 
-    select {
-      background: white;
-    }
+    select { background: white; }
 
     button {
       background: #667eea;
@@ -55,7 +53,7 @@
       text-align: center;
     }
 
-    /* The actual page preview - 10x10cm at screen resolution */
+    /* Page container - 10x10cm at 400px */
     .page-container {
       width: 400px;
       height: 400px;
@@ -69,9 +67,7 @@
       width: 100%;
       height: 100%;
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #FFF8E7;
     }
 
     .page img {
@@ -83,78 +79,112 @@
       object-fit: cover;
     }
 
-    .page .text-overlay {
+    /* Text box - FULLY OPAQUE, at bottom */
+    .text-box {
       position: absolute;
-      left: 5%;
-      right: 5%;
-      padding: 12px 16px;
-      background: rgba(255, 255, 255, 0.94);
-      border-radius: 10px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px 20px;
+      background: #FFFFFF;
       font-family: 'Nunito', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
+      font-size: 20px;
+      font-weight: 700;
       line-height: 1.4;
       text-align: center;
       color: #333;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      border-top: 3px solid #FFB347;
     }
 
-    .page .text-overlay.bottom {
-      bottom: 6%;
-    }
-
-    .page .text-overlay.center {
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .page .text-overlay.cover {
-      font-size: 28px;
-      font-weight: 800;
+    /* Cover title at bottom */
+    .text-box.cover {
+      font-size: 26px;
+      font-weight: 900;
       color: #FF6B35;
+      background: #FFF8DC;
+      border-top: 4px solid #FF6B35;
     }
 
-    .page .text-overlay.wordlist {
-      font-size: 14px;
-      font-weight: 600;
-      text-align: left;
-      line-height: 1.8;
+    /* Word list page */
+    .wordlist-page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #FFFEF5;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
     }
 
-    .page .text-overlay.copyright {
-      font-size: 12px;
-      font-weight: 400;
-      color: #666;
-      line-height: 1.6;
+    .wordlist-page h2 {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 800;
+      color: #333;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #ddd;
     }
 
-    /* Page backgrounds by type */
-    .page.cover { background: #FFE4B5; }
-    .page.wordlist { background: #E8F5E9; }
-    .page.wordlist_title { background: #E8F5E9; }
-    .page.story { background: #FFF8E7; }
-    .page.copyright { background: #F5F5F5; }
+    .word-table {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-    /* Wordlist formatting */
-    .wordlist-content h4 {
+    .word-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .word-label {
+      width: 100px;
       font-size: 11px;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 4px;
-      font-weight: 700;
-    }
-    .wordlist-content h4.sound-out { color: #1565C0; }
-    .wordlist-content h4.sight { color: #7B1FA2; }
-    .wordlist-content h4.new { color: #E65100; }
-    .wordlist-content .words {
-      margin-bottom: 10px;
-      color: #333;
+      padding-top: 4px;
+      flex-shrink: 0;
     }
 
-    /* Thumbnail strip */
+    .word-label.sound-out { color: #1565C0; }
+    .word-label.sight { color: #7B1FA2; }
+    .word-label.new { color: #E65100; }
+
+    .word-list {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .word-chip {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .word-chip.sound-out { background: #E3F2FD; color: #1565C0; }
+    .word-chip.sight { background: #F3E5F5; color: #7B1FA2; }
+    .word-chip.new { background: #FFF3E0; color: #E65100; }
+
+    /* The End styling */
+    .text-box.end {
+      font-size: 24px;
+      font-weight: 800;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* Thumbnails */
     .thumbnails {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       margin-top: 20px;
       flex-wrap: wrap;
       justify-content: center;
@@ -162,8 +192,8 @@
     }
 
     .thumb {
-      width: 50px;
-      height: 50px;
+      width: 45px;
+      height: 45px;
       border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
@@ -180,16 +210,15 @@
     }
     .thumb .num {
       position: absolute;
-      bottom: 2px;
-      right: 2px;
+      bottom: 1px;
+      right: 1px;
       background: rgba(0,0,0,0.7);
       color: white;
-      font-size: 9px;
-      padding: 1px 4px;
-      border-radius: 3px;
+      font-size: 8px;
+      padding: 1px 3px;
+      border-radius: 2px;
     }
 
-    /* Keyboard hint */
     .hint {
       color: #888;
       font-size: 0.85rem;
@@ -200,12 +229,10 @@
 <body>
   <div class="controls">
     <select id="bookSelect" onchange="loadBook(this.value)">
-      <option value="volcano">Pip and the Volcano</option>
-      <option value="castles">Rats in the Castle</option>
-      <option value="jungle">Jungle Sloth</option>
+      <option value="volcano_curated">Gus and the Volcano</option>
     </select>
     <button onclick="prevPage()" id="prevBtn">← Prev</button>
-    <div class="page-info" id="pageInfo">Page 1 / 24</div>
+    <div class="page-info" id="pageInfo">Page 1 / 22</div>
     <button onclick="nextPage()" id="nextBtn">Next →</button>
   </div>
 
@@ -221,18 +248,12 @@
     let currentBook = null;
     let currentPage = 0;
 
-    const bookFiles = {
-      volcano: 'volcano_story.json',
-      castles: 'castles_story.json',
-      jungle: 'jungle_story.json'
-    };
-
     async function loadBook(bookKey) {
       try {
-        const res = await fetch(`/books/${bookFiles[bookKey]}`);
+        const res = await fetch(`/books/${bookKey}.json`);
         if (res.ok) {
           currentBook = await res.json();
-          currentBook.slug = bookKey;
+          currentBook.key = bookKey;
           currentPage = 0;
           renderPage();
           renderThumbnails();
@@ -247,41 +268,51 @@
 
       const page = currentBook.pages[currentPage];
       const pageView = document.getElementById('pageView');
-      const imgPath = `/books/images/${currentBook.slug}_page${String(page.page).padStart(2, '0')}.png`;
+      const imgPath = `/books/images/${page.image}`;
 
-      // Set page type class
-      pageView.className = `page ${page.type}`;
-
-      // Determine text position and style
-      const isCenter = ['cover', 'wordlist_title', 'copyright'].includes(page.type);
-      const posClass = isCenter ? 'center' : 'bottom';
-
-      let textClass = posClass;
-      if (page.type === 'cover') textClass += ' cover';
-      if (page.type === 'copyright') textClass += ' copyright';
-
-      // Handle wordlist page specially
-      if (page.type === 'wordlist' && currentBook.word_list) {
+      // Word list page
+      if (page.type === 'wordlist') {
         const wl = currentBook.word_list;
-        const soundOut = wl.sound_out || wl.phonetic || [];
-        const sight = wl.sight || [];
-        const newWords = wl.new || wl.special || [];
-
         pageView.innerHTML = `
-          <img src="${imgPath}" onerror="this.style.display='none'" alt="">
-          <div class="text-overlay center wordlist">
-            <div class="wordlist-content">
-              <strong style="display:block; text-align:center; margin-bottom:10px; font-size:16px;">Words to Know</strong>
-              ${soundOut.length ? `<h4 class="sound-out">Sound-out words</h4><div class="words">${soundOut.join(' • ')}</div>` : ''}
-              ${sight.length ? `<h4 class="sight">Sight words</h4><div class="words">${sight.join(' • ')}</div>` : ''}
-              ${newWords.length ? `<h4 class="new">New words</h4><div class="words">${newWords.join(' • ')}</div>` : ''}
+          <div class="wordlist-page">
+            <h2>Words to Know</h2>
+            <div class="word-table">
+              <div class="word-row">
+                <div class="word-label sound-out">Sound out</div>
+                <div class="word-list">
+                  ${(wl.sound_out || []).map(w => `<span class="word-chip sound-out">${w}</span>`).join('')}
+                </div>
+              </div>
+              <div class="word-row">
+                <div class="word-label sight">Sight words</div>
+                <div class="word-list">
+                  ${(wl.sight || []).map(w => `<span class="word-chip sight">${w}</span>`).join('')}
+                </div>
+              </div>
+              <div class="word-row">
+                <div class="word-label new">New words</div>
+                <div class="word-list">
+                  ${(wl.new || []).map(w => `<span class="word-chip new">${w}</span>`).join('')}
+                </div>
+              </div>
             </div>
           </div>
         `;
-      } else {
+      }
+      // Cover page
+      else if (page.type === 'cover') {
         pageView.innerHTML = `
           <img src="${imgPath}" onerror="this.style.display='none'" alt="">
-          <div class="text-overlay ${textClass}">${page.text}</div>
+          <div class="text-box cover">${page.text}</div>
+        `;
+      }
+      // Story pages
+      else {
+        const textClass = page.text === 'The End' ? 'text-box end' : 'text-box';
+        const displayText = page.text.replace(/\n/g, '<br>');
+        pageView.innerHTML = `
+          <img src="${imgPath}" onerror="this.style.display='none'" alt="">
+          <div class="${textClass}">${displayText}</div>
         `;
       }
 
@@ -301,11 +332,11 @@
 
       const container = document.getElementById('thumbnails');
       container.innerHTML = currentBook.pages.map((page, i) => {
-        const imgPath = `/books/images/${currentBook.slug}_page${String(page.page).padStart(2, '0')}.png`;
+        const imgPath = `/books/images/${page.image}`;
         return `
           <div class="thumb ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">
             <img src="${imgPath}" onerror="this.style.background='#ddd'" alt="">
-            <span class="num">${page.page}</span>
+            <span class="num">${i + 1}</span>
           </div>
         `;
       }).join('');
@@ -330,14 +361,12 @@
       }
     }
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') prevPage();
       if (e.key === 'ArrowRight') nextPage();
     });
 
-    // Load volcano book by default
-    loadBook('volcano');
+    loadBook('volcano_curated');
   </script>
 </body>
 </html>

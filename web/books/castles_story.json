@@ -1,163 +1,171 @@
 {
-  "title": "Who Lives in a Castle?",
-  "word_list": [
-    "castle",
-    "king",
-    "queen",
-    "princess",
-    "knight",
-    "tower",
-    "door",
-    "horse",
-    "shield",
-    "crown",
-    "flag",
-    "room"
-  ],
+  "title": "The Big Castle",
+  "word_list": {
+    "phonetic": [
+      "rock",
+      "thick",
+      "run",
+      "draw",
+      "drip"
+    ],
+    "sight": [
+      "the",
+      "is",
+      "very",
+      "into"
+    ],
+    "special": [
+      "tower",
+      "moat",
+      "drawbridge",
+      "knight",
+      "royal"
+    ]
+  },
   "pages": [
     {
       "page": 1,
       "type": "cover",
-      "text": "Who Lives in a Castle?",
-      "image_prompt": "A bright, friendly cartoon-style castle with tall towers, colorful flags fluttering on top, and a big red door. A smiling princess waves from a window, a knight stands guard with a shiny shield, and a small horse grazes nearby. The sky is blue with fluffy white clouds. Warm golden sunlight gives a cheerful mood., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The Big Castle",
+      "image_prompt": "A bright, cartoon-style castle with tall towers, a red flag, and a golden sun in the sky. A friendly knight waves from the drawbridge. The moat sparkles with blue water. Lush green hills surround the scene. Cheerful and magical mood, warm colors., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 2,
       "type": "wordlist_title",
-      "text": "Words to Know",
-      "image_prompt": "A decorative border of tiny castles, crowns, shields, and horses in bright primary colors (red, blue, yellow) around the edge of the page. The background is soft yellow with a gentle glow., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Words to Practice",
+      "image_prompt": "A colorful banner with crenellated edges like a castle wall, flying small flags with letters. An open book floats above with a smiling quill pen. Soft clouds and pastel pinks, blues, and yellows. Playful school theme., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 3,
       "type": "wordlist",
-      "text": "castle - king - queen - princess - knight - tower - door - horse - shield - crown - flag - room",
-      "image_prompt": "Twelve small, clear icons arranged in two rows: a castle, a king with a crown, a queen with a dress, a princess waving, a knight with a shield, a tall tower, a big wooden door, a brown horse, a silver shield, a gold crown, a red flag on a pole, and a cozy room with a bed. Icons are bold, simple, and brightly colored on a white background., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Sound it out: rock, thick, run, draw, drip\n\nKnow these: the, is, very, into\n\nNew words: tower, moat, drawbridge, knight, royal",
+      "image_prompt": "Three neat rows on a pastel blue background. Each word has a small icon: rock (stone), thick (tree), run (boy running), draw (pencil), drip (water drop), the (crown), is (sparkle), very (thumbs up), into (arrow), tower (spire), moat (water around castle), drawbridge (wooden bridge), knight (armor), royal (king and queen). Clean, fun, easy to read., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 4,
       "type": "story",
-      "text": "This is a castle.",
-      "image_prompt": "A wide-angle view of a large stone castle on a hill, with four tall towers and many windows. Bright green grass surrounds it. The sun shines above. Colors are vivid but soft, creating a safe and fun feel., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The castle is big.",
+      "image_prompt": "A wide view of the castle from afar. It has three tall stone towers and a red roof. Birds fly above. Sunny day, soft grassy field. Calm and inviting., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 5,
       "type": "story",
-      "text": "It has big doors.",
-      "image_prompt": "A close-up of a huge wooden castle door with iron studs. The door is open just a crack, showing light inside. Two guards stand beside it, smiling gently., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "It has a thick wall.",
+      "image_prompt": "Close-up of gray stone wall, moss on the side. Very thick and strong. A tiny mouse peeks out. Warm sunlight shines on the stones., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 6,
       "type": "story",
-      "text": "And tall towers.",
-      "image_prompt": "Three tall castle towers reaching into the sky. Flags wave on top. Birds fly nearby. One tower has a princess looking out the window., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The moat is deep.",
+      "image_prompt": "Blue water surrounds the castle. Ripples show depth. A frog sits on a lily pad. Sparkles suggest it's cold and wet., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 7,
       "type": "story",
-      "text": "The king lives here.",
-      "image_prompt": "A kind-looking king with a red robe and a gold crown sits on a throne inside a grand room. He holds a scepter and smiles. Warm light fills the room., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The moat has a drawbridge.",
+      "image_prompt": "Wooden drawbridge lifted up. Rope and pulley system visible. Knight stands on top side, waving down at a visitor., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 8,
       "type": "story",
-      "text": "The queen lives here too.",
-      "image_prompt": "The queen in a blue gown sits beside the king. She wears a shiny crown. They both look happy. Flowers are on a table nearby., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The drawbridge can go up.",
+      "image_prompt": "Drawbridge rising with a loud 'crack' sound effect. Gears turn. Knight pulls a lever. Excited expression., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 9,
       "type": "story",
-      "text": "Their daughter is a princess.",
-      "image_prompt": "A young girl with long hair and a pink dress twirls with joy in a sunny garden. A small bird perches on her hand. Butterflies float around., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The drawbridge can go down.",
+      "image_prompt": "Bridge lowering smoothly. Dust puffs as it hits ground. A horse waits to cross. Peaceful action., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 10,
       "type": "story",
-      "text": "She has a pretty room.",
-      "image_prompt": "The princess's bedroom with a canopy bed, stuffed animals, a dollhouse, and a window with a view of the castle yard. Pink and white colors dominate., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Drip, drip goes the moat.",
+      "image_prompt": "Water drops fall from the edge of the bridge into the moat. Ripples form. Bright blue and shiny., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 11,
       "type": "story",
-      "text": "Knights live in the castle.",
-      "image_prompt": "Two friendly knights in shiny armor stand side by side. One holds a sword, the other a shield. They smile behind their helmets. The castle wall is behind them., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The knight runs fast.",
+      "image_prompt": "Knight in shiny armor running across the courtyard. Cape flaps behind. Sunlight glints off helmet., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 12,
       "type": "story",
-      "text": "They wear strong armor.",
-      "image_prompt": "Close-up of a knight\u2019s armor: helmet, chest plate, and gauntlets on a rack. The metal gleams in the sunlight. A red cape hangs nearby., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "He runs into the tower.",
+      "image_prompt": "Knight entering a round stone tower through a low door. Spiral stairs inside. Cozy and cool., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 13,
       "type": "story",
-      "text": "They have big shields.",
-      "image_prompt": "A knight raises a round shield painted with a lion. The shield looks solid and strong. Grass and flowers are at his feet., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The tower is very high.",
+      "image_prompt": "View from inside the tower looking up. Stone walls go up and up. Small windows let in light. Bird flies past one., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 14,
       "type": "story",
-      "text": "Knights ride strong horses.",
-      "image_prompt": "A knight on a brown horse gallops across a field. His red cloak flaps in the wind. The castle is in the distance. Sky is bright blue., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "He sees the whole land.",
+      "image_prompt": "Knight at the top of the tower, pointing far away. Rolling hills, tiny houses, and a river below. Bright sky., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 15,
       "type": "story",
-      "text": "They keep the castle safe.",
-      "image_prompt": "A knight stands watch at the castle gate at sunset. He holds a torch. Stars begin to twinkle. The mood is calm and protective., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The king is royal.",
+      "image_prompt": "King on a throne wearing a gold crown and purple robe. He smiles kindly. Royal seal on the wall., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 16,
       "type": "story",
-      "text": "Flags wave on the towers.",
-      "image_prompt": "Colorful flags (red, yellow, blue) snap in the wind atop castle towers. The sun is high, and clouds drift slowly. Joyful atmosphere., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The queen is royal too.",
+      "image_prompt": "Queen beside the king, holding a flower. Her dress sparkles. Gentle smile. Courtiers bow in the background., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 17,
       "type": "story",
-      "text": "The king has a crown.",
-      "image_prompt": "A close-up of a golden crown with sparkling gems resting on velvet. It sits on a velvet pillow. Soft light makes it glow., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "They live in the big castle.",
+      "image_prompt": "King and queen walking hand-in-hand through a grand hall. Tapestries on walls, chandelier above., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 18,
       "type": "story",
-      "text": "The queen has one too.",
-      "image_prompt": "A silver crown with pearls rests beside the king\u2019s crown. Both sit on a red cloth. Background is softly blurred with warm tones., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The rock is hard.",
+      "image_prompt": "Close-up of gray castle stone. Hand taps it \u2014 'clink!' sound. Very solid and old., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 19,
       "type": "story",
-      "text": "The princess likes her room.",
-      "image_prompt": "The princess reads a book on her bed. Her toys are tidy. Sunlight streams through the window. She looks peaceful and happy., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The knight guards the gate.",
+      "image_prompt": "Knight standing tall at the main gate, hand on sword. Flag flutters. Safe and strong mood., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 20,
       "type": "story",
-      "text": "Knights train every day.",
-      "image_prompt": "Two knights practice with wooden swords in a grassy yard. One laughs as he blocks a swing. Bales of hay and targets are nearby., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "He says, 'All is well.'",
+      "image_prompt": "Knight smiling, giving a thumbs-up. A rabbit and bird listen nearby. Peaceful evening glow., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 21,
       "type": "story",
-      "text": "Castles are full of life.",
-      "image_prompt": "A bustling castle yard: the princess feeds ducks, knights walk with shields, the king and queen stroll together, and birds fly overhead. Everyone is smiling., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The castle is safe.",
+      "image_prompt": "Nighttime view. Castle lit by torches. Stars above. Drawbridge is down, but guard is awake., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 22,
       "type": "story",
-      "text": "Who would you be?",
-      "image_prompt": "A child in modern clothes imagines themselves as a knight, a princess, and a king/queen, shown in three small thought bubbles above their head. They stand outside the castle, looking curious and excited., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The royal family sleeps.",
+      "image_prompt": "Moon outside a tower window. King, queen, and little prince tucked in bed. Soft candlelight., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 23,
       "type": "fun_fact",
-      "text": "Real castles were built hundreds of years ago!",
-      "image_prompt": "A whimsical mix of a real stone castle sketch and cartoon characters peeking out. A scroll floats nearby with 'Long ago!' written on it. Earthy browns and grays with pops of color., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Did you know? Some real castles had secret tunnels under them!",
+      "image_prompt": "Cutaway view of a castle showing a hidden tunnel beneath the moat. A sneaky cat sneaks through. Mysterious but fun., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 24,
       "type": "back_cover",
       "text": "",
-      "image_prompt": "Bright solid purple background with the Funbookies logo centered: a smiling open book with wings, surrounded by stars and tiny crowns. Text below reads 'Funbookies \u2013 Learn with Joy!' in bold, playful font., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "image_prompt": "Bright red background with the Funbookies logo (a smiling book with wings and a star) in the center. Small icons of a castle, knight, and crown float around it. Clean and joyful., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     }
   ]
 }

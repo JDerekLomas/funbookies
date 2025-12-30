@@ -61,19 +61,32 @@
       height: 100%;
       object-fit: cover;
     }
-    .book-info {
-      padding: 20px;
+    .book-info { padding: 20px; }
+    .book-info h3 { font-size: 1.3rem; color: #333; margin-bottom: 12px; }
+
+    .word-categories { font-size: 0.85rem; line-height: 1.8; }
+    .word-category { margin-bottom: 8px; }
+    .word-category-label {
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
     }
-    .book-info h3 {
-      font-size: 1.3rem;
-      color: #333;
-      margin-bottom: 8px;
+    .word-category.phonetic .word-category-label { color: #2196F3; }
+    .word-category.sight .word-category-label { color: #9C27B0; }
+    .word-category.special .word-category-label { color: #FF9800; }
+    .word-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .word-pill {
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
     }
-    .book-info .word-list {
-      font-size: 0.85rem;
-      color: #666;
-      line-height: 1.6;
-    }
+    .word-pill.phonetic { background: #E3F2FD; color: #1565C0; }
+    .word-pill.sight { background: #F3E5F5; color: #7B1FA2; }
+    .word-pill.special { background: #FFF3E0; color: #E65100; }
+
     .book-info .badge {
       display: inline-block;
       background: #E8F5E9;
@@ -123,7 +136,7 @@
     }
     .reader-page .text-overlay {
       position: absolute;
-      bottom: 10%;
+      bottom: 8%;
       left: 5%; right: 5%;
       background: rgba(255,255,255,0.95);
       padding: 15px 20px;
@@ -136,6 +149,40 @@
       top: 50%;
       transform: translateY(-50%);
     }
+
+    /* Word list page styling */
+    .reader-page .wordlist-content {
+      position: absolute;
+      top: 10%; bottom: 10%;
+      left: 8%; right: 8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      text-align: left;
+    }
+    .wordlist-section {
+      background: white;
+      padding: 12px 16px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .wordlist-section h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .wordlist-section.phonetic h4 { color: #1565C0; }
+    .wordlist-section.sight h4 { color: #7B1FA2; }
+    .wordlist-section.special h4 { color: #E65100; }
+    .wordlist-section .words {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+    }
+
     .reader-controls {
       display: flex;
       justify-content: center;
@@ -181,17 +228,13 @@
       <p>Little books, big adventures - for beginning readers ages 6-7</p>
     </header>
 
-    <div class="books-grid" id="booksGrid">
-      <!-- Books loaded dynamically -->
-    </div>
+    <div class="books-grid" id="booksGrid"></div>
   </div>
 
   <div class="reader-modal" id="readerModal">
     <button class="close-btn" onclick="closeReader()">×</button>
     <div class="reader-container">
-      <div class="reader-page" id="readerPage">
-        <div class="text-overlay" id="pageText"></div>
-      </div>
+      <div class="reader-page" id="readerPage"></div>
       <div class="reader-controls">
         <button onclick="prevPage()" id="prevBtn">←</button>
         <button onclick="nextPage()" id="nextBtn">→</button>
@@ -201,12 +244,10 @@
   </div>
 
   <script>
-    // Book data will be loaded from JSON
     let books = [];
     let currentBook = null;
     let currentPage = 0;
 
-    // Load books
     async function loadBooks() {
       const bookFiles = ['volcano_story.json', 'castles_story.json', 'jungle_story.json'];
       const grid = document.getElementById('booksGrid');
@@ -232,19 +273,35 @@
       card.className = 'book-card';
       card.onclick = () => openReader(book);
 
-      // Check if cover image exists
       const coverImg = `/books/images/${slug}_page01.png`;
+      const wl = book.word_list || {};
+
+      // Handle both old format (array) and new format (object with categories)
+      let wordListHTML = '';
+      if (typeof wl === 'object' && !Array.isArray(wl)) {
+        if (wl.phonetic?.length) {
+          wordListHTML += `<div class="word-category phonetic">
+            <div class="word-category-label">Sound it out</div>
+            <div class="word-pills">${wl.phonetic.slice(0,3).map(w => `<span class="word-pill phonetic">${w}</span>`).join('')}</div>
+          </div>`;
+        }
+        if (wl.special?.length) {
+          wordListHTML += `<div class="word-category special">
+            <div class="word-category-label">New words</div>
+            <div class="word-pills">${wl.special.slice(0,3).map(w => `<span class="word-pill special">${w}</span>`).join('')}</div>
+          </div>`;
+        }
+      } else if (Array.isArray(wl)) {
+        wordListHTML = `<div class="word-pills">${wl.slice(0,5).map(w => `<span class="word-pill phonetic">${w}</span>`).join('')}</div>`;
+      }
 
       card.innerHTML = `
-        <div class="book-cover" id="cover-${slug}">
+        <div class="book-cover">
           <img src="${coverImg}" onerror="this.style.display='none'; this.parentElement.innerText='${book.title}'" alt="${book.title}">
         </div>
         <div class="book-info">
           <h3>${book.title}</h3>
-          <div class="word-list">
-            <strong>Words to practice:</strong><br>
-            ${book.word_list.slice(0, 6).join(' • ')}${book.word_list.length > 6 ? '...' : ''}
-          </div>
+          <div class="word-categories">${wordListHTML}</div>
           <span class="badge">24 pages</span>
         </div>
       `;
@@ -268,10 +325,8 @@
 
       const page = currentBook.pages[currentPage];
       const pageDiv = document.getElementById('readerPage');
-      const textDiv = document.getElementById('pageText');
       const slug = currentBook.file.replace('_story.json', '');
 
-      // Background colors by type
       const bgColors = {
         cover: '#FFE4B5',
         wordlist: '#E8F5E9',
@@ -282,38 +337,62 @@
       };
 
       pageDiv.style.background = bgColors[page.type] || '#FFF8E7';
-
-      // Try to load image
       const imgPath = `/books/images/${slug}_page${String(page.page).padStart(2, '0')}.png`;
-      pageDiv.innerHTML = `
-        <img src="${imgPath}" onerror="this.style.display='none'" alt="">
-        <div class="text-overlay ${page.type === 'cover' ? 'center' : ''}" style="${page.type === 'cover' ? 'font-size: 1.8rem; font-weight: 700; color: #FF6B35;' : ''}">
-          ${page.text}
-        </div>
-      `;
+
+      // Special handling for wordlist page (page 3)
+      if (page.type === 'wordlist' && currentBook.word_list) {
+        const wl = currentBook.word_list;
+        if (typeof wl === 'object' && !Array.isArray(wl)) {
+          pageDiv.innerHTML = `
+            <div class="wordlist-content">
+              ${wl.phonetic?.length ? `<div class="wordlist-section phonetic">
+                <h4>Sound it out</h4>
+                <div class="words">${wl.phonetic.join(' • ')}</div>
+              </div>` : ''}
+              ${wl.sight?.length ? `<div class="wordlist-section sight">
+                <h4>Know these</h4>
+                <div class="words">${wl.sight.join(' • ')}</div>
+              </div>` : ''}
+              ${wl.special?.length ? `<div class="wordlist-section special">
+                <h4>New words</h4>
+                <div class="words">${wl.special.join(' • ')}</div>
+              </div>` : ''}
+            </div>
+          `;
+        } else {
+          pageDiv.innerHTML = `
+            <img src="${imgPath}" onerror="this.style.display='none'" alt="">
+            <div class="text-overlay center">${page.text.replace(/\\n/g, '<br>')}</div>
+          `;
+        }
+      } else {
+        const textStyle = page.type === 'cover'
+          ? 'font-size: 1.8rem; font-weight: 700; color: #FF6B35;'
+          : '';
+        const textClass = page.type === 'cover' || page.type === 'wordlist_title' ? 'center' : '';
+
+        pageDiv.innerHTML = `
+          <img src="${imgPath}" onerror="this.style.display='none'" alt="">
+          <div class="text-overlay ${textClass}" style="${textStyle}">
+            ${page.text.replace(/\\n/g, '<br>')}
+          </div>
+        `;
+      }
 
       document.getElementById('pageIndicator').textContent =
         `Page ${currentPage + 1} of ${currentBook.pages.length}`;
-
       document.getElementById('prevBtn').disabled = currentPage === 0;
       document.getElementById('nextBtn').disabled = currentPage === currentBook.pages.length - 1;
     }
 
     function prevPage() {
-      if (currentPage > 0) {
-        currentPage--;
-        renderPage();
-      }
+      if (currentPage > 0) { currentPage--; renderPage(); }
     }
 
     function nextPage() {
-      if (currentBook && currentPage < currentBook.pages.length - 1) {
-        currentPage++;
-        renderPage();
-      }
+      if (currentBook && currentPage < currentBook.pages.length - 1) { currentPage++; renderPage(); }
     }
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (!currentBook) return;
       if (e.key === 'ArrowLeft') prevPage();
@@ -321,7 +400,6 @@
       if (e.key === 'Escape') closeReader();
     });
 
-    // Load books on page load
     loadBooks();
   </script>
 </body>

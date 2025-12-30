@@ -1,163 +1,170 @@
 {
-  "title": "Hot Lava!",
-  "word_list": [
-    "volcano",
-    "lava",
-    "melt",
-    "hot",
-    "mountain",
-    "earth",
-    "crack",
-    "boom",
-    "flow",
-    "cool",
-    "rock",
-    "ash"
-  ],
+  "title": "Hot Rock Pop!",
+  "word_list": {
+    "phonetic": [
+      "hot",
+      "red",
+      "big",
+      "crack",
+      "drip"
+    ],
+    "sight": [
+      "the",
+      "is",
+      "they",
+      "into"
+    ],
+    "special": [
+      "magma",
+      "lava",
+      "erupt",
+      "crater"
+    ]
+  },
   "pages": [
     {
       "page": 1,
       "type": "cover",
-      "text": "Hot Lava!",
-      "image_prompt": "A bright, cartoon-style volcano in the middle of a sunny jungle island. Red-orange lava flows down its sides with small puffs of gray smoke rising from the top. The sky is blue with fluffy white clouds. A smiling sun watches from above. Bold, playful title text 'Hot Lava!' arcs over the volcano in fiery red and yellow letters., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Hot Rock Pop!",
+      "image_prompt": "A friendly cartoon volcano with a big smile, standing on a green hill under a bright blue sky. Orange lava drips from its top, and small puffs of smoke rise into the air. The sun is shining, birds are flying nearby, and colorful flowers dot the grass. Bold, playful title text in red and yellow across the top., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 2,
       "type": "wordlist_title",
-      "text": "Words to Know",
-      "image_prompt": "A colorful border made of small repeating icons: tiny volcanoes, red lava drops, gray rocks, and puffs of ash. The background is soft yellow. The words 'Words to Know' are written in large, friendly blue letters at the center, with a cheerful cartoon earth peeking out from the bottom corner., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Words to Practice",
+      "image_prompt": "A cheerful pastel-colored banner stretching across the page with polka dots and tiny volcano icons. In the center, an open book with a smiling face. Sparkles float around it. Background is soft yellow with floating word bubbles containing simple icons like a red dot for 'red', a flame for 'hot'., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 3,
       "type": "wordlist",
-      "text": "volcano - lava - melt - hot - mountain - earth - crack - boom - flow - cool - rock - ash",
-      "image_prompt": "Twelve small, clear icons aligned under each word: a steaming volcano, glowing red lava, a melting ice cube turning into red goo, a red flame, a tall mountain, a smiling blue-green globe, a zigzag crack in the ground, a starburst with 'BOOM!', wavy red lines for flow, a blue snowflake on lava, a gray stone, and floating gray ash specks. Background is light orange with soft texture., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Sound it out: hot, red, big, crack, drip\n\nKnow these: the, is, they, into\n\nNew words: magma, lava, erupt, crater",
+      "image_prompt": "Clean layout with three labeled rows on a light blue background. First row (phonetic): each word has a small icon\u2014flame for 'hot', red ball for 'red', large rock for 'big', cracked earth for 'crack', droplet of orange for 'drip'. Second row (sight): stars next to each word. Third row (special): bubbling red rock for 'magma', flowing orange river for 'lava', volcano popping for 'erupt', bowl-shaped hole on mountain top for 'crater'., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 4,
       "type": "story",
-      "text": "A volcano is a big mountain.",
-      "image_prompt": "A wide green valley with a tall, cone-shaped brown mountain in the center. Birds fly above it. The mountain has a small puff of smoke at the top. Bright blue sky and cheerful colors. Text appears at the bottom in large, easy-to-read black font., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The volcano is very hot.",
+      "image_prompt": "Close-up of the base of a cartoon volcano. Steam rises from small cracks in the rocky side. The rocks glow slightly red inside the cracks. Warm colors dominate\u2014orange, red, brown. The mood is exciting but not scary., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 5,
       "type": "story",
-      "text": "It can be very hot inside.",
-      "image_prompt": "Cutaway view of the mountain showing glowing red heat deep inside the earth. Wavy red and yellow lines show heat rising. The outer mountain is brown and solid. Mood is warm and exciting, not scary., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Deep down, the magma is hot.",
+      "image_prompt": "Cross-section view showing inside the volcano. Bright red-orange magma bubbles deep below ground. The earth layers above are brown and gray. A little thermometer in the corner shows 'very hot!' with a red line at the top., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 6,
       "type": "story",
-      "text": "Rocks melt down below.",
-      "image_prompt": "Deep underground scene with brown rocks turning into red liquid. Arrows show heat rising. Glowing red magma bubbles up. Colors are deep reds and oranges with dark browns around the edges., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Magma is very red and big.",
+      "image_prompt": "A giant blob of glowing magma pulsing slowly underground. It sparkles and ripples like thick syrup. Two cartoon eyes peek out playfully, giving it a friendly look. Background is dark with glowing edges., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 7,
       "type": "story",
-      "text": "They turn into hot lava.",
-      "image_prompt": "Close-up of bubbling red lava with sparks flying. The lava glows brightly against dark rock walls. Friendly cartoon eyes blink in one bubble for fun. Warm, cozy but powerful mood., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "It starts to rise.",
+      "image_prompt": "Magma bubbling upward through a rocky tube. Small arrows show motion. Cracks form above as pressure builds. The magma smiles as it moves up. Colors shift from dark to bright orange., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 8,
       "type": "story",
-      "text": "The earth shakes. It makes a crack.",
-      "image_prompt": "The ground splitting open with jagged black lines. Small rocks jump up. A squirrel runs away. The volcano rumbles. Lines around the scene show motion. Sky turns light orange., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Crack! The rock splits.",
+      "image_prompt": "A loud 'CRACK!' in bold letters as a fissure opens in the volcano\u2019s side. Rocks fly gently into the air like popcorn. Dust puffs out. The mood is energetic and surprising, not violent., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 9,
       "type": "story",
-      "text": "Crack! The mountain breaks.",
-      "image_prompt": "Top of the volcano splitting open with red light shining through. Smoke puffs out. Rocks float in the air mid-explosion. Dramatic but not frightening. Bright red and gray colors dominate., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "They see the red drip.",
+      "image_prompt": "Two wide-eyed cartoon animals (a rabbit and a bird) peek from behind a tree. They point at a thin red line of lava dripping from a crack. The drip glows against the dark rock., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 10,
       "type": "story",
-      "text": "Boom! The volcano blows.",
-      "image_prompt": "Big explosion with fire, smoke, and ash shooting into the sky. Stars and 'BOOM!' in bold letters float in the air. Silhouettes of birds fly away fast. Exciting, comic-style action., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "More magma comes up.",
+      "image_prompt": "Thick red magma pushing through the crack, rising higher. Bubbles pop on the surface. The ground rumbles slightly\u2014shown with wavy lines beneath the animals' feet., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 11,
       "type": "story",
-      "text": "Lava flows out fast.",
-      "image_prompt": "Thick red lava pouring down the side of the mountain like syrup. It moves over rocks and trees. Sparkles show heat. Background trees are green and unharmed far away., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The volcano will erupt!",
+      "image_prompt": "Volcano shaking slightly, steam blasting from the top. Clouds swirl above. The animals cover their ears with big smiles. Text pops out with an exclamation mark in fiery colors., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 12,
       "type": "story",
-      "text": "It is red and hot.",
-      "image_prompt": "Close-up of glowing red lava with steam rising. A stick pokes it and bursts into flames. A cartoon thermometer shows 'VERY HOT'. Simple and clear visual focus., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "It goes BOOM into the sky!",
+      "image_prompt": "A joyful eruption! Lava fountains shoot high like fireworks. Globs of lava arc through the air. Stars and sparkles fill the sky. No destruction\u2014just fun action. The animals cheer below., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 13,
       "type": "story",
-      "text": "Lava moves slow on flat land.",
-      "image_prompt": "Wide view of lava creeping across a flat, rocky plain. It moves like thick honey. A turtle walks beside it, safe and calm. Orange and black terrain with soft shadows., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Red hot lava flows fast.",
+      "image_prompt": "Lava pouring down the volcano's side like syrup. It moves over rocks and around trees (which hop aside safely). The flow is bright orange-red with black crust forming on top., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 14,
       "type": "story",
-      "text": "It can burn trees and homes.",
-      "image_prompt": "Sad but gentle scene: a tree stump smolders near blackened ground. No people or animals hurt. Focus on nature healing. Soft gray and brown tones, not scary., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "It runs into the sea.",
+      "image_prompt": "Lava reaching the ocean with a sizzle and puff of steam. Water bubbles gently. Fish peek up curiously. White clouds of mist rise into the air. The lava cools into black rock at the edge., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 15,
       "type": "story",
-      "text": "Ash floats into the sky.",
-      "image_prompt": "Gray ash drifting up like snowflakes. It covers treetops lightly. A bird flies through it, sneezes. Sky is hazy gray-blue. Calm, quiet mood., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The top has a big crater.",
+      "image_prompt": "View from above showing the volcano\u2019s flat top with a round bowl-shaped crater. Smoke curls lazily from the middle. Birds circle above. The crater looks like a big cookie cutter in the mountain., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 16,
       "type": "story",
-      "text": "The lava starts to cool.",
-      "image_prompt": "Edge of lava flow turning dark gray. Cracks form on top. Steam rises. Color shifts from red to black. A butterfly lands on cooled rock., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The crater is very deep.",
+      "image_prompt": "Looking straight down into the crater. It goes far down with glowing spots at the bottom. A rope ladder dangles with a brave explorer (a squirrel) peering over the edge with a flashlight., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 17,
       "type": "story",
-      "text": "It turns into hard rock.",
-      "image_prompt": "Black, bumpy rock surface where lava once flowed. Moss begins to grow. Sun shines. A ladybug walks on it. Peaceful, hopeful mood., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "They see the hot red rock.",
+      "image_prompt": "Inside the crater, glowing red rocks pulse with heat. Drips of fresh magma fall slowly from the walls. The squirrel holds a thermometer that reads 'TOASTY!', children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 18,
       "type": "story",
-      "text": "New land is made.",
-      "image_prompt": "Aerial view of a black lava field by the ocean. Waves crash nearby. Green plants sprout in cracks. A sign says 'New Land!'. Bright sun, hopeful colors., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Will it erupt again?",
+      "image_prompt": "Nighttime scene. The volcano sits quiet under a starry sky. A tiny puff of smoke says 'maybe...'. The animals sleep in a tent nearby, dreaming of lava fountains., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 19,
       "type": "story",
-      "text": "Volcanoes help the earth grow.",
-      "image_prompt": "Smiling cartoon earth with a band-aid shaped like a volcano. New green plants rise from black soil. Stars twinkle. Friendly and educational tone., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Yes! It will erupt!",
+      "image_prompt": "Same volcano, now rumbling again. Eyes appear in the crater, winking. A sign says 'Back in action soon!' Sparks fly. The mood is happy anticipation., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 20,
       "type": "story",
-      "text": "Some volcanoes sleep for years.",
-      "image_prompt": "Volcano covered in snow and trees. A bear peeks out of a cave. Birds nest on the side. Moon is out. Calm, quiet night scene with soft blues and whites., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The hot magma rises up.",
+      "image_prompt": "Cutaway view showing magma bubbling upward once more. Arrows point up. Bubbles go 'blub blub'. Friendly faces form in the molten rock., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 21,
       "type": "story",
-      "text": "Then they wake with a boom!",
-      "image_prompt": "Same mountain now erupting at night. Bright red lava lights up the sky. The bear runs with wide eyes. Dramatic but fun, like a surprise party., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "It is a big red flow.",
+      "image_prompt": "Wide shot of lava flowing down the mountain in thick, glossy waves. It reflects the sunset. Butterflies flutter above the warm path. The flow spells 'FUN' in cooled rock., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 22,
       "type": "story",
-      "text": "Nature is strong and cool.",
-      "image_prompt": "Sunrise over a peaceful valley with the quiet volcano in the distance. Flowers bloom, deer drink from a stream. Text in bold green letters on soft pink sky., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The volcano is cool and hot!",
+      "image_prompt": "The volcano wearing sunglasses, one side steaming (hot), the other side with snowflakes (cool). A sign says 'Best of both worlds!' Animals skate and sunbathe at once., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 23,
       "type": "fun_fact",
-      "text": "Did you know? Hawaii was made by volcanoes!",
-      "image_prompt": "Map of Hawaii with tiny volcanoes popping on each island. Palm trees and ocean waves. Smiling sun. Text in playful purple letters with lava underline., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Did you know? Magma is underground lava!",
+      "image_prompt": "Side-by-side cartoon panels: left shows magma bubbling below ground labeled 'MAGMA'; right shows lava flowing above ground labeled 'LAVA'. A smiling mole points between them saying 'Same stuff, different place!' Bright, clear labels and icons., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 24,
       "type": "back_cover",
       "text": "",
-      "image_prompt": "Bright yellow background with the Funbookies logo (a smiling book with wings and a star) in the center. Around it, tiny icons: a volcano, a rock, a drop of lava, and a flower. Simple and clean., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "image_prompt": "Solid bright orange background with the white Funbookies logo \u2014 a smiling book with wings and a star. Small icons of volcanoes, books, and kids reading float around the edges. Clean and cheerful., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     }
   ]
 }

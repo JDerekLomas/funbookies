@@ -78,17 +78,33 @@ class BookMaker:
 Target: {config.age_range} year olds, {config.reading_level}
 Format: 24-page Pixi-style minibook (10x10cm)
 
-IMPORTANT FOR BEGINNING READERS:
-- Use simple, decodable words when possible
+WORD LIST REQUIREMENTS (very important!):
+Create TWO types of words for the word list:
+
+1. PHONETIC WORDS (can be sounded out):
+   - CVC patterns: hot, red, big, run
+   - Blends: flow, crack, drip, blast
+   - Digraphs: rock, ash, thick
+
+2. SIGHT WORDS (high-frequency, must memorize):
+   - Common: the, is, are, very, some, from, they, into
+
+3. SPECIAL VOCABULARY (topic-specific, interesting but pronounceable):
+   - Example for volcanoes: magma, crater, erupt, molten
+   - These make kids feel smart! Easy to say, fun to learn.
+
+Include 10-14 words total: ~5 phonetic, ~4 sight words, ~4 special vocabulary.
+
+STORY REQUIREMENTS:
 - Short sentences (5-10 words max per page)
+- Use the word list words repeatedly in the story
 - Repetitive patterns help learning
-- High-frequency sight words are good
-- Pages 2-3 should be a WORD LIST for practice
+- Simple subject-verb-object structure
 
 Page structure:
 - Page 1: Cover (title + eye-catching image)
-- Page 2: Word List title "Words to Know"
-- Page 3: The actual word list (8-12 key words from the story)
+- Page 2: "Words to Practice" title with two columns header
+- Page 3: Word list formatted in two groups
 - Pages 4-22: Story (19 pages, 1-2 short sentences each)
 - Page 23: Fun fact or simple question about the topic
 - Page 24: Back cover with {BRAND["name"]} logo
@@ -100,18 +116,25 @@ Style: {config.art_style}"""
 Return JSON:
 {{
   "title": "Simple Title",
-  "word_list": ["word1", "word2", ...],  // 8-12 key vocabulary words
+  "word_list": {{
+    "phonetic": ["hot", "red", "run"],
+    "sight": ["the", "is", "very"],
+    "special": ["magma", "crater", "erupt"]
+  }},
   "pages": [
     {{"page": 1, "type": "cover", "text": "Title", "image_prompt": "detailed scene description"}},
-    {{"page": 2, "type": "wordlist_title", "text": "Words to Know", "image_prompt": "decorative border with topic elements"}},
-    {{"page": 3, "type": "wordlist", "text": "word1 - word2 - word3...", "image_prompt": "small icons for each word"}},
+    {{"page": 2, "type": "wordlist_title", "text": "Words to Practice", "image_prompt": "colorful banner with topic decorations, open book icon"}},
+    {{"page": 3, "type": "wordlist", "text": "Sound it out: word1, word2, word3\\n\\nKnow these: word4, word5\\n\\nNew words: word6, word7, word8", "image_prompt": "three rows of words with small icons next to each word, clean layout, pastel background"}},
     {{"page": 4, "type": "story", "text": "Story begins...", "image_prompt": "scene description"}},
     ... // continue to page 24
   ]
 }}
 
-Make image prompts detailed: subject, action, setting, colors, mood.
-Keep text VERY simple for beginning readers!"""
+IMPORTANT:
+- Make image prompts detailed: subject, action, setting, colors, mood
+- Keep story text VERY simple for beginning readers
+- Use word list words repeatedly throughout the story
+- Include at least one interesting/unusual word that's easy to pronounce (like "magma")"""
 
         headers = {
             "Authorization": f"Bearer {cfg['api_key']}",

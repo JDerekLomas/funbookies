@@ -53,129 +53,129 @@
       text-align: center;
     }
 
-    /* Page container - 10x10cm at 400px */
+    /* Page container - 10x10cm square */
     .page-container {
       width: 400px;
       height: 400px;
-      position: relative;
       border-radius: 4px;
       overflow: hidden;
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
     }
 
-    .page {
-      width: 100%;
-      height: 100%;
+    /* IMAGE AREA - top 70% */
+    .image-area {
+      flex: 7;
+      background: #eee;
       position: relative;
-      background: #FFF8E7;
+      overflow: hidden;
     }
 
-    .page img {
-      position: absolute;
-      top: 0;
-      left: 0;
+    .image-area img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    /* Text box - FULLY OPAQUE, at bottom */
-    .text-box {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 14px 20px;
+    /* TEXT AREA - bottom 30% */
+    .text-area {
+      flex: 3;
       background: #FFFFFF;
-      font-family: 'Nunito', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.4;
-      text-align: center;
-      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
       border-top: 3px solid #FFB347;
     }
 
-    /* Cover title at bottom */
-    .text-box.cover {
-      font-size: 26px;
-      font-weight: 900;
-      color: #FF6B35;
+    .text-area p {
+      font-size: 20px;
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* COVER PAGE - title at bottom */
+    .page-cover .image-area {
+      flex: 7;
+    }
+    .page-cover .text-area {
+      flex: 3;
       background: #FFF8DC;
       border-top: 4px solid #FF6B35;
     }
+    .page-cover .text-area p {
+      font-size: 24px;
+      font-weight: 900;
+      color: #FF6B35;
+    }
 
-    /* Word list page */
-    .wordlist-page {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+    /* WORD LIST PAGE - no image, just table */
+    .page-wordlist {
       background: #FFFEF5;
-      padding: 20px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
     }
 
-    .wordlist-page h2 {
+    .page-wordlist h2 {
       text-align: center;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 800;
       color: #333;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
       border-bottom: 2px solid #ddd;
     }
 
+    /* Word list TABLE */
     .word-table {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      display: table;
+      width: 100%;
+      border-collapse: collapse;
     }
 
     .word-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
+      display: table-row;
     }
 
     .word-label {
-      width: 100px;
-      font-size: 11px;
+      display: table-cell;
+      width: 90px;
+      padding: 8px 10px;
+      font-size: 10px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      padding-top: 4px;
-      flex-shrink: 0;
+      vertical-align: top;
+      border-bottom: 1px solid #eee;
     }
 
     .word-label.sound-out { color: #1565C0; }
     .word-label.sight { color: #7B1FA2; }
     .word-label.new { color: #E65100; }
 
-    .word-list {
-      flex: 1;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .word-chip {
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 13px;
+    .word-cells {
+      display: table-cell;
+      padding: 8px 10px;
+      font-size: 15px;
       font-weight: 600;
+      color: #333;
+      vertical-align: top;
+      border-bottom: 1px solid #eee;
+      line-height: 1.6;
     }
 
-    .word-chip.sound-out { background: #E3F2FD; color: #1565C0; }
-    .word-chip.sight { background: #F3E5F5; color: #7B1FA2; }
-    .word-chip.new { background: #FFF3E0; color: #E65100; }
-
-    /* The End styling */
-    .text-box.end {
-      font-size: 24px;
+    /* END PAGE */
+    .page-end .text-area {
+      background: #f5f5f5;
+      border-top: 3px solid #999;
+    }
+    .page-end .text-area p {
+      font-size: 22px;
       font-weight: 800;
       color: #666;
       font-style: italic;
@@ -200,6 +200,7 @@
       border: 2px solid transparent;
       transition: border-color 0.2s, transform 0.2s;
       position: relative;
+      background: #ddd;
     }
     .thumb:hover { transform: scale(1.1); }
     .thumb.active { border-color: #667eea; }
@@ -232,13 +233,11 @@
       <option value="volcano_curated">Gus and the Volcano</option>
     </select>
     <button onclick="prevPage()" id="prevBtn">← Prev</button>
-    <div class="page-info" id="pageInfo">Page 1 / 22</div>
+    <div class="page-info" id="pageInfo">Page 1 / 19</div>
     <button onclick="nextPage()" id="nextBtn">Next →</button>
   </div>
 
-  <div class="page-container">
-    <div class="page" id="pageView"></div>
-  </div>
+  <div class="page-container" id="pageContainer"></div>
 
   <div class="thumbnails" id="thumbnails"></div>
 
@@ -267,52 +266,70 @@
       if (!currentBook) return;
 
       const page = currentBook.pages[currentPage];
-      const pageView = document.getElementById('pageView');
-      const imgPath = `/books/images/${page.image}`;
+      const container = document.getElementById('pageContainer');
+      const imgPath = page.image ? `/books/images/${page.image}` : null;
 
-      // Word list page
+      // WORD LIST PAGE - table format
       if (page.type === 'wordlist') {
         const wl = currentBook.word_list;
-        pageView.innerHTML = `
-          <div class="wordlist-page">
+        container.innerHTML = `
+          <div class="page-wordlist" style="width:100%;height:100%;">
             <h2>Words to Know</h2>
             <div class="word-table">
               <div class="word-row">
-                <div class="word-label sound-out">Sound out</div>
-                <div class="word-list">
-                  ${(wl.sound_out || []).map(w => `<span class="word-chip sound-out">${w}</span>`).join('')}
-                </div>
+                <div class="word-label sound-out">Sound-out</div>
+                <div class="word-cells">${(wl.sound_out || []).join('   ')}</div>
               </div>
               <div class="word-row">
-                <div class="word-label sight">Sight words</div>
-                <div class="word-list">
-                  ${(wl.sight || []).map(w => `<span class="word-chip sight">${w}</span>`).join('')}
-                </div>
+                <div class="word-label sight">Sight</div>
+                <div class="word-cells">${(wl.sight || []).join('   ')}</div>
               </div>
               <div class="word-row">
-                <div class="word-label new">New words</div>
-                <div class="word-list">
-                  ${(wl.new || []).map(w => `<span class="word-chip new">${w}</span>`).join('')}
-                </div>
+                <div class="word-label new">New</div>
+                <div class="word-cells">${(wl.new || []).join('   ')}</div>
               </div>
             </div>
           </div>
         `;
       }
-      // Cover page
+      // COVER PAGE
       else if (page.type === 'cover') {
-        pageView.innerHTML = `
-          <img src="${imgPath}" onerror="this.style.display='none'" alt="">
-          <div class="text-box cover">${page.text}</div>
+        container.innerHTML = `
+          <div class="page-cover" style="display:flex;flex-direction:column;width:100%;height:100%;">
+            <div class="image-area">
+              <img src="${imgPath}" alt="">
+            </div>
+            <div class="text-area">
+              <p>${page.text}</p>
+            </div>
+          </div>
         `;
       }
-      // Story pages
+      // END PAGE
+      else if (page.type === 'end') {
+        container.innerHTML = `
+          <div class="page-end" style="display:flex;flex-direction:column;width:100%;height:100%;">
+            <div class="image-area">
+              <img src="${imgPath}" alt="">
+            </div>
+            <div class="text-area">
+              <p>${page.text}</p>
+            </div>
+          </div>
+        `;
+      }
+      // STORY PAGES - image top, text bottom
       else {
-        const textClass = page.text === 'The End' ? 'text-box end' : 'text-box';
         const displayText = page.text.replace(/\n/g, '<br>');
-        pageView.innerHTML = `
-          <img src="${imgPath}" onerror="this.style.display='none'" alt="">
-          <div class="${textClass}">${displayText}</div>
+        container.innerHTML = `
+          <div style="display:flex;flex-direction:column;width:100%;height:100%;">
+            <div class="image-area">
+              <img src="${imgPath}" alt="">
+            </div>
+            <div class="text-area">
+              <p>${displayText}</p>
+            </div>
+          </div>
         `;
       }
 
@@ -332,10 +349,11 @@
 
       const container = document.getElementById('thumbnails');
       container.innerHTML = currentBook.pages.map((page, i) => {
-        const imgPath = `/books/images/${page.image}`;
+        const imgPath = page.image ? `/books/images/${page.image}` : '';
+        const bgStyle = page.type === 'wordlist' ? 'background:#FFFEF5;' : '';
         return `
-          <div class="thumb ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">
-            <img src="${imgPath}" onerror="this.style.background='#ddd'" alt="">
+          <div class="thumb ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})" style="${bgStyle}">
+            ${imgPath ? `<img src="${imgPath}" alt="">` : '<span style="font-size:8px;color:#666;">LIST</span>'}
             <span class="num">${i + 1}</span>
           </div>
         `;

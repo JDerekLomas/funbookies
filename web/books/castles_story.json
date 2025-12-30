@@ -1,173 +1,175 @@
 {
-  "title": "Pip and the Secret Castle",
-  "character": "Pip the brave little mouse",
+  "title": "Rats in the Castle",
+  "character": "Rita and Rico, two brave little rats with shiny black eyes and twitchy noses. They love to explore.",
   "word_list": {
     "phonetic": [
       "run",
-      "up",
       "big",
       "red",
-      "pop"
+      "pop",
+      "drip",
+      "hiss",
+      "hot",
+      "get"
     ],
     "sight": [
       "the",
-      "into",
-      "see",
-      "what"
+      "said",
+      "to",
+      "I",
+      "was"
     ],
     "special": [
-      "castle",
-      "tower",
-      "drawbridge",
+      "towers",
       "moat",
-      "knight",
-      "passage"
+      "drawbridge",
+      "secret"
     ]
   },
   "pages": [
     {
       "page": 1,
       "type": "cover",
-      "text": "Pip and the Secret Castle",
-      "image_prompt": "a small, wide-eyed mouse in a red cape standing bravely in front of a tall stone castle with towers, a raised drawbridge, and a moat; sun shining, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Rats in the Castle",
+      "image_prompt": "two small brown rats peeking out from behind a stone castle tower, moonlit night, drawbridge down, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 2,
       "type": "wordlist_title",
-      "text": "Words to Practice",
-      "image_prompt": "colorful banner with stars and scrolls, whimsical font, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Words to Know",
+      "image_prompt": "medieval-style decorative border with tiny rats, towers, and a moat, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 3,
       "type": "wordlist",
-      "text": "Phonetic: run, up, big, red, pop\nSight: the, into, see, what\nSpecial: castle, tower, drawbridge, moat, knight, passage",
-      "image_prompt": "small icons: running mouse, arrow up, giant boot, red apple, popcorn, castle, tower, bridge, water, helmet, tunnel, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Sound out: run, big, pop, drip, hiss, hot, red, get\nKnow these: the, said, to, I, was\nNew words: towers, moat, drawbridge, secret",
+      "image_prompt": "word list with small icons: rat, tower, water, bridge, door, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 4,
       "type": "story",
-      "text": "Pip runs up the hill.",
-      "image_prompt": "Pip the mouse sprinting up a grassy hill, cape flapping behind, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Rita ran to the hill.",
+      "image_prompt": "small rat running toward a grassy hill with a castle on top, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 5,
       "type": "story",
-      "text": "'What is that?' Pip asks.",
-      "image_prompt": "Pip skidding to a stop, eyes wide, paws on cheeks, looking at a huge stone castle, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Rico ran too.",
+      "image_prompt": "second rat catching up, whiskers twitching, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 6,
       "type": "story",
-      "text": "The castle has a tall tower!",
-      "image_prompt": "Pip craning neck to look up at a soaring tower with fluttering flags, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Look! The castle!",
+      "image_prompt": "rats gazing up at a tall stone castle with two towers, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 7,
       "type": "story",
-      "text": "Crack! The drawbridge drops!",
-      "image_prompt": "wooden drawbridge slamming down over a moat with a splash, ripples in water, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Big towers! Wow!",
+      "image_prompt": "rats looking up, mouths open in awe, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 8,
       "type": "story",
-      "text": "Pip jumps into the moat!",
-      "image_prompt": "Pip mid-leap over the moat, arms out, splashing water, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Splash! Said Rita.",
+      "image_prompt": "rat peering into a wide moat with ripples, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 9,
       "type": "story",
-      "text": "Splash! Glug glug! Pip swims!",
-      "image_prompt": "Pip paddling through green water with lily pads and bubbles, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The moat is deep.",
+      "image_prompt": "dark water below a wooden drawbridge, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 10,
       "type": "story",
-      "text": "See the dark passage? In it!",
-      "image_prompt": "Pip pointing at a shadowy tunnel under the castle wall, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Squeak! Up we go!",
+      "image_prompt": "rats climbing a rope on the side of the drawbridge, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 11,
       "type": "story",
-      "text": "Pip creeps into the secret passage.",
-      "image_prompt": "Pip tiptoeing down a cobblestone tunnel lit by flickering torches, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Creak! Said Rico.",
+      "image_prompt": "wooden drawbridge lifting slightly as rats cross, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 12,
       "type": "story",
-      "text": "Clank! Clank! A knight comes!",
-      "image_prompt": "shining metal knight\u2019s boots stomping down a hall, armor clanking, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Run, rats! Run!",
+      "image_prompt": "rats dashing across as the bridge starts to rise, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 13,
       "type": "story",
-      "text": "Pip hides! Shhh! Don\u2019t pop out!",
-      "image_prompt": "Pip squeezed behind a barrel, eyes wide, one paw over mouth, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pant, pant, pant.",
+      "image_prompt": "rats catching their breath inside the castle gate, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 14,
       "type": "story",
-      "text": "The knight walks past. Phew!",
-      "image_prompt": "knight marching away down a long hallway, Pip peeking out, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "What is that?",
+      "image_prompt": "rat pointing at a crack in the wall, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 15,
       "type": "story",
-      "text": "Up, up, up the tower!",
-      "image_prompt": "Pip dashing up a spiral staircase inside a round tower, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "A secret door!",
+      "image_prompt": "small hidden door in stone wall, barely visible, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 16,
       "type": "story",
-      "text": "Pop! Out comes Pip!",
-      "image_prompt": "Pip bursting through a trapdoor onto the top of the tower, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pop! Open it!",
+      "image_prompt": "rat pushing the door open with nose, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 17,
       "type": "story",
-      "text": "'I see the whole kingdom!' Pip shouts.",
-      "image_prompt": "Pip standing proudly on the tower edge, waving paws, view of hills and rivers, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Drip, drip, drip.",
+      "image_prompt": "dark room with water dripping from ceiling, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 18,
       "type": "story",
-      "text": "Whoosh! The wind blows!",
-      "image_prompt": "Pip\u2019s cape flapping wildly as wind swirls around the tower, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Hiss! Hot rocks!",
+      "image_prompt": "glowing red cracks in floor, steam rising, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 19,
       "type": "story",
-      "text": "Red flag flaps. Tap! Tap!",
-      "image_prompt": "a bright red flag slapping against the flagpole in the wind, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Run! Said Rita.",
+      "image_prompt": "rat turning fast, ears back in alarm, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 20,
       "type": "story",
-      "text": "Time to go home. Run, Pip, run!",
-      "image_prompt": "Pip racing back down the spiral stairs, determined look, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Run, run, run!",
+      "image_prompt": "both rats sprinting down a hall, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 21,
       "type": "story",
-      "text": "Down the passage. Splash! Up the hill!",
-      "image_prompt": "Pip darting through the tunnel, then leaping over the moat, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Safe! Said Rico.",
+      "image_prompt": "rats sitting under an arch, outside again, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 22,
       "type": "story",
-      "text": "Pip grins. 'I found the castle!'",
-      "image_prompt": "Pip sitting on the hilltop, looking back at the castle, beaming with pride, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "We did it!",
+      "image_prompt": "rats high-pawing each other, proud grins, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 23,
-      "type": "fact",
-      "text": "Real castles had secret passages! What would YOU hide in one?",
-      "image_prompt": "whimsical drawing of a hidden door behind a bookshelf in a castle wall, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "type": "story",
+      "text": "No more hot rocks.",
+      "image_prompt": "rats sitting calmly, moon above the castle, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 24,
-      "type": "back_cover",
-      "text": "",
-      "image_prompt": "empty field with footprints leading away from the castle, stars beginning to shine, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "type": "story",
+      "text": "I am brave. Said Rita.",
+      "image_prompt": "rat smiling, tail curled happily, stars above, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     }
   ]
 }

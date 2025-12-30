@@ -73,80 +73,86 @@ class BookMaker:
 
         cfg = self.story_gen.configs[self.backend]
 
-        system_prompt = f"""You are an expert children's book author for {BRAND["name"]}, writing for beginning readers ages {config.age_range}.
+        system_prompt = f"""You are an expert children's book author writing for beginning readers ages {config.age_range}.
 
-FORMAT: 24-page Pixi-style minibook
+RESEARCH-BASED APPROACH (Science of Reading + Mo Willems + Pete the Cat):
 
-WRITING CRAFT - THIS IS CRITICAL:
-You must write like a REAL children's author, not a vocabulary exercise!
+1. DECODABLE TEXT PRINCIPLES:
+   - 70%+ words should be decodable CVC or simple blends
+   - Limit sight words to essentials: the, is, a, to, I, said, you, was
+   - For 6-7 year olds: they know short vowels, digraphs (sh, ch, th), blends (cr, st, bl)
 
-BAD WRITING (never do this):
-- "They see the red drip." (boring, passive)
-- "Magma is very red and big." (just listing adjectives)
-- "The lava is hot." (stating obvious facts)
+2. SENTENCE PATTERNS THAT WORK:
+   Simple declarative: "Pip ran up the hill."
+   Dialogue with said: "Look!" said Pip.
+   Sound words standalone: "CRACK! POP! BOOM!"
+   Repetition with variation: "Run, Pip, run! Run, run, run!"
+   Question + answer: "What is that? It is hot lava!"
 
-GOOD WRITING (do this):
-- "Rumble, rumble! The mountain shakes!" (onomatopoeia, action)
-- "Pip peeks into the crater. 'Wow!' she gasps." (character, dialogue)
-- "Hot magma bubbles up, up, up!" (movement, rhythm)
-- "Run, Pip, run! The lava is coming!" (urgency, drama)
+3. MO WILLEMS STYLE (Elephant & Piggie):
+   - Short punchy sentences (3-7 words ideal)
+   - Expressive punctuation: ! ! ! and ?
+   - Genuine emotion through simple words: Pip gasps. Pip grins.
+   - Dialogue carries the story
 
-STORY STRUCTURE:
-1. Create a CHARACTER (animal or child) who goes on an adventure
-2. They DISCOVER something amazing about the topic
-3. Something EXCITING happens (problem or wonder)
-4. They LEARN something and feel proud
-5. Satisfying ENDING that circles back
+4. PETE THE CAT STYLE:
+   - Rhythmic, almost song-like repetition
+   - "Did Pip fret? Goodness, no!"
+   - Pattern: situation → character's cool reaction
 
-SENTENCE CRAFT:
-- Use ACTION verbs: bubbles, explodes, rumbles, creeps, glows
-- Add SOUND words: boom, sizzle, whoosh, crack, pop
-- Include simple DIALOGUE: "Look!" said Pip. "It glows!"
-- Create RHYTHM: "Up, up, up the lava goes!"
-- Show EMOTION: Pip grins. Max jumps back. They gasp.
+5. WHAT TO AVOID:
+   BAD: "The magma is very hot and red." (boring, too many adjectives)
+   BAD: "They see it drip." (passive, vague "they")
+   BAD: Complex sentences with multiple clauses
 
-WORD LIST (10-14 words):
-1. Phonetic (5): CVC and blends kids can sound out
-2. Sight (4): Common words they need to know by sight
-3. Special (4-5): Cool topic words that are easy to say (like "magma", "crater")
+   GOOD: "Hot! Hot! Hot!" Pip hops back.
+   GOOD: The lava drips. Drip, drip, drip.
+   GOOD: "Run!" said Pip. And Pip ran fast.
 
-PAGE STRUCTURE:
-- Page 1: Cover with catchy title
-- Page 2: "Words to Practice" header
-- Page 3: Word list in three categories
-- Pages 4-22: Story (keep to 6-12 words per page, punchy!)
-- Page 23: Cool fact or question
-- Page 24: Back cover"""
+6. STORY ARC (simple but complete):
+   - Character wants to explore/discover something
+   - They find it! Wow!
+   - Something exciting/scary happens
+   - Character responds with courage/cleverness
+   - Safe and happy ending with lesson learned
 
-        user_prompt = f"""Write an ENGAGING beginning reader book about: {config.topic}
+WORD LIST STRUCTURE:
+- Phonetic (6-8): CVC words they can sound out: hot, red, run, big, drip, pop, get, hiss
+- Sight (4-5): Must-know words: the, said, was, to, you, I
+- Special (3-4): Topic vocabulary, easy to say: lava, magma, crater (2-3 syllables max)
 
-Create a story with a CHARACTER who discovers something amazing. Make it fun!
+FORMAT: 24 pages, 10x10cm square"""
+
+        user_prompt = f"""Write a beginning reader book: {config.topic}
+
+TITLE MUST BE: Use the exact title style given in the topic.
 
 Return JSON:
 {{
-  "title": "Catchy Title Here",
-  "character": "Name and what they are (e.g., 'Pip the curious penguin')",
+  "title": "Exact title from topic",
+  "character": "Character name and description",
   "word_list": {{
-    "phonetic": ["run", "hot", "big", "pop", "drip"],
-    "sight": ["the", "into", "they", "what"],
-    "special": ["magma", "crater", "erupt", "lava"]
+    "phonetic": ["hot", "run", "big", "drip", "pop", "hiss", "red", "get"],
+    "sight": ["the", "said", "to", "I", "was"],
+    "special": ["lava", "magma", "crater"]
   }},
   "pages": [
-    {{"page": 1, "type": "cover", "text": "Title", "image_prompt": "character + exciting scene"}},
-    {{"page": 2, "type": "wordlist_title", "text": "Words to Practice", "image_prompt": "decorative header"}},
-    {{"page": 3, "type": "wordlist", "text": "formatted word list", "image_prompt": "icons for words"}},
-    {{"page": 4, "type": "story", "text": "Pip runs up the big hill.", "image_prompt": "penguin running uphill, excited expression"}},
-    {{"page": 5, "type": "story", "text": "'What is that?' Pip asks.", "image_prompt": "penguin looking curious at smoke"}},
-    ... // continue with ACTION, DIALOGUE, EMOTION through page 24
+    {{"page": 1, "type": "cover", "text": "Title", "image_prompt": "character in exciting scene"}},
+    {{"page": 2, "type": "wordlist_title", "text": "Words to Know", "image_prompt": "decorative border"}},
+    {{"page": 3, "type": "wordlist", "text": "Sound out: hot, run, big...\\nKnow these: the, said, to...\\nNew words: lava, magma", "image_prompt": "word list with small icons"}},
+    {{"page": 4, "type": "story", "text": "Pip the fox ran up the hill.", "image_prompt": "fox running up grassy hill"}},
+    ... continue through page 24
   ]
 }}
 
-REMEMBER:
-- Every page needs ACTION or DIALOGUE
-- NO boring "X is Y" sentences
-- Use the character's name often
-- Sound words: boom, pop, sizzle, whoosh
-- End with the character feeling proud/happy"""
+CRITICAL RULES:
+1. Max 8 words per page (aim for 5-6)
+2. Use character name, not "they" or "it"
+3. Every page: action verb OR dialogue OR sound word
+4. Repetition is GOOD: "Run, Pip! Run, run, run!"
+5. Pattern for danger: Sound word → "said Pip" → action
+   Example: "CRACK!" / "Run!" said Pip. / Pip ran fast.
+6. End with character safe, happy, and proud"""
 
         headers = {
             "Authorization": f"Bearer {cfg['api_key']}",

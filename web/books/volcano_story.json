@@ -1,177 +1,174 @@
 {
-  "title": "Pip and the Rumbling Mountain",
-  "character": "Pip the brave little fox",
+  "title": "Pip and the Volcano",
+  "character": "Pip is a small, bright orange fox with big ears and a bushy tail. Pip is brave, curious, and always ready to explore.",
   "word_list": {
     "phonetic": [
-      "run",
       "hot",
+      "run",
       "big",
-      "pop",
       "drip",
+      "pop",
+      "hiss",
       "red",
-      "up",
-      "go"
+      "get"
     ],
     "sight": [
       "the",
-      "into",
-      "they",
-      "what",
-      "see",
-      "look"
+      "said",
+      "to",
+      "I",
+      "was"
     ],
     "special": [
-      "magma",
-      "crater",
-      "erupt",
       "lava",
-      "volcano"
+      "magma",
+      "crater"
     ]
   },
   "pages": [
     {
       "page": 1,
       "type": "cover",
-      "text": "Pip and the Rumbling Mountain",
-      "image_prompt": "a small, wide-eyed fox named Pip standing at the base of a tall, smoking mountain with glowing red cracks, looking up with excitement, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pip and the Volcano",
+      "image_prompt": "Pip the fox standing on a rocky hill, looking up at a smoking volcano with wide eyes, sun setting behind, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 2,
       "type": "wordlist_title",
-      "text": "Words to Practice",
-      "image_prompt": "colorful banner with stars and sparkles, cartoon book style, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Words to Know",
+      "image_prompt": "colorful border with tiny volcanoes, foxes, and sound bubbles, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 3,
       "type": "wordlist",
-      "text": "Phonetic: run, hot, big, pop, drip, red, up, go\nSight: the, into, they, what, see, look\nSpecial: magma, crater, erupt, lava, volcano",
-      "image_prompt": "small icons: running fox, flame, large boulder, popping bubble, dripping red liquid, red crayon, upward arrow, green 'go' sign; sight words in bold bubbles; special words with tiny volcano, glowing hole, explosion, river of fire, tall mountain, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Sound out: hot, run, big, drip, pop, hiss, red, get\nKnow these: the, said, to, I, was\nNew words: lava, magma, crater",
+      "image_prompt": "neat list with small icons: fire for 'hot', feet for 'run', droplet for 'drip', etc., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 4,
       "type": "story",
-      "text": "Pip runs up the big hill.",
-      "image_prompt": "Pip the fox dashing up a rocky slope, tail high, sun shining, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pip ran up the hill.",
+      "image_prompt": "fox running up grassy hill toward distant mountain, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 5,
       "type": "story",
-      "text": "'What is that?' Pip asks.",
-      "image_prompt": "Pip stops, ears up, staring at wisp of smoke from the hilltop, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The hill was steep.",
+      "image_prompt": "Pip panting, paws on rocks, climbing higher, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 6,
       "type": "story",
-      "text": "The ground goes, 'Rumble, rumble!'",
-      "image_prompt": "cracks forming in the dirt, rocks bouncing, Pip's fur ruffled by shake, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pip saw the top.",
+      "image_prompt": "Pip peeking over edge of crater, eyes wide, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 7,
       "type": "story",
-      "text": "Pop! Pop! Hot rocks fly!",
-      "image_prompt": "small explosions on the hillside, rocks bursting into air, Pip ducks, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "A big hole!",
+      "image_prompt": "wide view of steaming volcanic crater below, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 8,
       "type": "story",
-      "text": "'Look!' says Pip. 'It glows red!'",
-      "image_prompt": "Pip points at a glowing red crack in the rock, eyes wide, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Deep in the crater...",
+      "image_prompt": "glowing red glow from deep in the pit, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 9,
       "type": "story",
-      "text": "Deep down, magma starts to rise.",
-      "image_prompt": "glowing orange-red magma bubbling deep under the mountain, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Red! Hot! Lava!",
+      "image_prompt": "bright red lava bubbling at surface, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 10,
       "type": "story",
-      "text": "Up, up, up it goes!",
-      "image_prompt": "magma surging through rock tunnels, glowing bright, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "\"Wow!\" said Pip.",
+      "image_prompt": "Pip clapping paws, smiling face, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 11,
       "type": "story",
-      "text": "The volcano will erupt!",
-      "image_prompt": "mountain shaking, smoke puffing fast, Pip steps back, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Magma rose up.",
+      "image_prompt": "thick red magma rising in the vent, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 12,
       "type": "story",
-      "text": "Whoosh! The top blows off!",
-      "image_prompt": "volcano exploding upward, ash and fire shooting into sky, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "POP! HISS! CRACK!",
+      "image_prompt": "small explosion, steam and sparks flying, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 13,
       "type": "story",
-      "text": "Red lava drips, then flows.",
-      "image_prompt": "thick red lava spilling over the edge, sizzling on rocks, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "\"Run!\" said Pip.",
+      "image_prompt": "Pip turning around fast, fur bristling, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 14,
       "type": "story",
-      "text": "Sizzle! Crackle! It creeps down.",
-      "image_prompt": "lava moving slowly down the slope, burning twigs, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Run, Pip! Run!",
+      "image_prompt": "Pip sprinting down the slope, tail up, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 15,
       "type": "story",
-      "text": "'Wow!' says Pip. 'Hot stuff!'",
-      "image_prompt": "Pip watching from a safe rock, paws up in awe, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Lava dripped out.",
+      "image_prompt": "red lava dripping over crater rim, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 16,
       "type": "story",
-      "text": "They see the crater \u2014 big and deep.",
-      "image_prompt": "Pip peers into the steaming, glowing crater at the top, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Drip, drip, drip.",
+      "image_prompt": "close-up of slow lava drops hitting rock, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 17,
       "type": "story",
-      "text": "'Magma lives in there,' says Pip.",
-      "image_prompt": "Pip pointing down into the crater with pride, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Hot! Hot! Hot!",
+      "image_prompt": "Pip hopping back from heat wave, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 18,
       "type": "story",
-      "text": "Smoke swirls. The wind blows.",
-      "image_prompt": "gray clouds spiraling above the mountain, trees swaying, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pip got safe.",
+      "image_prompt": "Pip behind large rock, catching breath, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 19,
       "type": "story",
-      "text": "Pip jumps. 'Run, run, run!'",
-      "image_prompt": "Pip sprinting away as a small burst pops behind, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The lava flowed.",
+      "image_prompt": "lava snaking down the mountain, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 20,
       "type": "story",
-      "text": "Safe at last, Pip looks back.",
-      "image_prompt": "Pip on a distant hill, catching breath, gazing at the calm volcano, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "It was loud.",
+      "image_prompt": "volcano booming with sound lines, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 21,
       "type": "story",
-      "text": "The lava glows in the dark.",
-      "image_prompt": "night scene, red river of lava snaking down, soft glow, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "\"I saw it all!\" said Pip.",
+      "image_prompt": "Pip standing tall, proud grin, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 22,
       "type": "story",
-      "text": "Pip grins. 'I saw it all!'",
-      "image_prompt": "Pip smiling proudly under the stars, tail wagging, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "No more close looks.",
+      "image_prompt": "Pip shaking head, paw up like 'no', children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 23,
       "type": "story",
-      "text": "Did you know? Lava can be hotter than pizza oven!",
-      "image_prompt": "cartoon lava vs. oven thermometer, fun fact style, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "But I was brave.",
+      "image_prompt": "Pip puffing chest out, smiling, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 24,
-      "type": "cover",
-      "text": "The End",
-      "image_prompt": "Pip waving goodbye, moon over quiet mountain, stars twinkling, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "type": "story",
+      "text": "Pip went home happy.",
+      "image_prompt": "Pip walking into sunset, tail wagging, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     }
   ]
 }

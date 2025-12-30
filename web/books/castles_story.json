@@ -1,171 +1,173 @@
 {
-  "title": "The Big Castle",
+  "title": "Pip and the Secret Castle",
+  "character": "Pip the brave little mouse",
   "word_list": {
     "phonetic": [
-      "rock",
-      "thick",
       "run",
-      "draw",
-      "drip"
+      "up",
+      "big",
+      "red",
+      "pop"
     ],
     "sight": [
       "the",
-      "is",
-      "very",
-      "into"
+      "into",
+      "see",
+      "what"
     ],
     "special": [
+      "castle",
       "tower",
-      "moat",
       "drawbridge",
+      "moat",
       "knight",
-      "royal"
+      "passage"
     ]
   },
   "pages": [
     {
       "page": 1,
       "type": "cover",
-      "text": "The Big Castle",
-      "image_prompt": "A bright, cartoon-style castle with tall towers, a red flag, and a golden sun in the sky. A friendly knight waves from the drawbridge. The moat sparkles with blue water. Lush green hills surround the scene. Cheerful and magical mood, warm colors., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pip and the Secret Castle",
+      "image_prompt": "a small, wide-eyed mouse in a red cape standing bravely in front of a tall stone castle with towers, a raised drawbridge, and a moat; sun shining, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 2,
       "type": "wordlist_title",
       "text": "Words to Practice",
-      "image_prompt": "A colorful banner with crenellated edges like a castle wall, flying small flags with letters. An open book floats above with a smiling quill pen. Soft clouds and pastel pinks, blues, and yellows. Playful school theme., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "image_prompt": "colorful banner with stars and scrolls, whimsical font, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 3,
       "type": "wordlist",
-      "text": "Sound it out: rock, thick, run, draw, drip\n\nKnow these: the, is, very, into\n\nNew words: tower, moat, drawbridge, knight, royal",
-      "image_prompt": "Three neat rows on a pastel blue background. Each word has a small icon: rock (stone), thick (tree), run (boy running), draw (pencil), drip (water drop), the (crown), is (sparkle), very (thumbs up), into (arrow), tower (spire), moat (water around castle), drawbridge (wooden bridge), knight (armor), royal (king and queen). Clean, fun, easy to read., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Phonetic: run, up, big, red, pop\nSight: the, into, see, what\nSpecial: castle, tower, drawbridge, moat, knight, passage",
+      "image_prompt": "small icons: running mouse, arrow up, giant boot, red apple, popcorn, castle, tower, bridge, water, helmet, tunnel, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 4,
       "type": "story",
-      "text": "The castle is big.",
-      "image_prompt": "A wide view of the castle from afar. It has three tall stone towers and a red roof. Birds fly above. Sunny day, soft grassy field. Calm and inviting., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pip runs up the hill.",
+      "image_prompt": "Pip the mouse sprinting up a grassy hill, cape flapping behind, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 5,
       "type": "story",
-      "text": "It has a thick wall.",
-      "image_prompt": "Close-up of gray stone wall, moss on the side. Very thick and strong. A tiny mouse peeks out. Warm sunlight shines on the stones., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "'What is that?' Pip asks.",
+      "image_prompt": "Pip skidding to a stop, eyes wide, paws on cheeks, looking at a huge stone castle, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 6,
       "type": "story",
-      "text": "The moat is deep.",
-      "image_prompt": "Blue water surrounds the castle. Ripples show depth. A frog sits on a lily pad. Sparkles suggest it's cold and wet., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The castle has a tall tower!",
+      "image_prompt": "Pip craning neck to look up at a soaring tower with fluttering flags, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 7,
       "type": "story",
-      "text": "The moat has a drawbridge.",
-      "image_prompt": "Wooden drawbridge lifted up. Rope and pulley system visible. Knight stands on top side, waving down at a visitor., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Crack! The drawbridge drops!",
+      "image_prompt": "wooden drawbridge slamming down over a moat with a splash, ripples in water, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 8,
       "type": "story",
-      "text": "The drawbridge can go up.",
-      "image_prompt": "Drawbridge rising with a loud 'crack' sound effect. Gears turn. Knight pulls a lever. Excited expression., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pip jumps into the moat!",
+      "image_prompt": "Pip mid-leap over the moat, arms out, splashing water, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 9,
       "type": "story",
-      "text": "The drawbridge can go down.",
-      "image_prompt": "Bridge lowering smoothly. Dust puffs as it hits ground. A horse waits to cross. Peaceful action., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Splash! Glug glug! Pip swims!",
+      "image_prompt": "Pip paddling through green water with lily pads and bubbles, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 10,
       "type": "story",
-      "text": "Drip, drip goes the moat.",
-      "image_prompt": "Water drops fall from the edge of the bridge into the moat. Ripples form. Bright blue and shiny., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "See the dark passage? In it!",
+      "image_prompt": "Pip pointing at a shadowy tunnel under the castle wall, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 11,
       "type": "story",
-      "text": "The knight runs fast.",
-      "image_prompt": "Knight in shiny armor running across the courtyard. Cape flaps behind. Sunlight glints off helmet., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pip creeps into the secret passage.",
+      "image_prompt": "Pip tiptoeing down a cobblestone tunnel lit by flickering torches, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 12,
       "type": "story",
-      "text": "He runs into the tower.",
-      "image_prompt": "Knight entering a round stone tower through a low door. Spiral stairs inside. Cozy and cool., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Clank! Clank! A knight comes!",
+      "image_prompt": "shining metal knight\u2019s boots stomping down a hall, armor clanking, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 13,
       "type": "story",
-      "text": "The tower is very high.",
-      "image_prompt": "View from inside the tower looking up. Stone walls go up and up. Small windows let in light. Bird flies past one., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pip hides! Shhh! Don\u2019t pop out!",
+      "image_prompt": "Pip squeezed behind a barrel, eyes wide, one paw over mouth, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 14,
       "type": "story",
-      "text": "He sees the whole land.",
-      "image_prompt": "Knight at the top of the tower, pointing far away. Rolling hills, tiny houses, and a river below. Bright sky., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The knight walks past. Phew!",
+      "image_prompt": "knight marching away down a long hallway, Pip peeking out, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 15,
       "type": "story",
-      "text": "The king is royal.",
-      "image_prompt": "King on a throne wearing a gold crown and purple robe. He smiles kindly. Royal seal on the wall., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Up, up, up the tower!",
+      "image_prompt": "Pip dashing up a spiral staircase inside a round tower, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 16,
       "type": "story",
-      "text": "The queen is royal too.",
-      "image_prompt": "Queen beside the king, holding a flower. Her dress sparkles. Gentle smile. Courtiers bow in the background., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pop! Out comes Pip!",
+      "image_prompt": "Pip bursting through a trapdoor onto the top of the tower, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 17,
       "type": "story",
-      "text": "They live in the big castle.",
-      "image_prompt": "King and queen walking hand-in-hand through a grand hall. Tapestries on walls, chandelier above., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "'I see the whole kingdom!' Pip shouts.",
+      "image_prompt": "Pip standing proudly on the tower edge, waving paws, view of hills and rivers, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 18,
       "type": "story",
-      "text": "The rock is hard.",
-      "image_prompt": "Close-up of gray castle stone. Hand taps it \u2014 'clink!' sound. Very solid and old., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Whoosh! The wind blows!",
+      "image_prompt": "Pip\u2019s cape flapping wildly as wind swirls around the tower, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 19,
       "type": "story",
-      "text": "The knight guards the gate.",
-      "image_prompt": "Knight standing tall at the main gate, hand on sword. Flag flutters. Safe and strong mood., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Red flag flaps. Tap! Tap!",
+      "image_prompt": "a bright red flag slapping against the flagpole in the wind, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 20,
       "type": "story",
-      "text": "He says, 'All is well.'",
-      "image_prompt": "Knight smiling, giving a thumbs-up. A rabbit and bird listen nearby. Peaceful evening glow., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Time to go home. Run, Pip, run!",
+      "image_prompt": "Pip racing back down the spiral stairs, determined look, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 21,
       "type": "story",
-      "text": "The castle is safe.",
-      "image_prompt": "Nighttime view. Castle lit by torches. Stars above. Drawbridge is down, but guard is awake., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Down the passage. Splash! Up the hill!",
+      "image_prompt": "Pip darting through the tunnel, then leaping over the moat, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 22,
       "type": "story",
-      "text": "The royal family sleeps.",
-      "image_prompt": "Moon outside a tower window. King, queen, and little prince tucked in bed. Soft candlelight., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Pip grins. 'I found the castle!'",
+      "image_prompt": "Pip sitting on the hilltop, looking back at the castle, beaming with pride, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 23,
-      "type": "fun_fact",
-      "text": "Did you know? Some real castles had secret tunnels under them!",
-      "image_prompt": "Cutaway view of a castle showing a hidden tunnel beneath the moat. A sneaky cat sneaks through. Mysterious but fun., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "type": "fact",
+      "text": "Real castles had secret passages! What would YOU hide in one?",
+      "image_prompt": "whimsical drawing of a hidden door behind a bookshelf in a castle wall, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 24,
       "type": "back_cover",
       "text": "",
-      "image_prompt": "Bright red background with the Funbookies logo (a smiling book with wings and a star) in the center. Small icons of a castle, knight, and crown float around it. Clean and joyful., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "image_prompt": "empty field with footprints leading away from the castle, stars beginning to shine, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     }
   ]
 }

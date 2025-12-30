@@ -73,68 +73,80 @@ class BookMaker:
 
         cfg = self.story_gen.configs[self.backend]
 
-        system_prompt = f"""You are a children's book author for {BRAND["name"]}, creating books for beginning readers.
+        system_prompt = f"""You are an expert children's book author for {BRAND["name"]}, writing for beginning readers ages {config.age_range}.
 
-Target: {config.age_range} year olds, {config.reading_level}
-Format: 24-page Pixi-style minibook (10x10cm)
+FORMAT: 24-page Pixi-style minibook
 
-WORD LIST REQUIREMENTS (very important!):
-Create TWO types of words for the word list:
+WRITING CRAFT - THIS IS CRITICAL:
+You must write like a REAL children's author, not a vocabulary exercise!
 
-1. PHONETIC WORDS (can be sounded out):
-   - CVC patterns: hot, red, big, run
-   - Blends: flow, crack, drip, blast
-   - Digraphs: rock, ash, thick
+BAD WRITING (never do this):
+- "They see the red drip." (boring, passive)
+- "Magma is very red and big." (just listing adjectives)
+- "The lava is hot." (stating obvious facts)
 
-2. SIGHT WORDS (high-frequency, must memorize):
-   - Common: the, is, are, very, some, from, they, into
+GOOD WRITING (do this):
+- "Rumble, rumble! The mountain shakes!" (onomatopoeia, action)
+- "Pip peeks into the crater. 'Wow!' she gasps." (character, dialogue)
+- "Hot magma bubbles up, up, up!" (movement, rhythm)
+- "Run, Pip, run! The lava is coming!" (urgency, drama)
 
-3. SPECIAL VOCABULARY (topic-specific, interesting but pronounceable):
-   - Example for volcanoes: magma, crater, erupt, molten
-   - These make kids feel smart! Easy to say, fun to learn.
+STORY STRUCTURE:
+1. Create a CHARACTER (animal or child) who goes on an adventure
+2. They DISCOVER something amazing about the topic
+3. Something EXCITING happens (problem or wonder)
+4. They LEARN something and feel proud
+5. Satisfying ENDING that circles back
 
-Include 10-14 words total: ~5 phonetic, ~4 sight words, ~4 special vocabulary.
+SENTENCE CRAFT:
+- Use ACTION verbs: bubbles, explodes, rumbles, creeps, glows
+- Add SOUND words: boom, sizzle, whoosh, crack, pop
+- Include simple DIALOGUE: "Look!" said Pip. "It glows!"
+- Create RHYTHM: "Up, up, up the lava goes!"
+- Show EMOTION: Pip grins. Max jumps back. They gasp.
 
-STORY REQUIREMENTS:
-- Short sentences (5-10 words max per page)
-- Use the word list words repeatedly in the story
-- Repetitive patterns help learning
-- Simple subject-verb-object structure
+WORD LIST (10-14 words):
+1. Phonetic (5): CVC and blends kids can sound out
+2. Sight (4): Common words they need to know by sight
+3. Special (4-5): Cool topic words that are easy to say (like "magma", "crater")
 
-Page structure:
-- Page 1: Cover (title + eye-catching image)
-- Page 2: "Words to Practice" title with two columns header
-- Page 3: Word list formatted in two groups
-- Pages 4-22: Story (19 pages, 1-2 short sentences each)
-- Page 23: Fun fact or simple question about the topic
-- Page 24: Back cover with {BRAND["name"]} logo
+PAGE STRUCTURE:
+- Page 1: Cover with catchy title
+- Page 2: "Words to Practice" header
+- Page 3: Word list in three categories
+- Pages 4-22: Story (keep to 6-12 words per page, punchy!)
+- Page 23: Cool fact or question
+- Page 24: Back cover"""
 
-Style: {config.art_style}"""
+        user_prompt = f"""Write an ENGAGING beginning reader book about: {config.topic}
 
-        user_prompt = f"""Create a beginning reader book about: {config.topic}
+Create a story with a CHARACTER who discovers something amazing. Make it fun!
 
 Return JSON:
 {{
-  "title": "Simple Title",
+  "title": "Catchy Title Here",
+  "character": "Name and what they are (e.g., 'Pip the curious penguin')",
   "word_list": {{
-    "phonetic": ["hot", "red", "run"],
-    "sight": ["the", "is", "very"],
-    "special": ["magma", "crater", "erupt"]
+    "phonetic": ["run", "hot", "big", "pop", "drip"],
+    "sight": ["the", "into", "they", "what"],
+    "special": ["magma", "crater", "erupt", "lava"]
   }},
   "pages": [
-    {{"page": 1, "type": "cover", "text": "Title", "image_prompt": "detailed scene description"}},
-    {{"page": 2, "type": "wordlist_title", "text": "Words to Practice", "image_prompt": "colorful banner with topic decorations, open book icon"}},
-    {{"page": 3, "type": "wordlist", "text": "Sound it out: word1, word2, word3\\n\\nKnow these: word4, word5\\n\\nNew words: word6, word7, word8", "image_prompt": "three rows of words with small icons next to each word, clean layout, pastel background"}},
-    {{"page": 4, "type": "story", "text": "Story begins...", "image_prompt": "scene description"}},
-    ... // continue to page 24
+    {{"page": 1, "type": "cover", "text": "Title", "image_prompt": "character + exciting scene"}},
+    {{"page": 2, "type": "wordlist_title", "text": "Words to Practice", "image_prompt": "decorative header"}},
+    {{"page": 3, "type": "wordlist", "text": "formatted word list", "image_prompt": "icons for words"}},
+    {{"page": 4, "type": "story", "text": "Pip runs up the big hill.", "image_prompt": "penguin running uphill, excited expression"}},
+    {{"page": 5, "type": "story", "text": "'What is that?' Pip asks.", "image_prompt": "penguin looking curious at smoke"}},
+    ... // continue with ACTION, DIALOGUE, EMOTION through page 24
   ]
 }}
 
-IMPORTANT:
-- Make image prompts detailed: subject, action, setting, colors, mood
-- Keep story text VERY simple for beginning readers
-- Use word list words repeatedly throughout the story
-- Include at least one interesting/unusual word that's easy to pronounce (like "magma")"""
+REMEMBER:
+- Every page needs ACTION or DIALOGUE
+- NO boring "X is Y" sentences
+- Use the character's name often
+- Sound words: boom, pop, sizzle, whoosh
+- End with the character feeling proud/happy"""
 
         headers = {
             "Authorization": f"Bearer {cfg['api_key']}",

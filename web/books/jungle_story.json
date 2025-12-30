@@ -1,170 +1,175 @@
 {
-  "title": "Jungle Adventure",
+  "title": "Zee and the Singing Vines",
+  "character": "Zee the brave little sloth",
   "word_list": {
     "phonetic": [
-      "big",
-      "red",
       "run",
-      "vines",
-      "tall"
+      "see",
+      "big",
+      "pop",
+      "red",
+      "hot",
+      "up",
+      "go"
     ],
     "sight": [
       "the",
-      "is",
-      "very",
-      "they"
+      "and",
+      "they",
+      "what"
     ],
     "special": [
       "canopy",
-      "rainforest",
-      "jungle",
-      "toucan"
+      "vines",
+      "monkeys",
+      "toucans",
+      "jungle"
     ]
   },
   "pages": [
     {
       "page": 1,
       "type": "cover",
-      "text": "Jungle Adventure",
-      "image_prompt": "A bright, lush jungle scene with tall green trees, colorful birds flying, and a smiling monkey swinging from a vine. Sunlight filters through the thick canopy above. The title 'Jungle Adventure' is in bold, playful letters across the top. Colors are vibrant: emerald greens, sunny yellows, and splashes of red and blue. Mood is fun and exciting., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Zee and the Singing Vines",
+      "image_prompt": "a small green sloth named Zee hanging on a twisting vine, smiling bravely, with colorful toucans flying above and monkeys swinging in the lush jungle canopy, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 2,
       "type": "wordlist_title",
       "text": "Words to Practice",
-      "image_prompt": "A colorful banner made of tropical leaves in green, yellow, and red stretches across the top. A small open book icon floats in the center with a frog sitting on it. Background has soft palm fronds and butterflies. Text is large and clear. Mood is cheerful and inviting., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "image_prompt": "colorful jungle leaves forming a banner, with tiny animals peeking out, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 3,
       "type": "wordlist",
-      "text": "Sound it out: big, red, run, vines, tall\n\nKnow these: the, is, very, they\n\nNew words: canopy, rainforest, jungle, toucan",
-      "image_prompt": "Three neat rows on a pastel green background. First row: phonetic words with tiny icons\u2014'big' next to a large leaf, 'red' next to a red flower, 'run' next to a running frog, 'vines' with a curling vine, 'tall' next to a tree. Second row: sight words with stars above them. Third row: special words with small pictures\u2014'canopy' under treetops, 'rainforest' with rain drops, 'jungle' with a monkey, 'toucan' with a bird with a big beak. Layout is clean and child-friendly., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Phonetic: run, see, big, pop, red, hot, up, go\nSight: the, and, they, what\nSpecial: canopy, vines, monkeys, toucans, jungle",
+      "image_prompt": "small icons: running feet, eyes, large tree, popping bubble, red fruit, sun, arrow up, walking legs; sight words with leaf backgrounds; special words with animal and plant drawings, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 4,
       "type": "story",
-      "text": "The jungle is hot.",
-      "image_prompt": "A steamy jungle floor with mist rising. Large green leaves glisten with water droplets. A small lizard sits on a log. Colors are deep green and brown with golden light. Mood is warm and humid., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Zee climbs up, up, up!",
+      "image_prompt": "Zee the sloth slowly climbing a tall tree trunk, looking determined, sunlight dappling through leaves above, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 5,
       "type": "story",
-      "text": "The rainforest is very big.",
-      "image_prompt": "A wide view of the jungle stretching far into the distance. Tall trees rise up, covered in moss. Birds fly between them. Sky is pale blue above the treetops. Mood is vast and wild., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "'I want to see the top!' says Zee.",
+      "image_prompt": "close-up of Zee grinning, paws on shoulders, eyes wide with excitement, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 6,
       "type": "story",
-      "text": "The canopy is very tall.",
-      "image_prompt": "Looking up through giant tree trunks to the thick green canopy high above. Sunbeams shine down. A monkey peeks from the leaves. Colors are bright green and gold. Mood is magical and high up., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Snap! A vine swings low.",
+      "image_prompt": "a thick green vine whipping down beside Zee, leaves fluttering from the motion, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 7,
       "type": "story",
-      "text": "Vines hang from the canopy.",
-      "image_prompt": "Thick, twisty vines dangle from high branches. A parrot perches on one. Leaves sway in the breeze. Greens and browns dominate. Mood is playful and natural., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Whee! Zee grabs it\u2014WHOOSH!",
+      "image_prompt": "Zee flying through the air on the vine, arms out, laughing mid-swing, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 8,
       "type": "story",
-      "text": "They run through the jungle.",
-      "image_prompt": "Two bright green frogs leap over a log. They have big smiles. Ferns and flowers surround them. Background is dense green. Mood is energetic and fun., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Up into the canopy\u2014POP!",
+      "image_prompt": "Zee bursting through a layer of leaves into bright sunlight, surrounded by floating seeds, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 9,
       "type": "story",
-      "text": "They see a red flower.",
-      "image_prompt": "Close-up of a large, vivid red flower blooming near the ground. A butterfly hovers above it. Frogs look on with wonder. Reds and greens pop. Mood is curious and bright., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Red flowers pop open. 'Wow!' gasps Zee.",
+      "image_prompt": "giant red jungle flowers blooming suddenly around Zee, glowing in the sun, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 10,
       "type": "story",
-      "text": "The toucan is in the trees.",
-      "image_prompt": "A friendly toucan with a big rainbow beak stands on a branch. It looks at the reader. Leaves rustle around it. Colors are bold: black, white, orange, red. Mood is cheerful and surprising., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Listen! The vines hum... HUM-MA-MA!",
+      "image_prompt": "vines glowing faintly, pulsing with soft light, musical notes floating out, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 11,
       "type": "story",
-      "text": "The toucan is very red.",
-      "image_prompt": "Close-up of the toucan's beak showing red, orange, and yellow stripes. Its eye sparkles. Background is soft green blur. Mood is fun and colorful., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "'Do they sing?' asks Zee.",
+      "image_prompt": "Zee touching a vine gently, head tilted, listening closely, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 12,
       "type": "story",
-      "text": "It flies into the canopy.",
-      "image_prompt": "Toucan flapping its wings, soaring upward through the trees toward the top layer. Sunlight shines above. Other birds watch. Mood is free and joyful., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "CRACK! Monkeys leap down!",
+      "image_prompt": "three playful monkeys swinging in fast, making loud noises, shaking branches, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 13,
       "type": "story",
-      "text": "The jungle is very green.",
-      "image_prompt": "Panoramic jungle view\u2014thousands of green leaves, vines, and tall trunks. A stream winds through. Light sparkles on water. Mood is peaceful and full of life., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "'We guard the singing vines!' whoop the monkeys.",
+      "image_prompt": "monkeys doing flips, pointing at Zee, looking cheeky but friendly, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 14,
       "type": "story",
-      "text": "They climb the vines.",
-      "image_prompt": "Two monkeys gripping thick vines, climbing up. One sticks out its tongue playfully. Trees loom behind. Mood is silly and active., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Flap! Flap! Toucans fly in.",
+      "image_prompt": "two bright toucans swooping down with loud wing beats, beaks open, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 15,
       "type": "story",
-      "text": "They go into the canopy.",
-      "image_prompt": "Monkeys reaching the top of the trees, popping their heads above the canopy. Clouds float nearby. View shows the whole rainforest below. Mood is triumphant and grand., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "'You found the secret, Zee!' squawk the birds.",
+      "image_prompt": "toucans landing near Zee, nodding their heads, wings spread proudly, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 16,
       "type": "story",
-      "text": "The canopy is the top.",
-      "image_prompt": "Flat view of the treetop layer like a green roof. Birds glide over it. Sun shines brightly. Mood is calm and high-up., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "The vines glow hotter. Red. Gold. POP!",
+      "image_prompt": "vines pulsing with rainbow light, flowers spinning open like stars, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 17,
       "type": "story",
-      "text": "They see the red toucan.",
-      "image_prompt": "Monkeys wave at the toucan, who perches on a high branch. All three smile. Leaves flutter. Colors are bright and warm. Mood is friendly and happy., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Music fills the whole jungle!",
+      "image_prompt": "sound waves rippling through trees, frogs hopping in rhythm, butterflies dancing, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 18,
       "type": "story",
-      "text": "The jungle is very big.",
-      "image_prompt": "Wide aerial view of the endless jungle. Rivers snake through. Mountains are in the distance. Tiny animals move below. Mood is vast and wondrous., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Zee dances. The monkeys drum on logs.",
+      "image_prompt": "Zee swaying, monkeys pounding rhythms, toucans conducting with beaks, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 19,
       "type": "story",
-      "text": "It is very hot.",
-      "image_prompt": "Close-up of steam rising from wet leaves. A lizard pants with its mouth open. Droplets fall from above. Colors are dark green and shiny. Mood is steamy and warm., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Boom! Sizzle! HUM-MA-MA!",
+      "image_prompt": "wild jungle concert\u2014lightning flashes, rain starts, music pulses brighter, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 20,
       "type": "story",
-      "text": "They run from the rain.",
-      "image_prompt": "Sudden rain pours down. Animals dash for cover\u2014frogs hop, birds fly, monkeys grab vines. Raindrops splash everywhere. Mood is chaotic and fun., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Rain falls. The jungle sings louder!",
+      "image_prompt": "heavy rain soaking the canopy, all animals cheering, vines glowing under drops, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 21,
       "type": "story",
-      "text": "The rainforest is wet.",
-      "image_prompt": "Everything glistens with rain. Puddles form on the forest floor. A frog jumps into one. Leaves drip water. Mood is fresh and cool., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Zee smiles. 'I did it!' she says.",
+      "image_prompt": "Zee standing tall on a branch, arms wide, beaming at the sky, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 22,
       "type": "story",
-      "text": "They love the jungle.",
-      "image_prompt": "All the animals\u2014monkey, toucan, frogs\u2014sit together under a big leaf, laughing. Rainbow appears in the distance. Mood is joyful and cozy., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "text": "Home again, Zee dreams of vines that sing.",
+      "image_prompt": "Zee curled in her tree, sleeping with a smile, dream bubbles showing glowing vines, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 23,
-      "type": "fun_fact",
-      "text": "Did you know? The canopy is like a green roof that holds most of the jungle animals!",
-      "image_prompt": "Illustration of the canopy layer teeming with life: birds, monkeys, frogs, insects\u2014all living in the treetops. Sunlight streams through. Label points to 'canopy'. Style is educational but fun, with cartoon animals., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "type": "story",
+      "text": "Did you know? Some jungle vines live over 100 years!",
+      "image_prompt": "ancient twisted vine wrapped around a giant tree, with fireflies glowing, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     },
     {
       "page": 24,
-      "type": "back_cover",
-      "text": "",
-      "image_prompt": "Solid bright green background with the Funbookies logo (a smiling sun wearing glasses and holding a book) centered at the bottom. Text below says 'Fun & Easy Books for New Readers!' in playful font. No other text., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+      "type": "cover",
+      "text": "THE END",
+      "image_prompt": "back cover with Zee waving from a vine, jungle sounds as icons (whoop, snap, hum), title repeated small at bottom, children's book illustration, bright colors, friendly, engaging, educational, no text in image"
     }
   ]
 }

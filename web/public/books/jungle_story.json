@@ -1,0 +1,163 @@
+{
+  "title": "Jungle Fun",
+  "word_list": [
+    "jungle",
+    "rain",
+    "tree",
+    "monkey",
+    "snake",
+    "bird",
+    "leaf",
+    "vine",
+    "frog",
+    "sun",
+    "jump",
+    "green"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Jungle Fun",
+      "image_prompt": "A bright, lush jungle scene with tall green trees, colorful birds flying, a smiling monkey swinging on a vine, and a little red frog sitting on a big leaf. Sunlight peeks through the leaves. The mood is happy and lively. Bold, playful title text at the top., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 2,
+      "type": "wordlist_title",
+      "text": "Words to Know",
+      "image_prompt": "A decorative border made of winding green vines, large tropical leaves, and tiny frogs and birds peeking out. Soft yellow background with bold black text in the center that reads 'Words to Know'., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 3,
+      "type": "wordlist",
+      "text": "jungle - rain - tree - monkey - snake - bird - leaf - vine - frog - sun - jump - green",
+      "image_prompt": "Pastel green background with small, clear icons under each word: a jungle scene, raindrops, a tall tree, a monkey, a curly snake, a red bird, a big leaf, a twisting vine, a tiny frog, a shining sun, a jumping figure, and a green paint splat. Words in large, easy-to-read font., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "The jungle is green.",
+      "image_prompt": "Wide view of a dense, vibrant jungle with layers of green trees and plants. Bright sunlight filters down. Everything is shades of green. A small monkey watches from behind a tree., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "Big trees grow here.",
+      "image_prompt": "Tall, thick trees reaching high into the sky. Moss and vines hang down. Birds sit on branches. Colors are deep green and brown. Calm and peaceful mood., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "Rain falls in the jungle.",
+      "image_prompt": "Soft rain falling through the trees. Puddles form on the ground. A frog sits under a leaf like an umbrella. Sky is gray-blue with a hint of sun breaking through., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "The sun comes out.",
+      "image_prompt": "Golden sun shining through clouds. Rain stops. Droplets sparkle on leaves. A rainbow starts to form in the distance., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "A bird sings in a tree.",
+      "image_prompt": "A bright red bird with a yellow beak perched on a branch, singing loudly. Leaves flutter around it. Sky is light blue above the treetops., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "A monkey jumps on a vine.",
+      "image_prompt": "A cheerful brown monkey swinging on a long green vine. It\u2019s mid-air, arms out. Jungle below is soft and blurry. Action-filled, fun mood., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "It likes to jump high.",
+      "image_prompt": "Same monkey at the peak of its swing, legs tucked, tail curled. Big smile. Sunlight highlights its fur. Background is green blur., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "A frog sits on a leaf.",
+      "image_prompt": "A small, bright green frog with big eyes resting on a huge, waxy leaf. Water droplets nearby. Soft focus on the jungle behind., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "It is very still.",
+      "image_prompt": "Same frog, not moving. One eye closed slightly. A butterfly hovers near. Peaceful, quiet moment in the jungle., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "A snake slides on the ground.",
+      "image_prompt": "A long, green-and-yellow snake moving smoothly over wet brown soil. Leaves and roots around it. Gentle curve in its body. Not scary\u2014friendly face., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "It does not make a sound.",
+      "image_prompt": "Close-up of the snake gliding silently. No ripples or noise lines. Quiet forest floor with moss and small bugs. Calm, soft colors., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "Vines hang from trees.",
+      "image_prompt": "Thick, twisty vines dangling from high branches. Some have leaves, some are bare. A tiny lizard climbs one. Sunbeams shine through., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "They swing in the wind.",
+      "image_prompt": "Vines swaying gently as a soft breeze blows. Leaves flutter. A monkey tail wraps around one for balance. Light and breezy mood., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "Big leaves catch the rain.",
+      "image_prompt": "Giant green leaves shaped like hearts holding pools of rainwater. Droplets fall off the edges. Reflections show the sky., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 18,
+      "type": "story",
+      "text": "Drip! Drop! Splash!",
+      "image_prompt": "Close-up of raindrops hitting a leaf puddle. Tiny splashes fly up. A frog watches from the side. Playful, bouncy action., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 19,
+      "type": "story",
+      "text": "Birds fly through the trees.",
+      "image_prompt": "Three colorful birds\u2014red, blue, and yellow\u2014flying in a line between tall trees. Wings spread wide. Sky is bright above the canopy., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 20,
+      "type": "story",
+      "text": "Monkeys play all day.",
+      "image_prompt": "Two monkeys hanging upside down on vines, laughing. One throws a leaf. Sunlight dapples through the trees. Joyful and energetic., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 21,
+      "type": "story",
+      "text": "The jungle is full of life.",
+      "image_prompt": "Wide jungle scene showing all animals: bird flying, snake sliding, frog on leaf, monkeys swinging. Every part feels alive. Rich greens and bright accents., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 22,
+      "type": "story",
+      "text": "Come back soon!",
+      "image_prompt": "Monkey waving from a tree, smiling. Rainbow in the sky. Sun setting in soft orange and pink. Friendly goodbye vibe., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 23,
+      "type": "fact",
+      "text": "Did you know? Frogs in the jungle can be bright colors!",
+      "image_prompt": "Close-up of a tiny, brightly colored poison dart frog (blue and black) on a green leaf. Background softly blurred. Text bubble with fun fact., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    },
+    {
+      "page": 24,
+      "type": "back_cover",
+      "text": "",
+      "image_prompt": "Solid green background with the Funbookies logo (a smiling book with wings and stars) centered at the bottom. Small jungle leaves and a frog icon decorate the corners., children's book illustration, bright colors, friendly, engaging, educational, no text in image"
+    }
+  ]
+}

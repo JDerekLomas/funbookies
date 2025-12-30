@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funbookies - Mini Books for Kids</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      color: white;
+    }
+    header h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+    }
+    header p { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; }
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 20px 0;
+    }
+    .book-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .book-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .book-cover {
+      aspect-ratio: 1;
+      background: #FFE4B5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #FF6B35;
+      text-align: center;
+      padding: 20px;
+    }
+    .book-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .book-info {
+      padding: 20px;
+    }
+    .book-info h3 {
+      font-size: 1.3rem;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .book-info .word-list {
+      font-size: 0.85rem;
+      color: #666;
+      line-height: 1.6;
+    }
+    .book-info .badge {
+      display: inline-block;
+      background: #E8F5E9;
+      color: #2E7D32;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    /* Reader Modal */
+    .reader-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      padding: 20px;
+    }
+    .reader-modal.active { display: flex; align-items: center; justify-content: center; }
+    .reader-container {
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+    }
+    .reader-page {
+      aspect-ratio: 1;
+      background: #FFF8E7;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      text-align: center;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    .reader-page img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .reader-page .text-overlay {
+      position: absolute;
+      bottom: 10%;
+      left: 5%; right: 5%;
+      background: rgba(255,255,255,0.95);
+      padding: 15px 20px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .reader-page .text-overlay.center {
+      bottom: auto;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .reader-controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .reader-controls button {
+      background: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .reader-controls button:hover { transform: scale(1.1); }
+    .reader-controls button:disabled { opacity: 0.3; cursor: not-allowed; }
+    .page-indicator {
+      color: white;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1rem;
+    }
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Funbookies</h1>
+      <p>Little books, big adventures - for beginning readers ages 6-7</p>
+    </header>
+
+    <div class="books-grid" id="booksGrid">
+      <!-- Books loaded dynamically -->
+    </div>
+  </div>
+
+  <div class="reader-modal" id="readerModal">
+    <button class="close-btn" onclick="closeReader()">×</button>
+    <div class="reader-container">
+      <div class="reader-page" id="readerPage">
+        <div class="text-overlay" id="pageText"></div>
+      </div>
+      <div class="reader-controls">
+        <button onclick="prevPage()" id="prevBtn">←</button>
+        <button onclick="nextPage()" id="nextBtn">→</button>
+      </div>
+      <div class="page-indicator" id="pageIndicator">Page 1 of 24</div>
+    </div>
+  </div>
+
+  <script>
+    // Book data will be loaded from JSON
+    let books = [];
+    let currentBook = null;
+    let currentPage = 0;
+
+    // Load books
+    async function loadBooks() {
+      const bookFiles = ['volcano_story.json', 'castles_story.json', 'jungle_story.json'];
+      const grid = document.getElementById('booksGrid');
+
+      for (const file of bookFiles) {
+        try {
+          const res = await fetch(`/books/${file}`);
+          if (res.ok) {
+            const book = await res.json();
+            book.file = file;
+            books.push(book);
+            renderBookCard(book, grid);
+          }
+        } catch (e) {
+          console.log(`Could not load ${file}`);
+        }
+      }
+    }
+
+    function renderBookCard(book, container) {
+      const slug = book.file.replace('_story.json', '');
+      const card = document.createElement('div');
+      card.className = 'book-card';
+      card.onclick = () => openReader(book);
+
+      // Check if cover image exists
+      const coverImg = `/books/images/${slug}_page01.png`;
+
+      card.innerHTML = `
+        <div class="book-cover" id="cover-${slug}">
+          <img src="${coverImg}" onerror="this.style.display='none'; this.parentElement.innerText='${book.title}'" alt="${book.title}">
+        </div>
+        <div class="book-info">
+          <h3>${book.title}</h3>
+          <div class="word-list">
+            <strong>Words to practice:</strong><br>
+            ${book.word_list.slice(0, 6).join(' • ')}${book.word_list.length > 6 ? '...' : ''}
+          </div>
+          <span class="badge">24 pages</span>
+        </div>
+      `;
+      container.appendChild(card);
+    }
+
+    function openReader(book) {
+      currentBook = book;
+      currentPage = 0;
+      document.getElementById('readerModal').classList.add('active');
+      renderPage();
+    }
+
+    function closeReader() {
+      document.getElementById('readerModal').classList.remove('active');
+      currentBook = null;
+    }
+
+    function renderPage() {
+      if (!currentBook) return;
+
+      const page = currentBook.pages[currentPage];
+      const pageDiv = document.getElementById('readerPage');
+      const textDiv = document.getElementById('pageText');
+      const slug = currentBook.file.replace('_story.json', '');
+
+      // Background colors by type
+      const bgColors = {
+        cover: '#FFE4B5',
+        wordlist: '#E8F5E9',
+        wordlist_title: '#E8F5E9',
+        story: '#FFF8E7',
+        fun_fact: '#E3F2FD',
+        back_cover: '#FFF3E0'
+      };
+
+      pageDiv.style.background = bgColors[page.type] || '#FFF8E7';
+
+      // Try to load image
+      const imgPath = `/books/images/${slug}_page${String(page.page).padStart(2, '0')}.png`;
+      pageDiv.innerHTML = `
+        <img src="${imgPath}" onerror="this.style.display='none'" alt="">
+        <div class="text-overlay ${page.type === 'cover' ? 'center' : ''}" style="${page.type === 'cover' ? 'font-size: 1.8rem; font-weight: 700; color: #FF6B35;' : ''}">
+          ${page.text}
+        </div>
+      `;
+
+      document.getElementById('pageIndicator').textContent =
+        `Page ${currentPage + 1} of ${currentBook.pages.length}`;
+
+      document.getElementById('prevBtn').disabled = currentPage === 0;
+      document.getElementById('nextBtn').disabled = currentPage === currentBook.pages.length - 1;
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        renderPage();
+      }
+    }
+
+    function nextPage() {
+      if (currentBook && currentPage < currentBook.pages.length - 1) {
+        currentPage++;
+        renderPage();
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (!currentBook) return;
+      if (e.key === 'ArrowLeft') prevPage();
+      if (e.key === 'ArrowRight') nextPage();
+      if (e.key === 'Escape') closeReader();
+    });
+
+    // Load books on page load
+    loadBooks();
+  </script>
+</body>
+</html>

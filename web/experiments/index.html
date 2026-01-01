@@ -15,29 +15,22 @@
     }
     h1 { text-align: center; margin-bottom: 10px; color: #fff; }
     .subtitle { text-align: center; color: #888; margin-bottom: 30px; }
-
     .section {
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       background: #16213e;
       border-radius: 12px;
       padding: 20px;
     }
-    .section h2 {
-      color: #e94560;
-      margin-bottom: 5px;
-    }
-    .section .info {
-      color: #888;
-      font-size: 14px;
-      margin-bottom: 15px;
-    }
-
+    .section h2 { color: #e94560; margin-bottom: 5px; }
+    .section .info { color: #888; font-size: 14px; margin-bottom: 15px; }
     .image-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
     }
-
+    @media (max-width: 900px) {
+      .image-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     .image-card {
       background: #0f0f23;
       border-radius: 8px;
@@ -45,224 +38,208 @@
     }
     .image-card img {
       width: 100%;
-      height: 250px;
-      object-fit: contain;
+      aspect-ratio: 1;
+      object-fit: cover;
       background: #000;
     }
     .image-card .caption {
-      padding: 10px;
-      font-size: 13px;
+      padding: 8px;
+      font-size: 12px;
       color: #aaa;
     }
     .image-card .caption strong {
       color: #fff;
       display: block;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
-
-    .hero-section {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .hero-section img {
-      max-width: 300px;
-      border-radius: 12px;
-      border: 3px solid #e94560;
-    }
-
-    .comparison {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-top: 30px;
-    }
-    @media (max-width: 800px) {
-      .comparison { grid-template-columns: 1fr; }
-    }
-
     .rating {
       display: inline-block;
-      background: #e94560;
-      color: white;
       padding: 3px 10px;
       border-radius: 12px;
       font-size: 12px;
       margin-left: 10px;
     }
-    .rating.good { background: #4ade80; }
-    .rating.bad { background: #f87171; }
-    .rating.ok { background: #fbbf24; }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      padding: 12px;
-      text-align: left;
-      border-bottom: 1px solid #333;
-    }
+    .rating.excellent { background: #22c55e; color: #000; }
+    .rating.good { background: #84cc16; color: #000; }
+    .rating.ok { background: #eab308; color: #000; }
+    .rating.fail { background: #ef4444; color: #fff; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }
     th { color: #e94560; }
-
+    .winner { background: #1a3a1a; }
     .status-ok { color: #4ade80; }
     .status-fail { color: #f87171; }
+    .nav { text-align: center; margin-bottom: 20px; }
+    .nav a { color: #e94560; margin: 0 10px; }
   </style>
 </head>
 <body>
   <h1>Character Consistency Experiment</h1>
-  <p class="subtitle">Testing Gus the Gecko across different AI image providers</p>
+  <p class="subtitle">Testing Gus the Gecko across different AI models · January 2026</p>
 
-  <!-- Hero Reference -->
-  <div class="section hero-section">
-    <h2>Hero Reference Image</h2>
-    <p class="info">Generated first, used as reference for Kontext tests</p>
-    <img src="images/gus_hero.png" alt="Gus hero reference">
+  <div class="nav">
+    <a href="#flux-dev">Flux Dev</a> |
+    <a href="#flux-schnell">Flux Schnell</a> |
+    <a href="#ideogram">Ideogram</a> |
+    <a href="#results">Results</a>
   </div>
 
-  <!-- Replicate Results -->
-  <div class="section">
-    <h2>Replicate Flux Schnell <span class="rating good">WINNER - Text Only</span></h2>
-    <p class="info">Replicate · ~$0.003/image · ~5 seconds · Excellent consistency!</p>
+  <!-- Flux Dev -->
+  <div class="section" id="flux-dev">
+    <h2>Flux Dev <span class="rating excellent">★★★★★ BEST QUALITY</span></h2>
+    <p class="info">Replicate · ~$0.03/image · ~10s · Beautiful detail, excellent consistency</p>
+    <div class="image-grid">
+      <div class="image-card">
+        <img src="images/gus_fluxdev_hero.png" alt="Hero">
+        <div class="caption"><strong>Hero</strong>Front-facing reference</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_fluxdev_scene01.png" alt="Scene 1">
+        <div class="caption"><strong>Scene 1</strong>Volcano hill</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_fluxdev_scene02.png" alt="Scene 2">
+        <div class="caption"><strong>Scene 2</strong>Running up slope</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_fluxdev_scene03.png" alt="Scene 3">
+        <div class="caption"><strong>Scene 3</strong>Crater edge</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flux Schnell -->
+  <div class="section" id="flux-schnell">
+    <h2>Flux Schnell <span class="rating good">★★★★☆ BEST VALUE</span></h2>
+    <p class="info">Replicate · ~$0.003/image · ~5s · Fast, cheap, very consistent</p>
     <div class="image-grid">
       <div class="image-card">
         <img src="images/gus_replicate_hero.png" alt="Hero">
-        <div class="caption">
-          <strong>Hero Reference</strong>
-          Front-facing, clear character design
-        </div>
+        <div class="caption"><strong>Hero</strong>Front-facing reference</div>
       </div>
       <div class="image-card">
         <img src="images/gus_replicate_scene01.png" alt="Scene 1">
-        <div class="caption">
-          <strong>Scene 1: Volcano Hill</strong>
-          Standing proudly with volcano
-        </div>
+        <div class="caption"><strong>Scene 1</strong>Volcano hill</div>
       </div>
       <div class="image-card">
         <img src="images/gus_replicate_scene02.png" alt="Scene 2">
-        <div class="caption">
-          <strong>Scene 2: Running Up</strong>
-          Running up grassy slope
-        </div>
+        <div class="caption"><strong>Scene 2</strong>Running up slope</div>
       </div>
       <div class="image-card">
         <img src="images/gus_replicate_scene03.png" alt="Scene 3">
-        <div class="caption">
-          <strong>Scene 3: Crater Edge</strong>
-          Peeking over volcanic crater
-        </div>
+        <div class="caption"><strong>Scene 3</strong>Crater edge</div>
       </div>
     </div>
   </div>
 
-  <!-- Comparison -->
-  <div class="comparison">
-    <!-- Flux Schnell -->
-    <div class="section">
-      <h2>fal.ai Flux Schnell <span class="rating ok">Text Only</span></h2>
-      <p class="info">fal.ai · ~$0.003/image · ~1 second (balance exhausted)</p>
-      <div class="image-grid">
-        <div class="image-card">
-          <img src="images/gus_fal_schnell_scene01.png" alt="Scene 1">
-          <div class="caption">
-            <strong>Scene 1: Volcano Hill</strong>
-            Standing proudly with volcano in background
-          </div>
-        </div>
-        <div class="image-card">
-          <img src="images/gus_fal_schnell_scene02.png" alt="Scene 2">
-          <div class="caption">
-            <strong>Scene 2: Running Up</strong>
-            Running eagerly up grassy slope
-          </div>
-        </div>
-        <div class="image-card">
-          <img src="images/gus_fal_schnell_scene03.png" alt="Scene 3">
-          <div class="caption">
-            <strong>Scene 3: Crater Edge</strong>
-            Peeking over volcanic crater
-          </div>
-        </div>
+  <!-- Ideogram -->
+  <div class="section" id="ideogram">
+    <h2>Ideogram v2 Turbo <span class="rating good">★★★★☆ BOLD STYLE</span></h2>
+    <p class="info">Replicate · ~$0.02/image · ~8s · Vector/graphic style, very consistent</p>
+    <div class="image-grid">
+      <div class="image-card">
+        <img src="images/gus_ideogram_hero.png" alt="Hero">
+        <div class="caption"><strong>Hero</strong>Front-facing reference</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_ideogram_scene01.png" alt="Scene 1">
+        <div class="caption"><strong>Scene 1</strong>Volcano hill</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_ideogram_scene02.png" alt="Scene 2">
+        <div class="caption"><strong>Scene 2</strong>Running up slope</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_ideogram_scene03.png" alt="Scene 3">
+        <div class="caption"><strong>Scene 3</strong>Crater edge</div>
       </div>
     </div>
+  </div>
 
-    <!-- Flux Kontext -->
-    <div class="section">
-      <h2>Flux Kontext <span class="rating bad">Reference Failed</span></h2>
-      <p class="info">fal.ai · $0.04/image · ~3 seconds</p>
-      <div class="image-grid">
-        <div class="image-card">
-          <img src="images/gus_fal_kontext_scene01.png" alt="Scene 1">
-          <div class="caption">
-            <strong>Scene 1: Volcano Hill</strong>
-            Black image - API issue
-          </div>
-        </div>
-        <div class="image-card">
-          <img src="images/gus_fal_kontext_scene02.png" alt="Scene 2">
-          <div class="caption">
-            <strong>Scene 2: Running Up</strong>
-            Black image - API issue
-          </div>
-        </div>
-        <div class="image-card">
-          <img src="images/gus_fal_kontext_scene03.png" alt="Scene 3">
-          <div class="caption">
-            <strong>Scene 3: Crater Edge</strong>
-            Black image - API issue
-          </div>
-        </div>
+  <!-- fal.ai Results -->
+  <div class="section">
+    <h2>fal.ai Flux <span class="rating ok">Account Issue</span></h2>
+    <p class="info">fal.ai · Balance exhausted during test · Schnell worked, Kontext failed</p>
+    <div class="image-grid">
+      <div class="image-card">
+        <img src="images/gus_hero.png" alt="Hero">
+        <div class="caption"><strong>Hero (fal)</strong>Before balance ran out</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_fal_schnell_scene01.png" alt="Scene 1">
+        <div class="caption"><strong>Schnell 1</strong>Volcano hill</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_fal_schnell_scene02.png" alt="Scene 2">
+        <div class="caption"><strong>Schnell 2</strong>Running</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_fal_schnell_scene03.png" alt="Scene 3">
+        <div class="caption"><strong>Schnell 3</strong>Crater</div>
       </div>
     </div>
   </div>
 
   <!-- Results Table -->
-  <div class="section">
+  <div class="section" id="results">
     <h2>Results Summary</h2>
     <table>
       <thead>
         <tr>
-          <th>Provider/Model</th>
-          <th>Method</th>
+          <th>Model</th>
+          <th>Provider</th>
           <th>Success</th>
-          <th>Avg Time</th>
-          <th>Cost/img</th>
+          <th>Time</th>
+          <th>Cost</th>
           <th>Consistency</th>
+          <th>Quality</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="background: #1a3a1a;">
-          <td><strong>Replicate / Flux Schnell</strong></td>
-          <td>Detailed text prompt</td>
+        <tr class="winner">
+          <td><strong>Flux Dev</strong></td>
+          <td>Replicate</td>
           <td class="status-ok">4/4 ✓</td>
-          <td>~5s</td>
-          <td>~$0.003</td>
-          <td>★★★★★ Excellent!</td>
+          <td>~10s</td>
+          <td>$0.03</td>
+          <td>★★★★★</td>
+          <td>★★★★★ Best</td>
         </tr>
         <tr>
-          <td>fal.ai / Flux Schnell</td>
-          <td>Detailed text prompt</td>
-          <td class="status-ok">3/3 ✓</td>
-          <td>~1s</td>
-          <td>~$0.003</td>
+          <td><strong>Flux Schnell</strong></td>
+          <td>Replicate</td>
+          <td class="status-ok">4/4 ✓</td>
+          <td>~5s</td>
+          <td>$0.003</td>
+          <td>★★★★★</td>
           <td>★★★★☆ Good</td>
         </tr>
         <tr>
-          <td>fal.ai / Flux Kontext</td>
-          <td>Character reference</td>
-          <td class="status-fail">0/3 ✗</td>
-          <td>~3s</td>
-          <td>$0.04</td>
-          <td>Failed (balance issue)</td>
+          <td><strong>Ideogram v2 Turbo</strong></td>
+          <td>Replicate</td>
+          <td class="status-ok">4/4 ✓</td>
+          <td>~8s</td>
+          <td>$0.02</td>
+          <td>★★★★★</td>
+          <td>★★★★☆ Bold</td>
         </tr>
         <tr>
-          <td>Replicate / Ideogram</td>
-          <td>Character reference</td>
-          <td>Not tested yet</td>
+          <td>Flux Schnell</td>
+          <td>fal.ai</td>
+          <td class="status-ok">3/3 ✓</td>
+          <td>~1s</td>
+          <td>$0.003</td>
+          <td>★★★★☆</td>
+          <td>★★★★☆</td>
+        </tr>
+        <tr>
+          <td>Flux Kontext</td>
+          <td>fal.ai</td>
+          <td class="status-fail">0/3 ✗</td>
           <td>-</td>
-          <td>$0.08</td>
-          <td>-</td>
+          <td>$0.04</td>
+          <td>Failed</td>
+          <td>Balance issue</td>
         </tr>
       </tbody>
     </table>
@@ -270,19 +247,29 @@
 
   <!-- Conclusions -->
   <div class="section">
-    <h2>Conclusions</h2>
-    <ul style="margin-left: 20px; line-height: 1.8;">
-      <li><strong>Flux Schnell with detailed prompts works well</strong> for simple cartoon characters</li>
-      <li>Character consistency is achievable without expensive reference-based APIs</li>
-      <li>Key: Include full character description + consistent style prompt in EVERY generation</li>
-      <li>Kontext needs debugging - possibly URL expiration or content filter issue</li>
-      <li>Next: Test with MuleRouter and Ideogram for comparison</li>
+    <h2>Key Findings</h2>
+    <ul style="margin-left: 20px; line-height: 2;">
+      <li><strong>Text prompts work!</strong> No need for expensive character reference APIs</li>
+      <li><strong>Flux Dev</strong> = Best quality for final production ($0.03/img)</li>
+      <li><strong>Flux Schnell</strong> = Best value for iteration ($0.003/img)</li>
+      <li><strong>Ideogram</strong> = Great for bold/graphic style ($0.02/img)</li>
+      <li><strong>Key:</strong> Include detailed character description + consistent style in EVERY prompt</li>
     </ul>
+
+    <h3 style="margin-top: 20px; color: #e94560;">Winning Prompt Formula</h3>
+    <pre style="background: #0f0f23; padding: 15px; border-radius: 8px; overflow-x: auto; margin-top: 10px; font-size: 13px;">
+CHARACTER = """A small bright lime-green gecko with big friendly eyes
+with white highlights, yellow belly, striped curly tail, four stubby
+legs, cute and cartoonish, standing upright"""
+
+STYLE = """childrens book illustration, simple flat cartoon style,
+bold black outlines, bright saturated colors, clean digital art, no text"""
+
+prompt = f"{CHARACTER}, {scene_description}, {STYLE}"</pre>
   </div>
 
-  <script>
-    // Auto-reload results if they change
-    // Could add JSON loading here for dynamic updates
-  </script>
+  <div style="text-align: center; padding: 20px; color: #666;">
+    <p>Funbookies Character Experiment · <a href="/" style="color: #e94560;">Back to Books</a></p>
+  </div>
 </body>
 </html>

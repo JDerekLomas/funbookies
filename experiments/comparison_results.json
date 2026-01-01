@@ -1,0 +1,74 @@
+{
+  "timestamp": "2026-01-01T17:49:47.330049",
+  "reference": "https://funbookies.vercel.app/experiments/images/gus_wan26_hero_1.png",
+  "results": {
+    "kontext": [
+      {
+        "scene": "volcano",
+        "success": true,
+        "path": "experiments/images/cmp_kontext_volcano.png"
+      },
+      {
+        "scene": "running",
+        "success": true,
+        "path": "experiments/images/cmp_kontext_running.png"
+      },
+      {
+        "scene": "crater",
+        "success": true,
+        "path": "experiments/images/cmp_kontext_crater.png"
+      }
+    ],
+    "wan25_i2i": [
+      {
+        "scene": "volcano",
+        "success": false,
+        "error": "No task_id or images: {'task_info': {'id': '5f0477b5-ebd2-4ff7-8e66-1fff945ea8a7', 'status': 'pending', 'created_at': '2026-01-01T16:49:00.134741+00:00', 'updated_at': '2026-01-01T16:49:00.134741+00:00'}}"
+      },
+      {
+        "scene": "running",
+        "success": false,
+        "error": "No task_id or images: {'task_info': {'id': '70d7ef13-d18f-487e-bc8f-a880a55e4817', 'status': 'pending', 'created_at': '2026-01-01T16:49:19.460144+00:00', 'updated_at': '2026-01-01T16:49:19.460144+00:00'}}"
+      },
+      {
+        "scene": "crater",
+        "success": false,
+        "error": "No task_id or images: {'task_info': {'id': 'f45fbe5b-4440-4685-b035-15759e77c5b2', 'status': 'pending', 'created_at': '2026-01-01T16:49:38.353152+00:00', 'updated_at': '2026-01-01T16:49:38.353152+00:00'}}"
+      }
+    ],
+    "wan26_t2i": [
+      {
+        "scene": "volcano",
+        "success": false,
+        "error": "No task_id: {'task_info': {'id': 'f302c8a0-5cb3-41f0-80b1-ee407be808e0', 'status': 'pending', 'created_at': '2026-01-01T16:49:02.862803+00:00', 'updated_at': '2026-01-01T16:49:02.862803+00:00'}}"
+      },
+      {
+        "scene": "running",
+        "success": false,
+        "error": "No task_id: {'task_info': {'id': '864b3aee-e9b2-4c58-9174-a7b1220e4026', 'status': 'pending', 'created_at': '2026-01-01T16:49:22.444792+00:00', 'updated_at': '2026-01-01T16:49:22.444792+00:00'}}"
+      },
+      {
+        "scene": "crater",
+        "success": false,
+        "error": "No task_id: {'task_info': {'id': '3315a8dc-d7b0-42a8-a978-3289ec8eb9bf', 'status': 'pending', 'created_at': '2026-01-01T16:49:41.364581+00:00', 'updated_at': '2026-01-01T16:49:41.364581+00:00'}}"
+      }
+    ],
+    "nano_banana": [
+      {
+        "scene": "volcano",
+        "success": false,
+        "error": "No task_id: {'task_info': {'id': '83882cf9-7dc0-4111-9402-ad54834ff182', 'status': 'pending', 'created_at': '2026-01-01T16:49:05.808558+00:00', 'updated_at': '2026-01-01T16:49:05.808558+00:00'}}"
+      },
+      {
+        "scene": "running",
+        "success": false,
+        "error": "No task_id: {'task_info': {'id': '75d7bfd9-86d3-47aa-abf1-f5202bb078ea', 'status': 'pending', 'created_at': '2026-01-01T16:49:24.900929+00:00', 'updated_at': '2026-01-01T16:49:24.900929+00:00'}}"
+      },
+      {
+        "scene": "crater",
+        "success": false,
+        "error": "No task_id: {'task_info': {'id': '37569a0a-f10e-4e33-a9e9-8f025c93483b', 'status': 'pending', 'created_at': '2026-01-01T16:49:44.168603+00:00', 'updated_at': '2026-01-01T16:49:44.168603+00:00'}}"
+      }
+    ]
+  }
+}

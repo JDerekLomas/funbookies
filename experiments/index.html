@@ -78,13 +78,97 @@
   <p class="subtitle">Testing Gus the Gecko across different AI models · January 2026</p>
 
   <div class="nav">
+    <a href="#comparison">Model Comparison</a> |
     <a href="#experiment-v2">v2 Experiment</a> |
     <a href="#flux-kontext">Kontext</a> |
     <a href="#flux-dev">Flux Dev</a> |
-    <a href="#flux-schnell">Flux Schnell</a> |
-    <a href="#ideogram">Ideogram</a> |
     <a href="#mulerouter">MuleRouter</a> |
     <a href="#results">Results</a>
+  </div>
+
+  <!-- Model Comparison Experiment -->
+  <div class="section" id="comparison" style="border: 3px solid #22c55e;">
+    <h2>Model Comparison: Character Consistency <span class="rating excellent">LATEST</span></h2>
+    <p class="info">Same reference image tested across Flux Kontext (image-ref), Wan2.5 I2I (image-ref), Wan2.6 T2I (text), Nano Banana (text)</p>
+
+    <h3 style="color: #e94560; margin: 20px 0 10px;">Reference Image</h3>
+    <div style="text-align: center; margin-bottom: 20px;">
+      <img src="images/gus_wan26_reference.png" alt="Reference" style="max-width: 200px; border-radius: 8px;">
+      <p style="color: #888; font-size: 12px;">Wan2.6 Hero - used as reference for image-ref models</p>
+    </div>
+
+    <h3 style="color: #e94560; margin: 20px 0 10px;">Scene 1: Volcano Hill</h3>
+    <div class="image-grid" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="image-card">
+        <img src="images/cmp_kontext_volcano.png" alt="Kontext">
+        <div class="caption"><strong>Flux Kontext</strong>Image reference</div>
+      </div>
+      <div class="image-card">
+        <img src="images/cmp_wan25i2i_volcano.png" alt="Wan2.5 I2I">
+        <div class="caption"><strong>Wan2.5 I2I</strong>Image-to-image</div>
+      </div>
+      <div class="image-card">
+        <img src="images/cmp_wan26_volcano.png" alt="Wan2.6 T2I">
+        <div class="caption"><strong>Wan2.6 T2I</strong>Text only</div>
+      </div>
+      <div class="image-card">
+        <img src="images/cmp_nano_running.png" alt="Nano Banana">
+        <div class="caption"><strong>Nano Banana</strong>Text only</div>
+      </div>
+    </div>
+
+    <h3 style="color: #e94560; margin: 20px 0 10px;">Scene 2: Running Up Slope</h3>
+    <div class="image-grid" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="image-card">
+        <img src="images/cmp_kontext_running.png" alt="Kontext">
+        <div class="caption"><strong>Flux Kontext</strong>Image reference</div>
+      </div>
+      <div class="image-card">
+        <img src="images/cmp_wan25i2i_running.png" alt="Wan2.5 I2I">
+        <div class="caption"><strong>Wan2.5 I2I</strong>Image-to-image</div>
+      </div>
+      <div class="image-card">
+        <img src="images/cmp_wan26_running.png" alt="Wan2.6 T2I">
+        <div class="caption"><strong>Wan2.6 T2I</strong>Text only</div>
+      </div>
+      <div class="image-card">
+        <img src="images/cmp_nano_running.png" alt="Nano Banana">
+        <div class="caption"><strong>Nano Banana</strong>Text only</div>
+      </div>
+    </div>
+
+    <h3 style="color: #e94560; margin: 20px 0 10px;">Scene 3: Crater Edge</h3>
+    <div class="image-grid" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="image-card">
+        <img src="images/cmp_kontext_crater.png" alt="Kontext">
+        <div class="caption"><strong>Flux Kontext</strong>Image reference</div>
+      </div>
+      <div class="image-card">
+        <img src="images/cmp_wan25i2i_crater.png" alt="Wan2.5 I2I">
+        <div class="caption"><strong>Wan2.5 I2I</strong>Image-to-image</div>
+      </div>
+      <div class="image-card">
+        <img src="images/cmp_wan26_crater.png" alt="Wan2.6 T2I">
+        <div class="caption"><strong>Wan2.6 T2I</strong>Text only</div>
+      </div>
+      <div class="image-card">
+        <img src="images/cmp_nano_crater.png" alt="Nano Banana">
+        <div class="caption"><strong>Nano Banana</strong>Text only</div>
+      </div>
+    </div>
+
+    <h3 style="color: #e94560; margin: 20px 0 10px;">Findings</h3>
+    <table>
+      <thead>
+        <tr><th>Model</th><th>Method</th><th>Time</th><th>Consistency</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Flux Kontext</strong></td><td>Image ref</td><td>~10s</td><td>★★★★☆</td><td>Good but style varies</td></tr>
+        <tr><td><strong>Wan2.5 I2I</strong></td><td>Image ref</td><td>~50s</td><td>★★★☆☆</td><td>Transforms reference</td></tr>
+        <tr><td><strong>Wan2.6 T2I</strong></td><td>Text only</td><td>~16s</td><td>★★★☆☆</td><td>Fast, decent consistency</td></tr>
+        <tr><td><strong>Nano Banana</strong></td><td>Text only</td><td>~45s</td><td>★★☆☆☆</td><td>Beautiful but varies</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- Experiment v2: Using Wan2.6 Hero as Reference -->

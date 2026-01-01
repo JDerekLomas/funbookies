@@ -4,18 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Funbookies - Print Preview</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Andika is designed for early readers with clear letterforms -->
+  <link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Nunito', sans-serif;
-      background: #2a2a2a;
+      font-family: 'Andika', sans-serif;
+      background: #1a1a2e;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 20px;
+    }
+
+    /* Header with series branding */
+    .header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .header h1 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #FFB347;
+      margin-bottom: 5px;
+    }
+    .header .level-badge {
+      display: inline-block;
+      background: #4CAF50;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
     }
 
     .controls {
@@ -41,7 +64,7 @@
     button {
       background: #667eea;
       color: white;
-      font-weight: 600;
+      font-weight: 700;
     }
     button:hover { background: #5a6fd6; }
     button:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -53,7 +76,7 @@
       text-align: center;
     }
 
-    /* Page container - 10x10cm square */
+    /* Page container - 10x10cm square at screen scale */
     .page-container {
       width: 400px;
       height: 400px;
@@ -62,12 +85,13 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
       display: flex;
       flex-direction: column;
+      background: white;
     }
 
-    /* IMAGE AREA - top 70% */
+    /* IMAGE AREA - top 65% */
     .image-area {
-      flex: 7;
-      background: #eee;
+      flex: 65;
+      background: #f0f0f0;
       position: relative;
       overflow: hidden;
     }
@@ -78,115 +102,157 @@
       object-fit: cover;
     }
 
-    /* TEXT AREA - bottom 30% */
+    /* TEXT AREA - bottom 35% with better typography */
     .text-area {
-      flex: 3;
-      background: #FFFFFF;
+      flex: 35;
+      background: #FFFEF5;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 20px;
-      border-top: 3px solid #FFB347;
+      padding: 15px 20px;
+      border-top: 4px solid #FFB347;
     }
 
     .text-area p {
-      font-size: 20px;
-      font-weight: 700;
-      color: #333;
+      font-family: 'Andika', sans-serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #222;
       text-align: center;
-      line-height: 1.3;
+      line-height: 1.4;
+      letter-spacing: 0.5px;
     }
 
-    /* COVER PAGE - title at bottom */
+    /* Highlighted words in text */
+    .text-area .sight-word {
+      color: #7B1FA2;
+      font-weight: 700;
+    }
+    .text-area .new-word {
+      color: #E65100;
+      font-weight: 700;
+    }
+
+    /* COVER PAGE */
     .page-cover .image-area {
-      flex: 7;
+      flex: 70;
     }
     .page-cover .text-area {
-      flex: 3;
-      background: #FFF8DC;
-      border-top: 4px solid #FF6B35;
+      flex: 30;
+      background: linear-gradient(to bottom, #FFF8DC, #FFE4B5);
+      border-top: 5px solid #FF6B35;
     }
     .page-cover .text-area p {
-      font-size: 24px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 26px;
       font-weight: 900;
-      color: #FF6B35;
+      color: #D84315;
+      text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
     }
 
-    /* WORD LIST PAGE - no image, just table */
+    /* WORD LIST PAGE - educational layout */
     .page-wordlist {
-      background: #FFFEF5;
-      padding: 15px;
+      background: linear-gradient(135deg, #FFFEF5 0%, #FFF8E1 100%);
+      padding: 20px;
       display: flex;
       flex-direction: column;
+      height: 100%;
     }
 
     .page-wordlist h2 {
       text-align: center;
-      font-size: 20px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 22px;
       font-weight: 800;
       color: #333;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #ddd;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #FFB347;
     }
 
-    /* Word sections */
     .word-section {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      flex: 1;
     }
 
     .word-section-label {
-      font-size: 9px;
-      font-weight: 800;
+      font-size: 11px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 5px;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .word-section-label::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
     }
 
     .word-section-label.sound-out { color: #1565C0; }
+    .word-section-label.sound-out::before { background: #1565C0; }
     .word-section-label.sight { color: #7B1FA2; }
+    .word-section-label.sight::before { background: #7B1FA2; }
     .word-section-label.new { color: #E65100; }
+    .word-section-label.new::before { background: #E65100; }
 
     .word-boxes {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px;
+      gap: 6px;
     }
 
     .word-box {
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 15px;
       font-weight: 700;
       border: 2px solid;
+      font-family: 'Andika', sans-serif;
     }
 
     .word-box.sound-out {
       background: #E3F2FD;
-      color: #1565C0;
-      border-color: #90CAF9;
+      color: #0D47A1;
+      border-color: #64B5F6;
     }
     .word-box.sight {
       background: #F3E5F5;
-      color: #7B1FA2;
-      border-color: #CE93D8;
+      color: #6A1B9A;
+      border-color: #BA68C8;
     }
     .word-box.new {
       background: #FFF3E0;
-      color: #E65100;
-      border-color: #FFCC80;
+      color: #BF360C;
+      border-color: #FFB74D;
+    }
+
+    .wordlist-footer {
+      text-align: center;
+      font-size: 10px;
+      color: #888;
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px dashed #ddd;
     }
 
     /* END PAGE */
+    .page-end .image-area {
+      flex: 70;
+    }
     .page-end .text-area {
-      background: #f5f5f5;
-      border-top: 3px solid #999;
+      flex: 30;
+      background: linear-gradient(to bottom, #E8F5E9, #C8E6C9);
+      border-top: 4px solid #4CAF50;
     }
     .page-end .text-area p {
-      font-size: 22px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 28px;
       font-weight: 800;
-      color: #666;
-      font-style: italic;
+      color: #2E7D32;
     }
 
     /* Thumbnails */
@@ -200,18 +266,18 @@
     }
 
     .thumb {
-      width: 45px;
-      height: 45px;
-      border-radius: 4px;
+      width: 50px;
+      height: 50px;
+      border-radius: 6px;
       overflow: hidden;
       cursor: pointer;
-      border: 2px solid transparent;
-      transition: border-color 0.2s, transform 0.2s;
+      border: 3px solid transparent;
+      transition: all 0.2s;
       position: relative;
       background: #ddd;
     }
-    .thumb:hover { transform: scale(1.1); }
-    .thumb.active { border-color: #667eea; }
+    .thumb:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .thumb.active { border-color: #FFB347; }
     .thumb img {
       width: 100%;
       height: 100%;
@@ -219,23 +285,39 @@
     }
     .thumb .num {
       position: absolute;
-      bottom: 1px;
-      right: 1px;
-      background: rgba(0,0,0,0.7);
+      bottom: 2px;
+      right: 2px;
+      background: rgba(0,0,0,0.8);
       color: white;
-      font-size: 8px;
-      padding: 1px 3px;
-      border-radius: 2px;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 4px;
+      border-radius: 3px;
     }
 
-    .hint {
+    /* Print info */
+    .print-info {
       color: #888;
+      font-size: 0.8rem;
+      margin-top: 20px;
+      text-align: center;
+      max-width: 400px;
+    }
+    .print-info strong { color: #FFB347; }
+
+    .hint {
+      color: #666;
       font-size: 0.85rem;
-      margin-top: 15px;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
+  <div class="header">
+    <h1>📚 Funbookies</h1>
+    <span class="level-badge" id="levelBadge">Level 1: CVC Words</span>
+  </div>
+
   <div class="controls">
     <select id="bookSelect" onchange="loadBook(this.value)">
       <option value="volcano_curated">Gus and the Volcano</option>
@@ -243,13 +325,18 @@
       <option value="jungle_zee">Zee and the Jungle</option>
     </select>
     <button onclick="prevPage()" id="prevBtn">← Prev</button>
-    <div class="page-info" id="pageInfo">Page 1 / 19</div>
+    <div class="page-info" id="pageInfo">Page 1 / 18</div>
     <button onclick="nextPage()" id="nextBtn">Next →</button>
   </div>
 
   <div class="page-container" id="pageContainer"></div>
 
   <div class="thumbnails" id="thumbnails"></div>
+
+  <div class="print-info">
+    <strong>Print Format:</strong> 10×10cm (Pixi style) · 24 pages · Saddle-stitch binding<br>
+    <strong>Reading Level:</strong> Beginning readers (ages 4-6) · CVC words + sight words
+  </div>
 
   <div class="hint">Use ← → arrow keys to navigate</div>
 
@@ -266,10 +353,25 @@
           currentPage = 0;
           renderPage();
           renderThumbnails();
+          updateLevelBadge();
         }
       } catch (e) {
         console.error('Failed to load book:', e);
       }
+    }
+
+    function updateLevelBadge() {
+      const badge = document.getElementById('levelBadge');
+      // Determine level from word list
+      const wl = currentBook.word_list || {};
+      const soundOut = wl.sound_out || [];
+
+      // Simple heuristic for level
+      let level = 'Level 1: CVC Words';
+      if (soundOut.some(w => w.length > 4)) {
+        level = 'Level 2: Blends';
+      }
+      badge.textContent = level;
     }
 
     function renderPage() {
@@ -279,7 +381,7 @@
       const container = document.getElementById('pageContainer');
       const imgPath = page.image ? `/books/images/${page.image}` : null;
 
-      // WORD LIST PAGE - each word in its own box
+      // WORD LIST PAGE
       if (page.type === 'wordlist') {
         const wl = currentBook.word_list;
         const makeWordBoxes = (words, cls) => words.map(w =>
@@ -287,20 +389,21 @@
         ).join('');
 
         container.innerHTML = `
-          <div class="page-wordlist" style="width:100%;height:100%;">
+          <div class="page-wordlist">
             <h2>Words to Know</h2>
             <div class="word-section">
-              <div class="word-section-label sound-out">Sound-out</div>
+              <div class="word-section-label sound-out">Sound Out These Words</div>
               <div class="word-boxes">${makeWordBoxes(wl.sound_out || [], 'sound-out')}</div>
             </div>
             <div class="word-section">
-              <div class="word-section-label sight">Sight</div>
+              <div class="word-section-label sight">Sight Words</div>
               <div class="word-boxes">${makeWordBoxes(wl.sight || [], 'sight')}</div>
             </div>
             <div class="word-section">
-              <div class="word-section-label new">New</div>
+              <div class="word-section-label new">New Words</div>
               <div class="word-boxes">${makeWordBoxes(wl.new || [], 'new')}</div>
             </div>
+            <div class="wordlist-footer">Practice these words before reading!</div>
           </div>
         `;
       }
@@ -309,7 +412,7 @@
         container.innerHTML = `
           <div class="page-cover" style="display:flex;flex-direction:column;width:100%;height:100%;">
             <div class="image-area">
-              <img src="${imgPath}" alt="">
+              <img src="${imgPath}" alt="${currentBook.title}">
             </div>
             <div class="text-area">
               <p>${page.text}</p>
@@ -330,7 +433,7 @@
           </div>
         `;
       }
-      // STORY PAGES - image top, text bottom
+      // STORY PAGES
       else {
         const displayText = page.text.replace(/\n/g, '<br>');
         container.innerHTML = `
@@ -362,10 +465,10 @@
       const container = document.getElementById('thumbnails');
       container.innerHTML = currentBook.pages.map((page, i) => {
         const imgPath = page.image ? `/books/images/${page.image}` : '';
-        const bgStyle = page.type === 'wordlist' ? 'background:#FFFEF5;' : '';
+        const bgStyle = page.type === 'wordlist' ? 'background:linear-gradient(135deg,#FFFEF5,#FFF8E1);' : '';
         return `
           <div class="thumb ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})" style="${bgStyle}">
-            ${imgPath ? `<img src="${imgPath}" alt="">` : '<span style="font-size:8px;color:#666;">LIST</span>'}
+            ${imgPath ? `<img src="${imgPath}" alt="">` : '<span style="font-size:8px;color:#666;display:flex;align-items:center;justify-content:center;height:100%;">📝</span>'}
             <span class="num">${i + 1}</span>
           </div>
         `;

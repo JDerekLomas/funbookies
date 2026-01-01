@@ -1,0 +1,178 @@
+{
+  "$schema": "book_template_v1",
+  "metadata": {
+    "title": "",
+    "series": "Funbookies",
+    "reading_level": "1",
+    "phonics_focus": "CVC short vowels",
+    "word_count": 0,
+    "page_count": 24
+  },
+  "character": {
+    "name": "",
+    "description": "",
+    "visual_prompt": ""
+  },
+  "word_list": {
+    "decodable": {
+      "description": "Words that follow taught phonics patterns",
+      "words": []
+    },
+    "sight": {
+      "description": "High-frequency words (the, said, was, to, I, a)",
+      "words": []
+    },
+    "story": {
+      "description": "Topic-specific vocabulary introduced with picture support",
+      "words": []
+    }
+  },
+  "design": {
+    "style": "children's book illustration, simple flat cartoon style, bold black outlines, bright saturated colors, clean digital art",
+    "text_font": "Andika",
+    "text_size": "22pt",
+    "text_position": "bottom",
+    "text_background": "rgba(255, 255, 255, 0.95)"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "layout": "full_bleed",
+      "text": "",
+      "image_prompt": "Title scene with character, inviting and colorful",
+      "image": null
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "layout": "text_only",
+      "sections": {
+        "title": "Words to Know",
+        "sound_out": "Practice sounding out these words:",
+        "sight": "Sight words:",
+        "new": "New words:"
+      }
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "layout": "image_top_text_bottom",
+      "text": "",
+      "image_prompt": "",
+      "image": null,
+      "story_beat": "introduction"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "layout": "image_top_text_bottom",
+      "text": "",
+      "image_prompt": "",
+      "image": null,
+      "story_beat": "situation"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "layout": "image_top_text_bottom",
+      "text": "",
+      "image_prompt": "",
+      "image": null,
+      "story_beat": "action"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "layout": "image_top_text_bottom",
+      "text": "",
+      "image_prompt": "",
+      "image": null,
+      "story_beat": "discovery"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "layout": "full_spread",
+      "text": "",
+      "image_prompt": "",
+      "image": null,
+      "story_beat": "rising_tension"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "layout": "full_spread",
+      "text": "",
+      "image_prompt": "",
+      "image": null,
+      "story_beat": "peak_moment"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "layout": "image_top_text_bottom",
+      "text": "",
+      "image_prompt": "",
+      "image": null,
+      "story_beat": "response"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "layout": "image_top_text_bottom",
+      "text": "",
+      "image_prompt": "",
+      "image": null,
+      "story_beat": "resolution_begins"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "layout": "image_top_text_bottom",
+      "text": "",
+      "image_prompt": "",
+      "image": null,
+      "story_beat": "resolution"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "layout": "image_top_text_bottom",
+      "text": "",
+      "image_prompt": "",
+      "image": null,
+      "story_beat": "ending"
+    },
+    {
+      "page": 13,
+      "type": "end",
+      "layout": "centered",
+      "text": "The End",
+      "image_prompt": "Happy character, warm feeling, satisfying conclusion",
+      "image": null
+    },
+    {
+      "page": 14,
+      "type": "back_cover",
+      "layout": "info",
+      "elements": {
+        "series_info": "Funbookies - Books for Beginning Readers",
+        "level_info": "Reading Level 1: CVC Words",
+        "website": "funbookies.com"
+      }
+    }
+  ],
+  "story_beats": {
+    "introduction": "Meet character, establish setting",
+    "situation": "What does character want or notice?",
+    "action": "Character does something",
+    "discovery": "Something interesting happens",
+    "rising_tension": "Things get exciting or challenging",
+    "peak_moment": "Most dramatic point in the story",
+    "response": "Character reacts to the situation",
+    "resolution_begins": "Working toward solution",
+    "resolution": "Problem solved",
+    "ending": "Emotional conclusion, lesson learned"
+  }
+}

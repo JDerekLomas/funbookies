@@ -1,0 +1,38 @@
+{
+  "config": {
+    "name": "quick_test",
+    "character_name": "Gus",
+    "character_description": "Gus the gecko: a small bright lime-green gecko with:\n- Round head with two large friendly black eyes with white highlights\n- Small smile with no visible teeth\n- Four stubby legs with tiny toe pads\n- Long curled tail with darker green stripes\n- Belly is lighter yellow-green\n- About 6 inches long, cute and cartoonish\n- Stands upright on hind legs like a cartoon character",
+    "style_prompt": "children's book illustration, simple flat cartoon style,\nbold black outlines, minimal shading, bright saturated colors,\nsolid color backgrounds, clean digital art, cute and friendly,\nage-appropriate for 6-7 year olds, NO TEXT IN IMAGE",
+    "test_scenes": [
+      "standing proudly on a volcanic crater rim, excited expression"
+    ],
+    "reference_image_url": null
+  },
+  "timestamp": "20260101_134639",
+  "results": [
+    {
+      "provider": "mulerouter",
+      "model": "nano-banana-pro",
+      "scene": "quick_test_mulerouter_scene01",
+      "prompt": "Gus the gecko: a small bright lime-green gecko with:\n- Round head with two large friendly black eyes with white highlights\n- Small smile with no visible teeth\n- Four stubby legs with tiny toe pads\n- Long curled tail with darker green stripes\n- Belly is lighter yellow-green\n- About 6 inches long, cute and cartoonish\n- Stands upright on hind legs like a cartoon character\n\nSCENE: Gus standing proudly on a volcanic crater rim, excited expression\n\nSTYLE: children's book illustration, simple flat cartoon style,\nbold black outlines, minimal shading, bright saturated colors,\nsolid color backgrounds, clean digital art, cute and friendly,\nage-appropriate for 6-7 year olds, NO TEXT IN IMAGE",
+      "image_path": null,
+      "generation_time_ms": 68,
+      "cost_estimate": 0,
+      "success": false,
+      "error": "Using SOCKS proxy, but the 'socksio' package is not installed. Make sure to install httpx using `pip install httpx[socks]`.",
+      "metadata": null
+    }
+  ],
+  "summary": {
+    "mulerouter/nano-banana-pro": {
+      "total": 1,
+      "success": 0,
+      "failed": 1,
+      "total_time_ms": 0,
+      "total_cost": 0,
+      "avg_time_ms": 0,
+      "avg_cost": 0
+    }
+  }
+}

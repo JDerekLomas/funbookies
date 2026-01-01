@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Consistency Experiment</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    h1 { text-align: center; margin-bottom: 10px; color: #fff; }
+    .subtitle { text-align: center; color: #888; margin-bottom: 30px; }
+
+    .section {
+      margin-bottom: 40px;
+      background: #16213e;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .section h2 {
+      color: #e94560;
+      margin-bottom: 5px;
+    }
+    .section .info {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .image-card {
+      background: #0f0f23;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .image-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      background: #000;
+    }
+    .image-card .caption {
+      padding: 10px;
+      font-size: 13px;
+      color: #aaa;
+    }
+    .image-card .caption strong {
+      color: #fff;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .hero-section img {
+      max-width: 300px;
+      border-radius: 12px;
+      border: 3px solid #e94560;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    @media (max-width: 800px) {
+      .comparison { grid-template-columns: 1fr; }
+    }
+
+    .rating {
+      display: inline-block;
+      background: #e94560;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+    .rating.good { background: #4ade80; }
+    .rating.bad { background: #f87171; }
+    .rating.ok { background: #fbbf24; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+    }
+    th { color: #e94560; }
+
+    .status-ok { color: #4ade80; }
+    .status-fail { color: #f87171; }
+  </style>
+</head>
+<body>
+  <h1>Character Consistency Experiment</h1>
+  <p class="subtitle">Testing Gus the Gecko across different AI image providers</p>
+
+  <!-- Hero Reference -->
+  <div class="section hero-section">
+    <h2>Hero Reference Image</h2>
+    <p class="info">Generated first, used as reference for Kontext tests</p>
+    <img src="images/gus_hero.png" alt="Gus hero reference">
+  </div>
+
+  <!-- Comparison -->
+  <div class="comparison">
+    <!-- Flux Schnell -->
+    <div class="section">
+      <h2>Flux Schnell <span class="rating good">Text Only</span></h2>
+      <p class="info">fal.ai · ~$0.003/image · ~1 second</p>
+      <div class="image-grid">
+        <div class="image-card">
+          <img src="images/gus_fal_schnell_scene01.png" alt="Scene 1">
+          <div class="caption">
+            <strong>Scene 1: Volcano Hill</strong>
+            Standing proudly with volcano in background
+          </div>
+        </div>
+        <div class="image-card">
+          <img src="images/gus_fal_schnell_scene02.png" alt="Scene 2">
+          <div class="caption">
+            <strong>Scene 2: Running Up</strong>
+            Running eagerly up grassy slope
+          </div>
+        </div>
+        <div class="image-card">
+          <img src="images/gus_fal_schnell_scene03.png" alt="Scene 3">
+          <div class="caption">
+            <strong>Scene 3: Crater Edge</strong>
+            Peeking over volcanic crater
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flux Kontext -->
+    <div class="section">
+      <h2>Flux Kontext <span class="rating bad">Reference Failed</span></h2>
+      <p class="info">fal.ai · $0.04/image · ~3 seconds</p>
+      <div class="image-grid">
+        <div class="image-card">
+          <img src="images/gus_fal_kontext_scene01.png" alt="Scene 1">
+          <div class="caption">
+            <strong>Scene 1: Volcano Hill</strong>
+            Black image - API issue
+          </div>
+        </div>
+        <div class="image-card">
+          <img src="images/gus_fal_kontext_scene02.png" alt="Scene 2">
+          <div class="caption">
+            <strong>Scene 2: Running Up</strong>
+            Black image - API issue
+          </div>
+        </div>
+        <div class="image-card">
+          <img src="images/gus_fal_kontext_scene03.png" alt="Scene 3">
+          <div class="caption">
+            <strong>Scene 3: Crater Edge</strong>
+            Black image - API issue
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Table -->
+  <div class="section">
+    <h2>Results Summary</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Provider/Model</th>
+          <th>Method</th>
+          <th>Success</th>
+          <th>Avg Time</th>
+          <th>Cost/img</th>
+          <th>Consistency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>fal.ai / Flux Schnell</td>
+          <td>Detailed text prompt</td>
+          <td class="status-ok">3/3 ✓</td>
+          <td>~1s</td>
+          <td>~$0.003</td>
+          <td>★★★★☆ Good!</td>
+        </tr>
+        <tr>
+          <td>fal.ai / Flux Kontext</td>
+          <td>Character reference</td>
+          <td class="status-fail">0/3 ✗</td>
+          <td>~3s</td>
+          <td>$0.04</td>
+          <td>Failed</td>
+        </tr>
+        <tr>
+          <td>MuleRouter / Nano Banana</td>
+          <td>Text prompt</td>
+          <td>Not tested</td>
+          <td>-</td>
+          <td>~$0.02</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Replicate / Ideogram</td>
+          <td>Character reference</td>
+          <td>Not tested</td>
+          <td>-</td>
+          <td>$0.08</td>
+          <td>-</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Conclusions -->
+  <div class="section">
+    <h2>Conclusions</h2>
+    <ul style="margin-left: 20px; line-height: 1.8;">
+      <li><strong>Flux Schnell with detailed prompts works well</strong> for simple cartoon characters</li>
+      <li>Character consistency is achievable without expensive reference-based APIs</li>
+      <li>Key: Include full character description + consistent style prompt in EVERY generation</li>
+      <li>Kontext needs debugging - possibly URL expiration or content filter issue</li>
+      <li>Next: Test with MuleRouter and Ideogram for comparison</li>
+    </ul>
+  </div>
+
+  <script>
+    // Auto-reload results if they change
+    // Could add JSON loading here for dynamic updates
+  </script>
+</body>
+</html>

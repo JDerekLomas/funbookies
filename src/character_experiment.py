@@ -31,6 +31,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# API keys should be set in .env file
+# See .env.example for required keys:
+# - REPLICATE_API_TOKEN
+# - FAL_KEY
+# - MULEROUTER_API_KEY
+
 # Experiment output directory
 EXPERIMENT_DIR = Path(__file__).parent.parent / "experiments"
 EXPERIMENT_DIR.mkdir(exist_ok=True)

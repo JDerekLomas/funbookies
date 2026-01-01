@@ -1,0 +1,59 @@
+{
+  "timestamp": "20260101_143334",
+  "character": "Gus gecko",
+  "scenes": [
+    "standing proudly on a rocky hill with smoking volcano in background",
+    "running eagerly up a grassy slope toward distant volcano",
+    "peeking over edge of volcanic crater with wide curious eyes"
+  ],
+  "results": [
+    {
+      "provider": "fal",
+      "model": "flux-schnell",
+      "scene": 1,
+      "time_ms": 125606,
+      "success": true,
+      "file": "gus_fal_schnell_scene01.png"
+    },
+    {
+      "provider": "fal",
+      "model": "flux-schnell",
+      "scene": 2,
+      "time_ms": 668,
+      "success": true,
+      "file": "gus_fal_schnell_scene02.png"
+    },
+    {
+      "provider": "fal",
+      "model": "flux-schnell",
+      "scene": 3,
+      "time_ms": 627,
+      "success": true,
+      "file": "gus_fal_schnell_scene03.png"
+    },
+    {
+      "provider": "fal",
+      "model": "flux-kontext",
+      "scene": 1,
+      "time_ms": 4218,
+      "success": true,
+      "file": "gus_fal_kontext_scene01.png"
+    },
+    {
+      "provider": "fal",
+      "model": "flux-kontext",
+      "scene": 2,
+      "time_ms": 2420,
+      "success": true,
+      "file": "gus_fal_kontext_scene02.png"
+    },
+    {
+      "provider": "fal",
+      "model": "flux-kontext",
+      "scene": 3,
+      "time_ms": 3298,
+      "success": true,
+      "file": "gus_fal_kontext_scene03.png"
+    }
+  ]
+}

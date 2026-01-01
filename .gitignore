@@ -8,3 +8,4 @@ venv/
 dist/
 build/
 web/public/books/images/test_*.png
+.env.keys

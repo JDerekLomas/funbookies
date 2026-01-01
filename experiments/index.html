@@ -120,12 +120,48 @@
     <img src="images/gus_hero.png" alt="Gus hero reference">
   </div>
 
+  <!-- Replicate Results -->
+  <div class="section">
+    <h2>Replicate Flux Schnell <span class="rating good">WINNER - Text Only</span></h2>
+    <p class="info">Replicate · ~$0.003/image · ~5 seconds · Excellent consistency!</p>
+    <div class="image-grid">
+      <div class="image-card">
+        <img src="images/gus_replicate_hero.png" alt="Hero">
+        <div class="caption">
+          <strong>Hero Reference</strong>
+          Front-facing, clear character design
+        </div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_replicate_scene01.png" alt="Scene 1">
+        <div class="caption">
+          <strong>Scene 1: Volcano Hill</strong>
+          Standing proudly with volcano
+        </div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_replicate_scene02.png" alt="Scene 2">
+        <div class="caption">
+          <strong>Scene 2: Running Up</strong>
+          Running up grassy slope
+        </div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_replicate_scene03.png" alt="Scene 3">
+        <div class="caption">
+          <strong>Scene 3: Crater Edge</strong>
+          Peeking over volcanic crater
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Comparison -->
   <div class="comparison">
     <!-- Flux Schnell -->
     <div class="section">
-      <h2>Flux Schnell <span class="rating good">Text Only</span></h2>
-      <p class="info">fal.ai · ~$0.003/image · ~1 second</p>
+      <h2>fal.ai Flux Schnell <span class="rating ok">Text Only</span></h2>
+      <p class="info">fal.ai · ~$0.003/image · ~1 second (balance exhausted)</p>
       <div class="image-grid">
         <div class="image-card">
           <img src="images/gus_fal_schnell_scene01.png" alt="Scene 1">
@@ -196,13 +232,21 @@
         </tr>
       </thead>
       <tbody>
+        <tr style="background: #1a3a1a;">
+          <td><strong>Replicate / Flux Schnell</strong></td>
+          <td>Detailed text prompt</td>
+          <td class="status-ok">4/4 ✓</td>
+          <td>~5s</td>
+          <td>~$0.003</td>
+          <td>★★★★★ Excellent!</td>
+        </tr>
         <tr>
           <td>fal.ai / Flux Schnell</td>
           <td>Detailed text prompt</td>
           <td class="status-ok">3/3 ✓</td>
           <td>~1s</td>
           <td>~$0.003</td>
-          <td>★★★★☆ Good!</td>
+          <td>★★★★☆ Good</td>
         </tr>
         <tr>
           <td>fal.ai / Flux Kontext</td>
@@ -210,20 +254,12 @@
           <td class="status-fail">0/3 ✗</td>
           <td>~3s</td>
           <td>$0.04</td>
-          <td>Failed</td>
-        </tr>
-        <tr>
-          <td>MuleRouter / Nano Banana</td>
-          <td>Text prompt</td>
-          <td>Not tested</td>
-          <td>-</td>
-          <td>~$0.02</td>
-          <td>-</td>
+          <td>Failed (balance issue)</td>
         </tr>
         <tr>
           <td>Replicate / Ideogram</td>
           <td>Character reference</td>
-          <td>Not tested</td>
+          <td>Not tested yet</td>
           <td>-</td>
           <td>$0.08</td>
           <td>-</td>

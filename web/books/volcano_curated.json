@@ -35,91 +35,85 @@
       "page": 5,
       "type": "story",
       "text": "It was a crater!",
-      "image": "volcano_page05.png"
+      "image": "volcano_page06.png"
     },
     {
       "page": 6,
-      "type": "story",
-      "text": "Deep in the crater...",
-      "image": "volcano_page07.png"
-    },
-    {
-      "page": 7,
       "type": "story",
       "text": "Red! Hot! Lava!",
       "image": "volcano_page08.png"
     },
     {
-      "page": 8,
+      "page": 7,
       "type": "story",
       "text": "\"Wow!\" said Gus.",
       "image": "volcano_page09.png"
     },
     {
-      "page": 9,
+      "page": 8,
       "type": "story",
       "text": "The magma rose up.",
       "image": "volcano_page10.png"
     },
     {
-      "page": 10,
+      "page": 9,
       "type": "story",
       "text": "POP! HISS! CRACK!",
       "image": "volcano_page11.png"
     },
     {
-      "page": 11,
+      "page": 10,
       "type": "story",
       "text": "\"Run!\" said Gus.",
       "image": "volcano_page12.png"
     },
     {
-      "page": 12,
+      "page": 11,
       "type": "story",
       "text": "Run, Gus, run!",
       "image": "volcano_page13.png"
     },
     {
-      "page": 13,
+      "page": 12,
       "type": "story",
       "text": "Drip, drip, drip.",
       "image": "volcano_page14.png"
     },
     {
-      "page": 14,
+      "page": 13,
       "type": "story",
       "text": "Hot! Hot! Hot!",
+      "image": "volcano_page15.png"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "Gus got safe.",
       "image": "volcano_page17.png"
     },
     {
       "page": 15,
       "type": "story",
-      "text": "Gus got safe.",
-      "image": "volcano_page18.png"
-    },
-    {
-      "page": 16,
-      "type": "story",
       "text": "\"I saw it all!\" said Gus.",
       "image": "volcano_page20.png"
     },
     {
-      "page": 17,
+      "page": 16,
       "type": "story",
       "text": "\"I was brave!\" said Gus.",
+      "image": "volcano_page21.png"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "Gus went home happy.",
       "image": "volcano_page22.png"
     },
     {
       "page": 18,
-      "type": "story",
-      "text": "Gus went home happy.",
-      "image": "volcano_page23.png"
-    },
-    {
-      "page": 19,
       "type": "end",
       "text": "The End",
-      "image": "volcano_page24.png"
+      "image": "volcano_page23.png"
     }
   ]
 }

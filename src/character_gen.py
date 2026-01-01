@@ -100,32 +100,79 @@ def get_character_for_book(book_title: str) -> str:
         return "gus_gecko"  # Default
 
 
-# Page-specific prompts for volcano book with consistent character
+# Page-specific prompts for volcano book - MIX of character shots and POV shots
+# POV shots show what the character SEES (no character in frame)
+# Character shots show the character doing something
 VOLCANO_PAGES = [
     {"page": 1, "type": "cover", "scene": "standing proudly on a rocky hill with a smoking volcano in the background, looking excited and brave", "include_char": True},
     {"page": 2, "type": "wordlist", "scene": "decorative border with small volcanoes, lava drops, and tropical plants, no characters", "include_char": False},
     {"page": 3, "type": "story", "scene": "running eagerly up a grassy hill toward a distant volcano, tail curled with excitement", "include_char": True},
-    {"page": 4, "type": "story", "scene": "climbing a steep rocky slope, looking determined, panting slightly", "include_char": True},
-    {"page": 5, "type": "story", "scene": "peeking over the edge of a volcanic crater, eyes wide with wonder", "include_char": True},
-    {"page": 6, "type": "story", "scene": "looking down into a big round crater hole, steam rising", "include_char": True},
-    {"page": 7, "type": "story", "scene": "staring at a glowing red crater far below, orange glow reflecting on face", "include_char": True},
-    {"page": 8, "type": "story", "scene": "seeing bright red bubbling lava for the first time, jaw dropped in amazement", "include_char": True},
+    {"page": 4, "type": "story", "scene": "POV looking up at a tall steep volcanic mountain with rocky path ahead, first-person perspective", "include_char": False},
+    {"page": 5, "type": "story", "scene": "peeking over the edge of a volcanic crater, eyes wide with wonder, seen from behind", "include_char": True},
+    {"page": 6, "type": "story", "scene": "POV looking down into a deep dark volcanic crater from the rim, steam rising up, dizzying depth", "include_char": False},
+    {"page": 7, "type": "story", "scene": "POV view deep into crater showing glowing red magma far below, orange glow, heat waves", "include_char": False},
+    {"page": 8, "type": "story", "scene": "POV close view of bright red bubbling lava, bubbles popping, intense orange-red glow", "include_char": False},
     {"page": 9, "type": "story", "scene": "clapping tiny hands together with joy, big smile, standing at crater edge", "include_char": True},
-    {"page": 10, "type": "story", "scene": "watching thick red magma slowly rising up in the crater", "include_char": True},
-    {"page": 11, "type": "story", "scene": "jumping back startled as sparks and steam burst from the crater, POP sound effect shown", "include_char": True},
-    {"page": 12, "type": "story", "scene": "turning around quickly with alarmed expression, about to run", "include_char": True},
+    {"page": 10, "type": "story", "scene": "POV looking at thick red magma slowly rising and bubbling up toward the viewer", "include_char": False},
+    {"page": 11, "type": "story", "scene": "POV sparks and steam bursting upward from crater, bright orange explosions, dramatic", "include_char": False},
+    {"page": 12, "type": "story", "scene": "turning around quickly with alarmed expression, about to run away", "include_char": True},
     {"page": 13, "type": "story", "scene": "running fast down the volcano slope, legs blurred with speed, determined face", "include_char": True},
-    {"page": 14, "type": "story", "scene": "in distance, lava dripping slowly over the crater rim behind", "include_char": True},
-    {"page": 15, "type": "story", "scene": "close up of red lava drops hitting black rock, sizzling", "include_char": False},
+    {"page": 14, "type": "story", "scene": "POV looking back up the slope as lava drips slowly over the crater rim above", "include_char": False},
+    {"page": 15, "type": "story", "scene": "POV close up of red lava drops hitting black volcanic rock, sizzling steam", "include_char": False},
     {"page": 16, "type": "story", "scene": "hopping away from a wave of heat, wiping brow, looking relieved", "include_char": True},
-    {"page": 17, "type": "story", "scene": "hiding safely behind a large boulder, catching breath, volcano in background", "include_char": True},
-    {"page": 18, "type": "story", "scene": "watching from safe distance as orange lava flows down the mountainside", "include_char": True},
-    {"page": 19, "type": "story", "scene": "covering ears as the volcano rumbles loudly, sound waves shown", "include_char": True},
-    {"page": 20, "type": "story", "scene": "standing tall and proud, chest puffed out, big grin", "include_char": True},
-    {"page": 21, "type": "story", "scene": "shaking head 'no' with one hand up, sensible expression", "include_char": True},
-    {"page": 22, "type": "story", "scene": "puffing out chest proudly, hands on hips, confident smile", "include_char": True},
-    {"page": 23, "type": "story", "scene": "walking happily toward a sunset, tail swishing, content expression", "include_char": True},
-    {"page": 24, "type": "copyright", "scene": "small waving goodbye in corner, simple background", "include_char": True},
+    {"page": 17, "type": "story", "scene": "hiding safely behind a large boulder, peeking out, volcano erupting in background", "include_char": True},
+    {"page": 18, "type": "story", "scene": "POV safe distance view of orange lava flowing down the mountainside, beautiful but dangerous", "include_char": False},
+    {"page": 19, "type": "story", "scene": "standing tall and proud on a rock, chest puffed out, big grin, volcano behind", "include_char": True},
+    {"page": 20, "type": "story", "scene": "proudly telling story with animated gestures, eyes bright with excitement", "include_char": True},
+    {"page": 21, "type": "story", "scene": "puffing out chest proudly, hands on hips, confident heroic pose", "include_char": True},
+    {"page": 22, "type": "story", "scene": "walking happily toward a sunset with volcano silhouette behind, content expression", "include_char": True},
+    {"page": 23, "type": "copyright", "scene": "small waving goodbye in corner, simple background", "include_char": True},
+]
+
+
+# Page-specific prompts for castle book - Rita and Rico rats
+CASTLE_PAGES = [
+    {"page": 1, "type": "cover", "scene": "standing proudly in front of a grand medieval castle entrance, looking mischievous and excited", "include_char": True},
+    {"page": 2, "type": "wordlist", "scene": "decorative border with castle elements, crowns, cheese, medieval flags", "include_char": False},
+    {"page": 3, "type": "story", "scene": "sneaking through a crack in the castle wall, tails disappearing inside", "include_char": True},
+    {"page": 4, "type": "story", "scene": "POV looking up at enormous castle hallway with tall stone columns and red carpet, grand and intimidating", "include_char": False},
+    {"page": 5, "type": "story", "scene": "whispering to each other excitedly, Rita pointing toward the kitchen", "include_char": True},
+    {"page": 6, "type": "story", "scene": "tiptoeing past a sleeping king on his throne, trying to be quiet", "include_char": True},
+    {"page": 7, "type": "story", "scene": "tiptoeing past the queen who is reading a book, almost caught", "include_char": True},
+    {"page": 8, "type": "story", "scene": "POV close-up of a beautiful jar of red jam on a kitchen shelf, glowing enticingly", "include_char": False},
+    {"page": 9, "type": "story", "scene": "POV dramatic view of a large fluffy orange castle cat with piercing eyes blocking the path", "include_char": False},
+    {"page": 10, "type": "story", "scene": "Rico shouting with alarm, pulling Rita by the paw to run", "include_char": True},
+    {"page": 11, "type": "story", "scene": "running at full speed down a castle corridor, legs blurred with motion", "include_char": True},
+    {"page": 12, "type": "story", "scene": "POV looking back at the cat chasing from behind, claws out, dramatic angle", "include_char": False},
+    {"page": 13, "type": "story", "scene": "Rita diving headfirst into a fancy teacup to hide, only tail visible", "include_char": True},
+    {"page": 14, "type": "story", "scene": "Rico hiding under a fancy hat on a table, peeking out nervously", "include_char": True},
+    {"page": 15, "type": "story", "scene": "POV the cat sitting and waiting, looking around confused, can't find the rats", "include_char": False},
+    {"page": 16, "type": "story", "scene": "Rita and Rico high-fiving each other, relieved and giggling", "include_char": True},
+    {"page": 17, "type": "story", "scene": "happily eating jam together from the jar, jam on their faces, satisfied", "include_char": True},
+    {"page": 18, "type": "copyright", "scene": "waving goodbye with jam-covered paws, happy ending", "include_char": True},
+]
+
+
+# Page-specific prompts for jungle book - Zee the sloth
+JUNGLE_PAGES = [
+    {"page": 1, "type": "cover", "scene": "hanging happily from a jungle vine with lush green leaves and colorful flowers around", "include_char": True},
+    {"page": 2, "type": "wordlist", "scene": "decorative jungle border with vines, leaves, flowers, butterflies, no characters", "include_char": False},
+    {"page": 3, "type": "story", "scene": "slowly waking up in a tree, stretching long arms, gentle smile", "include_char": True},
+    {"page": 4, "type": "story", "scene": "POV looking up through jungle canopy at the bright sun peeking through leaves", "include_char": False},
+    {"page": 5, "type": "story", "scene": "grinning happily at the jungle morning, arms stretched wide", "include_char": True},
+    {"page": 6, "type": "story", "scene": "hanging from a thick vine with both arms, swinging gently", "include_char": True},
+    {"page": 7, "type": "story", "scene": "hanging peacefully from vines, forest canopy all around", "include_char": True},
+    {"page": 8, "type": "story", "scene": "POV swinging rapidly through jungle canopy, vines and leaves blurring past", "include_char": False},
+    {"page": 9, "type": "story", "scene": "looking curious at a colorful tropical bird perched nearby", "include_char": True},
+    {"page": 10, "type": "story", "scene": "POV close-up of a beautiful tropical bird with bright feathers and friendly eyes", "include_char": False},
+    {"page": 11, "type": "story", "scene": "high-fiving the bird happily, both smiling", "include_char": True},
+    {"page": 12, "type": "story", "scene": "running fast through jungle with bird flying beside", "include_char": True},
+    {"page": 13, "type": "story", "scene": "climbing quickly up a tall tree trunk, bird above", "include_char": True},
+    {"page": 14, "type": "story", "scene": "swinging down vines rapidly, moving with surprising speed", "include_char": True},
+    {"page": 15, "type": "story", "scene": "POV colorful jungle flowers, fruits, and canopy leaves from high vantage point", "include_char": False},
+    {"page": 16, "type": "story", "scene": "sitting contentedly on a branch with bird friend, sunset light", "include_char": True},
+    {"page": 17, "type": "story", "scene": "smiling peacefully at sunset, surrounded by jungle beauty", "include_char": True},
+    {"page": 18, "type": "copyright", "scene": "waving goodbye from a tree branch, peaceful expression", "include_char": True},
 ]
 
 

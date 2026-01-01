@@ -1,0 +1,119 @@
+{
+  "title": "Zee and the Jungle",
+  "character": "Zee is a small gray sloth with long arms and a gentle smile. Zee moves slowly but happily through the jungle.",
+  "word_list": {
+    "sound_out": ["sun", "fun", "slow", "fast", "win", "hang", "tree", "see", "way", "day"],
+    "sight": ["the", "said", "to", "I", "was", "a", "in", "go"],
+    "new": ["Zee", "sloth", "jungle", "vine", "friend"]
+  },
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Zee and the Jungle",
+      "image": "jungle_page01.png"
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know",
+      "image": null
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Zee woke up slow.",
+      "image": "jungle_page03.png"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "The sun was up.",
+      "image": "jungle_page04.png"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "\"It is a fun day!\" said Zee.",
+      "image": "jungle_page05.png"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "Zee hung from a vine.",
+      "image": "jungle_page06.png"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "Hang, hang, hang.",
+      "image": "jungle_page07.png"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "POV swinging through the jungle canopy, vines and trees rushing past",
+      "image": "jungle_page08.png"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "Zee saw a bird.",
+      "image": "jungle_page09.png"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "\"Hi!\" said the bird.",
+      "image": "jungle_page10.png"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "\"You are my friend!\" said Zee.",
+      "image": "jungle_page11.png"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "They ran fast.",
+      "image": "jungle_page12.png"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "They went up trees.",
+      "image": "jungle_page13.png"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "They went down vines.",
+      "image": "jungle_page14.png"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "POV colorful jungle flowers and fruits visible from canopy height",
+      "image": "jungle_page15.png"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "Zee and the bird sat down.",
+      "image": "jungle_page16.png"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "\"This is the best day!\" said Zee.",
+      "image": "jungle_page17.png"
+    },
+    {
+      "page": 18,
+      "type": "end",
+      "text": "The End",
+      "image": "jungle_page18.png"
+    }
+  ]
+}

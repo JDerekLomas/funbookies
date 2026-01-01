@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-01-01T16:53:35.027303",
+  "reference": "/Users/dereklomas/minibooks/experiments/images/gus_wan26_reference.png",
+  "results": {
+    "kontext": [],
+    "flux_dev": [
+      "/Users/dereklomas/minibooks/experiments/images/gus_v2_fluxdev_scene01_volcano.png",
+      "/Users/dereklomas/minibooks/experiments/images/gus_v2_fluxdev_scene02_running.png",
+      "/Users/dereklomas/minibooks/experiments/images/gus_v2_fluxdev_scene03_crater.png"
+    ],
+    "flux_schnell": [
+      "/Users/dereklomas/minibooks/experiments/images/gus_v2_schnell_scene01_volcano.png",
+      "/Users/dereklomas/minibooks/experiments/images/gus_v2_schnell_scene02_running.png",
+      "/Users/dereklomas/minibooks/experiments/images/gus_v2_schnell_scene03_crater.png"
+    ]
+  }
+}

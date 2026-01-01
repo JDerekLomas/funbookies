@@ -78,12 +78,75 @@
   <p class="subtitle">Testing Gus the Gecko across different AI models · January 2026</p>
 
   <div class="nav">
+    <a href="#experiment-v2">v2 Experiment</a> |
     <a href="#flux-kontext">Kontext</a> |
     <a href="#flux-dev">Flux Dev</a> |
     <a href="#flux-schnell">Flux Schnell</a> |
     <a href="#ideogram">Ideogram</a> |
     <a href="#mulerouter">MuleRouter</a> |
     <a href="#results">Results</a>
+  </div>
+
+  <!-- Experiment v2: Using Wan2.6 Hero as Reference -->
+  <div class="section" id="experiment-v2" style="border: 2px solid #e94560;">
+    <h2>Experiment v2: Using Wan2.6 Hero as Reference <span class="rating excellent">NEW</span></h2>
+    <p class="info">Testing consistency with the same reference image across Kontext (image-ref) vs Flux Dev/Schnell (text-only)</p>
+
+    <h3 style="color: #e94560; margin: 20px 0 10px;">Reference Image</h3>
+    <div class="image-grid" style="grid-template-columns: 1fr;">
+      <div class="image-card" style="max-width: 300px;">
+        <img src="images/gus_wan26_reference.png" alt="Reference">
+        <div class="caption"><strong>Wan2.6 Hero</strong>Used as reference for Kontext</div>
+      </div>
+    </div>
+
+    <h3 style="color: #e94560; margin: 20px 0 10px;">Flux Kontext (with image reference)</h3>
+    <div class="image-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="image-card">
+        <img src="images/gus_v2_kontext_scene01_volcano.png" alt="Kontext Scene 1">
+        <div class="caption"><strong>Scene 1</strong>Volcano hill</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_v2_kontext_scene02_running.png" alt="Kontext Scene 2">
+        <div class="caption"><strong>Scene 2</strong>Running up slope</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_v2_kontext_scene03_crater.png" alt="Kontext Scene 3">
+        <div class="caption"><strong>Scene 3</strong>Crater edge</div>
+      </div>
+    </div>
+
+    <h3 style="color: #e94560; margin: 20px 0 10px;">Flux Dev (text prompt only)</h3>
+    <div class="image-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="image-card">
+        <img src="images/gus_v2_fluxdev_scene01_volcano.png" alt="FluxDev Scene 1">
+        <div class="caption"><strong>Scene 1</strong>Volcano hill</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_v2_fluxdev_scene02_running.png" alt="FluxDev Scene 2">
+        <div class="caption"><strong>Scene 2</strong>Running up slope</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_v2_fluxdev_scene03_crater.png" alt="FluxDev Scene 3">
+        <div class="caption"><strong>Scene 3</strong>Crater edge</div>
+      </div>
+    </div>
+
+    <h3 style="color: #e94560; margin: 20px 0 10px;">Flux Schnell (text prompt only)</h3>
+    <div class="image-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="image-card">
+        <img src="images/gus_v2_schnell_scene01_volcano.png" alt="Schnell Scene 1">
+        <div class="caption"><strong>Scene 1</strong>Volcano hill</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_v2_schnell_scene02_running.png" alt="Schnell Scene 2">
+        <div class="caption"><strong>Scene 2</strong>Running up slope</div>
+      </div>
+      <div class="image-card">
+        <img src="images/gus_v2_schnell_scene03_crater.png" alt="Schnell Scene 3">
+        <div class="caption"><strong>Scene 3</strong>Crater edge</div>
+      </div>
+    </div>
   </div>
 
   <!-- Flux Kontext -->

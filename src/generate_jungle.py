@@ -68,7 +68,7 @@ def generate_image(prompt: str, output_name: str) -> bool:
         "models/alibaba/wan2.6-t2i/generation.py",
         "--prompt", full_prompt,
         "--n", "1",
-        "--size", "1024*1024"
+        "--size", "1536*1024"  # 3:2 landscape for print (300 DPI at 106x68mm)
     ]
 
     try:

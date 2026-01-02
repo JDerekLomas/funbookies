@@ -249,7 +249,45 @@ Option C: Full bleed with text area
 
 ---
 
-## 9. Quality Checklist for Each Book
+## 9. Image Generation Specifications
+
+### Print Requirements
+| Spec | Value |
+|------|-------|
+| Page trim size | 100 × 100mm |
+| With bleed | 106 × 106mm |
+| Print resolution | 300 DPI |
+| Image area | 65% of page height |
+
+### Image Dimensions
+The image occupies the top 65% of the page:
+- **Width:** 106mm (with bleed) = 1252px at 300 DPI
+- **Height:** 68mm (65mm + 3mm top bleed) = 803px at 300 DPI
+- **Aspect ratio:** ~3:2 landscape
+
+### Generation Settings
+```
+Model: Wan2.6 T2I (via MuleRouter)
+Size: 1536 × 1024 pixels (3:2 landscape)
+Output: PNG, RGB
+```
+
+This provides:
+- Slightly more resolution than minimum (allows for adjustments)
+- Correct aspect ratio (no cropping needed)
+- Print-ready at 300 DPI after minor scaling
+
+### Cover Page Images
+Cover pages use 70% image area:
+- Height: 73mm (70mm + 3mm bleed) = 862px
+- Same width: 1252px
+- Aspect ratio: ~1.45:1 (slightly less wide)
+
+For simplicity, use the same 1536×1024 generation and crop/position as needed.
+
+---
+
+## 10. Quality Checklist for Each Book
 
 ### Pedagogy
 - [ ] All decodable words match taught phonics patterns
@@ -274,7 +312,7 @@ Option C: Full bleed with text area
 
 ---
 
-## 10. References
+## 11. References
 
 ### Pedagogy
 - [Reading Rockets: What Are Decodable Books?](https://www.readingrockets.org/topics/curriculum-and-instruction/articles/what-are-decodable-books-and-why-are-they-important)

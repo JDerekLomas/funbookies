@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fern and the Gust - Preview</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            padding: 20px;
+        }
+        h1 { text-align: center; margin-bottom: 5px; color: #8D6E63; }
+        .subtitle { text-align: center; color: #aaa; margin-bottom: 30px; }
+        .theme { text-align: center; color: #FF8A65; font-style: italic; margin-bottom: 30px; }
+        .page-spread {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            margin-bottom: 30px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .page {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .page-placeholder {
+            background: linear-gradient(135deg, #81C784 0%, #90CAF9 50%, #FF8A65 100%);
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3E2723;
+            font-size: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+        .page-text {
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        .page-num { font-size: 11px; color: #999; margin-bottom: 5px; }
+        .single-page { max-width: 600px; margin: 0 auto 30px; }
+        .wordlist {
+            background: white; color: #333; padding: 30px;
+            border-radius: 8px; max-width: 600px; margin: 0 auto 30px;
+        }
+        .wordlist h2 { text-align: center; margin-bottom: 20px; }
+        .wordlist h4 { color: #FF8A65; margin: 15px 0 8px; }
+        .wordlist ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+        .wordlist li { background: #f0f0f0; padding: 4px 12px; border-radius: 4px; }
+        .highlight { border: 3px solid #81C784 !important; }
+        .highlight .page-text { background: #E8F5E9; color: #1B5E20; }
+        .catchphrase { border: 3px solid #8D6E63 !important; }
+        .catchphrase .page-text { background: #EFEBE9; color: #4E342E; }
+        .action { border: 3px solid #FF8A65 !important; }
+        .action .page-text { background: #FBE9E7; color: #BF360C; }
+        @media (max-width: 800px) {
+            .page-spread { grid-template-columns: 1fr; }
+            .page-text { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Fern and the Gust</h1>
+    <p class="subtitle">Orange Level (CVC + Digraphs) • Air Elemental</p>
+    <p class="theme">"Playful, kinetic, learning to feel what you can't see"</p>
+    <p style="text-align: center; color: #B0BEC5; margin-bottom: 30px; font-size: 12px;">
+        NOTE: Gust (wind) is NEVER drawn - only shown through swirling leaves, bending grass, ruffled fur
+    </p>
+
+    <div class="single-page">
+        <div class="page">
+            <div class="page-placeholder">COVER: Fern (brown mouse) amid swirling autumn leaves - wind visible only through effects</div>
+            <div class="page-text"><div class="page-num">Cover</div>Fern and the Gust</div>
+        </div>
+    </div>
+
+    <div class="wordlist">
+        <h2>Words to Know</h2>
+        <h4>Sound It Out</h4>
+        <ul><li>run</li><li>fun</li><li>rush</li><li>gush</li><li>puff</li><li>huff</li><li>spin</li><li>swish</li><li>whiz</li></ul>
+        <h4>Know by Heart</h4>
+        <ul><li>the</li><li>said</li><li>was</li><li>to</li><li>I</li><li>a</li><li>where</li><li>you</li><li>are</li><li>see</li></ul>
+        <h4>New Words</h4>
+        <ul><li>wind</li><li>gust</li><li>leaf</li><li>Fern</li></ul>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Fern peaceful in sunshine, everything still</div><div class="page-text"><div class="page-num">Page 3</div>Fern sat in the sun.</div></div>
+        <div class="page action"><div class="page-placeholder">Grass suddenly bends, Fern's fur ruffles - wind arrives!</div><div class="page-text"><div class="page-num">Page 4</div>Swish! The grass did sway!</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Fern confused, looking around</div><div class="page-text"><div class="page-num">Page 5</div>"What was that?" said Fern.</div></div>
+        <div class="page action"><div class="page-placeholder">Leaf SMACKS onto Fern's face - comedy!</div><div class="page-text"><div class="page-num">Page 6</div>Whoosh! A leaf hit Fern!</div></div>
+    </div>
+
+    <div class="single-page">
+        <div class="page catchphrase">
+            <div class="page-placeholder">Fern frustrated, can't see what's doing this</div>
+            <div class="page-text"><div class="page-num">Page 7 - CATCHPHRASE!</div>"I can not see it!" said Fern.</div>
+        </div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page action"><div class="page-placeholder">Three poses of Fern blown different directions</div><div class="page-text"><div class="page-num">Page 8</div>Puff! Puff! Puff!</div></div>
+        <div class="page"><div class="page-placeholder">Fern running, chasing bent grass and leaves</div><div class="page-text"><div class="page-num">Page 9</div>Fern did run!</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Wide shot - Fern chasing invisible trail across hill</div><div class="page-text"><div class="page-num">Page 10</div>Run, Fern, run!</div></div>
+        <div class="page action"><div class="page-placeholder">Fern caught in swirl, spinning among leaves</div><div class="page-text"><div class="page-num">Page 11</div>Zig! Zag! Spin!</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Fern dizzy, sitting crooked, fur everywhere</div><div class="page-text"><div class="page-num">Page 12</div>Fern got dizzy!</div></div>
+        <div class="page"><div class="page-placeholder">Fern calling out to empty air</div><div class="page-text"><div class="page-num">Page 13</div>"Where are you?" said Fern.</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Stillness - everything stops, held breath</div><div class="page-text"><div class="page-num">Page 14</div>A gust did hush.</div></div>
+        <div class="page highlight"><div class="page-placeholder">Gentle puff - fur ruffles softly, intentional greeting</div><div class="page-text"><div class="page-num">Page 15</div>Then... a soft puff.</div></div>
+    </div>
+
+    <div class="single-page">
+        <div class="page highlight">
+            <div class="page-placeholder">Fern's face - huge understanding grin</div>
+            <div class="page-text"><div class="page-num">Page 16 - CONNECTION!</div>Fern did grin.</div>
+        </div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Fern pointing at air, naming her invisible friend</div><div class="page-text"><div class="page-num">Page 17</div>"You are the gust!" said Fern.</div></div>
+        <div class="page action"><div class="page-placeholder">Joyful play - Fern and leaves dancing TOGETHER</div><div class="page-text"><div class="page-num">Page 18</div>Rush! Swish! Whiz!</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Fern mid-leap, pure joy, leaves as confetti</div><div class="page-text"><div class="page-num">Page 19</div>"This is fun!" said Fern.</div></div>
+        <div class="page"><div class="page-placeholder">Sunset, Fern sitting peacefully, grass swaying gently</div><div class="page-text"><div class="page-num">Page 20</div>Fern sat with Gust.</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Fern speaking to air beside her, comfortable</div><div class="page-text"><div class="page-num">Page 21</div>"I can not see you," said Fern.</div></div>
+        <div class="page highlight"><div class="page-placeholder">Fern eyes closed, feeling wind on her fur - the lesson</div><div class="page-text"><div class="page-num">Page 22 - WISDOM!</div>"But I can feel you."</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Gentle swirl of leaves embracing Fern - Gust responds</div><div class="page-text"><div class="page-num">Page 23</div>Gust did swish.</div></div>
+        <div class="page"><div class="page-placeholder">FINAL: Fern waving, leaves drifting, Gust present in motion</div><div class="page-text"><div class="page-num">Page 24</div>The End</div></div>
+    </div>
+
+    <p style="text-align: center; color: #666; margin-top: 40px;">
+        Funbookies • Orange Level • 24 pages<br>
+        <span style="color: #8D6E63;">Character: Fern (brown mouse, fern-spiral tail)</span><br>
+        <span style="color: #FF8A65;">Invisible Character: Gust (wind - shown only through effects)</span><br>
+        <span style="color: #81C784;">Catchphrase: "I can not see it!"</span><br>
+        <span style="color: #B0BEC5;">Theme: "I can not see you, but I can feel you"</span>
+    </p>
+</body>
+</html>

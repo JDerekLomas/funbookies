@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sol and the Stone - Preview</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            padding: 20px;
+        }
+        h1 { text-align: center; margin-bottom: 5px; color: #E65100; }
+        .subtitle { text-align: center; color: #aaa; margin-bottom: 30px; }
+        .theme { text-align: center; color: #B388FF; font-style: italic; margin-bottom: 30px; }
+        .page-spread {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            margin-bottom: 30px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .page {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .page-placeholder {
+            background: linear-gradient(135deg, #5D4037 0%, #3E2723 50%, #7C4DFF 100%);
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF59D;
+            font-size: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+        .page-text {
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        .page-num { font-size: 11px; color: #999; margin-bottom: 5px; }
+        .single-page { max-width: 600px; margin: 0 auto 30px; }
+        .wordlist {
+            background: white; color: #333; padding: 30px;
+            border-radius: 8px; max-width: 600px; margin: 0 auto 30px;
+        }
+        .wordlist h2 { text-align: center; margin-bottom: 20px; }
+        .wordlist h4 { color: #7C4DFF; margin: 15px 0 8px; }
+        .wordlist ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+        .wordlist li { background: #f0f0f0; padding: 4px 12px; border-radius: 4px; }
+        .highlight { border: 3px solid #7C4DFF !important; }
+        .highlight .page-text { background: #EDE7F6; color: #4A148C; }
+        .catchphrase { border: 3px solid #E65100 !important; }
+        .catchphrase .page-text { background: #FFF3E0; color: #BF360C; }
+        @media (max-width: 800px) {
+            .page-spread { grid-template-columns: 1fr; }
+            .page-text { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Sol and the Stone</h1>
+    <p class="subtitle">Orange Level (CVC + Digraphs) • Earth/Fire Elemental</p>
+    <p class="theme">"Quiet wonder, ancient mystery, gentle discovery"</p>
+
+    <div class="single-page">
+        <div class="page">
+            <div class="page-placeholder">COVER: Sol (amber salamander) at cave entrance, mysterious purple glow within</div>
+            <div class="page-text"><div class="page-num">Cover</div>Sol and the Stone</div>
+        </div>
+    </div>
+
+    <div class="wordlist">
+        <h2>Words to Know</h2>
+        <h4>Sound It Out</h4>
+        <ul><li>dim</li><li>lit</li><li>path</li><li>got</li><li>big</li><li>hush</li><li>glow</li><li>sat</li><li>wish</li></ul>
+        <h4>Know by Heart</h4>
+        <ul><li>the</li><li>said</li><li>saw</li><li>was</li><li>to</li><li>I</li><li>a</li><li>there</li><li>what</li></ul>
+        <h4>New Words</h4>
+        <ul><li>cave</li><li>stone</li><li>glow</li><li>Sol</li></ul>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Sol basking on warm rock in sunshine</div><div class="page-text"><div class="page-num">Page 3</div>Sol sat in the sun.</div></div>
+        <div class="page"><div class="page-placeholder">Sol notices path leading to cave</div><div class="page-text"><div class="page-num">Page 4</div>Sol saw a path.</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Path leads to mysterious cave entrance</div><div class="page-text"><div class="page-num">Page 5</div>The path led to a cave.</div></div>
+        <div class="page"><div class="page-placeholder">Sol's quiet determination - "I've got this"</div><div class="page-text"><div class="page-num">Page 6</div>"I can go in," said Sol.</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Sol silhouetted entering cave</div><div class="page-text"><div class="page-num">Page 7</div>In Sol went.</div></div>
+        <div class="page"><div class="page-placeholder">Dark cave interior, Sol glowing warm against cool darkness</div><div class="page-text"><div class="page-num">Page 8</div>It was dim.</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Atmospheric stillness, vast quiet cave</div><div class="page-text"><div class="page-num">Page 9</div>Hush. Hush. Hush.</div></div>
+        <div class="page"><div class="page-placeholder">Sol's forehead spots start glowing, sees purple light ahead</div><div class="page-text"><div class="page-num">Page 10</div>But what was that?</div></div>
+    </div>
+
+    <div class="single-page">
+        <div class="page highlight">
+            <div class="page-placeholder" style="background: linear-gradient(135deg, #7C4DFF 0%, #B388FF 50%, #FFF59D 100%);">THE REVEAL: Beautiful glowing purple stone, radiating light</div>
+            <div class="page-text"><div class="page-num">Page 11 - THE REVEAL!</div>A stone! It lit up!</div>
+        </div>
+    </div>
+
+    <div class="single-page">
+        <div class="page catchphrase">
+            <div class="page-placeholder">Sol's face - quiet awe, forehead spots glowing gold</div>
+            <div class="page-text"><div class="page-num">Page 12 - CATCHPHRASE!</div>"Hmmm... yes," said Sol.</div>
+        </div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Sol sitting peacefully beside glowing stone</div><div class="page-text"><div class="page-num">Page 13</div>Sol sat with the stone.</div></div>
+        <div class="page"><div class="page-placeholder">Stone's glow expands, filling cave with purple light</div><div class="page-text"><div class="page-num">Page 14</div>The glow got big.</div></div>
+    </div>
+
+    <div class="single-page">
+        <div class="page highlight">
+            <div class="page-placeholder">Sol bathed in light, transcendent moment</div>
+            <div class="page-text"><div class="page-num">Page 15 - TRANSFORMATION!</div>It lit up Sol!</div>
+        </div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Sol's contentment and gratitude</div><div class="page-text"><div class="page-num">Page 16</div>"This is my wish," said Sol.</div></div>
+        <div class="page"><div class="page-placeholder">Sol staying calm with magic (contrast: others might run)</div><div class="page-text"><div class="page-num">Page 17</div>Sol did not run.</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Patient communion with the stone</div><div class="page-text"><div class="page-num">Page 18</div>Sol sat. And sat. And sat.</div></div>
+        <div class="page"><div class="page-placeholder">Sunset light at cave entrance - time to go</div><div class="page-text"><div class="page-num">Page 19</div>But then the sun set.</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">Sol rising, looking back at stone fondly</div><div class="page-text"><div class="page-num">Page 20</div>Sol got up.</div></div>
+        <div class="page"><div class="page-placeholder">Sol's knowing smile - promise to return</div><div class="page-text"><div class="page-num">Page 21</div>"I can go back," said Sol.</div></div>
+    </div>
+
+    <div class="page-spread">
+        <div class="page"><div class="page-placeholder">BOOKEND: Same as page 3 but forehead spots still glow</div><div class="page-text"><div class="page-num">Page 22</div>Sol sat in the sun.</div></div>
+        <div class="page catchphrase"><div class="page-placeholder">Satisfied wisdom, quiet joy</div><div class="page-text"><div class="page-num">Page 23</div>"Hmmm... yes," said Sol.</div></div>
+    </div>
+
+    <div class="single-page">
+        <div class="page">
+            <div class="page-placeholder">Sol waving goodbye, cave glowing purple in distance</div>
+            <div class="page-text"><div class="page-num">Page 24</div>The End</div>
+        </div>
+    </div>
+
+    <p style="text-align: center; color: #666; margin-top: 40px;">
+        Funbookies • Orange Level • 24 pages<br>
+        <span style="color: #B388FF;">Character: Sol (amber salamander, 3 forehead spots that glow)</span><br>
+        <span style="color: #E65100;">Catchphrase: "Hmmm... yes."</span>
+    </p>
+</body>
+</html>

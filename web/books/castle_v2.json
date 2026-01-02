@@ -1,0 +1,195 @@
+{
+  "title": "Rats in the Castle",
+  "version": "v2-riso",
+  "level": "orange",
+  "riso_colors": {
+    "black": "outlines, details, text, castle stones",
+    "color_a": {"name": "Fluorescent Pink", "pantone": "806", "use": "Rita, warm elements, jam"},
+    "color_b": {"name": "Blue", "pantone": "Process Blue", "use": "Rico, cool elements, shadows"}
+  },
+  "characters": [
+    {
+      "name": "Rita",
+      "species": "rat",
+      "personality": "bold, eager, initiates action",
+      "riso_color": "Fluorescent Pink body",
+      "distinguishing_feature": "RED BOW on head",
+      "catchphrase": "Let's go!",
+      "visual_prompt": "A small rat with round pink body, big eager eyes, tiny pink ears, long thin tail. Wears a distinctive RED BOW on her head. Bold black outlines. Leaning forward, ready for adventure."
+    },
+    {
+      "name": "Rico",
+      "species": "rat",
+      "personality": "cautious, worried, questions the plan",
+      "riso_color": "Blue body",
+      "distinguishing_feature": "BLUE BANDANA around neck",
+      "catchphrase": "But wait!",
+      "visual_prompt": "A small rat with round blue-gray body, worried eyes, tiny ears, long thin tail. Wears a distinctive BLUE BANDANA around neck. Bold black outlines. Often leaning back, one eyebrow raised."
+    }
+  ],
+  "word_list": {
+    "sound_out": ["big", "run", "hid", "got", "sat", "cat", "fast", "past", "cup", "hat"],
+    "sight": ["the", "said", "to", "we", "was", "a", "in", "they"],
+    "new": ["Rita", "Rico", "castle", "jam"]
+  },
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Rats in the Castle",
+      "beat": "hook",
+      "image_prompt": "WIDE SHOT: Rita (pink rat with RED BOW) and Rico (blue rat with BLUE BANDANA) peeking around a castle doorway. Rita leaning forward eagerly, Rico hanging back nervously. Big stone castle behind them. Expression: Rita excited, Rico worried.",
+      "riso_notes": "Rita PINK, Rico BLUE, castle BLACK outline, doorway dramatic"
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know",
+      "image": null
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Rita and Rico saw a castle.",
+      "beat": "setup",
+      "image_prompt": "WIDE SHOT: The two rats standing together looking up at an enormous castle. Rita (pink, RED BOW) pointing excitedly. Rico (blue, BLUE BANDANA) looking uncertain. Castle looms large. Expression: Rita amazed, Rico intimidated.",
+      "riso_notes": "Rita PINK, Rico BLUE, castle BLACK silhouette"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "The castle was big!",
+      "beat": "scale",
+      "image_prompt": "EXTREME WIDE SHOT: Tiny Rita and Rico at bottom of frame, HUGE castle filling the page. Shows scale - they are SO small. Castle details in black outlines. Expression: both looking up with necks craned.",
+      "riso_notes": "Rats tiny PINK and BLUE at bottom, castle BLACK fills frame"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "\"Let's go!\" said Rita.",
+      "beat": "catchphrase_rita",
+      "image_prompt": "CLOSE-UP: Rita's face and upper body. RED BOW prominent. MAXIMUM eager expression - eyes sparkling, smile huge, arm pointing forward. This is her catchphrase moment! Solid pink/warm background.",
+      "riso_notes": "Rita PINK on warm background, BOW detail in BLACK"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "\"But wait!\" said Rico.",
+      "beat": "catchphrase_rico",
+      "image_prompt": "CLOSE-UP: Rico's face and upper body. BLUE BANDANA prominent. Classic worried expression - one eyebrow raised, paw up in caution, leaning back. This is his catchphrase moment! Solid blue/cool background.",
+      "riso_notes": "Rico BLUE on cool background, BANDANA detail in BLACK"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "They ran in.",
+      "beat": "action",
+      "image_prompt": "DYNAMIC SHOT: Both rats running through the castle doorway. Rita (RED BOW) leading eagerly, Rico (BLUE BANDANA) following reluctantly. Motion lines. Castle interior glimpsed. Expression: Rita joyful, Rico nervous.",
+      "riso_notes": "Rita PINK ahead, Rico BLUE behind, doorway BLACK arch"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "They ran past the king.",
+      "beat": "obstacle_1",
+      "image_prompt": "MEDIUM SHOT: The two rats tiptoeing past a large throne with a sleeping king (shown as silhouette). Rita (RED BOW) gesturing 'shh', Rico (BLUE BANDANA) looking terrified. Expression: Rita mischievous, Rico panicked.",
+      "riso_notes": "Rats PINK and BLUE, king BLACK silhouette on throne"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "They ran past the queen.",
+      "beat": "obstacle_2",
+      "image_prompt": "MEDIUM SHOT: Parallel to previous - rats sneaking past another throne with sleeping queen (silhouette). Same poses but more confident now. Expression: Rita grinning, Rico still nervous but following.",
+      "riso_notes": "Rats PINK and BLUE, queen BLACK silhouette"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "\"Jam!\" said Rita. \"Jam! Jam! Jam!\"",
+      "beat": "discovery",
+      "image_prompt": "CLOSE-UP: Rita's face lit up with absolute JOY. RED BOW bouncing. Eyes like hearts, drooling slightly. A beautiful jar of red jam visible. This is peak excitement! Expression: ECSTATIC.",
+      "riso_notes": "Rita PINK, jam jar PINK/RED, glow effect"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "But then... a CAT!",
+      "beat": "page_turn_reveal",
+      "image_prompt": "DRAMATIC REVEAL: A large orange cat emerging from shadows, eyes glowing, looking hungry. Cats tail swishing. This is THE page turn moment - maximum drama! No rats in frame, just the THREAT.",
+      "riso_notes": "Cat silhouette BLACK with glowing eyes, dramatic"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "\"Run!\" said Rico.",
+      "beat": "rico_hero_moment",
+      "image_prompt": "CLOSE-UP: Rico stepping forward protectively, BLUE BANDANA flowing. For once HE is the brave one! Pushing Rita behind him. Expression: determined, brave, protecting his friend. Role reversal!",
+      "riso_notes": "Rico BLUE heroic pose, BANDANA prominent"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "The cat ran fast!",
+      "beat": "chase",
+      "image_prompt": "DYNAMIC/ACTION SHOT: Maximum chase energy! Cat lunging, rats running for their lives. Motion blur, speed lines, dust clouds. Rita (RED BOW) and Rico (BLUE BANDANA) side by side fleeing. Expression: terrified but determined.",
+      "riso_notes": "Cat BLACK silhouette, rats PINK and BLUE blurs, motion lines"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "Rita hid in a cup.",
+      "beat": "hiding_1",
+      "image_prompt": "MEDIUM SHOT: A large teacup with Rita's eyes and RED BOW barely visible peeking over the rim. Just her eyes and bow showing. Nervous expression. Cup on a shelf. Funny hiding spot.",
+      "riso_notes": "Cup BLACK outline, Rita's eyes and BOW visible PINK"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "Rico hid in a hat.",
+      "beat": "hiding_2",
+      "image_prompt": "MEDIUM SHOT: Parallel composition - a fancy hat with Rico's eyes and BLUE BANDANA peeking out. Just his eyes and bandana visible. Nervous expression. On a hat stand. Funny hiding spot.",
+      "riso_notes": "Hat BLACK outline, Rico's eyes and BANDANA visible BLUE"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "The cat sat and sat.",
+      "beat": "tension",
+      "image_prompt": "WIDE SHOT: Cat sitting smugly between the cup and hat, waiting. Knows they're there. Cat has a deadpan Jon Klassen expression - patient, knowing. Cup and hat visible in frame. Tension!",
+      "riso_notes": "Cat BLACK silhouette center, cup and hat on sides"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "Did they stop? No!",
+      "beat": "resilience",
+      "image_prompt": "DYNAMIC SHOT: Both rats bursting out of their hiding spots simultaneously! Rita from cup, Rico from hat. Surprising the cat who jumps back. Pete the Cat resilience moment! Expression: triumphant, surprising the cat.",
+      "riso_notes": "Rats PINK and BLUE bursting out, cat BLACK startled"
+    },
+    {
+      "page": 18,
+      "type": "story",
+      "text": "They got the jam!",
+      "beat": "victory",
+      "image_prompt": "MEDIUM SHOT: Rita and Rico running away together, carrying the jam jar between them. Both have jam on their faces and are GRINNING. Teamwork! Expression: pure joy, messy faces, victory!",
+      "riso_notes": "Rats PINK and BLUE, jam jar PINK, jam on faces"
+    },
+    {
+      "page": 19,
+      "type": "story",
+      "text": "\"Yum! Yum! Yum!\"",
+      "beat": "payoff",
+      "image_prompt": "CLOSE-UP: Both rats sitting together, covered in jam, licking their paws happily. RED BOW and BLUE BANDANA both messy with jam. Expression: blissful, satisfied, jam everywhere. Best friends.",
+      "riso_notes": "Rita PINK, Rico BLUE, jam splashes PINK on both"
+    },
+    {
+      "page": 20,
+      "type": "end",
+      "text": "The End",
+      "beat": "closing",
+      "image_prompt": "WIDE SHOT: Rita and Rico walking away from the castle together at sunset, holding paws. Castle silhouette behind. RED BOW and BLUE BANDANA visible. Expression: content, friendship, adventure complete.",
+      "riso_notes": "Rats PINK and BLUE, castle BLACK silhouette, warm ending"
+    }
+  ]
+}

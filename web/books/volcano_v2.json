@@ -1,0 +1,175 @@
+{
+  "title": "Gus and the Volcano",
+  "version": "v2-riso",
+  "level": "orange",
+  "riso_colors": {
+    "black": "outlines, details, text",
+    "color_a": {"name": "Fluorescent Orange", "pantone": "804", "use": "Gus body, lava, warm elements"},
+    "color_b": {"name": "Yellow", "pantone": "Yellow", "use": "belly, sun, highlights"}
+  },
+  "character": {
+    "name": "Gus",
+    "species": "gecko",
+    "riso_color": "Fluorescent Orange with Yellow belly",
+    "distinguishing_feature": "curly spiral tail",
+    "catchphrase": "Wow! Wow! Wow!",
+    "visual_prompt": "A small gecko with a round head, big curious eyes, stubby legs, and a distinctive CURLY SPIRAL TAIL. Body is solid orange, belly is yellow. Bold black outlines. Simple cartoon style."
+  },
+  "word_list": {
+    "sound_out": ["big", "hot", "red", "run", "got", "puff", "hiss", "pop"],
+    "sight": ["the", "said", "to", "I", "a", "was", "up", "it"],
+    "new": ["Gus", "volcano", "lava"]
+  },
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Gus and the Volcano",
+      "beat": "hook",
+      "image_prompt": "WIDE SHOT: Gus the orange gecko standing heroically in front of a large volcano. Gus has a distinctive CURLY SPIRAL TAIL. Volcano has orange lava glow at top. Bold dramatic sky. Expression: excited, eyes wide with wonder.",
+      "riso_notes": "Gus in ORANGE, volcano outline in BLACK, lava glow in ORANGE, sky highlights in YELLOW"
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know",
+      "image": null
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Gus sat on a big rock.",
+      "beat": "setup",
+      "image_prompt": "MEDIUM SHOT: Gus the orange gecko sitting contentedly on a large gray rock. Curly spiral tail visible. Looking at distant volcano with curiosity. Expression: peaceful, slight smile, eyes looking toward horizon. Minimal background - solid color sky.",
+      "riso_notes": "Gus ORANGE, rock BLACK outline, sky YELLOW"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "Gus saw a big hill.",
+      "beat": "discovery",
+      "image_prompt": "WIDE SHOT: Gus pointing excitedly at a large volcano in the distance. Curly spiral tail perked up with interest. Expression: curious, eyes wide, mouth slightly open. Simple landscape - just the hill shape against sky.",
+      "riso_notes": "Gus ORANGE, volcano BLACK silhouette, sky YELLOW gradient"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "\"I can go up!\" said Gus.",
+      "beat": "decision",
+      "image_prompt": "CLOSE-UP: Gus with determined, excited expression. Fist raised in the air. Curly spiral tail bouncing. Eyes sparkling with adventure. Solid color background. This is a catchphrase moment - BIG expression!",
+      "riso_notes": "Gus ORANGE on solid YELLOW background"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "Run, Gus, run!",
+      "beat": "action",
+      "image_prompt": "DYNAMIC/ACTION SHOT: Gus running up the grassy hillside, legs in motion. Curly spiral tail streaming behind. Expression: joyful, mouth wide open in happy run. Motion lines. Simple green hill, blue sky.",
+      "riso_notes": "Gus ORANGE, motion lines BLACK, hill BLACK outline"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "Up, up, up!",
+      "beat": "rising_action",
+      "image_prompt": "WIDE SHOT: Gus climbing higher up the steep volcano slope. Getting smaller as he climbs. Curly spiral tail visible. Steam wisps at the top. Expression: determined, focused. Dramatic angle looking up.",
+      "riso_notes": "Gus small ORANGE figure, volcano BLACK, steam wisps YELLOW"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "Gus got to the top.",
+      "beat": "arrival",
+      "image_prompt": "MEDIUM SHOT: Gus standing proudly at the crater rim, looking down into the volcano. Curly spiral tail curled with excitement. Expression: amazed, eyes HUGE, jaw dropped. Orange glow from below illuminating face.",
+      "riso_notes": "Gus ORANGE, rim BLACK, glow from below ORANGE and YELLOW"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "Red! Hot! Lava!",
+      "beat": "reveal",
+      "image_prompt": "CLOSE-UP: Inside the crater - bubbling, glowing lava! Dramatic orange and yellow pools. Steam rising. This is the PAGE TURN REVEAL - maximum visual impact. No character, just the lava spectacle.",
+      "riso_notes": "Lava ORANGE, highlights YELLOW, crater rim BLACK"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "\"Wow! Wow! Wow!\" said Gus.",
+      "beat": "catchphrase",
+      "image_prompt": "EXTREME CLOSE-UP: Gus's face filling the frame. MAXIMUM expression - eyes popping out of head with amazement, mouth wide open in awe. Orange glow reflecting on face. This is THE catchphrase moment!",
+      "riso_notes": "Gus face ORANGE, glow effect YELLOW, eyes knocked out to WHITE"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "HISS! PUFF! POP!",
+      "beat": "tension",
+      "image_prompt": "DYNAMIC SHOT: Volcano erupting! Rocks and steam shooting up. Gus in corner looking startled. Curly spiral tail standing straight with alarm. Expression: surprised, eyes wide, stepping back. Action and motion!",
+      "riso_notes": "Explosion ORANGE and YELLOW, rocks BLACK, Gus small ORANGE"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "The lava was hot!",
+      "beat": "danger",
+      "image_prompt": "MEDIUM SHOT: Gus feeling the heat - sweat drops, fanning himself with tiny hand. Curly spiral tail drooping. Lava rising behind him. Expression: worried, eyes squinting from heat, tongue out.",
+      "riso_notes": "Gus ORANGE, sweat drops YELLOW, lava ORANGE, heat waves BLACK lines"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "\"Run!\" said Gus.",
+      "beat": "turn",
+      "image_prompt": "CLOSE-UP: Gus with urgent expression, pointing downhill. Curly spiral tail alert. Eyes determined, mouth shouting. Solid orange/yellow background suggesting danger. Decision moment!",
+      "riso_notes": "Gus ORANGE on hot YELLOW/ORANGE background"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "Run, Gus, run!",
+      "beat": "escape",
+      "image_prompt": "DYNAMIC/ACTION SHOT: Gus running full speed down the volcano. Curly spiral tail streaming. Lava flowing behind. Maximum motion - dust clouds, speed lines. Expression: focused determination.",
+      "riso_notes": "Gus ORANGE, motion lines BLACK, lava ORANGE, dust YELLOW"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "Did Gus stop? No!",
+      "beat": "resilience",
+      "image_prompt": "MEDIUM SHOT: Gus still running, looking back at the lava with a confident smirk. Curly spiral tail bouncing. This is the Pete the Cat resilience moment - he's got this! Expression: determined smile.",
+      "riso_notes": "Gus ORANGE, lava behind ORANGE, ground BLACK"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "Run, run, run!",
+      "beat": "climax",
+      "image_prompt": "WIDE SHOT: Final sprint! Gus almost at the bottom, safe ground visible. Volcano erupting dramatically behind. Curly spiral tail flying. Expression: relief starting to show, almost there!",
+      "riso_notes": "Gus small ORANGE, volcano BLACK with ORANGE eruption, safe ground BLACK"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "Gus got to his rock.",
+      "beat": "safety",
+      "image_prompt": "MEDIUM SHOT: Gus collapsed happily on his original rock, panting but smiling. Curly spiral tail relaxed and curled. Volcano smoking peacefully in background. Expression: exhausted but happy, big relieved smile.",
+      "riso_notes": "Gus ORANGE on BLACK rock, volcano distant BLACK, sky YELLOW"
+    },
+    {
+      "page": 18,
+      "type": "story",
+      "text": "\"Wow! Wow! Wow!\" said Gus.",
+      "beat": "callback",
+      "image_prompt": "CLOSE-UP: Gus looking at viewer with knowing smile, catchphrase callback. Curly spiral tail making a heart shape. Expression: proud, satisfied, eyes twinkling. He did it! Warm sunset colors behind.",
+      "riso_notes": "Gus ORANGE, sunset glow YELLOW, warm feeling"
+    },
+    {
+      "page": 19,
+      "type": "end",
+      "text": "The End",
+      "beat": "closing",
+      "image_prompt": "WIDE SHOT: Gus waving goodbye from his rock, volcano peaceful in background with sunset. Curly spiral tail waving too. Expression: content, friendly wave to reader. Warm, cozy ending feeling.",
+      "riso_notes": "Gus ORANGE, sunset YELLOW, volcano BLACK silhouette"
+    }
+  ]
+}

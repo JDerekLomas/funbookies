@@ -1,0 +1,187 @@
+{
+  "title": "Zee and the Jungle",
+  "version": "v2-riso",
+  "level": "orange",
+  "riso_colors": {
+    "black": "outlines, details, text, tree trunks",
+    "color_a": {"name": "Green", "pantone": "354", "use": "Zee, leaves, jungle"},
+    "color_b": {"name": "Risofederal Blue", "pantone": "286", "use": "Pip the bird, sky, water"}
+  },
+  "characters": [
+    {
+      "name": "Zee",
+      "species": "sloth",
+      "personality": "slow, calm, content - finds joy in stillness",
+      "riso_color": "Green body",
+      "distinguishing_feature": "LONG CURVED CLAWS always visible",
+      "catchphrase": "Slow is good.",
+      "visual_prompt": "A small round sloth with shaggy green fur, gentle sleepy eyes, tiny black nose, long fuzzy arms with distinctive LONG CURVED CLAWS. Bold black outlines. Perpetually calm, slight smile."
+    },
+    {
+      "name": "Pip",
+      "species": "bird",
+      "personality": "fast, excitable, always moving",
+      "riso_color": "Risofederal Blue body",
+      "distinguishing_feature": "TALL CREST on head that shows emotion",
+      "catchphrase": "Fast! Fast! Fast!",
+      "visual_prompt": "A small round blue bird with a distinctive TALL CREST on head that perks up when excited. Big eager eyes, tiny beak, small wings always fluttering. Bold black outlines. Always in motion."
+    }
+  ],
+  "word_list": {
+    "sound_out": ["sun", "fun", "sit", "big", "fast", "slow", "win", "best", "pal"],
+    "sight": ["the", "said", "to", "I", "was", "a", "is", "my"],
+    "new": ["Zee", "Pip", "sloth", "jungle"]
+  },
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Zee and the Jungle",
+      "beat": "hook",
+      "image_prompt": "WIDE SHOT: Zee the green sloth hanging from a vine, Pip the blue bird perched nearby. Lush jungle with big simple leaf shapes. Zee's LONG CURVED CLAWS gripping vine. Pip's TALL CREST standing up. Expression: Zee peaceful, Pip excited.",
+      "riso_notes": "Zee GREEN, Pip BLUE, leaves GREEN, vines BLACK outline"
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know",
+      "image": null
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Zee sat in a big tree.",
+      "beat": "setup",
+      "image_prompt": "MEDIUM SHOT: Zee the sloth sitting contentedly in the crook of a large tree branch. LONG CURVED CLAWS wrapped around branch. Eyes half-closed with contentment. Simple jungle background - big leaf shapes. Expression: utterly peaceful.",
+      "riso_notes": "Zee GREEN, tree trunk BLACK, leaves GREEN shapes"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "The sun was up.",
+      "beat": "setting",
+      "image_prompt": "WIDE SHOT: Jungle canopy with morning sun streaming through. Zee visible in tree, tiny and content. Sun rays in simple lines. Warm feeling. Expression: Zee basking, eyes closed, smiling.",
+      "riso_notes": "Sun rays open/WHITE, Zee GREEN small, leaves GREEN"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "\"Slow is good,\" said Zee.",
+      "beat": "catchphrase_zee",
+      "image_prompt": "CLOSE-UP: Zee's face, completely zen. LONG CURVED CLAWS visible at edge of frame. Half-lidded eyes, gentle smile. This is the catchphrase moment - maximum calm energy. Solid green background.",
+      "riso_notes": "Zee GREEN face filling frame, peaceful"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "ZIP! A bird!",
+      "beat": "introduction_pip",
+      "image_prompt": "DYNAMIC SHOT: Pip the blue bird ZOOMING into frame with speed lines! TALL CREST fully erect with excitement. Zee startled awake, eyes now open wide. Maximum contrast - fast meets slow. Expression: Pip ecstatic, Zee surprised.",
+      "riso_notes": "Pip BLUE with motion blur, Zee GREEN startled"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "\"Fast! Fast! Fast!\" said Pip.",
+      "beat": "catchphrase_pip",
+      "image_prompt": "CLOSE-UP: Pip's face - TALL CREST at maximum height, eyes huge and wild with energy, wings a blur. This is Pip's catchphrase moment - MAXIMUM speed energy! Solid blue background with motion lines.",
+      "riso_notes": "Pip BLUE face, motion lines BLACK"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "Pip sat with Zee.",
+      "beat": "friendship_begins",
+      "image_prompt": "MEDIUM SHOT: Pip has landed next to Zee on the branch. Both looking at each other. Contrast: Zee's CLAWS grip calmly, Pip's CREST still twitching. Starting to become friends. Expression: curious about each other.",
+      "riso_notes": "Zee GREEN, Pip BLUE, side by side on BLACK branch"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "\"Let's go fast!\" said Pip.",
+      "beat": "pip_idea",
+      "image_prompt": "CLOSE-UP: Pip excitedly suggesting adventure. TALL CREST pointing forward like an arrow. Zee looking uncertain, one eye open more than the other. Expression: Pip eager, Zee hesitant.",
+      "riso_notes": "Pip BLUE excited, Zee GREEN doubtful"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "Zee went slow.",
+      "beat": "contrast_1",
+      "image_prompt": "MEDIUM SHOT: Zee moving veeeeery slowly along a branch. LONG CURVED CLAWS carefully gripping. One arm reaching, taking forever. Pip watching impatiently, CREST drooping. Expression: Zee focused and content, Pip exasperated.",
+      "riso_notes": "Zee GREEN moving slow, Pip BLUE waiting"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "Pip went fast!",
+      "beat": "contrast_2",
+      "image_prompt": "DYNAMIC SHOT: Pip zipping around in circles, speed lines everywhere, CREST streaming back. Zee in center, barely moved, watching with amusement. Extreme speed vs stillness contrast. Expression: Pip blur of energy, Zee entertained.",
+      "riso_notes": "Pip BLUE blur circles, Zee GREEN still"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "\"Go fast, Zee!\"",
+      "beat": "encouragement",
+      "image_prompt": "CLOSE-UP: Pip cheering Zee on, TALL CREST bobbing with encouragement. Zee considering it, slight smile, one CLAW raised. Maybe slow can try fast? Expression: Pip encouraging, Zee willing to try.",
+      "riso_notes": "Pip BLUE cheering, Zee GREEN considering"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "Zee went... a bit fast!",
+      "beat": "zee_tries",
+      "image_prompt": "MEDIUM SHOT: Zee moving slightly faster than before - for a sloth, this is ZOOM! LONG CURVED CLAWS swinging. Small motion lines. Pip flying alongside cheering. Expression: Zee surprised at self, Pip delighted.",
+      "riso_notes": "Zee GREEN with small motion, Pip BLUE alongside"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "But then Zee sat.",
+      "beat": "zee_wisdom",
+      "image_prompt": "MEDIUM SHOT: Zee has stopped on a beautiful viewpoint branch, looking out at the jungle vista. LONG CURVED CLAWS relaxed. Pip hovering nearby, CREST tilted in confusion. Expression: Zee peaceful, Pip puzzled.",
+      "riso_notes": "Zee GREEN sitting, view of jungle GREEN shapes"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "\"Slow is good,\" said Zee.",
+      "beat": "callback",
+      "image_prompt": "CLOSE-UP: Zee's wise face, gesturing at the beautiful jungle around them. LONG CURVED CLAWS sweeping to indicate beauty. Pip starting to understand. Expression: Zee content, sharing wisdom.",
+      "riso_notes": "Zee GREEN wise expression"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "Pip sat with Zee.",
+      "beat": "pip_learns",
+      "image_prompt": "MEDIUM SHOT: Both sitting together on branch, looking at sunset/view. Pip's TALL CREST actually relaxed for once, lowered. Zee's CLAWS relaxed. Both content. Expression: peaceful together.",
+      "riso_notes": "Zee GREEN, Pip BLUE, both calm, sunset colors"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "Slow is fun. Fast is fun.",
+      "beat": "lesson",
+      "image_prompt": "SPLIT COMPOSITION: Left side - Zee hanging slowly, content. Right side - Pip zooming happily. Both valid! Both good! Expression: both happy in their own ways.",
+      "riso_notes": "Zee GREEN left, Pip BLUE right, both happy"
+    },
+    {
+      "page": 18,
+      "type": "story",
+      "text": "\"You are my pal,\" said Zee.",
+      "beat": "friendship",
+      "image_prompt": "CLOSE-UP: Zee and Pip together, Zee's LONG CURVED CLAW gently resting on Pip. Pip's TALL CREST making a heart shape. Best friends! Expression: warm affection, true friendship.",
+      "riso_notes": "Zee GREEN, Pip BLUE, touching, heartwarming"
+    },
+    {
+      "page": 19,
+      "type": "end",
+      "text": "The End",
+      "beat": "closing",
+      "image_prompt": "WIDE SHOT: Zee and Pip in their tree at sunset. Zee hanging from branch with LONG CURVED CLAWS, Pip perched nearby with relaxed CREST. Jungle silhouette. Perfect contentment. Expression: both at peace, together.",
+      "riso_notes": "Zee GREEN, Pip BLUE, jungle BLACK silhouette, warm ending"
+    }
+  ]
+}

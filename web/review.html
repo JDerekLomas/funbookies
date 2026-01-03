@@ -12,16 +12,51 @@
       background: #1a1a2e;
       min-height: 100vh;
       padding: 20px;
-      padding-bottom: 100px;
+      padding-bottom: 120px;
     }
     .header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
     .header h1 {
       font-family: 'Nunito', sans-serif;
+      font-size: 2.5rem;
       color: #FFB347;
+      margin-bottom: 5px;
     }
+    .header .subtitle {
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    /* Parent instructions */
+    .parent-guide {
+      max-width: 800px;
+      margin: 0 auto 25px;
+      background: #2a2a4e;
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid #FFB347;
+    }
+    .parent-guide h2 {
+      font-family: 'Nunito', sans-serif;
+      color: #FFB347;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+    .parent-guide p {
+      color: #ccc;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .parent-guide ul {
+      color: #aaa;
+      font-size: 0.85rem;
+      margin-left: 20px;
+      line-height: 1.6;
+    }
+
     .controls {
       display: flex;
       gap: 10px;
@@ -30,20 +65,22 @@
       margin-bottom: 30px;
     }
     select, button {
-      padding: 10px 20px;
+      padding: 12px 24px;
       font-size: 1rem;
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
     }
     select { background: white; }
-    button { background: #667eea; color: white; font-weight: 700; }
+    button { background: #667eea; color: white; }
     button:hover { background: #5a6fd6; }
     button.export { background: #4CAF50; }
 
     .pages-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 24px;
       max-width: 1600px;
       margin: 0 auto;
@@ -87,75 +124,91 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px;
+      padding: 15px;
       border-top: 3px solid #FFB347;
     }
     .print-text p {
       font-family: 'Andika', sans-serif;
-      font-size: 14px;
+      font-size: 18px;
       color: #222;
       text-align: center;
-      line-height: 1.3;
+      line-height: 1.4;
     }
 
     /* Cover page style */
-    .print-page.cover .print-image { flex: 70; }
+    .print-page.cover .print-image { flex: 65; }
     .print-page.cover .print-text {
-      flex: 30;
+      flex: 35;
       background: linear-gradient(to bottom, #FFF8DC, #FFE4B5);
       border-top: 4px solid #FF6B35;
+      flex-direction: column;
+      gap: 4px;
     }
     .print-page.cover .print-text p {
       font-family: 'Nunito', sans-serif;
-      font-size: 16px;
+      font-size: 22px;
       font-weight: 900;
       color: #D84315;
     }
+    .print-page.cover .print-text .copyright {
+      font-family: 'Andika', sans-serif;
+      font-size: 9px;
+      color: #666;
+      font-weight: 400;
+    }
 
     /* End page style */
-    .print-page.end .print-image { flex: 70; }
+    .print-page.end .print-image { flex: 65; }
     .print-page.end .print-text {
-      flex: 30;
+      flex: 35;
       background: linear-gradient(to bottom, #E8F5E9, #C8E6C9);
       border-top: 3px solid #4CAF50;
+      flex-direction: column;
+      gap: 8px;
     }
     .print-page.end .print-text p {
       font-family: 'Nunito', sans-serif;
-      font-size: 18px;
+      font-size: 24px;
       font-weight: 800;
       color: #2E7D32;
+    }
+    .print-page.end .print-text .copyright {
+      font-family: 'Andika', sans-serif;
+      font-size: 9px;
+      color: #555;
+      font-weight: 400;
     }
 
     /* Word list page */
     .print-page.wordlist {
       background: linear-gradient(135deg, #FFFEF5, #FFF8E1);
-      padding: 15px;
+      padding: 20px;
       justify-content: center;
     }
     .print-page.wordlist h3 {
       font-family: 'Nunito', sans-serif;
-      font-size: 14px;
+      font-size: 18px;
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       color: #333;
     }
-    .word-section { margin-bottom: 8px; }
+    .word-section { margin-bottom: 12px; }
     .word-label {
-      font-size: 9px;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     .word-label.sound-out { color: #1565C0; }
     .word-label.sight { color: #7B1FA2; }
     .word-label.new { color: #E65100; }
-    .word-boxes { display: flex; flex-wrap: wrap; gap: 4px; }
+    .word-boxes { display: flex; flex-wrap: wrap; gap: 6px; }
     .word-box {
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 14px;
       font-weight: 700;
-      border: 1px solid;
+      border: 2px solid;
     }
     .word-box.sound-out { background: #E3F2FD; color: #0D47A1; border-color: #64B5F6; }
     .word-box.sight { background: #F3E5F5; color: #6A1B9A; border-color: #BA68C8; }
@@ -163,42 +216,55 @@
 
     /* Review actions below page */
     .review-actions {
-      padding: 12px;
+      padding: 12px 15px;
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
+      justify-content: flex-start;
       background: #2a2a4e;
     }
     .page-label {
       color: #FFB347;
-      font-weight: 700;
-      font-size: 0.85rem;
-      min-width: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      min-width: 45px;
+    }
+    .vote-buttons {
+      display: flex;
+      gap: 8px;
+      align-items: center;
     }
     .vote-btn {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       border: 2px solid #444;
       background: #1a1a2e;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      line-height: 1;
     }
     .vote-btn:hover { transform: scale(1.1); border-color: #667eea; }
     .vote-btn.up.active { background: #4CAF50; border-color: #4CAF50; }
     .vote-btn.down.active { background: #f44336; border-color: #f44336; }
     .comment-input {
       flex: 1;
-      padding: 8px 10px;
+      padding: 10px 12px;
       border: 2px solid #444;
-      border-radius: 6px;
-      font-size: 0.85rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: 'Andika', sans-serif;
       background: #1a1a2e;
       color: white;
     }
     .comment-input:focus { border-color: #667eea; outline: none; }
-    .comment-input::placeholder { color: #555; }
+    .comment-input::placeholder { color: #666; }
 
     /* Summary bar */
     .summary-bar {
@@ -207,31 +273,53 @@
       left: 0;
       right: 0;
       background: #2a2a4e;
-      padding: 12px 20px;
+      padding: 15px 20px;
       display: flex;
       justify-content: center;
-      gap: 25px;
+      gap: 30px;
       align-items: center;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
       z-index: 100;
     }
     .stat {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       color: white;
-      font-size: 0.9rem;
+      font-size: 1rem;
+      font-family: 'Nunito', sans-serif;
     }
-    .stat-num { font-weight: 700; }
+    .stat-num { font-weight: 800; font-size: 1.2rem; }
     .stat.approved .stat-num { color: #4CAF50; }
     .stat.rejected .stat-num { color: #f44336; }
     .stat.pending .stat-num { color: #FFB347; }
-    .copy-btn { background: #FF5722; }
+    .copy-btn { background: #FF5722; padding: 12px 20px; }
+    .copy-btn:hover { background: #E64A19; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 30px 20px 100px;
+      color: #555;
+      font-size: 0.8rem;
+    }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>Review Pages</h1>
+    <h1>Fun Bookies Review</h1>
+    <div class="subtitle">Riso Print Preview</div>
+  </div>
+
+  <div class="parent-guide">
+    <h2>For Parents</h2>
+    <p>These books are designed for early readers learning to sound out words. Each page shows exactly how it will look when printed.</p>
+    <ul>
+      <li><strong>Sound Out words</strong> (blue) - Practice blending these letter sounds</li>
+      <li><strong>Sight Words</strong> (purple) - Common words to recognize by sight</li>
+      <li><strong>New Words</strong> (orange) - Vocabulary introduced in this story</li>
+    </ul>
+    <p>Review each page below. Click thumbs up/down and add comments to help improve the book!</p>
   </div>
 
   <div class="controls">
@@ -242,16 +330,20 @@
         <option value="jungle_v2">Zee and the Jungle</option>
       </optgroup>
     </select>
-    <button class="export" onclick="copyReview()">Copy Issues</button>
+    <button class="export" onclick="copyReview()">Copy Feedback</button>
   </div>
 
   <div class="pages-grid" id="pagesGrid"></div>
 
+  <div class="footer">
+    &copy; 2025 Derek Lomas / Fun Bookies. All rights reserved.
+  </div>
+
   <div class="summary-bar">
-    <div class="stat approved">👍 <span class="stat-num" id="approvedCount">0</span></div>
-    <div class="stat rejected">👎 <span class="stat-num" id="rejectedCount">0</span></div>
-    <div class="stat pending">⏳ <span class="stat-num" id="pendingCount">0</span></div>
-    <button class="copy-btn" onclick="copyReview()">Copy Issues</button>
+    <div class="stat approved"><span class="stat-num" id="approvedCount">0</span> approved</div>
+    <div class="stat rejected"><span class="stat-num" id="rejectedCount">0</span> issues</div>
+    <div class="stat pending"><span class="stat-num" id="pendingCount">0</span> pending</div>
+    <button class="copy-btn" onclick="copyReview()">Copy Feedback</button>
   </div>
 
   <script>
@@ -312,9 +404,34 @@
         const pageType = page.type || 'story';
 
         let printPageContent = '';
+        const copyright = '<span class="copyright">&copy; 2025 Derek Lomas / Fun Bookies</span>';
 
         if (pageType === 'wordlist') {
           printPageContent = `<div class="print-page wordlist">${renderWordList()}</div>`;
+        } else if (pageType === 'cover') {
+          printPageContent = `
+            <div class="print-page cover">
+              <div class="print-image">
+                ${imgPath ? `<img src="${imgPath}" alt="">` : ''}
+              </div>
+              <div class="print-text">
+                <p>${page.text || ''}</p>
+                ${copyright}
+              </div>
+            </div>
+          `;
+        } else if (pageType === 'end') {
+          printPageContent = `
+            <div class="print-page end">
+              <div class="print-image">
+                ${imgPath ? `<img src="${imgPath}" alt="">` : ''}
+              </div>
+              <div class="print-text">
+                <p>${page.text || ''}</p>
+                ${copyright}
+              </div>
+            </div>
+          `;
         } else {
           printPageContent = `
             <div class="print-page ${pageType}">
@@ -333,12 +450,14 @@
             ${printPageContent}
             <div class="review-actions">
               <span class="page-label">P${page.page}</span>
-              <button class="vote-btn up ${review.status === 'approved' ? 'active' : ''}"
-                      onclick="vote(${page.page}, 'approved')">👍</button>
-              <button class="vote-btn down ${review.status === 'rejected' ? 'active' : ''}"
-                      onclick="vote(${page.page}, 'rejected')">👎</button>
+              <div class="vote-buttons">
+                <button class="vote-btn up ${review.status === 'approved' ? 'active' : ''}"
+                        onclick="vote(${page.page}, 'approved')">&#x1F44D;</button>
+                <button class="vote-btn down ${review.status === 'rejected' ? 'active' : ''}"
+                        onclick="vote(${page.page}, 'rejected')">&#x1F44E;</button>
+              </div>
               <input type="text" class="comment-input"
-                     placeholder="Comment..."
+                     placeholder="Add comment..."
                      value="${review.comment || ''}"
                      onchange="updateComment(${page.page}, this.value)">
             </div>
@@ -379,19 +498,44 @@
     }
 
     function copyReview() {
+      const approved = currentBook.pages.filter(p => reviews[p.page]?.status === 'approved');
       const rejected = currentBook.pages.filter(p => reviews[p.page]?.status === 'rejected');
-      if (rejected.length === 0) {
-        navigator.clipboard.writeText('All pages look good!');
-        alert('All pages look good!');
-        return;
+      const pending = currentBook.pages.filter(p => !reviews[p.page] || reviews[p.page].status === 'pending');
+
+      let text = `# ${currentBook.title} - Review Feedback\n\n`;
+      text += `**Summary:** ${approved.length} approved, ${rejected.length} issues, ${pending.length} pending\n\n`;
+
+      if (rejected.length > 0) {
+        text += `## Issues to Fix (${rejected.length})\n\n`;
+        rejected.forEach(page => {
+          const r = reviews[page.page];
+          text += `- **Page ${page.page}** "${page.text}"\n`;
+          text += `  ${r.comment || 'Needs revision'}\n\n`;
+        });
       }
-      let text = `${currentBook.title} - ${rejected.length} pages need work:\n\n`;
-      rejected.forEach(page => {
-        const r = reviews[page.page];
-        text += `Page ${page.page} ("${page.text}"): ${r.comment || 'needs revision'}\n`;
+
+      if (approved.length > 0) {
+        const approvedWithComments = approved.filter(p => reviews[p.page]?.comment);
+        if (approvedWithComments.length > 0) {
+          text += `## Approved with Notes\n\n`;
+          approvedWithComments.forEach(page => {
+            const r = reviews[page.page];
+            text += `- **Page ${page.page}**: ${r.comment}\n`;
+          });
+          text += '\n';
+        }
+      }
+
+      if (pending.length > 0 && pending.length < currentBook.pages.length) {
+        text += `## Still Need Review\n\n`;
+        text += `Pages: ${pending.map(p => p.page).join(', ')}\n\n`;
+      }
+
+      text += `---\n*Reviewed on ${new Date().toLocaleDateString()}*`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Feedback copied to clipboard!');
       });
-      navigator.clipboard.writeText(text);
-      alert('Copied to clipboard!');
     }
 
     loadBook('volcano_v2');

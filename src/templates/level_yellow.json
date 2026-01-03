@@ -1,0 +1,84 @@
+{
+  "level": "yellow",
+  "name": "CVC Only",
+  "description": "Simplest level - only consonant-vowel-consonant words",
+  "target_age": "5-6",
+  "target_grade": "K",
+
+  "constraints": {
+    "max_words_per_page": 5,
+    "max_distinct_words": 30,
+    "decodable_patterns": ["cvc"],
+    "forbidden_patterns": ["digraphs", "blends", "magic_e", "vowel_teams"],
+    "target_accessible_percent": 90
+  },
+
+  "word_lists": {
+    "approved_sight_words": [
+      "a", "I", "the", "to", "is", "it", "in", "my", "we", "go", "no", "so",
+      "me", "he", "be", "see", "you", "and", "for", "up", "can"
+    ],
+    "sample_cvc_words": {
+      "short_a": ["cat", "hat", "bat", "sat", "mat", "ran", "can", "man", "pan", "van", "bad", "dad", "had", "sad", "bag", "rag", "tag"],
+      "short_e": ["bed", "red", "fed", "pet", "get", "let", "met", "set", "wet", "hen", "pen", "ten", "men"],
+      "short_i": ["big", "dig", "pig", "wig", "bit", "fit", "hit", "sit", "kid", "hid", "lid", "bin", "pin", "win", "dip", "hip", "rip", "tip", "zip"],
+      "short_o": ["hot", "got", "not", "pot", "dot", "lot", "top", "hop", "mop", "pop", "dog", "log", "fog", "hog", "jog", "box", "fox"],
+      "short_u": ["bug", "hug", "jug", "mug", "rug", "tug", "bun", "fun", "run", "sun", "but", "cut", "hut", "nut", "cup", "pup", "up", "bus"]
+    },
+    "sound_effects": ["pop", "bam", "wham", "zap", "zip", "wow"]
+  },
+
+  "story_structure": {
+    "total_pages": 16,
+    "breakdown": [
+      {"pages": "1", "type": "cover", "words": 3},
+      {"pages": "2", "type": "wordlist", "words": 0},
+      {"pages": "3-14", "type": "story", "words_per_page": "3-5", "count": 12},
+      {"pages": "15", "type": "end", "words": 2},
+      {"pages": "16", "type": "copyright", "words": 0}
+    ]
+  },
+
+  "sentence_patterns": {
+    "simple_declarative": [
+      "[Name] is [adjective].",
+      "[Name] can [verb].",
+      "[Name] ran to [place].",
+      "I see a [noun]."
+    ],
+    "exclamations": [
+      "[Adjective]!",
+      "[Verb]!",
+      "Go, [Name], go!"
+    ],
+    "questions": [
+      "Is it [adjective]?",
+      "Can [Name] [verb]?"
+    ],
+    "repetition": [
+      "[Verb], [verb], [verb]!",
+      "[Adjective]! [Adjective]! [Adjective]!"
+    ]
+  },
+
+  "example_story": {
+    "title": "Pam and the Cat",
+    "character": {"name": "Pam", "description": "A happy girl"},
+    "pages": [
+      {"page": 1, "text": "Pam and the Cat"},
+      {"page": 3, "text": "Pam sat in the sun."},
+      {"page": 4, "text": "A cat ran up."},
+      {"page": 5, "text": "\"Hi, cat!\" said Pam."},
+      {"page": 6, "text": "The cat sat."},
+      {"page": 7, "text": "Pat, pat, pat."},
+      {"page": 8, "text": "The cat is fun!"},
+      {"page": 9, "text": "Run, cat, run!"},
+      {"page": 10, "text": "The cat ran."},
+      {"page": 11, "text": "\"Get it!\" said Pam."},
+      {"page": 12, "text": "The cat got a bug."},
+      {"page": 13, "text": "Pam and the cat sat."},
+      {"page": 14, "text": "\"I am happy!\""},
+      {"page": 15, "text": "The End"}
+    ]
+  }
+}

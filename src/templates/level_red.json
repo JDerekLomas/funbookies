@@ -1,0 +1,74 @@
+{
+  "level": "red",
+  "name": "CVC + Digraphs + Blends",
+  "description": "Adds consonant clusters (bl, cr, st, sp, tr, etc.)",
+  "target_age": "6-7",
+  "target_grade": "1st",
+
+  "constraints": {
+    "max_words_per_page": 8,
+    "max_distinct_words": 70,
+    "decodable_patterns": ["cvc", "digraphs", "blends"],
+    "forbidden_patterns": ["magic_e", "vowel_teams"],
+    "target_accessible_percent": 80
+  },
+
+  "word_lists": {
+    "approved_sight_words": [
+      "a", "I", "the", "to", "is", "it", "in", "my", "we", "go", "no", "so",
+      "me", "he", "be", "see", "you", "and", "for", "up", "can", "said", "was",
+      "all", "are", "at", "but", "came", "did", "do", "eat", "get", "good",
+      "have", "here", "into", "like", "look", "new", "now", "on", "our", "out",
+      "ran", "saw", "say", "she", "soon", "that", "there", "they", "this", "too",
+      "want", "what", "who", "will", "with", "yes",
+      "after", "again", "an", "any", "as", "ask", "by", "could", "every", "fly",
+      "from", "give", "going", "had", "has", "her", "him", "his", "how", "just",
+      "know", "let", "live", "may", "of", "old", "once", "open", "over", "put",
+      "round", "some", "stop", "take", "thank", "them", "then", "think", "walk", "were", "when"
+    ],
+    "blend_words": {
+      "initial_l": ["black", "blank", "blast", "blend", "bless", "block", "blob", "blue", "clap", "clam", "clan", "class", "cling", "clip", "clock", "cloth", "club", "flag", "flap", "flash", "flat", "fled", "flip", "flock", "flop", "glad", "glass", "glen", "glib", "glob", "glum", "plan", "plop", "plot", "plug", "plum", "plus", "slab", "slack", "slam", "slang", "slap", "slat", "sled", "slick", "slid", "slim", "slip", "slit", "slob", "slop", "slot", "slug", "slum"],
+      "initial_r": ["brag", "bran", "brass", "brat", "bred", "brick", "brig", "brim", "bring", "brisk", "crab", "crack", "cram", "crib", "crisp", "cross", "crush", "crust", "drag", "drank", "drip", "drop", "drug", "drum", "frog", "from", "frost", "grab", "gram", "grand", "grant", "grass", "grill", "grim", "grin", "grip", "grit", "grub", "press", "prick", "prim", "print", "prop", "track", "tram", "trap", "trek", "trick", "trim", "trip", "trod", "trot", "truck", "trunk", "trust"],
+      "initial_s": ["scan", "scat", "scram", "scrap", "scrub", "skill", "skim", "skin", "skip", "skit", "skull", "skunk", "smack", "small", "smash", "smell", "smog", "snack", "snag", "snap", "sniff", "snip", "snob", "snug", "span", "spat", "spec", "sped", "spell", "spend", "spent", "spill", "spin", "spit", "spot", "spun", "stab", "staff", "stamp", "stand", "step", "stick", "still", "sting", "stock", "stomp", "stop", "stuck", "stuff", "stump", "stung", "stunk", "swam", "swan", "swap", "swift", "swim", "swing"],
+      "final": ["band", "bend", "blend", "bond", "brand", "bump", "camp", "damp", "dump", "grand", "hand", "jump", "lamp", "land", "lump", "pump", "ramp", "sand", "stamp", "stomp", "stump", "thump", "trunk", "bank", "blank", "blink", "brink", "chunk", "clink", "clunk", "drank", "drink", "drunk", "dunk", "flunk", "hunk", "junk", "link", "mink", "pink", "plunk", "prank", "rank", "rink", "sank", "shrink", "sink", "skunk", "slink", "spank", "stink", "stunk", "sunk", "tank", "thank", "think", "trunk", "wink", "ant", "bent", "blunt", "bunt", "burnt", "cent", "dent", "font", "front", "grunt", "hint", "hunt", "lent", "lint", "mint", "pant", "plant", "print", "punt", "rent", "runt", "sent", "spent", "sprint", "stint", "stunt", "tent", "vent", "went"]
+    },
+    "sound_effects": ["CRASH", "SPLASH", "STOMP", "THUMP", "CRUNCH", "SMASH", "BLAST", "CLANG", "CLINK", "CLUNK", "SNAP", "CRACK", "CRACKLE", "SPLAT", "SPLOSH", "PLOP", "PLUNK", "THUD", "CLAP", "SLAP", "SMACK", "WHACK", "BANG", "CLANG", "ZING"]
+  },
+
+  "story_structure": {
+    "total_pages": 22,
+    "breakdown": [
+      {"pages": "1", "type": "cover", "words": 4},
+      {"pages": "2", "type": "wordlist", "words": 0},
+      {"pages": "3-20", "type": "story", "words_per_page": "6-8", "count": 18},
+      {"pages": "21", "type": "end", "words": 2},
+      {"pages": "22", "type": "copyright", "words": 0}
+    ]
+  },
+
+  "sentence_patterns": {
+    "action_with_blends": [
+      "[Name] ran fast to the [place].",
+      "[Name] went splash into the [noun].",
+      "CRASH! The [noun] fell down.",
+      "[Name] had to stop and think."
+    ],
+    "complex_action": [
+      "[Name] ran up and jumped.",
+      "The [noun] went crash and bang.",
+      "[Name] could not stop!"
+    ],
+    "dialogue": [
+      "\"I must [verb]!\" said [Name].",
+      "\"Stop!\" said [Name]. \"I can help!\"",
+      "\"Thank you!\" said [Name]."
+    ]
+  },
+
+  "example_topic": {
+    "title": "Splash at the Pond",
+    "premise": "A frog named Fred wants to win a jumping contest at the pond.",
+    "vocabulary": ["pond", "frog", "splash", "jump", "stomp", "splash"],
+    "character": {"name": "Fred", "catchphrase": "I can do it!"}
+  }
+}

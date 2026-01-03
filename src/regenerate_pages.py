@@ -27,15 +27,14 @@ NO TEXT IN IMAGE. Child-friendly."""
 # Character definitions - UPDATED to prevent spikes
 CHARACTERS = {
     "volcano": """
-CHARACTER - Gus the Gecko:
-- Small cute gecko with round smooth head and big friendly eyes
-- Body is solid ORANGE (spot color) - SMOOTH skin, NO SPIKES, NO SCALES, NO RIDGES
+CHARACTER - Gus the Salamander:
+- Small cute SALAMANDER with round smooth head, big friendly eyes, small round nose
+- Body is solid ORANGE (spot color) - SMOOTH BACK, absolutely NO SPIKES, NO DORSAL RIDGE, NO FIN
 - Yellow belly
 - DISTINCTIVE FEATURE: Curly spiral tail (must be visible in every image)
-- EXACTLY 4 legs total (2 front arms, 2 back legs) - NOT 3 arms, NOT extra limbs
-- Stubby legs with tiny round toe pads
+- EXACTLY 4 legs total (2 front, 2 back) - stubby with tiny toe pads
 - Simple cartoon style - bold black outlines, flat colors only
-- DO NOT add spines, horns, crests, or any spiky features""",
+- CRITICAL: Smooth rounded back like a real salamander - NO spines, NO ridges, NO crests""",
 
     "castle": """
 CHARACTERS - Rita and Rico the Rats:

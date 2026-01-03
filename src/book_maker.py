@@ -14,8 +14,12 @@ from config import BOOK_SPECS, BRAND, IMAGE_DEFAULTS
 from story_gen import StoryGenerator
 from image_gen import ImageGenerator
 from epub_generator import Book, Page, FixedLayoutEPUB
+from word_banks import WordBanks
 
 load_dotenv()
+
+# Initialize word banks for phonics validation
+WORD_BANKS = WordBanks()
 
 
 @dataclass
@@ -24,8 +28,56 @@ class BookConfig:
     topic: str
     age_range: str = "6-7"
     reading_level: str = "beginning reader"
+    phonics_level: str = "orange"  # yellow, orange, red, purple
     include_word_list: bool = True
+    character_names: list = None  # Character names for validation
+    topic_vocabulary: list = None  # Topic words (lava, volcano, etc.)
     art_style: str = "children's book illustration, bright colors, friendly, engaging, educational"
+
+    def __post_init__(self):
+        if self.character_names is None:
+            self.character_names = []
+        if self.topic_vocabulary is None:
+            self.topic_vocabulary = []
+
+
+# Phonics level descriptions for prompts
+PHONICS_LEVEL_PROMPTS = {
+    "yellow": """
+PHONICS LEVEL: Yellow (CVC Only - Easiest)
+- Use ONLY simple CVC words: cat, run, hot, big, sun, mom, dad, pet, sit, etc.
+- NO digraphs (no sh, ch, th words yet)
+- NO blends (no st, cr, bl, etc.)
+- Max 5 words per page
+- Sight words: a, I, the, to, is, it, in, my, we, go, no, so
+""",
+
+    "orange": """
+PHONICS LEVEL: Orange (CVC + Digraphs)
+- CVC words: cat, run, hot, big, sun, pet, sit, got, top, etc.
+- Digraphs OK: sh (ship, wish), ch (chat, much), th (that, with), ck (back, rock)
+- NO blends yet (no st, cr, bl words)
+- Max 7 words per page
+- Sight words: a, I, the, to, is, it, in, my, we, go, no, so, said, was, he, she, they, see, look, for, you, all, are, do, have, here, there, this, that, what, with, and, but, not, can, did, get, got
+""",
+
+    "red": """
+PHONICS LEVEL: Red (CVC + Digraphs + Blends)
+- CVC words: cat, run, hot, big, etc.
+- Digraphs OK: sh, ch, th, ck, wh
+- Blends OK: st (stop), cr (crash), bl (blue), sp (spin), tr (trip), dr (drop), gr (grab), etc.
+- NO magic e yet (no cake, bike, home, etc.)
+- Max 8 words per page
+- Includes all primer and first-grade sight words
+""",
+
+    "purple": """
+PHONICS LEVEL: Purple (CVC + Digraphs + Blends + Magic E)
+- All previous patterns plus magic e words: cake, bike, home, cute, made, etc.
+- Max 10 words per page
+- Full Dolch sight word list available
+"""
+}
 
 
 class BookMaker:
@@ -73,7 +125,23 @@ class BookMaker:
 
         cfg = self.story_gen.configs[self.backend]
 
+        # Get phonics level constraints
+        phonics_constraints = PHONICS_LEVEL_PROMPTS.get(config.phonics_level, PHONICS_LEVEL_PROMPTS["orange"])
+
+        # Get sample words for this level
+        sample_words = WORD_BANKS.get_words_for_story(config.phonics_level, count=15)
+        decodable_examples = ", ".join(sample_words["decodable"][:12])
+        sight_examples = ", ".join(sample_words["sight"][:10])
+        sound_effects = ", ".join(sample_words["sound_effects"][:5])
+
         system_prompt = f"""You are an expert children's book author writing for beginning readers ages {config.age_range}.
+
+{phonics_constraints}
+
+APPROVED WORD EXAMPLES FOR THIS LEVEL:
+- Decodable: {decodable_examples}
+- Sight words: {sight_examples}
+- Sound effects: {sound_effects}
 
 RESEARCH-BASED APPROACH (Science of Reading + Mo Willems + Pete the Cat):
 
@@ -201,10 +269,50 @@ CRITICAL RULES:
 
         story = json.loads(content.strip())
 
+        # Add phonics level and config metadata
+        story["phonics_level"] = config.phonics_level
+        story["age_range"] = config.age_range
+
         # Enhance image prompts with consistent style
         for page in story["pages"]:
             if "image_prompt" in page:
                 page["image_prompt"] = f"{page['image_prompt']}, {config.art_style}, no text in image"
+
+        # Validate phonics level compliance
+        validation = WORD_BANKS.validate_story_words(
+            story,
+            level=config.phonics_level,
+            character_names=config.character_names if config.character_names else None,
+            topic_words=config.topic_vocabulary if config.topic_vocabulary else None
+        )
+
+        story["validation"] = {
+            "phonics_level": config.phonics_level,
+            "accessible_percent": validation["accessible_percent"],
+            "strict_decodable_percent": validation["strict_decodable_percent"],
+            "valid": validation["valid"],
+            "word_counts": {
+                "total": validation["total_words"],
+                "decodable": validation["decodable_count"],
+                "sight_words": validation["sight_word_count"],
+                "heart_words": validation["heart_word_count"],
+                "exclamations": validation["exclamation_count"],
+                "characters": validation["character_count"],
+                "vocabulary": validation["vocabulary_count"],
+                "unknown": validation["unknown_count"]
+            },
+            "issues": validation["issues"]
+        }
+
+        # Print validation summary
+        print(f"\n  Phonics Validation ({config.phonics_level} level):")
+        print(f"    Accessible: {validation['accessible_percent']:.1f}%")
+        print(f"    Valid: {validation['valid']}")
+        if validation["issues"]:
+            print(f"    Issues: {len(validation['issues'])}")
+            for issue in validation["issues"][:5]:  # Show first 5
+                if issue["word"]:
+                    print(f"      - '{issue['word']}': {issue['issue']}")
 
         return story
 
@@ -263,21 +371,30 @@ def create_funbookies_series():
 
     topics = [
         BookConfig(
-            topic="'Gus and the Volcano' - Gus is a small gray gecko who lives near a volcano. Story about Gus exploring the volcano, seeing lava, and staying safe. Use volcano words: lava, magma, crater, hot, steam.",
+            topic="'Gus and the Volcano' - Gus is a small lime-green gecko who lives near a volcano. Story about Gus exploring the volcano, seeing lava, and staying safe. Gus says 'Wow! Wow! Wow!' when amazed.",
             age_range="6-7",
             reading_level="beginning reader",
+            phonics_level="orange",  # CVC + digraphs
+            character_names=["Gus"],
+            topic_vocabulary=["lava", "magma", "volcano"],
             include_word_list=True,
         ),
         BookConfig(
-            topic="'Rats in the Castle' - Rita and Rico are two brave little rats exploring a castle. They cross the moat, find secret passages, and discover treasure. Use castle words: towers, moat, drawbridge, secret.",
+            topic="'Rats in the Castle' - Rita and Rico are two little rats exploring a castle. Rita is bold and says 'Let's go!' Rico is careful and says 'Are you sure?' They find jam but must escape a cat.",
             age_range="6-7",
             reading_level="beginning reader",
+            phonics_level="orange",  # CVC + digraphs
+            character_names=["Rita", "Rico"],
+            topic_vocabulary=["castle", "jam", "king", "queen"],
             include_word_list=True,
         ),
         BookConfig(
-            topic="'Jungle Sloth' - Zee is a slow-moving but brave green sloth who swings through the jungle canopy. Zee meets jungle animals and has an adventure. Use jungle words: vines, canopy, jungle, swing.",
+            topic="'Zee and the Jungle' - Zee is a slow, happy sloth who hangs in the jungle. Zee makes a friend and learns that slow is OK. Zee's catchphrase is 'Hang on!'",
             age_range="6-7",
             reading_level="beginning reader",
+            phonics_level="orange",  # CVC + digraphs
+            character_names=["Zee"],
+            topic_vocabulary=["jungle", "sloth", "vine", "bird"],
             include_word_list=True,
         ),
     ]

@@ -1,0 +1,375 @@
+{
+  "meta": {
+    "description": "Phonics-aligned word banks for Funbookies story generation",
+    "version": "1.0",
+    "levels": {
+      "yellow": "CVC only (early K)",
+      "orange": "CVC + digraphs (K-1)",
+      "red": "CVC + digraphs + blends (1st)",
+      "purple": "All above + magic e (1st-2nd)"
+    }
+  },
+
+  "sight_words": {
+    "dolch": {
+      "pre_primer": [
+        "a", "and", "away", "big", "blue", "can", "come", "down", "find", "for",
+        "funny", "go", "help", "here", "I", "in", "is", "it", "jump", "little",
+        "look", "make", "me", "my", "not", "one", "play", "red", "run", "said",
+        "see", "the", "three", "to", "two", "up", "we", "where", "yellow", "you"
+      ],
+      "primer": [
+        "all", "am", "are", "at", "ate", "be", "black", "brown", "but", "came",
+        "did", "do", "eat", "four", "get", "good", "have", "he", "into", "like",
+        "must", "new", "no", "now", "on", "our", "out", "please", "pretty", "ran",
+        "ride", "saw", "say", "she", "so", "soon", "that", "there", "they", "this",
+        "too", "under", "want", "was", "well", "went", "what", "white", "who", "will",
+        "with", "yes"
+      ],
+      "first_grade": [
+        "after", "again", "an", "any", "as", "ask", "by", "could", "every", "fly",
+        "from", "give", "going", "had", "has", "her", "him", "his", "how", "just",
+        "know", "let", "live", "may", "of", "old", "once", "open", "over", "put",
+        "round", "some", "stop", "take", "thank", "them", "then", "think", "walk", "were", "when"
+      ],
+      "second_grade": [
+        "always", "around", "because", "been", "before", "best", "both", "buy", "call", "cold",
+        "does", "don't", "fast", "first", "five", "found", "gave", "goes", "green", "its",
+        "made", "many", "off", "or", "pull", "read", "right", "sing", "sit", "sleep",
+        "tell", "their", "these", "those", "upon", "us", "use", "very", "wash", "which",
+        "why", "wish", "work", "would", "write", "your"
+      ],
+      "nouns": [
+        "apple", "baby", "back", "ball", "bear", "bed", "bell", "bird", "birthday", "boat",
+        "box", "boy", "bread", "brother", "cake", "car", "cat", "chair", "chicken", "children",
+        "coat", "corn", "cow", "day", "dog", "doll", "door", "duck", "egg", "eye",
+        "farm", "farmer", "father", "feet", "fire", "fish", "floor", "flower", "game", "garden",
+        "girl", "grass", "ground", "hand", "head", "hill", "home", "horse", "house", "kitty",
+        "leg", "letter", "man", "men", "milk", "money", "morning", "mother", "name", "nest",
+        "night", "paper", "party", "picture", "pig", "rabbit", "rain", "ring", "robin", "school",
+        "seed", "sheep", "shoe", "sister", "snow", "song", "squirrel", "stick", "street", "sun",
+        "table", "thing", "time", "top", "toy", "tree", "watch", "water", "way", "wind", "window", "wood"
+      ]
+    },
+    "fry_first_100": [
+      "the", "of", "and", "a", "to", "in", "is", "you", "that", "it",
+      "he", "was", "for", "on", "are", "as", "with", "his", "they", "I",
+      "at", "be", "this", "have", "from", "or", "one", "had", "by", "words",
+      "but", "not", "what", "all", "were", "we", "when", "your", "can", "said",
+      "there", "use", "an", "each", "which", "she", "do", "how", "their", "if",
+      "will", "up", "other", "about", "out", "many", "then", "them", "these", "so",
+      "some", "her", "would", "make", "like", "him", "into", "time", "has", "look",
+      "two", "more", "write", "go", "see", "number", "no", "way", "could", "people",
+      "my", "than", "first", "water", "been", "called", "who", "am", "its", "now",
+      "find", "long", "down", "day", "did", "get", "come", "made", "may", "part"
+    ]
+  },
+
+  "heart_words": {
+    "_description": "Words with irregular parts. 'tricky' shows the irregular spelling.",
+    "words": [
+      {"word": "said", "tricky": "ai", "sounds_like": "sed", "note": "ai says /e/"},
+      {"word": "was", "tricky": "a", "sounds_like": "wuz", "note": "a says /o/"},
+      {"word": "the", "tricky": "the", "sounds_like": "thuh", "note": "fully irregular"},
+      {"word": "have", "tricky": "a_e", "sounds_like": "hav", "note": "not magic e"},
+      {"word": "come", "tricky": "o_e", "sounds_like": "kum", "note": "o says /u/"},
+      {"word": "some", "tricky": "o_e", "sounds_like": "sum", "note": "o says /u/"},
+      {"word": "do", "tricky": "o", "sounds_like": "doo", "note": "o says /oo/"},
+      {"word": "to", "tricky": "o", "sounds_like": "too", "note": "o says /oo/"},
+      {"word": "you", "tricky": "ou", "sounds_like": "yoo", "note": "ou says /oo/"},
+      {"word": "they", "tricky": "ey", "sounds_like": "thay", "note": "ey says long a"},
+      {"word": "there", "tricky": "ere", "sounds_like": "thair", "note": "ere says /air/"},
+      {"word": "where", "tricky": "ere", "sounds_like": "wair", "note": "ere says /air/"},
+      {"word": "what", "tricky": "a", "sounds_like": "wut", "note": "a says /o/"},
+      {"word": "who", "tricky": "wh", "sounds_like": "hoo", "note": "wh says /h/"},
+      {"word": "from", "tricky": "o", "sounds_like": "frum", "note": "o says /u/"},
+      {"word": "of", "tricky": "of", "sounds_like": "ov", "note": "f says /v/"},
+      {"word": "one", "tricky": "o_e", "sounds_like": "wun", "note": "fully irregular"},
+      {"word": "once", "tricky": "o", "sounds_like": "wunce", "note": "o says /u/"},
+      {"word": "put", "tricky": "u", "sounds_like": "put", "note": "u says /oo/"},
+      {"word": "could", "tricky": "oul", "sounds_like": "kood", "note": "oul says /oo/"},
+      {"word": "would", "tricky": "oul", "sounds_like": "wood", "note": "oul says /oo/"},
+      {"word": "should", "tricky": "oul", "sounds_like": "shood", "note": "oul says /oo/"},
+      {"word": "want", "tricky": "a", "sounds_like": "wont", "note": "a says /o/"},
+      {"word": "were", "tricky": "ere", "sounds_like": "wur", "note": "ere says /ur/"},
+      {"word": "are", "tricky": "are", "sounds_like": "ar", "note": "fully irregular"},
+      {"word": "your", "tricky": "our", "sounds_like": "yor", "note": "our says /or/"},
+      {"word": "four", "tricky": "our", "sounds_like": "for", "note": "our says /or/"},
+      {"word": "give", "tricky": "i_e", "sounds_like": "giv", "note": "not magic e"},
+      {"word": "live", "tricky": "i_e", "sounds_like": "liv", "note": "not magic e"},
+      {"word": "love", "tricky": "o_e", "sounds_like": "luv", "note": "o says /u/"},
+      {"word": "done", "tricky": "o_e", "sounds_like": "dun", "note": "o says /u/"},
+      {"word": "gone", "tricky": "o_e", "sounds_like": "gon", "note": "irregular"}
+    ]
+  },
+
+  "decodable": {
+    "cvc": {
+      "short_a": [
+        "bat", "cat", "fat", "hat", "mat", "pat", "rat", "sat", "vat",
+        "bad", "dad", "had", "lad", "mad", "pad", "sad", "tad",
+        "bag", "gag", "lag", "nag", "rag", "sag", "tag", "wag",
+        "cab", "dab", "gab", "jab", "lab", "nab", "tab",
+        "can", "ban", "dan", "fan", "man", "pan", "ran", "tan", "van",
+        "cap", "gap", "lap", "map", "nap", "rap", "sap", "tap", "zap",
+        "jam", "ham", "ram", "yam",
+        "ax", "wax", "max", "tax"
+      ],
+      "short_e": [
+        "bed", "fed", "led", "red", "wed",
+        "beg", "leg", "peg", "keg",
+        "bet", "get", "jet", "let", "met", "net", "pet", "set", "vet", "wet", "yet",
+        "den", "hen", "men", "pen", "ten", "yen", "zen",
+        "pep", "rep"
+      ],
+      "short_i": [
+        "bib", "fib", "rib",
+        "bid", "did", "hid", "kid", "lid", "rid",
+        "big", "dig", "fig", "gig", "jig", "pig", "rig", "wig", "zig",
+        "bin", "din", "fin", "kin", "pin", "sin", "tin", "win",
+        "bit", "fit", "hit", "kit", "lit", "pit", "sit", "wit",
+        "dip", "hip", "lip", "nip", "rip", "sip", "tip", "zip",
+        "fix", "mix", "six"
+      ],
+      "short_o": [
+        "bob", "cob", "gob", "job", "mob", "rob", "sob",
+        "bog", "cog", "dog", "fog", "hog", "jog", "log", "tog",
+        "cop", "hop", "mop", "pop", "top",
+        "cot", "dot", "got", "hot", "jot", "lot", "not", "pot", "rot",
+        "box", "fox", "pox",
+        "cod", "god", "nod", "pod", "rod"
+      ],
+      "short_u": [
+        "bub", "cub", "hub", "nub", "pub", "rub", "sub", "tub",
+        "bud", "cud", "dud", "mud",
+        "bug", "dug", "hug", "jug", "mug", "pug", "rug", "tug",
+        "bun", "fun", "gun", "nun", "pun", "run", "sun",
+        "bus", "pus",
+        "but", "cut", "gut", "hut", "jut", "nut", "rut",
+        "cup", "pup", "up"
+      ]
+    },
+
+    "digraphs": {
+      "ch": {
+        "initial": ["chat", "chap", "chop", "chip", "chin", "chill", "check", "chess", "chest", "chick", "chimp", "chug", "chum"],
+        "final": ["much", "such", "rich", "which", "lunch", "munch", "bunch", "punch", "bench", "inch", "pinch"]
+      },
+      "sh": {
+        "initial": ["ship", "shop", "shed", "shell", "shelf", "shin", "shift", "shut", "shag", "shack"],
+        "final": ["wish", "fish", "dish", "wash", "rush", "hush", "mush", "push", "gush", "cash", "bash", "dash", "gash", "hash", "lash", "mash", "rash"]
+      },
+      "th": {
+        "initial": ["that", "this", "them", "then", "than", "thin", "thick", "thud"],
+        "final": ["with", "bath", "math", "path", "moth", "both", "cloth"]
+      },
+      "wh": {
+        "initial": ["when", "what", "which", "whip", "whiz", "whack", "wham"]
+      },
+      "ck": {
+        "final": ["back", "pack", "rack", "sack", "tack", "jack", "lack", "black", "crack", "track", "snack", "stack",
+                  "deck", "neck", "peck", "check", "speck", "wreck",
+                  "kick", "lick", "nick", "pick", "sick", "tick", "wick", "brick", "click", "flick", "quick", "slick", "stick", "thick", "trick",
+                  "dock", "lock", "mock", "rock", "sock", "block", "clock", "flock", "knock", "shock", "stock",
+                  "buck", "duck", "luck", "muck", "puck", "suck", "tuck", "chuck", "cluck", "pluck", "stuck", "truck"]
+      },
+      "ng": {
+        "final": ["bang", "gang", "hang", "rang", "sang", "ding", "king", "ping", "ring", "sing", "wing", "zing", "bring", "cling", "fling", "sling", "sting", "string", "swing", "thing",
+                  "bong", "gong", "long", "song", "strong", "wrong",
+                  "bung", "hung", "lung", "rung", "sung", "clung", "flung", "slung", "stung", "swung", "young"]
+      },
+      "ss_ff_ll_zz": {
+        "words": ["boss", "loss", "moss", "toss", "cross", "floss", "gross",
+                  "miss", "hiss", "kiss", "bliss",
+                  "mess", "less", "bless", "dress", "press", "stress",
+                  "fuss", "muss", "plus", "bus",
+                  "buff", "cuff", "huff", "muff", "puff", "stuff", "bluff", "fluff", "gruff", "scuff", "snuff",
+                  "off", "cliff", "sniff", "stiff", "whiff",
+                  "ball", "call", "fall", "hall", "mall", "tall", "wall", "small", "stall",
+                  "bell", "cell", "dell", "fell", "sell", "tell", "well", "yell", "shell", "smell", "spell", "swell",
+                  "bill", "dill", "fill", "gill", "hill", "kill", "mill", "pill", "will", "chill", "drill", "frill", "grill", "skill", "spill", "still", "thrill",
+                  "doll", "poll", "roll", "toll", "troll", "stroll",
+                  "bull", "full", "pull", "dull", "gull", "hull", "mull", "null", "skull",
+                  "buzz", "fuzz", "jazz", "fizz", "frizz", "whizz"]
+      }
+    },
+
+    "blends": {
+      "initial_l": {
+        "bl": ["black", "blade", "blame", "blank", "blast", "blaze", "bleed", "blend", "bless", "blind", "blink", "bliss", "block", "blob", "blot", "blow", "blue", "bluff", "blunt", "blur", "blush"],
+        "cl": ["clad", "claim", "clam", "clamp", "clan", "clang", "clank", "clap", "clash", "clasp", "class", "claw", "clay", "clean", "clear", "clerk", "click", "cliff", "climb", "cling", "clip", "cloak", "clock", "clog", "clone", "close", "cloth", "cloud", "clown", "club", "cluck", "clue", "clump", "clung"],
+        "fl": ["flag", "flake", "flame", "flap", "flash", "flask", "flat", "flaw", "flea", "fled", "flesh", "flex", "flick", "flip", "flit", "float", "flock", "flog", "flood", "floor", "flop", "floss", "flour", "flow", "flown", "fluff", "fluid", "flung", "flush", "flute"],
+        "gl": ["glad", "glam", "glance", "gland", "glare", "glass", "glaze", "gleam", "glee", "glen", "glide", "glim", "glimpse", "glint", "glitch", "globe", "gloom", "glory", "gloss", "glove", "glow", "glue", "glum", "glut"],
+        "pl": ["place", "plaid", "plain", "plan", "plane", "plank", "plant", "plate", "play", "plea", "plead", "please", "pledge", "plenty", "pliers", "plight", "plod", "plop", "plot", "plow", "pluck", "plug", "plum", "plumb", "plump", "plunge", "plunk", "plus", "plush"],
+        "sl": ["slab", "slack", "slam", "slang", "slant", "slap", "slash", "slat", "slate", "slave", "slaw", "slay", "sled", "sleek", "sleep", "sleet", "slept", "slice", "slick", "slid", "slide", "slim", "slime", "sling", "slink", "slip", "slit", "slob", "slop", "slope", "slosh", "slot", "sloth", "slow", "slug", "slum", "slump", "slung", "slunk", "slur", "slush"]
+      },
+      "initial_r": {
+        "br": ["brace", "brag", "braid", "brain", "brake", "bran", "branch", "brand", "brass", "brat", "brave", "brawl", "bread", "break", "breath", "bred", "breed", "breeze", "brick", "bride", "bridge", "brief", "bright", "brim", "brine", "bring", "brink", "brisk", "broad", "broke", "bronze", "brood", "brook", "broom", "broth", "brought", "brow", "brown", "browse", "bruise", "brush", "brunt", "brute"],
+        "cr": ["crab", "crack", "craft", "cram", "cramp", "crane", "crank", "crash", "crate", "crave", "crawl", "craze", "crazy", "creak", "cream", "crease", "create", "creek", "creep", "crest", "crew", "crib", "crick", "cried", "crime", "crimp", "crisp", "croak", "crock", "crook", "crop", "cross", "crouch", "crow", "crowd", "crown", "crude", "cruel", "cruise", "crumb", "crunch", "crush", "crust", "cry"],
+        "dr": ["drab", "draft", "drag", "drain", "drake", "drank", "drape", "draw", "drawl", "drawn", "dread", "dream", "dress", "drew", "dried", "drift", "drill", "drink", "drip", "drive", "drone", "drool", "droop", "drop", "dross", "drove", "drown", "drug", "drum", "drunk", "dry"],
+        "fr": ["frame", "frank", "frantic", "fraud", "fray", "freak", "free", "freeze", "fresh", "fret", "fried", "friend", "fright", "frill", "fringe", "frisk", "frizz", "frog", "from", "front", "frost", "froth", "frown", "froze", "fruit", "fry"],
+        "gr": ["grab", "grace", "grade", "grain", "grand", "grant", "grape", "graph", "grasp", "grass", "grate", "grave", "gray", "graze", "grease", "great", "greed", "green", "greet", "grew", "grey", "grid", "grief", "grill", "grim", "grin", "grind", "grip", "grit", "groan", "groom", "grope", "gross", "ground", "group", "grove", "grow", "growl", "grown", "grub", "gruff", "grunt"],
+        "pr": ["prance", "prank", "pray", "preach", "press", "pretty", "prey", "price", "prick", "pride", "priest", "prim", "prime", "print", "prize", "probe", "problem", "prod", "program", "project", "prom", "promise", "prompt", "prone", "prong", "proof", "prop", "proper", "prose", "protect", "proud", "prove", "prowl", "prude", "prune", "pry"],
+        "tr": ["trace", "track", "trade", "trail", "train", "trait", "tramp", "trance", "trap", "trash", "travel", "tray", "tread", "treat", "tree", "trek", "trend", "trial", "tribe", "trick", "tried", "trill", "trim", "trip", "trod", "troll", "tromp", "troop", "trot", "trouble", "trout", "truck", "trudge", "true", "trump", "trunk", "trust", "truth", "try"]
+      },
+      "initial_s": {
+        "sc": ["scab", "scald", "scale", "scalp", "scam", "scamp", "scan", "scar", "scare", "scarf", "scat", "scene", "scent", "school", "scold", "scoop", "scoot", "scope", "scorch", "score", "scorn", "scout", "scowl", "scram", "scrap", "scratch", "scream", "screen", "screw", "script", "scroll", "scrub", "scuff"],
+        "sk": ["skate", "sketch", "ski", "skid", "skill", "skim", "skin", "skip", "skirt", "skit", "skull", "skunk", "sky"],
+        "sm": ["smack", "small", "smart", "smash", "smear", "smell", "smelt", "smile", "smock", "smog", "smoke", "smooth", "smudge", "smug"],
+        "sn": ["snack", "snag", "snail", "snake", "snap", "snare", "snarl", "snatch", "sneak", "sneer", "sniff", "snip", "snob", "snoop", "snore", "snort", "snot", "snout", "snow", "snub", "snuck", "snuff", "snug"],
+        "sp": ["space", "spade", "span", "spank", "spar", "spare", "spark", "spat", "spawn", "speak", "spear", "speck", "sped", "speech", "speed", "spell", "spend", "spent", "spice", "spider", "spied", "spike", "spill", "spin", "spine", "spirit", "spit", "splash", "split", "spoke", "spook", "spool", "spoon", "sport", "spot", "spout", "spray", "spread", "spring", "sprint", "sprout", "spruce", "spun", "spur", "spy"],
+        "st": ["stab", "stack", "staff", "stage", "stain", "stair", "stake", "stale", "stalk", "stall", "stamp", "stand", "stank", "star", "stare", "stark", "start", "stash", "state", "stay", "steak", "steal", "steam", "steel", "steep", "steer", "stem", "step", "stern", "stew", "stick", "stiff", "still", "sting", "stink", "stir", "stock", "stole", "stomp", "stone", "stood", "stool", "stoop", "stop", "store", "stork", "storm", "story", "stove", "stow", "strange", "strap", "straw", "stray", "stream", "street", "stress", "stretch", "strict", "stride", "strike", "string", "strip", "stripe", "strive", "stroke", "stroll", "strong", "struck", "strung", "strut", "stub", "stuck", "stud", "study", "stuff", "stump", "stun", "stung", "stunk", "stunt"],
+        "sw": ["swam", "swamp", "swan", "swap", "swarm", "sway", "swear", "sweat", "sweep", "sweet", "swell", "swept", "swift", "swim", "swing", "swipe", "swirl", "switch", "swoop", "sword", "swore", "sworn", "swum", "swung"]
+      },
+      "final": {
+        "mp": ["bump", "camp", "champ", "chomp", "clamp", "clump", "cramp", "crimp", "damp", "dump", "grump", "hump", "jump", "lamp", "limp", "lump", "plump", "pomp", "pump", "ramp", "romp", "stamp", "stomp", "stump", "swamp", "tramp", "trump"],
+        "nd": ["and", "band", "bend", "blend", "blind", "blond", "bond", "bound", "brand", "end", "fend", "fiend", "find", "fond", "found", "friend", "grand", "grind", "ground", "hand", "hound", "kind", "land", "lend", "mend", "mind", "mound", "pond", "pound", "round", "sand", "send", "sound", "spend", "stand", "strand", "tend", "trend", "wand", "wind", "wound"],
+        "nk": ["bank", "blank", "blink", "brink", "bunk", "chunk", "clank", "clink", "crank", "drank", "drink", "drunk", "dunk", "flank", "flunk", "frank", "funk", "gunk", "honk", "hunk", "ink", "junk", "link", "mink", "pink", "plank", "plunk", "prank", "prink", "punk", "rank", "rink", "sank", "shrank", "shrink", "shrunk", "sink", "skunk", "slink", "spank", "spunk", "stank", "stink", "stunk", "sunk", "swank", "tank", "thank", "think", "trunk", "wink", "yank"],
+        "nt": ["ant", "bent", "blunt", "bunt", "burnt", "can't", "cent", "chant", "count", "dent", "don't", "faint", "flint", "font", "front", "gaunt", "giant", "glint", "grant", "grunt", "haunt", "hint", "hunt", "int", "jaunt", "joint", "lent", "lint", "meant", "mint", "mount", "paint", "pant", "pent", "plant", "point", "print", "punt", "rent", "runt", "saint", "scent", "sent", "slant", "spent", "splint", "sprint", "squint", "stint", "stunt", "taunt", "tent", "tint", "want", "went", "won't"],
+        "st": ["best", "blast", "boast", "boost", "breast", "burst", "bust", "cast", "chest", "coast", "cost", "crust", "dust", "east", "fast", "feast", "first", "fist", "frost", "ghost", "gust", "hoist", "host", "just", "last", "least", "list", "lost", "mast", "mist", "moist", "most", "must", "nest", "past", "pest", "post", "priest", "quest", "rest", "roast", "roost", "rust", "test", "toast", "thrust", "trust", "twist", "vast", "vest", "waist", "west", "wrist", "yeast", "zest"]
+      }
+    },
+
+    "magic_e": {
+      "a_e": [
+        "ace", "ape", "ate", "bade", "bake", "bale", "bane", "base", "cage", "cake", "came", "cane", "cape", "care", "case", "cave", "dale", "dame", "dane", "dare", "date", "daze", "face", "fade", "fake", "fame", "fare", "fate", "faze", "gale", "game", "gape", "gate", "gave", "gaze", "grace", "grade", "grape", "grate", "grave", "graze", "hale", "hare", "hate", "have", "haze", "jade", "jake", "james", "jane", "kate", "lace", "lake", "lame", "lane", "late", "laze", "mace", "made", "make", "male", "mane", "mare", "mate", "maze", "name", "pace", "page", "pale", "pane", "paste", "pave", "place", "plane", "plate", "race", "rage", "rake", "rate", "rave", "raze", "safe", "sage", "sake", "sale", "same", "sane", "save", "scale", "shade", "shake", "shame", "shape", "skate", "slate", "snake", "space", "spade", "stage", "stake", "stale", "state", "take", "tale", "tame", "tape", "taste", "trade", "vane", "vase", "wade", "wage", "wake", "wane", "waste", "wave"
+      ],
+      "i_e": [
+        "bike", "bile", "bite", "bride", "brine", "chide", "chime", "cite", "dice", "dime", "dine", "dire", "dive", "drive", "file", "fine", "fire", "five", "glide", "grime", "gripe", "hide", "hike", "hire", "hive", "ice", "kite", "knife", "life", "like", "lime", "line", "live", "mice", "mile", "mime", "mine", "mite", "nice", "nine", "pike", "pile", "pine", "pipe", "price", "pride", "prime", "prize", "rice", "ride", "rife", "rile", "rime", "ripe", "rise", "rite", "shine", "shire", "side", "site", "size", "slice", "slide", "slime", "smile", "snide", "snipe", "spice", "spike", "spine", "spite", "splice", "spline", "sprite", "stride", "strife", "strike", "stripe", "strive", "swine", "swipe", "thrice", "thrive", "tide", "tile", "time", "tire", "tribe", "trice", "trike", "twine", "twice", "vine", "vise", "while", "white", "wide", "wife", "wile", "wine", "wipe", "wire", "wise", "wive", "write"
+      ],
+      "o_e": [
+        "awoke", "bloke", "bone", "bore", "broke", "choke", "chose", "clone", "close", "code", "coke", "cone", "cope", "core", "cove", "doze", "dole", "dome", "done", "dope", "dose", "dote", "dove", "drove", "fore", "froze", "globe", "gnome", "gone", "gore", "grove", "hole", "home", "hone", "hope", "hose", "joke", "lone", "lore", "lobe", "mode", "mole", "mope", "more", "mote", "node", "none", "nose", "note", "poke", "pole", "pore", "pose", "probe", "prone", "prose", "quote", "robe", "rode", "role", "rope", "rose", "rote", "rove", "scope", "shone", "shore", "slope", "smoke", "smote", "snore", "sole", "some", "sore", "spoke", "spore", "stoke", "stole", "stone", "store", "stove", "strobe", "stroke", "swore", "those", "throne", "tone", "tore", "vote", "woke", "woke", "wore", "wove", "yoke", "zone"
+      ],
+      "u_e": [
+        "brute", "chute", "crude", "cube", "cure", "cute", "dude", "duke", "dune", "dupe", "fluke", "flute", "fume", "fuse", "huge", "june", "jute", "lube", "lure", "lute", "mule", "muse", "mute", "plume", "prude", "prune", "pure", "rude", "rule", "rune", "ruse", "sure", "tube", "tune", "use"
+      ]
+    }
+  },
+
+  "topic_vocabulary": {
+    "_note": "These words may not be fully decodable - use pictures to support",
+    "animals": {
+      "pets": ["cat", "dog", "fish", "bird", "hamster", "rabbit", "turtle"],
+      "farm": ["cow", "pig", "hen", "duck", "horse", "sheep", "goat", "rooster"],
+      "wild": ["lion", "tiger", "bear", "wolf", "fox", "deer", "moose", "elk"],
+      "jungle": ["monkey", "snake", "parrot", "jaguar", "sloth", "toucan", "frog"],
+      "ocean": ["fish", "whale", "shark", "dolphin", "crab", "octopus", "seal"],
+      "insects": ["ant", "bee", "bug", "fly", "moth", "wasp", "beetle", "spider"],
+      "reptiles": ["snake", "lizard", "gecko", "turtle", "frog", "toad", "newt"]
+    },
+    "places": {
+      "nature": ["hill", "pond", "lake", "cave", "den", "nest", "hole", "log"],
+      "home": ["bed", "bath", "room", "door", "wall", "floor", "roof", "yard"],
+      "town": ["shop", "park", "school", "bank", "store", "street", "road"],
+      "adventure": ["castle", "cave", "jungle", "island", "mountain", "volcano", "forest"]
+    },
+    "weather": ["sun", "rain", "wind", "snow", "cloud", "storm", "fog", "ice", "hot", "cold", "warm"],
+    "food": ["egg", "ham", "jam", "bread", "milk", "cake", "pie", "apple", "grape", "plum"],
+    "colors": ["red", "blue", "green", "yellow", "black", "white", "brown", "pink", "orange", "purple"],
+    "actions": {
+      "movement": ["run", "jump", "hop", "skip", "walk", "swim", "fly", "dig", "spin", "swing"],
+      "senses": ["see", "look", "hear", "feel", "smell", "taste", "touch"],
+      "communication": ["say", "tell", "ask", "yell", "call", "sing", "shout", "whisper"]
+    },
+    "feelings": ["happy", "sad", "mad", "glad", "scared", "brave", "proud", "shy", "calm", "excited"]
+  },
+
+  "sound_effects": {
+    "_note": "Onomatopoeia - exciting AND mostly decodable",
+    "loud": ["BANG", "BOOM", "CRASH", "CRACK", "SLAM", "SMASH", "THUD", "WHACK", "WHAM"],
+    "soft": ["hush", "shh", "whisper", "hum", "buzz", "fizz", "hiss", "swish"],
+    "water": ["splash", "drip", "drop", "plop", "splish", "gush", "rush"],
+    "animal": ["woof", "meow", "moo", "oink", "baa", "quack", "cluck", "chirp", "buzz", "hiss", "roar", "growl"],
+    "movement": ["zip", "zoom", "whoosh", "swoosh", "swish", "dash", "flash"],
+    "impact": ["pop", "snap", "crack", "click", "clack", "knock", "tap", "thump", "bump", "plunk"]
+  },
+
+  "sentence_starters": {
+    "_note": "Templates for engaging simple sentences",
+    "action": [
+      "[Character] ran to the [place].",
+      "[Character] saw a [thing].",
+      "[Character] got the [thing].",
+      "Run, [Character], run!",
+      "Jump! Jump! Jump!"
+    ],
+    "dialogue": [
+      "\"[Exclamation]!\" said [Character].",
+      "\"I can [verb] it!\" said [Character].",
+      "\"Look!\" said [Character].",
+      "\"Help!\" said [Character].",
+      "\"Yes! Yes! Yes!\""
+    ],
+    "questions": [
+      "Can [Character] get it?",
+      "Will [Character] win?",
+      "What is in the [place]?",
+      "Is it a [thing]?"
+    ],
+    "suspense": [
+      "But then...",
+      "Oh no!",
+      "What was that?",
+      "And then..."
+    ],
+    "exclamations": [
+      "Wow!",
+      "Oh no!",
+      "Yes!",
+      "Help!",
+      "Run!",
+      "Stop!",
+      "Look!"
+    ]
+  },
+
+  "refrains": {
+    "_note": "Repeatable catchphrases for character books",
+    "templates": [
+      "It's all good!",
+      "I can do it!",
+      "Let's go!",
+      "Oh my!",
+      "Not yet!",
+      "Just wait!",
+      "Here we go!",
+      "Watch me!",
+      "Ta-da!",
+      "Uh oh!"
+    ],
+    "patterns": [
+      "[Verb], [verb], [verb]!",
+      "[Adjective]! [Adjective]! [Adjective]!",
+      "Did [Character] [verb]? No!",
+      "But [Character] did not stop.",
+      "And [Character] was [feeling]."
+    ]
+  },
+
+  "book_templates": {
+    "level_orange": {
+      "name": "CVC + Digraphs",
+      "max_words_per_page": 7,
+      "target_words_to_repeat": 6,
+      "allowed_patterns": ["cvc", "digraphs"],
+      "sight_words": "dolch.pre_primer",
+      "sample_target_words": ["hot", "run", "big", "pop", "hiss", "wish"]
+    },
+    "level_red": {
+      "name": "CVC + Digraphs + Blends",
+      "max_words_per_page": 8,
+      "target_words_to_repeat": 8,
+      "allowed_patterns": ["cvc", "digraphs", "blends"],
+      "sight_words": "dolch.pre_primer + dolch.primer",
+      "sample_target_words": ["jump", "splash", "crash", "stomp", "grand", "think"]
+    },
+    "level_purple": {
+      "name": "All + Magic E",
+      "max_words_per_page": 10,
+      "target_words_to_repeat": 10,
+      "allowed_patterns": ["cvc", "digraphs", "blends", "magic_e"],
+      "sight_words": "dolch.pre_primer + dolch.primer + dolch.first_grade",
+      "sample_target_words": ["make", "take", "home", "time", "ride", "hide", "cave", "brave"]
+    }
+  }
+}

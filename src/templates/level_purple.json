@@ -1,0 +1,63 @@
+{
+  "level": "purple",
+  "name": "CVC + Digraphs + Blends + Magic E",
+  "description": "Full phonics toolkit including silent e words",
+  "target_age": "7-8",
+  "target_grade": "1st-2nd",
+
+  "constraints": {
+    "max_words_per_page": 10,
+    "max_distinct_words": 100,
+    "decodable_patterns": ["cvc", "digraphs", "blends", "magic_e"],
+    "forbidden_patterns": ["vowel_teams", "r_controlled"],
+    "target_accessible_percent": 75
+  },
+
+  "word_lists": {
+    "approved_sight_words": "All Dolch words through 2nd grade",
+    "magic_e_words": {
+      "a_e": ["bake", "cake", "fake", "lake", "make", "rake", "take", "wake", "came", "game", "name", "same", "tame", "base", "case", "cave", "gave", "pave", "save", "wave", "gate", "late", "date", "ate", "face", "lace", "pace", "race", "place", "grace", "grade", "grape", "scale", "shade", "shake", "shape", "skate", "snake", "space", "stage", "state", "trade", "brave", "flame", "frame", "plane", "plate"],
+      "i_e": ["bike", "hike", "like", "bite", "kite", "hide", "ride", "side", "wide", "dime", "lime", "time", "dine", "fine", "line", "mine", "nine", "pine", "vine", "wine", "dive", "five", "hive", "live", "fire", "hire", "tire", "wire", "slide", "glide", "pride", "stride", "prize", "smile", "spine", "tribe", "while", "white", "write"],
+      "o_e": ["bone", "cone", "tone", "zone", "note", "vote", "code", "mode", "rode", "dose", "hose", "nose", "pose", "rose", "hole", "mole", "pole", "role", "home", "dome", "hope", "rope", "broke", "choke", "smoke", "spoke", "stoke", "stone", "store", "stove", "those", "close", "globe", "grove", "scope", "slope", "drove", "froze", "whole"],
+      "u_e": ["cube", "tube", "cute", "mute", "dude", "rude", "dune", "tune", "fume", "fuse", "huge", "flute", "prune", "rule", "mule"]
+    },
+    "sound_effects": ["All previous plus: SHINE, GLIDE, SLIDE, WHINE, CHIME, BLAZE, FLAME, FLARE"]
+  },
+
+  "story_structure": {
+    "total_pages": 24,
+    "breakdown": [
+      {"pages": "1", "type": "cover", "words": 5},
+      {"pages": "2", "type": "wordlist", "words": 0},
+      {"pages": "3-22", "type": "story", "words_per_page": "8-10", "count": 20},
+      {"pages": "23", "type": "end", "words": 2},
+      {"pages": "24", "type": "copyright", "words": 0}
+    ]
+  },
+
+  "advanced_patterns": {
+    "complex_sentences": [
+      "[Name] made a [noun] and gave it to [other].",
+      "\"I hope we can [verb]!\" said [Name].",
+      "The [noun] broke, but [Name] did not give up."
+    ],
+    "feelings_with_magic_e": [
+      "[Name] felt brave.",
+      "[Name] had pride in the [noun].",
+      "It was time to [verb]."
+    ],
+    "description": [
+      "The [noun] was wide and [adjective].",
+      "[Name] saw a huge [noun].",
+      "The [noun] had a nice [noun]."
+    ]
+  },
+
+  "example_topic": {
+    "title": "Jake's Brave Ride",
+    "premise": "Jake the snake wants to ride a bike but is scared. He learns to be brave.",
+    "vocabulary": ["bike", "ride", "brave", "snake"],
+    "character": {"name": "Jake", "catchphrase": "I can be brave!"},
+    "emotional_arc": "fear → attempt → fail → try again → succeed → pride"
+  }
+}

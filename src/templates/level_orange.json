@@ -1,0 +1,113 @@
+{
+  "level": "orange",
+  "name": "CVC + Digraphs",
+  "description": "Adds two-letter consonant sounds (sh, ch, th, ck)",
+  "target_age": "6-7",
+  "target_grade": "K-1",
+
+  "constraints": {
+    "max_words_per_page": 7,
+    "max_distinct_words": 50,
+    "decodable_patterns": ["cvc", "digraphs"],
+    "forbidden_patterns": ["blends", "magic_e", "vowel_teams"],
+    "target_accessible_percent": 85
+  },
+
+  "word_lists": {
+    "approved_sight_words": [
+      "a", "I", "the", "to", "is", "it", "in", "my", "we", "go", "no", "so",
+      "me", "he", "be", "see", "you", "and", "for", "up", "can", "said", "was",
+      "all", "are", "at", "but", "came", "did", "do", "eat", "get", "good",
+      "have", "here", "into", "like", "look", "new", "now", "on", "our", "out",
+      "ran", "saw", "say", "she", "soon", "that", "there", "they", "this", "too",
+      "want", "what", "who", "will", "with", "yes"
+    ],
+    "digraph_words": {
+      "ch": ["chat", "chop", "chip", "chin", "check", "much", "such", "rich", "lunch", "munch"],
+      "sh": ["ship", "shop", "shed", "shell", "shut", "wish", "fish", "dish", "wash", "rush", "hush", "cash", "bash", "mash"],
+      "th": ["that", "this", "them", "then", "with", "bath", "math", "path", "moth"],
+      "ck": ["back", "pack", "rack", "sack", "tack", "deck", "neck", "peck", "kick", "lick", "pick", "sick", "tick", "dock", "lock", "rock", "sock", "duck", "luck", "muck", "tuck"],
+      "wh": ["when", "what", "which", "whip"],
+      "ss_ff_ll": ["hiss", "miss", "boss", "toss", "puff", "muff", "cuff", "ball", "call", "fall", "tall", "wall", "bell", "fell", "tell", "well", "yell", "hill", "will", "doll", "dull", "full", "pull"]
+    },
+    "sound_effects": ["pop", "hiss", "puff", "thud", "whack", "wham", "splash", "crash", "bash", "mash", "rush", "hush", "shush"]
+  },
+
+  "story_structure": {
+    "total_pages": 20,
+    "breakdown": [
+      {"pages": "1", "type": "cover", "words": 4},
+      {"pages": "2", "type": "wordlist", "words": 0},
+      {"pages": "3-18", "type": "story", "words_per_page": "5-7", "count": 16},
+      {"pages": "19", "type": "end", "words": 2},
+      {"pages": "20", "type": "copyright", "words": 0}
+    ]
+  },
+
+  "emotional_arc": {
+    "pages_3_5": "Setup - introduce character, show want",
+    "pages_6_8": "Action - character pursues goal",
+    "pages_9_10": "TURN - something changes (complication)",
+    "pages_11_14": "Rising action - tension builds",
+    "pages_15_16": "Climax - biggest moment",
+    "pages_17_18": "Resolution - safe, happy, proud"
+  },
+
+  "sentence_patterns": {
+    "simple_declarative": [
+      "[Name] ran up the [place].",
+      "[Name] saw a [adjective] [noun].",
+      "It was [adjective]!",
+      "The [noun] got [adjective]."
+    ],
+    "dialogue": [
+      "\"[Exclamation]!\" said [Name].",
+      "\"I can [verb] it!\" said [Name].",
+      "\"[Verb]!\" said [Name]."
+    ],
+    "sound_effects": [
+      "POP! HISS! CRACK!",
+      "SPLASH! THUD! BASH!",
+      "[Sound]! [Sound]! [Sound]!"
+    ],
+    "repetition": [
+      "Run, [Name], run!",
+      "[Verb], [verb], [verb]!",
+      "[Adjective]! [Adjective]! [Adjective]!"
+    ],
+    "pete_the_cat": [
+      "Did [Name] [negative]? No!",
+      "But [Name] did not stop."
+    ],
+    "catchphrase": [
+      "\"Wow! Wow! Wow!\" said [Name].",
+      "\"Let's go!\" said [Name]."
+    ]
+  },
+
+  "example_story": {
+    "title": "Gus and the Volcano",
+    "character": {"name": "Gus", "description": "A small lime-green gecko with big curious eyes", "catchphrase": "Wow! Wow! Wow!"},
+    "topic_vocabulary": ["lava", "magma", "volcano"],
+    "pages": [
+      {"page": 1, "text": "Gus and the Volcano"},
+      {"page": 3, "text": "Gus sat on a rock."},
+      {"page": 4, "text": "Gus saw the big hill."},
+      {"page": 5, "text": "\"I can go up!\" said Gus."},
+      {"page": 6, "text": "Up, up, up!"},
+      {"page": 7, "text": "Gus got to the top."},
+      {"page": 8, "text": "Gus saw a big pit."},
+      {"page": 9, "text": "Red! Hot! Lava!"},
+      {"page": 10, "text": "\"Wow! Wow! Wow!\" said Gus."},
+      {"page": 11, "text": "HISS! PUFF! POP!"},
+      {"page": 12, "text": "The magma got big!"},
+      {"page": 13, "text": "Hot! Hot! Hot!"},
+      {"page": 14, "text": "\"Run!\" said Gus."},
+      {"page": 15, "text": "Run, Gus, run!"},
+      {"page": 16, "text": "Run, run, run!"},
+      {"page": 17, "text": "Gus got back to his rock."},
+      {"page": 18, "text": "Did Gus stop? No!"},
+      {"page": 19, "text": "The End"}
+    ]
+  }
+}

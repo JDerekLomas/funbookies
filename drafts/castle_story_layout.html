@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rats in the Castle - Draft Layout</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        h1 { text-align: center; margin-bottom: 10px; color: #ffd93d; }
+        h2 { color: #6bcb77; margin: 30px 0 15px; border-bottom: 2px solid #6bcb77; padding-bottom: 5px; }
+        h3 { color: #4d96ff; margin: 20px 0 10px; }
+
+        .reference-section {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .ref-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .ref-card {
+            background: #0f3460;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .ref-card img {
+            max-width: 100%;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .ref-card h4 { color: #ffd93d; margin-bottom: 5px; }
+        .ref-card p { font-size: 12px; color: #aaa; }
+
+        .page-spread {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+            background: #16213e;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .page {
+            background: #fff;
+            color: #333;
+            border-radius: 8px;
+            min-height: 300px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .page.left { border-right: 2px dashed #ccc; }
+        .page-number {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+        .page-text {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px 10px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .page-beat {
+            font-size: 11px;
+            color: #666;
+            font-style: italic;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .prompt-section {
+            margin-top: 15px;
+        }
+        .prompt-box {
+            background: #0f3460;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        .prompt-label {
+            font-size: 11px;
+            color: #6bcb77;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        .prompt-text {
+            font-size: 13px;
+            color: #ddd;
+            line-height: 1.6;
+        }
+        .ref-tags {
+            margin-top: 10px;
+        }
+        .ref-tag {
+            display: inline-block;
+            background: #4d96ff;
+            color: white;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin: 2px;
+        }
+
+        .single-page {
+            max-width: 500px;
+            margin: 0 auto 40px;
+        }
+        .single-page .page {
+            min-height: 350px;
+        }
+
+        .wordlist-page {
+            background: #fff;
+            color: #333;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        .wordlist-page h4 { color: #e53935; margin: 15px 0 8px; font-size: 14px; }
+        .wordlist-page ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .wordlist-page li {
+            background: #f5f5f5;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .image-placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 150px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 800px) {
+            .page-spread { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <h1>🐀 Rats in the Castle 🏰</h1>
+    <p style="text-align: center; color: #aaa; margin-bottom: 30px;">Orange Level • CVC + Digraphs • Draft Layout with Reference Images</p>
+
+    <section class="reference-section">
+        <h2>📚 Character & Location References</h2>
+        <p style="color: #aaa; margin-bottom: 15px;">Use these references for consistent character/location appearance across all pages.</p>
+
+        <div class="ref-grid">
+            <div class="ref-card">
+                <img src="../reference_images/rita_ref_01.png" alt="Rita Reference">
+                <h4>Rita</h4>
+                <p>Light tan fur • Red bow on right ear • Eager/excited expression • "Let's go!"</p>
+            </div>
+            <div class="ref-card">
+                <img src="../reference_images/rico_ref_01.png" alt="Rico Reference">
+                <h4>Rico</h4>
+                <p>Darker brown fur • Blue bandana • Worried/cautious expression • "But wait!"</p>
+            </div>
+            <div class="ref-card">
+                <img src="../reference_images/cat_ref_01.png" alt="Cat Reference">
+                <h4>The Cat</h4>
+                <p>Orange tabby • Green eyes • Playful antagonist • Not scary</p>
+            </div>
+            <div class="ref-card">
+                <img src="../reference_images/castle_ref_01.png" alt="Castle Reference">
+                <h4>The Castle</h4>
+                <p>Gray stone • Purple accents • Wooden door • Friendly not spooky</p>
+            </div>
+        </div>
+    </section>
+
+    <h2>📖 Page Layout</h2>
+
+    <!-- COVER -->
+    <div class="single-page">
+        <div class="page">
+            <div class="page-number">Page 1 - COVER</div>
+            <div class="image-placeholder">[ Cover Image ]</div>
+            <div class="page-text">Rats in the Castle</div>
+        </div>
+        <div class="prompt-section">
+            <div class="prompt-box">
+                <div class="prompt-label">Image Prompt</div>
+                <div class="prompt-text">
+                    Two small cartoon rats standing heroically at the entrance of a castle.
+                    LEFT: Rita (light tan fur, red bow on right ear, excited expression with big smile).
+                    RIGHT: Rico (darker brown fur, blue bandana around neck, slightly nervous but curious).
+                    Castle behind them has a large wooden door and two towers with purple accents.
+                    Warm golden lighting suggesting adventure ahead. Both rats looking at viewer.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag">rita_ref_01</span>
+                    <span class="ref-tag">rico_ref_01</span>
+                    <span class="ref-tag">castle_ref_01</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WORDLIST -->
+    <div class="wordlist-page">
+        <div class="page-number">Page 2 - WORD LIST</div>
+        <h3 style="text-align: center; color: #333;">Words to Know</h3>
+        <h4>🔊 Sound It Out</h4>
+        <ul>
+            <li>big</li><li>run</li><li>hid</li><li>got</li><li>sat</li>
+            <li>cat</li><li>hat</li><li>cup</li><li>jam</li><li>dash</li><li>rush</li>
+        </ul>
+        <h4>❤️ Know by Heart</h4>
+        <ul>
+            <li>the</li><li>said</li><li>was</li><li>they</li><li>to</li><li>a</li><li>we</li>
+        </ul>
+        <h4>⭐ New Words</h4>
+        <ul>
+            <li>castle</li><li>king</li><li>queen</li><li>Rita</li><li>Rico</li>
+        </ul>
+    </div>
+
+    <!-- PAGES 3-4 -->
+    <div class="page-spread">
+        <div class="page left">
+            <div class="page-number">Page 3</div>
+            <div class="image-placeholder">[ Wide shot - sunny day ]</div>
+            <div class="page-text">Rita and Rico sat in the sun.</div>
+            <div class="page-beat">Setup - introduce characters at rest</div>
+        </div>
+        <div class="page">
+            <div class="page-number">Page 4</div>
+            <div class="image-placeholder">[ Rita pointing at castle ]</div>
+            <div class="page-text">Rita saw the big castle.</div>
+            <div class="page-beat">Inciting incident - Rita spots goal</div>
+        </div>
+    </div>
+    <div class="prompt-section">
+        <div class="prompt-box">
+            <div class="prompt-label">Page 3 Prompt</div>
+            <div class="prompt-text">
+                WIDE SHOT: Peaceful outdoor scene. Two small cartoon rats sitting on a grassy hill.
+                LEFT: Rita (light tan fur, red bow) sitting relaxed, face tilted up enjoying warmth, eyes closed happily.
+                RIGHT: Rico (darker brown fur, blue bandana) sitting beside her, relaxed but eyes open.
+                Bright yellow sun in upper corner. Simple green grass, light blue sky.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+            </div>
+        </div>
+        <div class="prompt-box">
+            <div class="prompt-label">Page 4 Prompt</div>
+            <div class="prompt-text">
+                MEDIUM SHOT: Rita in left third of frame, shown from side/back, pointing toward castle.
+                Expression is excited - eyes wide, mouth open in wonder.
+                Castle in right two-thirds, shown smaller to indicate distance - gray stone, purple roof.
+                Rico visible behind Rita, looking where she's pointing with curious but uncertain expression.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+                <span class="ref-tag">castle_ref_01</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGES 5-6: Catchphrases -->
+    <div class="page-spread">
+        <div class="page left">
+            <div class="page-number">Page 5</div>
+            <div class="image-placeholder">[ Rita close-up - EXCITED ]</div>
+            <div class="page-text">"Let's go!" said Rita.</div>
+            <div class="page-beat">Rita's catchphrase - bold personality</div>
+        </div>
+        <div class="page">
+            <div class="page-number">Page 6</div>
+            <div class="image-placeholder">[ Rico close-up - WORRIED ]</div>
+            <div class="page-text">"But wait!" said Rico.</div>
+            <div class="page-beat">Rico's catchphrase - cautious personality</div>
+        </div>
+    </div>
+    <div class="prompt-section">
+        <div class="prompt-box">
+            <div class="prompt-label">Page 5 Prompt</div>
+            <div class="prompt-text">
+                CLOSE-UP on Rita (light tan fur, red bow on right ear). Shown from chest up.
+                Expression: HUGE excited grin, eyes sparkling with white highlights, one paw raised in "let's do this" fist pump.
+                Body language shows eagerness - leaning forward. Background is simple solid light blue.
+                This is her CATCHPHRASE MOMENT - maximum enthusiasm.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+            </div>
+        </div>
+        <div class="prompt-box">
+            <div class="prompt-label">Page 6 Prompt</div>
+            <div class="prompt-text">
+                CLOSE-UP on Rico (darker brown fur, blue bandana). Shown from chest up.
+                Expression: worried/uncertain - one eyebrow raised, mouth in concerned frown, one paw held up in "stop/wait" gesture.
+                Body language shows hesitation - shoulders slightly hunched. Background is simple solid light blue.
+                This is his CATCHPHRASE MOMENT - showing careful nature.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rico_ref_01</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGES 7-8 -->
+    <div class="page-spread">
+        <div class="page left">
+            <div class="page-number">Page 7</div>
+            <div class="image-placeholder">[ Action - running into castle ]</div>
+            <div class="page-text">In they ran!</div>
+            <div class="page-beat">Action - entering castle together</div>
+        </div>
+        <div class="page">
+            <div class="page-number">Page 8</div>
+            <div class="image-placeholder">[ Low angle - castle interior ]</div>
+            <div class="page-text">The castle was big!</div>
+            <div class="page-beat">Reaction - awe at scale</div>
+        </div>
+    </div>
+    <div class="prompt-section">
+        <div class="prompt-box">
+            <div class="prompt-label">Page 7 Prompt</div>
+            <div class="prompt-text">
+                DYNAMIC ACTION SHOT: View from inside castle looking out at doorway.
+                Both rats mid-run entering through door - motion lines behind them.
+                LEFT: Rita (red bow) leading, one foot forward, excited grin.
+                RIGHT: Rico (blue bandana) slightly behind, running but hesitant expression.
+                Light streams in from doorway. Castle interior is shadowy gray stone.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+                <span class="ref-tag">castle_ref_01</span>
+            </div>
+        </div>
+        <div class="prompt-box">
+            <div class="prompt-label">Page 8 Prompt</div>
+            <div class="prompt-text">
+                LOW ANGLE SHOT looking up: Both rats TINY at bottom of frame, shown from behind, looking up.
+                The ceiling is very high with stone arches. Grand staircase visible. Purple banners hang from walls.
+                Rats are SMALL in frame to emphasize castle's size - Rita (red bow) and Rico (blue bandana) standing close together.
+                Scale contrast is the joke - tiny rats, HUGE space.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGES 9-10: JAM! -->
+    <div class="page-spread">
+        <div class="page left">
+            <div class="page-number">Page 9</div>
+            <div class="image-placeholder">[ Rita sees the jam ]</div>
+            <div class="page-text">Rita saw jam in a dish.</div>
+            <div class="page-beat">Goal discovered</div>
+        </div>
+        <div class="page">
+            <div class="page-number">Page 10</div>
+            <div class="image-placeholder">[ Rita bouncing with joy ]</div>
+            <div class="page-text">"Jam! Jam! Jam!" said Rita.</div>
+            <div class="page-beat">Excitement peaks - Rita's desire</div>
+        </div>
+    </div>
+    <div class="prompt-section">
+        <div class="prompt-box">
+            <div class="prompt-label">Page 9 Prompt</div>
+            <div class="prompt-text">
+                MEDIUM SHOT: Rita in foreground left, shown in profile, pointing excitedly.
+                Eyes HUGE, mouth open in delighted gasp, practically drooling.
+                RIGHT side: fancy golden dish on small table containing bright RED jam that glistens.
+                Rico visible behind Rita, also looking at jam with interest but less intensely.
+                The JAM is the focal point - it should look DELICIOUS.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+            </div>
+        </div>
+        <div class="prompt-box">
+            <div class="prompt-label">Page 10 Prompt</div>
+            <div class="prompt-text">
+                CLOSE-UP on Rita: She is BOUNCING with excitement - shown mid-hop with feet off ground.
+                Expression is pure joy - enormous smile showing tiny teeth, eyes squeezed into happy crescents.
+                Paws clasped together near chest. Small motion lines around her showing bouncing/vibrating.
+                She looks like she might EXPLODE from happiness. Background hints at jam dish.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 11: THE CAT! (PAGE TURN SURPRISE) -->
+    <div class="single-page">
+        <div class="page" style="background: #fff5f5; border: 3px solid #e53935;">
+            <div class="page-number" style="color: #e53935;">Page 11 - PAGE TURN SURPRISE!</div>
+            <div class="image-placeholder" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);">[ DRAMATIC CAT REVEAL ]</div>
+            <div class="page-text" style="color: #c62828;">But then... a cat!</div>
+            <div class="page-beat">PAGE TURN REVEAL - danger arrives!</div>
+        </div>
+        <div class="prompt-section">
+            <div class="prompt-box" style="border: 2px solid #e53935;">
+                <div class="prompt-label" style="color: #e53935;">Page 11 Prompt - THE BIG REVEAL</div>
+                <div class="prompt-text">
+                    DRAMATIC REVEAL SHOT: Large orange tabby cat emerging from shadows on RIGHT side of frame.
+                    Cat takes up most of frame - shown from chest up, facing left toward viewer.
+                    Expression is curious/predatory but still cartoon-cute - eyes focused, ears forward, slight smirk.
+                    Orange fur with darker orange stripes. Green eyes.
+                    LEFT edge of frame shows tiny glimpse of rats looking shocked.
+                    Dark/shadowy background to add drama. NOT scary - playful tension.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag">cat_ref_01</span>
+                    <span class="ref-tag">rita_ref_01</span>
+                    <span class="ref-tag">rico_ref_01</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGES 12-13: CHASE -->
+    <div class="page-spread">
+        <div class="page left">
+            <div class="page-number">Page 12</div>
+            <div class="image-placeholder">[ Rico takes charge ]</div>
+            <div class="page-text">"Run!" said Rico.</div>
+            <div class="page-beat">Rico takes charge in crisis</div>
+        </div>
+        <div class="page">
+            <div class="page-number">Page 13</div>
+            <div class="image-placeholder">[ Full speed chase ]</div>
+            <div class="page-text">Dash! Rush! Run!</div>
+            <div class="page-beat">Chase sequence with sound words</div>
+        </div>
+    </div>
+    <div class="prompt-section">
+        <div class="prompt-box">
+            <div class="prompt-label">Page 12 Prompt</div>
+            <div class="prompt-text">
+                ACTION SHOT: Rico (blue bandana) in foreground, shown from waist up, turned to face Rita while looking back at danger.
+                Expression is URGENT - eyes wide with alarm, mouth open shouting, one paw grabbing Rita's arm to pull her.
+                Rita visible beside him, also looking scared. Cat's shadow or paw visible at edge of frame.
+                Rico is being BRAVE despite his usually cautious nature - this is his HERO MOMENT.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rico_ref_01</span>
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">cat_ref_01</span>
+            </div>
+        </div>
+        <div class="prompt-box">
+            <div class="prompt-label">Page 13 Prompt</div>
+            <div class="prompt-text">
+                DYNAMIC CHASE SCENE: Both rats running FULL SPEED from right to left.
+                Multiple motion lines and dust clouds showing extreme speed.
+                Rita (red bow flying back) and Rico (blue bandana streaming) running side by side, legs blurred with motion.
+                Expressions show fear/determination - wide eyes looking forward.
+                Behind them: large orange cat chasing, mouth open.
+                FAST and DESPERATE energy.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+                <span class="ref-tag">cat_ref_01</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGES 14-15: HIDING -->
+    <div class="page-spread">
+        <div class="page left">
+            <div class="page-number">Page 14</div>
+            <div class="image-placeholder">[ Rita in cup ]</div>
+            <div class="page-text">Rita hid in a cup.</div>
+            <div class="page-beat">Clever hiding - Rita</div>
+        </div>
+        <div class="page">
+            <div class="page-number">Page 15</div>
+            <div class="image-placeholder">[ Rico in hat ]</div>
+            <div class="page-text">Rico hid in a hat.</div>
+            <div class="page-beat">Clever hiding - Rico (parallel)</div>
+        </div>
+    </div>
+    <div class="prompt-section">
+        <div class="prompt-box">
+            <div class="prompt-label">Page 14 Prompt</div>
+            <div class="prompt-text">
+                MEDIUM SHOT: Large ornate teacup (white with purple pattern) on table.
+                Rita (red bow visible) peeking out from INSIDE the cup - only face and paws gripping rim visible.
+                Expression is worried but hopeful - wide eyes looking out nervously, ears pressed flat.
+                Cup is LARGE relative to her tiny size. Blurred castle background.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+            </div>
+        </div>
+        <div class="prompt-box">
+            <div class="prompt-label">Page 15 Prompt</div>
+            <div class="prompt-text">
+                MEDIUM SHOT: Fancy purple hat with feather lying on floor.
+                Rico (blue bandana visible) hiding UNDERNEATH - only face peeking out from under brim.
+                Expression is nervous - one eye squinting, biting lip, ears pressed back.
+                Hat is LARGE relative to his size. Composition MIRRORS Rita's page.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rico_ref_01</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGES 16-17: TENSION -->
+    <div class="page-spread">
+        <div class="page left">
+            <div class="page-number">Page 16</div>
+            <div class="image-placeholder">[ Cat waiting ]</div>
+            <div class="page-text">The cat sat. And sat. And sat.</div>
+            <div class="page-beat">Tension - waiting game</div>
+        </div>
+        <div class="page">
+            <div class="page-number">Page 17</div>
+            <div class="image-placeholder">[ Split view - both hiding ]</div>
+            <div class="page-text">Shh! Shh! Shh!</div>
+            <div class="page-beat">Quiet tension - holding breath</div>
+        </div>
+    </div>
+    <div class="prompt-section">
+        <div class="prompt-box">
+            <div class="prompt-label">Page 16 Prompt</div>
+            <div class="prompt-text">
+                WIDE SHOT: Orange cat sitting in center of frame, looking around suspiciously.
+                Cat's posture is alert - sitting upright, tail wrapped around paws, ears swiveling, eyes scanning.
+                In background, slightly out of focus but visible:
+                LEFT: the teacup (with tiny hint of Rita's eyes peeking out)
+                RIGHT: the hat (with tiny hint of Rico's eyes)
+                The cat DOESN'T SEE THEM. Tension - patient predator waiting.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">cat_ref_01</span>
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+            </div>
+        </div>
+        <div class="prompt-box">
+            <div class="prompt-label">Page 17 Prompt</div>
+            <div class="prompt-text">
+                SPLIT COMPOSITION: Two circular vignettes side by side like peepholes.
+                LEFT CIRCLE: Close-up of Rita's face peeking from teacup - eyes wide, paw held to lips in "shh" gesture.
+                RIGHT CIRCLE: Close-up of Rico's face under hat - same "shh" gesture, eyes darting nervously.
+                Both rats HOLDING THEIR BREATH. Background outside circles is dark/shadowy.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGES 18-19: RELIEF -->
+    <div class="page-spread">
+        <div class="page left">
+            <div class="page-number">Page 18</div>
+            <div class="image-placeholder">[ Cat leaving ]</div>
+            <div class="page-text">The cat ran away!</div>
+            <div class="page-beat">Danger passes</div>
+        </div>
+        <div class="page">
+            <div class="page-number">Page 19</div>
+            <div class="image-placeholder">[ Celebration! ]</div>
+            <div class="page-text">"We did it!" said Rita.</div>
+            <div class="page-beat">Celebration - relief and triumph</div>
+        </div>
+    </div>
+    <div class="prompt-section">
+        <div class="prompt-box">
+            <div class="prompt-label">Page 18 Prompt</div>
+            <div class="prompt-text">
+                MEDIUM SHOT: Orange cat running OUT of frame to the right - only back half and tail visible.
+                Cat is clearly LEAVING in a hurry. Tail is last thing visible.
+                In foreground left: teacup and hat visible with rats now showing HOPEFUL/RELIEVED expressions peeking out.
+                Rita's eyes showing relief from cup, Rico cautiously looking out from hat.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">cat_ref_01</span>
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+            </div>
+        </div>
+        <div class="prompt-box">
+            <div class="prompt-label">Page 19 Prompt</div>
+            <div class="prompt-text">
+                JOYFUL ACTION SHOT: Both rats EMERGING from hiding with celebration.
+                Rita JUMPING out of teacup with arms raised in victory, huge triumphant grin, eyes squeezed shut with joy.
+                Rico pushing up hat and climbing out - relieved smile, less exuberant but genuinely happy.
+                Teacup and hat visible. Motion lines around Rita. Safe castle interior background.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGES 20-21: JAM PAYOFF -->
+    <div class="page-spread">
+        <div class="page left">
+            <div class="page-number">Page 20</div>
+            <div class="image-placeholder">[ Eating jam! ]</div>
+            <div class="page-text">They got the jam!</div>
+            <div class="page-beat">Goal achieved</div>
+        </div>
+        <div class="page">
+            <div class="page-number">Page 21</div>
+            <div class="image-placeholder">[ Jam-covered faces ]</div>
+            <div class="page-text">"Yum! Yum! Yum!"</div>
+            <div class="page-beat">Mirrors earlier "Jam! Jam! Jam!"</div>
+        </div>
+    </div>
+    <div class="prompt-section">
+        <div class="prompt-box">
+            <div class="prompt-label">Page 20 Prompt</div>
+            <div class="prompt-text">
+                MEDIUM SHOT: Both rats sitting at the dish of jam, happily eating.
+                Rita (red bow, RED JAM smeared around mouth) diving face-first into jam with abandon.
+                Rico (blue bandana, jam on face) eating more politely but clearly enjoying it - holding pawful of jam.
+                Golden dish of RED jam between them. Both look BLISSFULLY HAPPY.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+            </div>
+        </div>
+        <div class="prompt-box">
+            <div class="prompt-label">Page 21 Prompt</div>
+            <div class="prompt-text">
+                CLOSE-UP: Both rats' faces filling the frame, side by side, looking at viewer.
+                HUGE satisfied smiles. Both have RED JAM smeared all around mouths and cheeks.
+                Rita (red bow - bow also has jam on it) eyes closed in bliss.
+                Rico (blue bandana) eyes half-closed contentedly.
+                PURE SATISFACTION. Mirrors earlier "Jam! Jam! Jam!" excitement but now FULFILLED.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGES 22-23 -->
+    <div class="page-spread">
+        <div class="page left">
+            <div class="page-number">Page 22</div>
+            <div class="image-placeholder">[ Heading home ]</div>
+            <div class="page-text">"Let's go back!" said Rita.</div>
+            <div class="page-beat">Callback to catchphrase</div>
+        </div>
+        <div class="page">
+            <div class="page-number">Page 23</div>
+            <div class="image-placeholder">[ Sunset walk home ]</div>
+            <div class="page-text">And they did!</div>
+            <div class="page-beat">Resolution - adventure complete</div>
+        </div>
+    </div>
+    <div class="prompt-section">
+        <div class="prompt-box">
+            <div class="prompt-label">Page 22 Prompt</div>
+            <div class="prompt-text">
+                MEDIUM SHOT: Rita (red bow, jam still on face) pointing toward castle exit (doorway with light streaming in).
+                Same excited pose as earlier "Let's go!" but now SATISFIED rather than eager.
+                Rico (blue bandana, jam on face) standing beside her, nodding in agreement with content smile.
+                Both look FULL and HAPPY.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+            </div>
+        </div>
+        <div class="prompt-box">
+            <div class="prompt-label">Page 23 Prompt</div>
+            <div class="prompt-text">
+                WIDE SHOT - SUNSET ENDING: Both rats walking AWAY from castle, shown from behind.
+                Walking toward warm orange/pink sunset.
+                Rita (red bow visible) on left, Rico (blue bandana visible) on right.
+                Walking close together, Rita's arm around Rico's shoulder in FRIENDSHIP.
+                Long pink tails curve behind them. Castle getting smaller behind.
+                Feeling of FRIENDSHIP and SUCCESSFUL ADVENTURE.
+            </div>
+            <div class="ref-tags">
+                <span class="ref-tag">rita_ref_01</span>
+                <span class="ref-tag">rico_ref_01</span>
+                <span class="ref-tag">castle_ref_01</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- END PAGE -->
+    <div class="single-page">
+        <div class="page">
+            <div class="page-number">Page 24 - THE END</div>
+            <div class="image-placeholder">[ Waving goodbye ]</div>
+            <div class="page-text">The End</div>
+        </div>
+        <div class="prompt-section">
+            <div class="prompt-box">
+                <div class="prompt-label">Final Page Prompt</div>
+                <div class="prompt-text">
+                    FINAL IMAGE: Both rats facing viewer, waving goodbye with big friendly smiles.
+                    Between them on ground: small jar of jam - their trophy/souvenir.
+                    Rita (red bow, clean face now) waving enthusiastically with whole arm.
+                    Rico (blue bandana, clean face) waving more calmly but warmly.
+                    Background is simple warm color (peach or light orange).
+                    "Goodbye for now" moment - inviting readers to come back.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag">rita_ref_01</span>
+                    <span class="ref-tag">rico_ref_01</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="margin: 40px 0; border-color: #333;">
+
+    <h2>📋 Production Notes</h2>
+    <div style="background: #16213e; padding: 20px; border-radius: 12px;">
+        <h3>Character State Tracking</h3>
+        <ul style="color: #aaa; margin-left: 20px;">
+            <li>Pages 3-19: Clean faces</li>
+            <li>Pages 20-22: Jam on faces (red smears around mouth)</li>
+            <li>Pages 23-24: Clean again</li>
+        </ul>
+
+        <h3>Key Visual Beats</h3>
+        <ul style="color: #aaa; margin-left: 20px;">
+            <li><strong>Pages 5-6:</strong> Catchphrase contrast (excited vs worried)</li>
+            <li><strong>Page 11:</strong> BIG REVEAL - cat should dominate frame</li>
+            <li><strong>Page 12:</strong> Rico's hero moment - role reversal</li>
+            <li><strong>Pages 14-15:</strong> Mirror composition (cup/hat)</li>
+            <li><strong>Page 17:</strong> Split screen tension</li>
+            <li><strong>Pages 10 & 21:</strong> "Jam! Jam! Jam!" → "Yum! Yum! Yum!" callback</li>
+        </ul>
+
+        <h3>Style Reminders</h3>
+        <ul style="color: #aaa; margin-left: 20px;">
+            <li>Always append: "Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"</li>
+            <li>Use reference images for character consistency</li>
+            <li>Rita always has RED bow on RIGHT ear</li>
+            <li>Rico always has BLUE bandana around neck</li>
+            <li>Cat is ORANGE tabby with GREEN eyes</li>
+        </ul>
+    </div>
+
+    <p style="text-align: center; color: #666; margin-top: 40px; padding: 20px;">
+        Generated for Funbookies • Orange Level (CVC + Digraphs)
+    </p>
+</body>
+</html>

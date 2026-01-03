@@ -1,0 +1,228 @@
+{
+  "title": "Gus and the Volcano",
+  "level": "orange",
+  "character": {
+    "names": ["Gus"],
+    "gus": {
+      "species": "small gecko",
+      "color": "bright lime green (#7CB342)",
+      "eyes": "very large round black eyes with big white highlight dots, expressive eyebrows",
+      "distinguishing_feature": "curly tail that spirals at the end",
+      "expression_default": "curious, eager, eyes wide open",
+      "body": "small and compact, about 4 inches, four splayed toes on each foot",
+      "personality": "curious and brave, sometimes nervous but pushes through, easily amazed"
+    },
+    "catchphrase": "Wow! Wow! Wow!",
+    "style_notes": "Gus is cute and friendly. Simple shapes - body is oval, head is round, limbs are simple tubes. Bold black outlines. No realistic scales - flat green color with minimal belly highlight. Big expressive face takes up most of the head."
+  },
+  "art_direction": {
+    "style": "Expressive Minimal - Mo Willems expressiveness meets Jon Klassen restraint. Bold black outlines (hand-drawn feel), flat color fills, subtle paper texture overlay, minimal backgrounds",
+    "influences": ["Mo Willems (Elephant & Piggie)", "Jon Klassen (I Want My Hat Back)", "Pete the Cat"],
+    "palette": {
+      "gus_body": "#7CB342",
+      "gus_belly": "#AED581",
+      "volcano_brown": "#5D4037",
+      "volcano_dark": "#3E2723",
+      "lava_orange": "#FF5722",
+      "lava_red": "#D84315",
+      "lava_yellow": "#FFB300",
+      "rock_gray": "#757575",
+      "sky_blue": "#81D4FA",
+      "background_warm": "#FFF8E1",
+      "background_cool": "#E3F2FD"
+    },
+    "humor_techniques": [
+      "Exaggerated expressions (eyes HUGE when amazed)",
+      "Scale contrast (tiny gecko, massive volcano)",
+      "Deadpan aftermath (back on rock like nothing happened)",
+      "Physical comedy (running with legs as blur)",
+      "Catchphrase payoff (Wow! Wow! Wow! means different things)"
+    ],
+    "dual_audience": {
+      "kids": "Big expressive reactions, sound effects, danger-then-safe cycle, triumph pose",
+      "adults": "Absurdity of a gecko climbing a volcano, unfazed resilience, knowing looks to reader"
+    },
+    "technical": {
+      "aspect_ratio": "4:3 landscape",
+      "resolution": "2048x1536 minimum",
+      "negative_prompts": "realistic, 3D render, photograph, complex background, gradient shading, scary, grotesque, text, words, letters, busy composition"
+    },
+    "must_include": "NO TEXT IN IMAGE",
+    "avoid": "realistic style, detailed textures, scary expressions, complex backgrounds, generic stock illustration style"
+  },
+  "word_list": {
+    "decodable": {
+      "cvc": ["hot", "run", "big", "red", "got", "top", "hill", "pit", "sat", "back", "can", "did", "not", "but", "him"],
+      "digraphs": ["hiss", "puff", "wish", "that", "with"]
+    },
+    "sight_words": {
+      "flash": ["the", "to", "up", "a", "it", "is", "I", "at", "in", "on"],
+      "heart": ["said", "was", "saw"]
+    },
+    "vocabulary": {
+      "topic": ["lava", "magma", "volcano"],
+      "character": ["Gus"]
+    }
+  },
+  "phonics_focus": ["short vowels CVC", "digraphs sh/th/ss/ff"],
+  "refrain": "Wow! Wow! Wow!",
+  "emotional_arc": "curious → amazed → scared → relieved → proud",
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Gus and the Volcano",
+      "image_prompt": "COVER IMAGE: A small bright lime-green gecko (Gus) standing heroically at the base of a smoking volcano. Gus has very large round black eyes with white highlights, a curly spiral tail, and an expression of wonder and excitement - mouth slightly open, eyes sparkling. The volcano behind him is brown/dark with orange glow at the top suggesting lava inside. Gus is small in frame to show the massive scale of the volcano. Warm golden lighting. He looks ready for adventure. Simple flat cartoon style, bold black outlines, bright saturated colors, solid color background gradient from blue sky to warm orange near volcano, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know",
+      "sections": {
+        "sound_it_out": ["hot", "run", "big", "red", "got", "top", "hill", "pit", "hiss", "puff"],
+        "know_by_heart": ["the", "said", "was", "saw", "to", "I", "a"],
+        "new_words": ["lava", "magma", "volcano", "Gus"]
+      },
+      "image_prompt": null
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Gus sat on a rock.",
+      "beat": "setup - introduce character at rest",
+      "image_prompt": "MEDIUM SHOT: Peaceful scene. A small bright lime-green gecko (Gus) sitting contentedly on a rounded gray rock. Gus has very large round black eyes with white highlights, curly spiral tail resting beside him. Expression is relaxed and happy - small content smile, eyes half-closed enjoying the warmth. The volcano is visible in the far background, small and peaceful. Simple blue sky. Gus takes up the left third of the frame, rock beneath him. Simple flat cartoon style, bold black outlines, minimal background, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "Gus saw the big hill.",
+      "beat": "inciting incident - sees goal",
+      "image_prompt": "WIDE SHOT: Gus (bright lime-green gecko, curly tail, big eyes) shown small on left side of frame, sitting on his rock, now turned to look at something. His posture shows interest - body leaning forward, eyes wide, one front foot raised pointing. In the right two-thirds of frame: a LARGE volcano dominating the view, much bigger than before, brown rocky slopes leading up to a smoking summit with hints of orange glow. Scale contrast is key - tiny curious gecko, massive imposing volcano. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "\"I can go up!\" said Gus.",
+      "beat": "decision moment - character commits",
+      "image_prompt": "CLOSE-UP on Gus (bright lime-green gecko): Shown from chest up, facing slightly right toward where the volcano would be. Expression is determined and excited - eyes bright and wide, big confident grin, one front foot raised in a 'let's do this' gesture, chest puffed out. His curly tail is visible behind him, perked up with excitement. Background is simple solid sky blue. This is his moment of decision - pure confidence. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "Up, up, up!",
+      "beat": "action - climbing montage",
+      "image_prompt": "DYNAMIC ACTION SHOT: Gus (bright lime-green gecko, curly tail) climbing up the rocky brown slope of the volcano. Show him in three positions going up diagonally from lower-left to upper-right - same character at different points suggesting motion/progress (like a comic panel effect). Each Gus shows effort - legs stretched, determined expression. Motion lines and small dust clouds behind him. The slope is steep. Simple flat cartoon style, bold black outlines, warm colors on the volcano rocks, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "Gus got to the top.",
+      "beat": "achievement - first goal reached",
+      "image_prompt": "MEDIUM SHOT from behind/side: Gus (bright lime-green gecko, curly tail visible) standing at the rim of the volcano crater, looking down into it. He's shown from behind so we see what he sees. His posture is proud - standing tall, front feet on the edge. The crater opens before him, dark and deep with a hint of orange glow from below. He's small against the vast crater. A moment of triumph before discovery. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "Gus saw a big pit.",
+      "beat": "discovery - looking into unknown",
+      "image_prompt": "HIGH ANGLE POV SHOT: View looking down into the volcanic crater. At the very bottom of frame, Gus's small green feet and curly tail tip are visible gripping the edge - we're seeing from just behind him. The crater drops away dramatically - dark rocky walls leading down to darkness with an ominous orange glow at the bottom. Sense of depth and scale. The pit is vast compared to the tiny gecko feet. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "Red! Hot! Lava!",
+      "beat": "PAGE TURN REVEAL - the big moment",
+      "image_prompt": "DRAMATIC REVEAL SHOT: Full view of bubbling, glowing lava filling the frame. Bright oranges (#FF5722), reds (#D84315), and yellows (#FFB300) dominating. The lava surface is active - bubbles forming and popping, surface churning. Light radiates upward. This is the visual payoff - pure spectacle. No gecko visible - this is all about the lava reveal. The lava should look hot but not scary - exciting, wondrous. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "\"Wow! Wow! Wow!\" said Gus.",
+      "beat": "catchphrase moment - peak amazement",
+      "image_prompt": "CLOSE-UP on Gus's face: His expression is MAXIMUM amazement. Eyes HUGE (bigger than normal, taking up most of his face), mouth wide open in a perfect O of wonder, front feet up near his face in an 'oh my gosh' gesture. Orange/red glow from the lava illuminates his face from below, making him look dramatic. His curly tail is visible, standing straight up with excitement. This is THE catchphrase moment - pure overwhelming wonder. Background is simple with lava glow. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "HISS! PUFF! POP!",
+      "beat": "danger building - sound effects page",
+      "image_prompt": "ACTION SHOT: The lava becoming more active. Multiple bubbles bursting - show 3-4 bubbles at different stages (forming, expanding, popping). Steam/smoke rising in puffs. Motion lines radiating from the bubble pops. The surface is churning more intensely than before. Colors are brighter, more intense. This is kinetic - things are happening. Small glimpse of Gus at top edge of frame, watching with growing concern. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "The magma got big!",
+      "beat": "rising danger - stakes increase",
+      "image_prompt": "WIDE SHOT: The lava level has risen noticeably higher in the crater. Gus (bright lime-green gecko) is visible at the crater rim at the top of frame, now leaning BACK with alarm - eyes wide with worry, mouth in an 'uh oh' frown, body language showing he's reconsidering this whole situation. The lava below takes up the bottom two-thirds of frame, bubbling and churning, getting closer to him. Dangerous but not terrifying - exciting tension. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "Hot! Hot! Hot!",
+      "beat": "urgency peaks",
+      "image_prompt": "CLOSE-UP on Gus: He's feeling the heat now. Expression is worried - eyebrows angled up in concern, mouth in a nervous grimace, eyes slightly squinting. Cartoon sweat drops flying off his head (3-4 drops). The orange glow on his face is more intense. His curly tail is drooping with stress. One foot raised like he's about to back away. He's uncomfortable but not panicking yet. Background is orange-red glow. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "\"Run!\" said Gus.",
+      "beat": "PAGE TURN - decision to flee",
+      "image_prompt": "DYNAMIC SHOT: Gus (bright lime-green gecko) at the moment of turning to run. He's pivoting - body twisted, front legs already pointing downhill, back legs still at crater edge, head looking back over his shoulder with wide alarmed eyes. His curly tail is flying out behind him with the motion. Expression is urgent - determined but scared, mouth open shouting. Motion lines suggest he's about to bolt. Orange glow behind him. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "Run, Gus, run!",
+      "beat": "chase/escape - audience cheering",
+      "image_prompt": "ACTION SHOT: Gus (bright lime-green gecko) running at FULL SPEED down the volcano slope, left to right across the frame. His legs are a blur of motion (motion lines), dust clouds behind him, body stretched out in full sprint. Expression is focused determination - eyes forward, mouth set in a line. His curly tail streams behind him. The volcano slope fills the bottom of frame, orange glow visible at the top behind him. He's FAST. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "Run, run, run!",
+      "beat": "continued escape - building relief",
+      "image_prompt": "WIDE SHOT: Gus (bright lime-green gecko, curly tail) small in the lower right of frame, still running but now clearly making progress down the mountain. The volcano behind him is getting smaller/more distant. The dangerous orange glow is fading, more blue sky visible. He's escaping! His pose still shows running but less frantic. The composition shows the journey - volcano in background, safety (represented by his gray rock visible tiny in the distance) ahead. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "Gus got back to his rock.",
+      "beat": "resolution - safety achieved",
+      "image_prompt": "MEDIUM SHOT: Gus (bright lime-green gecko) back on his original gray rock in the foreground. He's catching his breath - slightly hunched over, panting (tongue out, small puff marks near mouth), but with a relieved expression - eyes relaxed, small smile forming. His curly tail hangs tiredly. The volcano is in the background, now peaceful again - no longer glowing, just a hill. The crisis has passed. Warm, safe lighting. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 18,
+      "type": "story",
+      "text": "Did Gus stop? No!",
+      "beat": "Pete the Cat resilience moment",
+      "image_prompt": "MEDIUM SHOT: Gus (bright lime-green gecko) sitting proudly on his rock, fully recovered. Expression is confident and proud - big smile, chest puffed out, one eyebrow raised knowingly at the viewer (slight fourth-wall break). His curly tail is perked up again. He's answering the question with attitude - of COURSE he didn't stop. This is deadpan confidence. Background is simple, volcano peaceful in distance. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 19,
+      "type": "story",
+      "text": "Gus did it!",
+      "beat": "celebration - triumph",
+      "image_prompt": "ACTION SHOT: Gus (bright lime-green gecko) in a full victory pose on his rock. Both front feet raised high above his head in triumph, mouth open in a huge celebratory grin, eyes squeezed shut with joy. His curly tail is doing a happy wiggle (motion lines). Small celebration lines/sparkles around him. He's genuinely thrilled with himself. The pose is BIG and exuberant. Background is warm sunset colors. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 20,
+      "type": "story",
+      "text": "\"I saw the lava!\" said Gus.",
+      "beat": "reflection - sharing the adventure",
+      "image_prompt": "MEDIUM SHOT: Gus (bright lime-green gecko) gesturing excitedly as if telling a story to someone (or to the reader). One front foot pointing back toward the volcano, the other gesticulating expressively. His face shows animated storytelling - eyebrows up, mouth moving, eyes bright with the memory. His curly tail is active, curling with enthusiasm. He's reliving the excitement. Simple background with volcano visible in direction he's pointing. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 21,
+      "type": "story",
+      "text": "\"Wow! Wow! Wow!\"",
+      "beat": "catchphrase callback - satisfying ending",
+      "image_prompt": "CLOSE-UP: Gus's happy face filling most of the frame. Expression is pure joy and wonder - huge smile, eyes sparkling with white highlight stars, the look of someone who has had an amazing experience and is still processing how cool it was. This 'Wow' is different from earlier - it's satisfied wonder, not surprised wonder. His curly tail tip visible at edge of frame, curled in a happy spiral. Background is warm golden/orange sunset colors. The feeling is contentment and pride. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 22,
+      "type": "end",
+      "text": "The End",
+      "image_prompt": "FINAL IMAGE: Gus (bright lime-green gecko) sitting on his rock, waving goodbye to the viewer with one front foot, big friendly smile. The volcano is peaceful in the background, sunset colors in the sky (oranges, pinks, purples). His curly tail is relaxed and happy. He's inviting us to come back for more adventures. Warm, satisfying closing image. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    }
+  ]
+}

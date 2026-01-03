@@ -27,14 +27,16 @@ NO TEXT IN IMAGE. Child-friendly."""
 # Character definitions - UPDATED to prevent spikes
 CHARACTERS = {
     "volcano": """
-CHARACTER - Gus the Salamander:
-- Small cute SALAMANDER with round smooth head, big friendly eyes, small round nose
-- Body is solid ORANGE (spot color) - SMOOTH BACK, absolutely NO SPIKES, NO DORSAL RIDGE, NO FIN
-- Yellow belly
-- DISTINCTIVE FEATURE: Curly spiral tail (must be visible in every image)
-- EXACTLY 4 legs total (2 front, 2 back) - stubby with tiny toe pads
-- Simple cartoon style - bold black outlines, flat colors only
-- CRITICAL: Smooth rounded back like a real salamander - NO spines, NO ridges, NO crests""",
+CHARACTER - Gus (cute cartoon salamander, see reference):
+- Big round head with HUGE round eyes (black with white highlight dots)
+- Small cute smile, tiny round nose
+- Body is ORANGE with YELLOW belly
+- SMOOTH rounded body - absolutely NO SPIKES, NO RIDGES, NO FINS on back
+- Curly spiral tail (always visible)
+- EXACTLY 4 short stubby limbs (2 arms, 2 legs) - NEVER 3 arms or 5 limbs
+- Bold black outlines, flat solid colors, simple cartoon style
+- Proportions: big head, small cute body - like the reference image
+- Expression: always cute and friendly, never scary""",
 
     "castle": """
 CHARACTERS - Rita and Rico the Rats:

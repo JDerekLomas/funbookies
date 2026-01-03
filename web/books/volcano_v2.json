@@ -5,7 +5,7 @@
   "riso_colors": {
     "black": "outlines, details, text",
     "color_a": {"name": "Fluorescent Orange", "pantone": "804", "use": "Gus body, lava glow, warm elements"},
-    "color_b": {"name": "Yellow", "pantone": "Yellow", "use": "belly, sun, smoke highlights"}
+    "color_b": {"name": "Yellow", "pantone": "Yellow", "use": "belly, sun, highlights"}
   },
   "character": {
     "name": "Gus",
@@ -13,7 +13,7 @@
     "riso_color": "Fluorescent Orange with Yellow belly",
     "distinguishing_feature": "curly spiral tail",
     "catchphrase": "Wow! Wow! Wow!",
-    "visual_prompt": "A small cute salamander with a round smooth head, big friendly eyes, stubby legs, and a distinctive CURLY SPIRAL TAIL. Body is solid orange, belly is yellow. SMOOTH BACK - absolutely NO spikes, NO dorsal ridge, NO fin. Bold black outlines. Simple cartoon style."
+    "visual_prompt": "Cute cartoon salamander like the reference image: big round head, huge round eyes with white highlights, tiny smile, smooth rounded body (NO spikes ever), curly spiral tail, exactly 4 short stubby limbs. Orange body, yellow belly. Bold black outlines, flat colors."
   },
   "word_list": {
     "sound_out": ["big", "hot", "red", "run", "got", "hiss", "puff"],
@@ -26,7 +26,7 @@
       "type": "cover",
       "text": "Gus and the Volcano",
       "beat": "hook",
-      "image_prompt": "WIDE SHOT: Gus the orange SALAMANDER standing at the BASE of a tall green mountain, looking up curiously. Tiny wisps of gray smoke rising from the distant peak. Gus has a CURLY SPIRAL TAIL and SMOOTH BACK (no spikes). Blue sky, green grass at base. Expression: curious. Simple flat Riso style."
+      "image_prompt": "Full page illustration, no text boxes. Cute orange salamander (Gus) standing at the base of a tall gray-brown mountain. Small white smoke puffs at distant peak. Gus has: big round head, huge eyes with white highlights, tiny happy smile, smooth round body NO SPIKES, curly spiral tail, 4 stubby limbs only. Blue sky, green grass. Simple flat Riso style - orange, yellow, black, green only."
     },
     {
       "page": 2,
@@ -39,112 +39,112 @@
       "type": "story",
       "text": "Gus sat on a big rock.",
       "beat": "setup",
-      "image_prompt": "MEDIUM SHOT: Gus the orange SALAMANDER sitting peacefully on a gray rock in a grassy meadow. A tall GREEN mountain visible in far background with tiny gray smoke wisps at top. SMOOTH BACK (no spikes), curly spiral tail relaxed. Expression: content. Simple flat Riso style."
+      "image_prompt": "Cute orange salamander (Gus) sitting happily on a gray rock. Green grass meadow. Gray-brown mountain far in background with tiny smoke wisps. Gus has: big round head, huge eyes, tiny smile, smooth body NO SPIKES, curly tail relaxed, 4 limbs. Peaceful scene. Simple flat Riso colors."
     },
     {
       "page": 4,
       "type": "story",
       "text": "Gus saw a big mountain.",
       "beat": "discovery",
-      "image_prompt": "WIDE SHOT: Gus the orange SALAMANDER standing in foreground, pointing up at a large GREEN mountain in the distance. Small gray smoke wisps at the peak - NOT fire, NOT lava, just gentle smoke. SMOOTH BACK (no spikes), curly spiral tail perked. Expression: curious. Simple flat Riso style, minimal colors."
+      "image_prompt": "Cute orange salamander (Gus) standing in green grass, looking up and pointing at a tall gray-brown mountain in distance. Small gray smoke wisps at peak - NOT fire, NOT orange, just gentle gray smoke. Gus has: big round eyes looking up, tiny smile, smooth body NO SPIKES, curly tail, 4 limbs ONLY. Green grass, blue sky. Simple flat Riso style."
     },
     {
       "page": 5,
       "type": "story",
       "text": "Smoke! Smoke at the top!",
       "beat": "observation",
-      "image_prompt": "MEDIUM SHOT: Gus the orange SALAMANDER shielding his eyes with one hand, looking up at gray smoke wisps rising from a GREEN mountain peak. NOT a volcano erupting - just a peaceful mountain with smoke. SMOOTH BACK (no spikes), curly spiral tail alert. Expression: intrigued. Simple flat Riso style."
+      "image_prompt": "Cute orange salamander (Gus) sitting on the ground, one hand shielding eyes, looking up excitedly. Gray-brown mountain with gray smoke wisps at top. Gus has: big round eyes, excited expression, smooth body NO SPIKES, curly tail perked up, 4 limbs ONLY. Green grass. Simple flat Riso style."
     },
     {
       "page": 6,
       "type": "story",
       "text": "\"I can go up!\" said Gus.",
       "beat": "decision",
-      "image_prompt": "CLOSE-UP: Gus the orange SALAMANDER with determined, confident expression. Fist raised in the air triumphantly - he's decided to go! SMOOTH BACK (no spikes), curly spiral tail bouncing with enthusiasm. Solid orange/yellow background. Simple flat Riso style."
+      "image_prompt": "Close-up of cute orange salamander (Gus) with determined happy face. One arm raised in fist pump - ONLY 4 LIMBS TOTAL (2 arms, 2 legs). Big round eyes, big smile, smooth round head NO SPIKES. Curly tail bouncing. Warm orange-yellow background. Simple flat Riso style."
     },
     {
       "page": 7,
       "type": "story",
       "text": "Run, Gus, run!",
       "beat": "action",
-      "image_prompt": "DYNAMIC SHOT: Gus running up a grassy hillside path toward the mountain. Curly spiral tail streaming behind. Legs in motion, joyful running. Mountain looming ahead. Expression: happy, adventurous."
+      "image_prompt": "Cute orange salamander (Gus) running happily up a green grassy hill toward mountain. Legs in motion, curly tail streaming behind. Big smile, happy eyes. Smooth body NO SPIKES, exactly 4 limbs. Mountain ahead. Simple flat Riso style."
     },
     {
       "page": 8,
       "type": "story",
       "text": "Up, up, up!",
       "beat": "climbing",
-      "image_prompt": "WIDE SHOT: Gus climbing higher on the rocky mountain slope. Getting smaller as terrain gets steeper. Smoke wisps above him. Curly spiral tail visible. Expression: determined, focused on climbing."
+      "image_prompt": "Wide shot of gray-brown rocky mountain slope. Tiny cute orange salamander (Gus) climbing up - small figure on big mountain. Smoke wisps above. Gus has smooth body, curly tail visible. Simple flat Riso style - gray rocks, orange Gus, gray smoke."
     },
     {
       "page": 9,
       "type": "story",
       "text": "Gus got to the top.",
       "beat": "arrival",
-      "image_prompt": "MEDIUM SHOT: Gus standing proudly at the crater RIM, looking DOWN into it from the EDGE. He is on solid rock, peering over. Curly spiral tail curled with excitement. Warm orange glow from below illuminating his face. Expression: amazed, eyes wide."
+      "image_prompt": "Cute orange salamander (Gus) standing proudly at crater rim, looking down into it. Warm orange glow from below lighting his face. Big eyes wide with wonder (not scary), small amazed smile. Smooth body NO SPIKES, curly tail, 4 limbs. Gray rocky rim. Simple flat Riso style."
     },
     {
       "page": 10,
       "type": "story",
       "text": "It was hot!",
       "beat": "sensation",
-      "image_prompt": "CLOSE-UP: Gus the orange SALAMANDER feeling the heat - wiping brow with one hand. Standing safely on gray rocky rim. Warm orange glow from below. SMOOTH BACK (absolutely no spikes or ridges), curly spiral tail drooping. Expression: surprised by warmth. Simple flat Riso style."
+      "image_prompt": "Close-up of cute orange salamander (Gus) feeling hot - wiping forehead with one hand, other hand fanning. Standing on gray rock. Big eyes, surprised expression. SMOOTH ROUND BODY - absolutely NO spikes NO ridges. Curly tail droopy. ONLY 4 LIMBS. Orange glow from below. Simple flat Riso style."
     },
     {
       "page": 11,
       "type": "story",
       "text": "\"I can see lava!\" said Gus.",
       "beat": "reveal",
-      "image_prompt": "OVER-SHOULDER SHOT: View from behind Gus the orange SALAMANDER as he peers DOWN into the crater. Bubbling orange lava FAR BELOW in the crater. Gus safely on the gray rim. SMOOTH BACK (no spikes, no ridges - just smooth orange skin), curly spiral tail visible. Simple flat Riso style."
+      "image_prompt": "View from behind cute orange salamander (Gus) as he looks down into crater. We see his smooth round back (NO SPIKES), curly tail, back of round head. Orange bubbling lava far below in crater. Gus standing safely on gray rim. Simple flat Riso style."
     },
     {
       "page": 12,
       "type": "story",
       "text": "\"Wow! Wow! Wow!\"",
       "beat": "catchphrase",
-      "image_prompt": "CLOSE-UP: Gus the orange SALAMANDER's face - cute round head with big happy eyes and small open mouth showing amazement. Proportional features (not oversized). Orange glow on his face from below. Expression: wonder and joy. Simple flat Riso style."
+      "image_prompt": "Close-up front view of cute orange salamander (Gus) face. Big round head, HUGE round eyes with white highlights, big happy open mouth saying Wow. Cute proportions - not scary. Orange glow on face. Like the reference image style. Simple flat Riso."
     },
     {
       "page": 13,
       "type": "story",
       "text": "HISS! PUFF! The smoke got big!",
       "beat": "tension",
-      "image_prompt": "WIDE SHOT: The mountain releasing a big puff of gray smoke and white steam. Gus the orange SALAMANDER stepping back from the gray rim, startled. SMOOTH BACK (no spikes), curly spiral tail alert. Gray and black smoke dominates - NOT too orange. Simple flat Riso style with black, orange, yellow only."
+      "image_prompt": "Wide shot: Big gray and white smoke/steam cloud erupting from mountain. Cute orange salamander (Gus) stepping back, surprised. Gus is SMALL compared to smoke - skinny cute salamander body, smooth back NO SPIKES, curly tail alert, 4 limbs. Gray smoke dominates - NOT too orange. Simple flat Riso."
     },
     {
       "page": 14,
       "type": "story",
       "text": "\"I can go!\" said Gus.",
       "beat": "smart_decision",
-      "image_prompt": "MEDIUM SHOT: Gus the orange SALAMANDER turning to leave, looking back at the smoking crater. He has a small round nose. SMOOTH BACK (no spikes), curly spiral tail swishing. Gray rocky ground, gray smoke behind. Expression: satisfied, time to go. Simple flat Riso style - orange Gus against gray/black background."
+      "image_prompt": "Cute orange salamander (Gus) turning to leave, looking back. Has small round nose, big round eyes, cute round head (salamander proportions). Smooth body NO SPIKES, curly tail, 4 limbs. Gray rocky ground, gray smoke in background. NOT too white - use gray tones. Simple flat Riso style."
     },
     {
       "page": 15,
       "type": "story",
       "text": "Run, Gus, run!",
       "beat": "descent",
-      "image_prompt": "DYNAMIC SHOT: Gus running/sliding down the mountain path happily. Not panicked - just energetic descent. Curly spiral tail streaming. Smoke from volcano visible in background. Expression: happy, bouncy run downhill."
+      "image_prompt": "Cute orange salamander (Gus) running down green grassy mountain path. Happy energetic expression - NOT panicked, just bouncy joyful running. Smooth body NO SPIKES, curly tail streaming, 4 limbs in motion. Green grass, gray mountain behind. Simple flat Riso style."
     },
     {
       "page": 16,
       "type": "story",
       "text": "Gus got to his rock.",
       "beat": "safe_return",
-      "image_prompt": "MEDIUM SHOT: Gus back at his original rock in the meadow, sitting down with satisfaction. Mountain with gentle smoke visible in far background. Curly spiral tail relaxed and curled. Expression: content, happy to be back."
+      "image_prompt": "Cute orange salamander (Gus) back at his gray rock in green meadow, sitting contentedly. Mountain with gentle smoke in far background. Big eyes, happy relaxed smile. Smooth body NO SPIKES, curly tail curled. Simple flat Riso style."
     },
     {
       "page": 17,
       "type": "story",
       "text": "\"Wow! Wow! Wow!\" said Gus.",
       "beat": "reflection",
-      "image_prompt": "CLOSE-UP: Gus the orange SALAMANDER with a knowing, happy smile. Looking at viewer, sharing his adventure. SMOOTH BACK (no spikes, no ridges), curly spiral tail making a happy curl. Warm sunset yellow/orange background. Expression: proud, satisfied. Simple flat Riso style."
+      "image_prompt": "Close-up of cute orange salamander (Gus) with knowing happy smile, looking at viewer. Big round eyes with highlights, cute expression. Smooth body NO SPIKES, curly tail making happy curl. Warm sunset yellow-orange background. Green grass NOT on fire. Simple flat Riso style."
     },
     {
       "page": 18,
       "type": "end",
       "text": "The End",
       "beat": "closing",
-      "image_prompt": "WIDE SHOT: Gus the orange SALAMANDER waving goodbye from his rock. Green mountain peaceful with gentle gray smoke in background. Sunset yellow sky. SMOOTH BACK (no spikes, no ridges), curly spiral tail waving. Expression: friendly wave. Simple flat Riso style."
+      "image_prompt": "Full page illustration. Cute orange salamander (Gus) waving goodbye from his rock. Gray-brown mountain peaceful with gentle gray smoke in background. Sunset yellow sky. Big friendly eyes, happy wave. Smooth body NO SPIKES, curly tail waving. Green grass. Simple flat Riso style. NO text or copyright in image."
     }
   ]
 }

@@ -266,6 +266,55 @@
     .comment-input:focus { border-color: #667eea; outline: none; }
     .comment-input::placeholder { color: #666; }
 
+    /* Prompt accordion */
+    .prompt-toggle {
+      width: 100%;
+      padding: 8px 15px;
+      background: #1a1a2e;
+      border: none;
+      border-top: 1px solid #333;
+      color: #888;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Andika', sans-serif;
+    }
+    .prompt-toggle:hover { color: #FFB347; }
+    .prompt-toggle .arrow {
+      transition: transform 0.2s;
+      font-size: 0.7rem;
+    }
+    .prompt-toggle.open .arrow { transform: rotate(90deg); }
+    .prompt-content {
+      display: none;
+      padding: 12px 15px;
+      background: #1a1a2e;
+      border-top: 1px solid #333;
+    }
+    .prompt-content.open { display: block; }
+    .prompt-textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 10px;
+      background: #0d0d1a;
+      border: 1px solid #444;
+      border-radius: 6px;
+      color: #ccc;
+      font-size: 0.8rem;
+      font-family: 'Andika', sans-serif;
+      line-height: 1.4;
+      resize: vertical;
+    }
+    .prompt-textarea:focus { border-color: #667eea; outline: none; }
+    .prompt-label {
+      color: #666;
+      font-size: 0.7rem;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
     /* Summary bar */
     .summary-bar {
       position: fixed;
@@ -522,6 +571,9 @@
           `;
         }
 
+        const prompt = page.image_prompt || '';
+        const escapedPrompt = prompt.replace(/"/g, '&quot;').replace(/\n/g, '&#10;');
+
         return `
           <div class="review-card ${statusClass}">
             ${printPageContent}
@@ -538,6 +590,17 @@
                      value="${review.comment || ''}"
                      onchange="updateComment(${page.page}, this.value)">
             </div>
+            ${prompt ? `
+              <button class="prompt-toggle" onclick="togglePrompt(this)">
+                <span class="arrow">▶</span> Image Prompt
+              </button>
+              <div class="prompt-content">
+                <div class="prompt-label">Image Generation Prompt</div>
+                <textarea class="prompt-textarea"
+                          data-page="${page.page}"
+                          onchange="updatePrompt(${page.page}, this.value)">${prompt}</textarea>
+              </div>
+            ` : ''}
           </div>
         `;
       }).join('');
@@ -555,6 +618,19 @@
       if (!reviews[pageNum]) reviews[pageNum] = { status: 'pending', comment: '' };
       reviews[pageNum].comment = comment;
       saveReviews();
+    }
+
+    function togglePrompt(btn) {
+      btn.classList.toggle('open');
+      const content = btn.nextElementSibling;
+      content.classList.toggle('open');
+    }
+
+    function updatePrompt(pageNum, newPrompt) {
+      // Store edited prompts in localStorage
+      const editedPrompts = JSON.parse(localStorage.getItem(`prompts_${currentBook.key}`) || '{}');
+      editedPrompts[pageNum] = newPrompt;
+      localStorage.setItem(`prompts_${currentBook.key}`, JSON.stringify(editedPrompts));
     }
 
     function saveReviews() {
@@ -578,6 +654,7 @@
       const approved = currentBook.pages.filter(p => reviews[p.page]?.status === 'approved');
       const rejected = currentBook.pages.filter(p => reviews[p.page]?.status === 'rejected');
       const pending = currentBook.pages.filter(p => !reviews[p.page] || reviews[p.page].status === 'pending');
+      const editedPrompts = JSON.parse(localStorage.getItem(`prompts_${currentBook.key}`) || '{}');
 
       let text = `# ${currentBook.title} - Review Feedback\n\n`;
       text += `**Summary:** ${approved.length} approved, ${rejected.length} issues, ${pending.length} pending\n\n`;
@@ -587,7 +664,11 @@
         rejected.forEach(page => {
           const r = reviews[page.page];
           text += `- **Page ${page.page}** "${page.text}"\n`;
-          text += `  ${r.comment || 'Needs revision'}\n\n`;
+          text += `  ${r.comment || 'Needs revision'}\n`;
+          if (editedPrompts[page.page]) {
+            text += `  **Edited Prompt:** ${editedPrompts[page.page]}\n`;
+          }
+          text += '\n';
         });
       }
 

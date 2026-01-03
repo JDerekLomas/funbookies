@@ -296,6 +296,41 @@
     .copy-btn { background: #FF5722; padding: 12px 20px; }
     .copy-btn:hover { background: #E64A19; }
 
+    /* Reference section */
+    .reference-section {
+      max-width: 1000px;
+      margin: 0 auto 30px;
+      background: #2a2a4e;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .reference-section h2 {
+      font-family: 'Nunito', sans-serif;
+      color: #FFB347;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .reference-images {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .reference-images img {
+      max-height: 200px;
+      border-radius: 8px;
+      border: 2px solid #444;
+    }
+    .ref-card {
+      text-align: center;
+    }
+    .ref-card .ref-label {
+      color: #aaa;
+      font-size: 0.8rem;
+      margin-top: 8px;
+    }
+
     /* Footer */
     .footer {
       text-align: center;
@@ -333,6 +368,11 @@
     <button class="export" onclick="copyReview()">Copy Feedback</button>
   </div>
 
+  <div class="reference-section" id="referenceSection">
+    <h2>Character Reference</h2>
+    <div class="reference-images" id="referenceImages"></div>
+  </div>
+
   <div class="pages-grid" id="pagesGrid"></div>
 
   <div class="footer">
@@ -350,6 +390,44 @@
     let currentBook = null;
     let reviews = {};
 
+    // Reference images for each book
+    const REFERENCE_IMAGES = {
+      'volcano': [
+        { src: '/reference_images/gus_ref_01.png', label: 'Gus the Salamander' },
+        { src: '/reference_images/gus_ref_02.png', label: 'Gus (poses)' },
+        { src: '/reference_images/volcano_ref_01.png', label: 'Volcano scene' },
+        { src: '/reference_images/volcano_ref_02.png', label: 'Mountain/volcano' }
+      ],
+      'castle': [
+        { src: '/reference_images/rita_ref_01.png', label: 'Rita (pink, bow)' },
+        { src: '/reference_images/rita_ref_02.png', label: 'Rita (poses)' },
+        { src: '/reference_images/rico_ref_01.png', label: 'Rico (blue, bandana)' },
+        { src: '/reference_images/rico_ref_02.png', label: 'Rico (poses)' },
+        { src: '/reference_images/cat_ref_01.png', label: 'The Cat' },
+        { src: '/reference_images/castle_ref_01.png', label: 'Castle scene' }
+      ],
+      'jungle': []
+    };
+
+    function renderReferenceImages(bookKey) {
+      const bookBase = bookKey.replace('_v2', '');
+      const refs = REFERENCE_IMAGES[bookBase] || [];
+      const container = document.getElementById('referenceImages');
+
+      if (refs.length === 0) {
+        document.getElementById('referenceSection').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('referenceSection').style.display = 'block';
+      container.innerHTML = refs.map(ref => `
+        <div class="ref-card">
+          <img src="${ref.src}" alt="${ref.label}">
+          <div class="ref-label">${ref.label}</div>
+        </div>
+      `).join('');
+    }
+
     async function loadBook(bookKey) {
       const res = await fetch(`/books/${bookKey}.json`);
       if (res.ok) {
@@ -358,6 +436,7 @@
         currentBook.isV2 = bookKey.includes('_v2');
         const saved = localStorage.getItem(`review_${bookKey}`);
         reviews = saved ? JSON.parse(saved) : {};
+        renderReferenceImages(bookKey);
         renderPages();
         updateSummary();
       }

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lil Bookies - Find the Perfect Books for Your Reader</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Funbookies - Decodable Books for Beginning Readers</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -101,6 +102,25 @@
         .nav-cta:hover {
             transform: scale(1.05);
             opacity: 1 !important;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 10px 15px;
+            }
+            .logo {
+                height: 40px;
+            }
+            .nav {
+                gap: 10px;
+            }
+            .nav a:not(.nav-cta) {
+                display: none;
+            }
+            .nav-cta {
+                padding: 8px 16px;
+                font-size: 0.85em;
+            }
         }
 
         /* Hero Section - Immersive */
@@ -915,6 +935,26 @@
         }
         .close-reader:hover { transform: scale(1.1); }
 
+        @media (max-width: 600px) {
+            .reader-modal { padding: 10px; }
+            .reader-container { max-width: 100%; }
+            .reader-page { border-radius: 8px; }
+            .reader-page .text-overlay {
+                font-size: 1rem;
+                padding: 10px 15px;
+            }
+            .reader-controls button {
+                width: 44px;
+                height: 44px;
+            }
+            .close-reader {
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
         /* CTA Section */
         .cta-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -1038,7 +1078,7 @@
                 </ul>
 
                 <div class="btn-group">
-                    <a href="/assess/phonics/" class="btn btn-primary">Start Free Assessment</a>
+                    <a href="/activities/phonics-assessment.html" class="btn btn-primary">Start Free Assessment</a>
                     <a href="/books/" class="btn btn-secondary">Browse Books</a>
                 </div>
             </div>
@@ -1254,7 +1294,7 @@
         <div class="cta-content fade-in">
             <h2>Ready to find the right books?</h2>
             <p>Take a 5-minute assessment and get personalized book recommendations for your beginning reader.</p>
-            <a href="/assess/phonics/" class="btn btn-primary">Start Free Assessment</a>
+            <a href="/activities/phonics-assessment.html" class="btn btn-primary">Start Free Assessment</a>
         </div>
     </section>
 
@@ -1351,18 +1391,22 @@
                 return;
             }
 
-            // Otherwise load JSON and show modal
+            // Show modal with loading state
+            document.getElementById('readerModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('readerPage').innerHTML = '<div style="color:#666;">Loading...</div>';
+
+            // Load JSON
             try {
                 const res = await fetch(`/books/${book.jsonFile}`);
                 if (!res.ok) throw new Error('Book not found');
                 const data = await res.json();
                 currentBook = { ...data, slug: book.slug };
                 currentPage = 0;
-                document.getElementById('readerModal').classList.add('active');
-                document.body.style.overflow = 'hidden';
                 renderReaderPage();
             } catch (e) {
-                alert('This book is coming soon!');
+                closeReader();
+                document.getElementById('readerPage').innerHTML = '<div style="color:#666;">Could not load book</div>';
             }
         }
 

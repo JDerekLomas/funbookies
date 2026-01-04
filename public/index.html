@@ -65,8 +65,21 @@
             box-shadow: 0 2px 20px rgba(0,0,0,0.1);
         }
 
-        .logo {
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .logo-icon {
             height: 50px;
+        }
+        .brand-name {
+            font-family: 'Fredoka', 'Nunito', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .nav {
@@ -108,8 +121,11 @@
             .header {
                 padding: 10px 15px;
             }
-            .logo {
+            .logo-icon {
                 height: 40px;
+            }
+            .brand-name {
+                font-size: 1.2rem;
             }
             .nav {
                 gap: 10px;
@@ -1038,7 +1054,10 @@
 <body>
     <!-- Header -->
     <header class="header" id="header">
-        <img src="/images/funbookies_logo.png" alt="FunBookies" class="logo">
+        <a href="/" class="brand">
+            <img src="/images/funbookies_icon.png" alt="" class="logo-icon">
+            <span class="brand-name">FunBookies</span>
+        </a>
         <nav class="nav">
             <a href="#how-it-works">How It Works</a>
             <a href="#activities">Activities</a>
@@ -1306,7 +1325,7 @@
     </section>
 
     <footer>
-        <img src="/images/funbookies_logo.png" alt="FunBookies" style="height: 40px; margin-bottom: 20px; filter: brightness(0) invert(1);">
+        <img src="/images/funbookies_logo.png" alt="FunBookies" style="height: 80px; margin-bottom: 20px;">
         <p>Made for beginning readers and their patient parents</p>
         <div class="footer-links">
             <a href="/activities/">Activities</a>
@@ -1344,8 +1363,8 @@
         const bookData = [
             { title: 'No, No, Dog!', level: 0, color: 'Pink', skill: 'Pre-reader', slug: 'dog_pink', jsonFile: 'dog_pink.json', coverImg: 'images/dog_pink_page01.png' },
             { title: 'Pig in Mud', level: 1, color: 'Yellow', skill: 'Short vowels', slug: 'pig_yellow', jsonFile: 'pig_yellow.json', coverImg: 'images/pig_yellow_page01.png' },
-            { title: 'Gus and the Volcano', level: 2, color: 'Orange', skill: 'CVC words', slug: 'volcano', previewPage: 'volcano_preview.html', coverImg: 'volcano_images/page_01_cover.png' },
-            { title: 'Rats in the Castle', level: 3, color: 'Orange', skill: 'CVC + Digraphs', slug: 'castle', previewPage: 'castle_preview.html', coverImg: 'castle_images/page_01_cover.png' },
+            { title: 'Gus and the Volcano', level: 2, color: 'Orange', skill: 'CVC words', slug: 'volcano', jsonFile: 'volcano.json', coverImg: 'volcano_images/page_01_cover.png' },
+            { title: 'Rats in the Castle', level: 3, color: 'Orange', skill: 'CVC + Digraphs', slug: 'castle', jsonFile: 'castle.json', coverImg: 'castle_images/page_01_cover.png' },
             { title: 'Stomp! Elephant', level: 4, color: 'Red', skill: 'Ending blends', slug: 'elephant_red', jsonFile: 'elephant_red.json', coverImg: 'images/elephant_red_page01.png' },
             { title: 'The Cake Mistake', level: 5, color: 'Purple', skill: 'Digraphs', slug: 'fox_purple', jsonFile: 'fox_purple.json', coverImg: 'images/fox_purple_page01.png' },
             { title: 'The Sneaky Snail', level: 6, color: 'Blue', skill: 'Silent e', slug: 'snail_blue', jsonFile: 'snail_blue.json', coverImg: 'images/snail_blue_page01.png' },

@@ -1,0 +1,31 @@
+{
+  "title": "Rats in the Castle",
+  "level": 3,
+  "color": "Orange",
+  "skill": "CVC + Digraphs",
+  "pages": [
+    { "image": "castle_images/page_01_cover.png", "text": "Rats in the Castle" },
+    { "image": "castle_images/page_03_sun.png", "text": "Rita and Rico sat in the sun." },
+    { "image": "castle_images/page_04_sees_castle.png", "text": "Rita saw the big castle." },
+    { "image": "castle_images/page_05_lets_go.png", "text": "\"Let's go!\" said Rita." },
+    { "image": "castle_images/page_06_but_wait.png", "text": "\"But wait!\" said Rico." },
+    { "image": "castle_images/page_07_in_they_ran.png", "text": "In they ran!" },
+    { "image": "castle_images/page_08_castle_big.png", "text": "The castle was big!" },
+    { "image": "castle_images/page_09_saw_jam.png", "text": "Rita saw jam in a dish." },
+    { "image": "castle_images/page_10_jam_jam_jam.png", "text": "\"Jam! Jam! Jam!\" said Rita." },
+    { "image": "castle_images/page_11_the_cat.png", "text": "But then... a cat!" },
+    { "image": "castle_images/page_12_run_rico.png", "text": "\"Run!\" said Rico." },
+    { "image": "castle_images/page_13_dash_rush.png", "text": "Dash! Rush! Run!" },
+    { "image": "castle_images/page_14_cup.png", "text": "Rita hid in a cup." },
+    { "image": "castle_images/page_15_hat.png", "text": "Rico hid in a hat." },
+    { "image": "castle_images/page_16_cat_sat.png", "text": "The cat sat. And sat. And sat." },
+    { "image": "castle_images/page_17_shh.png", "text": "Shh! Shh! Shh!" },
+    { "image": "castle_images/page_18_cat_away.png", "text": "The cat ran away!" },
+    { "image": "castle_images/page_19_we_did_it.png", "text": "\"We did it!\" said Rita." },
+    { "image": "castle_images/page_20_got_jam.png", "text": "They got the jam!" },
+    { "image": "castle_images/page_21_yum.png", "text": "\"Yum! Yum! Yum!\"" },
+    { "image": "castle_images/page_22_go_back.png", "text": "\"Let's go back!\" said Rita." },
+    { "image": "castle_images/page_23_and_they_did.png", "text": "And they did!" },
+    { "image": "castle_images/page_24_the_end.png", "text": "The End" }
+  ]
+}

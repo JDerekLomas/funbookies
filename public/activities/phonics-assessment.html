@@ -319,6 +319,119 @@
       flex-wrap: wrap;
     }
 
+    /* Book Recommendations */
+    .book-recommendations {
+      background: #f0f7ff;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .book-recommendations h3 {
+      font-size: 1.1rem;
+      color: #667eea;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .book-card {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .book-card:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .book-card img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .book-card .book-info h4 {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .book-card .book-info p {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .book-card .level-badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* Skills Report */
+    .skills-report {
+      background: #fff8e1;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .skills-report h3 {
+      font-size: 1.1rem;
+      color: #f57c00;
+      margin-bottom: 15px;
+    }
+
+    .skill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #ffe0b2;
+    }
+
+    .skill-row:last-child {
+      border-bottom: none;
+    }
+
+    .skill-name {
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .skill-status {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .skill-status.mastered {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .skill-status.learning {
+      background: #fff3e0;
+      color: #e65100;
+    }
+
+    .skill-status.not-tested {
+      background: #f5f5f5;
+      color: #999;
+    }
+
     .btn-action {
       padding: 14px 30px;
       border: none;
@@ -437,6 +550,16 @@
             <div class="num" id="unableCount">0</div>
             <div class="label">Too Hard</div>
           </div>
+        </div>
+
+        <div class="book-recommendations" id="bookRecommendations">
+          <h3>📚 Recommended Books</h3>
+          <div id="booksList"></div>
+        </div>
+
+        <div class="skills-report">
+          <h3>📊 Skills Breakdown</h3>
+          <div id="skillsBreakdown"></div>
         </div>
 
         <div class="word-history" id="wordHistory">
@@ -564,6 +687,44 @@
       9: "Two-syllable words (rabbit)",
     };
 
+    // Book data for recommendations
+    const bookData = [
+      { title: 'No, No, Dog!', level: 0, color: 'Pink', skill: 'Pre-reader', slug: 'dog_pink', img: '/books/images/dog_pink_page01.png' },
+      { title: 'Pig in Mud', level: 1, color: 'Yellow', skill: 'Short vowels', slug: 'pig_yellow', img: '/books/images/pig_yellow_page01.png' },
+      { title: 'Gus and the Volcano', level: 2, color: 'Orange', skill: 'CVC words', slug: 'volcano', img: '/books/volcano_images/page_01_cover.png' },
+      { title: 'Rats in the Castle', level: 3, color: 'Orange', skill: 'CVC + Digraphs', slug: 'castle', img: '/books/castle_images/page_01_cover.png' },
+      { title: 'Stomp! Elephant', level: 4, color: 'Red', skill: 'Ending blends', slug: 'elephant_red', img: '/books/images/elephant_red_page01.png' },
+      { title: 'The Cake Mistake', level: 5, color: 'Purple', skill: 'Digraphs', slug: 'fox_purple', img: '/books/images/fox_purple_page01.png' },
+      { title: 'The Sneaky Snail', level: 6, color: 'Blue', skill: 'Silent e', slug: 'snail_blue', img: '/books/images/snail_blue_page01.png' },
+      { title: 'The Owl at Night', level: 7, color: 'Green', skill: 'Vowel teams', slug: 'owl_green', img: '/books/images/owl_green_page01.png' },
+      { title: 'Mouse in the House', level: 8, color: 'Gold', skill: 'R-controlled', slug: 'mouse_gold', img: '/books/images/mouse_gold_page01.png' }
+    ];
+
+    const levelColors = {
+      0: '#E91E63', 1: '#FFC107', 2: '#FF9800', 3: '#FF9800',
+      4: '#f44336', 5: '#9C27B0', 6: '#2196F3', 7: '#4CAF50', 8: '#FFD700'
+    };
+
+    // Map assessment level to book levels
+    function getBookLevelFromAssessment(assessmentLevel) {
+      if (assessmentLevel <= 2) return [0, 1];
+      if (assessmentLevel <= 4) return [2, 3];
+      if (assessmentLevel === 5) return [4, 5];
+      if (assessmentLevel === 6) return [6];
+      if (assessmentLevel === 7) return [7];
+      return [8];
+    }
+
+    const skillsList = [
+      { name: 'CVC Words', levels: [1, 2, 3] },
+      { name: 'Beginning Blends', levels: [4] },
+      { name: 'Digraphs (sh, ch, th)', levels: [5] },
+      { name: 'Silent E', levels: [6] },
+      { name: 'Vowel Teams', levels: [7] },
+      { name: 'R-Controlled Vowels', levels: [8] },
+      { name: 'Multi-Syllable Words', levels: [9] },
+    ];
+
     const encouragingMessages = ["Amazing!", "Great job!", "Excellent!", "Keep going!", "Fantastic!", "Super!", "Way to go!"];
     const neutralMessages = ["Let's try another", "Good effort!", "On to the next one"];
 
@@ -675,6 +836,62 @@
         `<span class="word-item ${h.result}">${h.word}</span>`
       ).join('');
       document.getElementById('historyContent').innerHTML = historyHtml;
+
+      // Book recommendations
+      const bookLevels = getBookLevelFromAssessment(estimatedLevel);
+      const recommendedBooks = bookData.filter(b => bookLevels.includes(b.level));
+      const booksHtml = recommendedBooks.map(book => `
+        <a href="/books/" class="book-card">
+          <img src="${book.img}" alt="${book.title}" onerror="this.src='/images/funbookies_icon.png'">
+          <div class="book-info">
+            <h4>${book.title}</h4>
+            <p>${book.skill}</p>
+          </div>
+          <span class="level-badge" style="background: ${levelColors[book.level]}20; color: ${levelColors[book.level]}">${book.color}</span>
+        </a>
+      `).join('');
+      document.getElementById('booksList').innerHTML = booksHtml || '<p style="color:#666">Keep practicing to unlock books!</p>';
+
+      // Skills breakdown
+      const testedLevels = [...new Set(history.map(h => h.level))];
+      const skillsHtml = skillsList.map(skill => {
+        const tested = skill.levels.some(l => testedLevels.includes(l));
+        const correct = history.filter(h => skill.levels.includes(h.level) && h.result === 'correct').length;
+        const total = history.filter(h => skill.levels.includes(h.level)).length;
+
+        let status, statusClass;
+        if (!tested) {
+          status = 'Not tested';
+          statusClass = 'not-tested';
+        } else if (total > 0 && correct / total >= 0.7) {
+          status = 'Mastered';
+          statusClass = 'mastered';
+        } else {
+          status = 'Learning';
+          statusClass = 'learning';
+        }
+
+        return `
+          <div class="skill-row">
+            <span class="skill-name">${skill.name}</span>
+            <span class="skill-status ${statusClass}">${status}${total > 0 ? ` (${correct}/${total})` : ''}</span>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('skillsBreakdown').innerHTML = skillsHtml;
+
+      // Save to localStorage
+      const assessmentData = {
+        date: new Date().toISOString(),
+        estimatedLevel,
+        stats,
+        history,
+        recommendedBookLevels: bookLevels
+      };
+      localStorage.setItem('funbookies-assessment', JSON.stringify(assessmentData));
+
+      // Also save just the level for other pages to use
+      localStorage.setItem('funbookies-reading-level', estimatedLevel);
     }
 
     function playSuccessSound() {

@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>FunBookies - Decodable Books for Beginning Readers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #28B8B8;
+            --primary-dark: #1a9a9a;
+            --secondary: #335C6E;
+            --accent: #FFC729;
+            --purple: #764ba2;
+            --purple-light: #9d7bc9;
+            --text: #2C3232;
+            --text-light: #666;
+            --white: #ffffff;
+            --success: #4CAF50;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            height: 50px;
+        }
+        .brand-name {
+            font-family: 'Fredoka', 'Nunito', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: opacity 0.2s;
+        }
+
+        .header.scrolled .nav a {
+            color: var(--secondary);
+        }
+
+        .nav a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: var(--secondary) !important;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-weight: 700;
+        }
+
+        .nav-cta:hover {
+            transform: scale(1.05);
+            opacity: 1 !important;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 10px 15px;
+            }
+            .logo-icon {
+                height: 40px;
+            }
+            .brand-name {
+                font-size: 1.2rem;
+            }
+            .nav {
+                gap: 10px;
+            }
+            .nav a:not(.nav-cta) {
+                display: none;
+            }
+            .nav-cta {
+                padding: 8px 16px;
+                font-size: 0.85em;
+            }
+        }
+
+        /* Hero Section - Immersive */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #9d7bc9 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Floating decorative elements */
+        .floating-letter {
+            position: absolute;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            opacity: 0.15;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .floating-letter:nth-child(1) { top: 15%; left: 5%; font-size: 8rem; color: #FFD93D; animation-delay: 0s; }
+        .floating-letter:nth-child(2) { top: 60%; left: 8%; font-size: 5rem; color: #4ECDC4; animation-delay: 1s; }
+        .floating-letter:nth-child(3) { top: 25%; right: 5%; font-size: 6rem; color: #FF6B6B; animation-delay: 2s; }
+        .floating-letter:nth-child(4) { bottom: 20%; right: 10%; font-size: 7rem; color: #95E1D3; animation-delay: 0.5s; }
+        .floating-letter:nth-child(5) { top: 70%; left: 25%; font-size: 4rem; color: #F8B500; animation-delay: 1.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 120px 40px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 900px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 140px 20px 60px;
+            }
+        }
+
+        .hero-text {
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .hero-text h1 {
+            font-size: 3.8em;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 600px) {
+            .hero-text h1 {
+                font-size: 2.5em;
+            }
+        }
+
+        .hero-tagline {
+            font-size: 1.35em;
+            opacity: 0.95;
+            margin-bottom: 35px;
+            line-height: 1.5;
+        }
+
+        .hero-features {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .hero-features li {
+            padding: 12px 0;
+            font-size: 1.15em;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-features li {
+                justify-content: center;
+            }
+        }
+
+        .check-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--accent) 0%, #FFE066 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 199, 41, 0.4);
+            flex-shrink: 0;
+        }
+
+        .check-icon svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--secondary);
+            stroke-width: 3;
+            fill: none;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 900px) {
+            .btn-group {
+                justify-content: center;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 1.15em;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, #FFE066 50%, var(--accent) 100%);
+            background-size: 200% 200%;
+            color: var(--secondary);
+            box-shadow: 0 8px 30px rgba(255, 199, 41, 0.5);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(255, 199, 41, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.25);
+            border-color: rgba(255,255,255,0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Hero Image */
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image-wrapper:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+
+        .hero-image-wrapper img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Decorative glow behind image */
+        .hero-glow {
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            top: -10%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(255,199,41,0.3) 0%, transparent 70%);
+            z-index: -1;
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            stroke: white;
+            fill: none;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.8em;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            font-size: 1.25em;
+            color: var(--text-light);
+        }
+
+        /* Flow diagram */
+        .flow-container {
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+            border-radius: 30px;
+            padding: 50px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .flow-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            background: white;
+            padding: 30px 35px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            min-width: 150px;
+            transition: all 0.3s ease;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        }
+
+        .flow-step .icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(40, 184, 184, 0.3);
+        }
+
+        .flow-step .icon svg {
+            width: 30px;
+            height: 30px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .flow-step .label {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 1.1em;
+            color: var(--secondary);
+        }
+
+        .flow-arrow {
+            font-size: 2em;
+            color: var(--purple-light);
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        /* Level Path */
+        .level-path {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+        }
+
+        .level-path h4 {
+            color: var(--secondary);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.3em;
+        }
+
+        .path-track {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .path-node {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .path-node:hover {
+            transform: scale(1.15);
+        }
+
+        .path-node.complete {
+            background: linear-gradient(135deg, var(--success) 0%, #66BB6A 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .path-node.current {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(40, 184, 184, 0.3), 0 4px 15px rgba(40, 184, 184, 0.4);
+            animation: pulse-node 2s infinite;
+        }
+
+        @keyframes pulse-node {
+            0%, 100% { box-shadow: 0 0 0 4px rgba(40, 184, 184, 0.3), 0 4px 15px rgba(40, 184, 184, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(40, 184, 184, 0.15), 0 4px 20px rgba(40, 184, 184, 0.5); }
+        }
+
+        .path-node.locked {
+            background: #e8e8e8;
+            color: #aaa;
+        }
+
+        .path-connector {
+            width: 35px;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+        }
+
+        .path-connector.complete {
+            background: linear-gradient(90deg, var(--success), #66BB6A);
+        }
+
+        .path-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            color: var(--text-light);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Assessments Section */
+        .assessments-section {
+            background: linear-gradient(180deg, #f8f9ff 0%, white 100%);
+            padding: 100px 20px;
+        }
+
+        .assessments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .assessment-card {
+            background: white;
+            border-radius: 25px;
+            padding: 45px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .assessment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .assessment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+
+        .assessment-card:hover::before {
+            opacity: 1;
+        }
+
+        .assessment-card .icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(40, 184, 184, 0.3);
+        }
+
+        .assessment-card .icon svg {
+            width: 45px;
+            height: 45px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .assessment-card h3 {
+            font-size: 1.5em;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .assessment-card p {
+            color: var(--text-light);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .assessment-card .time {
+            display: inline-block;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            color: var(--purple);
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .btn-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(40, 184, 184, 0.3);
+        }
+
+        .btn-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(40, 184, 184, 0.4);
+        }
+
+        /* Mascot Section */
+        .mascot-section {
+            background: linear-gradient(135deg, #f0fafa 0%, #e8f4f8 100%);
+            padding: 100px 20px;
+        }
+
+        .mascot-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .mascot-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .mascot-image {
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        .mascot-image img {
+            max-width: 200px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .mascot-image img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .mascot-text h2 {
+            font-size: 2.5em;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .mascot-text p {
+            color: var(--text-light);
+            font-size: 1.15em;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        /* Book Grid */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .book-cover {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .book-card:hover .book-cover img {
+            transform: scale(1.05);
+        }
+
+        .book-cover.placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .book-info {
+            padding: 25px;
+        }
+
+        .book-info h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .book-meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .level-badge {
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            color: var(--success);
+        }
+
+        .skill-tag {
+            padding: 5px 12px;
+            background: #f5f5f5;
+            color: var(--text-light);
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+
+        .book-card.coming-soon {
+            opacity: 0.75;
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        /* Reader Modal */
+        .reader-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            padding: 20px;
+        }
+        .reader-modal.active { display: flex; align-items: center; justify-content: center; }
+        .reader-container {
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+        }
+        .reader-page {
+            aspect-ratio: 1;
+            background: #FFF8E7;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .reader-page img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .reader-page .text-overlay {
+            position: absolute;
+            bottom: 8%;
+            left: 5%; right: 5%;
+            background: rgba(255,255,255,0.95);
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-family: 'Nunito', sans-serif;
+        }
+        .reader-page .text-overlay.center {
+            bottom: auto;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .wordlist-content {
+            position: absolute;
+            top: 10%; bottom: 10%;
+            left: 8%; right: 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
+            text-align: left;
+        }
+        .wordlist-section {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .wordlist-section h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .wordlist-section.phonetic h4 { color: #1565C0; }
+        .wordlist-section.sight h4 { color: #7B1FA2; }
+        .wordlist-section.special h4 { color: #E65100; }
+        .wordlist-section .words {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+        .reader-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .reader-controls button {
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        .reader-controls button:hover { transform: scale(1.1); }
+        .reader-controls button:disabled { opacity: 0.3; cursor: not-allowed; }
+        .page-indicator {
+            color: white;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        .close-reader {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            transition: transform 0.2s;
+        }
+        .close-reader:hover { transform: scale(1.1); }
+
+        @media (max-width: 600px) {
+            .reader-modal { padding: 10px; }
+            .reader-container { max-width: 100%; }
+            .reader-page { border-radius: 8px; }
+            .reader-page .text-overlay {
+                font-size: 1rem;
+                padding: 10px 15px;
+            }
+            .reader-controls button {
+                width: 44px;
+                height: 44px;
+            }
+            .close-reader {
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            color: white;
+            padding: 100px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
+        .footer-links a {
+            margin: 0 15px;
+        }
+
+        /* Animations on scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <a href="/" class="brand">
+            <img src="/images/funbookies_icon.png" alt="" class="logo-icon">
+            <span class="brand-name">FunBookies</span>
+        </a>
+        <nav class="nav">
+            <a href="#how-it-works">How It Works</a>
+            <a href="#activities">Activities</a>
+            <a href="#books">Books</a>
+            <a href="/activities/phonics-assessment.html" class="nav-cta">Get Started</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Floating letters -->
+        <div class="floating-letter">A</div>
+        <div class="floating-letter">B</div>
+        <div class="floating-letter">C</div>
+        <div class="floating-letter">R</div>
+        <div class="floating-letter">K</div>
+
+        <div class="hero-container">
+            <div class="hero-text">
+                <div class="hero-badge">For Parents of Beginning Readers</div>
+                <h1>Find the Perfect Books for Your Reader</h1>
+                <p class="hero-tagline">Quick assessments on your phone reveal your child's exact reading level. We match them with books they can actually read.</p>
+
+                <ul class="hero-features">
+                    <li>
+                        <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        5-minute assessments on your phone
+                    </li>
+                    <li>
+                        <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Matched to decodable books by skill
+                    </li>
+                    <li>
+                        <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        AI-powered practice recommendations
+                    </li>
+                </ul>
+
+                <div class="btn-group">
+                    <a href="/activities/phonics-assessment.html" class="btn btn-primary">Start Free Assessment</a>
+                    <a href="/books/" class="btn btn-secondary">Browse Books</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-glow"></div>
+                <div class="hero-image-wrapper">
+                    <img src="/images/hero_anim.gif" alt="Magical books with floating letters">
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator" onclick="document.getElementById('how-it-works').scrollIntoView({behavior: 'smooth'})">
+            <svg viewBox="0 0 24 24"><path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke-width="2"/></svg>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section" id="how-it-works">
+        <div class="section-header fade-in">
+            <h2>How It Works</h2>
+            <p>From assessment to reading in minutes</p>
+        </div>
+
+        <div class="flow-container fade-in">
+            <div class="flow-steps">
+                <div class="flow-step">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    </div>
+                    <div class="label">Assess</div>
+                </div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-step">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    </div>
+                    <div class="label">Understand</div>
+                </div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-step">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    </div>
+                    <div class="label">Find Books</div>
+                </div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-step">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    </div>
+                    <div class="label">Read Together</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-path fade-in">
+            <h4>The Reading Journey</h4>
+            <div class="path-track">
+                <div class="path-node complete">1</div>
+                <div class="path-connector complete"></div>
+                <div class="path-node complete">2</div>
+                <div class="path-connector complete"></div>
+                <div class="path-node current">3</div>
+                <div class="path-connector"></div>
+                <div class="path-node locked">4</div>
+                <div class="path-connector"></div>
+                <div class="path-node locked">5</div>
+                <div class="path-connector"></div>
+                <div class="path-node locked">6</div>
+            </div>
+            <div class="path-labels">
+                <span>CVC</span>
+                <span>Short U</span>
+                <span>Blends</span>
+                <span>Digraphs</span>
+                <span>Magic E</span>
+                <span>Vowel Teams</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities -->
+    <section class="assessments-section" id="activities">
+        <div class="section-header fade-in">
+            <h2>Practice Activities</h2>
+            <p>Fun games to build reading skills</p>
+        </div>
+
+        <div class="assessments-grid">
+            <div class="assessment-card fade-in">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                </div>
+                <h3>Phonics Assessment</h3>
+                <p>Adaptive word reading that adjusts to your child's level in real-time. Covers CVC through multi-syllable words.</p>
+                <div class="time">5-10 minutes</div>
+                <a href="/activities/phonics-assessment.html" class="btn-card">Start Assessment</a>
+            </div>
+
+            <div class="assessment-card fade-in">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+                <h3>Sight Words</h3>
+                <p>Practice high-frequency words with spaced repetition flashcards. Track progress over time.</p>
+                <div class="time">5-10 minutes</div>
+                <a href="/activities/sight-words.html" class="btn-card">Practice Now</a>
+            </div>
+
+            <div class="assessment-card fade-in">
+                <div class="icon" style="background: linear-gradient(135deg, #FF9800 0%, #FFC107 100%); box-shadow: 0 10px 30px rgba(255, 152, 0, 0.3);">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                </div>
+                <h3>Word Builder</h3>
+                <p>Drag letter tiles to build words. Great for practicing CVC patterns and blends.</p>
+                <div class="time">All levels</div>
+                <a href="/activities/word-builder.html" class="btn-card">Play Now</a>
+            </div>
+
+            <div class="assessment-card fade-in">
+                <div class="icon" style="background: linear-gradient(135deg, #E91E63 0%, #FF5722 100%); box-shadow: 0 10px 30px rgba(233, 30, 99, 0.3);">
+                    <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                </div>
+                <h3>Rhyme Match</h3>
+                <p>Match words that rhyme! Builds phonemic awareness with word families.</p>
+                <div class="time">Levels 0-3</div>
+                <a href="/activities/rhyme-match.html" class="btn-card">Play Now</a>
+            </div>
+
+            <div class="assessment-card fade-in">
+                <div class="icon" style="background: linear-gradient(135deg, #009688 0%, #4DB6AC 100%); box-shadow: 0 10px 30px rgba(0, 150, 136, 0.3);">
+                    <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                </div>
+                <h3>Blend It</h3>
+                <p>See and hear words sounded out segment by segment, then blend together.</p>
+                <div class="time">All levels</div>
+                <a href="/activities/blend-it.html" class="btn-card">Play Now</a>
+            </div>
+
+            <div class="assessment-card fade-in">
+                <div class="icon" style="background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%); box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3>Story Generator</h3>
+                <p>Create custom stories based on reading level and practice words. AI-powered!</p>
+                <div class="time">All levels</div>
+                <a href="/generate-story.html" class="btn-card">Create Story</a>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;" class="fade-in">
+            <a href="/activities/" class="btn btn-secondary">View All Activities</a>
+        </div>
+    </section>
+
+    <!-- Mascot Section -->
+    <section class="mascot-section">
+        <div class="mascot-content">
+            <div class="mascot-image fade-in">
+                <img src="/images/mascot_01.png" alt="Bookie the Bookworm">
+            </div>
+            <div class="mascot-text fade-in">
+                <h2>Meet Bookie</h2>
+                <p>Your child's reading companion. Bookie loves finding the perfect books for every reader. After each assessment, Bookie helps match your child with books they can read independently.</p>
+                <p><strong>The secret?</strong> We only recommend books using phonics patterns your child has already mastered. No frustration, just reading success.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books -->
+    <section class="section" id="books">
+        <div class="section-header fade-in">
+            <h2>Book Library</h2>
+            <p>9 decodable books from CVC to vowel teams</p>
+        </div>
+
+        <div class="books-grid" id="booksGrid"></div>
+
+        <div style="text-align: center; margin-top: 50px;" class="fade-in">
+            <a href="/books/" class="btn btn-primary">Browse All Books</a>
+        </div>
+    </section>
+
+    <!-- Reader Modal -->
+    <div class="reader-modal" id="readerModal">
+        <button class="close-reader" onclick="closeReader()">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="reader-container">
+            <div class="reader-page" id="readerPage"></div>
+            <div class="reader-controls">
+                <button onclick="prevPage()" id="prevBtn">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button onclick="speakCurrentPage()" id="speakBtn" style="background: #667eea; color: white;">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                    </svg>
+                </button>
+                <button onclick="nextPage()" id="nextBtn">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div class="page-indicator" id="pageIndicator">Page 1 of 24</div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-content fade-in">
+            <h2>Ready to find the right books?</h2>
+            <p>Take a 5-minute assessment and get personalized book recommendations for your beginning reader.</p>
+            <a href="/activities/phonics-assessment.html" class="btn btn-primary">Start Free Assessment</a>
+        </div>
+    </section>
+
+    <footer>
+        <img src="/images/funbookies_logo.png" alt="FunBookies" style="height: 80px; margin-bottom: 20px;">
+        <p>Made for beginning readers and their patient parents</p>
+        <div class="footer-links">
+            <a href="/activities/">Activities</a>
+            <a href="/books/">Books</a>
+            <a href="/generate-story.html">Story Generator</a>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Load books dynamically
+        // Books with previewPage use HTML readers, others use JSON modal
+        // All books have images in /books/images/{slug}_page{nn}.png
+        const bookData = [
+            { title: 'No, No, Dog!', level: 0, color: 'Pink', skill: 'Pre-reader', slug: 'dog_pink', jsonFile: 'dog_pink.json', coverImg: 'images/dog_pink_page01.png' },
+            { title: 'Pig in Mud', level: 1, color: 'Yellow', skill: 'Short vowels', slug: 'pig_yellow', jsonFile: 'pig_yellow.json', coverImg: 'images/pig_yellow_page01.png' },
+            { title: 'Gus and the Volcano', level: 2, color: 'Orange', skill: 'CVC words', slug: 'volcano', jsonFile: 'volcano.json', coverImg: 'volcano_images/page_01_cover.png' },
+            { title: 'Rats in the Castle', level: 3, color: 'Orange', skill: 'CVC + Digraphs', slug: 'castle', jsonFile: 'castle.json', coverImg: 'castle_images/page_01_cover.png' },
+            { title: 'Stomp! Elephant', level: 4, color: 'Red', skill: 'Ending blends', slug: 'elephant_red', jsonFile: 'elephant_red.json', coverImg: 'images/elephant_red_page01.png' },
+            { title: 'The Cake Mistake', level: 5, color: 'Purple', skill: 'Digraphs', slug: 'fox_purple', jsonFile: 'fox_purple.json', coverImg: 'images/fox_purple_page01.png' },
+            { title: 'The Sneaky Snail', level: 6, color: 'Blue', skill: 'Silent e', slug: 'snail_blue', jsonFile: 'snail_blue.json', coverImg: 'images/snail_blue_page01.png' },
+            { title: 'The Owl at Night', level: 7, color: 'Green', skill: 'Vowel teams', slug: 'owl_green', jsonFile: 'owl_green.json', coverImg: 'images/owl_green_page01.png' },
+            { title: 'Mouse in the House', level: 8, color: 'Gold', skill: 'R-controlled', slug: 'mouse_gold', jsonFile: 'mouse_gold.json', coverImg: 'images/mouse_gold_page01.png' }
+        ];
+
+        const levelColors = {
+            0: '#FFB6C1', 1: '#FFD700', 2: '#FFA500', 3: '#FF6B6B',
+            4: '#9C27B0', 5: '#2196F3', 6: '#4CAF50', 7: '#FFD700', 8: '#C0C0C0'
+        };
+
+        // Reader state
+        let currentBook = null;
+        let currentPage = 0;
+
+        const booksGrid = document.getElementById('booksGrid');
+        bookData.forEach(book => {
+            const card = document.createElement('div');
+            card.className = 'book-card fade-in';
+            card.style.cursor = 'pointer';
+            card.onclick = () => openBook(book);
+
+            // Use cover image if available, otherwise show title on gradient
+            const coverContent = book.coverImg
+                ? `<img src="/books/${book.coverImg}" alt="${book.title}" style="width:100%; height:100%; object-fit:cover;">`
+                : `<span style="font-size: 1.5rem; font-weight: 700; color: #333; text-align: center; padding: 20px;">${book.title}</span>`;
+
+            card.innerHTML = `
+                <div class="book-cover" style="background: linear-gradient(135deg, ${levelColors[book.level]}33 0%, ${levelColors[book.level]}66 100%); display: flex; align-items: center; justify-content: center;">
+                    ${coverContent}
+                </div>
+                <div class="book-info">
+                    <h4>${book.title}</h4>
+                    <div class="book-meta">
+                        <span class="level-badge" style="background: ${levelColors[book.level]}33; color: ${levelColors[book.level]};">Level ${book.level} ${book.color}</span>
+                        <span class="skill-tag">${book.skill}</span>
+                    </div>
+                </div>
+            `;
+            booksGrid.appendChild(card);
+            observer.observe(card);
+        });
+
+        // Book reader functions
+        async function openBook(book) {
+            // If there's a preview page, navigate there instead
+            if (book.previewPage) {
+                window.location.href = `/books/${book.previewPage}`;
+                return;
+            }
+
+            // Show modal with loading state
+            document.getElementById('readerModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('readerPage').innerHTML = '<div style="color:#666;">Loading...</div>';
+
+            // Load JSON
+            try {
+                const res = await fetch(`/books/${book.jsonFile}`);
+                if (!res.ok) throw new Error('Book not found');
+                const data = await res.json();
+                currentBook = { ...data, slug: book.slug };
+                currentPage = 0;
+                renderReaderPage();
+            } catch (e) {
+                closeReader();
+                document.getElementById('readerPage').innerHTML = '<div style="color:#666;">Could not load book</div>';
+            }
+        }
+
+        function closeReader() {
+            document.getElementById('readerModal').classList.remove('active');
+            document.body.style.overflow = '';
+            currentBook = null;
+        }
+
+        function renderReaderPage() {
+            if (!currentBook || !currentBook.pages) return;
+
+            const page = currentBook.pages[currentPage];
+            const pageDiv = document.getElementById('readerPage');
+            const slug = currentBook.slug || 'book';
+
+            const bgColors = {
+                cover: '#FFE4B5',
+                wordlist: '#E8F5E9',
+                wordlist_title: '#E8F5E9',
+                story: '#FFF8E7',
+                fun_fact: '#E3F2FD',
+                back_cover: '#FFF3E0',
+                copyright: '#F5F5F5'
+            };
+
+            pageDiv.style.background = bgColors[page.type] || '#FFF8E7';
+
+            // Image path: /books/images/{slug}_page{nn}.png
+            const pageNum = String(page.page || currentPage + 1).padStart(2, '0');
+            const imgPath = `/books/images/${slug}_page${pageNum}.png`;
+
+            // Handle wordlist page
+            if (page.type === 'wordlist' && currentBook.word_list) {
+                const wl = currentBook.word_list;
+                if (typeof wl === 'object' && !Array.isArray(wl)) {
+                    const soundOutWords = wl.sound_out || wl.phonetic || [];
+                    const sightWords = wl.sight || [];
+                    const newWords = wl.new || wl.special || [];
+                    pageDiv.innerHTML = `
+                        <div class="wordlist-content">
+                            <h3 style="text-align:center; margin-bottom:12px; color:#333; font-family: 'Fredoka', sans-serif;">Words to Know</h3>
+                            ${soundOutWords.length ? `<div class="wordlist-section phonetic">
+                                <h4>Sound-out words</h4>
+                                <div class="words">${soundOutWords.join(' • ')}</div>
+                            </div>` : ''}
+                            ${sightWords.length ? `<div class="wordlist-section sight">
+                                <h4>Sight words</h4>
+                                <div class="words">${sightWords.join(' • ')}</div>
+                            </div>` : ''}
+                            ${newWords.length ? `<div class="wordlist-section special">
+                                <h4>New words</h4>
+                                <div class="words">${newWords.join(' • ')}</div>
+                            </div>` : ''}
+                        </div>
+                    `;
+                } else {
+                    pageDiv.innerHTML = `<div class="text-overlay center">${(page.text || '').replace(/\\n/g, '<br>')}</div>`;
+                }
+            } else {
+                const textStyle = page.type === 'cover' ? 'font-size: 1.8rem; font-weight: 700; color: #FF6B35;' : '';
+                const textClass = page.type === 'cover' || page.type === 'wordlist_title' ? 'center' : '';
+                const pageText = page.text || currentBook.title || '';
+
+                pageDiv.innerHTML = `
+                    <img src="${imgPath}" onerror="this.style.display='none'" alt="">
+                    <div class="text-overlay ${textClass}" style="${textStyle} cursor: pointer;" onclick="speak('${pageText.replace(/'/g, "\\'")}')">
+                        ${pageText.replace(/\\n/g, '<br>')}
+                    </div>
+                `;
+            }
+
+            document.getElementById('pageIndicator').textContent = `Page ${currentPage + 1} of ${currentBook.pages.length}`;
+            document.getElementById('prevBtn').disabled = currentPage === 0;
+            document.getElementById('nextBtn').disabled = currentPage === currentBook.pages.length - 1;
+        }
+
+        function prevPage() {
+            if (currentPage > 0) { currentPage--; renderReaderPage(); }
+        }
+
+        function nextPage() {
+            if (currentBook && currentPage < currentBook.pages.length - 1) { currentPage++; renderReaderPage(); }
+        }
+
+        // Text-to-Speech
+        function speak(text, rate = 0.85) {
+            if (!text) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = rate;
+            utterance.pitch = 1.1;
+            // Try to use a clear voice
+            const voices = window.speechSynthesis.getVoices();
+            const preferred = voices.find(v => v.name.includes('Samantha') || v.name.includes('Google') || v.lang.startsWith('en'));
+            if (preferred) utterance.voice = preferred;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function speakCurrentPage() {
+            if (!currentBook || !currentBook.pages) return;
+            const page = currentBook.pages[currentPage];
+            speak(page.text || currentBook.title);
+        }
+
+        // Load voices
+        window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+
+        // Keyboard controls for reader
+        document.addEventListener('keydown', (e) => {
+            if (!currentBook) return;
+            if (e.key === 'ArrowLeft') prevPage();
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'Escape') closeReader();
+            if (e.key === ' ') { e.preventDefault(); speakCurrentPage(); }
+        });
+    </script>
+</body>
+</html>

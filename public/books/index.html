@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books - Funbookies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        .back-link:hover { opacity: 1; text-decoration: underline; }
+
+        .header-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h1 { color: #667eea; font-size: 2.5em; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 1.1em; }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .book-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .book-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+        .book-cover {
+            height: 200px;
+            overflow: hidden;
+        }
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .book-info { padding: 20px; }
+        .book-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .book-meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .level-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        .skill-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #f5f5f5;
+            color: #666;
+            border-radius: 10px;
+            font-size: 0.75em;
+        }
+
+        /* Reader Modal */
+        .reader-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            padding: 20px;
+        }
+        .reader-modal.active { display: flex; align-items: center; justify-content: center; }
+        .reader-container {
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+        }
+        .reader-page {
+            aspect-ratio: 1;
+            background: #FFF8E7;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .reader-page img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .reader-page .text-overlay {
+            position: absolute;
+            bottom: 8%;
+            left: 5%; right: 5%;
+            background: rgba(255,255,255,0.95);
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .reader-page .text-overlay.center {
+            bottom: auto;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .reader-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .reader-controls button {
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        .reader-controls button:hover { transform: scale(1.1); }
+        .reader-controls button:disabled { opacity: 0.3; cursor: not-allowed; }
+        .page-indicator {
+            color: white;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        .close-reader {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        .close-reader:hover { transform: scale(1.1); }
+
+        .wordlist-content {
+            position: absolute;
+            top: 10%; bottom: 10%;
+            left: 8%; right: 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
+            text-align: left;
+        }
+        .wordlist-section {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .wordlist-section h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .wordlist-section.phonetic h4 { color: #1565C0; }
+        .wordlist-section.sight h4 { color: #7B1FA2; }
+        .wordlist-section.special h4 { color: #E65100; }
+        .wordlist-section .words { font-size: 1.1rem; font-weight: 600; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">Back to Funbookies</a>
+
+        <div class="header-card">
+            <h1>Book Library</h1>
+            <p class="subtitle">Decodable books matched to your child's reading level</p>
+        </div>
+
+        <div class="books-grid" id="booksGrid"></div>
+    </div>
+
+    <!-- Reader Modal -->
+    <div class="reader-modal" id="readerModal">
+        <button class="close-reader" onclick="closeReader()">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="reader-container">
+            <div class="reader-page" id="readerPage"></div>
+            <div class="reader-controls">
+                <button onclick="prevPage()" id="prevBtn">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <button onclick="nextPage()" id="nextBtn">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div class="page-indicator" id="pageIndicator">Page 1 of 24</div>
+        </div>
+    </div>
+
+    <script>
+        const bookData = [
+            { title: 'No, No, Dog!', level: 0, color: 'Pink', skill: 'Pre-reader', slug: 'dog_pink', jsonFile: 'dog_pink.json', coverImg: 'images/dog_pink_page01.png' },
+            { title: 'Pig in Mud', level: 1, color: 'Yellow', skill: 'Short vowels', slug: 'pig_yellow', jsonFile: 'pig_yellow.json', coverImg: 'images/pig_yellow_page01.png' },
+            { title: 'Gus and the Volcano', level: 2, color: 'Orange', skill: 'CVC words', slug: 'volcano', previewPage: 'volcano_preview.html', coverImg: 'volcano_images/page_01_cover.png' },
+            { title: 'Rats in the Castle', level: 3, color: 'Orange', skill: 'CVC + Digraphs', slug: 'castle', previewPage: 'castle_preview.html', coverImg: 'castle_images/page_01_cover.png' },
+            { title: 'Stomp! Elephant', level: 4, color: 'Red', skill: 'Ending blends', slug: 'elephant_red', jsonFile: 'elephant_red.json', coverImg: 'images/elephant_red_page01.png' },
+            { title: 'The Cake Mistake', level: 5, color: 'Purple', skill: 'Digraphs', slug: 'fox_purple', jsonFile: 'fox_purple.json', coverImg: 'images/fox_purple_page01.png' },
+            { title: 'The Sneaky Snail', level: 6, color: 'Blue', skill: 'Silent e', slug: 'snail_blue', jsonFile: 'snail_blue.json', coverImg: 'images/snail_blue_page01.png' },
+            { title: 'The Owl at Night', level: 7, color: 'Green', skill: 'Vowel teams', slug: 'owl_green', jsonFile: 'owl_green.json', coverImg: 'images/owl_green_page01.png' },
+            { title: 'Mouse in the House', level: 8, color: 'Gold', skill: 'R-controlled', slug: 'mouse_gold', jsonFile: 'mouse_gold.json', coverImg: 'images/mouse_gold_page01.png' }
+        ];
+
+        const levelColors = {
+            0: '#FFB6C1', 1: '#FFD700', 2: '#FFA500', 3: '#FF6B6B',
+            4: '#9C27B0', 5: '#2196F3', 6: '#4CAF50', 7: '#FFD700', 8: '#C0C0C0'
+        };
+
+        let currentBook = null;
+        let currentPage = 0;
+
+        const booksGrid = document.getElementById('booksGrid');
+        bookData.forEach(book => {
+            const card = document.createElement('div');
+            card.className = 'book-card';
+            card.onclick = () => openBook(book);
+            card.innerHTML = `
+                <div class="book-cover">
+                    <img src="/books/${book.coverImg}" alt="${book.title}" onerror="this.parentElement.style.background='linear-gradient(135deg, ${levelColors[book.level]}33, ${levelColors[book.level]}66)'; this.style.display='none';">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">${book.title}</div>
+                    <div class="book-meta">
+                        <span class="level-badge" style="background: ${levelColors[book.level]}33; color: ${levelColors[book.level]};">Level ${book.level} ${book.color}</span>
+                        <span class="skill-tag">${book.skill}</span>
+                    </div>
+                </div>
+            `;
+            booksGrid.appendChild(card);
+        });
+
+        async function openBook(book) {
+            if (book.previewPage) {
+                window.location.href = `/books/${book.previewPage}`;
+                return;
+            }
+
+            try {
+                const res = await fetch(`/books/${book.jsonFile}`);
+                if (!res.ok) throw new Error('Book not found');
+                const data = await res.json();
+                currentBook = { ...data, slug: book.slug };
+                currentPage = 0;
+                document.getElementById('readerModal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+                renderReaderPage();
+            } catch (e) {
+                alert('This book is coming soon!');
+            }
+        }
+
+        function closeReader() {
+            document.getElementById('readerModal').classList.remove('active');
+            document.body.style.overflow = '';
+            currentBook = null;
+        }
+
+        function renderReaderPage() {
+            if (!currentBook || !currentBook.pages) return;
+
+            const page = currentBook.pages[currentPage];
+            const pageDiv = document.getElementById('readerPage');
+            const slug = currentBook.slug || 'book';
+
+            const bgColors = {
+                cover: '#FFE4B5', wordlist: '#E8F5E9', story: '#FFF8E7',
+                fun_fact: '#E3F2FD', back_cover: '#FFF3E0', end: '#FFF8E7'
+            };
+
+            pageDiv.style.background = bgColors[page.type] || '#FFF8E7';
+            const pageNum = String(page.page || currentPage + 1).padStart(2, '0');
+            const imgPath = `/books/images/${slug}_page${pageNum}.png`;
+
+            if (page.type === 'wordlist' && currentBook.word_list) {
+                const wl = currentBook.word_list;
+                const soundOut = wl.sound_out || [];
+                const sight = wl.sight || [];
+                const newWords = wl.new || [];
+                pageDiv.innerHTML = `
+                    <div class="wordlist-content">
+                        <h3 style="text-align:center; margin-bottom:12px; color:#333;">Words to Know</h3>
+                        ${soundOut.length ? `<div class="wordlist-section phonetic"><h4>Sound-out</h4><div class="words">${soundOut.join(' ')}</div></div>` : ''}
+                        ${sight.length ? `<div class="wordlist-section sight"><h4>Sight words</h4><div class="words">${sight.join(' ')}</div></div>` : ''}
+                        ${newWords.length ? `<div class="wordlist-section special"><h4>New words</h4><div class="words">${newWords.join(' ')}</div></div>` : ''}
+                    </div>
+                `;
+            } else {
+                const textStyle = page.type === 'cover' ? 'font-size: 1.8rem; font-weight: 700; color: #FF6B35;' : '';
+                const textClass = page.type === 'cover' ? 'center' : '';
+                pageDiv.innerHTML = `
+                    <img src="${imgPath}" onerror="this.style.display='none'" alt="">
+                    <div class="text-overlay ${textClass}" style="${textStyle}">${(page.text || '').replace(/\\n/g, '<br>')}</div>
+                `;
+            }
+
+            document.getElementById('pageIndicator').textContent = `Page ${currentPage + 1} of ${currentBook.pages.length}`;
+            document.getElementById('prevBtn').disabled = currentPage === 0;
+            document.getElementById('nextBtn').disabled = currentPage === currentBook.pages.length - 1;
+        }
+
+        function prevPage() { if (currentPage > 0) { currentPage--; renderReaderPage(); } }
+        function nextPage() { if (currentBook && currentPage < currentBook.pages.length - 1) { currentPage++; renderReaderPage(); } }
+
+        document.addEventListener('keydown', (e) => {
+            if (!currentBook) return;
+            if (e.key === 'ArrowLeft') prevPage();
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'Escape') closeReader();
+        });
+    </script>
+</body>
+</html>

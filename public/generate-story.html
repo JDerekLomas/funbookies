@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Generator - Funbookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      color: white;
+    }
+    .wordmark {
+      max-width: 300px;
+      width: 80%;
+      height: auto;
+      margin: 0 auto 10px;
+      display: block;
+      filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.2));
+    }
+    header p { font-size: 1rem; opacity: 0.9; }
+
+    .back-link {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    .back-link:hover { opacity: 1; text-decoration: underline; }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .hint {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    select:focus, input[type="text"]:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .word-input-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .word-input-group input {
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .word-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .word-tag {
+      background: #e3f2fd;
+      color: #1565c0;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .word-tag.sight {
+      background: #f3e5f5;
+      color: #7b1fa2;
+    }
+
+    .word-tag button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      opacity: 0.6;
+    }
+
+    .word-tag button:hover {
+      opacity: 1;
+    }
+
+    .character-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 10px;
+    }
+
+    .character-option {
+      padding: 15px 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .character-option:hover {
+      border-color: #667eea;
+      background: #f5f5ff;
+    }
+
+    .character-option.selected {
+      border-color: #667eea;
+      background: #667eea;
+      color: white;
+    }
+
+    .character-option .icon {
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #43a047;
+    }
+
+    .story-output {
+      display: none;
+    }
+
+    .story-output.visible {
+      display: block;
+    }
+
+    .story-page {
+      background: #FFF8E7;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 20px;
+      border: 2px solid #FFE4B5;
+    }
+
+    .story-page .page-num {
+      font-size: 0.8rem;
+      color: #999;
+      margin-bottom: 10px;
+    }
+
+    .story-page .text {
+      font-size: 1.4rem;
+      line-height: 1.8;
+      color: #333;
+    }
+
+    .story-page .text .highlight {
+      background: #FFEB3B;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .loading .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #e0e0e0;
+      border-top-color: #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .story-meta {
+      background: #e8f5e9;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .story-meta h3 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+
+    .story-meta .word-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .story-meta .word {
+      background: white;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 0.9rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .error {
+      background: #ffebee;
+      color: #c62828;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">&larr; Back to Books</a>
+
+    <header>
+      <img src="/images/wordmark_03.png" alt="Funbookies" class="wordmark">
+      <p>Generate a custom story for your reader</p>
+    </header>
+
+    <!-- Input Form -->
+    <div class="card" id="inputCard">
+      <h2>Story Settings</h2>
+
+      <div class="form-group">
+        <label>Reading Level</label>
+        <p class="hint">Based on phonics assessment results</p>
+        <select id="levelSelect">
+          <option value="0">Level 0 - Pink (Simple CVC: cat, dog, sun)</option>
+          <option value="1">Level 1 - Yellow (CVC with short u: bug, cup, mud)</option>
+          <option value="2" selected>Level 2 - Orange (Beginning blends: stop, flag, crab)</option>
+          <option value="3">Level 3 - Red (Ending blends: jump, help, fast)</option>
+          <option value="4">Level 4 - Purple (Digraphs: ship, chat, thin)</option>
+          <option value="5">Level 5 - Blue (Silent e: cake, bike, home)</option>
+          <option value="6">Level 6 - Green (Vowel teams: rain, boat, see)</option>
+          <option value="7">Level 7 - Gold (R-controlled: car, bird, corn)</option>
+          <option value="8">Level 8 - Silver (Multi-syllable words)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Words to Include (Sound-out)</label>
+        <p class="hint">Practice words from assessment - child will decode these</p>
+        <div class="word-input-group">
+          <input type="text" id="soundOutInput" placeholder="Type a word and press Enter">
+        </div>
+        <div class="word-tags" id="soundOutTags"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Sight Words to Include</label>
+        <p class="hint">Words they're learning to recognize by sight</p>
+        <div class="word-input-group">
+          <input type="text" id="sightWordInput" placeholder="Type a word and press Enter">
+        </div>
+        <div class="word-tags" id="sightWordTags"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Main Character</label>
+        <div class="character-grid" id="characterGrid">
+          <div class="character-option" data-character="dog">
+            <div class="icon">🐕</div>
+            <div>Dog</div>
+          </div>
+          <div class="character-option selected" data-character="pig">
+            <div class="icon">🐷</div>
+            <div>Pig</div>
+          </div>
+          <div class="character-option" data-character="salamander">
+            <div class="icon">🦎</div>
+            <div>Gus</div>
+          </div>
+          <div class="character-option" data-character="elephant">
+            <div class="icon">🐘</div>
+            <div>Elephant</div>
+          </div>
+          <div class="character-option" data-character="fox">
+            <div class="icon">🦊</div>
+            <div>Fox</div>
+          </div>
+          <div class="character-option" data-character="snail">
+            <div class="icon">🐌</div>
+            <div>Snail</div>
+          </div>
+          <div class="character-option" data-character="owl">
+            <div class="icon">🦉</div>
+            <div>Owl</div>
+          </div>
+          <div class="character-option" data-character="mouse">
+            <div class="icon">🐭</div>
+            <div>Mouse</div>
+          </div>
+          <div class="character-option" data-character="puppy">
+            <div class="icon">🐶</div>
+            <div>Puppy</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Story Theme (optional)</label>
+        <input type="text" id="themeInput" placeholder="e.g., birthday party, rainy day, trip to the park">
+      </div>
+
+      <div style="text-align: center; margin-top: 30px;">
+        <button class="btn btn-primary" id="generateBtn" onclick="generateStory()">
+          Generate Story
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="card" id="loadingCard" style="display: none;">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>Creating your personalized story...</p>
+        <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">This may take 10-20 seconds</p>
+      </div>
+    </div>
+
+    <!-- Story Output -->
+    <div class="card story-output" id="storyCard">
+      <div id="errorMsg" class="error" style="display: none;"></div>
+
+      <div class="story-meta" id="storyMeta">
+        <h3 id="storyTitle">Story Title</h3>
+        <div class="word-list" id="usedWords"></div>
+      </div>
+
+      <div id="storyPages"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="generatePictures()">Generate Pictures</button>
+        <button class="btn btn-secondary" onclick="regenerateStory()">Try Another Story</button>
+        <button class="btn" style="background: #9e9e9e; color: white;" onclick="editStory()">Edit & Adjust</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // State
+    let soundOutWords = ['mud', 'bug', 'fun', 'run'];
+    let sightWords = ['the', 'is', 'a', 'in'];
+    let selectedCharacter = 'pig';
+    let currentStory = null;
+
+    // Level descriptions for prompting
+    const levelDescriptions = {
+      0: 'Simple CVC words only (cat, dog, sun, hat). No blends, no digraphs. Maximum 3-4 words per sentence.',
+      1: 'CVC words including short u (bug, cup, mud, fun). No blends. 4-5 words per sentence max.',
+      2: 'Beginning consonant blends allowed (stop, flag, crab, trip). 5-6 words per sentence.',
+      3: 'Beginning and ending blends (jump, help, fast, crisp). 6-7 words per sentence.',
+      4: 'Digraphs allowed (ship, chat, thin, much, when). 7-8 words per sentence.',
+      5: 'Silent e words (cake, bike, home, huge). Can use longer sentences.',
+      6: 'Vowel teams (rain, boat, see, coat, team). Complex sentences OK.',
+      7: 'R-controlled vowels (car, bird, corn, hurt). Natural sentence length.',
+      8: 'Multi-syllable words allowed. Can use compound words and simple prefixes/suffixes.'
+    };
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      renderWordTags();
+      setupCharacterGrid();
+      setupWordInputs();
+    });
+
+    function renderWordTags() {
+      const soundOutContainer = document.getElementById('soundOutTags');
+      const sightContainer = document.getElementById('sightWordTags');
+
+      soundOutContainer.innerHTML = soundOutWords.map(w =>
+        `<span class="word-tag">${w}<button onclick="removeWord('soundOut', '${w}')">&times;</button></span>`
+      ).join('');
+
+      sightContainer.innerHTML = sightWords.map(w =>
+        `<span class="word-tag sight">${w}<button onclick="removeWord('sight', '${w}')">&times;</button></span>`
+      ).join('');
+    }
+
+    function removeWord(type, word) {
+      if (type === 'soundOut') {
+        soundOutWords = soundOutWords.filter(w => w !== word);
+      } else {
+        sightWords = sightWords.filter(w => w !== word);
+      }
+      renderWordTags();
+    }
+
+    function setupWordInputs() {
+      const soundOutInput = document.getElementById('soundOutInput');
+      const sightInput = document.getElementById('sightWordInput');
+
+      soundOutInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          const word = e.target.value.trim().toLowerCase();
+          if (word && !soundOutWords.includes(word)) {
+            soundOutWords.push(word);
+            renderWordTags();
+          }
+          e.target.value = '';
+        }
+      });
+
+      sightInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          const word = e.target.value.trim().toLowerCase();
+          if (word && !sightWords.includes(word)) {
+            sightWords.push(word);
+            renderWordTags();
+          }
+          e.target.value = '';
+        }
+      });
+    }
+
+    function setupCharacterGrid() {
+      const grid = document.getElementById('characterGrid');
+      grid.addEventListener('click', (e) => {
+        const option = e.target.closest('.character-option');
+        if (option) {
+          grid.querySelectorAll('.character-option').forEach(o => o.classList.remove('selected'));
+          option.classList.add('selected');
+          selectedCharacter = option.dataset.character;
+        }
+      });
+    }
+
+    async function generateStory() {
+      const level = parseInt(document.getElementById('levelSelect').value);
+      const theme = document.getElementById('themeInput').value.trim();
+
+      // Show loading
+      document.getElementById('inputCard').style.display = 'none';
+      document.getElementById('loadingCard').style.display = 'block';
+      document.getElementById('storyCard').classList.remove('visible');
+
+      const prompt = buildPrompt(level, theme);
+
+      try {
+        const response = await fetch('/api/generate-story', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to generate story');
+        }
+
+        const data = await response.json();
+        currentStory = data;
+        displayStory(data);
+
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('errorMsg').textContent =
+          'Could not generate story. Please try again.';
+        document.getElementById('errorMsg').style.display = 'block';
+        document.getElementById('storyCard').classList.add('visible');
+      }
+
+      document.getElementById('loadingCard').style.display = 'none';
+    }
+
+    function buildPrompt(level, theme) {
+      const levelDesc = levelDescriptions[level];
+      const characterName = selectedCharacter.charAt(0).toUpperCase() + selectedCharacter.slice(1);
+
+      return `You are writing a decodable book for a beginning reader. Generate a short story (8-12 pages) following these STRICT constraints:
+
+READING LEVEL: ${level} - ${levelDesc}
+
+WORDS THAT MUST APPEAR (use each at least once):
+- Sound-out words: ${soundOutWords.join(', ')}
+- Sight words: ${sightWords.join(', ')}
+
+MAIN CHARACTER: ${characterName} the ${selectedCharacter}
+${theme ? `THEME: ${theme}` : ''}
+
+CRITICAL RULES:
+1. Use ONLY words appropriate for level ${level}. No words the child cannot decode.
+2. Keep sentences short and simple. One idea per sentence.
+3. Repeat the target words naturally throughout the story.
+4. Make the story engaging with a simple problem and resolution.
+5. Each page should have 1-3 short sentences.
+6. Use predictable patterns where possible.
+
+OUTPUT FORMAT (JSON):
+{
+  "title": "Story title",
+  "level": ${level},
+  "pages": [
+    {"page": 1, "text": "Page 1 text here.", "scene": "Brief scene description for illustration"},
+    {"page": 2, "text": "Page 2 text here.", "scene": "Brief scene description"},
+    ...
+  ],
+  "word_list": {
+    "sound_out": ["list", "of", "decodable", "words", "used"],
+    "sight": ["list", "of", "sight", "words", "used"],
+    "new": ["any", "new", "vocabulary", "introduced"]
+  }
+}
+
+Return ONLY the JSON, no other text.`;
+    }
+
+    function displayStory(data) {
+      document.getElementById('storyTitle').textContent = data.title;
+
+      // Show word lists
+      const usedWords = document.getElementById('usedWords');
+      let wordHtml = '';
+      if (data.word_list?.sound_out) {
+        wordHtml += data.word_list.sound_out.map(w =>
+          `<span class="word" style="background: #e3f2fd; color: #1565c0;">${w}</span>`
+        ).join('');
+      }
+      if (data.word_list?.sight) {
+        wordHtml += data.word_list.sight.map(w =>
+          `<span class="word" style="background: #f3e5f5; color: #7b1fa2;">${w}</span>`
+        ).join('');
+      }
+      usedWords.innerHTML = wordHtml;
+
+      // Show pages
+      const pagesContainer = document.getElementById('storyPages');
+      pagesContainer.innerHTML = data.pages.map(p => `
+        <div class="story-page">
+          <div class="page-num">Page ${p.page}</div>
+          <div class="text">${highlightWords(p.text)}</div>
+          ${p.scene ? `<div style="font-size: 0.8rem; color: #999; margin-top: 10px; font-style: italic;">[${p.scene}]</div>` : ''}
+        </div>
+      `).join('');
+
+      document.getElementById('storyCard').classList.add('visible');
+      document.getElementById('errorMsg').style.display = 'none';
+    }
+
+    function highlightWords(text) {
+      let result = text;
+      // Highlight sound-out words
+      soundOutWords.forEach(word => {
+        const regex = new RegExp(`\\b(${word})\\b`, 'gi');
+        result = result.replace(regex, '<span class="highlight">$1</span>');
+      });
+      return result;
+    }
+
+    function regenerateStory() {
+      document.getElementById('storyCard').classList.remove('visible');
+      document.getElementById('inputCard').style.display = 'block';
+    }
+
+    function editStory() {
+      document.getElementById('storyCard').classList.remove('visible');
+      document.getElementById('inputCard').style.display = 'block';
+    }
+
+    async function generatePictures() {
+      if (!currentStory) return;
+      alert('Picture generation coming soon! The story has been saved.');
+      // TODO: Implement MuleRouter integration for picture generation
+    }
+  </script>
+</body>
+</html>

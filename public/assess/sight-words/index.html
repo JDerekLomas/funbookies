@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sight Words Assessment - Lil Bookies</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* Selection Screen */
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .word-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .word-btn {
+            padding: 12px 8px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .word-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .word-btn.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-start {
+            padding: 15px 40px;
+            font-size: 1.2em;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Practice Screen */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .stats .label {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .stat-correct { color: #4CAF50; font-weight: bold; }
+        .stat-needs-work { color: #FF9800; font-weight: bold; }
+        .stat-remaining { color: #667eea; font-weight: bold; }
+
+        .btn-reset {
+            background: #9E9E9E;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .flashcard {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .flashcard-word {
+            font-size: 4em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .flashcard-meta {
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        .flashcard-meta .incorrect {
+            color: #FF9800;
+            font-weight: 600;
+        }
+
+        .flashcard-meta .streak {
+            color: #4CAF50;
+            font-weight: 600;
+        }
+
+        .response-btns {
+            display: flex;
+            gap: 15px;
+        }
+
+        .response-btn {
+            flex: 1;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+
+        .response-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-needs-work {
+            background: #FF9800;
+        }
+
+        .btn-correct {
+            background: #4CAF50;
+        }
+
+        .queue-preview {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .queue-label {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .queue-words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .queue-word {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .queue-word.waiting {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .queue-word.ready {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        /* Complete Screen */
+        .complete {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .complete-emoji {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+
+        .complete h2 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .complete-stats {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .mastered-list {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .mastered-list h4 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .mastered-words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .mastered-word {
+            background: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: 500;
+            color: #4CAF50;
+        }
+
+        .needs-work-list {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .needs-work-list h4 {
+            color: #FF9800;
+            margin-bottom: 10px;
+        }
+
+        .needs-work-word {
+            background: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: 500;
+            color: #FF9800;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .next-steps {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .next-steps h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">&larr; Back to Lil Bookies</a>
+
+        <!-- Selection Screen -->
+        <div id="selectionScreen" class="card">
+            <h1>Sight Words Assessment</h1>
+            <p class="subtitle">Select words to assess (<span id="selectedCount">0</span> selected)</p>
+
+            <div class="word-grid" id="wordGrid"></div>
+
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="selectAll()">Select All</button>
+                <button class="btn btn-secondary" onclick="clearAll()">Clear All</button>
+                <button class="btn btn-primary btn-start" onclick="startPractice()" id="startBtn" disabled>
+                    Start Assessment
+                </button>
+            </div>
+        </div>
+
+        <!-- Practice Screen -->
+        <div id="practiceScreen" class="card hidden">
+            <div class="header">
+                <div class="stats">
+                    <div class="label">Progress</div>
+                    <div>Correct: <span class="stat-correct" id="correctStat">0</span></div>
+                    <div>Needs Work: <span class="stat-needs-work" id="needsWorkStat">0</span></div>
+                    <div>Remaining: <span class="stat-remaining" id="remainingStat">0</span></div>
+                </div>
+                <button class="btn btn-reset" onclick="reset()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 4v6h6M23 20v-6h-6"/>
+                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                    </svg>
+                    Reset
+                </button>
+            </div>
+
+            <div class="flashcard">
+                <div class="flashcard-word" id="currentWord"></div>
+                <div class="flashcard-meta" id="cardMeta"></div>
+            </div>
+
+            <div class="response-btns">
+                <button class="response-btn btn-needs-work" onclick="handleNeedsWork()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                    Needs Work
+                </button>
+                <button class="response-btn btn-correct" onclick="handleCorrect()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    Correct!
+                </button>
+            </div>
+
+            <div class="queue-preview" id="queuePreview">
+                <div class="queue-label">Coming Up:</div>
+                <div class="queue-words" id="queueWords"></div>
+            </div>
+        </div>
+
+        <!-- Complete Screen -->
+        <div id="completeScreen" class="card hidden">
+            <div class="complete">
+                <div class="complete-emoji">🎉</div>
+                <h2>Assessment Complete!</h2>
+                <div class="complete-stats">
+                    Mastered <span id="masteredCount">0</span> words<br>
+                    Total reviews: <span id="totalReviews">0</span>
+                </div>
+
+                <div id="masteredSection" class="mastered-list hidden">
+                    <h4>Words They Know</h4>
+                    <div class="mastered-words" id="masteredWords"></div>
+                </div>
+
+                <div id="needsWorkSection" class="needs-work-list hidden">
+                    <h4>Words to Practice</h4>
+                    <div class="mastered-words" id="needsWorkWords"></div>
+                </div>
+
+                <div class="next-steps">
+                    <h4>Next Steps</h4>
+                    <p id="adviceText">Practice the "needs work" words daily using flashcards. Once they know these sight words by heart, reading will become much more fluent!</p>
+                </div>
+
+                <div class="btn-row" style="margin-top: 25px;">
+                    <button class="btn btn-primary btn-start" onclick="reset()">Assess Again</button>
+                    <a href="/assess/phonics/" class="btn btn-secondary btn-start" style="text-decoration: none;">Try Phonics</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SIGHT_WORDS = [
+            'the', 'and', 'a', 'to', 'said', 'in', 'he', 'I', 'of', 'it',
+            'was', 'you', 'they', 'on', 'she', 'is', 'for', 'at', 'his', 'but',
+            'that', 'with', 'all', 'we', 'can', 'are', 'up', 'had', 'my', 'her',
+            'what', 'there', 'out', 'this', 'have', 'went', 'be', 'like', 'some', 'so'
+        ];
+
+        let selectedWords = [];
+        let practiceQueue = [];
+        let currentCard = null;
+        let stats = { correct: 0, needsWork: 0 };
+        let completedWords = new Set();
+        let wordsNeedingWork = new Set();
+
+        // Initialize word grid
+        function initWordGrid() {
+            const grid = document.getElementById('wordGrid');
+            grid.innerHTML = '';
+            SIGHT_WORDS.forEach(word => {
+                const btn = document.createElement('button');
+                btn.className = 'word-btn';
+                btn.textContent = word;
+                btn.onclick = () => toggleWord(word);
+                btn.id = `word-${word}`;
+                grid.appendChild(btn);
+            });
+        }
+
+        function toggleWord(word) {
+            const btn = document.getElementById(`word-${word}`);
+            if (selectedWords.includes(word)) {
+                selectedWords = selectedWords.filter(w => w !== word);
+                btn.classList.remove('selected');
+            } else {
+                selectedWords.push(word);
+                btn.classList.add('selected');
+            }
+            updateSelectedCount();
+        }
+
+        function selectAll() {
+            selectedWords = [...SIGHT_WORDS];
+            SIGHT_WORDS.forEach(word => {
+                document.getElementById(`word-${word}`).classList.add('selected');
+            });
+            updateSelectedCount();
+        }
+
+        function clearAll() {
+            selectedWords = [];
+            SIGHT_WORDS.forEach(word => {
+                document.getElementById(`word-${word}`).classList.remove('selected');
+            });
+            updateSelectedCount();
+        }
+
+        function updateSelectedCount() {
+            document.getElementById('selectedCount').textContent = selectedWords.length;
+            document.getElementById('startBtn').disabled = selectedWords.length === 0;
+        }
+
+        function startPractice() {
+            if (selectedWords.length === 0) return;
+
+            practiceQueue = selectedWords.map(word => ({
+                word,
+                timesIncorrect: 0,
+                correctStreak: 0,
+                countdown: 0
+            }));
+
+            currentCard = practiceQueue[0];
+            stats = { correct: 0, needsWork: 0 };
+            completedWords = new Set();
+            wordsNeedingWork = new Set();
+
+            document.getElementById('selectionScreen').classList.add('hidden');
+            document.getElementById('practiceScreen').classList.remove('hidden');
+            document.getElementById('completeScreen').classList.add('hidden');
+
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            if (!currentCard) return;
+
+            document.getElementById('currentWord').textContent = currentCard.word;
+            document.getElementById('correctStat').textContent = stats.correct;
+            document.getElementById('needsWorkStat').textContent = stats.needsWork;
+            document.getElementById('remainingStat').textContent = practiceQueue.length;
+
+            // Card meta
+            let metaHtml = '';
+            if (currentCard.timesIncorrect > 0) {
+                metaHtml += `<span class="incorrect">Times incorrect: ${currentCard.timesIncorrect}</span>`;
+                if (currentCard.correctStreak > 0) {
+                    metaHtml += ` &nbsp; <span class="streak">Streak: ${currentCard.correctStreak}/2</span>`;
+                }
+            }
+            document.getElementById('cardMeta').innerHTML = metaHtml;
+
+            // Queue preview
+            const queueWords = document.getElementById('queueWords');
+            const preview = practiceQueue.slice(1, 11);
+            queueWords.innerHTML = preview.map(card =>
+                `<span class="queue-word ${card.countdown > 0 ? 'waiting' : 'ready'}">${card.word}${card.countdown > 0 ? ` (${card.countdown})` : ''}</span>`
+            ).join('');
+
+            if (practiceQueue.length > 11) {
+                queueWords.innerHTML += `<span style="color:#999; font-size: 0.85em;">+${practiceQueue.length - 11} more</span>`;
+            }
+
+            document.getElementById('queuePreview').classList.toggle('hidden', practiceQueue.length <= 1);
+        }
+
+        function handleCorrect() {
+            stats.correct++;
+
+            let newQueue = practiceQueue.slice(1);
+            let updatedQueue = newQueue.map(card => ({
+                ...card,
+                countdown: Math.max(0, card.countdown - 1)
+            }));
+
+            if (currentCard.timesIncorrect > 0) {
+                const newCorrectStreak = currentCard.correctStreak + 1;
+
+                if (newCorrectStreak >= 2) {
+                    completedWords.add(currentCard.word);
+                } else {
+                    const updatedCard = {
+                        ...currentCard,
+                        correctStreak: newCorrectStreak,
+                        countdown: 3
+                    };
+
+                    let insertIndex = Math.min(3, updatedQueue.length);
+                    updatedQueue.splice(insertIndex, 0, updatedCard);
+                }
+            } else {
+                completedWords.add(currentCard.word);
+            }
+
+            practiceQueue = updatedQueue;
+
+            if (practiceQueue.length === 0) {
+                showComplete();
+            } else {
+                currentCard = practiceQueue[0];
+                updateDisplay();
+            }
+        }
+
+        function handleNeedsWork() {
+            stats.needsWork++;
+            wordsNeedingWork.add(currentCard.word);
+
+            let newQueue = practiceQueue.slice(1);
+            const spacing = currentCard.timesIncorrect === 0 ? 1 : 3;
+
+            const updatedCard = {
+                ...currentCard,
+                timesIncorrect: currentCard.timesIncorrect + 1,
+                correctStreak: 0,
+                countdown: spacing
+            };
+
+            let updatedQueue = newQueue.map(card => ({
+                ...card,
+                countdown: Math.max(0, card.countdown - 1)
+            }));
+
+            let insertIndex = Math.min(spacing, updatedQueue.length);
+            updatedQueue.splice(insertIndex, 0, updatedCard);
+
+            practiceQueue = updatedQueue;
+            currentCard = practiceQueue[0];
+            updateDisplay();
+        }
+
+        function showComplete() {
+            document.getElementById('practiceScreen').classList.add('hidden');
+            document.getElementById('completeScreen').classList.remove('hidden');
+
+            document.getElementById('masteredCount').textContent = completedWords.size;
+            document.getElementById('totalReviews').textContent = stats.correct + stats.needsWork;
+
+            // Mastered words
+            const masteredSection = document.getElementById('masteredSection');
+            const masteredWordsDiv = document.getElementById('masteredWords');
+            if (completedWords.size > 0) {
+                masteredSection.classList.remove('hidden');
+                masteredWordsDiv.innerHTML = Array.from(completedWords).map(w =>
+                    `<span class="mastered-word">${w}</span>`
+                ).join('');
+            } else {
+                masteredSection.classList.add('hidden');
+            }
+
+            // Words needing work (that weren't eventually mastered)
+            const stillNeedsWork = Array.from(wordsNeedingWork).filter(w => !completedWords.has(w));
+            const needsWorkSection = document.getElementById('needsWorkSection');
+            const needsWorkWordsDiv = document.getElementById('needsWorkWords');
+            if (stillNeedsWork.length > 0) {
+                needsWorkSection.classList.remove('hidden');
+                needsWorkWordsDiv.innerHTML = stillNeedsWork.map(w =>
+                    `<span class="needs-work-word">${w}</span>`
+                ).join('');
+            } else {
+                needsWorkSection.classList.add('hidden');
+            }
+
+            // Advice
+            const adviceText = document.getElementById('adviceText');
+            if (wordsNeedingWork.size === 0) {
+                adviceText.textContent = "Amazing! They know all these sight words perfectly. Consider adding more challenging words or moving to the phonics assessment.";
+            } else if (completedWords.size >= selectedWords.length * 0.8) {
+                adviceText.textContent = "Great progress! They know most of these words. Practice the tricky ones a few times each day until they're automatic.";
+            } else {
+                adviceText.textContent = "Good start! Practice these sight words daily using flashcards or games. Try 5-10 words at a time until they're recognized instantly.";
+            }
+        }
+
+        function reset() {
+            document.getElementById('selectionScreen').classList.remove('hidden');
+            document.getElementById('practiceScreen').classList.add('hidden');
+            document.getElementById('completeScreen').classList.add('hidden');
+
+            selectedWords = [];
+            practiceQueue = [];
+            currentCard = null;
+            stats = { correct: 0, needsWork: 0 };
+            completedWords = new Set();
+            wordsNeedingWork = new Set();
+
+            initWordGrid();
+            updateSelectedCount();
+        }
+
+        // Initialize
+        initWordGrid();
+    </script>
+</body>
+</html>

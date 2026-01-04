@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phonics Assessment - Lil Bookies</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            min-height: 500px;
+        }
+        .back-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .start-screen {
+            text-align: center;
+        }
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .start-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .start-button:hover {
+            transform: scale(1.05);
+        }
+        .info {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #888;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .badge {
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+        }
+        .words-badge {
+            background: #e3f2fd;
+        }
+        .level-badge {
+            background: #f3e5f5;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .main-content {
+            text-align: center;
+            padding: 60px 0;
+        }
+        .instruction {
+            font-size: 1.2em;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .word-display {
+            font-size: 5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 50px;
+            font-family: Georgia, serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .feedback {
+            font-size: 3em;
+            font-weight: bold;
+            color: #4CAF50;
+            animation: bounce 0.5s;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .controls {
+            margin-top: 40px;
+        }
+        .control-label {
+            font-size: 0.9em;
+            color: #999;
+            margin-bottom: 15px;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .control-button {
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            flex: 1;
+            max-width: 200px;
+            min-width: 150px;
+        }
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        .correct-btn {
+            background: #4CAF50;
+        }
+        .needs-work-btn {
+            background: #FF9800;
+        }
+        .unable-btn {
+            background: #9E9E9E;
+        }
+        .end-button {
+            background: transparent;
+            color: #999;
+            border: 2px solid #ddd;
+            padding: 10px 20px;
+            font-size: 0.9em;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.2s;
+        }
+        .end-button:hover {
+            border-color: #999;
+            color: #666;
+        }
+        .summary {
+            text-align: center;
+        }
+        .summary h1 {
+            margin-bottom: 20px;
+        }
+        .stats {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+        }
+        .stat-correct {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        .stat-other {
+            color: #666;
+        }
+        .minecraft-box {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .minecraft-box h3 {
+            color: #667eea;
+        }
+        .hidden {
+            display: none;
+        }
+
+        /* Confetti styles */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: absolute;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .word-list {
+            max-height: 300px;
+            overflow-y: auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .word-item {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .word-correct {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .word-needs-work {
+            background: #fff3e0;
+            border-left: 4px solid #FF9800;
+        }
+
+        .word-unable {
+            background: #f5f5f5;
+            border-left: 4px solid #9E9E9E;
+        }
+
+        .claude-advice {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .claude-advice h4 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .loading {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+        }
+
+        .book-recommendation {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .book-recommendation h4 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+
+        .book-recommendation a {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .book-recommendation a:hover {
+            background: #43A047;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">&larr; Back to Lil Bookies</a>
+
+        <!-- Start Screen -->
+        <div id="startScreen" class="start-screen">
+            <h1>Phonics Assessment</h1>
+            <p class="subtitle">Let's find your child's reading level!</p>
+            <button class="start-button" onclick="startSession()">Start Assessment</button>
+            <div class="info">
+                <p><strong>For Parents:</strong> Show each word to your child. Click the buttons based on how they read it.</p>
+                <p>The assessment adapts automatically to find their level!</p>
+                <p style="margin-top: 15px;"><strong>Takes about 5-10 minutes</strong></p>
+            </div>
+        </div>
+
+        <!-- Practice Screen -->
+        <div id="practiceScreen" class="hidden">
+            <div class="header">
+                <div class="badge words-badge">Words: <span id="wordsCount">0</span></div>
+                <div class="badge level-badge">Level <span id="levelDisplay">2</span></div>
+            </div>
+
+            <div class="main-content">
+                <div id="wordArea">
+                    <div class="instruction" id="instruction"></div>
+                    <div class="word-display" id="wordDisplay"></div>
+                </div>
+                <div id="feedbackArea" class="hidden">
+                    <div class="feedback" id="feedbackText"></div>
+                </div>
+            </div>
+
+            <div class="controls" id="controlsArea">
+                <div class="control-label">Parent: How did they do?</div>
+                <div class="button-group">
+                    <button class="control-button correct-btn" onclick="handleResponse('correct')">Correct!</button>
+                    <button class="control-button needs-work-btn" onclick="handleResponse('needsWork')">Needs Work</button>
+                    <button class="control-button unable-btn" onclick="handleResponse('unable')">Too Hard</button>
+                </div>
+            </div>
+
+            <button class="end-button" onclick="endSession()">Finish Assessment</button>
+        </div>
+
+        <!-- Summary Screen -->
+        <div id="summaryScreen" class="hidden summary">
+            <h1>Assessment Complete!</h1>
+            <div class="stats">
+                <p class="stat-correct"><span id="correctCount">0</span> words read correctly!</p>
+                <p class="stat-other">Words practiced: <span id="needsWorkCount">0</span></p>
+                <p class="stat-other">New challenges: <span id="unableCount">0</span></p>
+                <p class="stat-other" style="margin-top: 20px;">Total items: <span id="totalCount">0</span></p>
+            </div>
+
+            <!-- Reading Level Result -->
+            <div id="levelResult" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; margin: 20px 0;">
+                <h3 style="margin: 0 0 10px 0;">Estimated Reading Level</h3>
+                <div style="font-size: 3em; font-weight: bold;" id="finalLevel">Level 2</div>
+                <p id="levelDescription" style="margin: 10px 0 0 0; opacity: 0.9;"></p>
+            </div>
+
+            <!-- Book Recommendation -->
+            <div class="book-recommendation">
+                <h4>Recommended Books</h4>
+                <p>Based on their level, try these books:</p>
+                <a href="/books/crabby-and-fishy/">Read "Crabby and Fishy"</a>
+            </div>
+
+            <!-- Word List -->
+            <div id="wordList" class="word-list"></div>
+
+            <!-- Claude's Advice -->
+            <div id="claudeAdvice" class="claude-advice">
+                <p class="loading">Getting personalized advice...</p>
+            </div>
+
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+                <button class="start-button" onclick="startSession()" style="font-size: 1.1em; padding: 15px 30px;">Assess Again</button>
+                <a href="/assess/sight-words/" class="start-button" style="font-size: 1.1em; padding: 15px 30px; text-decoration: none; background: #FF9800;">Try Sight Words</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Phonics items organized by difficulty level
+        const phonicsBank = {
+            1: [ // Easiest - Simple CVC with common letters
+                { word: "cat", type: "Read this word", difficulty: 1 },
+                { word: "dog", type: "Read this word", difficulty: 1 },
+                { word: "sun", type: "Read this word", difficulty: 1 },
+                { word: "hat", type: "Read this word", difficulty: 1 },
+                { word: "pig", type: "Read this word", difficulty: 1 },
+                { word: "run", type: "Read this word", difficulty: 1 },
+                { word: "top", type: "Read this word", difficulty: 1 },
+                { word: "fan", type: "Read this word", difficulty: 1 },
+                { word: "mat", type: "Read this word", difficulty: 1 },
+                { word: "pen", type: "Read this word", difficulty: 1 },
+                { word: "can", type: "Read this word", difficulty: 1 },
+                { word: "red", type: "Read this word", difficulty: 1 },
+                { word: "sit", type: "Read this word", difficulty: 1 },
+                { word: "pot", type: "Read this word", difficulty: 1 },
+                { word: "wet", type: "Read this word", difficulty: 1 },
+                { word: "fox", type: "Read this word", difficulty: 1 },
+                { word: "hen", type: "Read this word", difficulty: 1 },
+                { word: "man", type: "Read this word", difficulty: 1 },
+                { word: "hop", type: "Read this word", difficulty: 1 },
+                { word: "ten", type: "Read this word", difficulty: 1 },
+            ],
+            2: [ // CVC with short u (his challenge area)
+                { word: "bug", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "cup", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "hug", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "rug", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "tub", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "fun", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "mud", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "bun", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "cut", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "nut", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "pup", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "tug", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "hut", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "rub", type: "Read this word (watch for short u!)", difficulty: 2 },
+                { word: "gum", type: "Read this word (watch for short u!)", difficulty: 2 },
+            ],
+            3: [ // CVC with b/d focus
+                { word: "bed", type: "Read this word (b or d?)", difficulty: 3 },
+                { word: "bad", type: "Read this word (b or d?)", difficulty: 3 },
+                { word: "dab", type: "Read this word (b or d?)", difficulty: 3 },
+                { word: "bid", type: "Read this word (b or d?)", difficulty: 3 },
+                { word: "dad", type: "Read this word (b or d?)", difficulty: 3 },
+                { word: "bat", type: "Read this word (b or d?)", difficulty: 3 },
+                { word: "dot", type: "Read this word (b or d?)", difficulty: 3 },
+                { word: "big", type: "Read this word (b or d?)", difficulty: 3 },
+                { word: "dig", type: "Read this word (b or d?)", difficulty: 3 },
+                { word: "dim", type: "Read this word (b or d?)", difficulty: 3 },
+                { word: "dip", type: "Read this word (b or d?)", difficulty: 3 },
+                { word: "bag", type: "Read this word (b or d?)", difficulty: 3 },
+            ],
+            4: [ // Simple beginning blends
+                { word: "stop", type: "Read this word with a blend", difficulty: 4 },
+                { word: "flag", type: "Read this word with a blend", difficulty: 4 },
+                { word: "crab", type: "Read this word with a blend", difficulty: 4 },
+                { word: "drum", type: "Read this word with a blend", difficulty: 4 },
+                { word: "glad", type: "Read this word with a blend", difficulty: 4 },
+                { word: "frog", type: "Read this word with a blend", difficulty: 4 },
+                { word: "trip", type: "Read this word with a blend", difficulty: 4 },
+                { word: "club", type: "Read this word with a blend", difficulty: 4 },
+                { word: "step", type: "Read this word with a blend", difficulty: 4 },
+                { word: "slip", type: "Read this word with a blend", difficulty: 4 },
+                { word: "snap", type: "Read this word with a blend", difficulty: 4 },
+                { word: "spin", type: "Read this word with a blend", difficulty: 4 },
+            ],
+            5: [ // Harder blends with short u or b/d
+                { word: "plug", type: "Read this blend word", difficulty: 5 },
+                { word: "stub", type: "Read this blend word", difficulty: 5 },
+                { word: "drug", type: "Read this blend word", difficulty: 5 },
+                { word: "Brad", type: "Read this blend word", difficulty: 5 },
+                { word: "drop", type: "Read this blend word", difficulty: 5 },
+                { word: "snug", type: "Read this blend word", difficulty: 5 },
+                { word: "slid", type: "Read this blend word", difficulty: 5 },
+                { word: "grub", type: "Read this blend word", difficulty: 5 },
+                { word: "slug", type: "Read this blend word", difficulty: 5 },
+                { word: "drip", type: "Read this blend word", difficulty: 5 },
+            ],
+            6: [ // Digraphs
+                { word: "ship", type: "Read this word (sh, ch, or th)", difficulty: 6 },
+                { word: "chop", type: "Read this word (sh, ch, or th)", difficulty: 6 },
+                { word: "that", type: "Read this word (sh, ch, or th)", difficulty: 6 },
+                { word: "fish", type: "Read this word (sh, ch, or th)", difficulty: 6 },
+                { word: "much", type: "Read this word (sh, ch, or th)", difficulty: 6 },
+                { word: "with", type: "Read this word (sh, ch, or th)", difficulty: 6 },
+                { word: "shop", type: "Read this word (sh, ch, or th)", difficulty: 6 },
+                { word: "chin", type: "Read this word (sh, ch, or th)", difficulty: 6 },
+                { word: "rush", type: "Read this word (sh, ch, or th)", difficulty: 6 },
+                { word: "them", type: "Read this word (sh, ch, or th)", difficulty: 6 },
+            ],
+            7: [ // Ending blends
+                { word: "fast", type: "Read this word (ending blend)", difficulty: 7 },
+                { word: "hand", type: "Read this word (ending blend)", difficulty: 7 },
+                { word: "help", type: "Read this word (ending blend)", difficulty: 7 },
+                { word: "milk", type: "Read this word (ending blend)", difficulty: 7 },
+                { word: "jump", type: "Read this word (ending blend)", difficulty: 7 },
+                { word: "tent", type: "Read this word (ending blend)", difficulty: 7 },
+                { word: "lamp", type: "Read this word (ending blend)", difficulty: 7 },
+                { word: "best", type: "Read this word (ending blend)", difficulty: 7 },
+                { word: "pond", type: "Read this word (ending blend)", difficulty: 7 },
+                { word: "bent", type: "Read this word (ending blend)", difficulty: 7 },
+            ],
+            8: [ // Silent e (Magic e)
+                { word: "cake", type: "Read this magic e word", difficulty: 8 },
+                { word: "bike", type: "Read this magic e word", difficulty: 8 },
+                { word: "home", type: "Read this magic e word", difficulty: 8 },
+                { word: "tube", type: "Read this magic e word", difficulty: 8 },
+                { word: "make", type: "Read this magic e word", difficulty: 8 },
+                { word: "five", type: "Read this magic e word", difficulty: 8 },
+                { word: "bone", type: "Read this magic e word", difficulty: 8 },
+                { word: "cute", type: "Read this magic e word", difficulty: 8 },
+                { word: "gate", type: "Read this magic e word", difficulty: 8 },
+                { word: "like", type: "Read this magic e word", difficulty: 8 },
+            ],
+            9: [ // R-controlled vowels
+                { word: "car", type: "Read this r-controlled word", difficulty: 9 },
+                { word: "her", type: "Read this r-controlled word", difficulty: 9 },
+                { word: "bird", type: "Read this r-controlled word", difficulty: 9 },
+                { word: "corn", type: "Read this r-controlled word", difficulty: 9 },
+                { word: "turn", type: "Read this r-controlled word", difficulty: 9 },
+                { word: "far", type: "Read this r-controlled word", difficulty: 9 },
+                { word: "fern", type: "Read this r-controlled word", difficulty: 9 },
+                { word: "girl", type: "Read this r-controlled word", difficulty: 9 },
+                { word: "born", type: "Read this r-controlled word", difficulty: 9 },
+                { word: "burn", type: "Read this r-controlled word", difficulty: 9 },
+            ],
+            10: [ // Vowel teams
+                { word: "rain", type: "Read this vowel team word", difficulty: 10 },
+                { word: "play", type: "Read this vowel team word", difficulty: 10 },
+                { word: "seed", type: "Read this vowel team word", difficulty: 10 },
+                { word: "boat", type: "Read this vowel team word", difficulty: 10 },
+                { word: "train", type: "Read this vowel team word", difficulty: 10 },
+                { word: "stay", type: "Read this vowel team word", difficulty: 10 },
+                { word: "feet", type: "Read this vowel team word", difficulty: 10 },
+                { word: "coat", type: "Read this vowel team word", difficulty: 10 },
+            ],
+            11: [ // More complex patterns
+                { word: "night", type: "Read this challenging word", difficulty: 11 },
+                { word: "high", type: "Read this challenging word", difficulty: 11 },
+                { word: "found", type: "Read this challenging word", difficulty: 11 },
+                { word: "coin", type: "Read this challenging word", difficulty: 11 },
+                { word: "book", type: "Read this challenging word", difficulty: 11 },
+                { word: "light", type: "Read this challenging word", difficulty: 11 },
+                { word: "brown", type: "Read this challenging word", difficulty: 11 },
+                { word: "join", type: "Read this challenging word", difficulty: 11 },
+            ],
+            12: [ // Two-syllable words (simple)
+                { word: "sunset", type: "Read this 2-syllable word", difficulty: 12 },
+                { word: "napkin", type: "Read this 2-syllable word", difficulty: 12 },
+                { word: "basket", type: "Read this 2-syllable word", difficulty: 12 },
+                { word: "rabbit", type: "Read this 2-syllable word", difficulty: 12 },
+                { word: "picnic", type: "Read this 2-syllable word", difficulty: 12 },
+                { word: "button", type: "Read this 2-syllable word", difficulty: 12 },
+                { word: "kitten", type: "Read this 2-syllable word", difficulty: 12 },
+                { word: "puppet", type: "Read this 2-syllable word", difficulty: 12 },
+            ],
+            13: [ // Two-syllable words (medium)
+                { word: "bedroom", type: "Read this 2-syllable word", difficulty: 13 },
+                { word: "pencil", type: "Read this 2-syllable word", difficulty: 13 },
+                { word: "blanket", type: "Read this 2-syllable word", difficulty: 13 },
+                { word: "dentist", type: "Read this 2-syllable word", difficulty: 13 },
+                { word: "market", type: "Read this 2-syllable word", difficulty: 13 },
+                { word: "window", type: "Read this 2-syllable word", difficulty: 13 },
+            ],
+            14: [ // Three-syllable words
+                { word: "butterfly", type: "Read this 3-syllable word", difficulty: 14 },
+                { word: "dinosaur", type: "Read this 3-syllable word", difficulty: 14 },
+                { word: "important", type: "Read this 3-syllable word", difficulty: 14 },
+                { word: "banana", type: "Read this 3-syllable word", difficulty: 14 },
+                { word: "computer", type: "Read this 3-syllable word", difficulty: 14 },
+                { word: "elephant", type: "Read this 3-syllable word", difficulty: 14 },
+            ],
+            15: [ // Advanced multi-syllable words
+                { word: "wonderful", type: "Read this advanced word", difficulty: 15 },
+                { word: "everything", type: "Read this advanced word", difficulty: 15 },
+                { word: "beautiful", type: "Read this advanced word", difficulty: 15 },
+                { word: "incredible", type: "Read this advanced word", difficulty: 15 },
+                { word: "understand", type: "Read this advanced word", difficulty: 15 },
+                { word: "watermelon", type: "Read this advanced word", difficulty: 15 },
+            ],
+        };
+
+        const levelDescriptions = {
+            1: "Simple CVC words (cat, dog, sun)",
+            2: "CVC words with short u (cup, bug, fun)",
+            3: "CVC words with b/d (bed, bad, dig)",
+            4: "Beginning blends (stop, flag, trip)",
+            5: "Complex blends (plug, stub, grub)",
+            6: "Digraphs (ship, chop, that)",
+            7: "Ending blends (fast, hand, jump)",
+            8: "Magic e words (cake, bike, home)",
+            9: "R-controlled vowels (car, bird, turn)",
+            10: "Vowel teams (rain, boat, feet)",
+            11: "Complex patterns (night, found, book)",
+            12: "Simple 2-syllable (sunset, rabbit)",
+            13: "Medium 2-syllable (blanket, window)",
+            14: "3-syllable words (butterfly, banana)",
+            15: "Advanced multi-syllable (wonderful, beautiful)"
+        };
+
+        const encouragingMessages = [
+            "Amazing!",
+            "Great job!",
+            "Excellent!",
+            "Keep going!",
+            "Fantastic!",
+            "Super!",
+            "Way to go!",
+            "Nice reading!",
+            "Awesome!"
+        ];
+
+        const neutralMessages = [
+            "Let's try another one",
+            "Good effort!",
+            "Let's keep going",
+            "Nice try!",
+            "On to the next one",
+        ];
+
+        // Sound effects using Web Audio API
+        function playSuccessSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.value = 523.25;
+                oscillator.type = 'sine';
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+
+                setTimeout(() => {
+                    const osc2 = audioContext.createOscillator();
+                    const gain2 = audioContext.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(audioContext.destination);
+                    osc2.frequency.value = 659.25;
+                    osc2.type = 'sine';
+                    gain2.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gain2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    osc2.start(audioContext.currentTime);
+                    osc2.stop(audioContext.currentTime + 0.3);
+                }, 100);
+            } catch(e) {}
+        }
+
+        function playNeutralSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.value = 440;
+                oscillator.type = 'sine';
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.2);
+            } catch(e) {}
+        }
+
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    confetti.style.animationDelay = (Math.random() * 0.5) + 's';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 3500);
+                }, i * 30);
+            }
+        }
+
+        // Game state
+        let currentLevel = 2;
+        let usedItems = {};
+        let currentItem = null;
+        let itemsCompleted = 0;
+        let stats = {correct: 0, needsWork: 0, unable: 0};
+        let wordHistory = [];
+        let levelHistory = [];
+
+        function initUsedItems() {
+            usedItems = {};
+            for (let i = 1; i <= 15; i++) {
+                usedItems[i] = [];
+            }
+        }
+
+        function getNextItem(level) {
+            const availableItems = phonicsBank[level].filter(
+                item => !usedItems[level].includes(item.word)
+            );
+
+            if (availableItems.length === 0) {
+                usedItems[level] = [];
+                return phonicsBank[level][Math.floor(Math.random() * phonicsBank[level].length)];
+            }
+
+            return availableItems[Math.floor(Math.random() * availableItems.length)];
+        }
+
+        function startSession() {
+            currentLevel = 2;
+            initUsedItems();
+            itemsCompleted = 0;
+            stats = {correct: 0, needsWork: 0, unable: 0};
+            wordHistory = [];
+            levelHistory = [];
+
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('summaryScreen').classList.add('hidden');
+            document.getElementById('practiceScreen').classList.remove('hidden');
+
+            showNextWord();
+        }
+
+        function showNextWord() {
+            currentItem = getNextItem(currentLevel);
+
+            document.getElementById('instruction').textContent = currentItem.type;
+            document.getElementById('wordDisplay').textContent = currentItem.word;
+            document.getElementById('levelDisplay').textContent = currentLevel;
+            document.getElementById('wordsCount').textContent = itemsCompleted;
+
+            document.getElementById('wordArea').classList.remove('hidden');
+            document.getElementById('feedbackArea').classList.add('hidden');
+            document.getElementById('controlsArea').classList.remove('hidden');
+        }
+
+        function handleResponse(responseType) {
+            wordHistory.push({
+                word: currentItem.word,
+                type: currentItem.type,
+                result: responseType,
+                level: currentLevel
+            });
+            levelHistory.push(currentLevel);
+
+            stats[responseType]++;
+
+            if (currentItem) {
+                usedItems[currentLevel].push(currentItem.word);
+            }
+
+            let feedbackMessage;
+            if (responseType === 'correct') {
+                feedbackMessage = encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
+                playSuccessSound();
+                if (Math.random() > 0.6) {
+                    createConfetti();
+                }
+            } else {
+                feedbackMessage = neutralMessages[Math.floor(Math.random() * neutralMessages.length)];
+                playNeutralSound();
+            }
+
+            document.getElementById('feedbackText').textContent = feedbackMessage;
+            document.getElementById('wordArea').classList.add('hidden');
+            document.getElementById('feedbackArea').classList.remove('hidden');
+            document.getElementById('controlsArea').classList.add('hidden');
+
+            // Adjust difficulty
+            let newLevel = currentLevel;
+            if (responseType === 'correct') {
+                if (Math.random() > 0.5 && currentLevel < 15) {
+                    newLevel = currentLevel + 1;
+                }
+            } else if (responseType === 'needsWork') {
+                if (Math.random() > 0.7 && currentLevel > 1) {
+                    newLevel = currentLevel - 1;
+                }
+            } else {
+                if (currentLevel > 1) {
+                    newLevel = currentLevel - 1;
+                }
+            }
+
+            currentLevel = newLevel;
+            itemsCompleted++;
+
+            setTimeout(showNextWord, 1500);
+        }
+
+        function calculateFinalLevel() {
+            // Find the highest level where they got at least 50% correct
+            const levelStats = {};
+            wordHistory.forEach(w => {
+                if (!levelStats[w.level]) {
+                    levelStats[w.level] = { correct: 0, total: 0 };
+                }
+                levelStats[w.level].total++;
+                if (w.result === 'correct') {
+                    levelStats[w.level].correct++;
+                }
+            });
+
+            let bestLevel = 1;
+            for (let level = 1; level <= 15; level++) {
+                if (levelStats[level] && levelStats[level].total >= 2) {
+                    const accuracy = levelStats[level].correct / levelStats[level].total;
+                    if (accuracy >= 0.5) {
+                        bestLevel = level;
+                    }
+                }
+            }
+            return bestLevel;
+        }
+
+        async function endSession() {
+            createConfetti();
+
+            document.getElementById('practiceScreen').classList.add('hidden');
+
+            const total = stats.correct + stats.needsWork + stats.unable;
+            document.getElementById('correctCount').textContent = stats.correct;
+            document.getElementById('needsWorkCount').textContent = stats.needsWork;
+            document.getElementById('unableCount').textContent = stats.unable;
+            document.getElementById('totalCount').textContent = total;
+
+            const finalLevel = calculateFinalLevel();
+            document.getElementById('finalLevel').textContent = `Level ${finalLevel}`;
+            document.getElementById('levelDescription').textContent = levelDescriptions[finalLevel];
+
+            let wordListHTML = '<h4 style="margin-top:0; color: #667eea;">Words Assessed:</h4>';
+            wordHistory.forEach(item => {
+                let className = 'word-correct';
+                let icon = '✓';
+                if (item.result === 'needsWork') {
+                    className = 'word-needs-work';
+                    icon = '~';
+                } else if (item.result === 'unable') {
+                    className = 'word-unable';
+                    icon = '?';
+                }
+                wordListHTML += `<div class="word-item ${className}">
+                    <span><strong>${item.word}</strong> <small style="color:#999">L${item.level}</small></span>
+                    <span>${icon}</span>
+                </div>`;
+            });
+            document.getElementById('wordList').innerHTML = wordListHTML;
+
+            document.getElementById('summaryScreen').classList.remove('hidden');
+
+            await getClaudeAdvice();
+        }
+
+        async function getClaudeAdvice() {
+            const adviceDiv = document.getElementById('claudeAdvice');
+            adviceDiv.innerHTML = '<p class="loading">Getting personalized advice from Claude...</p>';
+
+            try {
+                const sessionSummary = {
+                    total: wordHistory.length,
+                    correct: stats.correct,
+                    needsWork: stats.needsWork,
+                    unable: stats.unable,
+                    words: wordHistory
+                };
+
+                const prompt = `You're a reading specialist helping a parent understand their child's phonics assessment. Based on this data, provide brief, actionable advice (3-4 sentences max):
+
+Session Results:
+- Total words: ${sessionSummary.total}
+- Correct: ${sessionSummary.correct}
+- Needs work: ${sessionSummary.needsWork}
+- Unable: ${sessionSummary.unable}
+
+Words assessed: ${wordHistory.map(w => `${w.word} (L${w.level}: ${w.result})`).join(', ')}
+
+Keep advice positive, specific, and practical. Focus on what patterns to practice and celebrate progress.`;
+
+                const response = await fetch("https://api.anthropic.com/v1/messages", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        model: "claude-sonnet-4-20250514",
+                        max_tokens: 300,
+                        messages: [
+                            { role: "user", content: prompt }
+                        ]
+                    })
+                });
+
+                const data = await response.json();
+                const advice = data.content[0].text;
+
+                adviceDiv.innerHTML = `<h4>Claude's Advice:</h4><p>${advice}</p>`;
+            } catch (error) {
+                adviceDiv.innerHTML = '<h4>Next Steps:</h4><p>Great assessment! Focus on practicing words at their current level before moving to harder patterns. Reading together daily with decodable books at their level will build confidence and fluency.</p>';
+            }
+        }
+    </script>
+</body>
+</html>

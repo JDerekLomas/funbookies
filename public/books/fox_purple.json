@@ -1,0 +1,41 @@
+{
+  "title": "The Cake Mistake",
+  "version": "v2-riso",
+  "level": "purple",
+  "level_number": 4,
+  "level_description": "Magic E (CVCe): cake, bake, make, like, home, 10-15 words per page",
+  "riso_colors": {
+    "black": "outlines",
+    "color_a": {"name": "Fluorescent Orange", "use": "fox"},
+    "color_b": {"name": "Fluorescent Pink", "use": "cake, frosting"}
+  },
+  "character": {
+    "name": "Fox",
+    "species": "fox",
+    "description": "Cute orange fox with white chest and belly, fluffy tail with white tip, pointy ears, friendly black nose"
+  },
+  "word_list": {
+    "sound_out": ["cake", "bake", "make", "take", "wake", "like", "bike", "time", "home", "hope", "made", "gave", "came", "same", "name"],
+    "sight": ["a", "the", "is", "it", "I", "and", "to", "my", "you", "said", "was", "for", "have"],
+    "new": ["Fox", "friend", "oops"]
+  },
+  "pages": [
+    {"page": 1, "type": "cover", "text": "The Cake Mistake", "image_prompt": "NO TEXT IN IMAGE. Cute orange fox wearing apron, covered in flour and pink frosting, standing next to messy lopsided cake. Kitchen background. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 2, "type": "wordlist", "text": "Words to Know"},
+    {"page": 3, "type": "story", "text": "Fox woke up. It was time to bake!", "image_prompt": "NO TEXT IN IMAGE. Cute orange fox stretching and waking up in bedroom, excited expression, sunlight coming through window. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 4, "type": "story", "text": "\"I like to bake. I will make a cake!\"", "image_prompt": "NO TEXT IN IMAGE. Orange fox in kitchen putting on apron, looking at recipe book, determined happy expression. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 5, "type": "story", "text": "\"This cake is for my friend.\"", "image_prompt": "NO TEXT IN IMAGE. Fox gathering ingredients - eggs, flour, sugar - on kitchen counter. Thinking of friend with warm expression. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 6, "type": "story", "text": "Fox made the cake. Oops!", "image_prompt": "NO TEXT IN IMAGE. Fox accidentally breaking eggs, shell pieces falling in bowl, flour puffing up, surprised expression. Small mess starting. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 7, "type": "story", "text": "The cake came out flat.", "image_prompt": "NO TEXT IN IMAGE. Fox pulling very flat pancake-like cake out of oven, disappointed confused expression, cake is not fluffy at all. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 8, "type": "story", "text": "\"I will bake a new cake!\"", "image_prompt": "NO TEXT IN IMAGE. Fox rolling up sleeves with determined expression, starting over with fresh ingredients. Flat cake pushed aside. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 9, "type": "story", "text": "Fox made the same mistake. Oops!", "image_prompt": "NO TEXT IN IMAGE. Fox mixing too vigorously, batter splashing everywhere, on face and walls, another accident! BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 10, "type": "story", "text": "This cake came out too big!", "image_prompt": "NO TEXT IN IMAGE. Fox looking at huge overflowing cake that's way too big, cake spilling out of pan, surprised expression. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 11, "type": "story", "text": "Fox gave up hope. Fox was sad.", "image_prompt": "NO TEXT IN IMAGE. Fox sitting on kitchen floor looking defeated, flour all over, two failed cakes nearby, ears drooping. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 12, "type": "story", "text": "\"I will take the cakes and go home.\"", "image_prompt": "NO TEXT IN IMAGE. Fox sadly packing up both messy cakes, heading toward door, dejected posture. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 13, "type": "story", "text": "Fox gave the cakes to his friend.", "image_prompt": "NO TEXT IN IMAGE. Fox nervously presenting the two messy cakes to rabbit friend, embarrassed expression. Rabbit looking curious. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 14, "type": "story", "text": "\"I like this cake! I like it a lot!\"", "image_prompt": "NO TEXT IN IMAGE. Rabbit friend taking big happy bite of messy cake, eyes closed with joy. Fox looking surprised and hopeful. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 15, "type": "story", "text": "\"It is the best cake!\"", "image_prompt": "NO TEXT IN IMAGE. Rabbit hugging fox gratefully, both smiling, cake crumbs everywhere, warm friendship moment. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 16, "type": "story", "text": "Fox and friend ate cake at home.", "image_prompt": "NO TEXT IN IMAGE. Fox and rabbit friend sitting together eating cake happily, cozy home setting, both satisfied. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 17, "type": "end", "text": "The End", "image_prompt": "NO TEXT IN IMAGE. Fox and rabbit friend with full bellies, empty cake plates, big happy smiles, friendship. BOLD BLACK OUTLINES. Children's book illustration."}
+  ]
+}

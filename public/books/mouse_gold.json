@@ -1,0 +1,41 @@
+{
+  "title": "Mouse in the House",
+  "version": "v2-riso",
+  "level": "gold",
+  "level_number": 7,
+  "level_description": "Diphthongs (oi/oy, ou/ow): mouse, house, found, coin, toy, joy, 15-20 words per page",
+  "riso_colors": {
+    "black": "outlines",
+    "color_a": {"name": "Light Gray", "use": "mouse"},
+    "color_b": {"name": "Yellow", "use": "coins, treasure"}
+  },
+  "character": {
+    "name": "Mouse",
+    "species": "mouse",
+    "description": "Small gray mouse with round ears, long thin tail, tiny pink nose, bright curious eyes, whiskers"
+  },
+  "word_list": {
+    "sound_out": ["mouse", "house", "out", "loud", "found", "ground", "round", "sound", "down", "town", "how", "now", "owl", "coin", "join", "joy", "toy", "boy"],
+    "sight": ["a", "the", "is", "it", "I", "and", "to", "my", "you", "said", "was", "for", "they", "what", "could"],
+    "new": ["Mouse", "quick", "hide"]
+  },
+  "pages": [
+    {"page": 1, "type": "cover", "text": "Mouse in the House", "image_prompt": "NO TEXT IN IMAGE. Small gray mouse peeking out from behind furniture in house, curious expression, holding shiny coin. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 2, "type": "wordlist", "text": "Words to Know"},
+    {"page": 3, "type": "story", "text": "Mouse was out and about. Mouse found a house!", "image_prompt": "NO TEXT IN IMAGE. Small gray mouse outside looking at big cozy house, excited curious expression, tail up. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 4, "type": "story", "text": "Mouse went in. How big it was!", "image_prompt": "NO TEXT IN IMAGE. Tiny mouse looking around huge room from floor level, everything looks enormous, amazed expression. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 5, "type": "story", "text": "Mouse looked down. What is that? A coin!", "image_prompt": "NO TEXT IN IMAGE. Mouse spotting shiny gold coin on ground, surprised delighted expression, running toward it. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 6, "type": "story", "text": "Mouse found joy! A toy! And more coins!", "image_prompt": "NO TEXT IN IMAGE. Mouse discovering pile of toys and coins under furniture, eyes wide with excitement, treasure everywhere. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 7, "type": "story", "text": "What sound was that? A loud sound!", "image_prompt": "NO TEXT IN IMAGE. Mouse freezing, ears up, hearing loud sound. Worried expression, coins in paws. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 8, "type": "story", "text": "A cat! The cat was round and loud!", "image_prompt": "NO TEXT IN IMAGE. Big round fluffy cat entering room, meowing loudly, not yet seeing mouse. Mouse hiding behind coin. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 9, "type": "story", "text": "Mouse had to get out now!", "image_prompt": "NO TEXT IN IMAGE. Mouse looking frantically for escape route, cat getting closer, coins scattered. Urgent expression. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 10, "type": "story", "text": "Mouse ran down. Mouse found a way out!", "image_prompt": "NO TEXT IN IMAGE. Mouse spotting small hole near floor, running toward it quickly, tail streaming behind. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 11, "type": "story", "text": "The round cat could not join Mouse in the hole!", "image_prompt": "NO TEXT IN IMAGE. Fat cat stuck trying to reach into tiny hole, mouse safely inside, cat too big to fit. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 12, "type": "story", "text": "How the cat did howl!", "image_prompt": "NO TEXT IN IMAGE. Frustrated cat meowing loudly at hole, mouse peeking out with relieved expression. Cat very annoyed. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 13, "type": "story", "text": "Mouse had the coin! Mouse had joy!", "image_prompt": "NO TEXT IN IMAGE. Mouse in cozy hole holding shiny coin proudly, huge smile, safe and happy. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 14, "type": "story", "text": "Mouse went out when the cat was not about.", "image_prompt": "NO TEXT IN IMAGE. Mouse carefully peeking out of hole, checking coast is clear, no cat in sight. Cautious expression. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 15, "type": "story", "text": "Mouse found more toys! Joy, joy, joy!", "image_prompt": "NO TEXT IN IMAGE. Mouse playing with toy, coins nearby, having wonderful time in empty room. Pure happiness. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 16, "type": "story", "text": "Now Mouse has a house of joy!", "image_prompt": "NO TEXT IN IMAGE. Mouse in cozy hole decorated with coins and small toy, proud homeowner, content expression. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 17, "type": "end", "text": "The End", "image_prompt": "NO TEXT IN IMAGE. Happy mouse waving from hole, coins and toy visible, round cat sleeping far away. Clever mouse wins! BOLD BLACK OUTLINES. Children's book illustration."}
+  ]
+}

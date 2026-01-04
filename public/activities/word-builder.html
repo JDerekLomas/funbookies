@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Builder - Funbookies</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #FF9800 0%, #FFC107 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 600px; margin: 0 auto; }
+
+    .back-link {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    .back-link:hover { opacity: 1; text-decoration: underline; }
+
+    .game-card {
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: #FF9800;
+    }
+
+    .score {
+      background: #FFF3E0;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      color: #E65100;
+    }
+
+    .level-select {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .level-btn {
+      padding: 8px 16px;
+      border: 2px solid #FF9800;
+      background: white;
+      border-radius: 20px;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .level-btn:hover, .level-btn.active {
+      background: #FF9800;
+      color: white;
+    }
+
+    .target-area {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .target-hint {
+      font-size: 1rem;
+      color: #999;
+      margin-bottom: 10px;
+    }
+
+    .target-image {
+      font-size: 5rem;
+      margin-bottom: 10px;
+    }
+
+    .target-word {
+      font-size: 1.2rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    .word-slots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      min-height: 80px;
+    }
+
+    .slot {
+      width: 70px;
+      height: 80px;
+      border: 3px dashed #ddd;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #333;
+      background: #f9f9f9;
+      transition: all 0.2s;
+    }
+
+    .slot.filled {
+      border-style: solid;
+      border-color: #FF9800;
+      background: #FFF3E0;
+    }
+
+    .slot.correct {
+      border-color: #4CAF50;
+      background: #E8F5E9;
+    }
+
+    .slot.wrong {
+      border-color: #f44336;
+      background: #FFEBEE;
+      animation: shake 0.3s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .letter-bank {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .letter-tile {
+      width: 60px;
+      height: 70px;
+      background: linear-gradient(135deg, #FF9800 0%, #FFC107 100%);
+      border: none;
+      border-radius: 12px;
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+    }
+
+    .letter-tile:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
+    }
+
+    .letter-tile:active {
+      transform: translateY(0);
+    }
+
+    .letter-tile.used {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 25px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-clear {
+      background: #f5f5f5;
+      color: #666;
+    }
+
+    .btn-clear:hover {
+      background: #eee;
+    }
+
+    .btn-check {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .btn-check:hover {
+      background: #43A047;
+    }
+
+    .btn-skip {
+      background: #9e9e9e;
+      color: white;
+    }
+
+    .feedback {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      min-height: 40px;
+    }
+
+    .feedback.correct {
+      color: #4CAF50;
+    }
+
+    .feedback.wrong {
+      color: #f44336;
+    }
+
+    .streak {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    .streak span {
+      color: #FF9800;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+
+    <div class="game-card">
+      <div class="header">
+        <h1>Word Builder</h1>
+        <div class="score">Score: <span id="score">0</span></div>
+      </div>
+
+      <div class="level-select">
+        <button class="level-btn active" data-level="0">CVC</button>
+        <button class="level-btn" data-level="1">Short U</button>
+        <button class="level-btn" data-level="2">Blends</button>
+        <button class="level-btn" data-level="3">Digraphs</button>
+      </div>
+
+      <div class="target-area">
+        <div class="target-hint">Build this word:</div>
+        <div class="target-image" id="targetImage">🐱</div>
+        <div class="target-word" id="targetHint">(a furry pet that says meow)</div>
+      </div>
+
+      <div class="word-slots" id="wordSlots"></div>
+
+      <div class="letter-bank" id="letterBank"></div>
+
+      <div class="controls">
+        <button class="btn btn-clear" onclick="clearWord()">Clear</button>
+        <button class="btn btn-check" onclick="checkWord()">Check</button>
+        <button class="btn btn-skip" onclick="skipWord()">Skip</button>
+      </div>
+
+      <div class="feedback" id="feedback"></div>
+      <div class="streak">Current streak: <span id="streak">0</span></div>
+    </div>
+  </div>
+
+  <script>
+    // Word banks by level
+    const wordBanks = {
+      0: [ // Simple CVC
+        { word: 'cat', image: '🐱', hint: 'a furry pet that says meow' },
+        { word: 'dog', image: '🐕', hint: 'a pet that barks' },
+        { word: 'sun', image: '☀️', hint: 'bright in the sky' },
+        { word: 'hat', image: '🎩', hint: 'you wear it on your head' },
+        { word: 'pig', image: '🐷', hint: 'a pink farm animal' },
+        { word: 'cup', image: '🥤', hint: 'you drink from it' },
+        { word: 'bed', image: '🛏️', hint: 'you sleep on it' },
+        { word: 'fox', image: '🦊', hint: 'a clever orange animal' },
+        { word: 'map', image: '🗺️', hint: 'shows you where to go' },
+        { word: 'pen', image: '🖊️', hint: 'you write with it' },
+        { word: 'bus', image: '🚌', hint: 'big yellow vehicle' },
+        { word: 'bat', image: '🦇', hint: 'flies at night' },
+        { word: 'net', image: '🥅', hint: 'catch fish or balls' },
+        { word: 'pot', image: '🍲', hint: 'cook food in it' },
+        { word: 'fan', image: '🪭', hint: 'keeps you cool' },
+      ],
+      1: [ // Short U focus
+        { word: 'bug', image: '🐛', hint: 'a small crawling creature' },
+        { word: 'rug', image: '🧶', hint: 'soft on the floor' },
+        { word: 'mud', image: '💩', hint: 'wet dirt' },
+        { word: 'tub', image: '🛁', hint: 'take a bath in it' },
+        { word: 'hug', image: '🤗', hint: 'wrap your arms around' },
+        { word: 'jug', image: '🫗', hint: 'holds water' },
+        { word: 'nut', image: '🥜', hint: 'squirrels love these' },
+        { word: 'cut', image: '✂️', hint: 'use scissors to do this' },
+        { word: 'pup', image: '🐶', hint: 'a baby dog' },
+        { word: 'sun', image: '☀️', hint: 'bright in the sky' },
+      ],
+      2: [ // Blends
+        { word: 'frog', image: '🐸', hint: 'green and hops' },
+        { word: 'crab', image: '🦀', hint: 'has claws' },
+        { word: 'flag', image: '🚩', hint: 'waves in the wind' },
+        { word: 'drum', image: '🥁', hint: 'bang on it' },
+        { word: 'swim', image: '🏊', hint: 'do this in water' },
+        { word: 'stop', image: '🛑', hint: 'red sign' },
+        { word: 'trip', image: '✈️', hint: 'go on a journey' },
+        { word: 'clap', image: '👏', hint: 'hit hands together' },
+        { word: 'snap', image: '🫰', hint: 'click your fingers' },
+        { word: 'grin', image: '😁', hint: 'a big smile' },
+      ],
+      3: [ // Digraphs
+        { word: 'ship', image: '🚢', hint: 'sails on water' },
+        { word: 'fish', image: '🐟', hint: 'swims in water' },
+        { word: 'chat', image: '💬', hint: 'have a talk' },
+        { word: 'chin', image: '🧔', hint: 'below your mouth' },
+        { word: 'chop', image: '🪓', hint: 'cut with an axe' },
+        { word: 'shop', image: '🏪', hint: 'buy things here' },
+        { word: 'thin', image: '📏', hint: 'not thick' },
+        { word: 'path', image: '🛤️', hint: 'walk on it' },
+        { word: 'with', image: '🤝', hint: 'together' },
+        { word: 'math', image: '🔢', hint: 'numbers subject' },
+      ]
+    };
+
+    let currentLevel = 0;
+    let currentWord = null;
+    let builtWord = [];
+    let score = 0;
+    let streak = 0;
+    let usedWords = new Set();
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      setupLevelButtons();
+      newWord();
+    });
+
+    function setupLevelButtons() {
+      document.querySelectorAll('.level-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLevel = parseInt(btn.dataset.level);
+          usedWords.clear();
+          newWord();
+        });
+      });
+    }
+
+    function newWord() {
+      const bank = wordBanks[currentLevel];
+      const available = bank.filter(w => !usedWords.has(w.word));
+
+      if (available.length === 0) {
+        usedWords.clear();
+      }
+
+      const words = available.length > 0 ? available : bank;
+      currentWord = words[Math.floor(Math.random() * words.length)];
+      usedWords.add(currentWord.word);
+
+      builtWord = [];
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('feedback').className = 'feedback';
+
+      document.getElementById('targetImage').textContent = currentWord.image;
+      document.getElementById('targetHint').textContent = `(${currentWord.hint})`;
+
+      renderSlots();
+      renderLetterBank();
+    }
+
+    function renderSlots() {
+      const container = document.getElementById('wordSlots');
+      container.innerHTML = '';
+
+      for (let i = 0; i < currentWord.word.length; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'slot' + (builtWord[i] ? ' filled' : '');
+        slot.textContent = builtWord[i] || '';
+        slot.onclick = () => removeLetterAt(i);
+        container.appendChild(slot);
+      }
+    }
+
+    function renderLetterBank() {
+      const container = document.getElementById('letterBank');
+      container.innerHTML = '';
+
+      // Get letters from word + some extras
+      const letters = currentWord.word.split('');
+      const extras = 'aeiounrstlcmpbdfgh'.split('');
+      const extraCount = Math.min(4, 8 - letters.length);
+
+      for (let i = 0; i < extraCount; i++) {
+        const extra = extras[Math.floor(Math.random() * extras.length)];
+        if (!letters.includes(extra) || Math.random() > 0.5) {
+          letters.push(extra);
+        }
+      }
+
+      // Shuffle
+      letters.sort(() => Math.random() - 0.5);
+
+      letters.forEach((letter, idx) => {
+        const tile = document.createElement('button');
+        tile.className = 'letter-tile';
+        tile.textContent = letter;
+        tile.dataset.index = idx;
+
+        const usedCount = builtWord.filter(l => l === letter).length;
+        const availableCount = letters.filter(l => l === letter).length;
+        // This is simplified - proper tracking would need indices
+
+        tile.onclick = () => addLetter(letter, tile);
+        container.appendChild(tile);
+      });
+    }
+
+    function addLetter(letter, tile) {
+      if (builtWord.length < currentWord.word.length) {
+        builtWord.push(letter);
+        tile.classList.add('used');
+        renderSlots();
+      }
+    }
+
+    function removeLetterAt(index) {
+      if (builtWord[index]) {
+        builtWord.splice(index, 1);
+        renderSlots();
+        // Re-enable letter tiles
+        renderLetterBank();
+      }
+    }
+
+    function clearWord() {
+      builtWord = [];
+      renderSlots();
+      renderLetterBank();
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('feedback').className = 'feedback';
+    }
+
+    function checkWord() {
+      if (builtWord.length !== currentWord.word.length) {
+        return;
+      }
+
+      const attempt = builtWord.join('');
+      const slots = document.querySelectorAll('.slot');
+
+      if (attempt === currentWord.word) {
+        slots.forEach(s => s.classList.add('correct'));
+        document.getElementById('feedback').textContent = 'Correct!';
+        document.getElementById('feedback').className = 'feedback correct';
+        score += 10 + streak * 2;
+        streak++;
+        document.getElementById('score').textContent = score;
+        document.getElementById('streak').textContent = streak;
+
+        setTimeout(newWord, 1200);
+      } else {
+        slots.forEach((s, i) => {
+          if (builtWord[i] !== currentWord.word[i]) {
+            s.classList.add('wrong');
+          }
+        });
+        document.getElementById('feedback').textContent = 'Try again!';
+        document.getElementById('feedback').className = 'feedback wrong';
+        streak = 0;
+        document.getElementById('streak').textContent = streak;
+      }
+    }
+
+    function skipWord() {
+      streak = 0;
+      document.getElementById('streak').textContent = streak;
+      newWord();
+    }
+  </script>
+</body>
+</html>

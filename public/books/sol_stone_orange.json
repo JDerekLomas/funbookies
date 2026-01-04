@@ -1,0 +1,243 @@
+{
+  "title": "Sol and the Stone",
+  "level": "orange",
+  "theme": "Earth elemental - alchemical salamander discovers glowing cave stone",
+  "character": {
+    "names": ["Sol"],
+    "sol": {
+      "species": "small salamander",
+      "color": "deep amber/orange with golden belly (#E65100 body, #FFB300 belly)",
+      "eyes": "large round black eyes with golden highlight dots, wise but curious",
+      "distinguishing_feature": "three small spots on forehead that glow faintly gold when near magic",
+      "expression_default": "calm, curious, thoughtful - slight knowing smile",
+      "body": "small and smooth, about 4 inches, four splayed toes, long graceful tail",
+      "personality": "patient, observant, brave in a quiet way - feels things deeply"
+    },
+    "catchphrase": "Hmmm... yes.",
+    "style_notes": "Sol is serene but expressive. Simple shapes - body is elongated oval, head is round with gentle snout. Bold black outlines. Flat amber color with golden belly. The three forehead spots are subtle but always visible. Face shows quiet wonder rather than loud excitement."
+  },
+  "art_direction": {
+    "style": "Expressive Minimal with mystical undertones - Mo Willems expressiveness meets Jon Klassen atmosphere. Bold black outlines, flat color fills, subtle paper texture, minimal but moody backgrounds",
+    "influences": ["Mo Willems (expression)", "Jon Klassen (atmosphere/restraint)", "Studio Ghibli (quiet magic)"],
+    "palette": {
+      "sol_body": "#E65100",
+      "sol_belly": "#FFB300",
+      "sol_spots_glow": "#FFF59D",
+      "cave_dark": "#3E2723",
+      "cave_mid": "#5D4037",
+      "stone_glow": "#B388FF",
+      "stone_core": "#7C4DFF",
+      "rock_gray": "#757575",
+      "outside_green": "#66BB6A",
+      "background_warm": "#FFF8E1",
+      "background_cave": "#4E342E"
+    },
+    "mood": "Quiet wonder, ancient mystery, gentle discovery",
+    "humor_techniques": [
+      "Deadpan observations (Sol notices things others miss)",
+      "Quiet confidence vs. grand reveals",
+      "Scale contrast (small salamander, vast cave)",
+      "Glowing moments as emotional peaks"
+    ],
+    "dual_audience": {
+      "kids": "Glowing magic, cave exploration, gentle triumph, cozy ending",
+      "adults": "Alchemical symbolism (salamander=fire, stone=philosopher's stone), quiet wisdom, the joy of noticing"
+    },
+    "technical": {
+      "aspect_ratio": "4:3 landscape",
+      "resolution": "2048x1536 minimum",
+      "negative_prompts": "realistic, 3D render, photograph, complex background, gradient shading, scary, grotesque, text, words, letters, busy composition"
+    },
+    "must_include": "NO TEXT IN IMAGE",
+    "avoid": "realistic style, detailed textures, scary cave imagery, complex backgrounds, generic stock illustration style"
+  },
+  "word_list": {
+    "decodable": {
+      "cvc": ["got", "big", "dim", "lit", "sat", "sun", "run", "hid", "can", "did", "not", "but", "let", "set", "yet", "den", "wet", "hot"],
+      "digraphs": ["path", "with", "that", "this", "hush", "wish", "such", "much", "gush"]
+    },
+    "sight_words": {
+      "flash": ["the", "to", "a", "in", "it", "is", "I", "go", "no", "see", "was", "my"],
+      "heart": ["said", "saw", "there", "what"]
+    },
+    "vocabulary": {
+      "topic": ["cave", "stone", "glow"],
+      "character": ["Sol"]
+    }
+  },
+  "phonics_focus": ["short vowels CVC", "digraphs th/sh/ch"],
+  "refrain": "Hmmm... yes.",
+  "emotional_arc": "curious -> exploring -> discovering -> awed -> connected -> content",
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Sol and the Stone",
+      "image_prompt": "COVER IMAGE: A small amber-orange salamander (Sol) standing at the entrance of a dark cave, looking in with calm curiosity. Sol has large black eyes with golden highlights, a golden belly, and three small glowing gold spots on his forehead. The cave entrance is dark purple-brown with a hint of mysterious purple glow deep inside. Sol is small against the cave entrance, showing scale. Outside the cave: simple green grass, blue sky. Sol's posture is confident but thoughtful - one front foot slightly raised. Warm golden light on Sol contrasts with cool cave darkness. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know",
+      "sections": {
+        "sound_it_out": ["dim", "lit", "path", "got", "big", "hush", "glow", "sat", "wish"],
+        "know_by_heart": ["the", "said", "saw", "was", "to", "I", "a", "there", "what"],
+        "new_words": ["cave", "stone", "glow", "Sol"]
+      },
+      "image_prompt": null
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Sol sat in the sun.",
+      "beat": "setup - introduce character at peace",
+      "image_prompt": "MEDIUM SHOT: Peaceful scene. A small amber-orange salamander (Sol) basking contentedly on a warm flat rock in sunshine. Sol has large black eyes with golden highlights (eyes half-closed in contentment), golden belly visible, three small spots on forehead (not glowing now - just subtle marks). His expression is serene - small peaceful smile, relaxed posture. Warm golden sunlight. Simple green grass around the rock, blue sky above. Sol is comfortable and at home. Simple flat cartoon style, bold black outlines, warm colors, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "Sol saw a path.",
+      "beat": "inciting incident - notices something",
+      "image_prompt": "MEDIUM SHOT: Sol (amber-orange salamander, golden belly, forehead spots) now alert on his rock, head turned to look at something. His expression is curious - eyes wider, slight tilt of head, one front foot raised in interest. He's looking at a path leading toward a dark cave entrance in the background right. The path is simple - worn dirt between grass leading to shadow. The cave entrance is mysterious but not scary - dark purple-brown opening in a hillside. Sol's body language shows 'what's that?' curiosity. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "The path led to a cave.",
+      "beat": "destination revealed",
+      "image_prompt": "WIDE SHOT: The path in foreground leading to a cave entrance that takes up the right two-thirds of frame. The cave is a dark arch in brown rock - mysterious but inviting, not scary. Inside the entrance is deep purple-black shadow with perhaps the faintest hint of something... glowing? Sol (small amber salamander) is visible on the path, small in frame, walking toward the cave with curious, determined posture. Green grass on sides of path. The cave feels ancient and full of secrets. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "\"I can go in,\" said Sol.",
+      "beat": "decision moment - quiet confidence",
+      "image_prompt": "CLOSE-UP on Sol (amber-orange salamander): Shown from chest up, facing right toward where the cave would be. Expression is calm determination - not excited like Gus, but quietly confident. Slight knowing smile, eyes steady and bright with golden highlights. His three forehead spots are visible. One front foot raised gently as if about to step forward. Background is simple warm color. This is Sol's quiet 'I've got this' moment - not loud, but sure. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "In Sol went.",
+      "beat": "entering the unknown",
+      "image_prompt": "MEDIUM SHOT from inside cave looking out: Sol (amber salamander, golden belly visible) silhouetted in the cave entrance, stepping in. Bright daylight behind him creates strong contrast. He's walking forward confidently into the darkness. The cave walls are visible in dark browns and purples. The light from outside illuminates Sol warmly while cave around him is dim. A moment of transition - leaving the known, entering mystery. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "It was dim.",
+      "beat": "atmosphere - adjusting to darkness",
+      "image_prompt": "WIDE SHOT inside cave: Sol (small amber salamander) in center of frame, surrounded by darkness. The cave walls are barely visible - dark purple-brown shapes. Sol is the brightest thing in frame - his amber body and golden belly glow slightly warm against the cool darkness. His eyes are wide, adjusting, looking around. Not scared - observant. The scene feels quiet and hushed. Deep in the background, barely visible, the faintest purple glow... Simple flat cartoon style, bold black outlines, moody minimal background, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "Hush. Hush. Hush.",
+      "beat": "quiet tension - the cave's silence",
+      "image_prompt": "ATMOSPHERIC SHOT: Abstract/minimal. Sol (amber salamander) very small in the bottom of frame, walking deeper into the cave. The cave walls curve around like a tunnel, dark purple-brown. Everything is still and silent. No movement except Sol. The composition emphasizes the vast quiet of the cave. Perhaps small details: a still puddle, ancient smooth rocks. The silence is palpable. In the far distance ahead, getting closer, that mysterious purple glow is slightly more visible now. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "But what was that?",
+      "beat": "PAGE TURN SETUP - something ahead",
+      "image_prompt": "MEDIUM SHOT: Sol (amber salamander) has stopped walking. His posture shows alert attention - body low, head up, eyes WIDE with interest (not fear). His three forehead spots are starting to glow faintly gold - responding to something. He's looking toward the right side of frame where purple light is now clearly visible, casting gentle purple highlights on the cave walls and on Sol's face. His expression is 'what IS that?' - wonder beginning. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "A stone! It lit up!",
+      "beat": "PAGE TURN REVEAL - the magical stone",
+      "image_prompt": "DRAMATIC REVEAL SHOT: A beautiful glowing stone fills most of the frame. The stone is crystalline, roughly oval, sitting on a natural rock pedestal. It glows from within - deep purple (#7C4DFF) at the core, lighter purple (#B388FF) radiating outward, with soft light (#FFF59D) at the brightest points. The glow illuminates the surrounding cave walls in gentle purple. This is the moment of wonder - the stone is clearly magical, ancient, special. It pulses gently with inner light. No Sol visible - this is all about the stone. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "\"Hmmm... yes,\" said Sol.",
+      "beat": "catchphrase moment - recognition",
+      "image_prompt": "CLOSE-UP on Sol's face: His expression is one of quiet awe and recognition - like meeting an old friend. Eyes wide but soft, gentle smile of understanding. His three forehead spots are now GLOWING clearly gold, responding to the stone's magic. Purple light from the stone illuminates the left side of his face. His expression says 'I knew there was something here. I was right to come.' This is not surprised excitement but satisfied discovery. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "Sol sat with the stone.",
+      "beat": "connection - being present with magic",
+      "image_prompt": "MEDIUM SHOT: Sol (amber salamander) sitting peacefully next to the glowing purple stone. He's in a relaxed pose - settled on the cave floor, looking at the stone with calm appreciation. The stone glows gently, casting purple light on Sol. Sol's forehead spots glow gold in response. There's a sense of two beings in quiet communion - the salamander and the ancient stone. The cave around them is softly lit in purple. Peaceful, magical, connected. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "The glow got big.",
+      "beat": "magic responds - the stone acknowledges Sol",
+      "image_prompt": "WIDE SHOT: The stone's glow has expanded, filling more of the cave with purple light. Sol (amber salamander) is silhouetted small against the growing radiance, his forehead spots glowing brighter gold. The cave walls are now clearly visible, lit purple. The stone seems to be responding to Sol's presence - its light pulsing outward. Sol's posture shows wonder but not fear - he's leaning slightly toward the stone. The magic is growing, welcoming. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "It lit up Sol!",
+      "beat": "transformation moment - Sol is touched by magic",
+      "image_prompt": "DYNAMIC SHOT: Sol (amber salamander) is now bathed in the stone's purple-gold light. His whole body seems to glow - amber and gold intensified. His three forehead spots are blazing gold. His expression is transcendent - eyes closed, peaceful smile, arms slightly raised as if receiving a gift. Light radiates around him in gentle rays. This is the peak magical moment - Sol connected to something ancient and powerful. Not scary transformation - gentle empowerment. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "\"This is my wish,\" said Sol.",
+      "beat": "articulation - Sol understands what he found",
+      "image_prompt": "CLOSE-UP on Sol: His expression is pure contentment and gratitude. Eyes open now, looking at the stone with deep appreciation. His forehead spots glow steadily gold. The purple stone-light illuminates him softly. His expression says 'this is exactly what I was looking for, even if I didn't know it.' A moment of profound satisfaction. He has found his heart's wish - connection to something magical. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "Sol did not run.",
+      "beat": "contrast/resilience - staying with the wonder",
+      "image_prompt": "MEDIUM SHOT: Sol (amber salamander) still sitting calmly by the stone, completely at peace. His posture is relaxed, confident, grounded. This contrasts with what one might expect (running from strange magic) - Sol stays. His expression is serene with a hint of pride. The stone glows gently beside him. The cave feels like home now, not scary. Sol has claimed this moment. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 18,
+      "type": "story",
+      "text": "Sol sat. And sat. And sat.",
+      "beat": "patience - enjoying the moment fully",
+      "image_prompt": "WIDE PEACEFUL SHOT: Sol (amber salamander) in a comfortable sitting position next to the glowing stone. Time has passed - he's been here a while, just being present. His expression is deeply content - eyes soft, slight smile. The stone glows steadily, purple light filling the cave with warmth. Sol's forehead spots glow gentle gold. This is the payoff of patience - Sol took his time, and the reward is this peaceful communion. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 19,
+      "type": "story",
+      "text": "But then the sun set.",
+      "beat": "time passing - natural rhythm calls",
+      "image_prompt": "SPLIT COMPOSITION: Inside the cave, Sol (amber salamander) looks toward the distant cave entrance (visible in background) where the light has changed from bright day to warm orange sunset. The cave is lit by both the purple stone-glow (left) and warm sunset light (right). Sol's expression shows gentle acknowledgment - 'time to go.' The two lights create a beautiful color contrast. Sol begins to turn toward the exit. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 20,
+      "type": "story",
+      "text": "Sol got up.",
+      "beat": "departure begins - gentle transition",
+      "image_prompt": "MEDIUM SHOT: Sol (amber salamander) standing up from his sitting position by the stone. His movement is calm, unhurried. He looks back at the glowing stone with a fond expression - not sad, but 'see you again.' His forehead spots still glow faintly gold. The stone seems to pulse gently in response, as if saying goodbye. Sol's body language shows he's ready to leave but carries the experience with him. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 21,
+      "type": "story",
+      "text": "\"I can go back,\" said Sol.",
+      "beat": "promise - this isn't goodbye forever",
+      "image_prompt": "CLOSE-UP on Sol: He's looking back over his shoulder toward where the stone would be, with a knowing smile. His expression combines gratitude and promise - 'I'll return.' His forehead spots glow gently. There's wisdom in his eyes - he's found something precious and knows he can find it again. This is Sol's catchphrase energy but as promise rather than discovery. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 22,
+      "type": "story",
+      "text": "Sol sat in the sun.",
+      "beat": "bookend - return to opening, but changed",
+      "image_prompt": "MEDIUM SHOT - MIRRORS PAGE 3: Sol (amber salamander) back on his warm rock in the sunshine, same position as the opening. BUT now his three forehead spots still glow faintly gold even in sunlight - he carries the stone's magic with him. His expression is deeply content, eyes half-closed in peace. Same scene, but Sol is changed - he has a secret now, a connection. The sun feels warmer because of what he knows. Simple flat cartoon style, bold black outlines, warm colors, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 23,
+      "type": "story",
+      "text": "\"Hmmm... yes,\" said Sol.",
+      "beat": "catchphrase callback - satisfied wisdom",
+      "image_prompt": "CLOSE-UP on Sol's face in warm sunlight: A knowing, content smile. His forehead spots glow gold softly. His eyes are bright with quiet joy. This final 'Hmmm... yes' means 'I understand something now. I found what I was meant to find. Life is good.' Pure satisfied wisdom. Warm golden light. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 24,
+      "type": "end",
+      "text": "The End",
+      "image_prompt": "FINAL IMAGE: Sol (amber salamander) sitting on his rock in golden sunset light, looking at the viewer with a warm, knowing expression - as if sharing a secret. Behind him in the far distance, the cave entrance is visible, with the faintest purple glow emanating from within. Sol's forehead spots glow gold. He waves one small foot at the viewer - a gentle 'goodbye for now.' The image says: magic is real, patience is rewarded, and Sol knows where to find wonder. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    }
+  ]
+}

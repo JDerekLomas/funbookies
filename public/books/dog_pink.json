@@ -1,0 +1,37 @@
+{
+  "title": "No, No, Dog!",
+  "version": "v2-riso",
+  "level": "pink",
+  "level_number": 0,
+  "level_description": "Pre-reader: 1-2 words per page, picture support, repetitive pattern",
+  "riso_colors": {
+    "black": "outlines",
+    "color_a": {"name": "Brown", "use": "dog"},
+    "color_b": {"name": "Fluorescent Orange", "use": "accents, mess"}
+  },
+  "character": {
+    "name": "Dog",
+    "species": "dog",
+    "description": "Cute fluffy brown dog with floppy ears, big round eyes, pink tongue often out, short wagging tail"
+  },
+  "word_list": {
+    "sound_out": ["no", "dog"],
+    "sight": ["the"],
+    "new": []
+  },
+  "pages": [
+    {"page": 1, "type": "cover", "text": "No, No, Dog!", "image_prompt": "NO TEXT IN IMAGE. Cute fluffy brown dog with floppy ears looking mischievous, wagging tail, standing next to knocked over plant pot. Dirt everywhere. BOLD BLACK OUTLINES. Simple children's book style."},
+    {"page": 2, "type": "wordlist", "text": "Words to Know"},
+    {"page": 3, "type": "story", "text": "Dog.", "image_prompt": "NO TEXT IN IMAGE. Cute fluffy brown dog with floppy ears, sitting nicely, big innocent eyes, pink tongue out, wagging tail. Simple background. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 4, "type": "story", "text": "No, no!", "image_prompt": "NO TEXT IN IMAGE. Cute brown dog eating from food bowl on kitchen floor, making mess, food flying. Excited expression. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 5, "type": "story", "text": "No, no, Dog!", "image_prompt": "NO TEXT IN IMAGE. Cute brown dog digging in garden, dirt flying everywhere, happy expression, floppy ears flopping. Hole in ground. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 6, "type": "story", "text": "No, no!", "image_prompt": "NO TEXT IN IMAGE. Cute brown dog pulling on sock, tugging with teeth, playful stance, wagging tail. Sock stretching. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 7, "type": "story", "text": "No, no, Dog!", "image_prompt": "NO TEXT IN IMAGE. Cute brown dog jumping on couch, cushions flying, floppy ears up, happy excited face. Messy living room. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 8, "type": "story", "text": "No, no!", "image_prompt": "NO TEXT IN IMAGE. Cute brown dog splashing in mud puddle, mud splattering, joyful expression, completely dirty. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 9, "type": "story", "text": "No, no, Dog!", "image_prompt": "NO TEXT IN IMAGE. Cute brown dog (now muddy) running through house, muddy paw prints everywhere, floppy ears bouncing, tongue out. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 10, "type": "story", "text": "No, no!", "image_prompt": "NO TEXT IN IMAGE. Cute brown muddy dog shaking off water/mud, droplets flying everywhere in bathroom. Eyes closed, happy. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 11, "type": "story", "text": "Dog...", "image_prompt": "NO TEXT IN IMAGE. Cute brown dog (now clean) sitting with head down, looking guilty, big sad puppy eyes, floppy ears drooping. BOLD BLACK OUTLINES. Children's book illustration."},
+    {"page": 12, "type": "story", "text": "Dog!", "image_prompt": "NO TEXT IN IMAGE. Child's hands reaching down to pet the cute brown dog. Dog looking up hopefully with big eyes, tail starting to wag. BOLD BLACK OUTLINES. Children's book style."},
+    {"page": 13, "type": "end", "text": "The End", "image_prompt": "NO TEXT IN IMAGE. Cute brown dog curled up sleeping on child's lap, content smile, floppy ears relaxed. Peaceful scene. BOLD BLACK OUTLINES. Children's book illustration."}
+  ]
+}

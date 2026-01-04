@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crabby and Fishy - Print Preview</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Fredoka', sans-serif;
+      background: #2a2a2a;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #fff;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 24px;
+      font-weight: 400;
+    }
+
+    .spread {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      background: #fff;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .spread.cover-spread {
+      max-width: 600px;
+    }
+
+    .page {
+      flex: 1;
+      min-height: 400px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #f9f6f0;
+    }
+
+    .page.left {
+      border-right: 1px solid #ddd;
+    }
+
+    .page.cover {
+      padding: 0;
+    }
+
+    .page img {
+      max-width: 100%;
+      max-height: 300px;
+      object-fit: contain;
+      margin-bottom: 20px;
+    }
+
+    .page.cover img {
+      max-height: none;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      margin: 0;
+    }
+
+    .page-text {
+      font-size: 22px;
+      text-align: center;
+      color: #222;
+      line-height: 1.4;
+      max-width: 90%;
+    }
+
+    .page-text em {
+      font-style: normal;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .page-number {
+      position: absolute;
+      bottom: 15px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    .page.left .page-number {
+      left: 20px;
+    }
+
+    .page.right .page-number {
+      right: 20px;
+    }
+
+    .placeholder {
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(135deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 14px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .section-label {
+      color: #666;
+      text-align: center;
+      max-width: 1200px;
+      margin: 60px auto 20px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .spread {
+        box-shadow: none;
+        page-break-after: always;
+        margin: 0;
+        max-width: none;
+        height: 100vh;
+      }
+      .section-label, h1 {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>CRABBY AND FISHY - Print Preview</h1>
+
+  <p class="section-label">Cover</p>
+  <div class="spread cover-spread">
+    <div class="page cover">
+      <img src="pages/cover.png" alt="Cover">
+    </div>
+  </div>
+
+  <p class="section-label">Pages 3-4: Character Introductions</p>
+  <div class="spread">
+    <div class="page left">
+      <img src="pages/page_03.png" alt="Page 3">
+      <div class="page-text">This is Fishy. Fishy is a fish.</div>
+      <span class="page-number">3</span>
+    </div>
+    <div class="page right">
+      <img src="pages/page_04.png" alt="Page 4">
+      <div class="page-text">This is Crabby. Crabby is a crab.</div>
+      <span class="page-number">4</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 5-6: The Contrast & The Idea</p>
+  <div class="spread">
+    <div class="page left">
+      <img src="pages/page_05.png" alt="Page 5">
+      <div class="page-text">Fishy swims fast. Crabby goes slow.</div>
+      <span class="page-number">5</span>
+    </div>
+    <div class="page right">
+      <img src="pages/page_06.png" alt="Page 6">
+      <div class="page-text">"Let's swim to the dark!" said Fishy.</div>
+      <span class="page-number">6</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 7-8: Crabby's Panic</p>
+  <div class="spread">
+    <div class="page left">
+      <img src="pages/page_07.png" alt="Page 7">
+      <div class="page-text">"The dark?!" said Crabby. <em>"THE DARK?!"</em></div>
+      <span class="page-number">7</span>
+    </div>
+    <div class="page right">
+      <img src="pages/page_08.png" alt="Page 8">
+      <div class="page-text">The dark is cold. The dark is deep.</div>
+      <span class="page-number">8</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 9-10: Refusal</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">"I want that gold!" said Fishy.</div>
+      <span class="page-number">9</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">"Not me!" said Crabby. "It is too dark!"</div>
+      <span class="page-number">10</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 11-12: Fishy Goes Anyway</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">But Fishy swims off. Fast, fast, fast.</div>
+      <span class="page-number">11</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">"Wait!" said Crabby. <em>"WAIT!"</em></div>
+      <span class="page-number">12</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 13-14: Into The Dark</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">Fishy did not wait. Fishy swims into the dark.</div>
+      <span class="page-number">13</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">Crabby stops at the cave. He will not go in.</div>
+      <span class="page-number">14</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 15-16: Waiting</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">Crabby sits on a rock.</div>
+      <span class="page-number">15</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">Glub. Glub. Glub.</div>
+      <span class="page-number">16</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 17-18: Where is Fishy?</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">"Fishy?" said Crabby. No Fishy.</div>
+      <span class="page-number">17</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text"><em>"FISHY?!"</em> Still no Fishy.</div>
+      <span class="page-number">18</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 19-20: Fear</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">Was Crabby scared? Oh <em>YES.</em></div>
+      <span class="page-number">19</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">His claws went click, click, click.</div>
+      <span class="page-number">20</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 21-22: The Decision</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">But then Crabby said: <em>"Swim! Swim! Swim!"</em></div>
+      <span class="page-number">21</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">And Crabby swims! Into the dark!</div>
+      <span class="page-number">22</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 23-24: Into The Dark</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">It is so dark. Crabby can not see.</div>
+      <span class="page-number">23</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">But Crabby does not stop.</div>
+      <span class="page-number">24</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 25-26: Found!</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text"><em>"FISHY!"</em> And there is Fishy!</div>
+      <span class="page-number">25</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">Fishy is stuck in a net!</div>
+      <span class="page-number">26</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 27-28: The Rescue</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">"Help!" said Fishy. "I can not get out!"</div>
+      <span class="page-number">27</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">Crabby grabs the net with his claws.</div>
+      <span class="page-number">28</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 29-30: Snip!</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">Snip, snip, snip!</div>
+      <span class="page-number">29</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">Fishy is free!</div>
+      <span class="page-number">30</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 31-32: Escape</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text"><em>"Swim! Swim! Swim!"</em> said Crabby.</div>
+      <span class="page-number">31</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">Fishy and Crabby swim out. Up and up!</div>
+      <span class="page-number">32</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 33-34: Freedom!</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text"><em>SPLASH!</em> The sun! They are out!</div>
+      <span class="page-number">33</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">"You did it!" said Fishy.</div>
+      <span class="page-number">34</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 35-36: I Did?</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">"But... the gold?" said Crabby.</div>
+      <span class="page-number">35</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">Fishy grins. "I got it!"</div>
+      <span class="page-number">36</span>
+    </div>
+  </div>
+
+  <p class="section-label">Pages 37-38: Treasure!</p>
+  <div class="spread">
+    <div class="page left">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text"><em>GOLD!</em> Lots and lots of gold!</div>
+      <span class="page-number">37</span>
+    </div>
+    <div class="page right">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">They sit on a rock in the sun.</div>
+      <span class="page-number">38</span>
+    </div>
+  </div>
+
+  <p class="section-label">Page 39: The End</p>
+  <div class="spread cover-spread">
+    <div class="page">
+      <div class="placeholder">Image pending</div>
+      <div class="page-text">"Swim to the dark?" said Fishy.<br>Crabby grins. <em>"SWIM!"</em></div>
+      <span class="page-number">39</span>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+{
+  "title": "Rats in the Castle",
+  "character": "Rita and Rico are two small brown rats. Rita has light brown fur and a tiny red bow. Rico has darker brown fur and a tiny blue bandana.",
+  "word_list": {
+    "sound_out": ["big", "run", "hid", "got", "sat", "cat", "fast", "past", "trap", "snap"],
+    "sight": ["the", "said", "to", "we", "was", "a", "in", "they"],
+    "new": ["Rita", "Rico", "castle", "king", "queen"]
+  },
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Rats in the Castle",
+      "image": "castle_page01.png"
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know",
+      "image": null
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Rita and Rico ran in.",
+      "image": "castle_page03.png"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "The castle was big!",
+      "image": "castle_page04.png"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "\"We can get jam!\" said Rita.",
+      "image": "castle_page05.png"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "They ran past the king.",
+      "image": "castle_page06.png"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "They ran past the queen.",
+      "image": "castle_page07.png"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "\"Jam! Jam! Jam!\"",
+      "image": "castle_page08.png"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "But then... a cat!",
+      "image": "castle_page09.png"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "\"Run!\" said Rico.",
+      "image": "castle_page10.png"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "Run, run, run!",
+      "image": "castle_page11.png"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "The cat ran fast.",
+      "image": "castle_page12.png"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "Rita hid in a cup.",
+      "image": "castle_page13.png"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "Rico hid in a hat.",
+      "image": "castle_page14.png"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "The cat sat and sat.",
+      "image": "castle_page15.png"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "\"We got away!\" said Rita.",
+      "image": "castle_page16.png"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "They got the jam!",
+      "image": "castle_page17.png"
+    },
+    {
+      "page": 18,
+      "type": "end",
+      "text": "The End",
+      "image": "castle_page18.png"
+    }
+  ]
+}

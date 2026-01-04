@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sight Words Practice - Funbookies</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 600px; margin: 0 auto; }
+
+    .back-link {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    .back-link:hover { opacity: 1; text-decoration: underline; }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      color: #4CAF50;
+    }
+
+    .stats {
+      display: flex;
+      gap: 10px;
+    }
+
+    .stat {
+      background: #E8F5E9;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      color: #2E7D32;
+      font-size: 0.85rem;
+    }
+
+    .list-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .list-btn {
+      padding: 10px 18px;
+      border: 2px solid #4CAF50;
+      background: white;
+      border-radius: 20px;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .list-btn:hover, .list-btn.active {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .flashcard-area {
+      text-align: center;
+      padding: 30px 0;
+    }
+
+    .flashcard {
+      background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+      border-radius: 20px;
+      padding: 60px 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 25px rgba(76, 175, 80, 0.2);
+      transition: transform 0.3s;
+    }
+
+    .flashcard:hover {
+      transform: scale(1.02);
+    }
+
+    .word {
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: #2E7D32;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    }
+
+    .response-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .btn-response {
+      padding: 18px 35px;
+      border: none;
+      border-radius: 15px;
+      font-family: inherit;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-know {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .btn-know:hover {
+      background: #43A047;
+      transform: scale(1.05);
+    }
+
+    .btn-learning {
+      background: #FF9800;
+      color: white;
+    }
+
+    .btn-learning:hover {
+      background: #F57C00;
+      transform: scale(1.05);
+    }
+
+    .progress-section {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    .progress-section h3 {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .progress-bar-container {
+      background: #e0e0e0;
+      border-radius: 10px;
+      height: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #4CAF50, #8BC34A);
+      transition: width 0.3s;
+    }
+
+    .word-status {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .word-chip {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .word-chip.mastered {
+      background: #E8F5E9;
+      color: #2E7D32;
+    }
+
+    .word-chip.learning {
+      background: #FFF3E0;
+      color: #E65100;
+    }
+
+    .word-chip.new {
+      background: #f5f5f5;
+      color: #666;
+    }
+
+    .session-complete {
+      text-align: center;
+      padding: 30px 0;
+      display: none;
+    }
+
+    .session-complete h2 {
+      color: #4CAF50;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .session-complete .big-num {
+      font-size: 5rem;
+      font-weight: 900;
+      color: #2E7D32;
+    }
+
+    .session-complete p {
+      color: #666;
+      margin: 15px 0;
+    }
+
+    .btn-continue {
+      padding: 15px 40px;
+      background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-family: inherit;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .btn-continue:hover {
+      transform: scale(1.05);
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+
+    <div class="card">
+      <div class="header">
+        <h1>Sight Words</h1>
+        <div class="stats">
+          <div class="stat">Session: <span id="sessionCount">0</span></div>
+          <div class="stat">Mastered: <span id="masteredCount">0</span></div>
+        </div>
+      </div>
+
+      <div class="list-selector">
+        <button class="list-btn active" data-list="dolch-pre">Pre-K</button>
+        <button class="list-btn" data-list="dolch-primer">Primer</button>
+        <button class="list-btn" data-list="dolch-1">Grade 1</button>
+        <button class="list-btn" data-list="fry-100">Fry 100</button>
+      </div>
+
+      <div class="flashcard-area" id="flashcardArea">
+        <div class="flashcard">
+          <div class="word" id="currentWord">the</div>
+        </div>
+
+        <div class="response-buttons">
+          <button class="btn-response btn-know" onclick="respond(true)">I Know It!</button>
+          <button class="btn-response btn-learning" onclick="respond(false)">Still Learning</button>
+        </div>
+      </div>
+
+      <div class="session-complete" id="sessionComplete">
+        <h2>Great Practice!</h2>
+        <div class="big-num" id="sessionScore">0</div>
+        <p>words practiced this session</p>
+        <p id="sessionMessage">Keep going to master more words!</p>
+        <button class="btn-continue" onclick="startNewSession()">Continue Practicing</button>
+      </div>
+
+      <div class="progress-section">
+        <h3>Progress (<span id="progressPercent">0</span>% mastered)</h3>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+        <div class="word-status" id="wordStatus"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Word lists
+    const wordLists = {
+      'dolch-pre': ['a', 'and', 'away', 'big', 'blue', 'can', 'come', 'down', 'find', 'for', 'funny', 'go', 'help', 'here', 'I', 'in', 'is', 'it', 'jump', 'little', 'look', 'make', 'me', 'my', 'not', 'one', 'play', 'red', 'run', 'said', 'see', 'the', 'three', 'to', 'two', 'up', 'we', 'where', 'yellow', 'you'],
+      'dolch-primer': ['all', 'am', 'are', 'at', 'ate', 'be', 'black', 'brown', 'but', 'came', 'did', 'do', 'eat', 'four', 'get', 'good', 'have', 'he', 'into', 'like', 'must', 'new', 'no', 'now', 'on', 'our', 'out', 'please', 'pretty', 'ran', 'ride', 'saw', 'say', 'she', 'so', 'soon', 'that', 'there', 'they', 'this', 'too', 'under', 'want', 'was', 'well', 'went', 'what', 'white', 'who', 'will', 'with', 'yes'],
+      'dolch-1': ['after', 'again', 'an', 'any', 'ask', 'as', 'by', 'could', 'every', 'fly', 'from', 'give', 'going', 'had', 'has', 'her', 'him', 'his', 'how', 'just', 'know', 'let', 'live', 'may', 'of', 'old', 'once', 'open', 'over', 'put', 'round', 'some', 'stop', 'take', 'thank', 'them', 'then', 'think', 'walk', 'were', 'when'],
+      'fry-100': ['the', 'of', 'and', 'a', 'to', 'in', 'is', 'you', 'that', 'it', 'he', 'was', 'for', 'on', 'are', 'as', 'with', 'his', 'they', 'I', 'at', 'be', 'this', 'have', 'from', 'or', 'one', 'had', 'by', 'word', 'but', 'not', 'what', 'all', 'were', 'we', 'when', 'your', 'can', 'said', 'there', 'use', 'an', 'each', 'which', 'she', 'do', 'how', 'their', 'if', 'will', 'up', 'other', 'about', 'out', 'many', 'then', 'them', 'these', 'so', 'some', 'her', 'would', 'make', 'like', 'him', 'into', 'time', 'has', 'look', 'two', 'more', 'write', 'go', 'see', 'number', 'no', 'way', 'could', 'people', 'my', 'than', 'first', 'water', 'been', 'call', 'who', 'oil', 'its', 'now', 'find', 'long', 'down', 'day', 'did', 'get', 'come', 'made', 'may', 'part']
+    };
+
+    // Word status: 0 = new, 1-2 = learning, 3+ = mastered
+    let wordStatus = {};
+    let currentList = 'dolch-pre';
+    let currentWord = null;
+    let sessionWords = 0;
+    let queue = [];
+
+    // Load from localStorage
+    function loadProgress() {
+      const saved = localStorage.getItem('funbookies-sight-words');
+      if (saved) {
+        wordStatus = JSON.parse(saved);
+      }
+    }
+
+    function saveProgress() {
+      localStorage.setItem('funbookies-sight-words', JSON.stringify(wordStatus));
+    }
+
+    function getStatus(word) {
+      return wordStatus[word] || 0;
+    }
+
+    function setStatus(word, status) {
+      wordStatus[word] = status;
+      saveProgress();
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProgress();
+      setupListButtons();
+      buildQueue();
+      showNextWord();
+      updateDisplay();
+    });
+
+    function setupListButtons() {
+      document.querySelectorAll('.list-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.list-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentList = btn.dataset.list;
+          buildQueue();
+          showNextWord();
+          updateDisplay();
+        });
+      });
+    }
+
+    function buildQueue() {
+      const list = wordLists[currentList];
+      // Prioritize: learning (1-2) > new (0) > mastered (3+)
+      const learning = list.filter(w => getStatus(w) >= 1 && getStatus(w) < 3);
+      const newWords = list.filter(w => getStatus(w) === 0);
+      const mastered = list.filter(w => getStatus(w) >= 3);
+
+      // Shuffle each group
+      const shuffle = arr => arr.sort(() => Math.random() - 0.5);
+      queue = [...shuffle(learning), ...shuffle(newWords).slice(0, 5), ...shuffle(mastered).slice(0, 2)];
+
+      if (queue.length === 0) {
+        queue = shuffle([...list]).slice(0, 10);
+      }
+    }
+
+    function showNextWord() {
+      if (queue.length === 0) {
+        buildQueue();
+      }
+
+      if (sessionWords >= 15) {
+        showSessionComplete();
+        return;
+      }
+
+      currentWord = queue.shift();
+      document.getElementById('currentWord').textContent = currentWord;
+      document.getElementById('flashcardArea').classList.remove('hidden');
+      document.getElementById('sessionComplete').style.display = 'none';
+    }
+
+    function respond(known) {
+      const status = getStatus(currentWord);
+
+      if (known) {
+        setStatus(currentWord, Math.min(status + 1, 5));
+      } else {
+        setStatus(currentWord, Math.max(status - 1, 0));
+        // Add back to queue for review
+        queue.push(currentWord);
+      }
+
+      sessionWords++;
+      document.getElementById('sessionCount').textContent = sessionWords;
+      updateDisplay();
+      showNextWord();
+    }
+
+    function showSessionComplete() {
+      document.getElementById('flashcardArea').classList.add('hidden');
+      document.getElementById('sessionComplete').style.display = 'block';
+      document.getElementById('sessionScore').textContent = sessionWords;
+
+      const mastered = wordLists[currentList].filter(w => getStatus(w) >= 3).length;
+      const total = wordLists[currentList].length;
+
+      if (mastered === total) {
+        document.getElementById('sessionMessage').textContent = 'Amazing! You mastered all words in this list!';
+      } else if (mastered > total * 0.7) {
+        document.getElementById('sessionMessage').textContent = 'Great progress! Almost there!';
+      } else {
+        document.getElementById('sessionMessage').textContent = 'Keep practicing to master more words!';
+      }
+    }
+
+    function startNewSession() {
+      sessionWords = 0;
+      document.getElementById('sessionCount').textContent = 0;
+      buildQueue();
+      document.getElementById('sessionComplete').style.display = 'none';
+      document.getElementById('flashcardArea').classList.remove('hidden');
+      showNextWord();
+    }
+
+    function updateDisplay() {
+      const list = wordLists[currentList];
+      const mastered = list.filter(w => getStatus(w) >= 3);
+      const learning = list.filter(w => getStatus(w) >= 1 && getStatus(w) < 3);
+
+      document.getElementById('masteredCount').textContent = mastered.length;
+
+      const percent = Math.round((mastered.length / list.length) * 100);
+      document.getElementById('progressPercent').textContent = percent;
+      document.getElementById('progressBar').style.width = percent + '%';
+
+      // Word status chips (show first 20)
+      const statusHtml = list.slice(0, 20).map(w => {
+        const s = getStatus(w);
+        const cls = s >= 3 ? 'mastered' : s >= 1 ? 'learning' : 'new';
+        return `<span class="word-chip ${cls}">${w}</span>`;
+      }).join('');
+      document.getElementById('wordStatus').innerHTML = statusHtml + (list.length > 20 ? '<span class="word-chip new">...</span>' : '');
+    }
+  </script>
+</body>
+</html>

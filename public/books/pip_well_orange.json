@@ -1,0 +1,244 @@
+{
+  "title": "Pip and the Well",
+  "level": "orange",
+  "theme": "Water elemental - toad discovers a magical echoing well that speaks wisdom",
+  "character": {
+    "names": ["Pip"],
+    "pip": {
+      "species": "small toad",
+      "color": "soft teal-green with cream belly (#26A69A body, #E0F2F1 belly)",
+      "eyes": "large round dark eyes with blue highlight dots, expressive and wondering",
+      "distinguishing_feature": "one small blue spot on left cheek, like a permanent teardrop",
+      "expression_default": "open, curious, slightly shy - big wondering eyes",
+      "body": "small and round, about 3 inches, short stubby legs, no tail, bumpy texture simplified to dots",
+      "personality": "gentle, thoughtful, loves listening, sometimes lonely, finds joy in small things"
+    },
+    "catchphrase": "Did it... did it talk?",
+    "style_notes": "Pip is round and endearing. Simple shapes - body is a squat oval, head blends into body. Bold black outlines. Flat teal color with cream belly. The blue cheek-spot is always visible. Large eyes show emotion clearly. Pip often has head tilted in listening pose."
+  },
+  "art_direction": {
+    "style": "Expressive Minimal with dreamy undertones - Mo Willems expressiveness meets Jon Klassen stillness. Bold black outlines, flat color fills, subtle paper texture, lots of empty space for contemplation",
+    "influences": ["Mo Willems (expression)", "Jon Klassen (stillness/space)", "Oliver Jeffers (gentle wonder)"],
+    "palette": {
+      "pip_body": "#26A69A",
+      "pip_belly": "#E0F2F1",
+      "pip_spot": "#42A5F5",
+      "well_stone": "#78909C",
+      "well_dark": "#37474F",
+      "water_blue": "#4FC3F7",
+      "water_deep": "#0277BD",
+      "splash_white": "#E3F2FD",
+      "grass_green": "#81C784",
+      "sky_blue": "#BBDEFB",
+      "background_soft": "#E3F2FD"
+    },
+    "mood": "Gentle wonder, quiet discovery, the joy of being heard, finding a friend in unexpected places",
+    "humor_techniques": [
+      "Echo as comedy (what comes back isn't quite what was said)",
+      "Pip's confused expressions",
+      "Building pattern with variations",
+      "Deadpan reaction to strange events"
+    ],
+    "dual_audience": {
+      "kids": "Echoes are fun, water sounds, silly repetition, friendship ending",
+      "adults": "Loneliness and connection, the well as inner wisdom, finding your voice, metaphor of reflection"
+    },
+    "technical": {
+      "aspect_ratio": "4:3 landscape",
+      "resolution": "2048x1536 minimum",
+      "negative_prompts": "realistic, 3D render, photograph, complex background, gradient shading, scary, grotesque, text, words, letters, busy composition"
+    },
+    "must_include": "NO TEXT IN IMAGE",
+    "avoid": "realistic style, detailed textures, scary well/dark imagery, complex backgrounds, generic stock illustration style"
+  },
+  "word_list": {
+    "decodable": {
+      "cvc": ["hop", "pop", "top", "got", "not", "lot", "did", "hid", "lit", "sit", "sat", "wet", "let", "yes", "big", "dig"],
+      "digraphs": ["wish", "with", "this", "that", "well", "tell", "yell", "shell", "splash", "plop", "drip", "drop"]
+    },
+    "sight_words": {
+      "flash": ["the", "to", "a", "in", "it", "is", "I", "go", "no", "see", "said", "was", "my", "me"],
+      "heart": ["what", "there", "down", "out"]
+    },
+    "vocabulary": {
+      "topic": ["well", "water", "echo"],
+      "character": ["Pip"]
+    }
+  },
+  "phonics_focus": ["short vowels CVC", "digraphs sh/th/ll", "double letters"],
+  "refrain": "Did it... did it talk?",
+  "emotional_arc": "lonely -> curious -> surprised -> delighted -> connected -> grateful",
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Pip and the Well",
+      "image_prompt": "COVER IMAGE: A small teal-green toad (Pip) sitting on the stone rim of an old circular well, peering down into it with curious, wondering eyes. Pip has large dark eyes with blue highlights, a cream belly, and a small blue spot on his left cheek like a teardrop. The well is made of rounded gray stones, weathered and ancient. Pip is small against the well's edge. Inside the well is deep blue-black with subtle water reflections. Pip's expression is curious and slightly awed. Soft blue sky background, simple grass around the well. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know",
+      "sections": {
+        "sound_it_out": ["hop", "got", "sat", "well", "tell", "yell", "drip", "drop", "splash", "plop"],
+        "know_by_heart": ["the", "said", "was", "to", "I", "a", "what", "there", "down"],
+        "new_words": ["well", "water", "echo", "Pip"]
+      },
+      "image_prompt": null
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Pip sat. And sat. And sat.",
+      "beat": "setup - introduce character in stillness/loneliness",
+      "image_prompt": "WIDE SHOT with lots of empty space: A small teal-green toad (Pip) sitting alone on a simple hill. Pip has large dark eyes with blue highlights, cream belly, blue spot on left cheek. He sits in the center-bottom of frame, looking small. His expression is peaceful but slightly wistful - not sad, but... waiting for something. Lots of empty sky above, simple grass below. The composition emphasizes quietude and solitude. Pip is content but alone. Simple flat cartoon style, bold black outlines, soft blue-green palette, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "Pip saw a well.",
+      "beat": "inciting incident - discovery",
+      "image_prompt": "MEDIUM SHOT: Pip (teal-green toad, cream belly, blue cheek spot) in left third of frame, sitting up with alert posture. His expression is curious - head tilted, eyes wide. He's looking at an old stone well in the right portion of frame. The well is simple - circular, made of weathered gray stones, with a dark opening on top. It looks ancient and mysterious but not scary. Pip's body language shows interest - he's leaning slightly toward it. Simple grass, soft blue sky. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "Hop, hop, hop!",
+      "beat": "action - approaching with enthusiasm",
+      "image_prompt": "DYNAMIC ACTION SHOT: Pip (teal-green toad) shown in three positions hopping toward the well - a motion trail from left to right showing his bouncy journey. Each Pip shows joyful hopping - legs extended, slight smile, eyes forward. Motion lines and small dust puffs behind each position. The well is visible on the right side of frame, getting closer. Pip's hops are enthusiastic - he's excited to investigate. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "Pip got to the top.",
+      "beat": "arrival - at the well's edge",
+      "image_prompt": "MEDIUM SHOT: Pip (teal-green toad, cream belly, blue cheek spot) has climbed up onto the stone rim of the well. He's perched on the edge, looking down into the dark opening. We see him from the side - his stubby front legs grip the stone, his round body is hunched forward with curiosity, head tilted down. Inside the well is deep blue-black darkness. Pip looks small against the well's ancient stones. His expression is wonder and slight nervousness. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "It was big!",
+      "beat": "reaction - scale and depth",
+      "image_prompt": "HIGH ANGLE POV SHOT looking down into the well: View from above showing the circular well opening with deep darkness inside. At the top edge of frame, Pip's small front feet and round head are visible gripping the rim, looking down - we're seeing from just behind him. The well drops away into deep blue-black, with water barely visible glinting far below. The depth is dramatic but not scary. Pip's small size contrasts with the vast depth. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "\"Is there water?\" said Pip.",
+      "beat": "question - Pip speaks to the well",
+      "image_prompt": "CLOSE-UP on Pip (teal-green toad): He's leaning over the well edge, mouth slightly open as if speaking into it. His large dark eyes with blue highlights are wide with curiosity. His blue cheek spot is visible. Expression is hopeful, questioning - like talking to someone who might not answer. He's sending his voice into the darkness. The stone rim of the well is visible below his chin. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "\"...water... water... water...\"",
+      "beat": "PAGE TURN REVEAL - the echo answers",
+      "image_prompt": "ABSTRACT/ATMOSPHERIC SHOT: Visual representation of the echo rising from the well. The dark well center dominates the frame with rippling concentric circles suggesting sound waves rising upward. The word seems to float up from the depths. Blue and white ripples emanate from the dark center. Pip is visible small at the top edge, head tilted in surprise at what he hears. The echo is visual - waves of sound made visible. Magical and strange. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "\"Did it... did it talk?\" said Pip.",
+      "beat": "catchphrase moment - surprised wonder",
+      "image_prompt": "CLOSE-UP on Pip's face: His expression is pure astonishment - eyes HUGE, mouth in a small surprised 'o', eyebrows raised high. One front foot is raised near his face in an 'oh my' gesture. His blue cheek spot seems to shimmer. He's looking down into the well with disbelief and wonder. Did the well just... talk back? His expression is confused but delighted. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "\"Yes!\" said Pip.",
+      "beat": "testing - Pip tries again",
+      "image_prompt": "MEDIUM SHOT: Pip (teal-green toad) now more confident, sitting up on the well rim, mouth open in a clear 'YES!' shout directed into the well. His expression is excited - eyes bright, slight smile, leaning forward eagerly. He's testing the echo, wanting to hear it again. His posture has changed from nervous to enthusiastic. The dark well opening is visible below him. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "\"...yes... yes... yes...\"",
+      "beat": "confirmation - echo responds again",
+      "image_prompt": "SIMILAR ATMOSPHERIC SHOT to page 9: Sound waves rising from the well, visualized as concentric blue-white ripples emerging from darkness. But this time Pip is shown bigger, leaning in with delight. His expression is joy - he's found something wonderful. The echo is real. The ripples seem warmer, friendlier this time. Pip's forelegs are on the rim, he's fully engaged. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "Pip yelled, \"I am Pip!\"",
+      "beat": "escalation - introducing himself",
+      "image_prompt": "DYNAMIC SHOT: Pip (teal-green toad) standing UP on his back legs on the well rim, front legs raised, mouth WIDE open, yelling into the well with gusto. His whole body is committed to the shout - eyes squeezed with effort, body leaning over the edge. This is Pip coming out of his shell, being loud and proud. Motion lines suggest the power of his voice going down into the well. Joyful, silly, brave. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "\"...Pip... Pip... Pip...\"",
+      "beat": "personal response - the well knows his name",
+      "image_prompt": "EMOTIONAL MOMENT: The echo rises from the well - visualized as gentle ripples - but now there's something special. Pip (teal-green toad) is shown in close-up, listening with his eyes closed, a soft smile on his face. He's hearing his own name spoken back to him. For a lonely toad, being called by name... it means something. The moment is tender, not silly. Blue-white ripples frame his peaceful face. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "Splash! Drip, drip, drop!",
+      "beat": "sound play - the water responds",
+      "image_prompt": "ACTION SHOT inside the well: View looking down at the water surface far below. The water is splashing - droplets flying up, ripples spreading, as if the water itself is responding to Pip. Bright blue water (#4FC3F7) with white splash effects. Above, Pip's silhouette is visible at the well opening, peering down. The water seems alive, playful. Sound made visual - splash marks, drop trails. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "The well did splash!",
+      "beat": "confirmation of magic - the well is alive",
+      "image_prompt": "MEDIUM SHOT: Pip (teal-green toad) on the well rim, getting splashed by water droplets rising FROM the well! His expression is surprised delight - eyes wide, mouth in a laughing grin, droplets on his face. The splash seems impossible - water coming UP - but it's happening. His cream belly is visible, droplets sparkling. The well is playful, greeting him. Magical and silly. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "Pip got wet!",
+      "beat": "physical comedy - joyful consequence",
+      "image_prompt": "CLOSE-UP on wet Pip: He's drenched, water dripping off him, but his expression is pure joy - huge grin, eyes crinkled with happiness. His teal-green color seems brighter when wet, his cream belly has water droplets. His blue cheek spot glistens. He looks like a toad who just had the best surprise of his life. Drops of water around him catch the light. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 18,
+      "type": "story",
+      "text": "\"I wish I had a pal,\" said Pip.",
+      "beat": "vulnerability - Pip shares his heart",
+      "image_prompt": "TENDER CLOSE-UP: Pip (teal-green toad, still slightly damp) looking into the well with a softer expression. He's being vulnerable now - not shouting, but sharing something real. His large eyes show longing and hope. His blue cheek spot seems more prominent. He's telling the well his secret wish. The composition is intimate - just Pip and the dark well opening. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 19,
+      "type": "story",
+      "text": "\"...pal... pal... pal...\"",
+      "beat": "the echo affirms - magic responds to truth",
+      "image_prompt": "MAGICAL MOMENT: The echo rises from the well, but this time the ripples form a gentle, almost embrace-like pattern around Pip. The word 'pal' echoing feels like an answer, a promise. Pip is shown small, surrounded by the warm blue-white ripples that curve around him protectively. His expression is wonder - did the well just agree to be his friend? The moment is magical and tender. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 20,
+      "type": "story",
+      "text": "Pip sat with the well.",
+      "beat": "contentment - staying with the newfound friend",
+      "image_prompt": "PEACEFUL WIDE SHOT: Pip (teal-green toad) sitting contentedly on the well rim, relaxed posture, looking at peace. The well beside him feels like a companion now, not just a thing. Sunset colors in the sky (soft oranges and pinks). Pip's expression is content - small smile, eyes soft. He's found what he was waiting for. The composition shows toad and well together, friends in the evening light. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 21,
+      "type": "story",
+      "text": "The well let Pip in.",
+      "beat": "belonging - accepted into the magic",
+      "image_prompt": "METAPHORICAL SHOT: Pip (teal-green toad) bathed in soft blue light rising from the well. He's sitting on the rim, but the well's glow envelops him gently, like being welcomed. His expression is peace and gratitude - eyes half-closed, serene smile. His blue cheek spot seems to glow in harmony with the well's light. The well has accepted him as its friend. Not literally going in - emotionally, spiritually welcomed. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 22,
+      "type": "story",
+      "text": "Pip got a pal!",
+      "beat": "celebration - the wish came true",
+      "image_prompt": "JOYFUL SHOT: Pip (teal-green toad) in a happy pose on the well rim - maybe a little jump or arms raised in celebration. His expression is pure happiness - big grin, eyes bright. The well glows softly beside him. His wish came true - he has a friend now. The scene is warm with sunset colors. Pip is no longer lonely. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 23,
+      "type": "story",
+      "text": "\"Did it... did it talk?\" said Pip.",
+      "beat": "catchphrase callback - wondering gratitude",
+      "image_prompt": "CLOSE-UP on Pip's face in soft evening light: His expression is wonder and gratitude combined - a knowing smile, eyes bright with happy tears (not sad). He's asking the question again but this time he knows the answer. Yes, it talked. Yes, it's real. His blue cheek spot seems to catch the light beautifully. The moment is satisfied wonder. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 24,
+      "type": "story",
+      "text": "Yes. Yes, it did.",
+      "beat": "answer - confirmation and peace",
+      "image_prompt": "FINAL IMAGE - SUNSET SCENE: Wide shot of Pip (teal-green toad) and the well in warm sunset light. Pip sits on the well rim, looking at the viewer with a gentle, knowing smile - as if sharing a wonderful secret. The well glows softly with inner blue light. Orange-pink sunset sky behind. The scene is peaceful, magical, complete. A toad found his friend in an unexpected place. Pip waves one small foot goodbye to the viewer. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    }
+  ]
+}

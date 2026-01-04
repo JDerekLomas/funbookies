@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crabby and Fishy - Review</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Fredoka', sans-serif;
+      background: #1a1a1a;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    .header {
+      background: #2a2a2a;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+    }
+
+    .header h1 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .header .page-indicator {
+      font-size: 14px;
+      color: #888;
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-container {
+      background: #f9f6f0;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 4/5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-image {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: #f9f6f0;
+    }
+
+    .page-image img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .page-image.placeholder {
+      background: linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 50%, #e8e8e8 100%);
+    }
+
+    .page-image.placeholder::after {
+      content: 'Image pending';
+      color: #999;
+      font-size: 14px;
+    }
+
+    .page-text {
+      padding: 24px;
+      text-align: center;
+      font-size: 20px;
+      color: #222;
+      background: #fff;
+      border-top: 1px solid #eee;
+      line-height: 1.4;
+    }
+
+    .page-text em {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 24px;
+    }
+
+    .navigation {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .nav-btn {
+      background: #333;
+      border: none;
+      color: #fff;
+      padding: 12px 32px;
+      font-size: 16px;
+      font-family: inherit;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: #444;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .feedback-section {
+      width: 100%;
+      max-width: 500px;
+      margin-top: 32px;
+      background: #2a2a2a;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .feedback-buttons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .feedback-btn {
+      flex: 1;
+      padding: 16px;
+      font-size: 24px;
+      border: 2px solid #444;
+      background: transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .feedback-btn:hover {
+      border-color: #666;
+    }
+
+    .feedback-btn.selected.up {
+      background: #1a472a;
+      border-color: #2d8a4e;
+    }
+
+    .feedback-btn.selected.down {
+      background: #4a1a1a;
+      border-color: #8a2d2d;
+    }
+
+    .comment-input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-family: inherit;
+      border: 2px solid #444;
+      border-radius: 8px;
+      background: #1a1a1a;
+      color: #fff;
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .comment-input::placeholder {
+      color: #666;
+    }
+
+    .comment-input:focus {
+      outline: none;
+      border-color: #666;
+    }
+
+    .copy-section {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #2a2a2a;
+      padding: 16px 24px;
+      border-top: 1px solid #333;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .copy-btn {
+      background: #4a7c59;
+      border: none;
+      color: #fff;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-family: inherit;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: #5a9c69;
+    }
+
+    .copy-btn.copied {
+      background: #2d8a4e;
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: #4a7c59;
+      transition: width 0.3s;
+    }
+
+    .thumbnails {
+      display: flex;
+      gap: 8px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 500px;
+    }
+
+    .thumb {
+      width: 40px;
+      height: 50px;
+      border-radius: 4px;
+      border: 2px solid #333;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      background: #444;
+    }
+
+    .thumb:hover {
+      border-color: #666;
+    }
+
+    .thumb.current {
+      border-color: #fff;
+    }
+
+    .thumb.has-feedback::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .thumb.has-feedback.positive::after {
+      background: #2d8a4e;
+    }
+
+    .thumb.has-feedback.negative::after {
+      background: #8a2d2d;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .spacer {
+      height: 100px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      font-size: 11px;
+      border-radius: 4px;
+      margin-left: 8px;
+      font-weight: 600;
+    }
+
+    .status-badge.complete {
+      background: #1a472a;
+      color: #4ade80;
+    }
+
+    .status-badge.pending {
+      background: #4a3a1a;
+      color: #fbbf24;
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progress"></div>
+
+  <div class="header">
+    <div style="display: flex; align-items: center; gap: 15px;">
+      <a href="/books/" style="color: #888; text-decoration: none; font-size: 14px;">&larr; Books</a>
+      <h1>Crabby and Fishy</h1>
+    </div>
+    <div class="page-indicator" id="pageIndicator">Page 1 of 40</div>
+  </div>
+
+  <div class="main">
+    <div class="page-container">
+      <div class="page-image" id="pageImage">
+        <img src="" alt="" id="pageImg">
+      </div>
+      <div class="page-text" id="pageText"></div>
+    </div>
+
+    <div class="navigation">
+      <button class="nav-btn" id="prevBtn" onclick="prevPage()">← Prev</button>
+      <button class="nav-btn" id="nextBtn" onclick="nextPage()">Next →</button>
+    </div>
+
+    <div class="feedback-section">
+      <div class="feedback-buttons">
+        <button class="feedback-btn up" onclick="setFeedback('up')">👍</button>
+        <button class="feedback-btn down" onclick="setFeedback('down')">👎</button>
+      </div>
+      <textarea
+        class="comment-input"
+        id="commentInput"
+        placeholder="Add feedback for this page..."
+        onchange="saveComment()"
+      ></textarea>
+    </div>
+
+    <div class="thumbnails" id="thumbnails"></div>
+
+    <div class="spacer"></div>
+  </div>
+
+  <div class="copy-section">
+    <button class="copy-btn" onclick="copyFeedback()">📋 Copy All Feedback</button>
+  </div>
+
+  <script>
+    const pages = [
+      { num: 'cover', text: 'CRABBY AND FISHY', image: 'pages/cover.png', hasImage: true },
+      { num: '3', text: 'This is Fishy. Fishy is a fish.', image: 'pages/page_03.png', hasImage: true },
+      { num: '4', text: 'This is Crabby. Crabby is a crab.', image: 'pages/page_04.png', hasImage: true },
+      { num: '5', text: 'Fishy swims fast. Crabby goes slow.', image: 'pages/page_05.png', hasImage: true },
+      { num: '6', text: '"Let\'s swim to the dark!" said Fishy.', image: 'pages/page_06.png', hasImage: true },
+      { num: '7', text: '"The dark?!" said Crabby. <em>"THE DARK?!"</em>', image: 'pages/page_07.png', hasImage: true },
+      { num: '8', text: 'The dark is cold. The dark is deep.', image: 'pages/page_08.png', hasImage: true },
+      { num: '9', text: '"I want that gold!" said Fishy.', image: null, hasImage: false },
+      { num: '10', text: '"Not me!" said Crabby. "It is too dark!"', image: null, hasImage: false },
+      { num: '11', text: 'But Fishy swims off. Fast, fast, fast.', image: null, hasImage: false },
+      { num: '12', text: '"Wait!" said Crabby. <em>"WAIT!"</em>', image: null, hasImage: false },
+      { num: '13', text: 'Fishy did not wait. Fishy swims into the dark.', image: null, hasImage: false },
+      { num: '14', text: 'Crabby stops at the cave. He will not go in.', image: null, hasImage: false },
+      { num: '15', text: 'Crabby sits on a rock.', image: null, hasImage: false },
+      { num: '16', text: 'Glub. Glub. Glub.', image: null, hasImage: false },
+      { num: '17', text: '"Fishy?" said Crabby. No Fishy.', image: null, hasImage: false },
+      { num: '18', text: '<em>"FISHY?!"</em> Still no Fishy.', image: null, hasImage: false },
+      { num: '19', text: 'Was Crabby scared? Oh <em>YES.</em>', image: null, hasImage: false },
+      { num: '20', text: 'His claws went click, click, click.', image: null, hasImage: false },
+      { num: '21', text: 'But then Crabby said: <em>"Swim! Swim! Swim!"</em>', image: null, hasImage: false },
+      { num: '22', text: 'And Crabby swims! Into the dark!', image: null, hasImage: false },
+      { num: '23', text: 'It is so dark. Crabby can not see.', image: null, hasImage: false },
+      { num: '24', text: 'But Crabby does not stop.', image: null, hasImage: false },
+      { num: '25', text: '<em>"FISHY!"</em> And there is Fishy!', image: null, hasImage: false },
+      { num: '26', text: 'Fishy is stuck in a net!', image: null, hasImage: false },
+      { num: '27', text: '"Help!" said Fishy. "I can not get out!"', image: null, hasImage: false },
+      { num: '28', text: 'Crabby grabs the net with his claws.', image: null, hasImage: false },
+      { num: '29', text: 'Snip, snip, snip!', image: null, hasImage: false },
+      { num: '30', text: 'Fishy is free!', image: null, hasImage: false },
+      { num: '31', text: '<em>"Swim! Swim! Swim!"</em> said Crabby.', image: null, hasImage: false },
+      { num: '32', text: 'Fishy and Crabby swim out. Up and up!', image: null, hasImage: false },
+      { num: '33', text: '<em>SPLASH!</em> The sun! They are out!', image: null, hasImage: false },
+      { num: '34', text: '"You did it!" said Fishy.', image: null, hasImage: false },
+      { num: '35', text: '"But... the gold?" said Crabby.', image: null, hasImage: false },
+      { num: '36', text: 'Fishy grins. "I got it!"', image: null, hasImage: false },
+      { num: '37', text: '<em>GOLD!</em> Lots and lots of gold!', image: null, hasImage: false },
+      { num: '38', text: 'They sit on a rock in the sun.', image: null, hasImage: false },
+      { num: '39', text: '"Swim to the dark?" said Fishy.<br>Crabby grins. <em>"SWIM!"</em>', image: null, hasImage: false },
+    ];
+
+    let currentPage = 0;
+    let feedback = {};
+
+    // Load saved feedback
+    const saved = localStorage.getItem('crabby-fishy-feedback');
+    if (saved) {
+      feedback = JSON.parse(saved);
+    }
+
+    function saveFeedback() {
+      localStorage.setItem('crabby-fishy-feedback', JSON.stringify(feedback));
+    }
+
+    function renderPage() {
+      const page = pages[currentPage];
+      const pageImage = document.getElementById('pageImage');
+      const pageImg = document.getElementById('pageImg');
+      const pageText = document.getElementById('pageText');
+      const pageIndicator = document.getElementById('pageIndicator');
+      const progress = document.getElementById('progress');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const commentInput = document.getElementById('commentInput');
+
+      // Update page content
+      if (page.hasImage && page.image) {
+        pageImage.classList.remove('placeholder');
+        pageImg.src = page.image;
+        pageImg.style.display = 'block';
+      } else {
+        pageImage.classList.add('placeholder');
+        pageImg.style.display = 'none';
+      }
+
+      pageText.innerHTML = page.text;
+
+      const pageLabel = page.num === 'cover' ? 'Cover' : `Page ${page.num}`;
+      pageIndicator.textContent = `${pageLabel} (${currentPage + 1} of ${pages.length})`;
+
+      progress.style.width = `${((currentPage + 1) / pages.length) * 100}%`;
+
+      prevBtn.disabled = currentPage === 0;
+      nextBtn.disabled = currentPage === pages.length - 1;
+
+      // Update feedback UI
+      const pageFeedback = feedback[page.num] || {};
+      document.querySelectorAll('.feedback-btn').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+      if (pageFeedback.vote === 'up') {
+        document.querySelector('.feedback-btn.up').classList.add('selected');
+      } else if (pageFeedback.vote === 'down') {
+        document.querySelector('.feedback-btn.down').classList.add('selected');
+      }
+      commentInput.value = pageFeedback.comment || '';
+
+      renderThumbnails();
+    }
+
+    function renderThumbnails() {
+      const container = document.getElementById('thumbnails');
+      container.innerHTML = pages.map((page, i) => {
+        const pageFeedback = feedback[page.num] || {};
+        let classes = 'thumb';
+        if (i === currentPage) classes += ' current';
+        if (pageFeedback.vote) {
+          classes += ' has-feedback';
+          classes += pageFeedback.vote === 'up' ? ' positive' : ' negative';
+        }
+        const imgHtml = page.hasImage ? `<img src="${page.image}" alt="">` : '';
+        return `<div class="${classes}" onclick="goToPage(${i})">${imgHtml}</div>`;
+      }).join('');
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        renderPage();
+      }
+    }
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        currentPage++;
+        renderPage();
+      }
+    }
+
+    function goToPage(index) {
+      currentPage = index;
+      renderPage();
+    }
+
+    function setFeedback(vote) {
+      const page = pages[currentPage];
+      if (!feedback[page.num]) {
+        feedback[page.num] = {};
+      }
+
+      // Toggle if same vote
+      if (feedback[page.num].vote === vote) {
+        delete feedback[page.num].vote;
+      } else {
+        feedback[page.num].vote = vote;
+      }
+
+      saveFeedback();
+      renderPage();
+    }
+
+    function saveComment() {
+      const page = pages[currentPage];
+      const comment = document.getElementById('commentInput').value;
+
+      if (!feedback[page.num]) {
+        feedback[page.num] = {};
+      }
+
+      if (comment) {
+        feedback[page.num].comment = comment;
+      } else {
+        delete feedback[page.num].comment;
+      }
+
+      saveFeedback();
+    }
+
+    function copyFeedback() {
+      let output = `# Crabby and Fishy - Feedback\n\n`;
+      output += `Generated: ${new Date().toLocaleString()}\n\n`;
+      output += `---\n\n`;
+
+      pages.forEach(page => {
+        const pageFeedback = feedback[page.num] || {};
+        const hasAnyFeedback = pageFeedback.vote || pageFeedback.comment;
+
+        if (hasAnyFeedback) {
+          const pageLabel = page.num === 'cover' ? 'Cover' : `Page ${page.num}`;
+          const voteEmoji = pageFeedback.vote === 'up' ? '👍' : pageFeedback.vote === 'down' ? '👎' : '—';
+          const textClean = page.text.replace(/<[^>]*>/g, '').replace(/<br>/g, ' ');
+
+          output += `## ${pageLabel} ${voteEmoji}\n`;
+          output += `**Text:** "${textClean}"\n`;
+          if (pageFeedback.comment) {
+            output += `**Feedback:** ${pageFeedback.comment}\n`;
+          }
+          output += `\n`;
+        }
+      });
+
+      // Summary
+      const ups = Object.values(feedback).filter(f => f.vote === 'up').length;
+      const downs = Object.values(feedback).filter(f => f.vote === 'down').length;
+      const comments = Object.values(feedback).filter(f => f.comment).length;
+
+      output += `---\n\n`;
+      output += `## Summary\n`;
+      output += `- 👍 Approved: ${ups}\n`;
+      output += `- 👎 Needs revision: ${downs}\n`;
+      output += `- 💬 Comments: ${comments}\n`;
+
+      navigator.clipboard.writeText(output).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '📋 Copy All Feedback';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowLeft') prevPage();
+      if (e.key === 'ArrowRight') nextPage();
+    });
+
+    // Initial render
+    renderPage();
+  </script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Families - Funbookies</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #2196F3 0%, #03A9F4 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 600px; margin: 0 auto; }
+
+    .back-link {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    .back-link:hover { opacity: 1; text-decoration: underline; }
+
+    .game-card {
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      color: #2196F3;
+    }
+
+    .score {
+      background: #E3F2FD;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      color: #1565C0;
+    }
+
+    .family-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 25px;
+    }
+
+    .family-btn {
+      padding: 10px 18px;
+      border: 2px solid #2196F3;
+      background: white;
+      border-radius: 20px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .family-btn:hover, .family-btn.active {
+      background: #2196F3;
+      color: white;
+    }
+
+    .game-area {
+      text-align: center;
+    }
+
+    .family-display {
+      margin-bottom: 25px;
+    }
+
+    .family-display .label {
+      font-size: 0.9rem;
+      color: #999;
+      margin-bottom: 5px;
+    }
+
+    .family-ending {
+      font-size: 4rem;
+      font-weight: 900;
+      color: #2196F3;
+    }
+
+    .word-display {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 30px;
+      min-height: 60px;
+    }
+
+    .word-display .onset {
+      color: #FF9800;
+    }
+
+    .word-display .rime {
+      color: #2196F3;
+    }
+
+    .onset-choices {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .onset-btn {
+      width: 60px;
+      height: 60px;
+      border: 2px solid #ddd;
+      background: white;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1.5rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .onset-btn:hover {
+      border-color: #2196F3;
+      background: #E3F2FD;
+    }
+
+    .onset-btn.used {
+      background: #E8F5E9;
+      border-color: #4CAF50;
+      color: #4CAF50;
+    }
+
+    .onset-btn.current {
+      background: #2196F3;
+      border-color: #2196F3;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .words-found {
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .words-found .label {
+      font-size: 0.85rem;
+      color: #999;
+      margin-bottom: 8px;
+    }
+
+    .found-words {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .found-word {
+      background: #E3F2FD;
+      color: #1565C0;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 25px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-say {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .btn-say:hover {
+      background: #43A047;
+    }
+
+    .btn-next {
+      background: #2196F3;
+      color: white;
+    }
+
+    .btn-next:hover {
+      background: #1976D2;
+    }
+
+    .feedback {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      min-height: 30px;
+    }
+
+    .feedback.correct { color: #4CAF50; }
+    .feedback.info { color: #2196F3; }
+
+    .timer {
+      font-size: 0.9rem;
+      color: #999;
+      margin-top: 10px;
+    }
+
+    .timer span {
+      font-weight: 700;
+      color: #2196F3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+
+    <div class="game-card">
+      <div class="header">
+        <h1>Word Families</h1>
+        <div class="score">Words: <span id="totalWords">0</span></div>
+      </div>
+
+      <div class="family-selector" id="familySelector">
+        <button class="family-btn active" data-family="at">-at</button>
+        <button class="family-btn" data-family="an">-an</button>
+        <button class="family-btn" data-family="ig">-ig</button>
+        <button class="family-btn" data-family="op">-op</button>
+        <button class="family-btn" data-family="ug">-ug</button>
+        <button class="family-btn" data-family="en">-en</button>
+      </div>
+
+      <div class="game-area">
+        <div class="family-display">
+          <div class="label">Word Family:</div>
+          <div class="family-ending" id="familyEnding">-at</div>
+        </div>
+
+        <div class="word-display" id="wordDisplay">
+          <span class="onset">c</span><span class="rime">at</span>
+        </div>
+
+        <div class="onset-choices" id="onsetChoices"></div>
+
+        <div class="words-found">
+          <div class="label">Words you've made:</div>
+          <div class="found-words" id="foundWords"></div>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-say" onclick="sayWord()">Say It</button>
+          <button class="btn btn-next" onclick="nextFamily()">Next Family</button>
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+        <div class="timer">Family progress: <span id="foundCount">0</span>/<span id="totalInFamily">0</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const families = {
+      'at': {
+        rime: 'at',
+        onsets: ['c', 'h', 'b', 'm', 'r', 's', 'p', 'f', 'v', 'fl', 'br', 'ch'],
+        validWords: ['cat', 'hat', 'bat', 'mat', 'rat', 'sat', 'pat', 'fat', 'vat', 'flat', 'brat', 'chat']
+      },
+      'an': {
+        rime: 'an',
+        onsets: ['c', 'm', 'p', 'f', 'r', 't', 'v', 'b', 'pl', 'sp', 'br'],
+        validWords: ['can', 'man', 'pan', 'fan', 'ran', 'tan', 'van', 'ban', 'plan', 'span', 'bran']
+      },
+      'ig': {
+        rime: 'ig',
+        onsets: ['p', 'b', 'd', 'w', 'f', 'j', 'r', 'tw', 'sp'],
+        validWords: ['pig', 'big', 'dig', 'wig', 'fig', 'jig', 'rig', 'twig', 'sprig']
+      },
+      'op': {
+        rime: 'op',
+        onsets: ['t', 'h', 'p', 'm', 'c', 'st', 'sh', 'dr', 'ch', 'fl'],
+        validWords: ['top', 'hop', 'pop', 'mop', 'cop', 'stop', 'shop', 'drop', 'chop', 'flop']
+      },
+      'ug': {
+        rime: 'ug',
+        onsets: ['b', 'h', 'm', 'r', 't', 'd', 'j', 'pl', 'sl', 'sn'],
+        validWords: ['bug', 'hug', 'mug', 'rug', 'tug', 'dug', 'jug', 'plug', 'slug', 'snug']
+      },
+      'en': {
+        rime: 'en',
+        onsets: ['p', 'h', 't', 'm', 'd', 'th', 'wh', 'gl'],
+        validWords: ['pen', 'hen', 'ten', 'men', 'den', 'then', 'when', 'glen']
+      }
+    };
+
+    let currentFamily = 'at';
+    let foundWords = new Set();
+    let currentOnset = '';
+    let totalWordsFound = 0;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setupFamilyButtons();
+      loadFamily('at');
+    });
+
+    function setupFamilyButtons() {
+      document.querySelectorAll('.family-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.family-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          loadFamily(btn.dataset.family);
+        });
+      });
+    }
+
+    function loadFamily(family) {
+      currentFamily = family;
+      foundWords.clear();
+      currentOnset = '';
+
+      const data = families[family];
+      document.getElementById('familyEnding').textContent = '-' + data.rime;
+      document.getElementById('foundWords').innerHTML = '';
+      document.getElementById('foundCount').textContent = '0';
+      document.getElementById('totalInFamily').textContent = data.validWords.length;
+      document.getElementById('feedback').textContent = '';
+
+      renderOnsets();
+      updateWordDisplay();
+    }
+
+    function renderOnsets() {
+      const container = document.getElementById('onsetChoices');
+      const data = families[currentFamily];
+      container.innerHTML = '';
+
+      data.onsets.forEach(onset => {
+        const btn = document.createElement('button');
+        btn.className = 'onset-btn';
+        btn.textContent = onset;
+
+        const word = onset + data.rime;
+        if (foundWords.has(word)) {
+          btn.classList.add('used');
+        }
+        if (onset === currentOnset) {
+          btn.classList.add('current');
+        }
+
+        btn.onclick = () => selectOnset(onset);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectOnset(onset) {
+      currentOnset = onset;
+      const data = families[currentFamily];
+      const word = onset + data.rime;
+
+      updateWordDisplay();
+      renderOnsets();
+
+      // Check if it's a valid word
+      if (data.validWords.includes(word) && !foundWords.has(word)) {
+        foundWords.add(word);
+        totalWordsFound++;
+
+        document.getElementById('totalWords').textContent = totalWordsFound;
+        document.getElementById('foundCount').textContent = foundWords.size;
+        document.getElementById('feedback').textContent = `"${word}" is a word!`;
+        document.getElementById('feedback').className = 'feedback correct';
+
+        // Add to found words display
+        const foundContainer = document.getElementById('foundWords');
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'found-word';
+        wordSpan.textContent = word;
+        foundContainer.appendChild(wordSpan);
+
+        renderOnsets();
+
+        // Check if family complete
+        if (foundWords.size === data.validWords.length) {
+          document.getElementById('feedback').textContent = 'Family complete! Try another!';
+          document.getElementById('feedback').className = 'feedback info';
+        }
+      } else if (foundWords.has(word)) {
+        document.getElementById('feedback').textContent = 'Already found!';
+        document.getElementById('feedback').className = 'feedback info';
+      }
+    }
+
+    function updateWordDisplay() {
+      const data = families[currentFamily];
+      const display = document.getElementById('wordDisplay');
+
+      if (currentOnset) {
+        display.innerHTML = `<span class="onset">${currentOnset}</span><span class="rime">${data.rime}</span>`;
+      } else {
+        display.innerHTML = `<span class="onset">?</span><span class="rime">${data.rime}</span>`;
+      }
+    }
+
+    function sayWord() {
+      if (!currentOnset) return;
+
+      const data = families[currentFamily];
+      const word = currentOnset + data.rime;
+
+      // Use Web Speech API if available
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.rate = 0.8;
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    function nextFamily() {
+      const familyKeys = Object.keys(families);
+      const currentIndex = familyKeys.indexOf(currentFamily);
+      const nextIndex = (currentIndex + 1) % familyKeys.length;
+      const nextFamily = familyKeys[nextIndex];
+
+      // Update button
+      document.querySelectorAll('.family-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.family === nextFamily);
+      });
+
+      loadFamily(nextFamily);
+    }
+  </script>
+</body>
+</html>

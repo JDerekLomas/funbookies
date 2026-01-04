@@ -1,0 +1,250 @@
+{
+  "title": "Rats in the Castle",
+  "level": "orange",
+  "character": {
+    "names": ["Rita", "Rico"],
+    "rita": {
+      "species": "small brown rat",
+      "fur": "light brown/tan fur",
+      "eyes": "large round black eyes with white highlight dots",
+      "distinguishing_feature": "tiny red bow on right ear",
+      "expression_default": "eager, excited, eyes wide",
+      "body": "small and slim, about 4 inches tall, long thin pink tail",
+      "personality": "bold, adventurous, always ready to go"
+    },
+    "rico": {
+      "species": "small brown rat",
+      "fur": "darker brown fur than Rita",
+      "eyes": "large round black eyes with white highlight dots",
+      "distinguishing_feature": "tiny blue bandana around neck",
+      "expression_default": "thoughtful, slightly worried, one eyebrow raised",
+      "body": "small and slim, about 4 inches tall, long thin pink tail",
+      "personality": "careful, thoughtful, likes to plan"
+    },
+    "style_notes": "Both rats are cute and friendly looking. Simple shapes - bodies are oval, heads are round. Bold black outlines. No realistic fur texture - flat colors with minimal shading. Pink inner ears, pink noses, pink tails and paws."
+  },
+  "art_direction": {
+    "style": "Expressive Minimal - Mo Willems expressiveness meets Jon Klassen restraint. Bold black outlines (hand-drawn feel), flat color fills, subtle paper texture overlay, minimal backgrounds",
+    "influences": ["Mo Willems (Elephant & Piggie)", "Jon Klassen (I Want My Hat Back)", "Pete the Cat"],
+    "palette": {
+      "rita_fur": "#D4A574",
+      "rico_fur": "#8B6914",
+      "rita_bow": "#E53935",
+      "rico_bandana": "#1E88E5",
+      "castle_stone": "#9E9E9E",
+      "castle_accent": "#7B1FA2",
+      "cat_fur": "#FF8A65",
+      "jam": "#C62828",
+      "background_warm": "#FFF8E1",
+      "background_cool": "#E3F2FD"
+    },
+    "character_contrast": {
+      "rita": "warm energy, initiates action, round open shapes, eyes wide, leans forward",
+      "rico": "cool energy, questions plans, slightly angular, one eyebrow raised, leans back"
+    },
+    "humor_techniques": [
+      "Exaggerated expressions (eyes popping, jaw dropping)",
+      "Deadpan moments after big action",
+      "Scale contrast (tiny rats, huge castle)",
+      "Food mess payoff (jam on faces)",
+      "Character personality contrast as comedy"
+    ],
+    "dual_audience": {
+      "kids": "Physical comedy, exaggerated reactions, repetition with escalation, messy outcomes",
+      "adults": "Deadpan restraint, personality dynamics, knowingness, subverted expectations"
+    },
+    "technical": {
+      "aspect_ratio": "4:3 landscape",
+      "resolution": "2048x1536 minimum",
+      "negative_prompts": "realistic, 3D render, photograph, complex background, gradient shading, scary, grotesque, text, words, letters, busy composition"
+    },
+    "must_include": "NO TEXT IN IMAGE",
+    "avoid": "realistic style, detailed textures, scary expressions, complex backgrounds, generic stock illustration style, overly smooth digital rendering"
+  },
+  "word_list": {
+    "decodable": {
+      "cvc": ["big", "run", "ran", "hid", "got", "sat", "cat", "hat", "cup", "jam", "can", "did", "not", "but", "let", "get", "yum", "sun"],
+      "digraphs": ["that", "with", "much", "dash", "rush", "hush", "shh", "dish"]
+    },
+    "sight_words": {
+      "flash": ["the", "to", "a", "in", "it", "is", "we", "go", "no", "see", "and", "for", "they"],
+      "heart": ["said", "was", "away"]
+    },
+    "vocabulary": {
+      "topic": ["castle", "king", "queen", "jam"],
+      "character": ["Rita", "Rico"]
+    }
+  },
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Rats in the Castle",
+      "image_prompt": "COVER IMAGE: Two small cartoon rats standing heroically at the entrance of a purple-gray stone castle. LEFT: Rita (light tan fur, red bow on right ear, excited expression with big smile). RIGHT: Rico (darker brown fur, blue bandana around neck, slightly nervous but curious expression). Castle behind them has a large wooden door and two towers. Warm golden lighting suggesting adventure ahead. Both rats looking at viewer. Simple flat cartoon style, bold black outlines, bright saturated colors, solid color background, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know",
+      "sections": {
+        "sound_it_out": ["big", "run", "hid", "got", "sat", "cat", "hat", "cup", "jam", "dash", "rush"],
+        "know_by_heart": ["the", "said", "was", "they", "to", "a", "we"],
+        "new_words": ["castle", "king", "queen", "Rita", "Rico"]
+      },
+      "image_prompt": null
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Rita and Rico sat in the sun.",
+      "beat": "setup - introduce characters at rest",
+      "image_prompt": "WIDE SHOT: Peaceful outdoor scene. Two small cartoon rats sitting on a grassy hill. LEFT: Rita (light tan fur, red bow on right ear) sitting relaxed, face tilted up enjoying the warmth, eyes closed happily, small content smile. RIGHT: Rico (darker brown fur, blue bandana) sitting beside her, also relaxed but eyes open, looking at the sky. Bright yellow sun in upper corner. Simple green grass, light blue sky. Both rats small in frame to show peaceful setting. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "Rita saw the big castle.",
+      "beat": "inciting incident - Rita spots goal",
+      "image_prompt": "MEDIUM SHOT: Rita (light tan fur, red bow on right ear) in left third of frame, shown from side/back, pointing with one paw toward a large castle in the distance. Her expression is excited - eyes wide, mouth open in an 'O' of wonder. The castle is in the right two-thirds, shown smaller to indicate distance - gray stone walls, purple roof, two towers. Rico visible behind Rita, looking where she's pointing with curious but uncertain expression. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "\"Let's go!\" said Rita.",
+      "beat": "Rita's catchphrase - shows bold personality",
+      "image_prompt": "CLOSE-UP on Rita (light tan fur, red bow on right ear). She is shown from chest up, facing slightly left. Expression: huge excited grin, eyes sparkling with white highlight dots, one paw raised in a 'let's do this' fist pump gesture. Her whole body language shows eagerness - leaning forward slightly. Background is simple solid light blue. This is her 'catchphrase moment' - maximum enthusiasm. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "\"But wait!\" said Rico.",
+      "beat": "Rico's catchphrase - shows cautious personality",
+      "image_prompt": "CLOSE-UP on Rico (darker brown fur, blue bandana around neck). He is shown from chest up, facing slightly right. Expression: worried/uncertain - one eyebrow raised, mouth in concerned frown, one paw held up in a 'stop/wait' gesture with palm out. His body language shows hesitation - shoulders slightly hunched. Background is simple solid light blue. This is his 'catchphrase moment' - showing his careful nature. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "In they ran!",
+      "beat": "action - entering castle together",
+      "image_prompt": "DYNAMIC ACTION SHOT: View from inside castle looking out at the large open doorway. Both rats are mid-run entering through the door - motion lines behind them suggesting speed. LEFT: Rita (light tan fur, red bow) leading, one foot forward, arms pumping, excited grin. RIGHT: Rico (darker brown fur, blue bandana) slightly behind, running but with more hesitant expression. Light streams in from doorway behind them. Castle interior is shadowy gray stone. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "The castle was big!",
+      "beat": "reaction - awe at scale",
+      "image_prompt": "LOW ANGLE SHOT looking up: Both rats are tiny at bottom of frame, shown from behind, looking up at the massive castle interior. The ceiling is very high with stone arches. A grand staircase is visible. Purple banners hang from walls. The rats are SMALL in frame to emphasize the castle's size - Rita (red bow visible) and Rico (blue bandana visible) standing close together, both with heads tilted way back looking up. Their small size contrasts with the huge space. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "Rita saw jam in a dish.",
+      "beat": "goal discovered",
+      "image_prompt": "MEDIUM SHOT: Rita (light tan fur, red bow on right ear) in foreground left, shown in profile, pointing excitedly at something. Her eyes are huge, mouth open in delighted gasp, practically drooling. In the right side of frame: a fancy golden dish on a small table containing bright red jam that glistens. Rico visible behind Rita, also looking at the jam with interest but less intensely. The jam should look delicious and be clearly visible as the focal point. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "\"Jam! Jam! Jam!\" said Rita.",
+      "beat": "excitement peaks - Rita's desire",
+      "image_prompt": "CLOSE-UP on Rita (light tan fur, red bow on right ear): She is bouncing with excitement - shown mid-hop with feet off ground. Expression is pure joy - enormous smile showing tiny teeth, eyes squeezed into happy crescents, paws clasped together near her chest. Small motion lines around her show her bouncing/vibrating with excitement. Background is simple - maybe hint of the jam dish. She looks like she might explode from happiness. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "But then... a cat!",
+      "beat": "PAGE TURN SURPRISE - danger arrives",
+      "image_prompt": "DRAMATIC REVEAL SHOT: Large orange tabby cat emerging from shadows on the right side of frame. The cat takes up most of the frame - shown from chest up, facing left toward viewer. Expression is predatory - eyes narrowed, slight smirk, ears forward. Orange fur with darker orange stripes. The cat should look menacing but still cartoon-style (not scary-realistic). Left edge of frame shows tiny glimpse of the rats looking shocked. Dark/shadowy background to add drama. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "\"Run!\" said Rico.",
+      "beat": "Rico takes charge in crisis",
+      "image_prompt": "ACTION SHOT: Rico (darker brown fur, blue bandana) in foreground, shown from waist up, turned to face Rita while also looking back at danger. His expression is urgent - eyes wide with alarm, mouth open shouting, one paw grabbing Rita's arm to pull her. Rita (light tan fur, red bow) visible beside him, also looking scared. Cat's shadow or paw visible at edge of frame suggesting the threat. Rico is being brave despite his usually cautious nature - this is his hero moment. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "Dash! Rush! Run!",
+      "beat": "chase sequence with sound words",
+      "image_prompt": "DYNAMIC CHASE SCENE: Both rats running at full speed from right to left across the frame. Multiple motion lines and small dust clouds behind them showing extreme speed. Rita (light tan fur, red bow flying back) and Rico (darker brown fur, blue bandana streaming) running side by side, legs blurred with motion. Their expressions show fear/determination - wide eyes looking forward. Behind them in the background, the large orange cat is chasing, mouth open. The rats should look fast and desperate. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "Rita hid in a cup.",
+      "beat": "clever hiding - Rita",
+      "image_prompt": "MEDIUM SHOT: A large ornate teacup (white with purple decorative pattern) on a table surface. Rita (light tan fur, red bow visible on right ear) is peeking out from inside the cup - only her face and paws gripping the rim are visible. Her expression is worried but hopeful - wide eyes looking out nervously, ears pressed flat. The cup is large relative to her size. Background shows blurred castle interior. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "Rico hid in a hat.",
+      "beat": "clever hiding - Rico (parallel structure)",
+      "image_prompt": "MEDIUM SHOT: A fancy purple hat with a feather lying on its side on the floor. Rico (darker brown fur, blue bandana visible around neck) is hiding underneath it - only his face is visible peeking out from under the brim, with his paws holding up the edge slightly. His expression is nervous - one eye squinting, biting his lip, ears pressed back. The hat is large relative to his size. Background shows blurred castle floor. Composition mirrors the previous Rita page. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "The cat sat. And sat. And sat.",
+      "beat": "tension - waiting game",
+      "image_prompt": "WIDE SHOT: The large orange tabby cat sitting in the center of the frame, looking around suspiciously. The cat's posture is alert - sitting upright, tail wrapped around paws, ears swiveling, eyes scanning. In the background, slightly out of focus but visible: the teacup (with tiny hint of Rita's eyes peeking out) on the left, and the hat (with tiny hint of Rico's eyes) on the right. The cat doesn't see them. Tension in the scene - the cat is patient and waiting. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "Shh! Shh! Shh!",
+      "beat": "quiet tension - holding breath",
+      "image_prompt": "SPLIT COMPOSITION: Two circular vignettes side by side like peepholes. LEFT CIRCLE: Close-up of Rita's face peeking from inside the teacup - her eyes are wide, one paw held to her lips in a 'shh' gesture, expression is 'please don't find us'. RIGHT CIRCLE: Close-up of Rico's face peeking from under the hat - same 'shh' gesture with paw to lips, eyes darting nervously. Both rats are holding their breath. Background outside the circles is dark/shadowy. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 18,
+      "type": "story",
+      "text": "The cat ran away!",
+      "beat": "danger passes",
+      "image_prompt": "MEDIUM SHOT: The orange cat running out of frame to the right, only its back half and tail visible - clearly leaving in a hurry. Perhaps it heard something else or got bored. Its tail is the last thing visible. In the foreground left, the teacup and hat are visible with the rats still hiding but now with hopeful/relieved expressions peeking out - Rita's eyes showing relief from the cup, Rico cautiously looking out from under the hat. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 19,
+      "type": "story",
+      "text": "\"We did it!\" said Rita.",
+      "beat": "celebration - relief and triumph",
+      "image_prompt": "JOYFUL ACTION SHOT: Both rats emerging from their hiding spots with celebration. Rita (light tan fur, red bow) is jumping out of the teacup with arms raised in victory, huge triumphant grin, eyes squeezed shut with joy. Rico (darker brown fur, blue bandana) is pushing up the hat and climbing out, expression is relieved smile - less exuberant than Rita but genuinely happy. The teacup and hat are visible. Background shows safe castle interior. Motion lines around Rita showing her jump. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 20,
+      "type": "story",
+      "text": "They got the jam!",
+      "beat": "goal achieved",
+      "image_prompt": "MEDIUM SHOT: Both rats sitting at the dish of jam, happily eating. Rita (light tan fur, red bow, now with red jam smeared around her mouth) is diving face-first into the jam with abandon. Rico (darker brown fur, blue bandana, also with jam on his face) is eating more politely but clearly enjoying it - holding a pawful of jam. The golden dish of red jam is between them. Both look blissfully happy. Background is simple. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 21,
+      "type": "story",
+      "text": "\"Yum! Yum! Yum!\"",
+      "beat": "enjoyment - mirrors earlier Jam! Jam! Jam!",
+      "image_prompt": "CLOSE-UP: Both rats' faces filling the frame, side by side, both looking at viewer with huge satisfied smiles. Both have red jam smeared all around their mouths and on their cheeks. Rita (light tan fur, red bow - bow also has jam on it) has eyes closed in bliss. Rico (darker brown fur, blue bandana) has eyes half-closed contentedly. Their expressions are pure satisfaction and fullness. This mirrors the earlier 'Jam! Jam! Jam!' excitement but now with fulfillment. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 22,
+      "type": "story",
+      "text": "\"Let's go back!\" said Rita.",
+      "beat": "callback to catchphrase - heading home",
+      "image_prompt": "MEDIUM SHOT: Rita (light tan fur, red bow, jam still on face) pointing toward the castle exit (doorway visible with light streaming in). She has the same excited pose as her earlier 'Let's go!' moment but now satisfied rather than eager - one paw pointing, slight smile, relaxed posture. Rico (darker brown fur, blue bandana, jam on face) is standing beside her, nodding in agreement with a content smile. Both look full and happy. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 23,
+      "type": "story",
+      "text": "And they did!",
+      "beat": "resolution - successful adventure complete",
+      "image_prompt": "WIDE SHOT - SUNSET ENDING: Both rats walking away from the castle together, shown from behind, walking toward a warm orange/pink sunset. Rita (light tan fur, red bow visible) on left, Rico (darker brown fur, blue bandana visible) on right. They are walking close together, Rita's arm around Rico's shoulder in friendship. Their long pink tails curve behind them. The castle is behind them, getting smaller. They are silhouetted slightly against the warm sunset colors. Feeling of friendship and successful adventure. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 24,
+      "type": "end",
+      "text": "The End",
+      "image_prompt": "FINAL IMAGE: Both rats facing the viewer, waving goodbye with big friendly smiles. Between them on the ground is a small jar of jam - their trophy/souvenir. Rita (light tan fur, red bow, clean face now) is waving enthusiastically with whole arm. Rico (darker brown fur, blue bandana, clean face) is waving more calmly but warmly. Background is simple warm color (peach or light orange). Both look happy and satisfied. This is a 'goodbye for now' moment. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    }
+  ]
+}

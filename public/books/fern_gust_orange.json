@@ -1,0 +1,250 @@
+{
+  "title": "Fern and the Gust",
+  "level": "orange",
+  "theme": "Air elemental - small mouse befriends an invisible wind spirit",
+  "character": {
+    "names": ["Fern", "Gust"],
+    "fern": {
+      "species": "small field mouse",
+      "color": "soft brown with cream belly (#8D6E63 body, #EFEBE9 belly)",
+      "eyes": "large round dark eyes with warm brown highlights, expressive and eager",
+      "distinguishing_feature": "tail curls like a fern frond spiral at the end",
+      "expression_default": "eager, bright, energetic - always leaning forward",
+      "body": "small and round, about 2 inches, big round ears, pink nose, fern-spiral tail",
+      "personality": "energetic, curious, wants to understand everything, persistent, joyful"
+    },
+    "gust": {
+      "species": "wind spirit (invisible)",
+      "appearance": "Gust is NEVER drawn directly - only through effects: swirling leaves, bending grass, moving clouds, rippling fur, flying petals",
+      "personality": "playful, mischievous, free-spirited, gentle but powerful, everywhere and nowhere"
+    },
+    "catchphrase": "I can not see it!",
+    "style_notes": "Fern is round and cute with big ears. Simple shapes - body is oval, head is round. Bold black outlines. Flat brown color with cream belly. The fern-spiral tail is always visible and distinctive. Gust is shown ONLY through movement effects - leaves, grass bending, swirls, Fern's fur ruffling. The challenge is making an invisible character visible through consequences."
+  },
+  "art_direction": {
+    "style": "Expressive Minimal with kinetic energy - Mo Willems expressiveness meets movement and swirls. Bold black outlines, flat color fills, LOTS of motion lines and movement effects to show the wind",
+    "influences": ["Mo Willems (expression)", "Hayao Miyazaki (wind animation)", "The Snowy Day (simple wonder)"],
+    "palette": {
+      "fern_body": "#8D6E63",
+      "fern_belly": "#EFEBE9",
+      "fern_ears": "#FFAB91",
+      "grass_green": "#81C784",
+      "grass_light": "#C5E1A5",
+      "leaf_orange": "#FF8A65",
+      "leaf_red": "#E57373",
+      "leaf_yellow": "#FFF176",
+      "sky_blue": "#90CAF9",
+      "cloud_white": "#FAFAFA",
+      "background_warm": "#FFF8E1",
+      "swirl_lines": "#B0BEC5"
+    },
+    "mood": "Playful, kinetic, wondering, learning to feel what you can't see",
+    "humor_techniques": [
+      "Fern's fur blown silly directions",
+      "Leaves hitting Fern in the face",
+      "Fern spinning from wind",
+      "Frustration at the invisible (comedic)",
+      "Physical comedy of wind effects"
+    ],
+    "dual_audience": {
+      "kids": "Wind is fun, leaves flying, spinning, playful chase, friendship with something invisible",
+      "adults": "Learning to perceive the invisible, befriending the intangible, air as spirit/breath, trust in what you feel"
+    },
+    "technical": {
+      "aspect_ratio": "4:3 landscape",
+      "resolution": "2048x1536 minimum",
+      "negative_prompts": "realistic, 3D render, photograph, complex background, gradient shading, scary, grotesque, text, words, letters, busy composition, visible wind spirit character"
+    },
+    "must_include": "NO TEXT IN IMAGE. Gust is NEVER drawn as a visible character - only through effects.",
+    "avoid": "realistic style, detailed textures, drawing wind as a character with a face/body, complex backgrounds"
+  },
+  "word_list": {
+    "decodable": {
+      "cvc": ["run", "fun", "sun", "can", "did", "not", "got", "hit", "bit", "sit", "hid", "big", "zig", "zag"],
+      "digraphs": ["rush", "gush", "push", "wish", "with", "that", "this", "whiz", "puff", "huff", "swish", "spin"]
+    },
+    "sight_words": {
+      "flash": ["the", "to", "a", "in", "it", "is", "I", "go", "no", "see", "said", "was", "my", "you", "are", "where"],
+      "heart": ["what", "there", "here", "could"]
+    },
+    "vocabulary": {
+      "topic": ["wind", "gust", "leaf", "air"],
+      "character": ["Fern", "Gust"]
+    }
+  },
+  "phonics_focus": ["short vowels CVC", "digraphs sh/th/wh", "double letters ff"],
+  "refrain": "I can not see it!",
+  "emotional_arc": "curious -> frustrated -> playful -> wondering -> accepting -> joyful",
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Fern and the Gust",
+      "image_prompt": "COVER IMAGE: A small brown field mouse (Fern) standing on a grassy hill, eyes wide with wonder, as colorful autumn leaves swirl all around her in a spiral pattern. Fern has large round ears, cream belly, and a distinctive tail that curls like a fern frond. Her fur is ruffled by invisible wind. Leaves in orange, red, yellow swirl dynamically around her suggesting a playful wind presence (Gust). Fern's expression is delighted surprise. Blue sky, green grass, motion lines showing wind direction. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE. Do NOT draw the wind as a character - only show it through the swirling leaves and movement effects."
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know",
+      "sections": {
+        "sound_it_out": ["run", "fun", "rush", "gush", "puff", "huff", "spin", "swish", "whiz"],
+        "know_by_heart": ["the", "said", "was", "to", "I", "a", "where", "you", "are", "see"],
+        "new_words": ["wind", "gust", "leaf", "Fern"]
+      },
+      "image_prompt": null
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Fern sat in the sun.",
+      "beat": "setup - peaceful beginning",
+      "image_prompt": "MEDIUM SHOT: A small brown field mouse (Fern) sitting contentedly on a grassy hill in warm sunshine. Fern has large round ears (pink inside), cream belly, big dark eyes with warm highlights, and a tail that curls like a fern frond at the end. She's relaxed - eyes half-closed, small content smile, enjoying the warmth. Simple green grass, blue sky, yellow sun. Everything is still and peaceful. No wind yet. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "Swish! The grass did sway!",
+      "beat": "inciting incident - something invisible arrives",
+      "image_prompt": "MEDIUM SHOT: Same scene but now the grass around Fern is bending and swaying! Motion lines show movement sweeping across from right to left. Fern's fur is starting to ruffle, her big ears are blowing back. Her expression has changed to alert surprise - eyes wide, head tilted. The grass bends in waves. Leaves are starting to lift off the ground. Something invisible is passing through. Fern looks around, confused. Simple flat cartoon style, bold black outlines, lots of motion lines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "\"What was that?\" said Fern.",
+      "beat": "question - Fern is curious",
+      "image_prompt": "CLOSE-UP on Fern (brown mouse): She's looking around with searching eyes, head turning. Her expression is curious confusion - eyebrows up, mouth slightly open in question. Her fur is still ruffled from the wind that passed. Her fern-spiral tail is visible, also windswept. She's trying to see what moved the grass. Background shows the swaying grass settling. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "Whoosh! A leaf hit Fern!",
+      "beat": "physical comedy - the wind plays",
+      "image_prompt": "DYNAMIC ACTION SHOT: A colorful orange leaf has just SMACKED right onto Fern's face! Fern is startled - body leaning back, arms out, the leaf stuck to her nose/face. Motion lines show the leaf's trajectory. Other leaves are flying past her. Her fern-spiral tail is blown straight out behind her. The scene is silly and surprising. More swirling leaves in the air suggest the wind is back and playful. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "\"I can not see it!\" said Fern.",
+      "beat": "catchphrase - frustration at the invisible",
+      "image_prompt": "CLOSE-UP on Fern: She's pulled the leaf off her face and is looking around with frustrated confusion. Her expression shows determination mixed with puzzlement - eyebrows furrowed, mouth in a puzzled frown, eyes scanning. Her fur is all mussed up from the wind. She's trying SO hard to see what's doing this to her. Her fern-spiral tail curls with agitation. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "Puff! Puff! Puff!",
+      "beat": "the wind keeps playing - persistent presence",
+      "image_prompt": "SEQUENCE SHOT: Three poses of Fern being puffed by invisible wind from different directions. LEFT: Puff from right, she leans left. MIDDLE: Puff from left, she leans right. RIGHT: Puff from above, she's squished down. Her fur blown in different directions each time. Motion lines and small swirl marks show the wind puffs. Fern's expression goes from surprised to more surprised to 'okay this is ridiculous' deadpan. Comedy of invisible force. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "Fern did run!",
+      "beat": "chase begins - trying to catch the invisible",
+      "image_prompt": "ACTION SHOT: Fern (brown mouse) running at full speed across the grass, chasing... nothing visible! Her legs are a blur of motion, fern-spiral tail streaming behind, ears back. She's running toward swirling leaves ahead of her - that's where the wind is! Her expression is determined - eyes focused forward, slight grin of the chase. Motion lines behind her. The grass bends ahead where Gust is 'running.' Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "Run, Fern, run!",
+      "beat": "chase continues - audience cheering",
+      "image_prompt": "WIDE DYNAMIC SHOT: Fern (brown mouse) small in the frame, running across a hillside. Ahead of her, a trail of bent grass and swirling leaves shows where Gust is 'running' - the wind is leading her on a merry chase. The path of disturbance winds across the hill. Fern is giving chase with enthusiasm, fern-spiral tail bouncing. The scene shows the invisible being visible through its effects. Fun and energetic. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "Zig! Zag! Spin!",
+      "beat": "playful chaos - the wind is having fun",
+      "image_prompt": "CHAOTIC ACTION SHOT: Fern (brown mouse) shown spinning/tumbling as the wind plays with her! She's slightly off the ground, caught in a swirl of leaves and grass bits. Her fern-spiral tail is whirling. Her expression is dizzy but laughing - eyes spinning, silly grin. The composition shows circular motion - leaves and debris in a spiral pattern with Fern at the center. Gust is playing with her like a cat with a toy, but gently. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "Fern got dizzy!",
+      "beat": "consequence - spun silly",
+      "image_prompt": "MEDIUM SHOT: Fern (brown mouse) has plopped down on the grass, dizzy from spinning. She's sitting with a wobbly posture, eyes going in circles (cartoon dizzy spirals), small silly smile. Her fur is completely disheveled, pointing in all directions. Her fern-spiral tail is corkscrewed extra tight. Leaves are still settling around her. She looks ridiculous but happy. The wind has stopped for the moment. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "\"Where are you?\" said Fern.",
+      "beat": "direct address - Fern talks to the wind",
+      "image_prompt": "MEDIUM SHOT: Fern (brown mouse) sitting up, recovered from dizziness, looking around and CALLING OUT to the air. Her posture is open - arms slightly spread, head turning, mouth open as if calling. Her expression is curious and friendly now - she's not frustrated, she wants to connect. She's addressing Gust directly, even though she can't see anything. The air around her is momentarily still. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "A gust did hush.",
+      "beat": "response - the wind calms, listens",
+      "image_prompt": "QUIET WIDE SHOT: Stillness. Fern (brown mouse) small in the center of the frame, surrounded by grass that is now completely still. Leaves have settled on the ground around her. The air is calm. Fern is looking around with wonder - did the wind hear her? Her expression is soft, waiting. The scene feels like held breath - everything paused. Gust is listening. Simple flat cartoon style, bold black outlines, minimal motion, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "Then... a soft puff.",
+      "beat": "gentle response - Gust answers softly",
+      "image_prompt": "TENDER MEDIUM SHOT: A gentle breeze - just a small puff - ruffles Fern's fur softly from the front. Her ears move back gently, her fur ripples slightly. The movement is gentle, not wild like before. Fern's expression is surprised recognition - eyes wide but soft, small 'oh' mouth. This puff feels intentional, like a greeting. A few grass blades bend toward her. Gust is saying hello properly. Simple flat cartoon style, bold black outlines, subtle motion lines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "Fern did grin.",
+      "beat": "connection made - understanding begins",
+      "image_prompt": "CLOSE-UP on Fern's face: A huge, delighted grin spreads across her face. Her eyes are bright, sparkling with joy and understanding. Her fur is gently ruffled by the soft wind. She gets it now - she might not see Gust, but Gust is real, and Gust is friendly. Her fern-spiral tail (visible at edge of frame) curls happily. This is the moment of connection. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "\"You are the gust!\" said Fern.",
+      "beat": "naming - Fern gives identity to the invisible",
+      "image_prompt": "MEDIUM SHOT: Fern (brown mouse) pointing at... nothing, but pointing with confidence and joy. She's addressing the air directly, recognizing Gust as a real being. Her expression is triumphant and friendly - big smile, eyes bright. Around her, a gentle swirl of leaves rises as if in response - Gust is pleased to be recognized. The wind effect is gentle, happy. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 18,
+      "type": "story",
+      "text": "Rush! Swish! Whiz!",
+      "beat": "celebration - Gust plays joyfully",
+      "image_prompt": "JOYFUL ACTION SHOT: Now the wind is playing with Fern TOGETHER, not AT her. Fern (brown mouse) is running and laughing, arms out, as leaves swirl around her in a joyful dance. Her fur streams back, her fern-spiral tail flies. But she's not being buffeted - she's dancing WITH the wind. The motion is harmonious, celebratory. Leaves form playful patterns around her. Two friends playing. Simple flat cartoon style, bold black outlines, lots of joyful motion, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 19,
+      "type": "story",
+      "text": "\"This is fun!\" said Fern.",
+      "beat": "declaration of joy - pure happiness",
+      "image_prompt": "DYNAMIC SHOT: Fern (brown mouse) mid-leap or mid-spin, arms up, face full of joy - eyes squeezed in happiness, huge grin. Leaves spiral around her like confetti. Her fern-spiral tail curls with delight. She's having the time of her life playing with her invisible friend. The wind lifts her slightly (she's a light mouse). Everything is movement and joy. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 20,
+      "type": "story",
+      "text": "Fern sat with Gust.",
+      "beat": "peace - resting together",
+      "image_prompt": "PEACEFUL WIDE SHOT: Fern (brown mouse) sitting contentedly on the grass as the sun begins to set (warm orange sky). Around her, the grass sways gently, leaves drift slowly - Gust is still there, just calm now. Fern's fur ruffles softly in the gentle breeze. Her expression is peaceful contentment - soft smile, relaxed posture. Two friends sitting together, one visible, one not. The wind is present in the gentle movement of everything. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 21,
+      "type": "story",
+      "text": "\"I can not see you,\" said Fern.",
+      "beat": "acceptance - seeing isn't everything",
+      "image_prompt": "TENDER CLOSE-UP: Fern (brown mouse) with a gentle, wise expression - small knowing smile, eyes soft. She's speaking to the air beside her, comfortable with the invisible. Her fur ripples slightly in a warm breeze. Her fern-spiral tail is relaxed. She's accepted that some friends can't be seen. The moment is intimate and peaceful. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 22,
+      "type": "story",
+      "text": "\"But I can feel you.\"",
+      "beat": "wisdom - the lesson crystallizes",
+      "image_prompt": "EMOTIONAL CLOSE-UP: Fern (brown mouse) with eyes closed, peaceful smile, as a gentle wind ruffles her fur and ears. She's FEELING her friend. The wind's presence is shown in the soft movement of her fur, the way her ears tilt. Perhaps a single leaf drifts past gently. The moment is pure contentment - she doesn't need to see to know. Simple flat cartoon style, bold black outlines, subtle motion, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 23,
+      "type": "story",
+      "text": "Gust did swish.",
+      "beat": "response - Gust affirms the connection",
+      "image_prompt": "RESPONSE SHOT: A gentle, affectionate swirl of wind circles Fern (brown mouse) - shown by leaves making a soft spiral around her, grass bending toward her, a warm embracing motion. Fern's expression is happy receiving - she feels the wind's 'hug'. The swirl is gentle and loving. Gust is saying 'yes, I'm here, and I feel you too.' Simple flat cartoon style, bold black outlines, warm swirl motion, NO TEXT IN IMAGE"
+    },
+    {
+      "page": 24,
+      "type": "end",
+      "text": "The End",
+      "image_prompt": "FINAL IMAGE - SUNSET SCENE: Fern (brown mouse) sitting on her hill in warm sunset light, looking at the viewer with a knowing, happy smile. Behind and around her, leaves drift gently in the air, grass sways softly, suggesting Gust's continued presence. Her fur is gently ruffled. Her fern-spiral tail curls contentedly. She waves one small paw goodbye to the viewer. The scene is warm, peaceful, magical. Two friends together - one you can see, one you can only feel. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+    }
+  ]
+}

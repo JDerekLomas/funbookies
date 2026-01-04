@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activities - Funbookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 1000px; margin: 0 auto; }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      color: white;
+    }
+    .wordmark {
+      max-width: 280px;
+      width: 70%;
+      height: auto;
+      margin: 0 auto 10px;
+      display: block;
+      filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.2));
+    }
+    header p { font-size: 1.1rem; opacity: 0.9; }
+
+    .back-link {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    .back-link:hover { opacity: 1; text-decoration: underline; }
+
+    .section-title {
+      color: white;
+      font-size: 1.3rem;
+      margin: 30px 0 15px;
+      padding-left: 5px;
+    }
+
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .activity-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .activity-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .activity-icon {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+
+    .activity-icon.purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .activity-icon.green { background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%); }
+    .activity-icon.orange { background: linear-gradient(135deg, #FF9800 0%, #FFC107 100%); }
+    .activity-icon.blue { background: linear-gradient(135deg, #2196F3 0%, #03A9F4 100%); }
+    .activity-icon.pink { background: linear-gradient(135deg, #E91E63 0%, #FF5722 100%); }
+    .activity-icon.teal { background: linear-gradient(135deg, #009688 0%, #4DB6AC 100%); }
+
+    .activity-info {
+      padding: 20px;
+    }
+
+    .activity-info h3 {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .activity-info p {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .activity-info .level {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 12px;
+      background: #e3f2fd;
+      color: #1565c0;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .coming-soon {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .coming-soon .activity-icon::after {
+      content: 'Coming Soon';
+      position: absolute;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .activity-icon {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">&larr; Back to Books</a>
+
+    <header>
+      <img src="/images/wordmark_03.png" alt="Funbookies" class="wordmark">
+      <p>Practice reading skills with fun activities</p>
+    </header>
+
+    <div class="section-title">Assessments</div>
+    <div class="activities-grid">
+      <a href="/activities/phonics-assessment.html" class="activity-card">
+        <div class="activity-icon purple">🔤</div>
+        <div class="activity-info">
+          <h3>Phonics Assessment</h3>
+          <p>Find your reading level with an adaptive assessment. Tests CVC words, blends, digraphs, and more.</p>
+          <span class="level">5-10 minutes</span>
+        </div>
+      </a>
+
+      <a href="/activities/sight-words.html" class="activity-card">
+        <div class="activity-icon green">👁️</div>
+        <div class="activity-info">
+          <h3>Sight Words Practice</h3>
+          <p>Practice high-frequency words with spaced repetition flashcards.</p>
+          <span class="level">Dolch & Fry lists</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-title">Practice Games</div>
+    <div class="activities-grid">
+      <a href="/activities/word-builder.html" class="activity-card">
+        <div class="activity-icon orange">🧱</div>
+        <div class="activity-info">
+          <h3>Word Builder</h3>
+          <p>Drag letter tiles to build words. Start with CVC and progress to blends.</p>
+          <span class="level">All levels</span>
+        </div>
+      </a>
+
+      <a href="/activities/rhyme-match.html" class="activity-card">
+        <div class="activity-icon pink">🎵</div>
+        <div class="activity-info">
+          <h3>Rhyme Match</h3>
+          <p>Match words that rhyme! Great for phonemic awareness.</p>
+          <span class="level">Levels 0-3</span>
+        </div>
+      </a>
+
+      <a href="/activities/word-families.html" class="activity-card">
+        <div class="activity-icon blue">👨‍👩‍👧‍👦</div>
+        <div class="activity-info">
+          <h3>Word Families</h3>
+          <p>Practice -at, -an, -ig, -op and more word family patterns.</p>
+          <span class="level">Levels 0-2</span>
+        </div>
+      </a>
+
+      <a href="/activities/blend-it.html" class="activity-card">
+        <div class="activity-icon teal">🔊</div>
+        <div class="activity-info">
+          <h3>Blend It</h3>
+          <p>See and hear words sounded out segment by segment, then blend together.</p>
+          <span class="level">All levels</span>
+        </div>
+      </a>
+
+      <a href="/activities/sentence-scramble.html" class="activity-card">
+        <div class="activity-icon purple">📝</div>
+        <div class="activity-info">
+          <h3>Sentence Scramble</h3>
+          <p>Arrange words to make sentences. Uses sight words and decodables.</p>
+          <span class="level">Levels 2+</span>
+        </div>
+      </a>
+
+      <a href="/generate-story.html" class="activity-card">
+        <div class="activity-icon green">✨</div>
+        <div class="activity-info">
+          <h3>Story Generator</h3>
+          <p>Create a custom story based on your reading level and practice words.</p>
+          <span class="level">AI-powered</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

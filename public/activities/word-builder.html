@@ -248,6 +248,18 @@
       color: #FF9800;
       font-weight: 700;
     }
+
+    .target-image {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .target-image:hover {
+      transform: scale(1.1);
+    }
+
+    .letter-tile:active {
+      transform: translateY(0) scale(0.95);
+    }
   </style>
 </head>
 <body>
@@ -269,7 +281,7 @@
 
       <div class="target-area">
         <div class="target-hint">Build this word:</div>
-        <div class="target-image" id="targetImage">🐱</div>
+        <div class="target-image" id="targetImage" onclick="speakWord(currentWord?.word)" title="Click to hear the word">🐱</div>
         <div class="target-word" id="targetHint">(a furry pet that says meow)</div>
       </div>
 
@@ -280,6 +292,7 @@
       <div class="controls">
         <button class="btn btn-clear" onclick="clearWord()">Clear</button>
         <button class="btn btn-check" onclick="checkWord()">Check</button>
+        <button class="btn" onclick="speakWord(currentWord?.word)" style="background: #667eea; color: white;" title="Hear the word">🔊</button>
         <button class="btn btn-skip" onclick="skipWord()">Skip</button>
       </div>
 
@@ -289,6 +302,28 @@
   </div>
 
   <script>
+    // Text-to-Speech
+    function speak(text, rate = 0.85) {
+      if (!text) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = rate;
+      utterance.pitch = 1.1;
+      const voices = window.speechSynthesis.getVoices();
+      const preferred = voices.find(v => v.name.includes('Samantha') || v.name.includes('Google') || v.lang.startsWith('en'));
+      if (preferred) utterance.voice = preferred;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function speakLetter(letter) {
+      // For letters, speak slowly and clearly
+      speak(letter.toUpperCase(), 0.7);
+    }
+
+    function speakWord(word) {
+      speak(word, 0.75);
+    }
+
     // Word banks by level
     const wordBanks = {
       0: [ // Simple CVC
@@ -445,6 +480,7 @@
       if (builtWord.length < currentWord.word.length) {
         builtWord.push(letter);
         tile.classList.add('used');
+        speakLetter(letter);
         renderSlots();
       }
     }
@@ -483,7 +519,10 @@
         document.getElementById('score').textContent = score;
         document.getElementById('streak').textContent = streak;
 
-        setTimeout(newWord, 1200);
+        // Speak the word on success
+        speakWord(currentWord.word);
+
+        setTimeout(newWord, 1500);
       } else {
         slots.forEach((s, i) => {
           if (builtWord[i] !== currentWord.word[i]) {

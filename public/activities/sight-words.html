@@ -439,10 +439,32 @@
       const statusHtml = list.slice(0, 20).map(w => {
         const s = getStatus(w);
         const cls = s >= 3 ? 'mastered' : s >= 1 ? 'learning' : 'new';
-        return `<span class="word-chip ${cls}">${w}</span>`;
+        return `<span class="word-chip ${cls}" onclick="speak('${w}')" style="cursor:pointer">${w}</span>`;
       }).join('');
       document.getElementById('wordStatus').innerHTML = statusHtml + (list.length > 20 ? '<span class="word-chip new">...</span>' : '');
     }
+
+    // Text-to-Speech
+    function speak(text, rate = 0.8) {
+      if (!text) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = rate;
+      utterance.pitch = 1.1;
+      const voices = window.speechSynthesis.getVoices();
+      const preferred = voices.find(v => v.name.includes('Samantha') || v.name.includes('Google') || v.lang.startsWith('en'));
+      if (preferred) utterance.voice = preferred;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // Speak word when clicking flashcard
+    document.getElementById('currentWord').addEventListener('click', () => {
+      speak(currentWord);
+    });
+    document.getElementById('currentWord').style.cursor = 'pointer';
+
+    // Load voices
+    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
   </script>
 </body>
 </html>

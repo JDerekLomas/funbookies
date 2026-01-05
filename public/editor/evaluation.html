@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Quality Evaluation - FunBookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <style>
+        .eval-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--space-md);
+            min-height: calc(100vh - 200px);
+        }
+
+        @media (max-width: 900px) {
+            .eval-layout { grid-template-columns: 1fr; }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            height: fit-content;
+            position: sticky;
+            top: var(--space-md);
+        }
+
+        .sidebar h2 { font-size: 1.1rem; margin-bottom: var(--space-sm); }
+
+        .eval-list { list-style: none; }
+
+        .eval-item {
+            padding: var(--space-sm);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .eval-item:hover { background: var(--color-cream); }
+        .eval-item.active {
+            background: var(--color-sage-light);
+            border-left: 3px solid var(--color-sage);
+        }
+
+        .eval-item-title { font-weight: 600; font-size: 0.9rem; }
+        .eval-item-meta { font-size: 0.75rem; color: var(--color-text-muted); }
+
+        .score-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .score-badge.excellent { background: #E8F5E9; color: #2E7D32; }
+        .score-badge.good { background: #FFF3E0; color: #E65100; }
+        .score-badge.poor { background: #FFEBEE; color: #C62828; }
+
+        /* Main content */
+        .eval-main {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .eval-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .eval-title { font-size: 1.5rem; margin-bottom: var(--space-xs); }
+
+        .overall-score {
+            text-align: center;
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            min-width: 120px;
+        }
+
+        .overall-score.excellent { background: #E8F5E9; }
+        .overall-score.good { background: #FFF3E0; }
+        .overall-score.poor { background: #FFEBEE; }
+
+        .overall-score .score-value {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 500;
+        }
+
+        .overall-score .score-label {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Score breakdown */
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        @media (max-width: 700px) {
+            .score-grid { grid-template-columns: 1fr; }
+        }
+
+        .score-card {
+            background: var(--color-cream);
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .score-card .value {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
+
+        .score-card .label {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Recommendations */
+        .recommendations {
+            background: var(--color-terracotta-light);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .recommendations h3 {
+            font-size: 1rem;
+            color: var(--color-terracotta-dark);
+            margin-bottom: var(--space-sm);
+        }
+
+        .recommendations ul {
+            margin: 0;
+            padding-left: var(--space-md);
+        }
+
+        .recommendations li {
+            margin-bottom: var(--space-xs);
+            color: var(--color-charcoal);
+        }
+
+        /* Page evaluations */
+        .page-evals { margin-top: var(--space-md); }
+
+        .page-evals h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .page-eval-card {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--space-sm);
+        }
+
+        .page-eval-card img {
+            width: 100px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            background: var(--color-cream);
+        }
+
+        .page-eval-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .page-eval-scores {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: var(--space-xs);
+        }
+
+        .mini-score {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: var(--color-cream);
+        }
+
+        .mini-score.high { background: #E8F5E9; color: #2E7D32; }
+        .mini-score.medium { background: #FFF3E0; color: #E65100; }
+        .mini-score.low { background: #FFEBEE; color: #C62828; }
+
+        .page-eval-feedback {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .page-eval-issues {
+            font-size: 0.8rem;
+            color: var(--color-error);
+            margin-top: var(--space-xs);
+        }
+
+        /* Actions */
+        .eval-actions {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Text evaluation */
+        .text-eval {
+            background: var(--color-sage-light);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .text-eval h3 {
+            color: var(--color-sage-dark);
+            font-size: 1rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .word-stats {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-sm);
+        }
+
+        .word-stat {
+            font-size: 0.85rem;
+        }
+
+        .word-stat strong { color: var(--color-sage-dark); }
+
+        .problematic-words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: var(--space-sm);
+        }
+
+        .problematic-word {
+            background: #FFEBEE;
+            color: #C62828;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--color-text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header" style="padding-top: var(--space-md);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="/" class="back-link">&larr; Back to Home</a>
+                <a href="/editor/" class="btn btn-sm btn-secondary">Book Editor</a>
+            </div>
+            <h1 class="page-title">Quality Evaluation</h1>
+            <p class="page-subtitle">Review AI-generated book quality scores</p>
+        </div>
+
+        <div class="eval-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h2>Evaluations</h2>
+                <ul class="eval-list" id="evalList">
+                    <li class="empty-state" style="padding: var(--space-md);">
+                        Loading evaluations...
+                    </li>
+                </ul>
+                <button class="btn btn-secondary btn-sm" style="width: 100%; margin-top: var(--space-sm);" onclick="loadEvaluations()">
+                    Refresh
+                </button>
+            </aside>
+
+            <!-- Main content -->
+            <main class="eval-main" id="evalMain">
+                <div class="empty-state">
+                    <h3>Select an evaluation</h3>
+                    <p>Choose an evaluation from the sidebar to view details</p>
+                    <p style="margin-top: var(--space-md); font-size: 0.85rem;">
+                        Run evaluations using:<br>
+                        <code>python scripts/quality_evaluator.py [book_slug]</code>
+                    </p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        let currentEval = null;
+
+        // Mock evaluation data (will be loaded from files in production)
+        const mockEvaluations = [
+            {
+                book_slug: "castle",
+                title: "Rats in the Castle",
+                level: 3,
+                overall_score: 4.2,
+                overall_image_score: 4.3,
+                overall_text_score: 4.0,
+                summary: "Very Good quality (4.2/5.0). Images: 4.3/5.0, Text: 4.0/5.0",
+                recommendations: [
+                    "Consider simplifying 'castle' - may be difficult for level 3",
+                    "Page 12 image could be clearer"
+                ],
+                evaluated_at: "2025-01-05T15:30:00Z",
+                image_evaluations: [
+                    {
+                        page_id: "page_06",
+                        image_path: "castle_images/page_03_sun.png",
+                        scores: {
+                            character_consistency: 5,
+                            style_consistency: 4,
+                            text_illustration_match: 5,
+                            child_appropriate: 5,
+                            visual_clarity: 4
+                        },
+                        overall_score: 4.6,
+                        feedback: "Excellent illustration with consistent character design.",
+                        issues: [],
+                        suggestions: []
+                    },
+                    {
+                        page_id: "page_14",
+                        image_path: "castle_images/page_11_the_cat.png",
+                        scores: {
+                            character_consistency: 4,
+                            style_consistency: 4,
+                            text_illustration_match: 4,
+                            child_appropriate: 5,
+                            visual_clarity: 3
+                        },
+                        overall_score: 3.9,
+                        feedback: "Good but slightly cluttered composition.",
+                        issues: ["Scene is a bit busy"],
+                        suggestions: ["Simplify background elements"]
+                    }
+                ],
+                text_evaluation: {
+                    scores: {
+                        reading_level_accuracy: 4,
+                        decodability: 4,
+                        engagement: 5,
+                        sentence_structure: 4
+                    },
+                    overall_score: 4.0,
+                    word_analysis: {
+                        total_unique_words: 45,
+                        decodable_words: 40,
+                        sight_words: 12,
+                        problematic_words: ["castle"]
+                    },
+                    issues: ["'castle' may be challenging for level 3"],
+                    suggestions: ["Consider using 'big home' instead of 'castle'"]
+                }
+            }
+        ];
+
+        function getScoreClass(score) {
+            if (score >= 4.0) return 'excellent';
+            if (score >= 3.0) return 'good';
+            return 'poor';
+        }
+
+        function getMiniScoreClass(score) {
+            if (score >= 4) return 'high';
+            if (score >= 3) return 'medium';
+            return 'low';
+        }
+
+        function loadEvaluations() {
+            // In production, this would fetch from /evaluations/*.json
+            const list = document.getElementById('evalList');
+
+            if (mockEvaluations.length === 0) {
+                list.innerHTML = `
+                    <li class="empty-state" style="padding: var(--space-md);">
+                        No evaluations found
+                    </li>
+                `;
+                return;
+            }
+
+            list.innerHTML = mockEvaluations.map((ev, idx) => `
+                <li class="eval-item" data-index="${idx}" onclick="selectEvaluation(${idx})">
+                    <div>
+                        <div class="eval-item-title">${ev.title}</div>
+                        <div class="eval-item-meta">Level ${ev.level} &middot; ${new Date(ev.evaluated_at).toLocaleDateString()}</div>
+                    </div>
+                    <span class="score-badge ${getScoreClass(ev.overall_score)}">${ev.overall_score.toFixed(1)}</span>
+                </li>
+            `).join('');
+        }
+
+        function selectEvaluation(index) {
+            currentEval = mockEvaluations[index];
+
+            // Update active state
+            document.querySelectorAll('.eval-item').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.eval-item[data-index="${index}"]`).classList.add('active');
+
+            renderEvaluation(currentEval);
+        }
+
+        function renderEvaluation(ev) {
+            const main = document.getElementById('evalMain');
+            const scoreClass = getScoreClass(ev.overall_score);
+
+            main.innerHTML = `
+                <div class="eval-header">
+                    <div>
+                        <h2 class="eval-title">${ev.title}</h2>
+                        <p style="color: var(--color-text-muted);">
+                            Level ${ev.level} &middot; Evaluated ${new Date(ev.evaluated_at).toLocaleString()}
+                        </p>
+                    </div>
+                    <div class="overall-score ${scoreClass}">
+                        <div class="score-value">${ev.overall_score.toFixed(1)}</div>
+                        <div class="score-label">Overall Score</div>
+                    </div>
+                </div>
+
+                <div class="score-grid">
+                    <div class="score-card">
+                        <div class="value">${ev.overall_image_score.toFixed(1)}</div>
+                        <div class="label">Image Quality</div>
+                    </div>
+                    <div class="score-card">
+                        <div class="value">${ev.overall_text_score.toFixed(1)}</div>
+                        <div class="label">Text Quality</div>
+                    </div>
+                    <div class="score-card">
+                        <div class="value">${ev.image_evaluations?.length || 0}</div>
+                        <div class="label">Pages Evaluated</div>
+                    </div>
+                </div>
+
+                ${ev.recommendations?.length ? `
+                    <div class="recommendations">
+                        <h3>Recommendations</h3>
+                        <ul>
+                            ${ev.recommendations.map(r => `<li>${r}</li>`).join('')}
+                        </ul>
+                    </div>
+                ` : ''}
+
+                ${ev.text_evaluation ? `
+                    <div class="text-eval">
+                        <h3>Text Analysis</h3>
+                        <div class="word-stats">
+                            <span class="word-stat"><strong>${ev.text_evaluation.word_analysis.total_unique_words}</strong> unique words</span>
+                            <span class="word-stat"><strong>${ev.text_evaluation.word_analysis.decodable_words}</strong> decodable</span>
+                            <span class="word-stat"><strong>${ev.text_evaluation.word_analysis.sight_words}</strong> sight words</span>
+                        </div>
+                        ${ev.text_evaluation.word_analysis.problematic_words?.length ? `
+                            <div>
+                                <strong style="font-size: 0.85rem;">Problematic words:</strong>
+                                <div class="problematic-words">
+                                    ${ev.text_evaluation.word_analysis.problematic_words.map(w => `
+                                        <span class="problematic-word">${w}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                        ${ev.text_evaluation.suggestions?.length ? `
+                            <p style="margin-top: var(--space-sm); font-size: 0.85rem; color: var(--color-sage-dark);">
+                                <strong>Suggestion:</strong> ${ev.text_evaluation.suggestions[0]}
+                            </p>
+                        ` : ''}
+                    </div>
+                ` : ''}
+
+                ${ev.image_evaluations?.length ? `
+                    <div class="page-evals">
+                        <h3>Page Evaluations</h3>
+                        ${ev.image_evaluations.map(pe => `
+                            <div class="page-eval-card">
+                                <img src="/books/${pe.image_path}" alt="${pe.page_id}" onerror="this.style.background='var(--color-cream)'">
+                                <div class="page-eval-content">
+                                    <h4>${pe.page_id} <span class="score-badge ${getScoreClass(pe.overall_score)}">${pe.overall_score.toFixed(1)}</span></h4>
+                                    <div class="page-eval-scores">
+                                        ${Object.entries(pe.scores).map(([key, val]) => `
+                                            <span class="mini-score ${getMiniScoreClass(val)}">${key.replace(/_/g, ' ')}: ${val}</span>
+                                        `).join('')}
+                                    </div>
+                                    <div class="page-eval-feedback">${pe.feedback}</div>
+                                    ${pe.issues?.length ? `
+                                        <div class="page-eval-issues">Issues: ${pe.issues.join(', ')}</div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+
+                <div class="eval-actions">
+                    <a href="/editor/" class="btn btn-primary">Open in Editor</a>
+                    <button class="btn btn-secondary" onclick="regenerateLowScoring()">Regenerate Low-Scoring Pages</button>
+                    <button class="btn btn-ghost" onclick="exportEvaluation()">Export Report</button>
+                </div>
+            `;
+        }
+
+        function regenerateLowScoring() {
+            if (!currentEval) return;
+
+            const lowScoring = currentEval.image_evaluations
+                .filter(e => e.overall_score < 3.5)
+                .map(e => e.page_id);
+
+            if (lowScoring.length === 0) {
+                alert('No low-scoring pages to regenerate!');
+                return;
+            }
+
+            const pages = lowScoring.join(', ');
+            alert(`Would regenerate: ${pages}\n\nRun:\npython scripts/image_generator.py ${currentEval.book_slug} --pages ${lowScoring.map(p => p.replace('page_', '')).join(',')}`);
+        }
+
+        function exportEvaluation() {
+            if (!currentEval) return;
+
+            const blob = new Blob([JSON.stringify(currentEval, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${currentEval.book_slug}_evaluation.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize
+        loadEvaluations();
+    </script>
+</body>
+</html>

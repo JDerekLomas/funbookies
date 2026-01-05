@@ -1,0 +1,158 @@
+{
+  "title": "Pig in the Mud",
+  "slug": "pig_mud",
+  "level": 2,
+  "color": "Orange",
+  "skill": "CVC with short u",
+  "skill_description": "CVC words including short u sounds like bug, cup, mud",
+  "age_range": "4-6",
+  "created": "2025-01-05",
+  "model": "wan2.6-t2i",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Pip the pig discovers a mud puddle and has the best day ever!",
+  "character_description": "Pip, a round cheerful pink cartoon pig with a curly tail",
+  "style_preset": "classic",
+
+  "word_list": {
+    "sound_out": ["mud", "fun", "sun", "run", "hug", "tub", "bug", "cup", "pup"],
+    "sight": ["the", "in", "is", "a", "and", "I", "go", "to"],
+    "new": ["Pip", "pig", "puddle"]
+  },
+
+  "wordsearch_words": ["mud", "pig", "fun", "sun", "run", "hug", "tub", "bug"],
+
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "image": "pig_mud_images/page_01_cover.png",
+      "text": "Pig in the Mud",
+      "image_prompt": "Children's book cover: A cheerful round pink cartoon pig jumping into a brown mud puddle, splashing joyfully. Sunny day, green grass. Title 'Pig in the Mud'. Warm soft watercolor style."
+    },
+    { "page": 2, "type": "copyright" },
+    { "page": 3, "type": "parent_guide" },
+    { "page": 4, "type": "level_info" },
+    { "page": 5, "type": "wordlist", "text": "Words to Know" },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "image": "pig_mud_images/page_06_pip_sat.png",
+      "text": "Pip the pig sat in the sun.",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail sitting contentedly in warm sunshine, green meadow background. Warm soft watercolor style."
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "image": "pig_mud_images/page_07_saw_mud.png",
+      "text": "Pip saw mud!",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail looking excited, eyes wide, spotting a brown mud puddle ahead. Warm soft watercolor style."
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "image": "pig_mud_images/page_08_run.png",
+      "text": "Pip ran to the mud.",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail running eagerly toward a mud puddle, legs in motion, happy expression. Warm soft watercolor style."
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "image": "pig_mud_images/page_09_in_mud.png",
+      "text": "Pip got in the mud.",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail stepping into a brown mud puddle, mud splashing, looking delighted. Warm soft watercolor style."
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "image": "pig_mud_images/page_10_fun.png",
+      "text": "The mud is fun!",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail rolling happily in brown mud, huge smile, mud splatters everywhere. Warm soft watercolor style."
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "image": "pig_mud_images/page_11_bug.png",
+      "text": "Pip saw a bug in the mud.",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail in mud, looking curiously at a small cute bug. Warm soft watercolor style."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "image": "pig_mud_images/page_12_cup.png",
+      "text": "Pip got a cup.",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail covered in mud, holding up a small cup, looking at it curiously. Warm soft watercolor style."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "image": "pig_mud_images/page_13_cup_mud.png",
+      "text": "Pip put mud in the cup.",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail carefully scooping mud into a cup, focused and happy. Warm soft watercolor style."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "image": "pig_mud_images/page_14_pup.png",
+      "text": "A pup ran up!",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail in mud looking at a friendly cartoon puppy who just arrived. Warm soft watercolor style."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "image": "pig_mud_images/page_15_pup_mud.png",
+      "text": "The pup got in the mud.",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail and a cute puppy both playing in the mud puddle together, splashing. Warm soft watercolor style."
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "image": "pig_mud_images/page_16_hug.png",
+      "text": "Pip and the pup had a hug.",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail and a cute puppy hugging each other, both covered in mud, happy expressions. Warm soft watercolor style."
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "image": "pig_mud_images/page_17_tub.png",
+      "text": "Pip got in the tub.",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail sitting in a bubble bath tub, soap bubbles around, getting clean. Warm soft watercolor style."
+    },
+    {
+      "page": 18,
+      "story_page": 13,
+      "type": "story",
+      "image": "pig_mud_images/page_18_fun_day.png",
+      "text": "Fun in the sun and mud!",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail clean and happy, sun setting, remembering the fun day. Warm soft watercolor style."
+    },
+    {
+      "page": 19,
+      "type": "end",
+      "image": "pig_mud_images/page_19_end.png",
+      "text": "The End",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail waving goodbye, happy and content, sunset colors. Warm soft watercolor style."
+    },
+    { "page": 20, "type": "wordsearch" },
+    { "page": 21, "type": "series_info" },
+    {
+      "page": 22,
+      "type": "back_cover",
+      "image": "pig_mud_images/page_22_back.png",
+      "text": "Pip the pig discovers a mud puddle and has the best day ever!",
+      "image_prompt": "A round cheerful pink cartoon pig with a curly tail waving, simple friendly pose. Warm soft watercolor style."
+    }
+  ]
+}

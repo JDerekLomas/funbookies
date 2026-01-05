@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Book Editor - FunBookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <style>
+        .editor-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: var(--space-md);
+            min-height: calc(100vh - 200px);
+        }
+
+        @media (max-width: 900px) {
+            .editor-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            height: fit-content;
+            position: sticky;
+            top: var(--space-md);
+        }
+
+        .sidebar h2 {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .book-list {
+            list-style: none;
+        }
+
+        .book-item {
+            padding: var(--space-sm);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .book-item:hover {
+            background: var(--color-cream);
+        }
+
+        .book-item.active {
+            background: var(--color-sage-light);
+            border-left: 3px solid var(--color-sage);
+        }
+
+        .book-item-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .book-item-meta {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Main editor area */
+        .editor-main {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+        }
+
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .editor-title {
+            font-size: 1.5rem;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        /* Page viewer */
+        .page-viewer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+        }
+
+        @media (max-width: 1100px) {
+            .page-viewer {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Book page preview - 80/20 format */
+        .book-page-preview {
+            background: var(--color-cream);
+            border-radius: var(--border-radius-lg);
+            aspect-ratio: 1;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .preview-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80%;
+            overflow: hidden;
+            background: var(--color-sage-light);
+        }
+
+        .preview-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 16px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .preview-text p {
+            font-family: var(--font-display);
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            color: var(--color-soft-black);
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        /* Wordlist preview */
+        .preview-wordlist {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--color-sage-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            gap: 12px;
+        }
+
+        .preview-wordlist h3 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--color-soft-black);
+            margin-bottom: 8px;
+        }
+
+        .wordlist-section {
+            background: var(--color-white);
+            padding: 12px 16px;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 260px;
+        }
+
+        .wordlist-section h4 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--color-sage);
+        }
+
+        .wordlist-section .words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .word-box {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--color-charcoal);
+            background: var(--color-sage-light);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .page-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        /* Page navigation */
+        .page-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .page-nav button {
+            padding: 0.5rem 1rem;
+            background: var(--color-cream);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .page-nav button:hover:not(:disabled) {
+            background: var(--color-sage-light);
+        }
+
+        .page-nav button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .page-indicator {
+            font-weight: 600;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        /* Accordion */
+        .accordion {
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-sm) var(--space-md);
+            background: var(--color-cream);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .accordion-header:hover {
+            background: var(--color-sage-light);
+        }
+
+        .accordion-icon {
+            transition: transform 0.2s;
+        }
+
+        .accordion-item.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            display: none;
+            padding: var(--space-md);
+            background: var(--color-white);
+        }
+
+        .accordion-item.open .accordion-content {
+            display: block;
+        }
+
+        /* Feedback controls */
+        .feedback-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .feedback-label {
+            font-weight: 500;
+            min-width: 80px;
+        }
+
+        .thumb-buttons {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .thumb-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--border-radius);
+            background: var(--color-white);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .thumb-btn:hover {
+            border-color: var(--color-sage);
+        }
+
+        .thumb-btn.active.up {
+            background: #E8F5E9;
+            border-color: var(--color-success);
+        }
+
+        .thumb-btn.active.down {
+            background: #FFEBEE;
+            border-color: var(--color-error);
+        }
+
+        .comment-input {
+            width: 100%;
+            padding: var(--space-sm);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .prompt-input {
+            width: 100%;
+            padding: var(--space-sm);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            font-family: monospace;
+            font-size: 0.85rem;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .save-status {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        .save-status.saved {
+            color: var(--color-success);
+        }
+
+        /* Export button */
+        .export-section {
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--color-text-muted);
+        }
+
+        .empty-state h3 {
+            margin-bottom: var(--space-sm);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header" style="padding-top: var(--space-md);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="/" class="back-link">← Back to Home</a>
+                <a href="/editor/evaluation.html" class="btn btn-sm btn-secondary">Quality Evaluations</a>
+            </div>
+            <h1 class="page-title">Book Editor</h1>
+            <p class="page-subtitle">Review and provide feedback on book pages</p>
+        </div>
+
+        <div class="editor-layout">
+            <!-- Sidebar with book list -->
+            <aside class="sidebar">
+                <h2>Books</h2>
+                <ul class="book-list" id="bookList">
+                    <!-- Populated by JS -->
+                </ul>
+            </aside>
+
+            <!-- Main editor area -->
+            <main class="editor-main" id="editorMain">
+                <div class="empty-state">
+                    <h3>Select a book</h3>
+                    <p>Choose a book from the sidebar to start reviewing</p>
+                </div>
+            </main>
+        </div>
+
+        <div style="height: var(--space-xl);"></div>
+    </div>
+
+    <script>
+        // Book registry with all versions and metadata
+        const bookRegistry = [
+            {
+                id: 'dog_pink',
+                title: 'No, No, Dog!',
+                jsonFile: 'dog_pink.json',
+                level: 'Pink',
+                skill: 'Pre-reader',
+                created: '2024-12-15',
+                model: 'wan2.6-t2i',
+                imageFolder: 'images',
+                imagePattern: 'dog_pink_page{page}.png'
+            },
+            {
+                id: 'pig_yellow',
+                title: 'Pig in Mud',
+                jsonFile: 'pig_yellow.json',
+                level: 'Yellow',
+                skill: 'Short vowels',
+                created: '2024-12-15',
+                model: 'wan2.6-t2i',
+                imageFolder: 'images',
+                imagePattern: 'pig_yellow_page{page}.png'
+            },
+            {
+                id: 'volcano',
+                title: 'Gus and the Volcano',
+                jsonFile: 'volcano.json',
+                level: 'Orange',
+                skill: 'CVC words',
+                created: '2024-12-10',
+                model: 'wan2.6-t2i',
+                imageFolder: 'volcano_images',
+                imagePattern: 'page_{page}_*.png'
+            },
+            {
+                id: 'castle',
+                title: 'Rats in the Castle',
+                jsonFile: 'castle.json',
+                level: 'Orange',
+                skill: 'CVC + Digraphs',
+                created: '2025-01-05',
+                model: 'wan2.6-t2i',
+                imageFolder: 'castle_images',
+                imagePattern: 'page_{page}_*.png'
+            },
+            {
+                id: 'pig_mud',
+                title: 'Pig in the Mud',
+                jsonFile: 'pig_mud.json',
+                level: 'Orange',
+                skill: 'CVC with short u',
+                created: '2025-01-06',
+                model: 'wan2.6-t2i',
+                imageFolder: 'pig_mud_images',
+                imagePattern: 'page_{page}_*.png'
+            },
+            {
+                id: 'elephant_red',
+                title: 'Stomp! Elephant',
+                jsonFile: 'elephant_red.json',
+                level: 'Red',
+                skill: 'Ending blends',
+                created: '2024-12-15',
+                model: 'wan2.6-t2i',
+                imageFolder: 'images',
+                imagePattern: 'elephant_red_page{page}.png'
+            },
+            {
+                id: 'fox_purple',
+                title: 'The Cake Mistake',
+                jsonFile: 'fox_purple.json',
+                level: 'Purple',
+                skill: 'Digraphs',
+                created: '2024-12-15',
+                model: 'wan2.6-t2i',
+                imageFolder: 'images',
+                imagePattern: 'fox_purple_page{page}.png'
+            },
+            {
+                id: 'snail_blue',
+                title: 'The Sneaky Snail',
+                jsonFile: 'snail_blue.json',
+                level: 'Blue',
+                skill: 'Silent e',
+                created: '2024-12-15',
+                model: 'wan2.6-t2i',
+                imageFolder: 'images',
+                imagePattern: 'snail_blue_page{page}.png'
+            },
+            {
+                id: 'owl_green',
+                title: 'The Owl at Night',
+                jsonFile: 'owl_green.json',
+                level: 'Green',
+                skill: 'Vowel teams',
+                created: '2024-12-15',
+                model: 'wan2.6-t2i',
+                imageFolder: 'images',
+                imagePattern: 'owl_green_page{page}.png'
+            },
+            {
+                id: 'mouse_gold',
+                title: 'Mouse in the House',
+                jsonFile: 'mouse_gold.json',
+                level: 'Gold',
+                skill: 'R-controlled',
+                created: '2024-12-15',
+                model: 'wan2.6-t2i',
+                imageFolder: 'images',
+                imagePattern: 'mouse_gold_page{page}.png'
+            }
+        ];
+
+        let currentBook = null;
+        let currentBookData = null;
+        let currentPage = 0;
+        let feedback = {};
+
+        // Initialize
+        function init() {
+            renderBookList();
+            loadFeedbackFromStorage();
+        }
+
+        // Render book list in sidebar
+        function renderBookList() {
+            const list = document.getElementById('bookList');
+            list.innerHTML = bookRegistry.map(book => `
+                <li class="book-item" data-id="${book.id}" onclick="selectBook('${book.id}')">
+                    <div class="book-item-title">${book.title}</div>
+                    <div class="book-item-meta">${book.level} · ${book.skill} · ${book.created}</div>
+                </li>
+            `).join('');
+        }
+
+        // Select a book
+        async function selectBook(bookId) {
+            const book = bookRegistry.find(b => b.id === bookId);
+            if (!book) return;
+
+            // Update active state
+            document.querySelectorAll('.book-item').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.book-item[data-id="${bookId}"]`).classList.add('active');
+
+            currentBook = book;
+            currentPage = 0;
+
+            try {
+                const res = await fetch(`/books/${book.jsonFile}`);
+                currentBookData = await res.json();
+                renderEditor();
+            } catch (e) {
+                console.error('Error loading book:', e);
+                document.getElementById('editorMain').innerHTML = `
+                    <div class="empty-state">
+                        <h3>Error loading book</h3>
+                        <p>${e.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Get image path for current page
+        function getImagePath(pageNum) {
+            if (!currentBook || !currentBookData) return '';
+
+            const page = currentBookData.pages[pageNum];
+
+            // If page has explicit image path, use it
+            if (page && page.image) {
+                return `/books/${page.image}`;
+            }
+
+            // Otherwise construct from pattern
+            const paddedPage = String(page?.page || pageNum + 1).padStart(2, '0');
+            return `/books/${currentBook.imageFolder}/${currentBook.id}_page${paddedPage}.png`;
+        }
+
+        // Render the editor
+        function renderEditor() {
+            if (!currentBook || !currentBookData) return;
+
+            const page = currentBookData.pages[currentPage];
+            const pageNum = page?.page || currentPage + 1;
+            const feedbackKey = `${currentBook.id}_page${pageNum}`;
+            const pageFeedback = feedback[feedbackKey] || {};
+
+            const imagePath = getImagePath(currentPage);
+
+            document.getElementById('editorMain').innerHTML = `
+                <div class="editor-header">
+                    <h2 class="editor-title">${currentBookData.title || currentBook.title}</h2>
+                    <div class="editor-actions">
+                        <button class="btn btn-sm btn-ghost" onclick="exportFeedback()">Export Feedback</button>
+                        <button class="btn btn-sm btn-primary" onclick="saveFeedback()">Save</button>
+                    </div>
+                </div>
+
+                <div class="page-nav">
+                    <button onclick="prevPage()" ${currentPage === 0 ? 'disabled' : ''}>← Previous</button>
+                    <span class="page-indicator">Page ${currentPage + 1} of ${currentBookData.pages.length}</span>
+                    <button onclick="nextPage()" ${currentPage >= currentBookData.pages.length - 1 ? 'disabled' : ''}>Next →</button>
+                </div>
+
+                <div class="page-viewer">
+                    <div class="book-page-preview">
+                        ${page?.type === 'wordlist' && currentBookData.word_list ? `
+                            <div class="preview-wordlist">
+                                <h3>Words to Know</h3>
+                                ${currentBookData.word_list.sound_out?.length ? `
+                                    <div class="wordlist-section">
+                                        <h4>Sound Out</h4>
+                                        <div class="words">${currentBookData.word_list.sound_out.map(w => `<span class="word-box">${w}</span>`).join('')}</div>
+                                    </div>
+                                ` : ''}
+                                ${currentBookData.word_list.sight?.length ? `
+                                    <div class="wordlist-section">
+                                        <h4>Sight Words</h4>
+                                        <div class="words">${currentBookData.word_list.sight.map(w => `<span class="word-box">${w}</span>`).join('')}</div>
+                                    </div>
+                                ` : ''}
+                                ${currentBookData.word_list.new?.length ? `
+                                    <div class="wordlist-section">
+                                        <h4>New Words</h4>
+                                        <div class="words">${currentBookData.word_list.new.map(w => `<span class="word-box">${w}</span>`).join('')}</div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        ` : `
+                            <div class="preview-image">
+                                <img src="${imagePath}" alt="Page ${pageNum}" onerror="this.style.display='none'">
+                            </div>
+                            <div class="preview-text">
+                                <p>${page?.text || ''}</p>
+                            </div>
+                        `}
+                    </div>
+                    <div class="page-details">
+                        <div class="accordion">
+                            <div class="accordion-item open">
+                                <div class="accordion-header" onclick="toggleAccordion(this)">
+                                    <span>Feedback</span>
+                                    <span class="accordion-icon">▼</span>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="feedback-row">
+                                        <span class="feedback-label">Rating:</span>
+                                        <div class="thumb-buttons">
+                                            <button class="thumb-btn up ${pageFeedback.rating === 'up' ? 'active' : ''}"
+                                                    onclick="setRating('up')">👍</button>
+                                            <button class="thumb-btn down ${pageFeedback.rating === 'down' ? 'active' : ''}"
+                                                    onclick="setRating('down')">👎</button>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-row" style="flex-direction: column; align-items: stretch;">
+                                        <label class="feedback-label" style="margin-bottom: var(--space-xs);">Comments:</label>
+                                        <textarea class="comment-input" id="commentInput"
+                                                  onchange="updateComment(this.value)"
+                                                  placeholder="Add notes about this page...">${pageFeedback.comment || ''}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <div class="accordion-header" onclick="toggleAccordion(this)">
+                                    <span>Image Prompt</span>
+                                    <span class="accordion-icon">▼</span>
+                                </div>
+                                <div class="accordion-content">
+                                    <textarea class="prompt-input" id="promptInput"
+                                              onchange="updatePrompt(this.value)"
+                                              placeholder="Edit the image generation prompt...">${pageFeedback.prompt || page?.image_prompt || ''}</textarea>
+                                    <button class="btn btn-sm btn-secondary mt-md" onclick="regenerateImage()">
+                                        Regenerate Image
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <div class="accordion-header" onclick="toggleAccordion(this)">
+                                    <span>Page Metadata</span>
+                                    <span class="accordion-icon">▼</span>
+                                </div>
+                                <div class="accordion-content">
+                                    <p><strong>Type:</strong> ${page?.type || 'story'}</p>
+                                    <p><strong>Image Path:</strong> ${imagePath}</p>
+                                    <p><strong>Book ID:</strong> ${currentBook.id}</p>
+                                    <p><strong>Model:</strong> ${currentBook.model}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="save-status" id="saveStatus"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Toggle accordion
+        function toggleAccordion(header) {
+            header.parentElement.classList.toggle('open');
+        }
+
+        // Navigation
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                renderEditor();
+            }
+        }
+
+        function nextPage() {
+            if (currentBookData && currentPage < currentBookData.pages.length - 1) {
+                currentPage++;
+                renderEditor();
+            }
+        }
+
+        // Feedback functions
+        function getFeedbackKey() {
+            const page = currentBookData.pages[currentPage];
+            const pageNum = page?.page || currentPage + 1;
+            return `${currentBook.id}_page${pageNum}`;
+        }
+
+        function setRating(rating) {
+            const key = getFeedbackKey();
+            if (!feedback[key]) feedback[key] = {};
+            feedback[key].rating = feedback[key].rating === rating ? null : rating;
+            saveFeedbackToStorage();
+            renderEditor();
+        }
+
+        function updateComment(value) {
+            const key = getFeedbackKey();
+            if (!feedback[key]) feedback[key] = {};
+            feedback[key].comment = value;
+            saveFeedbackToStorage();
+            showSaveStatus('Auto-saved');
+        }
+
+        function updatePrompt(value) {
+            const key = getFeedbackKey();
+            if (!feedback[key]) feedback[key] = {};
+            feedback[key].prompt = value;
+            saveFeedbackToStorage();
+            showSaveStatus('Auto-saved');
+        }
+
+        function showSaveStatus(message) {
+            const status = document.getElementById('saveStatus');
+            if (status) {
+                status.textContent = message;
+                status.classList.add('saved');
+                setTimeout(() => {
+                    status.textContent = '';
+                    status.classList.remove('saved');
+                }, 2000);
+            }
+        }
+
+        // Storage functions
+        function saveFeedbackToStorage() {
+            localStorage.setItem('bookFeedback', JSON.stringify(feedback));
+        }
+
+        function loadFeedbackFromStorage() {
+            const stored = localStorage.getItem('bookFeedback');
+            if (stored) {
+                feedback = JSON.parse(stored);
+            }
+        }
+
+        // Save to server
+        async function saveFeedback() {
+            try {
+                const res = await fetch('/api/feedback', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        bookId: currentBook.id,
+                        feedback: feedback
+                    })
+                });
+                if (res.ok) {
+                    showSaveStatus('Saved to server!');
+                } else {
+                    showSaveStatus('Save failed - using local storage');
+                }
+            } catch (e) {
+                showSaveStatus('Save failed - using local storage');
+            }
+        }
+
+        // Export feedback as JSON
+        function exportFeedback() {
+            const dataStr = JSON.stringify(feedback, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `book-feedback-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Regenerate image (placeholder - would need API integration)
+        function regenerateImage() {
+            alert('Image regeneration will be implemented with the MuleRouter API integration.');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+            if (e.key === 'ArrowLeft') prevPage();
+            if (e.key === 'ArrowRight') nextPage();
+        });
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>

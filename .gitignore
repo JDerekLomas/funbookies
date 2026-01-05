@@ -30,3 +30,4 @@ build/
 # Unused folders
 web/
 .vercel
+.env*.local

@@ -5,128 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>Sentence Scramble - FunBookies</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container { max-width: 650px; margin: 0 auto; }
-
-    .back-link {
-      display: inline-block;
-      color: white;
-      text-decoration: none;
-      margin-bottom: 15px;
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-    .back-link:hover { opacity: 1; text-decoration: underline; }
-
-    .game-card {
-      background: white;
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    .page-header {
+      padding-top: var(--space-md);
     }
 
-    .header {
+    .game-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: var(--space-md);
     }
 
-    h1 {
-      font-size: 1.6rem;
-      color: #667eea;
+    .game-header h1 {
+      font-size: 1.5rem;
     }
 
-    .score {
-      background: #EDE7F6;
+    .score-badge {
+      background: rgba(212, 196, 176, 0.4);
       padding: 8px 16px;
       border-radius: 20px;
-      font-weight: 700;
-      color: #5E35B1;
+      font-weight: 600;
+      color: #8B7355;
     }
 
     .level-select {
       display: flex;
       gap: 8px;
-      margin-bottom: 25px;
+      margin-bottom: var(--space-md);
       flex-wrap: wrap;
-    }
-
-    .level-btn {
-      padding: 8px 16px;
-      border: 2px solid #667eea;
-      background: white;
-      border-radius: 20px;
-      font-family: inherit;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .level-btn:hover, .level-btn.active {
-      background: #667eea;
-      color: white;
     }
 
     .image-hint {
       text-align: center;
       font-size: 4rem;
-      margin-bottom: 20px;
+      margin-bottom: var(--space-md);
     }
 
     .sentence-area {
-      background: #f9f9f9;
-      border-radius: 16px;
-      padding: 20px;
+      background: var(--color-cream);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-md);
       min-height: 80px;
-      margin-bottom: 20px;
+      margin-bottom: var(--space-md);
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
-      border: 3px dashed #ddd;
+      border: 2px dashed var(--color-border);
       transition: all 0.2s;
     }
 
     .sentence-area.active {
-      border-color: #667eea;
-      background: #EDE7F6;
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
     }
 
     .sentence-area.correct {
-      border-color: #4CAF50;
+      border-color: var(--color-success);
       border-style: solid;
       background: #E8F5E9;
     }
 
     .sentence-area.wrong {
-      border-color: #f44336;
+      border-color: var(--color-error);
       background: #FFEBEE;
       animation: shake 0.3s;
     }
 
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
-    }
-
     .word-tile {
       padding: 12px 20px;
-      background: white;
-      border: 2px solid #667eea;
-      border-radius: 12px;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #333;
+      background: var(--color-white);
+      border: 2px solid var(--color-sage);
+      border-radius: var(--border-radius);
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--color-charcoal);
       cursor: pointer;
       transition: all 0.2s;
       user-select: none;
@@ -134,20 +93,21 @@
 
     .word-tile:hover {
       transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 4px 12px rgba(159, 199, 170, 0.3);
     }
 
     .word-tile.in-sentence {
-      background: #667eea;
-      color: white;
+      background: var(--color-sage);
+      color: var(--color-white);
     }
 
     .word-tile.sight-word {
-      border-color: #9C27B0;
+      border-color: var(--color-terracotta);
     }
 
     .word-tile.sight-word.in-sentence {
-      background: #9C27B0;
+      background: var(--color-terracotta);
+      color: var(--color-soft-black);
     }
 
     .word-bank {
@@ -155,14 +115,15 @@
       flex-wrap: wrap;
       gap: 10px;
       justify-content: center;
-      margin-bottom: 25px;
+      margin-bottom: var(--space-md);
       min-height: 60px;
     }
 
     .punctuation {
+      font-family: var(--font-display);
       font-size: 1.5rem;
-      font-weight: 700;
-      color: #999;
+      font-weight: 500;
+      color: var(--color-text-muted);
       padding: 10px;
     }
 
@@ -173,68 +134,44 @@
       flex-wrap: wrap;
     }
 
-    .btn {
-      padding: 14px 28px;
-      border: none;
-      border-radius: 30px;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
     .btn-check {
-      background: #4CAF50;
-      color: white;
+      background: var(--color-sage);
+      color: var(--color-white);
     }
 
     .btn-check:hover {
-      background: #43A047;
-    }
-
-    .btn-clear {
-      background: #f5f5f5;
-      color: #666;
-    }
-
-    .btn-clear:hover {
-      background: #eee;
+      background: var(--color-sage-dark);
     }
 
     .btn-hint {
-      background: #FF9800;
-      color: white;
+      background: var(--color-terracotta);
+      color: var(--color-soft-black);
     }
 
     .btn-hint:hover {
-      background: #F57C00;
-    }
-
-    .btn-skip {
-      background: #9e9e9e;
-      color: white;
+      background: var(--color-terracotta-dark);
     }
 
     .feedback {
       text-align: center;
-      font-size: 1.2rem;
-      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 500;
       min-height: 35px;
-      margin-top: 15px;
+      margin-top: var(--space-md);
     }
 
-    .feedback.correct { color: #4CAF50; }
-    .feedback.wrong { color: #f44336; }
-    .feedback.hint { color: #FF9800; }
+    .feedback.correct { color: var(--color-success); }
+    .feedback.wrong { color: var(--color-error); }
+    .feedback.hint { color: var(--color-terracotta-dark); }
 
     .legend {
       display: flex;
       justify-content: center;
-      gap: 20px;
-      margin-top: 15px;
+      gap: var(--space-md);
+      margin-top: var(--space-md);
       font-size: 0.85rem;
-      color: #666;
+      color: var(--color-text-muted);
     }
 
     .legend-item {
@@ -249,27 +186,29 @@
       border-radius: 4px;
     }
 
-    .legend-dot.decodable { background: #667eea; }
-    .legend-dot.sight { background: #9C27B0; }
+    .legend-dot.decodable { background: var(--color-sage); }
+    .legend-dot.sight { background: var(--color-terracotta); }
   </style>
 </head>
 <body>
-  <div class="container">
-    <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
 
     <div class="game-card">
-      <div class="header">
+      <div class="game-header">
         <h1>Sentence Scramble</h1>
-        <div class="score">Score: <span id="score">0</span></div>
+        <div class="score-badge">Score: <span id="score">0</span></div>
       </div>
 
       <div class="level-select">
-        <button class="level-btn active" data-level="0">Easy (3-4 words)</button>
-        <button class="level-btn" data-level="1">Medium (4-5 words)</button>
-        <button class="level-btn" data-level="2">Hard (5-6 words)</button>
+        <button class="chip active" data-level="0">Easy (3-4 words)</button>
+        <button class="chip" data-level="1">Medium (4-5 words)</button>
+        <button class="chip" data-level="2">Hard (5-6 words)</button>
       </div>
 
-      <div class="image-hint" id="imageHint">🐱</div>
+      <div class="image-hint" id="imageHint">&#x1F431;</div>
 
       <div class="sentence-area" id="sentenceArea">
         <span class="punctuation" style="opacity: 0.3;">Start building your sentence...</span>
@@ -278,10 +217,10 @@
       <div class="word-bank" id="wordBank"></div>
 
       <div class="controls">
-        <button class="btn btn-clear" onclick="clearSentence()">Clear</button>
+        <button class="btn btn-ghost" onclick="clearSentence()">Clear</button>
         <button class="btn btn-hint" onclick="showHint()">Hint</button>
         <button class="btn btn-check" onclick="checkSentence()">Check</button>
-        <button class="btn btn-skip" onclick="skipSentence()">Skip</button>
+        <button class="btn btn-outline" onclick="skipSentence()">Skip</button>
       </div>
 
       <div class="feedback" id="feedback"></div>
@@ -302,31 +241,31 @@
   <script>
     const sentenceBanks = {
       0: [ // Easy - 3-4 words
-        { sentence: ['The', 'cat', 'sat'], image: '🐱', sightWords: ['the'] },
-        { sentence: ['I', 'see', 'a', 'dog'], image: '🐕', sightWords: ['i', 'see', 'a'] },
-        { sentence: ['The', 'sun', 'is', 'hot'], image: '☀️', sightWords: ['the', 'is'] },
-        { sentence: ['A', 'big', 'pig'], image: '🐷', sightWords: ['a'] },
-        { sentence: ['I', 'can', 'run'], image: '🏃', sightWords: ['i', 'can'] },
-        { sentence: ['The', 'hat', 'is', 'red'], image: '🎩', sightWords: ['the', 'is'] },
-        { sentence: ['A', 'bug', 'in', 'mud'], image: '🐛', sightWords: ['a', 'in'] },
-        { sentence: ['I', 'like', 'my', 'cup'], image: '🥤', sightWords: ['i', 'like', 'my'] },
+        { sentence: ['The', 'cat', 'sat'], image: '&#x1F431;', sightWords: ['the'] },
+        { sentence: ['I', 'see', 'a', 'dog'], image: '&#x1F415;', sightWords: ['i', 'see', 'a'] },
+        { sentence: ['The', 'sun', 'is', 'hot'], image: '&#x2600;&#xFE0F;', sightWords: ['the', 'is'] },
+        { sentence: ['A', 'big', 'pig'], image: '&#x1F437;', sightWords: ['a'] },
+        { sentence: ['I', 'can', 'run'], image: '&#x1F3C3;', sightWords: ['i', 'can'] },
+        { sentence: ['The', 'hat', 'is', 'red'], image: '&#x1F3A9;', sightWords: ['the', 'is'] },
+        { sentence: ['A', 'bug', 'in', 'mud'], image: '&#x1F41B;', sightWords: ['a', 'in'] },
+        { sentence: ['I', 'like', 'my', 'cup'], image: '&#x1F964;', sightWords: ['i', 'like', 'my'] },
       ],
       1: [ // Medium - 4-5 words
-        { sentence: ['The', 'dog', 'can', 'run', 'fast'], image: '🐕', sightWords: ['the', 'can'] },
-        { sentence: ['I', 'see', 'a', 'big', 'frog'], image: '🐸', sightWords: ['i', 'see', 'a'] },
-        { sentence: ['The', 'cat', 'sat', 'on', 'a', 'mat'], image: '🐱', sightWords: ['the', 'on', 'a'] },
-        { sentence: ['A', 'fox', 'hid', 'in', 'the', 'box'], image: '🦊', sightWords: ['a', 'in', 'the'] },
-        { sentence: ['The', 'pig', 'is', 'in', 'the', 'pen'], image: '🐷', sightWords: ['the', 'is', 'in'] },
-        { sentence: ['I', 'had', 'fun', 'in', 'the', 'sun'], image: '☀️', sightWords: ['i', 'in', 'the'] },
-        { sentence: ['We', 'can', 'hop', 'and', 'run'], image: '🐰', sightWords: ['we', 'can', 'and'] },
+        { sentence: ['The', 'dog', 'can', 'run', 'fast'], image: '&#x1F415;', sightWords: ['the', 'can'] },
+        { sentence: ['I', 'see', 'a', 'big', 'frog'], image: '&#x1F438;', sightWords: ['i', 'see', 'a'] },
+        { sentence: ['The', 'cat', 'sat', 'on', 'a', 'mat'], image: '&#x1F431;', sightWords: ['the', 'on', 'a'] },
+        { sentence: ['A', 'fox', 'hid', 'in', 'the', 'box'], image: '&#x1F98A;', sightWords: ['a', 'in', 'the'] },
+        { sentence: ['The', 'pig', 'is', 'in', 'the', 'pen'], image: '&#x1F437;', sightWords: ['the', 'is', 'in'] },
+        { sentence: ['I', 'had', 'fun', 'in', 'the', 'sun'], image: '&#x2600;&#xFE0F;', sightWords: ['i', 'in', 'the'] },
+        { sentence: ['We', 'can', 'hop', 'and', 'run'], image: '&#x1F430;', sightWords: ['we', 'can', 'and'] },
       ],
       2: [ // Hard - 5-6 words
-        { sentence: ['The', 'ship', 'is', 'on', 'the', 'sea'], image: '🚢', sightWords: ['the', 'is', 'on'] },
-        { sentence: ['I', 'wish', 'to', 'swim', 'with', 'fish'], image: '🐟', sightWords: ['i', 'to', 'with'] },
-        { sentence: ['The', 'frog', 'sat', 'on', 'a', 'log'], image: '🐸', sightWords: ['the', 'on', 'a'] },
-        { sentence: ['We', 'clap', 'and', 'snap', 'our', 'hands'], image: '👏', sightWords: ['we', 'and', 'our'] },
-        { sentence: ['The', 'crab', 'ran', 'on', 'the', 'sand'], image: '🦀', sightWords: ['the', 'on'] },
-        { sentence: ['I', 'like', 'to', 'chat', 'with', 'my', 'chum'], image: '💬', sightWords: ['i', 'like', 'to', 'with', 'my'] },
+        { sentence: ['The', 'ship', 'is', 'on', 'the', 'sea'], image: '&#x1F6A2;', sightWords: ['the', 'is', 'on'] },
+        { sentence: ['I', 'wish', 'to', 'swim', 'with', 'fish'], image: '&#x1F41F;', sightWords: ['i', 'to', 'with'] },
+        { sentence: ['The', 'frog', 'sat', 'on', 'a', 'log'], image: '&#x1F438;', sightWords: ['the', 'on', 'a'] },
+        { sentence: ['We', 'clap', 'and', 'snap', 'our', 'hands'], image: '&#x1F44F;', sightWords: ['we', 'and', 'our'] },
+        { sentence: ['The', 'crab', 'ran', 'on', 'the', 'sand'], image: '&#x1F980;', sightWords: ['the', 'on'] },
+        { sentence: ['I', 'like', 'to', 'chat', 'with', 'my', 'chum'], image: '&#x1F4AC;', sightWords: ['i', 'like', 'to', 'with', 'my'] },
       ]
     };
 
@@ -342,9 +281,9 @@
     });
 
     function setupLevelButtons() {
-      document.querySelectorAll('.level-btn').forEach(btn => {
+      document.querySelectorAll('.chip').forEach(btn => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           currentLevel = parseInt(btn.dataset.level);
           newSentence();
@@ -358,7 +297,7 @@
       builtSentence = [];
       hintsUsed = 0;
 
-      document.getElementById('imageHint').textContent = currentSentence.image;
+      document.getElementById('imageHint').innerHTML = currentSentence.image;
       document.getElementById('feedback').textContent = '';
       document.getElementById('feedback').className = 'feedback';
       document.getElementById('sentenceArea').className = 'sentence-area';

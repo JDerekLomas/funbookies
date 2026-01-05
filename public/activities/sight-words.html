@@ -5,44 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>Sight Words Practice - FunBookies</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container { max-width: 600px; margin: 0 auto; }
-
-    .back-link {
-      display: inline-block;
-      color: white;
-      text-decoration: none;
-      margin-bottom: 15px;
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-    .back-link:hover { opacity: 1; text-decoration: underline; }
-
-    .card {
-      background: white;
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    .page-header {
+      padding-top: var(--space-md);
     }
 
-    .header {
+    .game-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: var(--space-md);
     }
 
-    h1 {
-      font-size: 1.6rem;
-      color: #4CAF50;
+    .game-header h1 {
+      font-size: 1.5rem;
     }
 
     .stats {
@@ -50,61 +30,48 @@
       gap: 10px;
     }
 
-    .stat {
-      background: #E8F5E9;
+    .stat-pill {
+      background: var(--color-sage-light);
       padding: 6px 14px;
       border-radius: 20px;
-      font-weight: 700;
-      color: #2E7D32;
+      font-weight: 600;
+      color: var(--color-sage-dark);
       font-size: 0.85rem;
     }
 
     .list-selector {
       display: flex;
       gap: 8px;
-      margin-bottom: 25px;
+      margin-bottom: var(--space-md);
       flex-wrap: wrap;
-    }
-
-    .list-btn {
-      padding: 10px 18px;
-      border: 2px solid #4CAF50;
-      background: white;
-      border-radius: 20px;
-      font-family: inherit;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .list-btn:hover, .list-btn.active {
-      background: #4CAF50;
-      color: white;
     }
 
     .flashcard-area {
       text-align: center;
-      padding: 30px 0;
+      padding: var(--space-md) 0;
     }
 
     .flashcard {
-      background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-      border-radius: 20px;
-      padding: 60px 40px;
-      margin-bottom: 30px;
-      box-shadow: 0 8px 25px rgba(76, 175, 80, 0.2);
-      transition: transform 0.3s;
+      background: var(--color-white);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-xl) var(--space-lg);
+      margin-bottom: var(--space-md);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid var(--color-border);
     }
 
     .flashcard:hover {
-      transform: scale(1.02);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      border-color: var(--color-sage);
     }
 
     .word {
-      font-size: 4.5rem;
-      font-weight: 900;
-      color: #2E7D32;
-      text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 10vw, 4.5rem);
+      font-weight: 500;
+      color: var(--color-soft-black);
     }
 
     .response-buttons {
@@ -113,60 +80,54 @@
       justify-content: center;
     }
 
-    .btn-response {
-      padding: 18px 35px;
-      border: none;
-      border-radius: 15px;
-      font-family: inherit;
-      font-size: 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
     .btn-know {
-      background: #4CAF50;
-      color: white;
+      background: var(--color-sage);
+      color: var(--color-white);
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
     }
 
     .btn-know:hover {
-      background: #43A047;
-      transform: scale(1.05);
+      background: var(--color-sage-dark);
     }
 
     .btn-learning {
-      background: #FF9800;
-      color: white;
+      background: var(--color-terracotta);
+      color: var(--color-soft-black);
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
     }
 
     .btn-learning:hover {
-      background: #F57C00;
-      transform: scale(1.05);
+      background: var(--color-terracotta-dark);
     }
 
     .progress-section {
-      margin-top: 25px;
-      padding-top: 20px;
-      border-top: 1px solid #eee;
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--color-border);
     }
 
     .progress-section h3 {
-      font-size: 1rem;
-      color: #666;
-      margin-bottom: 15px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-sm);
     }
 
     .progress-bar-container {
-      background: #e0e0e0;
-      border-radius: 10px;
-      height: 12px;
+      background: var(--color-border);
+      border-radius: 6px;
+      height: 10px;
       overflow: hidden;
-      margin-bottom: 20px;
+      margin-bottom: var(--space-md);
     }
 
     .progress-bar {
       height: 100%;
-      background: linear-gradient(90deg, #4CAF50, #8BC34A);
+      background: var(--color-sage);
+      border-radius: 6px;
       transition: width 0.3s;
     }
 
@@ -180,85 +141,79 @@
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .word-chip:hover {
+      transform: scale(1.05);
     }
 
     .word-chip.mastered {
-      background: #E8F5E9;
-      color: #2E7D32;
+      background: var(--color-sage-light);
+      color: var(--color-sage-dark);
     }
 
     .word-chip.learning {
-      background: #FFF3E0;
-      color: #E65100;
+      background: var(--color-terracotta-light);
+      color: var(--color-terracotta-dark);
     }
 
     .word-chip.new {
-      background: #f5f5f5;
-      color: #666;
+      background: var(--color-cream);
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
     }
 
     .session-complete {
       text-align: center;
-      padding: 30px 0;
+      padding: var(--space-lg) 0;
       display: none;
     }
 
     .session-complete h2 {
-      color: #4CAF50;
-      font-size: 2rem;
-      margin-bottom: 15px;
+      font-family: var(--font-display);
+      color: var(--color-sage-dark);
+      font-size: 1.75rem;
+      margin-bottom: var(--space-sm);
     }
 
     .session-complete .big-num {
-      font-size: 5rem;
-      font-weight: 900;
-      color: #2E7D32;
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 600;
+      color: var(--color-sage);
     }
 
     .session-complete p {
-      color: #666;
-      margin: 15px 0;
-    }
-
-    .btn-continue {
-      padding: 15px 40px;
-      background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
-      color: white;
-      border: none;
-      border-radius: 30px;
-      font-family: inherit;
-      font-size: 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 15px;
-    }
-
-    .btn-continue:hover {
-      transform: scale(1.05);
+      color: var(--color-text-muted);
+      margin: var(--space-sm) 0;
     }
 
     .hidden { display: none !important; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
 
-    <div class="card">
-      <div class="header">
+    <div class="game-card">
+      <div class="game-header">
         <h1>Sight Words</h1>
         <div class="stats">
-          <div class="stat">Session: <span id="sessionCount">0</span></div>
-          <div class="stat">Mastered: <span id="masteredCount">0</span></div>
+          <div class="stat-pill">Session: <span id="sessionCount">0</span></div>
+          <div class="stat-pill">Mastered: <span id="masteredCount">0</span></div>
         </div>
       </div>
 
       <div class="list-selector">
-        <button class="list-btn active" data-list="dolch-pre">Pre-K</button>
-        <button class="list-btn" data-list="dolch-primer">Primer</button>
-        <button class="list-btn" data-list="dolch-1">Grade 1</button>
-        <button class="list-btn" data-list="fry-100">Fry 100</button>
+        <button class="chip active" data-list="dolch-pre">Pre-K</button>
+        <button class="chip" data-list="dolch-primer">Primer</button>
+        <button class="chip" data-list="dolch-1">Grade 1</button>
+        <button class="chip" data-list="fry-100">Fry 100</button>
       </div>
 
       <div class="flashcard-area" id="flashcardArea">
@@ -267,8 +222,8 @@
         </div>
 
         <div class="response-buttons">
-          <button class="btn-response btn-know" onclick="respond(true)">I Know It!</button>
-          <button class="btn-response btn-learning" onclick="respond(false)">Still Learning</button>
+          <button class="btn btn-know" onclick="respond(true)">I Know It!</button>
+          <button class="btn btn-learning" onclick="respond(false)">Still Learning</button>
         </div>
       </div>
 
@@ -277,7 +232,7 @@
         <div class="big-num" id="sessionScore">0</div>
         <p>words practiced this session</p>
         <p id="sessionMessage">Keep going to master more words!</p>
-        <button class="btn-continue" onclick="startNewSession()">Continue Practicing</button>
+        <button class="btn btn-primary btn-lg" onclick="startNewSession()">Continue Practicing</button>
       </div>
 
       <div class="progress-section">
@@ -337,9 +292,9 @@
     });
 
     function setupListButtons() {
-      document.querySelectorAll('.list-btn').forEach(btn => {
+      document.querySelectorAll('.chip').forEach(btn => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.list-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           currentList = btn.dataset.list;
           buildQueue();
@@ -439,7 +394,7 @@
       const statusHtml = list.slice(0, 20).map(w => {
         const s = getStatus(w);
         const cls = s >= 3 ? 'mastered' : s >= 1 ? 'learning' : 'new';
-        return `<span class="word-chip ${cls}" onclick="speak('${w}')" style="cursor:pointer">${w}</span>`;
+        return `<span class="word-chip ${cls}" onclick="speak('${w}')">${w}</span>`;
       }).join('');
       document.getElementById('wordStatus').innerHTML = statusHtml + (list.length > 20 ? '<span class="word-chip new">...</span>' : '');
     }

@@ -5,76 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>Word Families - FunBookies</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: linear-gradient(135deg, #2196F3 0%, #03A9F4 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container { max-width: 600px; margin: 0 auto; }
-
-    .back-link {
-      display: inline-block;
-      color: white;
-      text-decoration: none;
-      margin-bottom: 15px;
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-    .back-link:hover { opacity: 1; text-decoration: underline; }
-
-    .game-card {
-      background: white;
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    .page-header {
+      padding-top: var(--space-md);
     }
 
-    .header {
+    .game-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: var(--space-md);
     }
 
-    h1 {
-      font-size: 1.6rem;
-      color: #2196F3;
+    .game-header h1 {
+      font-size: 1.5rem;
     }
 
-    .score {
-      background: #E3F2FD;
+    .score-badge {
+      background: var(--color-dusty-blue);
+      background: rgba(168, 196, 212, 0.3);
       padding: 8px 16px;
       border-radius: 20px;
-      font-weight: 700;
-      color: #1565C0;
+      font-weight: 600;
+      color: #5A7A9D;
     }
 
     .family-selector {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 25px;
-    }
-
-    .family-btn {
-      padding: 10px 18px;
-      border: 2px solid #2196F3;
-      background: white;
-      border-radius: 20px;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .family-btn:hover, .family-btn.active {
-      background: #2196F3;
-      color: white;
+      margin-bottom: var(--space-md);
     }
 
     .game-area {
@@ -82,35 +46,38 @@
     }
 
     .family-display {
-      margin-bottom: 25px;
+      margin-bottom: var(--space-md);
     }
 
     .family-display .label {
       font-size: 0.9rem;
-      color: #999;
-      margin-bottom: 5px;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-xs);
     }
 
     .family-ending {
-      font-size: 4rem;
-      font-weight: 900;
-      color: #2196F3;
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 500;
+      color: var(--color-dusty-blue);
+      color: #5A7A9D;
     }
 
     .word-display {
-      font-size: 3rem;
-      font-weight: 700;
-      color: #333;
-      margin-bottom: 30px;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 500;
+      color: var(--color-charcoal);
+      margin-bottom: var(--space-md);
       min-height: 60px;
     }
 
     .word-display .onset {
-      color: #FF9800;
+      color: var(--color-terracotta);
     }
 
     .word-display .rime {
-      color: #2196F3;
+      color: #5A7A9D;
     }
 
     .onset-choices {
@@ -118,50 +85,51 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 25px;
+      margin-bottom: var(--space-md);
     }
 
     .onset-btn {
-      width: 60px;
-      height: 60px;
-      border: 2px solid #ddd;
-      background: white;
-      border-radius: 12px;
-      font-family: inherit;
-      font-size: 1.5rem;
-      font-weight: 700;
+      width: 56px;
+      height: 56px;
+      border: 2px solid var(--color-border);
+      background: var(--color-white);
+      border-radius: var(--border-radius);
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--color-charcoal);
       cursor: pointer;
       transition: all 0.2s;
     }
 
     .onset-btn:hover {
-      border-color: #2196F3;
-      background: #E3F2FD;
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
     }
 
     .onset-btn.used {
-      background: #E8F5E9;
-      border-color: #4CAF50;
-      color: #4CAF50;
+      background: var(--color-sage-light);
+      border-color: var(--color-sage);
+      color: var(--color-sage-dark);
     }
 
     .onset-btn.current {
-      background: #2196F3;
-      border-color: #2196F3;
-      color: white;
+      background: var(--color-sage);
+      border-color: var(--color-sage);
+      color: var(--color-white);
       transform: scale(1.1);
     }
 
     .words-found {
-      background: #f5f5f5;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 20px;
+      background: var(--color-cream);
+      border-radius: var(--border-radius);
+      padding: var(--space-sm);
+      margin-bottom: var(--space-md);
     }
 
     .words-found .label {
       font-size: 0.85rem;
-      color: #999;
+      color: var(--color-text-muted);
       margin-bottom: 8px;
     }
 
@@ -173,11 +141,11 @@
     }
 
     .found-word {
-      background: #E3F2FD;
-      color: #1565C0;
+      background: rgba(168, 196, 212, 0.3);
+      color: #5A7A9D;
       padding: 6px 14px;
       border-radius: 20px;
-      font-weight: 600;
+      font-weight: 500;
     }
 
     .controls {
@@ -186,74 +154,66 @@
       justify-content: center;
     }
 
-    .btn {
-      padding: 12px 24px;
-      border: none;
-      border-radius: 25px;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
     .btn-say {
-      background: #4CAF50;
-      color: white;
+      background: var(--color-sage);
+      color: var(--color-white);
     }
 
     .btn-say:hover {
-      background: #43A047;
+      background: var(--color-sage-dark);
     }
 
     .btn-next {
-      background: #2196F3;
-      color: white;
+      background: var(--color-terracotta);
+      color: var(--color-soft-black);
     }
 
     .btn-next:hover {
-      background: #1976D2;
+      background: var(--color-terracotta-dark);
     }
 
     .feedback {
-      margin-top: 15px;
-      font-size: 1.2rem;
-      font-weight: 700;
+      margin-top: var(--space-sm);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 500;
       min-height: 30px;
     }
 
-    .feedback.correct { color: #4CAF50; }
-    .feedback.info { color: #2196F3; }
+    .feedback.correct { color: var(--color-success); }
+    .feedback.info { color: #5A7A9D; }
 
     .timer {
       font-size: 0.9rem;
-      color: #999;
-      margin-top: 10px;
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
     }
 
     .timer span {
       font-weight: 700;
-      color: #2196F3;
+      color: #5A7A9D;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
 
     <div class="game-card">
-      <div class="header">
+      <div class="game-header">
         <h1>Word Families</h1>
-        <div class="score">Words: <span id="totalWords">0</span></div>
+        <div class="score-badge">Words: <span id="totalWords">0</span></div>
       </div>
 
       <div class="family-selector" id="familySelector">
-        <button class="family-btn active" data-family="at">-at</button>
-        <button class="family-btn" data-family="an">-an</button>
-        <button class="family-btn" data-family="ig">-ig</button>
-        <button class="family-btn" data-family="op">-op</button>
-        <button class="family-btn" data-family="ug">-ug</button>
-        <button class="family-btn" data-family="en">-en</button>
+        <button class="chip active" data-family="at">-at</button>
+        <button class="chip" data-family="an">-an</button>
+        <button class="chip" data-family="ig">-ig</button>
+        <button class="chip" data-family="op">-op</button>
+        <button class="chip" data-family="ug">-ug</button>
+        <button class="chip" data-family="en">-en</button>
       </div>
 
       <div class="game-area">
@@ -329,9 +289,9 @@
     });
 
     function setupFamilyButtons() {
-      document.querySelectorAll('.family-btn').forEach(btn => {
+      document.querySelectorAll('.chip').forEach(btn => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.family-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           loadFamily(btn.dataset.family);
         });
@@ -447,7 +407,7 @@
       const nextFamily = familyKeys[nextIndex];
 
       // Update button
-      document.querySelectorAll('.family-btn').forEach(btn => {
+      document.querySelectorAll('.chip').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.family === nextFamily);
       });
 

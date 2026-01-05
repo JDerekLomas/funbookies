@@ -5,96 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>Word Builder - FunBookies</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: linear-gradient(135deg, #FF9800 0%, #FFC107 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container { max-width: 600px; margin: 0 auto; }
-
-    .back-link {
-      display: inline-block;
-      color: white;
-      text-decoration: none;
-      margin-bottom: 15px;
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-    .back-link:hover { opacity: 1; text-decoration: underline; }
-
-    .game-card {
-      background: white;
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    .page-header {
+      padding-top: var(--space-md);
     }
 
-    .header {
+    .game-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: var(--space-md);
     }
 
-    h1 {
-      font-size: 1.8rem;
-      color: #FF9800;
+    .game-header h1 {
+      font-size: 1.5rem;
+      color: var(--color-soft-black);
     }
 
-    .score {
-      background: #FFF3E0;
+    .score-badge {
+      background: var(--color-terracotta-light);
       padding: 8px 16px;
       border-radius: 20px;
-      font-weight: 700;
-      color: #E65100;
+      font-weight: 600;
+      color: var(--color-terracotta-dark);
     }
 
     .level-select {
       display: flex;
       gap: 8px;
-      margin-bottom: 25px;
+      margin-bottom: var(--space-md);
       flex-wrap: wrap;
-    }
-
-    .level-btn {
-      padding: 8px 16px;
-      border: 2px solid #FF9800;
-      background: white;
-      border-radius: 20px;
-      font-family: inherit;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .level-btn:hover, .level-btn.active {
-      background: #FF9800;
-      color: white;
     }
 
     .target-area {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: var(--space-md);
     }
 
     .target-hint {
-      font-size: 1rem;
-      color: #999;
-      margin-bottom: 10px;
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-xs);
     }
 
     .target-image {
       font-size: 5rem;
-      margin-bottom: 10px;
+      margin-bottom: var(--space-xs);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .target-image:hover {
+      transform: scale(1.1);
     }
 
     .target-word {
-      font-size: 1.2rem;
-      color: #666;
+      font-size: 1rem;
+      color: var(--color-text-muted);
       font-style: italic;
     }
 
@@ -102,46 +73,42 @@
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 30px;
+      margin-bottom: var(--space-md);
       min-height: 80px;
     }
 
     .slot {
-      width: 70px;
-      height: 80px;
-      border: 3px dashed #ddd;
-      border-radius: 12px;
+      width: 60px;
+      height: 70px;
+      border: 2px dashed var(--color-border);
+      border-radius: var(--border-radius);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #333;
-      background: #f9f9f9;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--color-charcoal);
+      background: var(--color-cream);
       transition: all 0.2s;
+      cursor: pointer;
     }
 
     .slot.filled {
       border-style: solid;
-      border-color: #FF9800;
-      background: #FFF3E0;
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
     }
 
     .slot.correct {
-      border-color: #4CAF50;
+      border-color: var(--color-success);
       background: #E8F5E9;
     }
 
     .slot.wrong {
-      border-color: #f44336;
+      border-color: var(--color-error);
       background: #FFEBEE;
       animation: shake 0.3s;
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
     }
 
     .letter-bank {
@@ -149,31 +116,32 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: var(--space-md);
     }
 
     .letter-tile {
-      width: 60px;
-      height: 70px;
-      background: linear-gradient(135deg, #FF9800 0%, #FFC107 100%);
+      width: 56px;
+      height: 64px;
+      background: var(--color-sage);
       border: none;
-      border-radius: 12px;
-      font-size: 2rem;
-      font-weight: 700;
-      color: white;
+      border-radius: var(--border-radius);
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: var(--color-white);
       cursor: pointer;
       transition: all 0.2s;
-      font-family: inherit;
-      box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+      box-shadow: 0 3px 8px rgba(159, 199, 170, 0.3);
     }
 
     .letter-tile:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
+      background: var(--color-sage-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px rgba(159, 199, 170, 0.4);
     }
 
     .letter-tile:active {
-      transform: translateY(0);
+      transform: translateY(0) scale(0.95);
     }
 
     .letter-tile.used {
@@ -185,103 +153,69 @@
       display: flex;
       gap: 10px;
       justify-content: center;
-    }
-
-    .btn {
-      padding: 12px 24px;
-      border: none;
-      border-radius: 25px;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-clear {
-      background: #f5f5f5;
-      color: #666;
-    }
-
-    .btn-clear:hover {
-      background: #eee;
-    }
-
-    .btn-check {
-      background: #4CAF50;
-      color: white;
-    }
-
-    .btn-check:hover {
-      background: #43A047;
-    }
-
-    .btn-skip {
-      background: #9e9e9e;
-      color: white;
+      flex-wrap: wrap;
     }
 
     .feedback {
       text-align: center;
-      margin-top: 20px;
-      font-size: 1.5rem;
-      font-weight: 700;
+      margin-top: var(--space-md);
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 500;
       min-height: 40px;
     }
 
     .feedback.correct {
-      color: #4CAF50;
+      color: var(--color-success);
     }
 
     .feedback.wrong {
-      color: #f44336;
+      color: var(--color-error);
     }
 
     .streak {
       text-align: center;
-      margin-top: 15px;
+      margin-top: var(--space-sm);
       font-size: 0.9rem;
-      color: #999;
+      color: var(--color-text-muted);
     }
 
     .streak span {
-      color: #FF9800;
+      color: var(--color-terracotta);
       font-weight: 700;
     }
 
-    .target-image {
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .target-image:hover {
-      transform: scale(1.1);
-    }
-
-    .letter-tile:active {
-      transform: translateY(0) scale(0.95);
+    @media (max-width: 480px) {
+      .slot, .letter-tile {
+        width: 48px;
+        height: 56px;
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
 
     <div class="game-card">
-      <div class="header">
+      <div class="game-header">
         <h1>Word Builder</h1>
-        <div class="score">Score: <span id="score">0</span></div>
+        <div class="score-badge">Score: <span id="score">0</span></div>
       </div>
 
       <div class="level-select">
-        <button class="level-btn active" data-level="0">CVC</button>
-        <button class="level-btn" data-level="1">Short U</button>
-        <button class="level-btn" data-level="2">Blends</button>
-        <button class="level-btn" data-level="3">Digraphs</button>
+        <button class="chip active" data-level="0">CVC</button>
+        <button class="chip" data-level="1">Short U</button>
+        <button class="chip" data-level="2">Blends</button>
+        <button class="chip" data-level="3">Digraphs</button>
       </div>
 
       <div class="target-area">
         <div class="target-hint">Build this word:</div>
-        <div class="target-image" id="targetImage" onclick="speakWord(currentWord?.word)" title="Click to hear the word">🐱</div>
+        <div class="target-image" id="targetImage" onclick="speakWord(currentWord?.word)" title="Click to hear the word">&#x1F431;</div>
         <div class="target-word" id="targetHint">(a furry pet that says meow)</div>
       </div>
 
@@ -290,10 +224,10 @@
       <div class="letter-bank" id="letterBank"></div>
 
       <div class="controls">
-        <button class="btn btn-clear" onclick="clearWord()">Clear</button>
-        <button class="btn btn-check" onclick="checkWord()">Check</button>
-        <button class="btn" onclick="speakWord(currentWord?.word)" style="background: #667eea; color: white;" title="Hear the word">🔊</button>
-        <button class="btn btn-skip" onclick="skipWord()">Skip</button>
+        <button class="btn btn-ghost" onclick="clearWord()">Clear</button>
+        <button class="btn btn-primary" onclick="checkWord()">Check</button>
+        <button class="btn btn-secondary" onclick="speakWord(currentWord?.word)" title="Hear the word">&#x1F50A;</button>
+        <button class="btn btn-outline" onclick="skipWord()">Skip</button>
       </div>
 
       <div class="feedback" id="feedback"></div>
@@ -316,7 +250,6 @@
     }
 
     function speakLetter(letter) {
-      // For letters, speak slowly and clearly
       speak(letter.toUpperCase(), 0.7);
     }
 
@@ -327,57 +260,57 @@
     // Word banks by level
     const wordBanks = {
       0: [ // Simple CVC
-        { word: 'cat', image: '🐱', hint: 'a furry pet that says meow' },
-        { word: 'dog', image: '🐕', hint: 'a pet that barks' },
-        { word: 'sun', image: '☀️', hint: 'bright in the sky' },
-        { word: 'hat', image: '🎩', hint: 'you wear it on your head' },
-        { word: 'pig', image: '🐷', hint: 'a pink farm animal' },
-        { word: 'cup', image: '🥤', hint: 'you drink from it' },
-        { word: 'bed', image: '🛏️', hint: 'you sleep on it' },
-        { word: 'fox', image: '🦊', hint: 'a clever orange animal' },
-        { word: 'map', image: '🗺️', hint: 'shows you where to go' },
-        { word: 'pen', image: '🖊️', hint: 'you write with it' },
-        { word: 'bus', image: '🚌', hint: 'big yellow vehicle' },
-        { word: 'bat', image: '🦇', hint: 'flies at night' },
-        { word: 'net', image: '🥅', hint: 'catch fish or balls' },
-        { word: 'pot', image: '🍲', hint: 'cook food in it' },
-        { word: 'fan', image: '🪭', hint: 'keeps you cool' },
+        { word: 'cat', image: '&#x1F431;', hint: 'a furry pet that says meow' },
+        { word: 'dog', image: '&#x1F415;', hint: 'a pet that barks' },
+        { word: 'sun', image: '&#x2600;&#xFE0F;', hint: 'bright in the sky' },
+        { word: 'hat', image: '&#x1F3A9;', hint: 'you wear it on your head' },
+        { word: 'pig', image: '&#x1F437;', hint: 'a pink farm animal' },
+        { word: 'cup', image: '&#x1F964;', hint: 'you drink from it' },
+        { word: 'bed', image: '&#x1F6CF;&#xFE0F;', hint: 'you sleep on it' },
+        { word: 'fox', image: '&#x1F98A;', hint: 'a clever orange animal' },
+        { word: 'map', image: '&#x1F5FA;&#xFE0F;', hint: 'shows you where to go' },
+        { word: 'pen', image: '&#x1F58A;&#xFE0F;', hint: 'you write with it' },
+        { word: 'bus', image: '&#x1F68C;', hint: 'big yellow vehicle' },
+        { word: 'bat', image: '&#x1F987;', hint: 'flies at night' },
+        { word: 'net', image: '&#x1F945;', hint: 'catch fish or balls' },
+        { word: 'pot', image: '&#x1F372;', hint: 'cook food in it' },
+        { word: 'fan', image: '&#x1FAAD;', hint: 'keeps you cool' },
       ],
       1: [ // Short U focus
-        { word: 'bug', image: '🐛', hint: 'a small crawling creature' },
-        { word: 'rug', image: '🧶', hint: 'soft on the floor' },
-        { word: 'mud', image: '💩', hint: 'wet dirt' },
-        { word: 'tub', image: '🛁', hint: 'take a bath in it' },
-        { word: 'hug', image: '🤗', hint: 'wrap your arms around' },
-        { word: 'jug', image: '🫗', hint: 'holds water' },
-        { word: 'nut', image: '🥜', hint: 'squirrels love these' },
-        { word: 'cut', image: '✂️', hint: 'use scissors to do this' },
-        { word: 'pup', image: '🐶', hint: 'a baby dog' },
-        { word: 'sun', image: '☀️', hint: 'bright in the sky' },
+        { word: 'bug', image: '&#x1F41B;', hint: 'a small crawling creature' },
+        { word: 'rug', image: '&#x1F9F6;', hint: 'soft on the floor' },
+        { word: 'mud', image: '&#x1F4A9;', hint: 'wet dirt' },
+        { word: 'tub', image: '&#x1F6C1;', hint: 'take a bath in it' },
+        { word: 'hug', image: '&#x1F917;', hint: 'wrap your arms around' },
+        { word: 'jug', image: '&#x1FAD7;', hint: 'holds water' },
+        { word: 'nut', image: '&#x1F95C;', hint: 'squirrels love these' },
+        { word: 'cut', image: '&#x2702;&#xFE0F;', hint: 'use scissors to do this' },
+        { word: 'pup', image: '&#x1F436;', hint: 'a baby dog' },
+        { word: 'sun', image: '&#x2600;&#xFE0F;', hint: 'bright in the sky' },
       ],
       2: [ // Blends
-        { word: 'frog', image: '🐸', hint: 'green and hops' },
-        { word: 'crab', image: '🦀', hint: 'has claws' },
-        { word: 'flag', image: '🚩', hint: 'waves in the wind' },
-        { word: 'drum', image: '🥁', hint: 'bang on it' },
-        { word: 'swim', image: '🏊', hint: 'do this in water' },
-        { word: 'stop', image: '🛑', hint: 'red sign' },
-        { word: 'trip', image: '✈️', hint: 'go on a journey' },
-        { word: 'clap', image: '👏', hint: 'hit hands together' },
-        { word: 'snap', image: '🫰', hint: 'click your fingers' },
-        { word: 'grin', image: '😁', hint: 'a big smile' },
+        { word: 'frog', image: '&#x1F438;', hint: 'green and hops' },
+        { word: 'crab', image: '&#x1F980;', hint: 'has claws' },
+        { word: 'flag', image: '&#x1F6A9;', hint: 'waves in the wind' },
+        { word: 'drum', image: '&#x1F941;', hint: 'bang on it' },
+        { word: 'swim', image: '&#x1F3CA;', hint: 'do this in water' },
+        { word: 'stop', image: '&#x1F6D1;', hint: 'red sign' },
+        { word: 'trip', image: '&#x2708;&#xFE0F;', hint: 'go on a journey' },
+        { word: 'clap', image: '&#x1F44F;', hint: 'hit hands together' },
+        { word: 'snap', image: '&#x1FAF0;', hint: 'click your fingers' },
+        { word: 'grin', image: '&#x1F601;', hint: 'a big smile' },
       ],
       3: [ // Digraphs
-        { word: 'ship', image: '🚢', hint: 'sails on water' },
-        { word: 'fish', image: '🐟', hint: 'swims in water' },
-        { word: 'chat', image: '💬', hint: 'have a talk' },
-        { word: 'chin', image: '🧔', hint: 'below your mouth' },
-        { word: 'chop', image: '🪓', hint: 'cut with an axe' },
-        { word: 'shop', image: '🏪', hint: 'buy things here' },
-        { word: 'thin', image: '📏', hint: 'not thick' },
-        { word: 'path', image: '🛤️', hint: 'walk on it' },
-        { word: 'with', image: '🤝', hint: 'together' },
-        { word: 'math', image: '🔢', hint: 'numbers subject' },
+        { word: 'ship', image: '&#x1F6A2;', hint: 'sails on water' },
+        { word: 'fish', image: '&#x1F41F;', hint: 'swims in water' },
+        { word: 'chat', image: '&#x1F4AC;', hint: 'have a talk' },
+        { word: 'chin', image: '&#x1F9D4;', hint: 'below your mouth' },
+        { word: 'chop', image: '&#x1FA93;', hint: 'cut with an axe' },
+        { word: 'shop', image: '&#x1F3EA;', hint: 'buy things here' },
+        { word: 'thin', image: '&#x1F4CF;', hint: 'not thick' },
+        { word: 'path', image: '&#x1F6E4;&#xFE0F;', hint: 'walk on it' },
+        { word: 'with', image: '&#x1F91D;', hint: 'together' },
+        { word: 'math', image: '&#x1F522;', hint: 'numbers subject' },
       ]
     };
 
@@ -395,9 +328,9 @@
     });
 
     function setupLevelButtons() {
-      document.querySelectorAll('.level-btn').forEach(btn => {
+      document.querySelectorAll('.chip').forEach(btn => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           currentLevel = parseInt(btn.dataset.level);
           usedWords.clear();
@@ -422,7 +355,7 @@
       document.getElementById('feedback').textContent = '';
       document.getElementById('feedback').className = 'feedback';
 
-      document.getElementById('targetImage').textContent = currentWord.image;
+      document.getElementById('targetImage').innerHTML = currentWord.image;
       document.getElementById('targetHint').textContent = `(${currentWord.hint})`;
 
       renderSlots();
@@ -467,10 +400,6 @@
         tile.textContent = letter;
         tile.dataset.index = idx;
 
-        const usedCount = builtWord.filter(l => l === letter).length;
-        const availableCount = letters.filter(l => l === letter).length;
-        // This is simplified - proper tracking would need indices
-
         tile.onclick = () => addLetter(letter, tile);
         container.appendChild(tile);
       });
@@ -489,7 +418,6 @@
       if (builtWord[index]) {
         builtWord.splice(index, 1);
         renderSlots();
-        // Re-enable letter tiles
         renderLetterBank();
       }
     }
@@ -519,7 +447,6 @@
         document.getElementById('score').textContent = score;
         document.getElementById('streak').textContent = streak;
 
-        // Speak the word on success
         speakWord(currentWord.word);
 
         setTimeout(newWord, 1500);

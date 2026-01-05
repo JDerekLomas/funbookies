@@ -1,929 +1,650 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <title>Phonics Assessment - FunBookies</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container { max-width: 700px; margin: 0 auto; }
-
-    .back-link {
-      display: inline-block;
-      color: white;
-      text-decoration: none;
-      margin-bottom: 15px;
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-    .back-link:hover { opacity: 1; text-decoration: underline; }
-
-    .card {
-      background: white;
-      border-radius: 24px;
-      padding: 35px;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      color: #667eea;
-    }
-
-    .badge {
-      background: #EDE7F6;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: 700;
-      color: #5E35B1;
-      font-size: 0.9rem;
-    }
-
-    /* Start Screen */
-    .start-screen {
-      text-align: center;
-      padding: 20px 0;
-    }
-
-    .start-screen h2 {
-      color: #667eea;
-      font-size: 2rem;
-      margin-bottom: 15px;
-    }
-
-    .start-screen p {
-      color: #666;
-      margin-bottom: 10px;
-      line-height: 1.6;
-    }
-
-    .start-screen .emoji {
-      font-size: 4rem;
-      margin: 20px 0;
-    }
-
-    .btn-start {
-      margin-top: 25px;
-      padding: 18px 50px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      border-radius: 35px;
-      font-family: inherit;
-      font-size: 1.3rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-      transition: all 0.2s;
-    }
-
-    .btn-start:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
-    }
-
-    /* Practice Screen */
-    .practice-screen {
-      display: none;
-    }
-
-    .level-indicator {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #999;
-      margin-bottom: 20px;
-    }
-
-    .level-indicator span {
-      color: #667eea;
-      font-weight: 700;
-    }
-
-    .word-area {
-      text-align: center;
-      padding: 40px 0;
-    }
-
-    .instruction {
-      font-size: 1rem;
-      color: #888;
-      margin-bottom: 15px;
-    }
-
-    .word-display {
-      font-size: 5rem;
-      font-weight: 900;
-      color: #333;
-      font-family: Georgia, serif;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 30px;
-    }
-
-    .response-buttons {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-response {
-      padding: 15px 30px;
-      border: none;
-      border-radius: 15px;
-      font-family: inherit;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      min-width: 140px;
-    }
-
-    .btn-correct {
-      background: #4CAF50;
-      color: white;
-    }
-
-    .btn-correct:hover {
-      background: #43A047;
-      transform: scale(1.05);
-    }
-
-    .btn-needs-work {
-      background: #FF9800;
-      color: white;
-    }
-
-    .btn-needs-work:hover {
-      background: #F57C00;
-      transform: scale(1.05);
-    }
-
-    .btn-too-hard {
-      background: #9E9E9E;
-      color: white;
-    }
-
-    .btn-too-hard:hover {
-      background: #757575;
-      transform: scale(1.05);
-    }
-
-    .parent-note {
-      text-align: center;
-      font-size: 0.85rem;
-      color: #999;
-      margin-top: 25px;
-      padding-top: 20px;
-      border-top: 1px solid #eee;
-    }
-
-    .feedback-area {
-      text-align: center;
-      padding: 50px 0;
-      display: none;
-    }
-
-    .feedback-text {
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: #4CAF50;
-      animation: bounce 0.5s;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    /* Results Screen */
-    .results-screen {
-      display: none;
-    }
-
-    .results-header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .results-header h2 {
-      color: #667eea;
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-
-    .level-result {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 25px;
-      border-radius: 20px;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .level-result .level-num {
-      font-size: 4rem;
-      font-weight: 900;
-    }
-
-    .level-result .level-desc {
-      opacity: 0.9;
-      font-size: 1.1rem;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .stat-box {
-      background: #f5f5f5;
-      padding: 20px;
-      border-radius: 15px;
-      text-align: center;
-    }
-
-    .stat-box .num {
-      font-size: 2rem;
-      font-weight: 900;
-    }
-
-    .stat-box.correct .num { color: #4CAF50; }
-    .stat-box.needs-work .num { color: #FF9800; }
-    .stat-box.unable .num { color: #9E9E9E; }
-
-    .stat-box .label {
-      font-size: 0.85rem;
-      color: #666;
-    }
-
-    .word-history {
-      background: #f9f9f9;
-      border-radius: 15px;
-      padding: 20px;
-      max-height: 200px;
-      overflow-y: auto;
-      margin-bottom: 25px;
-    }
-
-    .word-history h3 {
-      font-size: 1rem;
-      color: #666;
-      margin-bottom: 10px;
-    }
-
-    .word-item {
-      display: inline-block;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin: 3px;
-    }
-
-    .word-item.correct {
-      background: #E8F5E9;
-      color: #2E7D32;
-    }
-
-    .word-item.needsWork {
-      background: #FFF3E0;
-      color: #E65100;
-    }
-
-    .word-item.unable {
-      background: #f5f5f5;
-      color: #666;
-    }
-
-    .actions {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    /* Book Recommendations */
-    .book-recommendations {
-      background: #f0f7ff;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 25px;
-    }
-
-    .book-recommendations h3 {
-      font-size: 1.1rem;
-      color: #667eea;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .book-card {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      background: white;
-      padding: 12px;
-      border-radius: 12px;
-      margin-bottom: 10px;
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .book-card:hover {
-      transform: translateX(5px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    .book-card img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    .book-card .book-info h4 {
-      font-size: 1rem;
-      color: #333;
-      margin-bottom: 4px;
-    }
-
-    .book-card .book-info p {
-      font-size: 0.8rem;
-      color: #666;
-    }
-
-    .book-card .level-badge {
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    /* Skills Report */
-    .skills-report {
-      background: #fff8e1;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 25px;
-    }
-
-    .skills-report h3 {
-      font-size: 1.1rem;
-      color: #f57c00;
-      margin-bottom: 15px;
-    }
-
-    .skill-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid #ffe0b2;
-    }
-
-    .skill-row:last-child {
-      border-bottom: none;
-    }
-
-    .skill-name {
-      font-size: 0.9rem;
-      color: #333;
-    }
-
-    .skill-status {
-      padding: 4px 12px;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
-    .skill-status.mastered {
-      background: #e8f5e9;
-      color: #2e7d32;
-    }
-
-    .skill-status.learning {
-      background: #fff3e0;
-      color: #e65100;
-    }
-
-    .skill-status.not-tested {
-      background: #f5f5f5;
-      color: #999;
-    }
-
-    .btn-action {
-      padding: 14px 30px;
-      border: none;
-      border-radius: 30px;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-    }
-
-    .btn-secondary {
-      background: #4CAF50;
-      color: white;
-    }
-
-    .btn-action:hover {
-      transform: translateY(-2px);
-    }
-
-    .hidden { display: none !important; }
-
-    /* Confetti */
-    .confetti {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      top: -10px;
-      animation: fall linear forwards;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <a href="/activities/" class="back-link">&larr; Back to Activities</a>
-
-    <div class="card">
-      <!-- Start Screen -->
-      <div class="start-screen" id="startScreen">
-        <div class="emoji">📚</div>
-        <h2>Phonics Assessment</h2>
-        <p><strong>Find your child's reading level!</strong></p>
-        <p>Show each word to your child. Click based on how they read it.</p>
-        <p>The assessment adapts automatically.</p>
-        <p style="color: #667eea; font-weight: 600; margin-top: 15px;">Takes 5-10 minutes</p>
-        <button class="btn-start" onclick="startAssessment()">Start Assessment</button>
-      </div>
-
-      <!-- Practice Screen -->
-      <div class="practice-screen" id="practiceScreen">
-        <div class="header">
-          <h1>Phonics</h1>
-          <div class="badge">Words: <span id="wordCount">0</span></div>
-        </div>
-
-        <div class="level-indicator">
-          Testing Level <span id="levelDisplay">2</span>
-        </div>
-
-        <div class="word-area" id="wordArea">
-          <div class="instruction" id="instruction">Read this word</div>
-          <div class="word-display" id="wordDisplay">cat</div>
-
-          <div class="response-buttons">
-            <button class="btn-response btn-correct" onclick="respond('correct')">Correct!</button>
-            <button class="btn-response btn-needs-work" onclick="respond('needsWork')">Needs Work</button>
-            <button class="btn-response btn-too-hard" onclick="respond('unable')">Too Hard</button>
-          </div>
-        </div>
-
-        <div class="feedback-area" id="feedbackArea">
-          <div class="feedback-text" id="feedbackText">Great!</div>
-        </div>
-
-        <div class="parent-note">
-          Parent: Click based on how your child reads the word.<br>
-          <button style="margin-top: 15px; padding: 10px 25px; background: #f5f5f5; border: none; border-radius: 20px; font-family: inherit; cursor: pointer;" onclick="finishAssessment()">Finish Early</button>
-        </div>
-      </div>
-
-      <!-- Results Screen -->
-      <div class="results-screen" id="resultsScreen">
-        <div class="results-header">
-          <h2>Assessment Complete!</h2>
-        </div>
-
-        <div class="level-result">
-          <div>Estimated Reading Level</div>
-          <div class="level-num" id="finalLevel">Level 2</div>
-          <div class="level-desc" id="levelDesc">CVC words with short u</div>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-box correct">
-            <div class="num" id="correctCount">0</div>
-            <div class="label">Correct</div>
-          </div>
-          <div class="stat-box needs-work">
-            <div class="num" id="needsWorkCount">0</div>
-            <div class="label">Needs Work</div>
-          </div>
-          <div class="stat-box unable">
-            <div class="num" id="unableCount">0</div>
-            <div class="label">Too Hard</div>
-          </div>
-        </div>
-
-        <div class="book-recommendations" id="bookRecommendations">
-          <h3>📚 Recommended Books</h3>
-          <div id="booksList"></div>
-        </div>
-
-        <div class="skills-report">
-          <h3>📊 Skills Breakdown</h3>
-          <div id="skillsBreakdown"></div>
-        </div>
-
-        <div class="word-history" id="wordHistory">
-          <h3>Words Tested</h3>
-          <div id="historyContent"></div>
-        </div>
-
-        <div class="actions">
-          <button class="btn-action btn-primary" onclick="startAssessment()">Assess Again</button>
-          <a href="/activities/" class="btn-action btn-secondary">Practice Activities</a>
-          <a href="/generate-story.html" class="btn-action" style="background: #FF9800; color: white;">Generate Story</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Phonics word bank by level
-    const phonicsBank = {
-      1: [
-        { word: "cat", type: "Read this word" },
-        { word: "dog", type: "Read this word" },
-        { word: "sun", type: "Read this word" },
-        { word: "hat", type: "Read this word" },
-        { word: "pig", type: "Read this word" },
-        { word: "run", type: "Read this word" },
-        { word: "top", type: "Read this word" },
-        { word: "fan", type: "Read this word" },
-        { word: "mat", type: "Read this word" },
-        { word: "pen", type: "Read this word" },
-        { word: "can", type: "Read this word" },
-        { word: "red", type: "Read this word" },
-        { word: "sit", type: "Read this word" },
-        { word: "pot", type: "Read this word" },
-        { word: "wet", type: "Read this word" },
-      ],
-      2: [
-        { word: "bug", type: "Read this word (short u)" },
-        { word: "cup", type: "Read this word (short u)" },
-        { word: "hug", type: "Read this word (short u)" },
-        { word: "rug", type: "Read this word (short u)" },
-        { word: "tub", type: "Read this word (short u)" },
-        { word: "fun", type: "Read this word (short u)" },
-        { word: "mud", type: "Read this word (short u)" },
-        { word: "bun", type: "Read this word (short u)" },
-        { word: "cut", type: "Read this word (short u)" },
-        { word: "nut", type: "Read this word (short u)" },
-      ],
-      3: [
-        { word: "bed", type: "Read this word (b or d?)" },
-        { word: "bad", type: "Read this word (b or d?)" },
-        { word: "dab", type: "Read this word (b or d?)" },
-        { word: "bid", type: "Read this word (b or d?)" },
-        { word: "dad", type: "Read this word (b or d?)" },
-        { word: "bat", type: "Read this word (b or d?)" },
-        { word: "dot", type: "Read this word (b or d?)" },
-        { word: "big", type: "Read this word (b or d?)" },
-        { word: "dig", type: "Read this word (b or d?)" },
-      ],
-      4: [
-        { word: "stop", type: "Read this blend word" },
-        { word: "flag", type: "Read this blend word" },
-        { word: "crab", type: "Read this blend word" },
-        { word: "drum", type: "Read this blend word" },
-        { word: "frog", type: "Read this blend word" },
-        { word: "trip", type: "Read this blend word" },
-        { word: "step", type: "Read this blend word" },
-        { word: "slip", type: "Read this blend word" },
-        { word: "snap", type: "Read this blend word" },
-      ],
-      5: [
-        { word: "ship", type: "Read this digraph word" },
-        { word: "chop", type: "Read this digraph word" },
-        { word: "that", type: "Read this digraph word" },
-        { word: "fish", type: "Read this digraph word" },
-        { word: "much", type: "Read this digraph word" },
-        { word: "with", type: "Read this digraph word" },
-        { word: "shop", type: "Read this digraph word" },
-        { word: "chin", type: "Read this digraph word" },
-      ],
-      6: [
-        { word: "cake", type: "Read this magic e word" },
-        { word: "bike", type: "Read this magic e word" },
-        { word: "home", type: "Read this magic e word" },
-        { word: "tube", type: "Read this magic e word" },
-        { word: "make", type: "Read this magic e word" },
-        { word: "five", type: "Read this magic e word" },
-        { word: "bone", type: "Read this magic e word" },
-      ],
-      7: [
-        { word: "rain", type: "Read this vowel team word" },
-        { word: "play", type: "Read this vowel team word" },
-        { word: "seed", type: "Read this vowel team word" },
-        { word: "boat", type: "Read this vowel team word" },
-        { word: "train", type: "Read this vowel team word" },
-        { word: "feet", type: "Read this vowel team word" },
-        { word: "coat", type: "Read this vowel team word" },
-      ],
-      8: [
-        { word: "car", type: "Read this r-controlled word" },
-        { word: "bird", type: "Read this r-controlled word" },
-        { word: "corn", type: "Read this r-controlled word" },
-        { word: "turn", type: "Read this r-controlled word" },
-        { word: "girl", type: "Read this r-controlled word" },
-        { word: "born", type: "Read this r-controlled word" },
-      ],
-      9: [
-        { word: "sunset", type: "Read this 2-syllable word" },
-        { word: "rabbit", type: "Read this 2-syllable word" },
-        { word: "basket", type: "Read this 2-syllable word" },
-        { word: "picnic", type: "Read this 2-syllable word" },
-        { word: "kitten", type: "Read this 2-syllable word" },
-      ],
-    };
-
-    const levelDescriptions = {
-      1: "Simple CVC words (cat, dog, sun)",
-      2: "CVC words with short u (cup, bug)",
-      3: "CVC words with b/d (bed, bad)",
-      4: "Beginning blends (stop, flag)",
-      5: "Digraphs (ship, chop, that)",
-      6: "Magic e words (cake, bike)",
-      7: "Vowel teams (rain, boat)",
-      8: "R-controlled vowels (car, bird)",
-      9: "Two-syllable words (rabbit)",
-    };
-
-    // Book data for recommendations
-    const bookData = [
-      { title: 'No, No, Dog!', level: 0, color: 'Pink', skill: 'Pre-reader', slug: 'dog_pink', img: '/books/images/dog_pink_page01.png' },
-      { title: 'Pig in Mud', level: 1, color: 'Yellow', skill: 'Short vowels', slug: 'pig_yellow', img: '/books/images/pig_yellow_page01.png' },
-      { title: 'Gus and the Volcano', level: 2, color: 'Orange', skill: 'CVC words', slug: 'volcano', img: '/books/volcano_images/page_01_cover.png' },
-      { title: 'Rats in the Castle', level: 3, color: 'Orange', skill: 'CVC + Digraphs', slug: 'castle', img: '/books/castle_images/page_01_cover.png' },
-      { title: 'Stomp! Elephant', level: 4, color: 'Red', skill: 'Ending blends', slug: 'elephant_red', img: '/books/images/elephant_red_page01.png' },
-      { title: 'The Cake Mistake', level: 5, color: 'Purple', skill: 'Digraphs', slug: 'fox_purple', img: '/books/images/fox_purple_page01.png' },
-      { title: 'The Sneaky Snail', level: 6, color: 'Blue', skill: 'Silent e', slug: 'snail_blue', img: '/books/images/snail_blue_page01.png' },
-      { title: 'The Owl at Night', level: 7, color: 'Green', skill: 'Vowel teams', slug: 'owl_green', img: '/books/images/owl_green_page01.png' },
-      { title: 'Mouse in the House', level: 8, color: 'Gold', skill: 'R-controlled', slug: 'mouse_gold', img: '/books/images/mouse_gold_page01.png' }
-    ];
-
-    const levelColors = {
-      0: '#E91E63', 1: '#FFC107', 2: '#FF9800', 3: '#FF9800',
-      4: '#f44336', 5: '#9C27B0', 6: '#2196F3', 7: '#4CAF50', 8: '#FFD700'
-    };
-
-    // Map assessment level to book levels
-    function getBookLevelFromAssessment(assessmentLevel) {
-      if (assessmentLevel <= 2) return [0, 1];
-      if (assessmentLevel <= 4) return [2, 3];
-      if (assessmentLevel === 5) return [4, 5];
-      if (assessmentLevel === 6) return [6];
-      if (assessmentLevel === 7) return [7];
-      return [8];
-    }
-
-    const skillsList = [
-      { name: 'CVC Words', levels: [1, 2, 3] },
-      { name: 'Beginning Blends', levels: [4] },
-      { name: 'Digraphs (sh, ch, th)', levels: [5] },
-      { name: 'Silent E', levels: [6] },
-      { name: 'Vowel Teams', levels: [7] },
-      { name: 'R-Controlled Vowels', levels: [8] },
-      { name: 'Multi-Syllable Words', levels: [9] },
-    ];
-
-    const encouragingMessages = ["Amazing!", "Great job!", "Excellent!", "Keep going!", "Fantastic!", "Super!", "Way to go!"];
-    const neutralMessages = ["Let's try another", "Good effort!", "On to the next one"];
-
-    // State
-    let currentLevel = 2;
-    let usedWords = {};
-    let currentWord = null;
-    let wordCount = 0;
-    let stats = { correct: 0, needsWork: 0, unable: 0 };
-    let history = [];
-
-    function initUsedWords() {
-      usedWords = {};
-      for (let i = 1; i <= 9; i++) {
-        usedWords[i] = [];
-      }
-    }
-
-    function getNextWord() {
-      const available = phonicsBank[currentLevel].filter(w => !usedWords[currentLevel].includes(w.word));
-      if (available.length === 0) {
-        usedWords[currentLevel] = [];
-        return phonicsBank[currentLevel][Math.floor(Math.random() * phonicsBank[currentLevel].length)];
-      }
-      return available[Math.floor(Math.random() * available.length)];
-    }
-
-    function startAssessment() {
-      currentLevel = 2;
-      initUsedWords();
-      wordCount = 0;
-      stats = { correct: 0, needsWork: 0, unable: 0 };
-      history = [];
-
-      document.getElementById('startScreen').classList.add('hidden');
-      document.getElementById('resultsScreen').classList.add('hidden');
-      document.getElementById('practiceScreen').style.display = 'block';
-
-      showNextWord();
-    }
-
-    function showNextWord() {
-      currentWord = getNextWord();
-      document.getElementById('instruction').textContent = currentWord.type;
-      document.getElementById('wordDisplay').textContent = currentWord.word;
-      document.getElementById('levelDisplay').textContent = currentLevel;
-      document.getElementById('wordCount').textContent = wordCount;
-
-      document.getElementById('wordArea').style.display = 'block';
-      document.getElementById('feedbackArea').style.display = 'none';
-    }
-
-    function respond(result) {
-      history.push({ word: currentWord.word, result, level: currentLevel });
-      usedWords[currentLevel].push(currentWord.word);
-      stats[result]++;
-      wordCount++;
-
-      // Show feedback
-      const isCorrect = result === 'correct';
-      const msg = isCorrect
-        ? encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)]
-        : neutralMessages[Math.floor(Math.random() * neutralMessages.length)];
-
-      document.getElementById('feedbackText').textContent = msg;
-      document.getElementById('feedbackText').style.color = isCorrect ? '#4CAF50' : '#666';
-      document.getElementById('wordArea').style.display = 'none';
-      document.getElementById('feedbackArea').style.display = 'block';
-
-      if (isCorrect) {
-        playSuccessSound();
-        if (Math.random() > 0.7) createConfetti();
-      }
-
-      // Adjust level
-      if (result === 'correct' && Math.random() > 0.5 && currentLevel < 9) {
-        currentLevel++;
-      } else if (result === 'unable' && currentLevel > 1) {
-        currentLevel--;
-      } else if (result === 'needsWork' && Math.random() > 0.7 && currentLevel > 1) {
-        currentLevel--;
-      }
-
-      // Auto-finish after enough words or continue
-      if (wordCount >= 20 || (wordCount >= 10 && stats.unable >= 3)) {
-        setTimeout(finishAssessment, 1000);
-      } else {
-        setTimeout(showNextWord, 800);
-      }
-    }
-
-    function finishAssessment() {
-      document.getElementById('practiceScreen').style.display = 'none';
-      document.getElementById('resultsScreen').style.display = 'block';
-
-      // Calculate estimated level
-      const avgLevel = history.reduce((sum, h) => sum + h.level, 0) / history.length;
-      const estimatedLevel = Math.round(avgLevel);
-
-      document.getElementById('finalLevel').textContent = 'Level ' + estimatedLevel;
-      document.getElementById('levelDesc').textContent = levelDescriptions[estimatedLevel] || '';
-
-      document.getElementById('correctCount').textContent = stats.correct;
-      document.getElementById('needsWorkCount').textContent = stats.needsWork;
-      document.getElementById('unableCount').textContent = stats.unable;
-
-      // Word history
-      const historyHtml = history.map(h =>
-        `<span class="word-item ${h.result}">${h.word}</span>`
-      ).join('');
-      document.getElementById('historyContent').innerHTML = historyHtml;
-
-      // Book recommendations
-      const bookLevels = getBookLevelFromAssessment(estimatedLevel);
-      const recommendedBooks = bookData.filter(b => bookLevels.includes(b.level));
-      const booksHtml = recommendedBooks.map(book => `
-        <a href="/books/" class="book-card">
-          <img src="${book.img}" alt="${book.title}" onerror="this.src='/images/funbookies_icon.png'">
-          <div class="book-info">
-            <h4>${book.title}</h4>
-            <p>${book.skill}</p>
-          </div>
-          <span class="level-badge" style="background: ${levelColors[book.level]}20; color: ${levelColors[book.level]}">${book.color}</span>
-        </a>
-      `).join('');
-      document.getElementById('booksList').innerHTML = booksHtml || '<p style="color:#666">Keep practicing to unlock books!</p>';
-
-      // Skills breakdown
-      const testedLevels = [...new Set(history.map(h => h.level))];
-      const skillsHtml = skillsList.map(skill => {
-        const tested = skill.levels.some(l => testedLevels.includes(l));
-        const correct = history.filter(h => skill.levels.includes(h.level) && h.result === 'correct').length;
-        const total = history.filter(h => skill.levels.includes(h.level)).length;
-
-        let status, statusClass;
-        if (!tested) {
-          status = 'Not tested';
-          statusClass = 'not-tested';
-        } else if (total > 0 && correct / total >= 0.7) {
-          status = 'Mastered';
-          statusClass = 'mastered';
-        } else {
-          status = 'Learning';
-          statusClass = 'learning';
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Phonics Assessment - FunBookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <style>
+        .assessment-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-lg);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            margin-top: var(--space-md);
         }
 
-        return `
-          <div class="skill-row">
-            <span class="skill-name">${skill.name}</span>
-            <span class="skill-status ${statusClass}">${status}${total > 0 ? ` (${correct}/${total})` : ''}</span>
-          </div>
-        `;
-      }).join('');
-      document.getElementById('skillsBreakdown').innerHTML = skillsHtml;
+        /* Start Screen */
+        .start-screen { text-align: center; padding: var(--space-md) 0; }
+        .start-screen h2 { margin-bottom: var(--space-sm); }
+        .start-screen p { color: var(--color-text-muted); margin: 0 auto var(--space-xs); }
+        .start-icon { font-size: 4rem; margin-bottom: var(--space-md); }
+        .time-badge {
+            display: inline-block;
+            color: var(--color-sage-dark);
+            font-weight: 600;
+            margin-top: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
 
-      // Save to localStorage
-      const assessmentData = {
-        date: new Date().toISOString(),
-        estimatedLevel,
-        stats,
-        history,
-        recommendedBookLevels: bookLevels
-      };
-      localStorage.setItem('funbookies-assessment', JSON.stringify(assessmentData));
+        /* Practice Screen */
+        .practice-screen { display: none; }
+        .assessment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+        .assessment-header h1 { font-size: 1.5rem; margin: 0; }
 
-      // Also save just the level for other pages to use
-      localStorage.setItem('funbookies-reading-level', estimatedLevel);
-    }
+        .level-indicator {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-md);
+        }
+        .level-indicator span { color: var(--color-sage-dark); font-weight: 600; }
 
-    function playSuccessSound() {
-      try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.frequency.value = 523;
-        osc.type = 'sine';
-        gain.gain.setValueAtTime(0.3, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.3);
-      } catch(e) {}
-    }
+        .word-area { text-align: center; padding: var(--space-lg) 0; }
+        .instruction { font-size: 0.95rem; color: var(--color-text-muted); margin-bottom: var(--space-sm); }
 
-    function createConfetti() {
-      const colors = ['#667eea', '#764ba2', '#4CAF50', '#FF9800', '#E91E63'];
-      for (let i = 0; i < 30; i++) {
-        setTimeout(() => {
-          const c = document.createElement('div');
-          c.className = 'confetti';
-          c.style.left = Math.random() * 100 + '%';
-          c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-          c.style.animationDuration = (Math.random() * 2 + 2) + 's';
-          document.body.appendChild(c);
-          setTimeout(() => c.remove(), 4000);
-        }, i * 30);
-      }
-    }
-  </script>
+        .word-display {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 12vw, 5rem);
+            font-weight: 500;
+            color: var(--color-soft-black);
+            margin-bottom: var(--space-lg);
+        }
+
+        .response-buttons {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-correct { background: var(--color-sage); color: white; }
+        .btn-correct:hover { background: var(--color-sage-dark); }
+        .btn-needs-work { background: var(--color-terracotta); color: white; }
+        .btn-needs-work:hover { background: var(--color-terracotta-dark); }
+        .btn-too-hard { background: var(--color-mallow); color: var(--color-charcoal); }
+        .btn-too-hard:hover { background: #C4B4A0; }
+
+        .feedback-area { display: none; text-align: center; padding: var(--space-xl) 0; }
+        .feedback-text {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--color-sage);
+        }
+
+        .parent-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-top: var(--space-lg);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Results Screen */
+        .results-screen { display: none; }
+        .results-header { text-align: center; margin-bottom: var(--space-md); }
+        .results-header h2 { margin-bottom: 0; }
+
+        .level-result {
+            background: var(--color-sage);
+            color: white;
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin-bottom: var(--space-md);
+        }
+        .level-result .level-num {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 500;
+        }
+        .level-result .level-desc { opacity: 0.9; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+        .stat-box {
+            background: var(--color-cream);
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        .stat-box .num {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 500;
+        }
+        .stat-box .label { font-size: 0.85rem; color: var(--color-text-muted); }
+        .stat-box.correct .num { color: var(--color-sage-dark); }
+        .stat-box.needs-work .num { color: var(--color-terracotta); }
+        .stat-box.unable .num { color: var(--color-text-muted); }
+
+        /* Book Recommendations */
+        .book-recommendations {
+            background: var(--color-sage-light);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+        .book-recommendations h3 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--color-sage-dark);
+        }
+        .book-card {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--color-white);
+            padding: var(--space-sm);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--space-xs);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s;
+        }
+        .book-card:hover { transform: translateX(4px); }
+        .book-card img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .book-card .book-info h4 { font-size: 0.95rem; margin-bottom: 2px; }
+        .book-card .book-info p { font-size: 0.8rem; color: var(--color-text-muted); margin: 0; }
+
+        /* Skills Report */
+        .skills-report {
+            background: var(--color-terracotta-light);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+        .skills-report h3 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--color-terracotta-dark);
+        }
+        .skill-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-xs) 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .skill-row:last-child { border-bottom: none; }
+        .skill-name { font-size: 0.9rem; }
+        .skill-status {
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .skill-status.mastered { background: var(--color-sage-light); color: var(--color-sage-dark); }
+        .skill-status.learning { background: #FFF3E0; color: #E65100; }
+        .skill-status.not-tested { background: var(--color-cream); color: var(--color-text-muted); }
+
+        /* Word History */
+        .word-history {
+            background: var(--color-cream);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .word-history h3 {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--color-text-muted);
+        }
+        .word-item {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin: 2px;
+        }
+        .word-item.correct { background: var(--color-sage-light); color: var(--color-sage-dark); }
+        .word-item.needsWork { background: #FFF3E0; color: #E65100; }
+        .word-item.unable { background: var(--color-border); color: var(--color-text-muted); }
+
+        .actions {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hidden { display: none !important; }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-narrow">
+        <div class="page-header" style="padding-top: var(--space-md);">
+            <a href="/activities/" class="back-link">← Back to Activities</a>
+        </div>
+
+        <div class="assessment-card">
+            <!-- Start Screen -->
+            <div class="start-screen" id="startScreen">
+                <div class="start-icon">📚</div>
+                <h2>Phonics Assessment</h2>
+                <p><strong>Find your child's reading level</strong></p>
+                <p>Show each word to your child. Click based on how they read it.</p>
+                <p>The assessment adapts automatically.</p>
+                <div class="time-badge">Takes 5-10 minutes</div>
+                <button class="btn btn-primary btn-lg" onclick="startAssessment()">Start Assessment</button>
+            </div>
+
+            <!-- Practice Screen -->
+            <div class="practice-screen" id="practiceScreen">
+                <div class="assessment-header">
+                    <h1>Phonics Assessment</h1>
+                    <span class="badge">Words: <span id="wordCount">0</span></span>
+                </div>
+
+                <div class="level-indicator">
+                    Testing Level <span id="levelDisplay">2</span>
+                </div>
+
+                <div class="word-area" id="wordArea">
+                    <div class="instruction" id="instruction">Read this word</div>
+                    <div class="word-display" id="wordDisplay">cat</div>
+
+                    <div class="response-buttons">
+                        <button class="btn btn-correct" onclick="respond('correct')">Correct</button>
+                        <button class="btn btn-needs-work" onclick="respond('needsWork')">Needs Work</button>
+                        <button class="btn btn-too-hard" onclick="respond('unable')">Too Hard</button>
+                    </div>
+                </div>
+
+                <div class="feedback-area" id="feedbackArea">
+                    <div class="feedback-text" id="feedbackText">Great!</div>
+                </div>
+
+                <div class="parent-note">
+                    Parent: Click based on how your child reads the word.<br>
+                    <button class="btn btn-ghost btn-sm" style="margin-top: var(--space-sm);" onclick="finishAssessment()">Finish Early</button>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div class="results-screen" id="resultsScreen">
+                <div class="results-header">
+                    <h2>Assessment Complete!</h2>
+                </div>
+
+                <div class="level-result">
+                    <div>Estimated Reading Level</div>
+                    <div class="level-num" id="finalLevel">Level 2</div>
+                    <div class="level-desc" id="levelDesc">CVC words with short u</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-box correct">
+                        <div class="num" id="correctCount">0</div>
+                        <div class="label">Correct</div>
+                    </div>
+                    <div class="stat-box needs-work">
+                        <div class="num" id="needsWorkCount">0</div>
+                        <div class="label">Needs Work</div>
+                    </div>
+                    <div class="stat-box unable">
+                        <div class="num" id="unableCount">0</div>
+                        <div class="label">Too Hard</div>
+                    </div>
+                </div>
+
+                <div class="book-recommendations" id="bookRecommendations">
+                    <h3>📚 Recommended Books</h3>
+                    <div id="booksList"></div>
+                </div>
+
+                <div class="skills-report">
+                    <h3>📊 Skills Breakdown</h3>
+                    <div id="skillsBreakdown"></div>
+                </div>
+
+                <div class="word-history" id="wordHistory">
+                    <h3>Words Tested</h3>
+                    <div id="historyContent"></div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="startAssessment()">Assess Again</button>
+                    <a href="/activities/" class="btn btn-secondary">Practice Activities</a>
+                    <a href="/generate-story.html" class="btn btn-outline">Generate Story</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Phonics word bank by level
+        const phonicsBank = {
+            1: [
+                { word: "cat", type: "Read this word" },
+                { word: "dog", type: "Read this word" },
+                { word: "sun", type: "Read this word" },
+                { word: "hat", type: "Read this word" },
+                { word: "pig", type: "Read this word" },
+                { word: "run", type: "Read this word" },
+                { word: "top", type: "Read this word" },
+                { word: "fan", type: "Read this word" },
+                { word: "mat", type: "Read this word" },
+                { word: "pen", type: "Read this word" },
+            ],
+            2: [
+                { word: "bug", type: "Read this word (short u)" },
+                { word: "cup", type: "Read this word (short u)" },
+                { word: "hug", type: "Read this word (short u)" },
+                { word: "rug", type: "Read this word (short u)" },
+                { word: "tub", type: "Read this word (short u)" },
+                { word: "fun", type: "Read this word (short u)" },
+                { word: "mud", type: "Read this word (short u)" },
+                { word: "bun", type: "Read this word (short u)" },
+            ],
+            3: [
+                { word: "bed", type: "Read this word (b or d?)" },
+                { word: "bad", type: "Read this word (b or d?)" },
+                { word: "dab", type: "Read this word (b or d?)" },
+                { word: "bid", type: "Read this word (b or d?)" },
+                { word: "dad", type: "Read this word (b or d?)" },
+            ],
+            4: [
+                { word: "stop", type: "Read this blend word" },
+                { word: "flag", type: "Read this blend word" },
+                { word: "crab", type: "Read this blend word" },
+                { word: "drum", type: "Read this blend word" },
+                { word: "frog", type: "Read this blend word" },
+                { word: "trip", type: "Read this blend word" },
+            ],
+            5: [
+                { word: "ship", type: "Read this digraph word" },
+                { word: "chop", type: "Read this digraph word" },
+                { word: "that", type: "Read this digraph word" },
+                { word: "fish", type: "Read this digraph word" },
+                { word: "much", type: "Read this digraph word" },
+                { word: "with", type: "Read this digraph word" },
+            ],
+            6: [
+                { word: "cake", type: "Read this magic e word" },
+                { word: "bike", type: "Read this magic e word" },
+                { word: "home", type: "Read this magic e word" },
+                { word: "tube", type: "Read this magic e word" },
+                { word: "make", type: "Read this magic e word" },
+            ],
+            7: [
+                { word: "rain", type: "Read this vowel team word" },
+                { word: "play", type: "Read this vowel team word" },
+                { word: "seed", type: "Read this vowel team word" },
+                { word: "boat", type: "Read this vowel team word" },
+                { word: "feet", type: "Read this vowel team word" },
+            ],
+            8: [
+                { word: "car", type: "Read this r-controlled word" },
+                { word: "bird", type: "Read this r-controlled word" },
+                { word: "corn", type: "Read this r-controlled word" },
+                { word: "turn", type: "Read this r-controlled word" },
+            ],
+            9: [
+                { word: "sunset", type: "Read this 2-syllable word" },
+                { word: "rabbit", type: "Read this 2-syllable word" },
+                { word: "basket", type: "Read this 2-syllable word" },
+            ],
+        };
+
+        const levelDescriptions = {
+            1: "Simple CVC words (cat, dog, sun)",
+            2: "CVC words with short u (cup, bug)",
+            3: "CVC words with b/d (bed, bad)",
+            4: "Beginning blends (stop, flag)",
+            5: "Digraphs (ship, chop, that)",
+            6: "Magic e words (cake, bike)",
+            7: "Vowel teams (rain, boat)",
+            8: "R-controlled vowels (car, bird)",
+            9: "Two-syllable words (rabbit)",
+        };
+
+        const bookData = [
+            { title: 'No, No, Dog!', level: 0, color: 'Pink', skill: 'Pre-reader', img: '/books/images/dog_pink_page01.png' },
+            { title: 'Pig in Mud', level: 1, color: 'Yellow', skill: 'Short vowels', img: '/books/images/pig_yellow_page01.png' },
+            { title: 'Gus and the Volcano', level: 2, color: 'Orange', skill: 'CVC words', img: '/books/volcano_images/page_01_cover.png' },
+            { title: 'Rats in the Castle', level: 3, color: 'Orange', skill: 'CVC + Digraphs', img: '/books/castle_images/page_01_cover.png' },
+            { title: 'Stomp! Elephant', level: 4, color: 'Red', skill: 'Ending blends', img: '/books/images/elephant_red_page01.png' },
+            { title: 'The Cake Mistake', level: 5, color: 'Purple', skill: 'Digraphs', img: '/books/images/fox_purple_page01.png' },
+            { title: 'The Sneaky Snail', level: 6, color: 'Blue', skill: 'Silent e', img: '/books/images/snail_blue_page01.png' },
+            { title: 'The Owl at Night', level: 7, color: 'Green', skill: 'Vowel teams', img: '/books/images/owl_green_page01.png' },
+            { title: 'Mouse in the House', level: 8, color: 'Gold', skill: 'R-controlled', img: '/books/images/mouse_gold_page01.png' }
+        ];
+
+        function getBookLevelFromAssessment(level) {
+            if (level <= 2) return [0, 1];
+            if (level <= 4) return [2, 3];
+            if (level === 5) return [4, 5];
+            if (level === 6) return [6];
+            if (level === 7) return [7];
+            return [8];
+        }
+
+        const skillsList = [
+            { name: 'CVC Words', levels: [1, 2, 3] },
+            { name: 'Beginning Blends', levels: [4] },
+            { name: 'Digraphs (sh, ch, th)', levels: [5] },
+            { name: 'Silent E', levels: [6] },
+            { name: 'Vowel Teams', levels: [7] },
+            { name: 'R-Controlled Vowels', levels: [8] },
+            { name: 'Multi-Syllable Words', levels: [9] },
+        ];
+
+        const encouragingMessages = ["Amazing!", "Great job!", "Excellent!", "Keep going!", "Fantastic!"];
+        const neutralMessages = ["Let's try another", "Good effort!", "On to the next one"];
+
+        let currentLevel = 2;
+        let usedWords = {};
+        let currentWord = null;
+        let wordCount = 0;
+        let stats = { correct: 0, needsWork: 0, unable: 0 };
+        let history = [];
+
+        function initUsedWords() {
+            usedWords = {};
+            for (let i = 1; i <= 9; i++) usedWords[i] = [];
+        }
+
+        function getNextWord() {
+            const available = phonicsBank[currentLevel].filter(w => !usedWords[currentLevel].includes(w.word));
+            if (available.length === 0) {
+                usedWords[currentLevel] = [];
+                return phonicsBank[currentLevel][Math.floor(Math.random() * phonicsBank[currentLevel].length)];
+            }
+            return available[Math.floor(Math.random() * available.length)];
+        }
+
+        function startAssessment() {
+            currentLevel = 2;
+            initUsedWords();
+            wordCount = 0;
+            stats = { correct: 0, needsWork: 0, unable: 0 };
+            history = [];
+
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.add('hidden');
+            document.getElementById('practiceScreen').style.display = 'block';
+            showNextWord();
+        }
+
+        function showNextWord() {
+            currentWord = getNextWord();
+            document.getElementById('instruction').textContent = currentWord.type;
+            document.getElementById('wordDisplay').textContent = currentWord.word;
+            document.getElementById('levelDisplay').textContent = currentLevel;
+            document.getElementById('wordCount').textContent = wordCount;
+
+            document.getElementById('wordArea').style.display = 'block';
+            document.getElementById('feedbackArea').style.display = 'none';
+        }
+
+        function respond(result) {
+            history.push({ word: currentWord.word, result, level: currentLevel });
+            usedWords[currentLevel].push(currentWord.word);
+            stats[result]++;
+            wordCount++;
+
+            const isCorrect = result === 'correct';
+            const msg = isCorrect
+                ? encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)]
+                : neutralMessages[Math.floor(Math.random() * neutralMessages.length)];
+
+            document.getElementById('feedbackText').textContent = msg;
+            document.getElementById('feedbackText').style.color = isCorrect ? 'var(--color-sage)' : 'var(--color-text-muted)';
+            document.getElementById('wordArea').style.display = 'none';
+            document.getElementById('feedbackArea').style.display = 'block';
+
+            if (isCorrect) {
+                playSuccessSound();
+                if (Math.random() > 0.7) createConfetti();
+            }
+
+            if (result === 'correct' && Math.random() > 0.5 && currentLevel < 9) currentLevel++;
+            else if (result === 'unable' && currentLevel > 1) currentLevel--;
+            else if (result === 'needsWork' && Math.random() > 0.7 && currentLevel > 1) currentLevel--;
+
+            if (wordCount >= 20 || (wordCount >= 10 && stats.unable >= 3)) {
+                setTimeout(finishAssessment, 1000);
+            } else {
+                setTimeout(showNextWord, 800);
+            }
+        }
+
+        function finishAssessment() {
+            document.getElementById('practiceScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'block';
+
+            const avgLevel = history.reduce((sum, h) => sum + h.level, 0) / history.length;
+            const estimatedLevel = Math.round(avgLevel);
+
+            document.getElementById('finalLevel').textContent = 'Level ' + estimatedLevel;
+            document.getElementById('levelDesc').textContent = levelDescriptions[estimatedLevel] || '';
+
+            document.getElementById('correctCount').textContent = stats.correct;
+            document.getElementById('needsWorkCount').textContent = stats.needsWork;
+            document.getElementById('unableCount').textContent = stats.unable;
+
+            const historyHtml = history.map(h => `<span class="word-item ${h.result}">${h.word}</span>`).join('');
+            document.getElementById('historyContent').innerHTML = historyHtml;
+
+            // Book recommendations
+            const bookLevels = getBookLevelFromAssessment(estimatedLevel);
+            const recommendedBooks = bookData.filter(b => bookLevels.includes(b.level));
+            const booksHtml = recommendedBooks.map(book => `
+                <a href="/books/" class="book-card">
+                    <img src="${book.img}" alt="${book.title}" onerror="this.style.display='none'">
+                    <div class="book-info">
+                        <h4>${book.title}</h4>
+                        <p>${book.skill}</p>
+                    </div>
+                </a>
+            `).join('');
+            document.getElementById('booksList').innerHTML = booksHtml || '<p>Keep practicing to unlock books!</p>';
+
+            // Skills breakdown
+            const testedLevels = [...new Set(history.map(h => h.level))];
+            const skillsHtml = skillsList.map(skill => {
+                const tested = skill.levels.some(l => testedLevels.includes(l));
+                const correct = history.filter(h => skill.levels.includes(h.level) && h.result === 'correct').length;
+                const total = history.filter(h => skill.levels.includes(h.level)).length;
+
+                let status, statusClass;
+                if (!tested) { status = 'Not tested'; statusClass = 'not-tested'; }
+                else if (total > 0 && correct / total >= 0.7) { status = 'Mastered'; statusClass = 'mastered'; }
+                else { status = 'Learning'; statusClass = 'learning'; }
+
+                return `
+                    <div class="skill-row">
+                        <span class="skill-name">${skill.name}</span>
+                        <span class="skill-status ${statusClass}">${status}${total > 0 ? ` (${correct}/${total})` : ''}</span>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('skillsBreakdown').innerHTML = skillsHtml;
+
+            // Save to localStorage
+            localStorage.setItem('funbookies-assessment', JSON.stringify({
+                date: new Date().toISOString(),
+                estimatedLevel, stats, history
+            }));
+            localStorage.setItem('funbookies-reading-level', estimatedLevel);
+        }
+
+        function playSuccessSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = 523;
+                osc.type = 'sine';
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.3);
+            } catch(e) {}
+        }
+
+        function createConfetti() {
+            const colors = ['#9FC7AA', '#EFA487', '#A8C4D4', '#E8D4A8'];
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const c = document.createElement('div');
+                    c.className = 'confetti';
+                    c.style.left = Math.random() * 100 + '%';
+                    c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    c.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(c);
+                    setTimeout(() => c.remove(), 4000);
+                }, i * 30);
+            }
+        }
+    </script>
 </body>
 </html>

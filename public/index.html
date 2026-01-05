@@ -701,11 +701,6 @@
             font-family: var(--font-display);
             font-size: 1.5rem;
             margin: 0 auto;
-            cursor: pointer;
-        }
-
-        .reader-text p:hover {
-            color: var(--color-sage);
         }
 
         .reader-nav {
@@ -731,11 +726,6 @@
             background: var(--color-sage-light);
         }
 
-        .reader-nav .speak-btn {
-            background: var(--color-sage);
-            color: white;
-        }
-
         .reader-progress {
             font-size: 0.85rem;
             color: #888;
@@ -759,6 +749,7 @@
                 <a href="#how-it-works">How It Works</a>
                 <a href="#books">Books</a>
                 <a href="#activities">Activities</a>
+                <a href="/editor/">Editor</a>
                 <a href="/activities/phonics-assessment.html" class="nav-cta">Start Assessment</a>
             </nav>
             <button class="nav-toggle" aria-label="Menu">
@@ -957,12 +948,11 @@
                     <img src="" alt="" id="readerImage">
                 </div>
                 <div class="reader-text">
-                    <p id="readerText" onclick="speakCurrentPage()"></p>
+                    <p id="readerText"></p>
                 </div>
                 <div class="reader-nav">
                     <button onclick="prevPage()">← Previous</button>
                     <span class="reader-progress"><span id="currentPageNum">1</span> / <span id="totalPages">1</span></span>
-                    <button class="speak-btn" onclick="speakCurrentPage()">🔊 Listen</button>
                     <button onclick="nextPage()">Next →</button>
                 </div>
             </div>
@@ -972,24 +962,24 @@
     <script>
         // Book data
         const bookData = [
-            { title: 'No, No, Dog!', level: 0, color: 'Pink', skill: 'Pre-reader', slug: 'dog_pink', jsonFile: 'dog_pink.json', coverImg: 'images/dog_pink_page01.png' },
-            { title: 'Pig in Mud', level: 1, color: 'Yellow', skill: 'Short vowels', slug: 'pig_yellow', jsonFile: 'pig_yellow.json', coverImg: 'images/pig_yellow_page01.png' },
-            { title: 'Gus and the Volcano', level: 2, color: 'Orange', skill: 'CVC words', slug: 'volcano', jsonFile: 'volcano.json', coverImg: 'volcano_images/page_01_cover.png' },
-            { title: 'Rats in the Castle', level: 3, color: 'Orange', skill: 'CVC + Digraphs', slug: 'castle', jsonFile: 'castle.json', coverImg: 'castle_images/page_01_cover.png' },
-            { title: 'Stomp! Elephant', level: 4, color: 'Red', skill: 'Ending blends', slug: 'elephant_red', jsonFile: 'elephant_red.json', coverImg: 'images/elephant_red_page01.png' },
-            { title: 'The Cake Mistake', level: 5, color: 'Purple', skill: 'Digraphs', slug: 'fox_purple', jsonFile: 'fox_purple.json', coverImg: 'images/fox_purple_page01.png' },
-            { title: 'The Sneaky Snail', level: 6, color: 'Blue', skill: 'Silent e', slug: 'snail_blue', jsonFile: 'snail_blue.json', coverImg: 'images/snail_blue_page01.png' },
-            { title: 'The Owl at Night', level: 7, color: 'Green', skill: 'Vowel teams', slug: 'owl_green', jsonFile: 'owl_green.json', coverImg: 'images/owl_green_page01.png' },
-            { title: 'Mouse in the House', level: 8, color: 'Gold', skill: 'R-controlled', slug: 'mouse_gold', jsonFile: 'mouse_gold.json', coverImg: 'images/mouse_gold_page01.png' }
+            { title: 'No, No, Dog!', level: 0, color: 'Pink', skill: 'Pre-reader', slug: 'dog_pink', jsonFile: 'dog_pink.json', coverImg: '/images/covers/dog_pink.png' },
+            { title: 'Pig in Mud', level: 1, color: 'Yellow', skill: 'Short vowels', slug: 'pig_yellow', jsonFile: 'pig_yellow.json', coverImg: '/images/covers/pig_yellow.png' },
+            { title: 'Gus and the Volcano', level: 2, color: 'Orange', skill: 'CVC words', slug: 'volcano', jsonFile: 'volcano.json', coverImg: '/images/covers/volcano.png' },
+            { title: 'Rats in the Castle', level: 3, color: 'Orange', skill: 'CVC + Digraphs', slug: 'castle', jsonFile: 'castle.json', coverImg: '/images/covers/castle.png' },
+            { title: 'Stomp! Elephant', level: 4, color: 'Red', skill: 'Ending blends', slug: 'elephant_red', jsonFile: 'elephant_red.json', coverImg: '/images/covers/elephant_red.png' },
+            { title: 'The Cake Mistake', level: 5, color: 'Purple', skill: 'Digraphs', slug: 'fox_purple', jsonFile: 'fox_purple.json', coverImg: '/images/covers/fox_purple.png' },
+            { title: 'The Sneaky Snail', level: 6, color: 'Blue', skill: 'Silent e', slug: 'snail_blue', jsonFile: 'snail_blue.json', coverImg: '/images/covers/snail_blue.png' },
+            { title: 'The Owl at Night', level: 7, color: 'Green', skill: 'Vowel teams', slug: 'owl_green', jsonFile: 'owl_green.json', coverImg: '/images/covers/owl_green.png' },
+            { title: 'Mouse in the House', level: 8, color: 'Gold', skill: 'R-controlled', slug: 'mouse_gold', jsonFile: 'mouse_gold.json', coverImg: '/images/covers/mouse_gold.png' }
         ];
 
         // Render books
         function renderBooks() {
             const grid = document.getElementById('booksGrid');
             grid.innerHTML = bookData.map(book => `
-                <div class="book-card" onclick="openBook('${book.jsonFile}')">
+                <a class="book-card" href="/reader.html?book=${book.slug}">
                     <div class="book-cover">
-                        <img src="/books/${book.coverImg}" alt="${book.title}" loading="lazy">
+                        <img src="${book.coverImg}" alt="${book.title}" loading="lazy">
                     </div>
                     <div class="book-info">
                         <h3>${book.title}</h3>
@@ -998,7 +988,7 @@
                             <span class="book-skill">${book.skill}</span>
                         </div>
                     </div>
-                </div>
+                </a>
             `).join('');
         }
 
@@ -1047,25 +1037,6 @@
             }
         }
 
-        // Text-to-Speech
-        function speak(text, rate = 0.85) {
-            if (!text) return;
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = rate;
-            utterance.pitch = 1.1;
-            const voices = window.speechSynthesis.getVoices();
-            const preferred = voices.find(v => v.name.includes('Samantha') || v.name.includes('Google') || v.lang.startsWith('en'));
-            if (preferred) utterance.voice = preferred;
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function speakCurrentPage() {
-            if (currentBook && currentBook.pages[currentPage]) {
-                speak(currentBook.pages[currentPage].text);
-            }
-        }
-
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
@@ -1082,7 +1053,6 @@
             if (e.key === 'ArrowRight') nextPage();
             if (e.key === 'ArrowLeft') prevPage();
             if (e.key === 'Escape') closeReader();
-            if (e.key === ' ') { e.preventDefault(); speakCurrentPage(); }
         });
 
         // Close modal on overlay click

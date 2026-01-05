@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Book Creator - FunBookies Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-cream: #FAF8F5;
+            --color-white: #FFFFFF;
+            --color-charcoal: #2C2D26;
+            --color-soft-black: #1A1A1A;
+            --color-sage: #9FC7AA;
+            --color-sage-light: #E8F2EB;
+            --color-sage-dark: #6B9B7A;
+            --color-terracotta: #EFA487;
+            --color-terracotta-light: #FDF4F0;
+            --color-border: #E8E4DD;
+            --font-display: 'Fraunces', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, sans-serif;
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 3rem;
+            --border-radius: 12px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-cream);
+            color: var(--color-charcoal);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        /* Header */
+        .header {
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-white);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-soft-black);
+            text-decoration: none;
+        }
+
+        .badge {
+            background: var(--color-terracotta-light);
+            color: var(--color-terracotta);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Main layout */
+        .main {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: var(--space-md);
+            padding: var(--space-md) 0;
+            min-height: calc(100vh - 100px);
+        }
+
+        @media (max-width: 900px) {
+            .main { grid-template-columns: 1fr; }
+        }
+
+        /* Sidebar - Reading Levels */
+        .sidebar {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            height: fit-content;
+            position: sticky;
+            top: var(--space-md);
+        }
+
+        .sidebar h2 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .level-list {
+            list-style: none;
+        }
+
+        .level-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .level-item:hover {
+            background: var(--color-cream);
+        }
+
+        .level-item.selected {
+            background: var(--color-sage-light);
+            border-left: 3px solid var(--color-sage);
+        }
+
+        .level-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .level-info h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .level-info p {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        /* Level colors */
+        .level-0 { background: #FFB6C1; }
+        .level-1 { background: #FFD700; }
+        .level-2 { background: #FFA500; }
+        .level-3 { background: #FF6347; }
+        .level-4 { background: #9370DB; }
+        .level-5 { background: #4169E1; }
+        .level-6 { background: #32CD32; }
+        .level-7 { background: #DAA520; }
+        .level-8 { background: #C0C0C0; }
+
+        /* Content area */
+        .content {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--space-lg);
+        }
+
+        .content h1 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .content-subtitle {
+            color: #666;
+            margin-bottom: var(--space-md);
+        }
+
+        /* Level details */
+        .level-details {
+            background: var(--color-cream);
+            border-radius: 8px;
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .level-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .level-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+        }
+
+        .level-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .meta-item {
+            font-size: 0.9rem;
+        }
+
+        .meta-item strong {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 2px;
+        }
+
+        .word-examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: var(--space-xs);
+        }
+
+        .word-chip {
+            background: var(--color-white);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Create form */
+        .create-form {
+            margin-top: var(--space-md);
+        }
+
+        .create-form h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-sm);
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .form-group .hint {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .input, .textarea, .select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .input:focus, .textarea:focus, .select:focus {
+            outline: none;
+            border-color: var(--color-sage);
+        }
+
+        .textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 8px;
+        }
+
+        .character-option {
+            padding: 12px 8px;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .character-option:hover {
+            border-color: var(--color-sage);
+            background: var(--color-sage-light);
+        }
+
+        .character-option.selected {
+            border-color: var(--color-sage);
+            background: var(--color-sage);
+            color: white;
+        }
+
+        .character-option .icon {
+            font-size: 1.75rem;
+            margin-bottom: 4px;
+        }
+
+        .character-option .name {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--color-sage);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-sage-dark);
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: var(--color-cream);
+            color: var(--color-charcoal);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-border);
+        }
+
+        /* Output section */
+        .output-section {
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-border);
+            display: none;
+        }
+
+        .output-section.visible {
+            display: block;
+        }
+
+        .story-preview {
+            background: #FFFBF0;
+            border: 2px solid #FFE4B5;
+            border-radius: 8px;
+            padding: var(--space-md);
+            margin-bottom: var(--space-sm);
+        }
+
+        .story-page {
+            margin-bottom: var(--space-sm);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px dashed #E8E4DD;
+        }
+
+        .story-page:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .story-page .page-num {
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 4px;
+        }
+
+        .story-page .text {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--color-soft-black);
+        }
+
+        .story-page .scene {
+            font-size: 0.8rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: var(--space-lg);
+        }
+
+        .loading.visible {
+            display: block;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--color-border);
+            border-top-color: var(--color-sage);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto var(--space-sm);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Existing books */
+        .existing-books {
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .existing-books h3 {
+            font-size: 1rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: var(--space-sm);
+        }
+
+        .book-card {
+            background: var(--color-cream);
+            border-radius: 8px;
+            padding: var(--space-sm);
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .book-card img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            background: #ddd;
+        }
+
+        .book-card .title {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .book-card .meta {
+            font-size: 0.75rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="/" class="logo">FunBookies</a>
+                <span class="badge">Experiment Lab</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main">
+            <!-- Reading Levels Sidebar -->
+            <aside class="sidebar">
+                <h2>Reading Levels</h2>
+                <ul class="level-list" id="levelList">
+                    <!-- Populated by JS -->
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="content">
+                <h1>Create a New Book</h1>
+                <p class="content-subtitle">Select a reading level, then describe your story idea</p>
+
+                <!-- Level Details -->
+                <div class="level-details" id="levelDetails">
+                    <div class="level-header">
+                        <span class="level-badge level-2" id="levelBadge">2</span>
+                        <h2 id="levelTitle">Level 2: Orange</h2>
+                    </div>
+                    <div class="level-meta">
+                        <div class="meta-item">
+                            <strong>Skill</strong>
+                            <span id="levelSkill">CVC with short u</span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Words/Sentence</strong>
+                            <span id="levelWords">4 words max</span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Age Range</strong>
+                            <span id="levelAge">4-6 years</span>
+                        </div>
+                    </div>
+                    <div>
+                        <strong style="font-size: 0.75rem; color: #999;">EXAMPLE WORDS</strong>
+                        <div class="word-examples" id="wordExamples">
+                            <span class="word-chip">mud</span>
+                            <span class="word-chip">bug</span>
+                            <span class="word-chip">cup</span>
+                            <span class="word-chip">fun</span>
+                            <span class="word-chip">run</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Creation Form -->
+                <div class="create-form">
+                    <h3>Story Settings</h3>
+
+                    <div class="form-group">
+                        <label>Main Character</label>
+                        <div class="character-grid" id="characterGrid">
+                            <div class="character-option selected" data-character="pig">
+                                <div class="icon">🐷</div>
+                                <div class="name">Pig</div>
+                            </div>
+                            <div class="character-option" data-character="dog">
+                                <div class="icon">🐕</div>
+                                <div class="name">Dog</div>
+                            </div>
+                            <div class="character-option" data-character="rat">
+                                <div class="icon">🐀</div>
+                                <div class="name">Rat</div>
+                            </div>
+                            <div class="character-option" data-character="fox">
+                                <div class="icon">🦊</div>
+                                <div class="name">Fox</div>
+                            </div>
+                            <div class="character-option" data-character="owl">
+                                <div class="icon">🦉</div>
+                                <div class="name">Owl</div>
+                            </div>
+                            <div class="character-option" data-character="salamander">
+                                <div class="icon">🦎</div>
+                                <div class="name">Gus</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Story Idea</label>
+                        <p class="hint">Describe what happens in the story. Keep it simple - the AI will adapt it to the reading level.</p>
+                        <textarea class="textarea" id="storyPrompt" placeholder="Example: The pig finds a mud puddle and has fun splashing around. A puppy joins in and they become friends."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Custom Words to Include (optional)</label>
+                        <p class="hint">Comma-separated words you want in the story</p>
+                        <input type="text" class="input" id="customWords" placeholder="mud, fun, hug">
+                    </div>
+
+                    <div style="display: flex; gap: var(--space-sm); margin-top: var(--space-md);">
+                        <button class="btn btn-primary" id="generateBtn" onclick="generateStory()">
+                            Generate Story
+                        </button>
+                        <button class="btn btn-secondary" onclick="clearForm()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loading -->
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Creating your story...</p>
+                    <p style="font-size: 0.85rem; color: #666;">This takes about 10-20 seconds</p>
+                </div>
+
+                <!-- Output -->
+                <div class="output-section" id="output">
+                    <h3 id="storyTitle">Generated Story</h3>
+                    <div class="story-preview" id="storyPreview">
+                        <!-- Pages inserted here -->
+                    </div>
+                    <div style="display: flex; gap: var(--space-sm);">
+                        <button class="btn btn-primary" onclick="generateImages()">Generate Images</button>
+                        <button class="btn btn-secondary" onclick="downloadJSON()">Download JSON</button>
+                        <button class="btn btn-secondary" onclick="regenerate()">Try Again</button>
+                    </div>
+                </div>
+
+                <!-- Existing Books at This Level -->
+                <div class="existing-books" id="existingBooks">
+                    <h3>Books at This Level</h3>
+                    <div class="book-grid" id="bookGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Reading levels data
+        const LEVELS = [
+            { level: 0, color: 'Pink', name: 'Pre-reader', skill: 'Picture reading', words: 2, age: '3-5', examples: ['I', 'a', 'the', 'cat', 'dog'] },
+            { level: 1, color: 'Yellow', name: 'Simple CVC', skill: 'Basic CVC words', words: 3, age: '4-5', examples: ['cat', 'dog', 'sun', 'hat', 'pig'] },
+            { level: 2, color: 'Orange', name: 'CVC + short u', skill: 'CVC with short u', words: 4, age: '4-6', examples: ['mud', 'bug', 'cup', 'fun', 'run'] },
+            { level: 3, color: 'Orange', name: 'CVC + Digraphs', skill: 'Digraphs (sh, ch, th)', words: 5, age: '4-6', examples: ['ship', 'chat', 'that', 'fish', 'much'] },
+            { level: 4, color: 'Red', name: 'Beginning blends', skill: 'Consonant blends', words: 6, age: '5-7', examples: ['stop', 'flag', 'crab', 'drum', 'frog'] },
+            { level: 5, color: 'Purple', name: 'Ending blends', skill: 'Ending blends', words: 7, age: '5-7', examples: ['jump', 'help', 'fast', 'crisp', 'stamp'] },
+            { level: 6, color: 'Blue', name: 'Silent e', skill: 'Magic e words', words: 8, age: '5-8', examples: ['cake', 'bike', 'home', 'tube', 'make'] },
+            { level: 7, color: 'Green', name: 'Vowel teams', skill: 'Vowel teams', words: 10, age: '6-8', examples: ['rain', 'boat', 'see', 'coat', 'team'] },
+            { level: 8, color: 'Gold', name: 'R-controlled', skill: 'R-controlled vowels', words: 12, age: '6-9', examples: ['car', 'bird', 'corn', 'turn', 'hurt'] },
+        ];
+
+        // Existing books by level
+        const BOOKS = [
+            { slug: 'dog_pink', title: 'No, No, Dog!', level: 0, cover: '/books/images/dog_pink_page01.png' },
+            { slug: 'pig_yellow', title: 'Pig in Mud', level: 1, cover: '/books/images/pig_yellow_page01.png' },
+            { slug: 'volcano', title: 'Gus and the Volcano', level: 2, cover: '/books/volcano_images/page_01_cover.png' },
+            { slug: 'pig_mud', title: 'Pig in the Mud', level: 2, cover: '/books/pig_mud_images/page_01_cover.png' },
+            { slug: 'castle', title: 'Rats in the Castle', level: 3, cover: '/books/castle_images/page_01_cover.png' },
+        ];
+
+        let selectedLevel = 2;
+        let selectedCharacter = 'pig';
+        let currentStory = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderLevelList();
+            setupCharacterGrid();
+            updateLevelDetails(selectedLevel);
+            updateBookGrid(selectedLevel);
+        });
+
+        function renderLevelList() {
+            const list = document.getElementById('levelList');
+            list.innerHTML = LEVELS.map(l => `
+                <li class="level-item ${l.level === selectedLevel ? 'selected' : ''}"
+                    data-level="${l.level}" onclick="selectLevel(${l.level})">
+                    <span class="level-badge level-${l.level}">${l.level}</span>
+                    <div class="level-info">
+                        <h3>${l.color}</h3>
+                        <p>${l.skill}</p>
+                    </div>
+                </li>
+            `).join('');
+        }
+
+        function selectLevel(level) {
+            selectedLevel = level;
+            document.querySelectorAll('.level-item').forEach(el => {
+                el.classList.toggle('selected', parseInt(el.dataset.level) === level);
+            });
+            updateLevelDetails(level);
+            updateBookGrid(level);
+        }
+
+        function updateLevelDetails(level) {
+            const l = LEVELS[level];
+            document.getElementById('levelBadge').textContent = level;
+            document.getElementById('levelBadge').className = `level-badge level-${level}`;
+            document.getElementById('levelTitle').textContent = `Level ${level}: ${l.color}`;
+            document.getElementById('levelSkill').textContent = l.skill;
+            document.getElementById('levelWords').textContent = `${l.words} words max`;
+            document.getElementById('levelAge').textContent = `${l.age} years`;
+            document.getElementById('wordExamples').innerHTML = l.examples.map(w =>
+                `<span class="word-chip">${w}</span>`
+            ).join('');
+        }
+
+        function updateBookGrid(level) {
+            const books = BOOKS.filter(b => b.level === level || b.level === level - 1 || b.level === level + 1);
+            const grid = document.getElementById('bookGrid');
+
+            if (books.length === 0) {
+                grid.innerHTML = '<p style="color: #666; font-size: 0.9rem;">No books at this level yet. Create one!</p>';
+                return;
+            }
+
+            grid.innerHTML = books.map(b => `
+                <a href="/books/" class="book-card">
+                    <img src="${b.cover}" alt="${b.title}" onerror="this.style.background='#ddd'">
+                    <div class="title">${b.title}</div>
+                    <div class="meta">Level ${b.level}</div>
+                </a>
+            `).join('');
+        }
+
+        function setupCharacterGrid() {
+            document.getElementById('characterGrid').addEventListener('click', (e) => {
+                const option = e.target.closest('.character-option');
+                if (option) {
+                    document.querySelectorAll('.character-option').forEach(o => o.classList.remove('selected'));
+                    option.classList.add('selected');
+                    selectedCharacter = option.dataset.character;
+                }
+            });
+        }
+
+        async function generateStory() {
+            const prompt = document.getElementById('storyPrompt').value.trim();
+            const customWords = document.getElementById('customWords').value.trim();
+
+            if (!prompt) {
+                alert('Please enter a story idea!');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loading').classList.add('visible');
+            document.getElementById('output').classList.remove('visible');
+            document.getElementById('generateBtn').disabled = true;
+
+            const levelInfo = LEVELS[selectedLevel];
+
+            const systemPrompt = `You are creating a decodable leveled reader for beginning readers.
+
+READING LEVEL: ${selectedLevel} (${levelInfo.color})
+- Skill focus: ${levelInfo.skill}
+- Maximum words per sentence: ${levelInfo.words}
+- Use only words appropriate for this level
+
+CHARACTER: ${selectedCharacter}
+${customWords ? `INCLUDE THESE WORDS: ${customWords}` : ''}
+
+STORY IDEA: ${prompt}
+
+Generate a story with 10-14 pages following these rules:
+1. Use ONLY words a child at level ${selectedLevel} can decode
+2. Keep sentences SHORT - max ${levelInfo.words} words
+3. Follow a simple Hero's Journey: ordinary world → call → challenge → success → return
+4. Make it engaging despite simple vocabulary
+
+Return JSON:
+{
+  "title": "Story Title",
+  "summary": "One sentence summary",
+  "pages": [
+    {"page": 1, "text": "Page text.", "scene": "Brief scene description for illustration"}
+  ],
+  "word_list": {
+    "sound_out": ["decodable", "words"],
+    "sight": ["sight", "words"],
+    "new": ["new", "vocabulary"]
+  }
+}`;
+
+            try {
+                const response = await fetch('/api/generate-story', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: systemPrompt })
+                });
+
+                if (!response.ok) throw new Error('Failed to generate');
+
+                currentStory = await response.json();
+                currentStory.level = selectedLevel;
+                currentStory.character = selectedCharacter;
+                displayStory(currentStory);
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to generate story. Please try again.');
+            }
+
+            document.getElementById('loading').classList.remove('visible');
+            document.getElementById('generateBtn').disabled = false;
+        }
+
+        function displayStory(story) {
+            document.getElementById('storyTitle').textContent = story.title;
+
+            const preview = document.getElementById('storyPreview');
+            preview.innerHTML = story.pages.map(p => `
+                <div class="story-page">
+                    <div class="page-num">Page ${p.page}</div>
+                    <div class="text">${p.text}</div>
+                    ${p.scene ? `<div class="scene">[${p.scene}]</div>` : ''}
+                </div>
+            `).join('');
+
+            document.getElementById('output').classList.add('visible');
+        }
+
+        function regenerate() {
+            document.getElementById('output').classList.remove('visible');
+            generateStory();
+        }
+
+        function downloadJSON() {
+            if (!currentStory) return;
+            const blob = new Blob([JSON.stringify(currentStory, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${currentStory.title.toLowerCase().replace(/\s+/g, '_')}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function generateImages() {
+            alert('Image generation coming soon!\n\nFor now, download the JSON and use:\npython scripts/generate_images.sh [book_slug]');
+        }
+
+        function clearForm() {
+            document.getElementById('storyPrompt').value = '';
+            document.getElementById('customWords').value = '';
+            document.getElementById('output').classList.remove('visible');
+            currentStory = null;
+        }
+    </script>
+</body>
+</html>

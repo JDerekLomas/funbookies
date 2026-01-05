@@ -41,9 +41,13 @@ export default async function handler(req, res) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Claude API error:', errorData);
-      return res.status(response.status).json({ error: 'Failed to generate story' });
+      const errorText = await response.text();
+      console.error('Claude API error:', response.status, errorText);
+      return res.status(response.status).json({
+        error: 'Failed to generate story',
+        details: errorText,
+        status: response.status
+      });
     }
 
     const data = await response.json();

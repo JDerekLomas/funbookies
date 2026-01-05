@@ -542,9 +542,14 @@
                     <h3>Story Settings</h3>
 
                     <div class="form-group">
-                        <label>Main Character</label>
+                        <label>Main Character (optional)</label>
+                        <p class="hint">Pick a preset or describe your own below</p>
                         <div class="character-grid" id="characterGrid">
-                            <div class="character-option selected" data-character="pig">
+                            <div class="character-option selected" data-character="none">
+                                <div class="icon">✨</div>
+                                <div class="name">Any</div>
+                            </div>
+                            <div class="character-option" data-character="pig">
                                 <div class="icon">🐷</div>
                                 <div class="name">Pig</div>
                             </div>
@@ -552,23 +557,28 @@
                                 <div class="icon">🐕</div>
                                 <div class="name">Dog</div>
                             </div>
-                            <div class="character-option" data-character="rat">
-                                <div class="icon">🐀</div>
-                                <div class="name">Rat</div>
+                            <div class="character-option" data-character="cat">
+                                <div class="icon">🐱</div>
+                                <div class="name">Cat</div>
+                            </div>
+                            <div class="character-option" data-character="rabbit">
+                                <div class="icon">🐰</div>
+                                <div class="name">Rabbit</div>
+                            </div>
+                            <div class="character-option" data-character="bear">
+                                <div class="icon">🐻</div>
+                                <div class="name">Bear</div>
                             </div>
                             <div class="character-option" data-character="fox">
                                 <div class="icon">🦊</div>
                                 <div class="name">Fox</div>
                             </div>
-                            <div class="character-option" data-character="owl">
-                                <div class="icon">🦉</div>
-                                <div class="name">Owl</div>
-                            </div>
-                            <div class="character-option" data-character="salamander">
-                                <div class="icon">🦎</div>
-                                <div class="name">Gus</div>
+                            <div class="character-option" data-character="custom">
+                                <div class="icon">✏️</div>
+                                <div class="name">Custom</div>
                             </div>
                         </div>
+                        <input type="text" class="input" id="customCharacter" placeholder="Describe your character: a brave little mouse named Max" style="margin-top: 8px; display: none;">
                     </div>
 
                     <div class="form-group">
@@ -648,7 +658,7 @@
         ];
 
         let selectedLevel = 2;
-        let selectedCharacter = 'pig';
+        let selectedCharacter = 'none';
         let currentStory = null;
 
         // Initialize
@@ -714,12 +724,18 @@
         }
 
         function setupCharacterGrid() {
+            const customInput = document.getElementById('customCharacter');
             document.getElementById('characterGrid').addEventListener('click', (e) => {
                 const option = e.target.closest('.character-option');
                 if (option) {
                     document.querySelectorAll('.character-option').forEach(o => o.classList.remove('selected'));
                     option.classList.add('selected');
                     selectedCharacter = option.dataset.character;
+                    // Show/hide custom character input
+                    customInput.style.display = selectedCharacter === 'custom' ? 'block' : 'none';
+                    if (selectedCharacter === 'custom') {
+                        customInput.focus();
+                    }
                 }
             });
         }
@@ -727,6 +743,7 @@
         async function generateStory() {
             const prompt = document.getElementById('storyPrompt').value.trim();
             const customWords = document.getElementById('customWords').value.trim();
+            const customCharacter = document.getElementById('customCharacter').value.trim();
 
             if (!prompt) {
                 alert('Please enter a story idea!');
@@ -740,6 +757,16 @@
 
             const levelInfo = LEVELS[selectedLevel];
 
+            // Build character instruction
+            let characterInstruction = '';
+            if (selectedCharacter === 'none') {
+                characterInstruction = 'Choose an appropriate main character for the story.';
+            } else if (selectedCharacter === 'custom') {
+                characterInstruction = customCharacter || 'Choose an appropriate main character for the story.';
+            } else {
+                characterInstruction = `Main character: a ${selectedCharacter}`;
+            }
+
             const systemPrompt = `You are creating a decodable leveled reader for beginning readers.
 
 READING LEVEL: ${selectedLevel} (${levelInfo.color})
@@ -747,7 +774,7 @@ READING LEVEL: ${selectedLevel} (${levelInfo.color})
 - Maximum words per sentence: ${levelInfo.words}
 - Use only words appropriate for this level
 
-CHARACTER: ${selectedCharacter}
+CHARACTER: ${characterInstruction}
 ${customWords ? `INCLUDE THESE WORDS: ${customWords}` : ''}
 
 STORY IDEA: ${prompt}
@@ -757,6 +784,7 @@ Generate a story with 10-14 pages following these rules:
 2. Keep sentences SHORT - max ${levelInfo.words} words
 3. Follow a simple Hero's Journey: ordinary world → call → challenge → success → return
 4. Make it engaging despite simple vocabulary
+5. Each page should have an image_prompt for illustration
 
 Return JSON:
 {

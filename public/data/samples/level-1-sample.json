@@ -1,0 +1,57 @@
+{
+  "level": 1,
+  "title": "Cat Sat",
+  "summary": "A cat sits down and a pig helps, using simple CVC short vowel words.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A cat sat.",
+      "scene": "An orange cat sitting on a mat indoors"
+    },
+    {
+      "page": 2,
+      "text": "The cat nap.",
+      "scene": "The cat curling up for a nap, eyes closing"
+    },
+    {
+      "page": 3,
+      "text": "A pig ran.",
+      "scene": "A pink pig running through the yard energetically"
+    },
+    {
+      "page": 4,
+      "text": "The pig hid.",
+      "scene": "The pig hiding behind a bush, just visible"
+    },
+    {
+      "page": 5,
+      "text": "I see pig.",
+      "scene": "The cat waking up and spotting the pig"
+    },
+    {
+      "page": 6,
+      "text": "Cat sat. Pig sat.",
+      "scene": "Both animals sitting together peacefully"
+    },
+    {
+      "page": 7,
+      "text": "We sit. We nap.",
+      "scene": "Cat and pig sleeping side by side in the sun"
+    },
+    {
+      "page": 8,
+      "text": "The end.",
+      "scene": "Cat and pig as friends, happy together"
+    }
+  ],
+  "word_list": {
+    "decodable": ["cat", "sat", "nap", "pig", "ran", "hid", "sit"],
+    "sight": ["a", "the", "cat", "pig", "I", "see", "we", "end"]
+  },
+  "phonics_focus": ["CVC short a", "CVC short i", "CVC short a"],
+  "metadata": {
+    "word_count": 42,
+    "max_sentence_length": 3,
+    "decodability_target": "95%+"
+  }
+}

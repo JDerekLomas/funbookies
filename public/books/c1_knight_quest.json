@@ -1,0 +1,38 @@
+{
+  "id": "c1-knight-quest",
+  "title": "The Knight's Quest",
+  "level": "C1",
+  "band": "C",
+  "targetPhonics": "Silent letters",
+  "morphologyFocus": ["kn-", "wr-", "gn-", "-mb", "gh"],
+  "sightWordsUsed": ["thought", "through", "eight", "enough", "know", "write"],
+  "pages": [
+    {"page": 1, "text": "Sir Knight lived in a castle high on a hill.", "scene": "A noble knight standing proudly in front of a tall stone castle on a green hilltop at dawn."},
+    {"page": 2, "text": "He knew something was wrong in the kingdom that night.", "scene": "The knight looking worried, gazing out a castle window at the darkening sky."},
+    {"page": 3, "text": "A sign had been written on the old stone wall.", "scene": "The knight examining strange writing carved into an ancient castle wall by torchlight."},
+    {"page": 4, "text": "The knight could not read the design on the sign.", "scene": "Close-up of mysterious symbols and patterns etched into stone, the knight puzzled."},
+    {"page": 5, "text": "He wrapped his sword tight and set off at night.", "scene": "The knight wrapping his sword in cloth and preparing to leave the castle gates."},
+    {"page": 6, "text": "Through the dark forest, he saw a bright light.", "scene": "The knight on horseback riding through a misty forest, a glowing light visible ahead."},
+    {"page": 7, "text": "A gnome sat by a fire, knitting a lamb from yarn.", "scene": "A small cheerful gnome sitting by a campfire, knitting a woolen lamb toy."},
+    {"page": 8, "text": "The knight knocked on a tree and said hello.", "scene": "The knight politely knocking on a large tree trunk near the gnome's camp."},
+    {"page": 9, "text": "The gnome knew the answer to the knight's riddle.", "scene": "The wise gnome nodding knowingly, gesturing as if explaining something important."},
+    {"page": 10, "text": "He wrote the words down with his small thumb.", "scene": "The gnome writing carefully on parchment, using his thumb to hold the paper steady."},
+    {"page": 11, "text": "The writing said to climb the highest mountain right away.", "scene": "The knight reading the parchment, a tall mountain visible through the trees."},
+    {"page": 12, "text": "The knight thought this might be hard but not wrong.", "scene": "The knight looking determined, gazing up at the steep mountain path ahead."},
+    {"page": 13, "text": "He climbed through the night until the light came.", "scene": "The knight climbing rocky terrain in darkness, first rays of sunrise appearing."},
+    {"page": 14, "text": "At the top, he saw eight knights standing in a ring.", "scene": "Eight armored knights standing in a circle on the mountain summit at dawn."},
+    {"page": 15, "text": "They knew he would come and had brought him a knife.", "scene": "The knights presenting an ornate ceremonial knife to the arriving hero."},
+    {"page": 16, "text": "The knife could cut through any knot in the land.", "scene": "The magical knife glowing with power, intricate patterns on its blade."},
+    {"page": 17, "text": "The knight wrapped the gift and bowed his knee.", "scene": "The knight kneeling respectfully, carefully wrapping the knife in fine cloth."},
+    {"page": 18, "text": "He knew enough now to save the kingdom from wrong.", "scene": "The knight standing tall with newfound confidence, kingdom visible below."},
+    {"page": 19, "text": "The sign on the wall had shown him the right path.", "scene": "The knight returning to the castle, villagers cheering his arrival."},
+    {"page": 20, "text": "And the knight wrote his story for all to know.", "scene": "The knight at a desk, writing in a large book by candlelight, a peaceful scene."}
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 340,
+    "decodabilityTarget": "70-75%",
+    "targetPatternWords": ["knight", "knew", "know", "knock", "knife", "knitting", "knee", "write", "written", "writing", "wrong", "wrapped", "gnome", "sign", "design", "climb", "lamb", "thumb", "night", "right", "light", "bright", "might", "eight", "thought", "through"]
+  }
+}

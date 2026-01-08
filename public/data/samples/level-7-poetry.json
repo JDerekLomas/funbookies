@@ -1,0 +1,65 @@
+{
+  "level": 7,
+  "type": "art_poetry",
+  "title": "Ocean Song",
+  "summary": "A flowing poem celebrating the ocean's voice. Vowel team words create natural rhythm that echoes the movement of waves and tides.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "The ocean sings to me each day.",
+      "scene": "Waves rolling onto a golden beach, foam catching light"
+    },
+    {
+      "page": 2,
+      "text": "I hear its song in ways I know.",
+      "scene": "Listening figure on the shore, eyes closed, feeling the sound"
+    },
+    {
+      "page": 3,
+      "text": "The rain will stream and play.",
+      "scene": "Rain beginning to fall on water, creating circular ripples"
+    },
+    {
+      "page": 4,
+      "text": "Silver beams of light break through the clouds.",
+      "scene": "Sunlight piercing storm clouds, illuminating the water below"
+    },
+    {
+      "page": 5,
+      "text": "Green and blue and deep.",
+      "scene": "Ocean depths visible in layers of blue-green, mysterious"
+    },
+    {
+      "page": 6,
+      "text": "The sea keeps secrets in its keep.",
+      "scene": "Deep ocean waters, ancient and unknowable"
+    },
+    {
+      "page": 7,
+      "text": "When moonlight floats across the sea.",
+      "scene": "Night ocean shimmering with moonlight, silver path on dark water"
+    },
+    {
+      "page": 8,
+      "text": "The ocean flows like a dream, so free.",
+      "scene": "Ocean at peace, vast and limitless, eternal"
+    }
+  ],
+  "word_list": {
+    "sight": ["the", "to", "me", "each", "day", "I", "hear", "its", "in", "will", "and", "through", "keeps", "when", "across", "like", "so"],
+    "decodable": ["ocean", "sings", "song", "ways", "know", "rain", "stream", "play", "silver", "beams", "light", "break", "clouds", "green", "blue", "deep", "sea", "secrets", "keep", "moonlight", "floats", "flows", "dream", "free"]
+  },
+  "phonics_focus": [
+    "oa (ocean, float, boat, coast, boat)",
+    "ee (deep, keep, see, free, breeze)",
+    "ea (hear, dream, stream, break, sea)",
+    "ai/ay (sings/say, play, way, rain)",
+    "ow (know, flow, slow)",
+    "igh (light, might, night, sight)"
+  ],
+  "metadata": {
+    "word_count": 89,
+    "max_sentence_length": 10,
+    "aesthetic_focus": "Ocean as music and mystery, moonlight and sensory immersion"
+  }
+}

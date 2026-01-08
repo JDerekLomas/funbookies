@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>FunBookies - Home Reading</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <script src="/js/data-service.js"></script>
+    <style>
+        body {
+            background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-white) 100%);
+            min-height: 100vh;
+        }
+
+        .home-header {
+            text-align: center;
+            padding: var(--space-md) 0;
+        }
+
+        .home-header h1 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+        }
+
+        /* Child Card */
+        .child-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .child-avatar {
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+        }
+
+        .child-name {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 500;
+            margin: 0 0 var(--space-xs);
+        }
+
+        .child-level {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            background: var(--color-sage-light);
+            color: var(--color-sage-dark);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .child-level.not-assessed {
+            background: var(--color-terracotta-light);
+            color: var(--color-terracotta-dark);
+        }
+
+        .streak-badge {
+            font-size: 1.1rem;
+            color: var(--color-terracotta);
+        }
+
+        .teacher-note {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .see-all {
+            font-size: 0.85rem;
+            color: var(--color-sage);
+            text-decoration: none;
+        }
+
+        .see-all:hover { text-decoration: underline; }
+
+        /* Books Section */
+        .books-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .books-scroll {
+            display: flex;
+            gap: var(--space-sm);
+            overflow-x: auto;
+            padding-bottom: var(--space-sm);
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .books-scroll::-webkit-scrollbar { display: none; }
+
+        .book-card {
+            flex: 0 0 140px;
+            scroll-snap-align: start;
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--space-sm);
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: transform 0.2s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .book-cover {
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--color-sage-light), var(--color-sage));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .book-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Activities Section */
+        .activities-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+        }
+
+        .activity-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .activity-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .activity-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+
+        .activity-desc {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            margin-bottom: var(--space-lg);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-sm);
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: var(--space-sm);
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: var(--color-sage-dark);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Setup Screen */
+        .setup-screen {
+            text-align: center;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        .setup-icon {
+            font-size: 5rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .setup-screen h2 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .setup-screen p {
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-lg);
+        }
+
+        .setup-form {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .setup-form input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            margin-bottom: var(--space-sm);
+            text-align: center;
+        }
+
+        .setup-form input:focus {
+            outline: none;
+            border-color: var(--color-sage);
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Setup Screen (shown if no child) -->
+        <div id="setupScreen" class="setup-screen">
+            <div class="setup-icon">📚</div>
+            <h2>Welcome to FunBookies!</h2>
+            <p>Let's set up reading practice for your child.</p>
+            <form class="setup-form" onsubmit="createChild(event)">
+                <input type="text" id="childName" placeholder="Child's name" required autocomplete="off">
+                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Get Started</button>
+            </form>
+        </div>
+
+        <!-- Main Home Screen -->
+        <div id="homeScreen" class="hidden">
+            <div class="home-header">
+                <h1>FunBookies</h1>
+            </div>
+
+            <!-- Child Card -->
+            <div class="child-card">
+                <div class="child-avatar" id="childAvatar">🦊</div>
+                <h2 class="child-name" id="childName">Loading...</h2>
+                <div class="child-level not-assessed" id="childLevel">
+                    <span>Tap to assess reading level</span>
+                </div>
+                <div class="streak-badge" id="streakBadge"></div>
+                <div class="teacher-note" id="teacherNote"></div>
+            </div>
+
+            <!-- Today's Books -->
+            <div class="books-section">
+                <div class="section-header">
+                    <h3 class="section-title">📖 Books for You</h3>
+                    <a href="/books/" class="see-all">See all</a>
+                </div>
+                <div class="books-scroll" id="booksScroll">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Practice Activities -->
+            <div class="activities-section">
+                <div class="section-header">
+                    <h3 class="section-title">🎮 Practice</h3>
+                    <a href="/activities/" class="see-all">See all</a>
+                </div>
+                <div class="activity-grid" id="activityGrid">
+                    <a href="/activities/sight-words.html" class="activity-card">
+                        <span class="activity-icon">👁️</span>
+                        <span class="activity-name">Sight Words</span>
+                        <span class="activity-desc">Learn common words</span>
+                    </a>
+                    <a href="/activities/word-builder.html" class="activity-card">
+                        <span class="activity-icon">🔤</span>
+                        <span class="activity-name">Word Builder</span>
+                        <span class="activity-desc">Spell words</span>
+                    </a>
+                    <a href="/activities/blend-it.html" class="activity-card">
+                        <span class="activity-icon">🔊</span>
+                        <span class="activity-name">Blend It</span>
+                        <span class="activity-desc">Sound out words</span>
+                    </a>
+                    <a href="/activities/rhyme-match.html" class="activity-card">
+                        <span class="activity-icon">🎵</span>
+                        <span class="activity-name">Rhyme Match</span>
+                        <span class="activity-desc">Find rhyming words</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- This Week Stats -->
+            <div class="stats-section">
+                <div class="section-header">
+                    <h3 class="section-title">📊 This Week</h3>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="booksRead">0</div>
+                        <div class="stat-label">Books</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="activitiesDone">0</div>
+                        <div class="stat-label">Activities</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="minutesPracticed">0</div>
+                        <div class="stat-label">Minutes</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assessment CTA (if not assessed) -->
+            <div id="assessmentCta" class="hidden" style="text-align: center; margin-bottom: var(--space-lg);">
+                <a href="/activities/phonics-assessment.html" class="btn btn-primary btn-lg">
+                    📊 Find Reading Level
+                </a>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-top: var(--space-xs);">
+                    Takes about 5 minutes
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Book catalog
+        const BOOK_CATALOG = {
+            'A0': [{ id: 'a0-look', title: 'Look!', icon: '👀' }],
+            'A1': [{ id: 'a1-i-sit', title: 'I Sit', icon: '🪑' }],
+            'A2': [{ id: 'a2-i-see-it', title: 'I See It', icon: '👁️' }],
+            'A3': [{ id: 'a3-the-cat-is-here', title: 'The Cat Is Here', icon: '🐱' }],
+            'A4': [{ id: 'a4-sam-and-the-hat', title: 'Sam and the Hat', icon: '🎩' }],
+            'B1': [{ id: 'b1-sam-and-the-cat', title: 'Sam and the Cat', icon: '🐈' }],
+            'B2': [{ id: 'b2-pup-in-the-mud', title: 'Pup in the Mud', icon: '🐕' }],
+            'B3': [{ id: 'b3-jump-at-camp', title: 'Jump at Camp', icon: '🏕️' }],
+            'B4': [{ id: 'b4-frog-and-crab', title: 'Frog and Crab', icon: '🐸' }],
+            'B5': [{ id: 'b5-the-ship-in-the-shell', title: 'The Ship in the Shell', icon: '🐚' }],
+            'B6': [{ id: 'b6-kate-and-the-lake', title: 'Kate and the Lake', icon: '🏞️' }],
+            'B7': [{ id: 'b7-the-rain-and-the-snow', title: 'The Rain and the Snow', icon: '🌧️' }],
+            'B8': [{ id: 'b8-the-owl-and-the-boy', title: 'The Owl and the Boy', icon: '🦉' }],
+            'B9': [{ id: 'b9-a-star-at-the-farm', title: 'A Star at the Farm', icon: '⭐' }],
+            'C1': [{ id: 'c1_knight_quest', title: 'Knight Quest', icon: '🗡️' }],
+            'C2': [{ id: 'c2_magic_city', title: 'Magic City', icon: '🏰' }],
+            'C3': [{ id: 'c3_kitten_adventure', title: 'Kitten Adventure', icon: '🐱' }],
+            'C4': [{ id: 'c4_robot_pilot', title: 'Robot Pilot', icon: '🤖' }],
+            'C5': [{ id: 'c5_treehouse_mystery', title: 'Treehouse Mystery', icon: '🌳' }],
+            'C6': [{ id: 'c6_biggest_race', title: 'The Biggest Race', icon: '🏃' }],
+            'C7': [{ id: 'c7_hopeless_garden', title: 'Hopeless Garden', icon: '🌻' }],
+            'C8': [{ id: 'c8_impossible_invention', title: 'Impossible Invention', icon: '💡' }],
+            'D1': [{ id: 'd1-the-lighthouse-keeper', title: 'The Lighthouse Keeper', icon: '🗼' }],
+            'D2': [{ id: 'd2-the-hidden-garden', title: 'The Hidden Garden', icon: '🌿' }],
+            'D3': [{ id: 'd3-the-architects-secret', title: "The Architect's Secret", icon: '📐' }],
+            'D4': [{ id: 'd4-signals-from-kepler', title: 'Signals from Kepler', icon: '🛸' }],
+            'D5': [{ id: 'd5-the-winter-of-words', title: 'The Winter of Words', icon: '❄️' }],
+            'D6': [{ id: 'd6-the-bridge-between', title: 'The Bridge Between', icon: '🌉' }],
+        };
+
+        const LEVEL_ORDER = ['A0', 'A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6'];
+
+        let currentChild = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.FunBookiesDB.ready;
+
+            // Check URL params for invite link
+            const params = new URLSearchParams(window.location.search);
+            const inviteName = params.get('student');
+            const inviteLevel = params.get('level');
+            const inviteTeacher = params.get('teacher');
+
+            if (inviteName) {
+                // Coming from teacher invite - create/find student
+                await handleInviteLink(inviteName, inviteLevel, inviteTeacher);
+                return;
+            }
+
+            // Check for existing child in localStorage (parent home mode)
+            const savedChildId = localStorage.getItem('funbookies-home-child');
+
+            if (savedChildId) {
+                currentChild = await window.FunBookiesDB.getStudent(savedChildId);
+            }
+
+            if (currentChild) {
+                showHomeScreen();
+            } else {
+                // Check if there's exactly one student (simple case)
+                const students = await window.FunBookiesDB.getStudents();
+                if (students.length === 1) {
+                    currentChild = students[0];
+                    localStorage.setItem('funbookies-home-child', currentChild.id);
+                    showHomeScreen();
+                } else {
+                    showSetupScreen();
+                }
+            }
+        });
+
+        async function handleInviteLink(name, level, teacher) {
+            // Check if student already exists
+            const students = await window.FunBookiesDB.getStudents();
+            let student = students.find(s => s.name.toLowerCase() === name.toLowerCase());
+
+            if (!student) {
+                // Create new student from invite
+                student = await window.FunBookiesDB.createStudent(name);
+
+                // If level provided, save an assessment
+                if (level && window.FUNBOOKIES_LEVELS[level]) {
+                    await window.FunBookiesDB.saveAssessment({
+                        studentId: student.id,
+                        level: level,
+                        source: 'teacher-assigned'
+                    });
+                }
+            }
+
+            currentChild = student;
+            localStorage.setItem('funbookies-home-child', student.id);
+
+            // Store teacher info
+            if (teacher) {
+                localStorage.setItem('funbookies-teacher', teacher);
+            }
+
+            // Clear URL params and show home
+            window.history.replaceState({}, '', '/home/');
+            showHomeScreen();
+        }
+
+        function showSetupScreen() {
+            document.getElementById('setupScreen').classList.remove('hidden');
+            document.getElementById('homeScreen').classList.add('hidden');
+        }
+
+        async function showHomeScreen() {
+            document.getElementById('setupScreen').classList.add('hidden');
+            document.getElementById('homeScreen').classList.remove('hidden');
+            await renderHome();
+        }
+
+        async function createChild(event) {
+            event.preventDefault();
+            const name = document.getElementById('childName').value.trim();
+            if (!name) return;
+
+            currentChild = await window.FunBookiesDB.createStudent(name);
+            localStorage.setItem('funbookies-home-child', currentChild.id);
+            showHomeScreen();
+        }
+
+        async function renderHome() {
+            if (!currentChild) return;
+
+            // Child info
+            document.getElementById('childAvatar').textContent = currentChild.avatar;
+            document.querySelector('.child-name').textContent = currentChild.name;
+
+            // Level
+            const level = await window.FunBookiesDB.getCurrentLevel(currentChild.id);
+            const levelEl = document.getElementById('childLevel');
+            const assessmentCta = document.getElementById('assessmentCta');
+
+            if (level) {
+                const levelInfo = window.FUNBOOKIES_LEVELS[level];
+                levelEl.innerHTML = `<span>${level}</span> <span style="font-weight: 400; opacity: 0.8;">${levelInfo?.name || ''}</span>`;
+                levelEl.classList.remove('not-assessed');
+                levelEl.onclick = null;
+                assessmentCta.classList.add('hidden');
+            } else {
+                levelEl.innerHTML = '<span>Tap to find reading level</span>';
+                levelEl.classList.add('not-assessed');
+                levelEl.style.cursor = 'pointer';
+                levelEl.onclick = () => window.location.href = '/activities/phonics-assessment.html';
+                assessmentCta.classList.remove('hidden');
+            }
+
+            // Teacher note
+            const teacher = localStorage.getItem('funbookies-teacher');
+            const teacherNote = document.getElementById('teacherNote');
+            if (teacher) {
+                teacherNote.textContent = `Assigned by ${teacher}`;
+                teacherNote.classList.remove('hidden');
+            } else {
+                teacherNote.classList.add('hidden');
+            }
+
+            // Streak (calculate from activities)
+            const activities = await window.FunBookiesDB.getActivities(currentChild.id);
+            const streak = calculateStreak(activities);
+            const streakBadge = document.getElementById('streakBadge');
+            if (streak > 0) {
+                streakBadge.textContent = `🔥 ${streak} day streak!`;
+            } else {
+                streakBadge.textContent = '';
+            }
+
+            // Books
+            renderBooks(level);
+
+            // Stats
+            await renderStats();
+        }
+
+        function renderBooks(currentLevel) {
+            const container = document.getElementById('booksScroll');
+
+            // Default to A4 if no level
+            const level = currentLevel || 'A4';
+            const currentIndex = LEVEL_ORDER.indexOf(level);
+
+            // Get books from current level and adjacent
+            const levelsToShow = [];
+            if (currentIndex > 0) levelsToShow.push(LEVEL_ORDER[currentIndex - 1]);
+            levelsToShow.push(level);
+            if (currentIndex < LEVEL_ORDER.length - 1) levelsToShow.push(LEVEL_ORDER[currentIndex + 1]);
+
+            const books = [];
+            levelsToShow.forEach(lvl => {
+                const levelBooks = BOOK_CATALOG[lvl] || [];
+                levelBooks.forEach(book => {
+                    books.push({ ...book, level: lvl, isCurrentLevel: lvl === level });
+                });
+            });
+
+            if (books.length === 0) {
+                container.innerHTML = '<p style="color: var(--color-text-muted); padding: var(--space-md);">No books available yet.</p>';
+                return;
+            }
+
+            container.innerHTML = books.map(book => `
+                <a href="/reader.html?book=${book.id}" class="book-card">
+                    <div class="book-cover" style="${book.isCurrentLevel ? '' : 'opacity: 0.7;'}">${book.icon}</div>
+                    <div class="book-title">${book.title}</div>
+                </a>
+            `).join('');
+        }
+
+        async function renderStats() {
+            const activities = await window.FunBookiesDB.getActivities(currentChild.id);
+
+            // Filter to this week
+            const weekAgo = new Date();
+            weekAgo.setDate(weekAgo.getDate() - 7);
+
+            const thisWeek = activities.filter(a => new Date(a.date) > weekAgo);
+
+            // Count activities
+            document.getElementById('activitiesDone').textContent = thisWeek.length;
+
+            // Sum duration (in minutes)
+            const totalSeconds = thisWeek.reduce((sum, a) => sum + (a.duration || 0), 0);
+            document.getElementById('minutesPracticed').textContent = Math.round(totalSeconds / 60);
+
+            // Books read (placeholder - would need reading tracking)
+            document.getElementById('booksRead').textContent = '0';
+        }
+
+        function calculateStreak(activities) {
+            if (activities.length === 0) return 0;
+
+            // Sort by date descending
+            const sorted = [...activities].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            let streak = 0;
+            let currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0);
+
+            for (const activity of sorted) {
+                const activityDate = new Date(activity.date);
+                activityDate.setHours(0, 0, 0, 0);
+
+                const diffDays = Math.floor((currentDate - activityDate) / (1000 * 60 * 60 * 24));
+
+                if (diffDays === streak) {
+                    streak++;
+                } else if (diffDays > streak) {
+                    break;
+                }
+            }
+
+            return streak;
+        }
+    </script>
+</body>
+</html>

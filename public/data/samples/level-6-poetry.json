@@ -1,0 +1,64 @@
+{
+  "level": 6,
+  "type": "art_poetry",
+  "title": "The Blue Lake",
+  "summary": "A contemplative poem about a lake and the emotions it stirs. Silent e words allow for longer, more lyrical expression while maintaining sensory focus.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "The lake is home to me.",
+      "scene": "A vast, peaceful lake reflecting sky and clouds, deeply blue"
+    },
+    {
+      "page": 2,
+      "text": "I came here to be brave.",
+      "scene": "A figure standing at the shore, arms outstretched, facing the water"
+    },
+    {
+      "page": 3,
+      "text": "The stone is cold. It came from time.",
+      "scene": "Ancient rocks along the shore, weathered by centuries"
+    },
+    {
+      "page": 4,
+      "text": "A lone pine tree will stand.",
+      "scene": "Single evergreen tree on a rocky point, silhouetted against sky"
+    },
+    {
+      "page": 5,
+      "text": "The ice will make a smile.",
+      "scene": "Frozen lake in winter, ice formations creating natural patterns"
+    },
+    {
+      "page": 6,
+      "text": "White and blue and cute.",
+      "scene": "Winter landscape, pure and minimalist, pristine snow"
+    },
+    {
+      "page": 7,
+      "text": "A bike ride on the shore.",
+      "scene": "Path hugging the lakeshore, wind in motion, freedom"
+    },
+    {
+      "page": 8,
+      "text": "The lake is wise and fine.",
+      "scene": "Lake at dusk, still and knowing, containing all seasons"
+    }
+  ],
+  "word_list": {
+    "sight": ["the", "is", "to", "me", "here", "be", "a", "will", "come", "from"],
+    "decodable": ["lake", "home", "came", "brave", "stone", "cold", "time", "lone", "pine", "tree", "stand", "ice", "make", "smile", "white", "blue", "cute", "bike", "ride", "shore", "wise", "fine"]
+  },
+  "phonics_focus": [
+    "a_e (lake, came, brave, stone, make, smile, bike, shade, name)",
+    "i_e (time, pine, smile, bike, white, fine, ice, ride, tide)",
+    "o_e (home, stone, lone, note, smoke)",
+    "u_e (cute, blue, true, mule, tube)",
+    "e_e (theme, gene - less common)"
+  ],
+  "metadata": {
+    "word_count": 67,
+    "max_sentence_length": 8,
+    "aesthetic_focus": "Stillness and wisdom, timelessness, emotional depth through nature"
+  }
+}

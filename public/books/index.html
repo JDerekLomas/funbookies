@@ -82,6 +82,69 @@
             color: var(--color-text-muted);
         }
 
+        /* Band sections */
+        .band-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .band-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-xs);
+            border-bottom: 2px solid var(--color-sage-light);
+        }
+
+        .band-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .band-badge.band-a { background: var(--color-sage); }
+        .band-badge.band-b { background: var(--color-dusty-blue); }
+        .band-badge.band-c { background: var(--color-terracotta); }
+        .band-badge.band-d { background: var(--color-charcoal); }
+
+        .band-title {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--color-soft-black);
+        }
+
+        .band-subtitle {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-left: auto;
+        }
+
+        .level-badge {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .level-badge.band-a { background: rgba(var(--color-sage-rgb), 0.15); color: var(--color-sage-dark); }
+        .level-badge.band-b { background: rgba(var(--color-dusty-blue-rgb), 0.15); color: var(--color-dusty-blue); }
+        .level-badge.band-c { background: rgba(var(--color-terracotta-rgb), 0.15); color: var(--color-terracotta-dark); }
+        .level-badge.band-d { background: rgba(var(--color-charcoal-rgb), 0.15); color: var(--color-charcoal); }
+
+        .empty-band {
+            text-align: center;
+            padding: var(--space-lg);
+            color: var(--color-text-muted);
+            background: var(--color-cream);
+            border-radius: var(--border-radius);
+        }
+
         /* Reader Modal */
         .reader-modal {
             display: none;
@@ -254,10 +317,50 @@
         <div class="page-header">
             <a href="/" class="back-link">← Back to Home</a>
             <h1 class="page-title">Book Library</h1>
-            <p class="page-subtitle">Decodable books matched to your child's reading level</p>
+            <p class="page-subtitle">Decodable books organized by reading level</p>
         </div>
 
-        <div class="books-grid" id="booksGrid"></div>
+        <div id="booksContainer">
+            <!-- Band A: Pre-Reader / Emergent -->
+            <section class="band-section" id="bandA">
+                <div class="band-header">
+                    <div class="band-badge band-a">A</div>
+                    <span class="band-title">Pre-Reader / Emergent</span>
+                    <span class="band-subtitle">Levels A0-A4</span>
+                </div>
+                <div class="books-grid" id="booksA"></div>
+            </section>
+
+            <!-- Band B: Phonics Foundation -->
+            <section class="band-section" id="bandB">
+                <div class="band-header">
+                    <div class="band-badge band-b">B</div>
+                    <span class="band-title">Phonics Foundation</span>
+                    <span class="band-subtitle">Levels B1-B9</span>
+                </div>
+                <div class="books-grid" id="booksB"></div>
+            </section>
+
+            <!-- Band C: Word Study -->
+            <section class="band-section" id="bandC">
+                <div class="band-header">
+                    <div class="band-badge band-c">C</div>
+                    <span class="band-title">Word Study</span>
+                    <span class="band-subtitle">Levels C1-C8</span>
+                </div>
+                <div class="books-grid" id="booksC"></div>
+            </section>
+
+            <!-- Band D: Fluent Reading -->
+            <section class="band-section" id="bandD">
+                <div class="band-header">
+                    <div class="band-badge band-d">D</div>
+                    <span class="band-title">Fluent Reading</span>
+                    <span class="band-subtitle">Levels D1-D6</span>
+                </div>
+                <div class="books-grid" id="booksD"></div>
+            </section>
+        </div>
 
         <div style="height: var(--space-xl);"></div>
     </div>
@@ -289,37 +392,124 @@
     </div>
 
     <script>
-        const bookData = [
-            { title: 'No, No, Dog!', level: 0, color: 'Pink', skill: 'Pre-reader', slug: 'dog_pink', jsonFile: 'dog_pink.json', coverImg: '/images/covers/dog_pink.png' },
-            { title: 'Pig in Mud', level: 1, color: 'Yellow', skill: 'Short vowels', slug: 'pig_yellow', jsonFile: 'pig_yellow.json', coverImg: '/images/covers/pig_yellow.png' },
-            { title: 'Gus and the Volcano', level: 2, color: 'Orange', skill: 'CVC words', slug: 'volcano', previewPage: 'volcano_preview.html', coverImg: '/images/covers/volcano.png' },
-            { title: 'Rats in the Castle', level: 3, color: 'Orange', skill: 'CVC + Digraphs', slug: 'castle', previewPage: 'castle_preview.html', coverImg: '/images/covers/castle.png' },
-            { title: 'Stomp! Elephant', level: 4, color: 'Red', skill: 'Ending blends', slug: 'elephant_red', jsonFile: 'elephant_red.json', coverImg: '/images/covers/elephant_red.png' },
-            { title: 'The Cake Mistake', level: 5, color: 'Purple', skill: 'Digraphs', slug: 'fox_purple', jsonFile: 'fox_purple.json', coverImg: '/images/covers/fox_purple.png' },
-            { title: 'The Sneaky Snail', level: 6, color: 'Blue', skill: 'Silent e', slug: 'snail_blue', jsonFile: 'snail_blue.json', coverImg: '/images/covers/snail_blue.png' },
-            { title: 'The Owl at Night', level: 7, color: 'Green', skill: 'Vowel teams', slug: 'owl_green', jsonFile: 'owl_green.json', coverImg: '/images/covers/owl_green.png' },
-            { title: 'Mouse in the House', level: 8, color: 'Gold', skill: 'R-controlled', slug: 'mouse_gold', jsonFile: 'mouse_gold.json', coverImg: '/images/covers/mouse_gold.png' }
+        // Level order for sorting (A0=0, A1=1, ..., D6=27)
+        const levelOrder = {
+            'A0': 0, 'A1': 1, 'A2': 2, 'A3': 3, 'A4': 4,
+            'B1': 5, 'B2': 6, 'B3': 7, 'B4': 8, 'B5': 9, 'B6': 10, 'B7': 11, 'B8': 12, 'B9': 13,
+            'C1': 14, 'C2': 15, 'C3': 16, 'C4': 17, 'C5': 18, 'C6': 19, 'C7': 20, 'C8': 21,
+            'D1': 22, 'D2': 23, 'D3': 24, 'D4': 25, 'D5': 26, 'D6': 27
+        };
+
+        // Level descriptions (short names for display)
+        const levelNames = {
+            'A0': 'Concept of Print', 'A1': 'Letter Recognition', 'A2': 'CV/VC Patterns',
+            'A3': 'Mixed Case', 'A4': 'Emergent Bridge',
+            'B1': 'CVC Short a/i', 'B2': 'CVC All Vowels', 'B3': 'Final Blends',
+            'B4': 'Initial Blends', 'B5': 'Digraphs', 'B6': 'Silent E',
+            'B7': 'Vowel Teams', 'B8': 'Diphthongs', 'B9': 'R-Controlled',
+            'C1': 'Silent Letters', 'C2': 'Soft C/G', 'C3': 'Two-Syllable Closed',
+            'C4': 'Two-Syllable Open', 'C5': 'Contractions', 'C6': 'Inflections',
+            'C7': 'Suffixes', 'C8': 'Prefixes',
+            'D1': 'Chapter Books', 'D2': 'Inference', 'D3': 'Latin Roots',
+            'D4': 'Greek Roots', 'D5': 'Figurative Language', 'D6': 'Grade-Level'
+        };
+
+        // Known book files to scan (will be dynamically loaded)
+        const knownBooks = [
+            'a0-look.json', 'a1-i-sit.json', 'a2-i-see-it.json', 'a3-the-cat-is-here.json', 'a4-sam-and-the-hat.json',
+            'b1-sam-and-the-cat.json', 'b2-pup-in-the-mud.json', 'b3-jump-at-camp.json', 'b4-frog-and-crab.json',
+            'b5-the-ship-in-the-shell.json', 'b6-kate-and-the-lake.json', 'b7-the-rain-and-the-snow.json',
+            'b8-the-owl-and-the-boy.json', 'b9-a-star-at-the-farm.json',
+            'c1_knight_quest.json', 'c2_magic_city.json', 'c3_kitten_adventure.json', 'c4_robot_pilot.json',
+            'c5_treehouse_mystery.json', 'c6_biggest_race.json', 'c7_hopeless_garden.json', 'c8_impossible_invention.json',
+            'd1-the-lighthouse-keeper.json', 'd2-the-hidden-garden.json', 'd3-the-architects-secret.json',
+            'd4-signals-from-kepler.json', 'd5-the-winter-of-words.json', 'd6-the-bridge-between.json',
+            'volcano.json', 'castle.json'
         ];
 
-        const booksGrid = document.getElementById('booksGrid');
-        bookData.forEach(book => {
-            const card = document.createElement('a');
-            card.className = 'book-card';
-            card.href = `/reader.html?book=${book.slug}`;
-            card.innerHTML = `
-                <div class="book-cover">
-                    <img src="${book.coverImg}" alt="${book.title}">
-                </div>
-                <div class="book-info">
-                    <div class="book-title">${book.title}</div>
-                    <div class="book-meta">
-                        <span class="book-level level-${book.color.toLowerCase()}">${book.color}</span>
-                        <span class="book-skill">${book.skill}</span>
+        // Load and display books
+        async function loadBooks() {
+            const booksByBand = { A: [], B: [], C: [], D: [] };
+
+            for (const filename of knownBooks) {
+                try {
+                    const res = await fetch(`/books/${filename}`);
+                    if (!res.ok) continue;
+                    const book = await res.json();
+
+                    // Extract level code from book data
+                    let level = book.level;
+                    if (typeof level === 'number') {
+                        // Convert old numeric levels to new codes (rough mapping)
+                        const oldToNew = { 0: 'A1', 1: 'A2', 2: 'B1', 3: 'B2', 4: 'B3', 5: 'B5', 6: 'B6', 7: 'B7', 8: 'B9' };
+                        level = oldToNew[level] || 'B1';
+                    }
+
+                    const band = level.charAt(0);
+                    if (!['A', 'B', 'C', 'D'].includes(band)) continue;
+
+                    booksByBand[band].push({
+                        ...book,
+                        level,
+                        filename,
+                        slug: filename.replace('.json', '')
+                    });
+                } catch (e) {
+                    // Skip books that fail to load
+                }
+            }
+
+            // Sort books within each band by level order
+            for (const band of ['A', 'B', 'C', 'D']) {
+                booksByBand[band].sort((a, b) => (levelOrder[a.level] || 0) - (levelOrder[b.level] || 0));
+            }
+
+            // Render books for each band
+            renderBand('A', booksByBand.A);
+            renderBand('B', booksByBand.B);
+            renderBand('C', booksByBand.C);
+            renderBand('D', booksByBand.D);
+        }
+
+        function renderBand(band, books) {
+            const grid = document.getElementById(`books${band}`);
+            const section = document.getElementById(`band${band}`);
+
+            if (books.length === 0) {
+                grid.innerHTML = '<div class="empty-band">More books coming soon!</div>';
+                return;
+            }
+
+            books.forEach(book => {
+                const card = document.createElement('a');
+                card.className = 'book-card';
+                card.href = `/reader.html?book=${book.slug}`;
+
+                // Get cover image (check multiple possible locations)
+                const coverImg = book.coverImage || book.cover_image ||
+                    `/images/covers/${book.slug}.png` ||
+                    `/books/${book.slug}_images/cover.png`;
+
+                const levelName = levelNames[book.level] || book.level;
+
+                card.innerHTML = `
+                    <div class="book-cover">
+                        <img src="${coverImg}" alt="${book.title}" onerror="this.parentElement.style.background='var(--color-sage-light)'">
                     </div>
-                </div>
-            `;
-            booksGrid.appendChild(card);
-        });
+                    <div class="book-info">
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-meta">
+                            <span class="level-badge band-${band.toLowerCase()}">${book.level}</span>
+                            <span class="book-skill">${levelName}</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Initialize on page load
+        loadBooks();
 
         let currentBook = null;
         let currentPage = 0;

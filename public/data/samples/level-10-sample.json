@@ -1,0 +1,107 @@
+{
+  "level": 10,
+  "title": "The Knight's Secret Sign",
+  "summary": "A young knight must write a sign and know the truth to solve a mystery in the old castle.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A knight named Derek knew many things. He had the right mind for mysteries.",
+      "scene": "A brave knight in armor standing tall in a castle courtyard"
+    },
+    {
+      "page": 2,
+      "text": "One night, Derek woke up. Something was wrong. He could feel it in his bones.",
+      "scene": "The knight sitting up in bed, alert and concerned, night sky visible through window"
+    },
+    {
+      "page": 3,
+      "text": "He went to walk through the castle. The knight looked for clues everywhere.",
+      "scene": "Derek walking through dark stone hallways with a torch, examining walls and floors"
+    },
+    {
+      "page": 4,
+      "text": "By the throne, Derek saw something odd. It was a small sign on the wall.",
+      "scene": "Derek pointing at mysterious markings on the castle wall near the throne"
+    },
+    {
+      "page": 5,
+      "text": "The sign had strange marks. Derek tried to read it. \"I must know what this means,\" he thought.",
+      "scene": "The knight squinting at cryptic symbols, scratching his head in thought"
+    },
+    {
+      "page": 6,
+      "text": "Derek went to find the wise gnome who lived near the castle gates.",
+      "scene": "Derek walking toward a small cottage near tall castle gates at dawn"
+    },
+    {
+      "page": 7,
+      "text": "The gnome was kind. \"Can you know what these marks say?\" asked Derek.",
+      "scene": "A small wise gnome opening his door to greet the knight"
+    },
+    {
+      "page": 8,
+      "text": "The gnome looked at the marks. He began to wrap a cloth around them slowly.",
+      "scene": "The gnome carefully examining and handling the mysterious marks"
+    },
+    {
+      "page": 9,
+      "text": "\"I know this sign!\" said the gnome. \"It was made by the knight who came before.\"",
+      "scene": "The gnome excitedly pointing at the marks, eyes bright with recognition"
+    },
+    {
+      "page": 10,
+      "text": "The old knight had left the sign long ago. It told of treasure under the stone.",
+      "scene": "Flashback image of an ancient knight carving marks into stone wall"
+    },
+    {
+      "page": 11,
+      "text": "Derek went back and dug beneath the throne. He had to right this wrong.",
+      "scene": "Derek digging carefully beneath the castle throne, stone dust flying"
+    },
+    {
+      "page": 12,
+      "text": "He found a box. Inside was gold and a note written in the old knight's hand.",
+      "scene": "Derek opening an ancient wooden box filled with glowing gold coins and parchment"
+    },
+    {
+      "page": 13,
+      "text": "The note said: \"This gold is for those who seek truth and know what is right.\"",
+      "scene": "Derek reading the handwritten note by candlelight, moved by its message"
+    },
+    {
+      "page": 14,
+      "text": "Derek used the gold to help his people. The knight had solved the castle's mystery.",
+      "scene": "Derek distributing gold and supplies to grateful townspeople outside the castle"
+    },
+    {
+      "page": 15,
+      "text": "Now Derek knew: being right means seeking the truth. A good knight must always listen.",
+      "scene": "Derek standing proudly in the castle courtyard, the mysterious sign behind him illuminated"
+    }
+  ],
+  "word_list": {
+    "decodable": [
+      "knight", "know", "knee", "knife", "knot", "knit", "knock", "wrap", "wrist", "write", "wrong", "wrote", "wring", "wren", "gnome", "gnat", "gnaw", "sign", "climb", "lamb", "limb", "crumb", "thumb", "dumb", "numb", "plumb", "tomb", "bomb", "comb", "night", "right", "might", "light", "fight", "sight", "tight", "flight", "blight", "fright", "plight", "slight", "thought", "through", "though", "wright", "high", "sigh", "thigh", "weigh", "eight", "neigh"
+    ],
+    "sight": [
+      "a", "the", "was", "were", "would", "could", "should", "said", "to", "from", "have", "has", "do", "does", "did", "go", "goes", "went", "see", "saw", "come", "came", "there", "their", "where", "here", "his", "her", "its", "my", "your", "our", "their", "who", "what", "which", "when", "why", "how", "all", "are", "be", "but", "by", "for", "if", "in", "is", "it", "me", "no", "of", "on", "or", "so", "some", "that", "this", "very", "we", "answer", "island", "listen", "often", "castle", "whistle"
+    ]
+  },
+  "phonics_focus": [
+    "kn- (knight, know, knee, knife, knot, knock, knit)",
+    "wr- (wrap, write, wrong, wrist, wrote, wring, wren, wright)",
+    "gn- (gnome, gnat, gnaw, sign)",
+    "-mb (lamb, climb, limb, crumb, thumb, dumb, numb, tomb, bomb, comb)",
+    "gh (knight, night, right, might, light, fight, sight, tight, through, thought)"
+  ],
+  "metadata": {
+    "word_count": 215,
+    "max_sentence_length": 15,
+    "decodability_target": "90%",
+    "theme": "mysteries",
+    "story_arc": "Derek discovers a mysterious sign, seeks help from a gnome, and uncovers an ancient treasure left by a previous knight",
+    "characters": ["Derek (brave young knight)", "Wise gnome (helper)", "Ancient knight (from the past)"],
+    "conflict": "Strange marks on castle wall that must be decoded to reveal castle's secret",
+    "resolution": "Derek discovers the treasure and learns that seeking truth is what makes a good knight"
+  }
+}

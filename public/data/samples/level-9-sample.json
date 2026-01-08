@@ -1,0 +1,100 @@
+{
+  "level": 9,
+  "title": "Roy's Big Discovery",
+  "summary": "Roy the boy discovers a shiny coin in the garden and learns how to help others with his special find.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "Roy was a boy who loved to play outside. He would play in the yard every day.",
+      "scene": "A young boy playing in a sunny garden with flowers and trees"
+    },
+    {
+      "page": 2,
+      "text": "One day, Roy heard a sound. \"What is that noise?\" he said to himself.",
+      "scene": "Roy looking curious, tilting his head to listen to something in the yard"
+    },
+    {
+      "page": 3,
+      "text": "Roy saw something bright in the ground. He pointed at it. \"Wow! Look at that shine!\"",
+      "scene": "Roy kneeling down, pointing at something shiny buried in the soil"
+    },
+    {
+      "page": 4,
+      "text": "He pulled it out. It was a coin! A golden coin that would not stain.",
+      "scene": "Roy holding up a shiny gold coin, eyes wide with joy"
+    },
+    {
+      "page": 5,
+      "text": "\"This is so cool!\" Roy said out loud. \"I can use this in a neat way!\"",
+      "scene": "Roy jumping up and down with excitement, holding the coin high"
+    },
+    {
+      "page": 6,
+      "text": "Roy went to town. The town was loud with noise from all the people and cars.",
+      "scene": "A busy town square with shops, people, and vehicles"
+    },
+    {
+      "page": 7,
+      "text": "Roy saw an old man who was sad. \"Why are you sad?\" asked Roy.",
+      "scene": "An elderly man sitting on a bench looking unhappy, Roy approaching him kindly"
+    },
+    {
+      "page": 8,
+      "text": "\"I lost my coin,\" said the old man. \"Now I can buy no food for lunch.\"",
+      "scene": "The old man looking down sadly, gesturing about his empty pocket"
+    },
+    {
+      "page": 9,
+      "text": "Roy knew what to do. He put his coin in the man's hand. \"This is for you!\"",
+      "scene": "Roy placing the golden coin into the old man's weathered palm"
+    },
+    {
+      "page": 10,
+      "text": "The old man's eyes grew wide. \"How did you know how I could be helped?\"",
+      "scene": "The old man's face transforming from sad to joyful, hands covering his heart"
+    },
+    {
+      "page": 11,
+      "text": "\"I found this in the soil,\" Roy said with a smile. \"Now you found joy!\"",
+      "scene": "Roy smiling proudly as the old man hugs him gratefully"
+    },
+    {
+      "page": 12,
+      "text": "The man bought food and sat on a bench in the town. He was not sad now.",
+      "scene": "The old man eating and smiling peacefully in the town square"
+    },
+    {
+      "page": 13,
+      "text": "Roy walked home. His heart felt warm and light. He had made a change.",
+      "scene": "Roy walking home at sunset, feeling proud and happy"
+    },
+    {
+      "page": 14,
+      "text": "Roy learned that day: his find could help someone. Kind acts bring joy to all.",
+      "scene": "Roy in his garden, looking at the ground where he found the coin, smiling"
+    }
+  ],
+  "word_list": {
+    "decodable": [
+      "boy", "coin", "ground", "found", "shout", "loud", "sound", "out", "joy", "oil", "soil", "towel", "cloud", "how", "now", "down", "town", "gown", "lawn", "dawn", "saw", "draw", "law", "paw", "raw", "cause", "pause", "because", "caught", "taught", "bought", "brought", "frown", "clown", "crown", "cow", "bow", "wow", "how", "owl", "house", "mouse", "mouth", "south", "youth", "boil", "join", "coin", "royal", "loyal", "employ", "enjoy", "annoy", "boy", "toy", "soy", "ploy", "allow", "follow", "hollow", "swallow", "yellow", "mellow", "bellow", "fellow", "jello", "cello", "rown", "brown", "drown", "frown", "grown", "shown", "sown", "known", "own", "town", "down", "gown", "crown"
+    ],
+    "sight": [
+      "a", "the", "was", "were", "would", "could", "should", "said", "to", "from", "have", "has", "do", "does", "did", "go", "goes", "went", "see", "saw", "come", "came", "there", "their", "where", "here", "his", "her", "its", "my", "your", "our", "their", "who", "what", "which", "when", "why", "how", "all", "are", "be", "but", "by", "for", "if", "in", "is", "it", "me", "no", "of", "on", "or", "so", "some", "that", "this", "very", "we"
+    ]
+  },
+  "phonics_focus": [
+    "oi/oy (coin, joy, boy, oil, soil, royal, enjoy, employ)",
+    "ou/ow (out, sound, ground, loud, found, house, mouse, mouth, cow, how, now, down, town, brown, crown, grow, show)",
+    "au/aw (saw, law, paw, cause, because, caught, taught, bought, brought)"
+  ],
+  "metadata": {
+    "word_count": 198,
+    "max_sentence_length": 14,
+    "decodability_target": "90%",
+    "theme": "discoveries",
+    "story_arc": "Roy finds a coin and discovers the joy of helping others",
+    "characters": ["Roy (young boy)", "Old man (kind recipient)"],
+    "conflict": "Old man lost his coin and cannot buy food",
+    "resolution": "Roy gives his found coin to help the man"
+  }
+}

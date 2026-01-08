@@ -1,0 +1,58 @@
+{
+  "id": "a4-sam-and-the-hat",
+  "title": "Sam and the Hat",
+  "slug": "sam-and-the-hat",
+  "level": "A4",
+  "band": "A",
+  "color": "Cream",
+  "skill": "Emergent Bridge",
+  "skill_description": "Read simple sentences independently with character, action, and outcome.",
+  "age_range": "K",
+  "created": "2026-01-06",
+  "model": "claude-opus-4-5",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Sam the cat wants a hat. A simple narrative with a character who takes action and achieves a goal.",
+  "targetPhonics": "Simple narrative using all letters except b/d together, introducing simple story arc",
+  "sightWordsUsed": ["a", "I", "the", "is", "to", "and", "it", "in", "on"],
+
+  "word_list": {
+    "sound_out": ["Sam", "cat", "hat", "mat", "ran", "sat", "got", "top"],
+    "sight": ["a", "I", "the", "is", "to", "and", "it", "in", "on"],
+    "new": []
+  },
+
+  "wordsearch_words": ["Sam", "cat", "hat", "mat", "ran", "sat", "got"],
+
+  "pages": [
+    { "page": 1, "type": "cover", "text": "Sam and the Hat", "scene": "A cute orange cat named Sam looking at a colorful hat. Warm watercolor style." },
+    { "page": 2, "type": "copyright" },
+    { "page": 3, "type": "parent_guide" },
+    { "page": 4, "type": "level_info" },
+    { "page": 5, "type": "wordlist", "text": "Words to Know" },
+    { "page": 6, "story_page": 1, "type": "story", "text": "Sam is a cat.", "scene": "A friendly orange cat named Sam sitting and smiling." },
+    { "page": 7, "story_page": 2, "type": "story", "text": "Sam sat on a mat.", "scene": "Sam the cat sitting on a colorful mat." },
+    { "page": 8, "story_page": 3, "type": "story", "text": "Sam saw a hat.", "scene": "Sam looking up at a hat on a high shelf." },
+    { "page": 9, "story_page": 4, "type": "story", "text": "The hat is on top.", "scene": "A hat sitting on top of a tall shelf." },
+    { "page": 10, "story_page": 5, "type": "story", "text": "Sam ran to the hat.", "scene": "Sam running toward the shelf with the hat." },
+    { "page": 11, "story_page": 6, "type": "story", "text": "Can Sam get it?", "scene": "Sam looking up at the hat, thinking." },
+    { "page": 12, "story_page": 7, "type": "story", "text": "Sam got on a mat.", "scene": "Sam standing on the mat, ready to jump." },
+    { "page": 13, "story_page": 8, "type": "story", "text": "Sam got on top.", "scene": "Sam jumping up onto the shelf." },
+    { "page": 14, "story_page": 9, "type": "story", "text": "Sam got the hat!", "scene": "Sam grabbing the hat with delight." },
+    { "page": 15, "story_page": 10, "type": "story", "text": "The hat is on Sam.", "scene": "Sam wearing the hat proudly." },
+    { "page": 16, "story_page": 11, "type": "story", "text": "Sam sat on the mat.", "scene": "Sam sitting on the mat wearing the hat." },
+    { "page": 17, "story_page": 12, "type": "story", "text": "Sam and the hat!", "scene": "Sam posing happily with the hat, looking triumphant." },
+    { "page": 18, "type": "end", "text": "The End", "scene": "Sam the cat curled up on the mat with the hat beside him." },
+    { "page": 19, "type": "wordsearch" },
+    { "page": 20, "type": "back_cover", "text": "" }
+  ],
+
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00Z",
+    "levelSpecs": "v2",
+    "wordCount": 60,
+    "uniqueWords": 14,
+    "letterConstraints": "All except b/d together",
+    "caseConstraint": "Lowercase dominant"
+  }
+}

@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Curriculum Designer - FunBookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-cream: #FAF8F5;
+            --color-white: #FFFFFF;
+            --color-charcoal: #2C2D26;
+            --color-soft-black: #1A1A1A;
+            --color-sage: #9FC7AA;
+            --color-sage-light: #E8F2EB;
+            --color-sage-dark: #6B9B7A;
+            --color-terracotta: #EFA487;
+            --color-terracotta-light: #FDF4F0;
+            --color-border: #E8E4DD;
+            --font-display: 'Fraunces', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-cream);
+            color: var(--color-charcoal);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        .header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-soft-black);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--color-charcoal);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-sage-dark);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 3rem 0;
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 700px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-white);
+            padding: 0 2rem;
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            border: none;
+            background: none;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+        }
+
+        .tab:hover {
+            color: var(--color-charcoal);
+        }
+
+        .tab.active {
+            color: var(--color-sage-dark);
+            border-bottom-color: var(--color-sage);
+        }
+
+        /* Main content */
+        .main {
+            padding: 2rem 0;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Overview cards */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .overview-card {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .overview-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .overview-card .stat {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-sage-dark);
+        }
+
+        /* Level cards */
+        .level-group {
+            margin-bottom: 3rem;
+        }
+
+        .level-group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .level-group-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+        }
+
+        .level-group-meta {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .level-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1rem;
+        }
+
+        .level-card {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--color-border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .level-card:hover {
+            border-color: var(--color-sage);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .level-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .level-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .level-card-title h3 {
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+
+        .level-card-title span {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .level-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .level-specs dt {
+            color: #666;
+        }
+
+        .level-specs dd {
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .word-samples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .word-chip {
+            background: var(--color-cream);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .content-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.8rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-dot.empty { background: #E0E0E0; }
+        .status-dot.partial { background: #FFC107; }
+        .status-dot.complete { background: #28A745; }
+
+        /* Level detail modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 2rem;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--color-white);
+            border-radius: 16px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--color-white);
+            z-index: 10;
+        }
+
+        .modal-header h2 {
+            font-family: var(--font-display);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--color-cream);
+            cursor: pointer;
+            font-size: 1.25rem;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .modal-section h3 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-sage-dark);
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .spec-item {
+            background: var(--color-cream);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .spec-item label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #666;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .spec-item value {
+            font-weight: 600;
+        }
+
+        .patterns-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .pattern-tag {
+            background: var(--color-sage-light);
+            color: var(--color-sage-dark);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .example-box {
+            background: #FFFBF0;
+            border: 1px solid #FFE4B5;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-meta {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .word-bank {
+            max-height: 200px;
+            overflow-y: auto;
+            background: var(--color-cream);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .word-bank-category {
+            margin-bottom: 1rem;
+        }
+
+        .word-bank-category h4 {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Generate section */
+        .generate-panel {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .generate-panel h2 {
+            font-family: var(--font-display);
+            margin-bottom: 1rem;
+        }
+
+        .generate-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .option-group select,
+        .option-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-family: var(--font-body);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--color-sage);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-sage-dark);
+        }
+
+        .btn-secondary {
+            background: var(--color-cream);
+            color: var(--color-charcoal);
+        }
+
+        /* Queue */
+        .queue-section {
+            margin-top: 2rem;
+        }
+
+        .queue-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--color-cream);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .queue-item .status {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .queue-item .status.pending { background: #E0E0E0; }
+        .queue-item .status.running { background: #FFC107; }
+        .queue-item .status.complete { background: #28A745; color: white; }
+        .queue-item .status.error { background: #DC3545; color: white; }
+
+        /* Resources */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .resource-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-card p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .resource-card a {
+            color: var(--color-sage-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .resource-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Level colors */
+        .level-0 { background: #FFB6C1; }
+        .level-1 { background: #FFD700; }
+        .level-2 { background: #FFA500; }
+        .level-3 { background: #FF8C00; }
+        .level-4 { background: #DC143C; }
+        .level-5 { background: #9370DB; }
+        .level-6 { background: #4169E1; }
+        .level-7 { background: #228B22; }
+        .level-8 { background: #DAA520; }
+        .level-9 { background: #20B2AA; }
+        .level-10 { background: #4B0082; }
+        .level-11 { background: #FF7F50; }
+        .level-12 { background: #32CD32; }
+        .level-13 { background: #FF00FF; }
+        .level-14 { background: #00CED1; }
+        .level-15 { background: #FFBF00; }
+        .level-16 { background: #708090; }
+        .level-17 { background: #DC143C; }
+        .level-18 { background: #50C878; }
+        .level-19 { background: #8A2BE2; }
+        .level-20 { background: #CD7F32; }
+        .level-21 { background: #C0C0C0; }
+        .level-22 { background: #E5E4E2; color: #333; }
+        .level-23 { background: #0C0C0C; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="/" class="logo">FunBookies</a>
+                <nav class="nav-links">
+                    <a href="/books/">Library</a>
+                    <a href="/curriculum/">Curriculum</a>
+                    <a href="/experiment1/">Create</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Curriculum Designer</h1>
+            <p>Research-based reading level specifications aligned with Science of Reading, Orton-Gillingham, and DIBELS benchmarks. Generate, validate, and review content for each level.</p>
+        </div>
+    </section>
+
+    <div class="tabs">
+        <button class="tab active" data-tab="overview">Overview</button>
+        <button class="tab" data-tab="levels">Level Specifications</button>
+        <button class="tab" data-tab="generate">Generate Content</button>
+        <button class="tab" data-tab="review">Review Queue</button>
+        <button class="tab" data-tab="resources">Resources</button>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            <!-- Overview Section -->
+            <section class="section active" id="overview">
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <h3>Total Levels</h3>
+                        <div class="stat">24</div>
+                        <p>Pre-K through Grade 12</p>
+                    </div>
+                    <div class="overview-card">
+                        <h3>Content Coverage</h3>
+                        <div class="stat" id="coverageStat">0%</div>
+                        <p>Levels with sample content</p>
+                    </div>
+                    <div class="overview-card">
+                        <h3>Word Bank Size</h3>
+                        <div class="stat">3,200+</div>
+                        <p>Decodable + sight words</p>
+                    </div>
+                    <div class="overview-card">
+                        <h3>Validation API</h3>
+                        <div class="stat">Active</div>
+                        <p>Real-time text checking</p>
+                    </div>
+                </div>
+
+                <h2 style="font-family: var(--font-display); margin-bottom: 1rem;">Level Progression</h2>
+                <div id="levelOverview"></div>
+            </section>
+
+            <!-- Level Specifications Section -->
+            <section class="section" id="levels">
+                <div id="levelGroups"></div>
+            </section>
+
+            <!-- Generate Content Section -->
+            <section class="section" id="generate">
+                <div class="generate-panel">
+                    <h2>Batch Content Generation</h2>
+                    <p style="color: #666; margin-bottom: 1.5rem;">Generate sample stories for selected levels. Content is validated against reading level constraints automatically.</p>
+
+                    <div class="generate-options">
+                        <div class="option-group">
+                            <label>Level Range</label>
+                            <select id="levelRange">
+                                <option value="0-8">Phonics Foundation (0-8)</option>
+                                <option value="9-12">Transitional (9-12)</option>
+                                <option value="13-16">Developing (13-16)</option>
+                                <option value="17-20">Fluent (17-20)</option>
+                                <option value="21-23">Advanced (21-23)</option>
+                                <option value="0-23">All Levels (0-23)</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>Stories Per Level</label>
+                            <select id="storiesPerLevel">
+                                <option value="1">1 story</option>
+                                <option value="2">2 stories</option>
+                                <option value="3">3 stories</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>Theme (optional)</label>
+                            <input type="text" id="themeInput" placeholder="e.g., animals, adventure">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="startBatchGeneration()">Start Generation</button>
+                    <button class="btn btn-secondary" style="margin-left: 0.5rem;" onclick="exportSpecs()">Export Level Specs</button>
+
+                    <div class="queue-section" id="generationQueue" style="display: none;">
+                        <h3 style="margin-bottom: 1rem;">Generation Progress</h3>
+                        <div id="queueItems"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Review Queue Section -->
+            <section class="section" id="review">
+                <div class="generate-panel">
+                    <h2>Content Review Queue</h2>
+                    <p style="color: #666; margin-bottom: 1.5rem;">Review generated content, check validation scores, and approve for publication.</p>
+
+                    <div id="reviewQueue">
+                        <p style="color: #666;">No content pending review. Generate content first.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resources Section -->
+            <section class="section" id="resources">
+                <h2 style="font-family: var(--font-display); margin-bottom: 1.5rem;">Research & Resources</h2>
+
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <h3>Science of Reading Framework</h3>
+                        <p>Our levels are grounded in systematic, explicit phonics instruction following Orton-Gillingham principles.</p>
+                        <a href="https://readinguniverse.org/" target="_blank">Reading Universe Guide</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>DIBELS Benchmarks</h3>
+                        <p>Levels 0-8 align with DIBELS 8th Edition fluency measures for kindergarten through 2nd grade.</p>
+                        <a href="https://dibels.uoregon.edu/" target="_blank">DIBELS Official Site</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>Lexile Framework</h3>
+                        <p>Text complexity measures help match readers with appropriate content from levels 9-23.</p>
+                        <a href="https://lexile.com/" target="_blank">Lexile Framework</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>High-Frequency Words</h3>
+                        <p>Our sight word database draws from research-validated high-frequency word lists.</p>
+                        <a href="/data/sight-words.json" target="_blank">View Word Bank (JSON)</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>Phonics Scope & Sequence</h3>
+                        <p>Decodable words organized by phonics patterns from CVC through multisyllabic.</p>
+                        <a href="/data/phonics-words.json" target="_blank">View Phonics Bank (JSON)</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>Validation API</h3>
+                        <p>Real-time text validation checks decodability, sentence length, and level appropriateness.</p>
+                        <a href="/api/validate-text" target="_blank">API Endpoint</a>
+                    </div>
+                </div>
+
+                <h2 style="font-family: var(--font-display); margin: 2rem 0 1rem;">Implementation Guides</h2>
+
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <h3>Phonics Foundation (0-8)</h3>
+                        <p>Pre-readers through r-controlled vowels. Focus on systematic decoding with 95%+ decodability.</p>
+                        <ul style="font-size: 0.85rem; color: #666; margin-top: 0.5rem; padding-left: 1rem;">
+                            <li>CVC patterns (levels 1-2)</li>
+                            <li>Digraphs and blends (levels 3-5)</li>
+                            <li>Silent e and vowel teams (levels 6-7)</li>
+                            <li>R-controlled vowels (level 8)</li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <h3>Transitional (9-12)</h3>
+                        <p>Diphthongs through 2-syllable words. Bridge from decoding to fluency with 90%+ decodability.</p>
+                        <ul style="font-size: 0.85rem; color: #666; margin-top: 0.5rem; padding-left: 1rem;">
+                            <li>Complex vowel patterns (levels 9-11)</li>
+                            <li>Syllable division rules (level 12)</li>
+                            <li>Compound words introduced</li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <h3>Developing (13-16)</h3>
+                        <p>Morphology focus: suffixes, prefixes, Latin roots. Vocabulary development becomes central.</p>
+                        <ul style="font-size: 0.85rem; color: #666; margin-top: 0.5rem; padding-left: 1rem;">
+                            <li>All 6 syllable types (level 13)</li>
+                            <li>Common affixes (levels 14-15)</li>
+                            <li>Latin root words (level 16)</li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <h3>Fluent & Advanced (17-23)</h3>
+                        <p>Academic vocabulary, complex syntax, figurative language, and literary analysis.</p>
+                        <ul style="font-size: 0.85rem; color: #666; margin-top: 0.5rem; padding-left: 1rem;">
+                            <li>Greek roots and Tier 2 vocab (levels 17-18)</li>
+                            <li>Complex sentences (level 19)</li>
+                            <li>Figurative language (level 20)</li>
+                            <li>Domain/literary analysis (levels 21-23)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Level Detail Modal -->
+    <div class="modal-overlay" id="levelModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>
+                    <span class="level-badge" id="modalLevelBadge">0</span>
+                    <span id="modalLevelTitle">Level Name</span>
+                </h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Level specifications
+        const LEVELS = [
+            { level: 0, name: 'Pre-reader', skill: 'Picture reading, memorized words', words: 2, age: '3-5', grade: 'Pre-K', group: 'Phonics Foundation' },
+            { level: 1, name: 'CVC Short a/i/o', skill: 'Basic CVC words', words: 3, age: '4-5', grade: 'K', group: 'Phonics Foundation' },
+            { level: 2, name: 'CVC All Vowels', skill: 'Short e, u added', words: 4, age: '4-6', grade: 'K', group: 'Phonics Foundation' },
+            { level: 3, name: 'Digraphs', skill: 'sh, ch, th, wh, ck, ng', words: 5, age: '5-6', grade: 'K-1', group: 'Phonics Foundation' },
+            { level: 4, name: 'Initial Blends', skill: 'bl, cr, st, sw...', words: 6, age: '5-7', grade: '1', group: 'Phonics Foundation' },
+            { level: 5, name: 'Final Blends', skill: '-nd, -mp, -st, FLOSS', words: 7, age: '5-7', grade: '1', group: 'Phonics Foundation' },
+            { level: 6, name: 'Silent E', skill: 'VCe long vowels', words: 8, age: '5-8', grade: '1', group: 'Phonics Foundation' },
+            { level: 7, name: 'Vowel Teams', skill: 'ai, ea, oa, ee, oo', words: 10, age: '6-8', grade: '1-2', group: 'Phonics Foundation' },
+            { level: 8, name: 'R-Controlled', skill: 'ar, er, ir, or, ur', words: 12, age: '6-9', grade: '2', group: 'Phonics Foundation' },
+            { level: 9, name: 'Diphthongs', skill: 'oi/oy, ou/ow, au/aw', words: 14, age: '7-9', grade: '2', group: 'Transitional' },
+            { level: 10, name: 'Silent Letters', skill: 'kn, wr, gn, mb, gh', words: 15, age: '7-9', grade: '2-3', group: 'Transitional' },
+            { level: 11, name: 'Soft C & G', skill: 'ce, ci, ge, gi, dge', words: 16, age: '7-9', grade: '2-3', group: 'Transitional' },
+            { level: 12, name: '2-Syllable Words', skill: 'Syllable division', words: 18, age: '7-10', grade: '3', group: 'Transitional' },
+            { level: 13, name: 'Syllable Types', skill: 'All 6 types', words: 20, age: '8-10', grade: '3', group: 'Developing' },
+            { level: 14, name: 'Common Suffixes', skill: '-ed, -ing, -ly, -ful', words: 22, age: '8-11', grade: '3-4', group: 'Developing' },
+            { level: 15, name: 'Common Prefixes', skill: 'un-, re-, pre-, dis-', words: 24, age: '9-11', grade: '4', group: 'Developing' },
+            { level: 16, name: 'Latin Roots', skill: 'struct, port, dict...', words: 26, age: '9-12', grade: '4-5', group: 'Developing' },
+            { level: 17, name: 'Greek Roots', skill: 'graph, phon, bio...', words: 28, age: '10-12', grade: '5', group: 'Fluent' },
+            { level: 18, name: 'Academic Vocab', skill: 'Tier 2 words', words: 30, age: '10-13', grade: '5-6', group: 'Fluent' },
+            { level: 19, name: 'Complex Sentences', skill: 'Subordinate clauses', words: 35, age: '11-13', grade: '6', group: 'Fluent' },
+            { level: 20, name: 'Figurative Language', skill: 'Idioms, metaphor', words: 40, age: '11-14', grade: '6-7', group: 'Fluent' },
+            { level: 21, name: 'Domain Vocabulary', skill: 'Tier 3 terms', words: 45, age: '12-15', grade: '7-8', group: 'Advanced' },
+            { level: 22, name: 'Nuanced Language', skill: 'Tone, register', words: 50, age: '13-16', grade: '8-10', group: 'Advanced' },
+            { level: 23, name: 'Literary Analysis', skill: 'Critical reading', words: 60, age: '14-18', grade: '9-12', group: 'Advanced' },
+        ];
+
+        const GROUPS = [
+            { name: 'Phonics Foundation', range: [0, 8], grades: 'Pre-K to Grade 2', decodability: '95%+' },
+            { name: 'Transitional', range: [9, 12], grades: 'Grades 2-3', decodability: '90%+' },
+            { name: 'Developing', range: [13, 16], grades: 'Grades 3-5', decodability: '85%+' },
+            { name: 'Fluent', range: [17, 20], grades: 'Grades 5-7', decodability: 'N/A' },
+            { name: 'Advanced', range: [21, 23], grades: 'Grades 7-12', decodability: 'N/A' }
+        ];
+
+        // Sample content tracking
+        let contentStatus = {};
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            setupTabs();
+            renderOverview();
+            renderLevelGroups();
+            loadContentStatus();
+        });
+
+        function setupTabs() {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
+            });
+        }
+
+        function renderOverview() {
+            const container = document.getElementById('levelOverview');
+            container.innerHTML = GROUPS.map(g => `
+                <div class="level-group">
+                    <div class="level-group-header">
+                        <h2>${g.name}</h2>
+                        <span class="level-group-meta">${g.grades} | Target decodability: ${g.decodability}</span>
+                    </div>
+                    <div class="level-cards">
+                        ${LEVELS.slice(g.range[0], g.range[1] + 1).map(l => `
+                            <div class="level-card" onclick="openLevelDetail(${l.level})">
+                                <div class="level-card-header">
+                                    <span class="level-badge level-${l.level}">${l.level}</span>
+                                    <div class="level-card-title">
+                                        <h3>${l.name}</h3>
+                                        <span>Grade ${l.grade} | Ages ${l.age}</span>
+                                    </div>
+                                </div>
+                                <dl class="level-specs">
+                                    <dt>Skill Focus</dt>
+                                    <dd>${l.skill}</dd>
+                                    <dt>Max Words/Sentence</dt>
+                                    <dd>${l.words}</dd>
+                                </dl>
+                                <div class="content-status">
+                                    <span class="status-dot ${contentStatus[l.level] || 'empty'}"></span>
+                                    <span>${contentStatus[l.level] === 'complete' ? 'Content ready' : contentStatus[l.level] === 'partial' ? 'In progress' : 'Needs content'}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderLevelGroups() {
+            const container = document.getElementById('levelGroups');
+            container.innerHTML = GROUPS.map(g => `
+                <div class="level-group">
+                    <div class="level-group-header">
+                        <h2>${g.name}</h2>
+                        <span class="level-group-meta">${g.grades}</span>
+                    </div>
+                    <div class="level-cards">
+                        ${LEVELS.slice(g.range[0], g.range[1] + 1).map(l => `
+                            <div class="level-card" onclick="openLevelDetail(${l.level})">
+                                <div class="level-card-header">
+                                    <span class="level-badge level-${l.level}">${l.level}</span>
+                                    <div class="level-card-title">
+                                        <h3>${l.name}</h3>
+                                        <span>Grade ${l.grade}</span>
+                                    </div>
+                                </div>
+                                <dl class="level-specs">
+                                    <dt>Phonics Skill</dt>
+                                    <dd>${l.skill}</dd>
+                                    <dt>Max Words</dt>
+                                    <dd>${l.words}/sentence</dd>
+                                    <dt>Age Range</dt>
+                                    <dd>${l.age} years</dd>
+                                </dl>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function openLevelDetail(level) {
+            const l = LEVELS[level];
+            document.getElementById('modalLevelBadge').textContent = level;
+            document.getElementById('modalLevelBadge').className = `level-badge level-${level}`;
+            document.getElementById('modalLevelTitle').textContent = l.name;
+
+            // Fetch level specs from data files
+            let phonicsData = {};
+            let sightData = {};
+            try {
+                const [phonicsRes, sightRes] = await Promise.all([
+                    fetch('/data/phonics-words.json'),
+                    fetch('/data/sight-words.json')
+                ]);
+                phonicsData = await phonicsRes.json();
+                sightData = await sightRes.json();
+            } catch (e) {
+                console.error('Could not load word banks');
+            }
+
+            const levelPhonics = phonicsData.levels?.[level] || {};
+            const patterns = levelPhonics.patterns || [];
+            const words = levelPhonics.words || {};
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="modal-section">
+                    <h3>Specifications</h3>
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <label>Grade Level</label>
+                            <value>${l.grade}</value>
+                        </div>
+                        <div class="spec-item">
+                            <label>Age Range</label>
+                            <value>${l.age} years</value>
+                        </div>
+                        <div class="spec-item">
+                            <label>Max Words/Sentence</label>
+                            <value>${l.words} words</value>
+                        </div>
+                        <div class="spec-item">
+                            <label>Target Decodability</label>
+                            <value>${level <= 8 ? '95%+' : level <= 12 ? '90%+' : level <= 16 ? '85%+' : 'Flexible'}</value>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Phonics Skill Focus</h3>
+                    <p style="margin-bottom: 1rem;">${l.skill}</p>
+                    ${patterns.length > 0 ? `
+                        <div class="patterns-list">
+                            ${patterns.map(p => `<span class="pattern-tag">${p.replace(/_/g, ' ')}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+
+                ${Object.keys(words).length > 0 ? `
+                <div class="modal-section">
+                    <h3>Word Bank (Level ${level})</h3>
+                    <div class="word-bank">
+                        ${Object.entries(words).map(([cat, wordList]) => `
+                            <div class="word-bank-category">
+                                <h4>${cat.replace(/_/g, ' ')}</h4>
+                                <div class="word-samples">
+                                    ${wordList.slice(0, 20).map(w => `<span class="word-chip">${w}</span>`).join('')}
+                                    ${wordList.length > 20 ? `<span class="word-chip" style="background: #ddd;">+${wordList.length - 20} more</span>` : ''}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+
+                <div class="modal-section">
+                    <h3>Example Sentences</h3>
+                    <div class="example-box">
+                        ${getExampleForLevel(level)}
+                    </div>
+                    <p class="example-meta">Maximum ${l.words} words per sentence. All words should be decodable at this level or from sight word list.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Assessment Focus</h3>
+                    <p>${getAssessmentFocus(level)}</p>
+                </div>
+
+                <div style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="generateForLevel(${level})">Generate Sample Story</button>
+                    <button class="btn btn-secondary" style="margin-left: 0.5rem;" onclick="validateText(${level})">Test Validation</button>
+                </div>
+            `;
+
+            document.getElementById('levelModal').classList.add('visible');
+        }
+
+        function closeModal() {
+            document.getElementById('levelModal').classList.remove('visible');
+        }
+
+        function getExampleForLevel(level) {
+            const examples = {
+                0: "The cat. A dog.",
+                1: "The cat sat. A pig hid.",
+                2: "The pup dug mud. We had fun.",
+                3: "The ship is big! They sang a song.",
+                4: "The frog can stop and swim. Brad slid on the sled.",
+                5: "The swift fox went past the pond. Help! The lamp fell!",
+                6: "Kate made a huge cake at home. Mike rode his bike.",
+                7: "The goat floated down the stream. We stayed home to read.",
+                8: "The girl rode her horse to the barn. Turn left at the church.",
+                9: "The boy found a coin on the ground. How loud was that owl?",
+                10: "The knight knew he ought to climb. I thought I might write a sign.",
+                11: "The gentle giant placed the mice in a cage. Grace danced across the stage.",
+                12: "The baby tiger was hidden inside the cabin. After breakfast, she finished her homework.",
+                13: "The scientist performed a remarkable experiment. It seems necessary to explain the difference.",
+                14: "The careful investigation revealed the problem. The peaceful celebration brought happiness.",
+                15: "Although it seemed impossible, she returned quickly. The international presentation was important.",
+                16: "The construction project required infrastructure support. The inspector predicted transformation.",
+                17: "The biologist's autobiography chronicled her research. Using the telescope, she analyzed the data.",
+                18: "The analysis suggests significant factors contributed. Researchers demonstrated a fundamental connection.",
+                19: "Although the expedition encountered challenges, the researchers successfully completed their study.",
+                20: "Time, that relentless thief, had stolen the colors from his memories, leaving sepia shadows.",
+                21: "The protagonist's crisis reaches its denouement when she recognizes the antithesis.",
+                22: "While the administration characterized the reduction as restructuring, those affected experienced it differently.",
+                23: "The narrative's polyphonic structure destabilizes conventional notions of authorial omniscience."
+            };
+            return examples[level] || "Sample sentence for this level.";
+        }
+
+        function getAssessmentFocus(level) {
+            if (level <= 2) return "Letter-sound identification, CVC word decoding, picture-based comprehension.";
+            if (level <= 5) return "Word reading fluency, nonsense word fluency, simple sentence reading.";
+            if (level <= 8) return "Oral reading fluency (WCPM), retelling, basic inference questions.";
+            if (level <= 12) return "Multi-syllable decoding, fluency benchmarks, text structure recognition.";
+            if (level <= 16) return "Vocabulary in context, morphology analysis, main idea identification.";
+            if (level <= 20) return "Academic vocabulary, inference and analysis, figurative language interpretation.";
+            return "Critical analysis, synthesis across texts, rhetorical analysis, original argumentation.";
+        }
+
+        function loadContentStatus() {
+            // In production, this would load from a database
+            // For now, mark existing books
+            contentStatus = {
+                0: 'partial',
+                1: 'partial',
+                2: 'complete',
+                3: 'complete'
+            };
+            updateCoverageStat();
+        }
+
+        function updateCoverageStat() {
+            const complete = Object.values(contentStatus).filter(s => s === 'complete').length;
+            const partial = Object.values(contentStatus).filter(s => s === 'partial').length;
+            const percent = Math.round(((complete + partial * 0.5) / 24) * 100);
+            document.getElementById('coverageStat').textContent = percent + '%';
+        }
+
+        async function startBatchGeneration() {
+            const range = document.getElementById('levelRange').value.split('-').map(Number);
+            const count = parseInt(document.getElementById('storiesPerLevel').value);
+            const theme = document.getElementById('themeInput').value;
+
+            const queueSection = document.getElementById('generationQueue');
+            const queueItems = document.getElementById('queueItems');
+            queueSection.style.display = 'block';
+
+            const levels = [];
+            for (let i = range[0]; i <= range[1]; i++) {
+                levels.push(i);
+            }
+
+            queueItems.innerHTML = levels.map(l => `
+                <div class="queue-item" id="queue-${l}">
+                    <span class="status pending">...</span>
+                    <span>Level ${l}: ${LEVELS[l].name}</span>
+                    <span style="margin-left: auto; color: #666;">Pending</span>
+                </div>
+            `).join('');
+
+            // Note: In production, this would call the batch generation API
+            alert(`Batch generation would create ${count} story/stories for levels ${range[0]}-${range[1]}${theme ? ` with theme "${theme}"` : ''}.\n\nThis will be implemented with parallel Haiku agents.`);
+        }
+
+        function generateForLevel(level) {
+            window.location.href = `/experiment1/?level=${level}`;
+        }
+
+        function validateText(level) {
+            const text = prompt(`Enter text to validate for Level ${level}:`);
+            if (!text) return;
+
+            fetch('/api/validate-text', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, level })
+            })
+            .then(r => r.json())
+            .then(result => {
+                alert(`Validation Result:\n\nPassed: ${result.passed}\nDecodability: ${result.decodability?.score || 0}%\nUnknown words: ${result.decodability?.unknownWords?.join(', ') || 'None'}`);
+            })
+            .catch(e => alert('Validation failed: ' + e.message));
+        }
+
+        function exportSpecs() {
+            const specs = LEVELS.map(l => ({
+                level: l.level,
+                name: l.name,
+                grade: l.grade,
+                age: l.age,
+                skill: l.skill,
+                maxWordsPerSentence: l.words,
+                targetDecodability: l.level <= 8 ? '95%' : l.level <= 12 ? '90%' : l.level <= 16 ? '85%' : 'flexible',
+                exampleSentence: getExampleForLevel(l.level),
+                assessmentFocus: getAssessmentFocus(l.level)
+            }));
+
+            const blob = new Blob([JSON.stringify(specs, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'funbookies-level-specs.json';
+            a.click();
+        }
+
+        // Close modal on escape
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Close modal on overlay click
+        document.getElementById('levelModal').addEventListener('click', e => {
+            if (e.target.id === 'levelModal') closeModal();
+        });
+    </script>
+</body>
+</html>

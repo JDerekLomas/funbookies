@@ -1,0 +1,66 @@
+{
+  "level": 5,
+  "type": "art_poetry",
+  "title": "Music in the Wind",
+  "summary": "A lyrical exploration of wind, sound, and invisible forces. Final blends and FLOSS words create a musical rhythm that mirrors the wind's movement.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "The wind falls soft and still.",
+      "scene": "Gentle breeze through tall grass, barely visible movement"
+    },
+    {
+      "page": 2,
+      "text": "It will bend the plants.",
+      "scene": "Grass and flowers bowing gracefully in the wind"
+    },
+    {
+      "page": 3,
+      "text": "The bell will hum and ring.",
+      "scene": "A brass bell swinging, creating ripples of sound"
+    },
+    {
+      "page": 4,
+      "text": "Ding! Ding! Ding! It sings.",
+      "scene": "Bell vibrating, notes hanging in the air like visible sound waves"
+    },
+    {
+      "page": 5,
+      "text": "The wind is swift and blind.",
+      "scene": "Wind tossing leaves and dust, shape-shifting, invisible"
+    },
+    {
+      "page": 6,
+      "text": "Hiss. A sound so kind.",
+      "scene": "Wind rushing through trees, whispering and soothing"
+    },
+    {
+      "page": 7,
+      "text": "Pink and gold and buff.",
+      "scene": "Sunset colors mingling in clouds, soft and warm"
+    },
+    {
+      "page": 8,
+      "text": "The wind will blow and huff.",
+      "scene": "Wind bringing the day to an end, all colors fading to dusk"
+    }
+  ],
+  "word_list": {
+    "sight": ["the", "it", "will", "and", "is", "a", "so"],
+    "decodable": ["wind", "falls", "soft", "still", "bend", "plants", "bell", "hum", "ring", "ding", "sings", "swift", "blind", "hiss", "sound", "kind", "pink", "gold", "buff", "blow", "huff"]
+  },
+  "phonics_focus": [
+    "-ll (bell, still, will)",
+    "-nd (wind, bend, blind, kind, sand)",
+    "-ng (ring, sings, hum is close)",
+    "-nk (sank - not used, but pattern)",
+    "-mp (hum, bump - close pattern)",
+    "-st (fast, mist - close)",
+    "-ff (huff, buff, staff)"
+  ],
+  "metadata": {
+    "word_count": 52,
+    "max_sentence_length": 7,
+    "aesthetic_focus": "Invisible forces, sound and sensation, wind as character"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "level": 4,
+  "type": "art_poetry",
+  "title": "Flowers Bloom and Grow",
+  "summary": "A celebration of flowers blooming through the seasons. Initial blends create rhythm while imagery captures the beauty of growth and change.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "Spring brings green and blooms.",
+      "scene": "A field of wildflowers just beginning to bloom, fresh and tender"
+    },
+    {
+      "page": 2,
+      "text": "The flowers glow bright.",
+      "scene": "Purple, yellow, and pink flowers basking in sunlight"
+    },
+    {
+      "page": 3,
+      "text": "Stems grow tall and strong.",
+      "scene": "Green stems stretching upward, reaching toward the sky"
+    },
+    {
+      "page": 4,
+      "text": "Frost will come and stop them.",
+      "scene": "Same flowers now wilting, touched by frost, colors fading"
+    },
+    {
+      "page": 5,
+      "text": "But sleep will bring them back.",
+      "scene": "Flowers dormant beneath snow, quiet and resting"
+    },
+    {
+      "page": 6,
+      "text": "The clock goes round and round.",
+      "scene": "Calendar wheels turning, seasons cycling"
+    },
+    {
+      "page": 7,
+      "text": "Prism glass splits the light.",
+      "scene": "Rainbow light refracting through the garden"
+    },
+    {
+      "page": 8,
+      "text": "The flowers bloom and glow.",
+      "scene": "Full circle: spring blooms return, vibrant and radiant"
+    }
+  ],
+  "word_list": {
+    "sight": ["the", "and", "will", "them", "but", "come", "back", "go", "round"],
+    "decodable": ["spring", "brings", "green", "blooms", "flowers", "glow", "bright", "stems", "grow", "tall", "strong", "frost", "stop", "sleep", "clock", "prism", "glass", "splits", "light"]
+  },
+  "phonics_focus": [
+    "bl- (blooms, blends)",
+    "cl- (clock)",
+    "fl- (flowers, frost)",
+    "gl- (glow, glass)",
+    "gr- (green, grow, brings)",
+    "pr- (prism)",
+    "sp- (splits, spring)",
+    "st- (stems, stop, strong)"
+  ],
+  "metadata": {
+    "word_count": 54,
+    "max_sentence_length": 6,
+    "aesthetic_focus": "Seasonal cycles, growth and renewal, natural light"
+  }
+}

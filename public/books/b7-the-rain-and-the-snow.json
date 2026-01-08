@@ -1,0 +1,64 @@
+{
+  "id": "b7-the-rain-and-the-snow",
+  "title": "The Rain and the Snow",
+  "slug": "the-rain-and-the-snow",
+  "level": "B7",
+  "band": "B",
+  "targetPhonics": "Vowel Teams",
+  "wordFamilies": ["ai", "ay", "ee", "ea", "oa", "ow (long)"],
+  "skill": "Vowel Teams",
+  "skill_description": "Practice reading common vowel team patterns for long vowels: ai (rain), ay (play), ee (tree), ea (read), oa (boat), ow (snow).",
+  "age_range": "K-1",
+  "created": "2026-01-06",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "When rain turns to snow, a girl named Jean dreams of playing outside. She waits for the snow to stay, then plays in the snow with her goat named Gray.",
+
+  "word_list": {
+    "sound_out": ["rain", "wait", "tail", "train", "paint", "mail", "pail", "sail", "nail", "day", "play", "say", "stay", "way", "may", "gray", "hay", "see", "tree", "feet", "sleep", "green", "keep", "need", "seed", "free", "read", "eat", "sea", "tea", "team", "beach", "clean", "dream", "leaf", "boat", "coat", "road", "goat", "foam", "load", "toast", "snow", "grow", "show", "slow", "flow", "know", "low", "row", "blow", "glow"],
+    "sight": ["a", "I", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very"],
+    "new": ["Jean"]
+  },
+
+  "sightWordsUsed": ["a", "I", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very"],
+
+  "wordsearch_words": ["rain", "play", "tree", "read", "goat", "snow", "dream", "day"],
+
+  "pages": [
+    { "page": 1, "type": "cover", "text": "The Rain and the Snow", "scene": "A girl looking out a window at rain turning to snow, a gray goat visible outside. Warm watercolor style." },
+    { "page": 2, "type": "copyright" },
+    { "page": 3, "type": "parent_guide" },
+    { "page": 4, "type": "level_info" },
+    { "page": 5, "type": "wordlist", "text": "Words to Know" },
+    { "page": 6, "story_page": 1, "type": "story", "text": "Jean woke up and saw the rain fall. She said, \"I need to wait.\"", "scene": "A girl looking out a rainy window with disappointment. Warm watercolor style." },
+    { "page": 7, "story_page": 2, "type": "story", "text": "The rain came down on the road. It fell on the green tree too.", "scene": "Rain falling on a road and green trees outside a house. Warm watercolor style." },
+    { "page": 8, "story_page": 3, "type": "story", "text": "Jean said, \"I dream of a snow day! I would play in the snow!\"", "scene": "A thought bubble showing the girl playing in snow. Warm watercolor style." },
+    { "page": 9, "story_page": 4, "type": "story", "text": "Jean sat by the window. She could see her goat Gray eat hay.", "scene": "Jean watching a gray goat eating hay in the rain. Warm watercolor style." },
+    { "page": 10, "story_page": 5, "type": "story", "text": "The rain began to slow. Jean said, \"May the rain stay away!\"", "scene": "Rain slowing down, girl looking hopeful. Warm watercolor style." },
+    { "page": 11, "story_page": 6, "type": "story", "text": "Then Jean saw snow! The snow came to stay. It was a very cold day.", "scene": "Snow beginning to fall, replacing the rain. Warm watercolor style." },
+    { "page": 12, "story_page": 7, "type": "story", "text": "Jean got her coat. She said, \"I need to play in the snow!\"", "scene": "Jean putting on her warm winter coat excitedly. Warm watercolor style." },
+    { "page": 13, "story_page": 8, "type": "story", "text": "Jean ran to Gray the goat. Gray was by the road in the snow.", "scene": "Jean running toward her gray goat standing in the snowy road. Warm watercolor style." },
+    { "page": 14, "story_page": 9, "type": "story", "text": "Jean and Gray made a trail in the snow. They could see their feet!", "scene": "Jean and Gray walking through snow, leaving footprints. Warm watercolor style." },
+    { "page": 15, "story_page": 10, "type": "story", "text": "Jean said, \"The snow is so clean and white! I know it will grow!\"", "scene": "Jean looking up at more snow falling from the sky. Warm watercolor style." },
+    { "page": 16, "story_page": 11, "type": "story", "text": "Gray ran slow in the deep snow. Jean had to wait for Gray.", "scene": "The goat moving slowly through deep snow while Jean waits. Warm watercolor style." },
+    { "page": 17, "story_page": 12, "type": "story", "text": "They sat by the tree. Jean gave Gray a treat. He likes oats the best!", "scene": "Jean and Gray resting under a snowy tree, Jean feeding the goat. Warm watercolor style." },
+    { "page": 18, "story_page": 13, "type": "story", "text": "Jean said, \"I should keep you free to roam, Gray. You need a way home.\"", "scene": "Jean looking at Gray with care, pointing toward the barn. Warm watercolor style." },
+    { "page": 19, "story_page": 14, "type": "story", "text": "Jean and Gray went to the road. They saw the snow glow in the low sun.", "scene": "Jean and Gray walking down a snowy road at sunset, snow glowing. Warm watercolor style." },
+    { "page": 20, "story_page": 15, "type": "story", "text": "Jean said, \"This was a dream day! The rain went and the snow came to stay!\"", "scene": "Jean hugging Gray happily in the snow. Warm watercolor style." },
+    { "page": 21, "story_page": 16, "type": "story", "text": "Jean went home to sleep. She would dream of snow and play with Gray.", "scene": "Jean sleeping peacefully in bed, dream clouds showing snow and Gray. Warm watercolor style." },
+    { "page": 22, "story_page": 17, "type": "story", "text": "The rain may come back, but the snow will too. Jean and Gray will play!", "scene": "A view of the snowy yard with the goat in the barn, moonlight glowing. Warm watercolor style." },
+    { "page": 23, "story_page": 18, "type": "story", "text": "Jean knows the best days are with her goat Gray, rain or snow.", "scene": "Jean and Gray together on a beautiful snowy morning. Warm watercolor style." },
+    { "page": 24, "type": "end", "text": "The End", "scene": "Jean and Gray silhouetted against a sunset over snowy hills. Warm watercolor style." },
+    { "page": 25, "type": "wordsearch" },
+    { "page": 26, "type": "series_info" },
+    { "page": 27, "type": "back_cover", "text": "" }
+  ],
+
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 380,
+    "decodabilityTarget": "80%+",
+    "storyPages": 18
+  }
+}

@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Story Review - FunBookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <style>
+        .review-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--space-md);
+            min-height: calc(100vh - 200px);
+        }
+
+        @media (max-width: 1000px) {
+            .review-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            height: fit-content;
+            position: sticky;
+            top: var(--space-md);
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            font-size: 1rem;
+            margin-bottom: var(--space-sm);
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .band-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .band-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--color-sage);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: var(--space-xs) 0;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: var(--space-xs);
+        }
+
+        .story-list {
+            list-style: none;
+        }
+
+        .story-item {
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 2px;
+            font-size: 0.9rem;
+        }
+
+        .story-item:hover {
+            background: var(--color-cream);
+        }
+
+        .story-item.active {
+            background: var(--color-sage-light);
+            font-weight: 600;
+        }
+
+        .story-item-level {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+
+        /* Main content */
+        .review-main {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .review-title {
+            font-size: 1.75rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .review-meta {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .review-meta span {
+            margin-right: var(--space-md);
+        }
+
+        .review-actions {
+            display: flex;
+            gap: var(--space-xs);
+            flex-shrink: 0;
+        }
+
+        /* Single column layout - reference on top, pages below */
+        .content-grid {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        /* Reference image section - horizontal layout */
+        .reference-section {
+            display: flex;
+            gap: var(--space-md);
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .reference-card {
+            background: var(--color-cream);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+
+        .reference-card h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .reference-image {
+            width: 100%;
+            border-radius: var(--border-radius);
+            background: var(--color-white);
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .reference-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: var(--border-radius);
+        }
+
+        .reference-image.empty {
+            border: 2px dashed var(--color-border);
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .reference-actions {
+            margin-top: var(--space-sm);
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .reference-url {
+            margin-top: var(--space-sm);
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            word-break: break-all;
+        }
+
+        /* Pages section - grid of book pages */
+        .pages-section h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-md);
+        }
+
+        .pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+
+        /* Book page preview - printed format */
+        .book-page {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .book-page-number {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            z-index: 10;
+        }
+
+        .book-page-type {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+
+        .book-page-type.cover { background: #E3F2FD; color: #1565C0; }
+        .book-page-type.story { background: #E8F5E9; color: #2E7D32; }
+        .book-page-type.wordlist { background: #FFF3E0; color: #EF6C00; }
+        .book-page-type.end { background: #FCE4EC; color: #C2185B; }
+        .book-page-type.copyright, .book-page-type.parent_guide, .book-page-type.level_info, .book-page-type.back_cover {
+            background: #F5F5F5; color: #757575;
+        }
+
+        /* 80% image area */
+        .book-page-image {
+            flex: 0 0 80%;
+            background: var(--color-sage-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-page-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-page-image.placeholder {
+            background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-cream) 100%);
+        }
+
+        .placeholder-content {
+            text-align: center;
+            color: var(--color-text-muted);
+            padding: var(--space-sm);
+        }
+
+        .placeholder-content .scene {
+            font-size: 0.75rem;
+            font-style: italic;
+            line-height: 1.3;
+            max-height: 60px;
+            overflow: hidden;
+        }
+
+        .placeholder-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-xs);
+            opacity: 0.5;
+        }
+
+        /* 20% text area */
+        .book-page-text {
+            flex: 0 0 20%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .book-page-text p {
+            font-family: var(--font-display);
+            font-size: clamp(0.75rem, 1.5vw, 1rem);
+            color: var(--color-soft-black);
+            text-align: center;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        .book-page-text input {
+            width: 100%;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* Special page types */
+        .book-page.wordlist .book-page-image {
+            flex: 1;
+            padding: var(--space-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+        }
+
+        .book-page.wordlist .book-page-text {
+            display: none;
+        }
+
+        .wordlist-title {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .wordlist-words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            justify-content: center;
+        }
+
+        .wordlist-word {
+            background: var(--color-white);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Hover state for editing */
+        .book-page:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+            transition: all 0.2s;
+        }
+
+        .book-page.edit-mode {
+            cursor: pointer;
+        }
+
+        .book-page.edit-mode:hover {
+            outline: 2px solid var(--color-sage);
+        }
+
+        /* Word list display */
+        .word-list-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+            margin-top: var(--space-xs);
+        }
+
+        .word-chip {
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            background: var(--color-sage-light);
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .word-chip.sight { background: #E3F2FD; }
+        .word-chip.new { background: #FFF3E0; }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--color-text-muted);
+        }
+
+        /* Edit mode toggle */
+        .edit-toggle {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: 0.85rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 26px;
+            background: var(--color-border);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .toggle-switch.active {
+            background: var(--color-sage);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(22px);
+        }
+
+        /* Status badges */
+        .status-badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-badge.draft { background: #FFF3E0; color: #EF6C00; }
+        .status-badge.review { background: #E3F2FD; color: #1565C0; }
+        .status-badge.approved { background: #E8F5E9; color: #2E7D32; }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-md);
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: var(--space-xs);
+        }
+
+        .tab {
+            padding: var(--space-xs) var(--space-sm);
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            color: var(--color-soft-black);
+            background: var(--color-cream);
+        }
+
+        .tab.active {
+            color: var(--color-sage);
+            font-weight: 600;
+            border-bottom: 2px solid var(--color-sage);
+        }
+
+        /* Loading spinner */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-xl);
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--color-border);
+            border-top-color: var(--color-sage);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header" style="padding-top: var(--space-md);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="/" class="back-link">← Back to Home</a>
+                <div style="display: flex; gap: var(--space-sm);">
+                    <a href="/editor/" class="btn btn-sm btn-ghost">Page Editor</a>
+                    <a href="/editor/evaluation.html" class="btn btn-sm btn-ghost">Evaluations</a>
+                </div>
+            </div>
+            <h1 class="page-title">Story Review</h1>
+            <p class="page-subtitle">Review stories with reference images and edit content</p>
+        </div>
+
+        <div class="review-layout">
+            <!-- Sidebar with story list -->
+            <aside class="sidebar">
+                <h2>Stories by Band</h2>
+                <div id="storyList">
+                    <div class="loading"><div class="spinner"></div></div>
+                </div>
+            </aside>
+
+            <!-- Main review area -->
+            <main class="review-main" id="reviewMain">
+                <div class="empty-state">
+                    <h3>Select a story</h3>
+                    <p>Choose a story from the sidebar to review</p>
+                </div>
+            </main>
+        </div>
+
+        <div style="height: var(--space-xl);"></div>
+    </div>
+
+    <script>
+        // State
+        let stories = [];
+        let currentStory = null;
+        let editMode = false;
+        let referenceImages = {}; // Store reference image URLs
+
+        // Hardcoded reference images for Band A (from our generation)
+        const bandAReferenceImages = {
+            'a0-look': 'https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/c75e0f35-1f22-4c9c-bf85-eaf67dfd47cf/result_00.png',
+            'a1-i-sit': 'https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/e4bbb900-5230-4a39-9c0c-e960ebe548aa/result_00.png',
+            'a2-i-see-it': 'https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/46d9256a-eb05-4124-a082-2d84982bfdd4/result_00.png',
+            'a3-the-cat-is-here': 'https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/f5b08522-8a29-43c9-9f72-125a2acc21a9/result_00.png',
+            'a4-sam-and-the-hat': 'https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/f3200f29-23ab-40f3-834f-686d23e8cab1/result_00.png'
+        };
+
+        // Load stored reference images
+        function loadReferenceImages() {
+            const stored = localStorage.getItem('storyReferenceImages');
+            if (stored) {
+                referenceImages = JSON.parse(stored);
+            }
+            // Merge with Band A defaults
+            referenceImages = { ...bandAReferenceImages, ...referenceImages };
+        }
+
+        function saveReferenceImage(storyId, url) {
+            referenceImages[storyId] = url;
+            localStorage.setItem('storyReferenceImages', JSON.stringify(referenceImages));
+        }
+
+        // Initialize
+        async function init() {
+            loadReferenceImages();
+            await loadStories();
+            renderStoryList();
+
+            // Check URL for story param
+            const params = new URLSearchParams(window.location.search);
+            const storyId = params.get('story');
+            if (storyId) {
+                selectStory(storyId);
+            }
+        }
+
+        // Load all stories from the books folder
+        async function loadStories() {
+            try {
+                // Fetch the book index or scan for JSON files
+                const response = await fetch('/books/');
+                const html = await response.text();
+
+                // Parse the directory listing or use a manifest
+                // For now, let's try to load a manifest or known books
+                const knownBooks = [
+                    'a0-look', 'a1-i-sit', 'a2-i-see-it', 'a3-the-cat-is-here', 'a4-sam-and-the-hat',
+                    'b1-sam-and-the-jam', 'b2-the-big-pig', 'b3-can-we-go', 'b4-the-red-hen',
+                    'b5-tim-and-the-net', 'b6-the-box-of-socks', 'b7-gus-and-the-bus',
+                    'b8-the-duck-in-the-truck', 'b9-the-frog-on-the-log',
+                    'c1-the-king-and-the-ring', 'c2-the-fish-wish', 'c3-the-path-to-the-bath',
+                    'c4-chuck-and-the-lunch', 'c5-the-whale-tale', 'c6-the-brave-wave',
+                    'c7-the-moon-tune', 'c8-the-slow-crow',
+                    'd1-the-storm-horn', 'd2-the-star-car', 'd3-the-fern-turn',
+                    'd4-the-owl-prowl', 'd5-the-joy-voyage', 'd6-the-cloud-crowd'
+                ];
+
+                const loadPromises = knownBooks.map(async (id) => {
+                    try {
+                        const res = await fetch(`/books/${id}.json`);
+                        if (res.ok) {
+                            const data = await res.json();
+                            return { id, ...data };
+                        }
+                    } catch (e) {
+                        // Story doesn't exist
+                    }
+                    return null;
+                });
+
+                const results = await Promise.all(loadPromises);
+                stories = results.filter(s => s !== null);
+
+                // Sort by level
+                stories.sort((a, b) => {
+                    const levelA = a.level || '';
+                    const levelB = b.level || '';
+                    return levelA.localeCompare(levelB);
+                });
+
+            } catch (e) {
+                console.error('Error loading stories:', e);
+            }
+        }
+
+        // Render story list grouped by band
+        function renderStoryList() {
+            const container = document.getElementById('storyList');
+
+            if (stories.length === 0) {
+                container.innerHTML = '<p style="color: var(--color-text-muted); font-size: 0.9rem;">No stories found</p>';
+                return;
+            }
+
+            // Group by band
+            const bands = {};
+            stories.forEach(story => {
+                const band = story.band || story.level?.charAt(0) || '?';
+                if (!bands[band]) bands[band] = [];
+                bands[band].push(story);
+            });
+
+            const bandNames = {
+                'A': 'Band A - Pre-Reader',
+                'B': 'Band B - Phonics Foundation',
+                'C': 'Band C - Word Study',
+                'D': 'Band D - Fluent Reading'
+            };
+
+            container.innerHTML = Object.entries(bands).map(([band, bandStories]) => `
+                <div class="band-group">
+                    <div class="band-label">${bandNames[band] || `Band ${band}`}</div>
+                    <ul class="story-list">
+                        ${bandStories.map(story => `
+                            <li class="story-item ${currentStory?.id === story.id ? 'active' : ''}"
+                                onclick="selectStory('${story.id}')">
+                                <span class="story-item-level">${story.level}</span>
+                                ${story.title}
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `).join('');
+        }
+
+        // Select a story
+        function selectStory(storyId) {
+            currentStory = stories.find(s => s.id === storyId);
+            if (!currentStory) return;
+
+            // Update URL
+            const url = new URL(window.location);
+            url.searchParams.set('story', storyId);
+            window.history.pushState({}, '', url);
+
+            renderStoryList();
+            renderStoryReview();
+        }
+
+        // Render the story review
+        function renderStoryReview() {
+            if (!currentStory) return;
+
+            const refImage = referenceImages[currentStory.id];
+            const storyPages = currentStory.pages?.filter(p => p.type === 'story') || [];
+
+            document.getElementById('reviewMain').innerHTML = `
+                <div class="review-header">
+                    <div>
+                        <h2 class="review-title">${currentStory.title}</h2>
+                        <div class="review-meta">
+                            <span><strong>Level:</strong> ${currentStory.level}</span>
+                            <span><strong>Skill:</strong> ${currentStory.skill || 'N/A'}</span>
+                            <span><strong>Pages:</strong> ${storyPages.length}</span>
+                        </div>
+                    </div>
+                    <div class="review-actions">
+                        <div class="edit-toggle">
+                            <span>Edit Mode</span>
+                            <div class="toggle-switch ${editMode ? 'active' : ''}" onclick="toggleEditMode()"></div>
+                        </div>
+                        <button class="btn btn-sm btn-secondary" onclick="downloadStory()">Download JSON</button>
+                        <button class="btn btn-sm btn-primary" onclick="saveChanges()">Save Changes</button>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <!-- Reference Image -->
+                    <div class="reference-section">
+                        <div class="reference-card">
+                            <h3>6-Panel Reference</h3>
+                            <div class="reference-image ${refImage ? '' : 'empty'}">
+                                ${refImage
+                                    ? `<img src="${refImage}" alt="Reference storyboard" onerror="this.parentElement.innerHTML='Image failed to load'">`
+                                    : 'No reference image yet'
+                                }
+                            </div>
+                            <div class="reference-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="generateReference()">
+                                    ${refImage ? 'Regenerate' : 'Generate'} Reference
+                                </button>
+                                <button class="btn btn-sm btn-ghost" onclick="setReferenceUrl()">Set URL</button>
+                            </div>
+                            ${refImage ? `<div class="reference-url">${refImage}</div>` : ''}
+                        </div>
+
+                        <!-- Word List -->
+                        ${currentStory.word_list ? `
+                            <div class="reference-card" style="margin-top: var(--space-md);">
+                                <h3>Word List</h3>
+                                ${currentStory.word_list.sound_out?.length ? `
+                                    <div style="margin-bottom: var(--space-sm);">
+                                        <strong style="font-size: 0.75rem; color: var(--color-text-muted);">Sound Out:</strong>
+                                        <div class="word-list-preview">
+                                            ${currentStory.word_list.sound_out.map(w => `<span class="word-chip">${w}</span>`).join('')}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                                ${currentStory.word_list.sight?.length ? `
+                                    <div style="margin-bottom: var(--space-sm);">
+                                        <strong style="font-size: 0.75rem; color: var(--color-text-muted);">Sight Words:</strong>
+                                        <div class="word-list-preview">
+                                            ${currentStory.word_list.sight.map(w => `<span class="word-chip sight">${w}</span>`).join('')}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                                ${currentStory.word_list.new?.length ? `
+                                    <div>
+                                        <strong style="font-size: 0.75rem; color: var(--color-text-muted);">New Words:</strong>
+                                        <div class="word-list-preview">
+                                            ${currentStory.word_list.new.map(w => `<span class="word-chip new">${w}</span>`).join('')}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <!-- Pages Grid - Book Format -->
+                    <div class="pages-section">
+                        <h3>Book Pages (${currentStory.pages?.length || 0} pages)</h3>
+                        <div class="pages-grid">
+                            ${currentStory.pages?.map((page, idx) => renderBookPage(page, idx)).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render a single book page in print format
+        function renderBookPage(page, idx) {
+            const pageNum = page.story_page || page.page || idx + 1;
+            const pageType = page.type || 'story';
+            const hasImage = page.image; // Will be set when we have generated images
+
+            // Special handling for different page types
+            if (pageType === 'wordlist') {
+                return `
+                    <div class="book-page wordlist ${editMode ? 'edit-mode' : ''}" data-idx="${idx}">
+                        <span class="book-page-number">${pageNum}</span>
+                        <span class="book-page-type ${pageType}">${pageType}</span>
+                        <div class="book-page-image">
+                            <div class="placeholder-content">
+                                <div class="wordlist-title">Words to Know</div>
+                                <div class="wordlist-words">
+                                    ${(currentStory.word_list?.sound_out || []).map(w => `<span class="wordlist-word">${w}</span>`).join('')}
+                                    ${(currentStory.word_list?.sight || []).map(w => `<span class="wordlist-word">${w}</span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (pageType === 'copyright' || pageType === 'parent_guide' || pageType === 'level_info' || pageType === 'back_cover') {
+                return `
+                    <div class="book-page ${editMode ? 'edit-mode' : ''}" data-idx="${idx}">
+                        <span class="book-page-number">${pageNum}</span>
+                        <span class="book-page-type ${pageType}">${pageType.replace('_', ' ')}</span>
+                        <div class="book-page-image placeholder">
+                            <div class="placeholder-content">
+                                <div class="placeholder-icon">📄</div>
+                                <div class="scene">${pageType.replace('_', ' ')}</div>
+                            </div>
+                        </div>
+                        <div class="book-page-text">
+                            <p>${page.text || ''}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Story pages and cover
+            return `
+                <div class="book-page ${editMode ? 'edit-mode' : ''}" data-idx="${idx}" onclick="${editMode ? `openPageEditor(${idx})` : ''}">
+                    <span class="book-page-number">${pageNum}</span>
+                    <span class="book-page-type ${pageType}">${pageType}</span>
+                    <div class="book-page-image ${hasImage ? '' : 'placeholder'}">
+                        ${hasImage
+                            ? `<img src="/books/${page.image}" alt="Page ${pageNum}">`
+                            : `<div class="placeholder-content">
+                                <div class="placeholder-icon">🖼️</div>
+                                <div class="scene">${page.scene || 'No scene description'}</div>
+                            </div>`
+                        }
+                    </div>
+                    <div class="book-page-text">
+                        ${editMode
+                            ? `<input type="text" value="${escapeHtml(page.text || '')}" onchange="updatePageText(${idx}, this.value)" onclick="event.stopPropagation()">`
+                            : `<p>${page.text || ''}</p>`
+                        }
+                    </div>
+                </div>
+            `;
+        }
+
+        // Open page editor modal (for future use)
+        function openPageEditor(idx) {
+            const page = currentStory.pages[idx];
+            const newScene = prompt('Edit scene description:', page.scene || '');
+            if (newScene !== null) {
+                updatePageScene(idx, newScene);
+                renderStoryReview();
+            }
+        }
+
+        // Toggle edit mode
+        function toggleEditMode() {
+            editMode = !editMode;
+            renderStoryReview();
+        }
+
+        // Update page text
+        function updatePageText(idx, value) {
+            if (currentStory?.pages?.[idx]) {
+                currentStory.pages[idx].text = value;
+            }
+        }
+
+        // Update page scene
+        function updatePageScene(idx, value) {
+            if (currentStory?.pages?.[idx]) {
+                currentStory.pages[idx].scene = value;
+            }
+        }
+
+        // Generate reference image
+        async function generateReference() {
+            if (!currentStory) return;
+
+            const storyPages = currentStory.pages?.filter(p => p.type === 'story').slice(0, 6) || [];
+            if (storyPages.length === 0) {
+                alert('No story pages found');
+                return;
+            }
+
+            // Build the prompt
+            const scenes = storyPages.map((p, i) => `Panel ${i + 1}: ${p.scene || p.text}`).join('. ');
+            const prompt = `Children's book storyboard, 6-panel grid layout (2x3), warm soft watercolor style for pre-K: ${scenes}. Simple, friendly illustrations.`;
+
+            // Show the prompt and let user copy it
+            const copyPrompt = confirm(
+                'Reference image prompt generated!\n\n' +
+                prompt + '\n\n' +
+                'Click OK to copy this prompt to clipboard, then paste it into your image generator.'
+            );
+
+            if (copyPrompt) {
+                await navigator.clipboard.writeText(prompt);
+                alert('Prompt copied! After generating the image, use "Set URL" to add it.');
+            }
+        }
+
+        // Set reference URL manually
+        function setReferenceUrl() {
+            const url = prompt('Enter the reference image URL:', referenceImages[currentStory.id] || '');
+            if (url !== null) {
+                saveReferenceImage(currentStory.id, url);
+                renderStoryReview();
+            }
+        }
+
+        // Save changes
+        async function saveChanges() {
+            if (!currentStory) return;
+
+            // Try to save to server
+            try {
+                const res = await fetch(`/api/save-story`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(currentStory)
+                });
+
+                if (res.ok) {
+                    alert('Story saved successfully!');
+                } else {
+                    throw new Error('Server save failed');
+                }
+            } catch (e) {
+                // Fallback: download as file
+                alert('Server save not available. Downloading JSON file instead.');
+                downloadStory();
+            }
+        }
+
+        // Download story as JSON
+        function downloadStory() {
+            if (!currentStory) return;
+
+            const json = JSON.stringify(currentStory, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${currentStory.id}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Escape HTML
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;')
+                      .replace(/</g, '&lt;')
+                      .replace(/>/g, '&gt;')
+                      .replace(/"/g, '&quot;');
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            // Ctrl/Cmd + E for edit mode
+            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+                e.preventDefault();
+                toggleEditMode();
+            }
+
+            // Ctrl/Cmd + S for save
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                saveChanges();
+            }
+        });
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>

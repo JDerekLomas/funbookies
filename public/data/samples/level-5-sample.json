@@ -1,0 +1,77 @@
+{
+  "level": 5,
+  "title": "The Lost Bell",
+  "summary": "A smart owl finds a lost bell in the forest using blends and FLOSS words.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A brown owl went into the forest.",
+      "scene": "A wise owl flying through tall trees at dusk"
+    },
+    {
+      "page": 2,
+      "text": "The owl heard a soft sound and stopped.",
+      "scene": "Owl tilting head, listening to distant ringing"
+    },
+    {
+      "page": 3,
+      "text": "A bell was stuck on a stump.",
+      "scene": "A brass bell tangled in tree roots"
+    },
+    {
+      "page": 4,
+      "text": "The owl felt the bell and rang it.",
+      "scene": "Owl using talon to tap the bell gently"
+    },
+    {
+      "page": 5,
+      "text": "It will not come off the stump.",
+      "scene": "Bell firmly stuck despite the owl's attempts"
+    },
+    {
+      "page": 6,
+      "text": "A swift fox ran past the owl.",
+      "scene": "Reddish fox trotting quickly through underbrush"
+    },
+    {
+      "page": 7,
+      "text": "Will you help me find the bell?",
+      "scene": "Owl and fox standing together, cooperating"
+    },
+    {
+      "page": 8,
+      "text": "We can push and pull it off.",
+      "scene": "Both animals working together to free the bell"
+    },
+    {
+      "page": 9,
+      "text": "The bell went off with a rang and bang!",
+      "scene": "Bell suddenly loosening, making a loud sound"
+    },
+    {
+      "page": 10,
+      "text": "We felt so glad about the bell.",
+      "scene": "Owl and fox celebrating their success"
+    },
+    {
+      "page": 11,
+      "text": "The bell will stay with us at last.",
+      "scene": "Bell displayed proudly in their forest home"
+    },
+    {
+      "page": 12,
+      "text": "The end.",
+      "scene": "Owl and fox friends, with bell in background"
+    }
+  ],
+  "word_list": {
+    "decodable": ["brown", "owl", "went", "forest", "heard", "soft", "sound", "stopped", "bell", "stuck", "stump", "felt", "rang", "come", "off", "swift", "fox", "ran", "past", "find", "push", "pull", "bang", "glad", "stay", "last"],
+    "sight": ["a", "the", "into", "was", "and", "on", "it", "will", "not", "you", "help", "me", "can", "we", "so", "about", "with", "at"]
+  },
+  "phonics_focus": ["nd final blend", "st final blend", "mp final blend", "ll FLOSS", "ck ending"],
+  "metadata": {
+    "word_count": 142,
+    "max_sentence_length": 7,
+    "decodability_target": "95%+"
+  }
+}

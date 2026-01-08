@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles/shared.css">
+    <!-- Data Layer -->
+    <script src="/js/data-service.js"></script>
+    <script src="/js/student-picker.js"></script>
     <style>
         .assessment-card {
             background: var(--color-white);
@@ -239,6 +242,40 @@
 
         .hidden { display: none !important; }
 
+        /* Student Info Display */
+        .student-info {
+            margin-bottom: var(--space-md);
+        }
+        .selected-student {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--color-sage-light);
+            padding: 8px 12px 8px 8px;
+            border-radius: 50px;
+        }
+        .student-avatar-lg {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        .student-name-lg {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .btn-change {
+            background: none;
+            border: none;
+            color: var(--color-sage-dark);
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 0;
+            margin-left: 4px;
+        }
+        .btn-change:hover {
+            color: var(--color-charcoal);
+        }
+
         /* Confetti */
         .confetti {
             position: fixed;
@@ -267,6 +304,16 @@
             <div class="start-screen" id="startScreen">
                 <div class="start-icon">📚</div>
                 <h2>Phonics Assessment</h2>
+
+                <!-- Selected Student Display -->
+                <div class="student-info hidden" id="studentInfo">
+                    <div class="selected-student">
+                        <span class="student-avatar-lg" id="studentAvatar">🦊</span>
+                        <span class="student-name-lg" id="studentName">Student</span>
+                        <button class="btn-change" onclick="changeStudent()">Change</button>
+                    </div>
+                </div>
+
                 <p><strong>Find your child's reading level</strong></p>
                 <p>Show each word to your child. Click based on how they read it.</p>
                 <p>The assessment adapts automatically.</p>
@@ -358,153 +405,203 @@
     </div>
 
     <script>
-        // Phonics word bank by level
+        // ==============================================
+        // PHONICS ASSESSMENT WITH DATA SERVICE
+        // ==============================================
+
+        // Phonics word bank mapped to new A0-D6 levels
         const phonicsBank = {
-            1: [
-                { word: "cat", type: "Read this word" },
-                { word: "dog", type: "Read this word" },
-                { word: "sun", type: "Read this word" },
-                { word: "hat", type: "Read this word" },
-                { word: "pig", type: "Read this word" },
-                { word: "run", type: "Read this word" },
-                { word: "top", type: "Read this word" },
-                { word: "fan", type: "Read this word" },
-                { word: "mat", type: "Read this word" },
-                { word: "pen", type: "Read this word" },
+            'B1': [
+                { word: "cat", type: "Read this CVC word" },
+                { word: "sat", type: "Read this CVC word" },
+                { word: "hat", type: "Read this CVC word" },
+                { word: "mat", type: "Read this CVC word" },
+                { word: "bat", type: "Read this CVC word" },
+                { word: "rat", type: "Read this CVC word" },
+                { word: "sit", type: "Read this CVC word" },
+                { word: "bit", type: "Read this CVC word" },
+                { word: "pit", type: "Read this CVC word" },
+                { word: "hit", type: "Read this CVC word" },
             ],
-            2: [
-                { word: "bug", type: "Read this word (short u)" },
-                { word: "cup", type: "Read this word (short u)" },
-                { word: "hug", type: "Read this word (short u)" },
-                { word: "rug", type: "Read this word (short u)" },
-                { word: "tub", type: "Read this word (short u)" },
-                { word: "fun", type: "Read this word (short u)" },
-                { word: "mud", type: "Read this word (short u)" },
-                { word: "bun", type: "Read this word (short u)" },
+            'B2': [
+                { word: "dog", type: "Read this CVC word" },
+                { word: "hot", type: "Read this CVC word" },
+                { word: "pot", type: "Read this CVC word" },
+                { word: "bug", type: "Read this CVC word" },
+                { word: "cup", type: "Read this CVC word" },
+                { word: "hug", type: "Read this CVC word" },
+                { word: "mud", type: "Read this CVC word" },
+                { word: "bed", type: "Read this CVC word" },
+                { word: "red", type: "Read this CVC word" },
+                { word: "pen", type: "Read this CVC word" },
             ],
-            3: [
-                { word: "bed", type: "Read this word (b or d?)" },
-                { word: "bad", type: "Read this word (b or d?)" },
-                { word: "dab", type: "Read this word (b or d?)" },
-                { word: "bid", type: "Read this word (b or d?)" },
-                { word: "dad", type: "Read this word (b or d?)" },
-            ],
-            4: [
+            'B3': [
                 { word: "stop", type: "Read this blend word" },
                 { word: "flag", type: "Read this blend word" },
                 { word: "crab", type: "Read this blend word" },
                 { word: "drum", type: "Read this blend word" },
                 { word: "frog", type: "Read this blend word" },
                 { word: "trip", type: "Read this blend word" },
+                { word: "jump", type: "Read this blend word" },
+                { word: "best", type: "Read this blend word" },
+                { word: "hand", type: "Read this blend word" },
+                { word: "lamp", type: "Read this blend word" },
             ],
-            5: [
+            'B4': [
+                { word: "ball", type: "Read this FLOSS word" },
+                { word: "fell", type: "Read this FLOSS word" },
+                { word: "miss", type: "Read this FLOSS word" },
+                { word: "buzz", type: "Read this FLOSS word" },
+                { word: "doll", type: "Read this FLOSS word" },
+                { word: "hill", type: "Read this FLOSS word" },
+                { word: "pass", type: "Read this FLOSS word" },
+                { word: "full", type: "Read this FLOSS word" },
+            ],
+            'B5': [
                 { word: "ship", type: "Read this digraph word" },
                 { word: "chop", type: "Read this digraph word" },
                 { word: "that", type: "Read this digraph word" },
                 { word: "fish", type: "Read this digraph word" },
                 { word: "much", type: "Read this digraph word" },
                 { word: "with", type: "Read this digraph word" },
+                { word: "when", type: "Read this digraph word" },
+                { word: "them", type: "Read this digraph word" },
             ],
-            6: [
-                { word: "cake", type: "Read this magic e word" },
-                { word: "bike", type: "Read this magic e word" },
-                { word: "home", type: "Read this magic e word" },
-                { word: "tube", type: "Read this magic e word" },
-                { word: "make", type: "Read this magic e word" },
+            'B6': [
+                { word: "cake", type: "Read this silent e word" },
+                { word: "bike", type: "Read this silent e word" },
+                { word: "home", type: "Read this silent e word" },
+                { word: "tube", type: "Read this silent e word" },
+                { word: "make", type: "Read this silent e word" },
+                { word: "time", type: "Read this silent e word" },
+                { word: "rose", type: "Read this silent e word" },
+                { word: "cute", type: "Read this silent e word" },
             ],
-            7: [
+            'B7': [
+                { word: "car", type: "Read this r-controlled word" },
+                { word: "bird", type: "Read this r-controlled word" },
+                { word: "corn", type: "Read this r-controlled word" },
+                { word: "turn", type: "Read this r-controlled word" },
+                { word: "star", type: "Read this r-controlled word" },
+                { word: "girl", type: "Read this r-controlled word" },
+                { word: "fern", type: "Read this r-controlled word" },
+                { word: "hurt", type: "Read this r-controlled word" },
+            ],
+            'B8': [
                 { word: "rain", type: "Read this vowel team word" },
                 { word: "play", type: "Read this vowel team word" },
                 { word: "seed", type: "Read this vowel team word" },
                 { word: "boat", type: "Read this vowel team word" },
                 { word: "feet", type: "Read this vowel team word" },
+                { word: "team", type: "Read this vowel team word" },
+                { word: "snow", type: "Read this vowel team word" },
+                { word: "road", type: "Read this vowel team word" },
             ],
-            8: [
-                { word: "car", type: "Read this r-controlled word" },
-                { word: "bird", type: "Read this r-controlled word" },
-                { word: "corn", type: "Read this r-controlled word" },
-                { word: "turn", type: "Read this r-controlled word" },
+            'B9': [
+                { word: "coin", type: "Read this diphthong word" },
+                { word: "boy", type: "Read this diphthong word" },
+                { word: "loud", type: "Read this diphthong word" },
+                { word: "down", type: "Read this diphthong word" },
+                { word: "moon", type: "Read this diphthong word" },
+                { word: "book", type: "Read this diphthong word" },
+                { word: "paw", type: "Read this diphthong word" },
+                { word: "joy", type: "Read this diphthong word" },
             ],
-            9: [
+            'C3': [
                 { word: "sunset", type: "Read this 2-syllable word" },
                 { word: "rabbit", type: "Read this 2-syllable word" },
                 { word: "basket", type: "Read this 2-syllable word" },
+                { word: "kitten", type: "Read this 2-syllable word" },
+                { word: "happen", type: "Read this 2-syllable word" },
+                { word: "button", type: "Read this 2-syllable word" },
             ],
         };
 
-        const levelDescriptions = {
-            1: "Simple CVC words (cat, dog, sun)",
-            2: "CVC words with short u (cup, bug)",
-            3: "CVC words with b/d (bed, bad)",
-            4: "Beginning blends (stop, flag)",
-            5: "Digraphs (ship, chop, that)",
-            6: "Magic e words (cake, bike)",
-            7: "Vowel teams (rain, boat)",
-            8: "R-controlled vowels (car, bird)",
-            9: "Two-syllable words (rabbit)",
-        };
+        // Assessment level order (for progression)
+        const levelOrder = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'C3'];
 
-        const bookData = [
-            { title: 'No, No, Dog!', level: 0, color: 'Pink', skill: 'Pre-reader', img: '/books/images/dog_pink_page01.png' },
-            { title: 'Pig in Mud', level: 1, color: 'Yellow', skill: 'Short vowels', img: '/books/images/pig_yellow_page01.png' },
-            { title: 'Gus and the Volcano', level: 2, color: 'Orange', skill: 'CVC words', img: '/books/volcano_images/page_01_cover.png' },
-            { title: 'Rats in the Castle', level: 3, color: 'Orange', skill: 'CVC + Digraphs', img: '/books/castle_images/page_01_cover.png' },
-            { title: 'Stomp! Elephant', level: 4, color: 'Red', skill: 'Ending blends', img: '/books/images/elephant_red_page01.png' },
-            { title: 'The Cake Mistake', level: 5, color: 'Purple', skill: 'Digraphs', img: '/books/images/fox_purple_page01.png' },
-            { title: 'The Sneaky Snail', level: 6, color: 'Blue', skill: 'Silent e', img: '/books/images/snail_blue_page01.png' },
-            { title: 'The Owl at Night', level: 7, color: 'Green', skill: 'Vowel teams', img: '/books/images/owl_green_page01.png' },
-            { title: 'Mouse in the House', level: 8, color: 'Gold', skill: 'R-controlled', img: '/books/images/mouse_gold_page01.png' }
-        ];
+        // Get level info from data service
+        const getLevelInfo = (level) => window.FUNBOOKIES_LEVELS?.[level] || { name: level, band: '?' };
 
-        function getBookLevelFromAssessment(level) {
-            if (level <= 2) return [0, 1];
-            if (level <= 4) return [2, 3];
-            if (level === 5) return [4, 5];
-            if (level === 6) return [6];
-            if (level === 7) return [7];
-            return [8];
-        }
-
+        // Skill groupings for breakdown
         const skillsList = [
-            { name: 'CVC Words', levels: [1, 2, 3] },
-            { name: 'Beginning Blends', levels: [4] },
-            { name: 'Digraphs (sh, ch, th)', levels: [5] },
-            { name: 'Silent E', levels: [6] },
-            { name: 'Vowel Teams', levels: [7] },
-            { name: 'R-Controlled Vowels', levels: [8] },
-            { name: 'Multi-Syllable Words', levels: [9] },
+            { name: 'CVC Words', levels: ['B1', 'B2'] },
+            { name: 'Consonant Blends', levels: ['B3'] },
+            { name: 'FLOSS Rule', levels: ['B4'] },
+            { name: 'Digraphs (sh, ch, th)', levels: ['B5'] },
+            { name: 'Silent E', levels: ['B6'] },
+            { name: 'R-Controlled Vowels', levels: ['B7'] },
+            { name: 'Vowel Teams', levels: ['B8'] },
+            { name: 'Diphthongs', levels: ['B9'] },
+            { name: 'Multi-Syllable Words', levels: ['C3'] },
         ];
 
         const encouragingMessages = ["Amazing!", "Great job!", "Excellent!", "Keep going!", "Fantastic!"];
         const neutralMessages = ["Let's try another", "Good effort!", "On to the next one"];
 
-        let currentLevel = 2;
+        // State
+        let currentStudent = null;
+        let currentLevelIndex = 1; // Start at B2
         let usedWords = {};
         let currentWord = null;
         let wordCount = 0;
         let stats = { correct: 0, needsWork: 0, unable: 0 };
         let history = [];
+        let startTime = null;
 
         function initUsedWords() {
             usedWords = {};
-            for (let i = 1; i <= 9; i++) usedWords[i] = [];
+            levelOrder.forEach(level => usedWords[level] = []);
+        }
+
+        function getCurrentLevel() {
+            return levelOrder[currentLevelIndex];
         }
 
         function getNextWord() {
-            const available = phonicsBank[currentLevel].filter(w => !usedWords[currentLevel].includes(w.word));
+            const level = getCurrentLevel();
+            const bank = phonicsBank[level];
+            if (!bank) return null;
+
+            const available = bank.filter(w => !usedWords[level].includes(w.word));
             if (available.length === 0) {
-                usedWords[currentLevel] = [];
-                return phonicsBank[currentLevel][Math.floor(Math.random() * phonicsBank[currentLevel].length)];
+                usedWords[level] = [];
+                return bank[Math.floor(Math.random() * bank.length)];
             }
             return available[Math.floor(Math.random() * available.length)];
         }
 
-        function startAssessment() {
-            currentLevel = 2;
+        // Show student picker before starting
+        async function promptForStudent() {
+            const picker = new StudentPicker({
+                title: 'Who are we assessing?',
+                allowSkip: false,
+                allowCreate: true
+            });
+
+            const student = await picker.show();
+            if (student) {
+                currentStudent = student;
+                document.getElementById('studentName').textContent = student.name;
+                document.getElementById('studentAvatar').textContent = student.avatar;
+                document.getElementById('studentInfo').classList.remove('hidden');
+            }
+            return student;
+        }
+
+        async function startAssessment() {
+            // Prompt for student if not selected
+            if (!currentStudent) {
+                const student = await promptForStudent();
+                if (!student) return; // User cancelled
+            }
+
+            currentLevelIndex = 1; // Start at B2
             initUsedWords();
             wordCount = 0;
             stats = { correct: 0, needsWork: 0, unable: 0 };
             history = [];
+            startTime = Date.now();
 
             document.getElementById('startScreen').classList.add('hidden');
             document.getElementById('resultsScreen').classList.add('hidden');
@@ -514,9 +611,15 @@
 
         function showNextWord() {
             currentWord = getNextWord();
+            if (!currentWord) {
+                finishAssessment();
+                return;
+            }
+
+            const level = getCurrentLevel();
             document.getElementById('instruction').textContent = currentWord.type;
             document.getElementById('wordDisplay').textContent = currentWord.word;
-            document.getElementById('levelDisplay').textContent = currentLevel;
+            document.getElementById('levelDisplay').textContent = level;
             document.getElementById('wordCount').textContent = wordCount;
 
             document.getElementById('wordArea').style.display = 'block';
@@ -524,8 +627,9 @@
         }
 
         function respond(result) {
-            history.push({ word: currentWord.word, result, level: currentLevel });
-            usedWords[currentLevel].push(currentWord.word);
+            const level = getCurrentLevel();
+            history.push({ word: currentWord.word, result, level });
+            usedWords[level].push(currentWord.word);
             stats[result]++;
             wordCount++;
 
@@ -544,10 +648,16 @@
                 if (Math.random() > 0.7) createConfetti();
             }
 
-            if (result === 'correct' && Math.random() > 0.5 && currentLevel < 9) currentLevel++;
-            else if (result === 'unable' && currentLevel > 1) currentLevel--;
-            else if (result === 'needsWork' && Math.random() > 0.7 && currentLevel > 1) currentLevel--;
+            // Adaptive level adjustment
+            if (result === 'correct' && Math.random() > 0.5 && currentLevelIndex < levelOrder.length - 1) {
+                currentLevelIndex++;
+            } else if (result === 'unable' && currentLevelIndex > 0) {
+                currentLevelIndex--;
+            } else if (result === 'needsWork' && Math.random() > 0.7 && currentLevelIndex > 0) {
+                currentLevelIndex--;
+            }
 
+            // Check if done
             if (wordCount >= 20 || (wordCount >= 10 && stats.unable >= 3)) {
                 setTimeout(finishAssessment, 1000);
             } else {
@@ -555,36 +665,41 @@
             }
         }
 
-        function finishAssessment() {
+        async function finishAssessment() {
             document.getElementById('practiceScreen').style.display = 'none';
             document.getElementById('resultsScreen').style.display = 'block';
 
-            const avgLevel = history.reduce((sum, h) => sum + h.level, 0) / history.length;
-            const estimatedLevel = Math.round(avgLevel);
+            // Calculate estimated level
+            const levelCounts = {};
+            history.forEach(h => {
+                if (!levelCounts[h.level]) levelCounts[h.level] = { correct: 0, total: 0 };
+                levelCounts[h.level].total++;
+                if (h.result === 'correct') levelCounts[h.level].correct++;
+            });
 
-            document.getElementById('finalLevel').textContent = 'Level ' + estimatedLevel;
-            document.getElementById('levelDesc').textContent = levelDescriptions[estimatedLevel] || '';
+            // Find highest level with 70%+ accuracy
+            let estimatedLevel = 'B1';
+            for (const level of levelOrder) {
+                const data = levelCounts[level];
+                if (data && data.total >= 2 && data.correct / data.total >= 0.7) {
+                    estimatedLevel = level;
+                }
+            }
+
+            const levelInfo = getLevelInfo(estimatedLevel);
+            document.getElementById('finalLevel').textContent = estimatedLevel;
+            document.getElementById('levelDesc').textContent = levelInfo.name;
 
             document.getElementById('correctCount').textContent = stats.correct;
             document.getElementById('needsWorkCount').textContent = stats.needsWork;
             document.getElementById('unableCount').textContent = stats.unable;
 
+            // Word history
             const historyHtml = history.map(h => `<span class="word-item ${h.result}">${h.word}</span>`).join('');
             document.getElementById('historyContent').innerHTML = historyHtml;
 
-            // Book recommendations
-            const bookLevels = getBookLevelFromAssessment(estimatedLevel);
-            const recommendedBooks = bookData.filter(b => bookLevels.includes(b.level));
-            const booksHtml = recommendedBooks.map(book => `
-                <a href="/books/" class="book-card">
-                    <img src="${book.img}" alt="${book.title}" onerror="this.style.display='none'">
-                    <div class="book-info">
-                        <h4>${book.title}</h4>
-                        <p>${book.skill}</p>
-                    </div>
-                </a>
-            `).join('');
-            document.getElementById('booksList').innerHTML = booksHtml || '<p>Keep practicing to unlock books!</p>';
+            // Book recommendations (fetch from books index)
+            await loadBookRecommendations(estimatedLevel);
 
             // Skills breakdown
             const testedLevels = [...new Set(history.map(h => h.level))];
@@ -607,12 +722,51 @@
             }).join('');
             document.getElementById('skillsBreakdown').innerHTML = skillsHtml;
 
-            // Save to localStorage
+            // Save to data service
+            if (currentStudent && window.FunBookiesDB) {
+                const duration = Math.round((Date.now() - startTime) / 1000);
+                await window.FunBookiesDB.saveAssessment({
+                    studentId: currentStudent.id,
+                    level: estimatedLevel,
+                    stats,
+                    history,
+                    duration
+                });
+                console.log('Assessment saved for', currentStudent.name);
+            }
+
+            // Also save to localStorage for backwards compatibility
             localStorage.setItem('funbookies-assessment', JSON.stringify({
                 date: new Date().toISOString(),
-                estimatedLevel, stats, history
+                estimatedLevel,
+                stats,
+                history
             }));
             localStorage.setItem('funbookies-reading-level', estimatedLevel);
+        }
+
+        async function loadBookRecommendations(level) {
+            // Map level to book recommendations
+            const levelIndex = levelOrder.indexOf(level);
+            const recommendLevels = [level];
+            if (levelIndex > 0) recommendLevels.unshift(levelOrder[levelIndex - 1]);
+
+            // For now, show a simple message. In production, fetch from books index.
+            const booksHtml = `
+                <a href="/books/" class="book-card">
+                    <div class="book-info">
+                        <h4>Browse ${level} Books</h4>
+                        <p>Find stories at your level</p>
+                    </div>
+                </a>
+            `;
+            document.getElementById('booksList').innerHTML = booksHtml;
+        }
+
+        function changeStudent() {
+            currentStudent = null;
+            document.getElementById('studentInfo').classList.add('hidden');
+            promptForStudent();
         }
 
         function playSuccessSound() {
@@ -645,6 +799,14 @@
                 }, i * 30);
             }
         }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Wait for data service
+            if (window.FunBookiesDB) {
+                await window.FunBookiesDB.ready;
+            }
+        });
     </script>
 </body>
 </html>

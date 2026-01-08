@@ -1,0 +1,64 @@
+{
+  "id": "b8-the-owl-and-the-boy",
+  "title": "The Owl and the Boy",
+  "slug": "the-owl-and-the-boy",
+  "level": "B8",
+  "band": "B",
+  "targetPhonics": "Diphthongs + Complex Vowels",
+  "wordFamilies": ["oi", "oy", "ou", "ow (cow)", "oo (long)", "oo (short)", "aw/au"],
+  "skill": "Diphthongs and Complex Vowels",
+  "skill_description": "Practice reading diphthongs (oi, oy, ou, ow) and complex vowel patterns (oo long/short, aw/au).",
+  "age_range": "K-1",
+  "created": "2026-01-06",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "A boy named Roy finds an owl in the woods. The owl makes sounds, and Roy helps it find food. They become friends who enjoy the cool moon and the joy of nature.",
+
+  "word_list": {
+    "sound_out": ["oil", "coin", "boil", "join", "point", "noise", "voice", "boy", "toy", "joy", "enjoy", "Roy", "out", "loud", "cloud", "sound", "found", "round", "ground", "house", "mouse", "shout", "count", "cow", "how", "now", "down", "town", "brown", "owl", "growl", "crown", "moon", "soon", "food", "pool", "cool", "room", "school", "boot", "hoot", "book", "look", "good", "wood", "foot", "cook", "took", "brook", "saw", "draw", "paw", "claw", "jaw", "straw", "raw", "lawn", "yawn", "fawn", "dawn"],
+    "sight": ["a", "I", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people"],
+    "new": []
+  },
+
+  "sightWordsUsed": ["a", "I", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people"],
+
+  "wordsearch_words": ["owl", "boy", "moon", "sound", "found", "book", "joy", "cow"],
+
+  "pages": [
+    { "page": 1, "type": "cover", "text": "The Owl and the Boy", "scene": "A boy named Roy standing in a moonlit wood, looking up at a wise owl in a tree. Warm watercolor style." },
+    { "page": 2, "type": "copyright" },
+    { "page": 3, "type": "parent_guide" },
+    { "page": 4, "type": "level_info" },
+    { "page": 5, "type": "wordlist", "text": "Words to Know" },
+    { "page": 6, "story_page": 1, "type": "story", "text": "Roy was a boy who would look out at the moon each night.", "scene": "A boy looking out his window at a bright full moon. Warm watercolor style." },
+    { "page": 7, "story_page": 2, "type": "story", "text": "One night, Roy saw an owl in the wood. The owl sat in a tall brown tree.", "scene": "A brown owl perched in a tall tree at night. Warm watercolor style." },
+    { "page": 8, "story_page": 3, "type": "story", "text": "The owl made a loud hoot! Roy said, \"What a sound! I found an owl!\"", "scene": "The owl hooting loudly, Roy looking up in wonder. Warm watercolor style." },
+    { "page": 9, "story_page": 4, "type": "story", "text": "Roy took a good look at the owl. It had round, brown eyes and a crown of soft down.", "scene": "Close-up of the owl with round brown eyes and fluffy feathers. Warm watercolor style." },
+    { "page": 10, "story_page": 5, "type": "story", "text": "The owl flew down to the ground. Roy saw it point at a brook.", "scene": "The owl flying down near a small brook in the woods. Warm watercolor style." },
+    { "page": 11, "story_page": 6, "type": "story", "text": "Roy went to the brook. He saw a mouse on the ground. The owl would enjoy food!", "scene": "Roy at a brook, spotting a mouse near the water. Warm watercolor style." },
+    { "page": 12, "story_page": 7, "type": "story", "text": "The owl saw the mouse too. It flew down fast. The mouse ran now!", "scene": "The owl swooping toward the mouse who is running away. Warm watercolor style." },
+    { "page": 13, "story_page": 8, "type": "story", "text": "Roy found a coin on the ground. He said, \"I will join you, owl! This is joy!\"", "scene": "Roy picking up a shiny coin near the brook. Warm watercolor style." },
+    { "page": 14, "story_page": 9, "type": "story", "text": "The owl sat on a straw bale. Roy sat down too. It was cool at dawn.", "scene": "Roy and the owl sitting together on hay bales as dawn breaks. Warm watercolor style." },
+    { "page": 15, "story_page": 10, "type": "story", "text": "Roy saw a cow in the town by the brook. The owl drew its paw in the soil.", "scene": "A brown cow visible near town, owl scratching the ground. Warm watercolor style." },
+    { "page": 16, "story_page": 11, "type": "story", "text": "The owl made a soft noise. Roy said, \"I would enjoy to hear your voice now.\"", "scene": "Roy listening closely to the owl making soft sounds. Warm watercolor style." },
+    { "page": 17, "story_page": 12, "type": "story", "text": "The moon was high in the cool night. Roy and the owl sat and took in the sound.", "scene": "Roy and the owl silhouetted against a bright moon. Warm watercolor style." },
+    { "page": 18, "story_page": 13, "type": "story", "text": "Roy said, \"You are a good owl. I found a new friend out in the wood.\"", "scene": "Roy smiling at the owl perched on his arm. Warm watercolor style." },
+    { "page": 19, "story_page": 14, "type": "story", "text": "The owl flew to a book Roy had brought. It sat on the book and hooted loud.", "scene": "The owl sitting on Roy's book, hooting. Warm watercolor style." },
+    { "page": 20, "story_page": 15, "type": "story", "text": "Roy took the owl to a pool. They saw a fawn and a brown cow by the brook.", "scene": "Roy and the owl near a pool, watching a fawn and cow drink. Warm watercolor style." },
+    { "page": 21, "story_page": 16, "type": "story", "text": "Roy and the owl saw clouds float in the sky. They could count the round clouds now.", "scene": "Roy and the owl looking up at fluffy clouds in the sky. Warm watercolor style." },
+    { "page": 22, "story_page": 17, "type": "story", "text": "Soon it was time for Roy to go to his house. The owl would not join him in town.", "scene": "Roy waving goodbye to the owl as he heads toward town. Warm watercolor style." },
+    { "page": 23, "story_page": 18, "type": "story", "text": "Roy said, \"I will come out soon! We will enjoy the cool moon and the joy of the wood!\"", "scene": "Roy walking home under the moon, owl watching from a tree. Warm watercolor style." },
+    { "page": 24, "type": "end", "text": "The End", "scene": "The owl and the full moon, peaceful night scene. Warm watercolor style." },
+    { "page": 25, "type": "wordsearch" },
+    { "page": 26, "type": "series_info" },
+    { "page": 27, "type": "back_cover", "text": "" }
+  ],
+
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 420,
+    "decodabilityTarget": "80%+",
+    "storyPages": 18
+  }
+}

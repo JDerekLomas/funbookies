@@ -1,0 +1,61 @@
+{
+  "id": "b3-jump-at-camp",
+  "title": "Jump at Camp",
+  "slug": "jump-at-camp",
+  "level": "B3",
+  "band": "B",
+  "targetPhonics": "Final Blends + FLOSS rule",
+  "wordFamilies": ["-nd", "-mp", "-st", "-nt", "-nk", "-ft", "-lp"],
+  "skill": "Final Blends + FLOSS Rule",
+  "skill_description": "Practice reading words with final consonant blends (-nd, -mp, -st, -nt, -nk) and doubled consonants (ff, ll, ss, zz).",
+  "age_range": "K-1",
+  "created": "2026-01-06",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Jill and Jeff go to camp where they jump, stomp, and have fun until a wasp makes them run for help.",
+
+  "word_list": {
+    "sound_out": ["jump", "bump", "camp", "lamp", "stomp", "stamp", "hand", "sand", "land", "band", "fast", "best", "must", "just", "last", "went", "tent", "bent", "hunt", "ant", "pink", "sank", "bank", "left", "soft", "lift", "help", "yelp"],
+    "floss_words": ["off", "stuff", "cliff", "bell", "tell", "will", "fell", "well", "hill", "miss", "pass", "less", "boss", "fuss", "buzz", "fizz", "jazz"],
+    "sight": ["a", "I", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for"],
+    "new": ["Jill", "Jeff", "wasp"]
+  },
+
+  "sightWordsUsed": ["a", "I", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for"],
+
+  "wordsearch_words": ["jump", "camp", "sand", "tent", "bell", "hill", "buzz", "fast"],
+
+  "pages": [
+    { "page": 1, "type": "cover", "text": "Jump at Camp", "scene": "Two happy kids jumping in the air at a summer camp with tents in background. Warm watercolor style." },
+    { "page": 2, "type": "copyright" },
+    { "page": 3, "type": "parent_guide" },
+    { "page": 4, "type": "level_info" },
+    { "page": 5, "type": "wordlist", "text": "Words to Know" },
+    { "page": 6, "story_page": 1, "type": "story", "text": "Jill and Jeff went to camp. It was the best!", "scene": "Two excited kids arriving at a summer camp with colorful tents. Warm watercolor style." },
+    { "page": 7, "story_page": 2, "type": "story", "text": "We must set up the tent. Help me, Jeff!", "scene": "Two kids working together to set up a tent. Warm watercolor style." },
+    { "page": 8, "story_page": 3, "type": "story", "text": "The tent fell! We must lift it fast.", "scene": "A collapsed tent with two kids scrambling to fix it. Warm watercolor style." },
+    { "page": 9, "story_page": 4, "type": "story", "text": "Jill and Jeff went to the sand. Jump! Jump!", "scene": "Two kids jumping in sandy area at camp. Warm watercolor style." },
+    { "page": 10, "story_page": 5, "type": "story", "text": "Stomp in the sand! Bump and jump!", "scene": "Kids stomping and jumping in sand, having fun. Warm watercolor style." },
+    { "page": 11, "story_page": 6, "type": "story", "text": "Buzz! Buzz! A wasp went past Jeff!", "scene": "A wasp flying near a startled boy at camp. Warm watercolor style." },
+    { "page": 12, "story_page": 7, "type": "story", "text": "Jeff ran fast! He went up the hill.", "scene": "A boy running up a grassy hill away from a wasp. Warm watercolor style." },
+    { "page": 13, "story_page": 8, "type": "story", "text": "Jill ran to help. She was fast!", "scene": "A girl running to help her friend on the hill. Warm watercolor style." },
+    { "page": 14, "story_page": 9, "type": "story", "text": "The wasp left! Jeff was well. Jill was glad.", "scene": "The wasp flying away, two relieved kids on the hill. Warm watercolor style." },
+    { "page": 15, "story_page": 10, "type": "story", "text": "We went back to camp. It was soft in the tent.", "scene": "Two kids relaxing inside their cozy tent. Warm watercolor style." },
+    { "page": 16, "story_page": 11, "type": "story", "text": "A bell went off! It was the mess bell.", "scene": "Kids hearing a dinner bell at camp. Warm watercolor style." },
+    { "page": 17, "story_page": 12, "type": "story", "text": "We must run! We will not miss it!", "scene": "Two kids running toward the camp mess hall. Warm watercolor style." },
+    { "page": 18, "story_page": 13, "type": "story", "text": "Jeff and Jill sat and had a snack. Yum!", "scene": "Two kids eating snacks at a camp picnic table. Warm watercolor style." },
+    { "page": 19, "story_page": 14, "type": "story", "text": "Camp was the best! Jump, stomp, and fun!", "scene": "Happy kids waving goodbye to camp at sunset. Warm watercolor style." },
+    { "page": 20, "type": "end", "text": "The End", "scene": "Jill and Jeff sitting by a campfire under stars. Warm watercolor style." },
+    { "page": 21, "type": "wordsearch" },
+    { "page": 22, "type": "series_info" },
+    { "page": 23, "type": "back_cover", "text": "" }
+  ],
+
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 175,
+    "decodabilityTarget": "85%+",
+    "storyPages": 14
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "level": 1,
+  "type": "hero_journey",
+  "title": "Sit, Pig, Sit!",
+  "summary": "A small pig learns to be brave when helping a friend find food, discovering its own strength.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A pig sat.",
+      "scene": "A small pink pig resting peacefully in a pen"
+    },
+    {
+      "page": 2,
+      "text": "The cat hid.",
+      "scene": "A thin cat hiding under hay, looking worried"
+    },
+    {
+      "page": 3,
+      "text": "No food. No food!",
+      "scene": "Empty food dishes in the barn, cat looking distressed"
+    },
+    {
+      "page": 4,
+      "text": "Go, pig, go!",
+      "scene": "Cat calling to pig desperately for help"
+    },
+    {
+      "page": 5,
+      "text": "The pig ran. She did go.",
+      "scene": "Pig running quickly through the farmyard, determined"
+    },
+    {
+      "page": 6,
+      "text": "A hat sat on top.",
+      "scene": "Pig discovering grain stored in an old hat on a shelf"
+    },
+    {
+      "page": 7,
+      "text": "The pig bit and sat.",
+      "scene": "Pig carefully bringing grain back to share"
+    },
+    {
+      "page": 8,
+      "text": "We can do it. We did!",
+      "scene": "Pig and cat eating together, both happy and grateful"
+    },
+    {
+      "page": 9,
+      "text": "The end.",
+      "scene": "Pig and cat as heroes, their friendship stronger"
+    }
+  ],
+  "word_list": {
+    "decodable": ["pig", "sat", "cat", "hid", "ran", "did", "go", "bit", "top", "can"],
+    "sight": ["a", "the", "no", "food", "she", "on", "and", "we", "it", "end"]
+  },
+  "phonics_focus": ["CVC short a", "CVC short i", "CVC short o"],
+  "metadata": {
+    "word_count": 54,
+    "max_sentence_length": 3,
+    "decodability_target": "95%+"
+  }
+}

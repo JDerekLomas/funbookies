@@ -1,0 +1,53 @@
+{
+  "id": "a1-i-sit",
+  "title": "I SIT",
+  "slug": "i-sit",
+  "level": "A1",
+  "band": "A",
+  "color": "White",
+  "skill": "Letter Recognition",
+  "skill_description": "Recognize and name target letters M, S, A, T, O, I. Distinguish letter shapes.",
+  "age_range": "Pre-K to early K",
+  "created": "2026-01-06",
+  "model": "claude-opus-4-5",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "A simple label book where the reader practices recognizing sight words A and I with basic actions.",
+  "targetPhonics": "Letters M, S, A, T, O, I - letter recognition and sight words A, I",
+  "sightWordsUsed": ["A", "I"],
+
+  "word_list": {
+    "sound_out": ["SIT", "SAT", "MAT"],
+    "sight": ["A", "I"],
+    "new": []
+  },
+
+  "wordsearch_words": [],
+
+  "pages": [
+    { "page": 1, "type": "cover", "text": "I SIT", "scene": "A happy child sitting on a colorful mat. Simple, warm illustration." },
+    { "page": 2, "type": "copyright" },
+    { "page": 3, "type": "parent_guide" },
+    { "page": 4, "type": "level_info" },
+    { "page": 5, "type": "wordlist", "text": "Words to Know" },
+    { "page": 6, "story_page": 1, "type": "story", "text": "I SIT.", "scene": "A child sitting on the floor with legs crossed." },
+    { "page": 7, "story_page": 2, "type": "story", "text": "I SAT.", "scene": "A child who has just sat down on a chair." },
+    { "page": 8, "story_page": 3, "type": "story", "text": "A MAT.", "scene": "A colorful mat on the floor." },
+    { "page": 9, "story_page": 4, "type": "story", "text": "I SIT.", "scene": "A child sitting on the mat." },
+    { "page": 10, "story_page": 5, "type": "story", "text": "A MAT.", "scene": "A different patterned mat." },
+    { "page": 11, "story_page": 6, "type": "story", "text": "I SAT.", "scene": "A child sitting happily on the new mat." },
+    { "page": 12, "story_page": 7, "type": "story", "text": "I SIT.", "scene": "A child sitting contentedly, smiling." },
+    { "page": 13, "story_page": 8, "type": "story", "text": "I SAT!", "scene": "A child sitting triumphantly with arms raised." },
+    { "page": 14, "type": "end", "text": "THE END", "scene": "A happy child resting on a cozy mat." },
+    { "page": 15, "type": "back_cover", "text": "" }
+  ],
+
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00Z",
+    "levelSpecs": "v2",
+    "wordCount": 16,
+    "uniqueWords": 4,
+    "letterConstraints": "M, S, A, T, O, I only",
+    "caseConstraint": "UPPERCASE ONLY"
+  }
+}

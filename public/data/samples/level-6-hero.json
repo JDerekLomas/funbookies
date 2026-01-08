@@ -1,0 +1,78 @@
+{
+  "level": 6,
+  "type": "hero_journey",
+  "title": "Kate's Brave Bike Ride",
+  "summary": "A shy girl named Kate discovers her courage when she rides her bike to help a lost child find their way home.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "Kate lived in a cozy home at the edge of a small town.",
+      "scene": "A young girl with a bicycle standing in front of a cute cottage"
+    },
+    {
+      "page": 2,
+      "text": "She loved to ride her bike on the safe path near the lake.",
+      "scene": "Kate riding peacefully along a lakeside trail"
+    },
+    {
+      "page": 3,
+      "text": "One time, Kate heard a small voice that came from far away.",
+      "scene": "Kate stopping, hearing a child crying in the distance"
+    },
+    {
+      "page": 4,
+      "text": "\"Where is my home? I am so lost!\" cried a little boy.",
+      "scene": "A small, scared boy standing alone in an unfamiliar place"
+    },
+    {
+      "page": 5,
+      "text": "Kate felt brave inside and said, \"Come ride on my bike!\"",
+      "scene": "Kate making a courageous decision to help"
+    },
+    {
+      "page": 6,
+      "text": "She rode fast and took the right path up the slope.",
+      "scene": "Kate pedaling determinedly, the boy safe on her bike"
+    },
+    {
+      "page": 7,
+      "text": "The boy smiled wide when he could see his home.",
+      "scene": "Child recognizing his house in the distance"
+    },
+    {
+      "page": 8,
+      "text": "His mom came outside and gave Kate a big hug.",
+      "scene": "Grateful mother thanking Kate warmly"
+    },
+    {
+      "page": 9,
+      "text": "\"Kate, you are the bravest, nicest girl!\" said the mom.",
+      "scene": "Mother praising Kate while the boy watches happily"
+    },
+    {
+      "page": 10,
+      "text": "Kate rode home with her heart full of pride.",
+      "scene": "Kate cycling back, feeling strong and confident"
+    },
+    {
+      "page": 11,
+      "text": "She had made a new friend and learned she was brave all along.",
+      "scene": "Kate under clear skies, transformed by her heroic deed"
+    },
+    {
+      "page": 12,
+      "text": "The end.",
+      "scene": "Kate and boy waving, a beautiful friendship beginning"
+    }
+  ],
+  "word_list": {
+    "decodable": ["kate", "lived", "cozy", "home", "edge", "small", "town", "loved", "ride", "bike", "safe", "path", "near", "lake", "time", "heard", "voice", "came", "lost", "boy", "felt", "brave", "inside", "said", "come", "rode", "fast", "took", "right", "slope", "smiled", "wide", "could", "see", "home", "came", "outside", "gave", "hug", "nicest", "said", "rode", "heart", "full", "pride", "made", "friend", "learned", "was", "brave", "along"],
+    "sight": ["a", "in", "to", "the", "she", "one", "was", "so", "i", "am", "on", "and", "of", "when", "his", "mom", "you", "are", "had", "new", "all", "end"]
+  },
+  "phonics_focus": ["a_e (kate, make, lake, brave, safe)", "i_e (bike, ride, time, pride, wide, smile)", "o_e (home, rode, tone)", "u_e (cute, use)"],
+  "metadata": {
+    "word_count": 218,
+    "max_sentence_length": 8,
+    "decodability_target": "95%+"
+  }
+}

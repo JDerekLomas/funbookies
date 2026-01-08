@@ -1,0 +1,42 @@
+{
+  "id": "c5-treehouse-mystery",
+  "title": "The Treehouse Mystery",
+  "level": "C5",
+  "band": "C",
+  "targetPhonics": "Contractions + Compounds",
+  "morphologyFocus": ["n't", "'ll", "'s", "'m", "'re", "compound words"],
+  "sightWordsUsed": ["can't", "won't", "don't", "didn't", "it's", "I'm", "we're", "they're", "everyone", "something"],
+  "pages": [
+    {"page": 1, "text": "\"I can't find my backpack anywhere!\" said Maya with a worried look on her face.", "scene": "A young girl searching frantically through her bedroom, looking under the bed."},
+    {"page": 2, "text": "\"Don't worry,\" said her brother Ben. \"We'll find it together before lunchtime today.\"", "scene": "A kind older brother putting his hand on his sister's shoulder reassuringly."},
+    {"page": 3, "text": "Maya thought someone might have taken it into the treehouse outside.", "scene": "Maya looking out the window at a wooden treehouse in the backyard."},
+    {"page": 4, "text": "\"I'm sure it's in the treehouse,\" she said. \"Let's go look without any delay.\"", "scene": "Maya pointing excitedly toward the backyard treehouse through the kitchen door."},
+    {"page": 5, "text": "They walked into the sunshine and climbed up the ladder to the treehouse.", "scene": "Two children climbing a wooden ladder up to a treehouse in a big oak tree."},
+    {"page": 6, "text": "\"It isn't here,\" said Ben. \"But look! There's a footprint on the floor.\"", "scene": "Ben pointing at a muddy footprint on the wooden treehouse floor."},
+    {"page": 7, "text": "\"That's strange,\" Maya said. \"I didn't make that footprint. Did you make it?\"", "scene": "Maya crouching down to examine the mysterious footprint closely."},
+    {"page": 8, "text": "\"No, I didn't,\" Ben replied. \"Someone else must've been here without us knowing.\"", "scene": "Ben shaking his head, both children looking puzzled and curious."},
+    {"page": 9, "text": "They heard something moving in the bushes outside, and it wasn't the wind.", "scene": "Both children looking out the treehouse window at rustling bushes below."},
+    {"page": 10, "text": "\"We're going to solve this mystery,\" Maya whispered. \"I won't give up now.\"", "scene": "Maya with a determined expression, whispering to her brother."},
+    {"page": 11, "text": "They climbed down and tiptoed into the garden without making any noise at all.", "scene": "The children sneaking quietly through the garden toward the bushes."},
+    {"page": 12, "text": "Behind the rosebush, they found their dog Biscuit holding Maya's backpack in his mouth.", "scene": "A golden retriever sitting happily with a backpack in its mouth."},
+    {"page": 13, "text": "\"It's Biscuit!\" Maya laughed. \"He's the one who took my backpack from my bedroom!\"", "scene": "Maya laughing and reaching for her backpack while Biscuit wags his tail."},
+    {"page": 14, "text": "\"You shouldn't take things that aren't yours,\" Ben said to the silly dog.", "scene": "Ben wagging his finger playfully at the dog, smiling."},
+    {"page": 15, "text": "Biscuit didn't seem sorry at all, because he couldn't understand their words anyway.", "scene": "Biscuit tilting his head innocently, tongue out, looking happy."},
+    {"page": 16, "text": "\"I'll forgive you this time,\" said Maya, \"but you'd better not do it again.\"", "scene": "Maya hugging Biscuit while pretending to look stern."},
+    {"page": 17, "text": "They're such a funny team, Maya thought, looking at Ben and Biscuit together.", "scene": "Ben and Biscuit playing in the garden, Maya watching and smiling."},
+    {"page": 18, "text": "Everyone went inside for lunchtime sandwiches that Mom had made with care.", "scene": "The family sitting at the kitchen table eating sandwiches together."},
+    {"page": 19, "text": "\"What's for dessert?\" asked Ben. \"I hope it's something chocolate because that's my favorite.\"", "scene": "Ben looking hopefully at his mom while finishing his sandwich."},
+    {"page": 20, "text": "\"You'll have to wait and see,\" Mom said with a smile on her face.", "scene": "Mom smiling mysteriously, holding a covered dish."},
+    {"page": 21, "text": "\"I don't think I can wait!\" Maya said. \"I'm too hungry for more waiting!\"", "scene": "Maya bouncing in her seat with anticipation."},
+    {"page": 22, "text": "It wasn't just chocolate cake. It was homemade brownies with ice cream on top!", "scene": "A plate of brownies with scoops of ice cream, children looking delighted."},
+    {"page": 23, "text": "\"We didn't expect this!\" the children said. \"You're the best mom in everything!\"", "scene": "Children hugging their mom, brownies on the table, happy family scene."},
+    {"page": 24, "text": "And that afternoon, everyone went back outside to play in the sunshine together.", "scene": "The whole family playing in the backyard with Biscuit, sunny day."}
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 520,
+    "decodabilityTarget": "70%+",
+    "targetPatternWords": ["can't", "won't", "don't", "didn't", "isn't", "wasn't", "couldn't", "shouldn't", "I'll", "we'll", "you'll", "he's", "it's", "that's", "what's", "there's", "I'm", "we're", "they're", "must've", "you'd", "backpack", "treehouse", "outside", "sunshine", "lunchtime", "footprint", "rosebush", "bedroom", "afternoon", "homemade", "everyone", "something", "into", "without", "anyway"]
+  }
+}

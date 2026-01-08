@@ -1,0 +1,134 @@
+{
+  "level": 10,
+  "type": "hero_journey",
+  "title": "The Knight's Secret Mission",
+  "summary": "Young apprentice knight Sir Thomas embarks on a dangerous quest to retrieve a stolen crown, learning that true nobility comes from honesty and courage rather than titles or birthright.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "Sir Thomas was a young knight in training. He studied swordplay and noble ways each morning.",
+      "scene": "A young knight-in-training practicing with a sword in the castle courtyard under morning light"
+    },
+    {
+      "page": 2,
+      "text": "He worked in an ancient castle with high stone walls and many towers reaching toward the sky.",
+      "scene": "A magnificent medieval castle with towers and flags, Thomas walking through the castle gates"
+    },
+    {
+      "page": 3,
+      "text": "One day, the king called him. \"My crown has been stolen,\" the king said with anger and worry.",
+      "scene": "The king in his throne room, looking distressed while speaking to young Thomas"
+    },
+    {
+      "page": 4,
+      "text": "\"A villain took it from the castle while we slept. He knew all our secrets. He knew the whistle we use to signal guards.\"",
+      "scene": "The king describing the theft, explaining how the thief knew the castle's defenses"
+    },
+    {
+      "page": 5,
+      "text": "\"Thomas, I know you are young. But you have knowledge no one else possesses. Will you retrieve my crown?\"",
+      "scene": "The king placing his hand on Thomas's shoulder, asking him to undertake this dangerous mission"
+    },
+    {
+      "page": 6,
+      "text": "Thomas felt nervous but determined. \"I will go, my king. I will not fail.\" He knelt and promised to succeed.",
+      "scene": "Thomas kneeling before the king, accepting the quest with solemn determination"
+    },
+    {
+      "page": 7,
+      "text": "Thomas rode his horse through the dark forest. The signs of the thief were faint and hard to follow.",
+      "scene": "Thomas on horseback riding through a dark, twisted forest, searching for clues"
+    },
+    {
+      "page": 8,
+      "text": "He found a mysterious sign. It was carved into the wood of an old oak tree with a sharp knife.",
+      "scene": "Thomas discovering strange symbols carved into an ancient oak tree's bark"
+    },
+    {
+      "page": 9,
+      "text": "Thomas knew what it meant. The sign showed the way to a hidden castle beyond the mountains.",
+      "scene": "Thomas studying the carved sign, recognizing it from his knight's training about ancient symbols"
+    },
+    {
+      "page": 10,
+      "text": "He climbed up the mountain path. The cold wind whipped around him. But he would not turn back.",
+      "scene": "Thomas climbing a steep, rocky mountain path in harsh weather, pressing onward"
+    },
+    {
+      "page": 11,
+      "text": "At last, he found the castle. It was dark and seemed to watch him. But inside was the thief with the crown.",
+      "scene": "An ominous dark castle appearing through mist, Thomas approaching cautiously"
+    },
+    {
+      "page": 12,
+      "text": "Thomas entered and called out. \"Show yourself! I am here to retrieve what was stolen!\"",
+      "scene": "Thomas standing inside the castle, shouting with confidence, drawing his sword"
+    },
+    {
+      "page": 13,
+      "text": "A figure appeared. But it was not a criminal. It was a knight who had been wronged by the king many years before.",
+      "scene": "A figure emerges from the shadows—another knight, looking bitter and wounded"
+    },
+    {
+      "page": 14,
+      "text": "\"The king promised me respect and honor,\" said the knight. \"But he forgot me. He chose younger men instead.\"",
+      "scene": "The other knight explaining his grievance, the crown resting nearby, visible between them"
+    },
+    {
+      "page": 15,
+      "text": "Thomas listened carefully. He felt the other knight's pain. \"What you did was wrong. But your anger is justified,\" Thomas said.",
+      "scene": "Thomas listening with understanding, showing compassion despite the knight's wrongdoing"
+    },
+    {
+      "page": 16,
+      "text": "\"Come back with me. Tell the king your story. A true king will repair what was broken. You deserve recognition.\"",
+      "scene": "Thomas offering his hand to the other knight, showing honor and wisdom"
+    },
+    {
+      "page": 17,
+      "text": "The knight was surprised. He had expected a fight. Instead, he found respect and an offer of justice.",
+      "scene": "The knight taking Thomas's hand, tears in his eyes, moved by the compassion offered"
+    },
+    {
+      "page": 18,
+      "text": "They returned together. The king was amazed. He learned what had happened and felt shame.",
+      "scene": "Thomas and the knight returning to the castle, the king listening to their story with regret"
+    },
+    {
+      "page": 19,
+      "text": "The king honored the forgotten knight. He gave him a rightful place at court. The crown was no longer what mattered most.",
+      "scene": "The king and the previously wronged knight shaking hands as reconciliation begins"
+    },
+    {
+      "page": 20,
+      "text": "Thomas understood that day: true nobility is not a title. It is understanding others and doing what is right, even when it is difficult.",
+      "scene": "Thomas standing tall, watching the reconciliation, having learned the deepest lesson about honor"
+    }
+  ],
+  "word_list": {
+    "decodable": [
+      "knight", "training", "studied", "swordplay", "noble", "ways", "worked", "ancient", "castle", "stone", "walls", "towers", "reaching", "sky", "king", "called", "crown", "stolen", "anger", "worry", "villain", "took", "slept", "knew", "secrets", "whistle", "signal", "guards", "knowledge", "possesses", "retrieve", "nervous", "determined", "fail", "knelt", "promised", "succeed", "rode", "horse", "dark", "forest", "signs", "thief", "faint", "follow", "found", "mysterious", "carved", "wood", "oak", "tree", "sharp", "knife", "meant", "showed", "way", "hidden", "beyond", "mountains", "climbed", "path", "cold", "wind", "whipped", "around", "turn", "back", "last", "seemed", "watch", "inside", "entered", "called", "show", "yourself", "retrieve", "stolen", "figure", "appeared", "criminal", "wronged", "years", "before", "promised", "respect", "honor", "forgot", "chose", "younger", "men", "instead", "listened", "carefully", "felt", "pain", "anger", "justified", "wrong", "come", "back", "tell", "story", "true", "repair", "broken", "deserve", "recognition", "surprised", "expected", "fight", "instead", "found", "offer", "justice", "amazed", "learned", "happened", "felt", "shame", "returning", "together", "honored", "forgotten", "gave", "rightful", "place", "court", "mattered", "most", "understood", "nobility", "title", "understanding", "others", "right", "difficult", "watched", "reconciliation", "deepest", "lesson"
+    ],
+    "sight": [
+      "a", "the", "was", "were", "would", "could", "should", "said", "to", "from", "have", "has", "do", "does", "did", "go", "goes", "went", "see", "saw", "come", "came", "there", "their", "where", "here", "his", "her", "its", "my", "your", "our", "who", "what", "which", "when", "why", "how", "all", "are", "be", "but", "by", "for", "if", "in", "is", "it", "me", "no", "of", "on", "or", "so", "some", "that", "this", "very", "we", "and", "as", "been", "each", "one", "other", "just", "know", "than", "them", "then", "these", "think", "use", "way", "because", "also", "after", "before", "too", "only", "need", "want", "get", "give", "make", "new", "now", "over", "such", "through", "thought", "although", "enough", "answer", "island", "listen", "often", "castle", "whistle"
+    ]
+  },
+  "phonics_focus": [
+    "kn- words (knight, knew, know, kneel)",
+    "wr- words (wrong, wrist, write, wrap, wriggle)",
+    "gn- words (gnaw, sign, gnarled, gnat)",
+    "-mb words (climb, lamb, thumb, limb, crumb, dumb, numb, womb, bomb)",
+    "gh patterns (night, right, thought, through, sigh, high, fight, light, tight, weight, caught, taught, bought, brought)"
+  ],
+  "metadata": {
+    "word_count": 312,
+    "max_sentence_length": 15,
+    "decodability_target": "90%",
+    "theme": "honor and redemption",
+    "story_arc": "Young Thomas accepts quest to retrieve stolen crown, discovers thief is wronged knight, chooses compassion over conflict, returns with resolution that teaches true nobility",
+    "characters": ["Sir Thomas (young apprentice knight)", "The King (ruler)", "The Forgotten Knight (antagonist turned ally)"],
+    "conflict": "A crown is stolen; Thomas must retrieve it but discovers the theft is act of injustice rather than crime",
+    "resolution": "Thomas shows wisdom by offering compassion; the king reconciles with the wronged knight; Thomas learns nobility is not title but character",
+    "hero_journey_elements": ["Ordinary World: Thomas training as young knight", "Call to Adventure: King requests he retrieve stolen crown", "Threshold: Riding into dark forest", "Trials: Finding clues, climbing mountain, confronting thief", "Revelation: Understanding the thief's justified grievance", "Transformation: Learning to show compassion and wisdom", "Return: Bringing about redemption and true justice"]
+  }
+}

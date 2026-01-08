@@ -1,0 +1,593 @@
+{
+  "version": "2.0",
+  "totalLevels": 28,
+  "description": "Science of Reading aligned level specifications - comprehensive phonics through fluent reading",
+  "sources": ["Dehaene (Reading in the Brain)", "Ehri (Phases of Word Reading)", "Kilpatrick (Orthographic Mapping)", "Beck (Vocabulary Tiers)", "Share (Self-Teaching Hypothesis)"],
+  "principles": {
+    "oneChangeRule": "Each level introduces only ONE new element",
+    "sightWordDiscipline": "Explicitly listed, cumulative caps by band",
+    "typographyControl": "Single-storey a/g until C-levels, large x-height early",
+    "orthographicMapping": "Target words appear 4+ times for automatic recognition",
+    "decodabilityFirst": "Phonological route established before meaning-focus"
+  },
+  "bands": {
+    "A": {
+      "name": "Pre-Reader / Emergent",
+      "purpose": "Visual discrimination, print awareness, letter mastery",
+      "lexile": "BR",
+      "sightWordCap": 5,
+      "grades": "Pre-K to early K",
+      "levels": ["A0", "A1", "A2", "A3", "A4"]
+    },
+    "B": {
+      "name": "Phonics Foundation",
+      "purpose": "Systematic phonics - full alphabetic decoding",
+      "lexile": "BR → 200L",
+      "sightWordCap": 25,
+      "grades": "K-1",
+      "levels": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"]
+    },
+    "C": {
+      "name": "Word Study",
+      "purpose": "Morphology, syllabication, word analysis",
+      "lexile": "200L → 450L",
+      "sightWordCap": 50,
+      "grades": "1-3",
+      "levels": ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8"]
+    },
+    "D": {
+      "name": "Fluent Reading",
+      "purpose": "Fluency, comprehension, reading to learn",
+      "lexile": "450L → 800L",
+      "sightWordCap": "unlimited",
+      "grades": "3-6",
+      "levels": ["D1", "D2", "D3", "D4", "D5", "D6"]
+    }
+  },
+  "levels": {
+    "A0": {
+      "name": "Concept of Print",
+      "band": "A",
+      "index": 0,
+      "readerCan": "Handle books, track left-to-right, recognize print carries meaning",
+      "constraints": {
+        "wordsPerPage": "0-2",
+        "maxWordsPerSentence": 2,
+        "case": "UPPERCASE ONLY",
+        "lettersAllowed": ["O", "I", "L"],
+        "lettersAvoid": "All others",
+        "sightWords": [],
+        "sightWordsCumulative": 0,
+        "pages": "6-8",
+        "decodability": "N/A"
+      },
+      "phonemicAwareness": "Rhyme recognition, environmental print",
+      "fluencyTarget": "N/A",
+      "wordRepetition": "Same word every page",
+      "storyGuidance": "Wordless or 1-2 word labels. Pattern books. Pictures carry all meaning."
+    },
+    "A1": {
+      "name": "Letter Recognition",
+      "band": "A",
+      "index": 1,
+      "readerCan": "Recognize and name target letters, distinguish shapes",
+      "constraints": {
+        "wordsPerPage": "1",
+        "maxWordsPerSentence": 2,
+        "case": "UPPERCASE ONLY",
+        "lettersAllowed": ["M", "S", "A", "T", "O", "I"],
+        "lettersAvoid": ["b", "d", "p", "q", "g", "u", "w", "n"],
+        "sightWords": ["A", "I"],
+        "sightWordsCumulative": 2,
+        "pages": "8",
+        "decodability": "100%",
+        "font": "Single-storey forms, large x-height"
+      },
+      "phonemicAwareness": "Initial sound isolation, rhyme production",
+      "fluencyTarget": "N/A - accuracy focus",
+      "wordRepetition": "Same word every page",
+      "storyGuidance": "Labels only: 'A [noun]' or 'I [verb]'. One word per page."
+    },
+    "A2": {
+      "name": "CV/VC Words + Patterns",
+      "band": "A",
+      "index": 2,
+      "readerCan": "Blend 2 sounds, read patterned sentences",
+      "constraints": {
+        "wordsPerPage": "2-3",
+        "maxWordsPerSentence": 3,
+        "case": "Sentence-initial caps, lowercase for known letters",
+        "lettersAllowed": ["M", "S", "A", "T", "O", "I", "L", "C"],
+        "lettersAvoid": ["b", "d", "p", "q", "g", "u", "w", "n"],
+        "wordPatterns": ["CV (ma, so)", "VC (am, at, it)"],
+        "sightWords": ["a", "I", "the"],
+        "sightWordsCumulative": 3,
+        "pages": "8-10",
+        "decodability": "95%+"
+      },
+      "phonemicAwareness": "Blend and segment 2-phoneme words",
+      "fluencyTarget": "Finger-point accuracy",
+      "wordRepetition": "Pattern word changes, frame stays same",
+      "storyGuidance": "Repetitive frame: 'I see the ___.' or 'The ___ sat.' Only one word changes."
+    },
+    "A3": {
+      "name": "Mixed Case Sentences",
+      "band": "A",
+      "index": 3,
+      "readerCan": "Read lowercase letters, track 3-4 word sentences",
+      "constraints": {
+        "wordsPerPage": "3-4",
+        "maxWordsPerSentence": 4,
+        "case": "Mostly lowercase",
+        "lettersAllowed": ["m", "s", "a", "t", "o", "i", "l", "c", "n", "e", "r", "h"],
+        "lettersAvoid": ["b", "d", "p", "q", "g", "u", "w"],
+        "sightWords": ["a", "I", "the", "is", "to"],
+        "sightWordsCumulative": 5,
+        "pages": "10-12",
+        "decodability": "90%+",
+        "illustrationRule": "Supports but doesn't give away text"
+      },
+      "phonemicAwareness": "Blend and segment CVC words",
+      "fluencyTarget": "10-15 wpm",
+      "wordRepetition": "Target words 4+ times",
+      "storyGuidance": "Simple declaratives with slight variation. 'The cat is here. The cat is on it.'"
+    },
+    "A4": {
+      "name": "Emergent Bridge",
+      "band": "A",
+      "index": 4,
+      "readerCan": "Read simple sentences independently",
+      "constraints": {
+        "wordsPerPage": "4-6",
+        "maxWordsPerSentence": 5,
+        "case": "Lowercase dominant",
+        "lettersAllowed": "All except b/d together",
+        "punctuation": "Period, question mark",
+        "sightWords": ["a", "I", "the", "is", "to", "and", "it", "in", "on"],
+        "sightWordsCumulative": 9,
+        "pages": "12",
+        "decodability": "90%+"
+      },
+      "phonemicAwareness": "Phoneme manipulation (change first sound)",
+      "fluencyTarget": "15-25 wpm",
+      "wordRepetition": "Target words 4+ times",
+      "storyGuidance": "Bridge to phonics. Simple narrative: character + action + outcome."
+    },
+    "B1": {
+      "name": "CVC Short a, i",
+      "band": "B",
+      "index": 5,
+      "readerCan": "Decode CVC words with short a and i vowels",
+      "constraints": {
+        "wordsPerSentence": "4-5",
+        "maxWordsPerSentence": 5,
+        "phonicsPatterns": ["CVC short a: cat, hat, sat, man, can, bat, rat, map, nap", "CVC short i: sit, hit, big, pig, fin, pin, dip, bit, fit"],
+        "wordFamilies": ["-at", "-an", "-ap", "-it", "-ig", "-ip", "-in"],
+        "sightWords": ["Previous + my, see"],
+        "sightWordsCumulative": 11,
+        "pages": "12",
+        "decodability": "90%+",
+        "wordRepetition": "Each target word 4+ times"
+      },
+      "phonemicAwareness": "Segment and blend CVC with short a/i",
+      "fluencyTarget": "20-30 wpm",
+      "storyGuidance": "Simple action narrative. 'The cat sat. The cat ran. I see the cat!'"
+    },
+    "B2": {
+      "name": "CVC Short o, u, e",
+      "band": "B",
+      "index": 6,
+      "readerCan": "Decode CVC words with all five short vowels",
+      "constraints": {
+        "wordsPerSentence": "5-6",
+        "maxWordsPerSentence": 6,
+        "phonicsPatterns": ["CVC short o: hot, pot, dog, fog, mop, top, got, not", "CVC short u: cup, pup, mud, bug, hug, run, sun, fun", "CVC short e: bed, red, pet, hen, get, let, ten, pen"],
+        "wordFamilies": ["-ot", "-op", "-og", "-ug", "-up", "-un", "-ed", "-en", "-et"],
+        "sightWords": ["Previous + he, she, we, be"],
+        "sightWordsCumulative": 15,
+        "pages": "12-14",
+        "decodability": "90%+"
+      },
+      "phonemicAwareness": "Distinguish all 5 short vowel sounds",
+      "fluencyTarget": "25-35 wpm",
+      "storyGuidance": "Character wants something, gets it. Emotional range: fun, sad, mad."
+    },
+    "B3": {
+      "name": "Final Blends + FLOSS",
+      "band": "B",
+      "index": 7,
+      "readerCan": "Decode words with final consonant blends and doubled consonants",
+      "constraints": {
+        "wordsPerSentence": "5-6",
+        "maxWordsPerSentence": 6,
+        "phonicsPatterns": ["-nd: and, hand, sand, bend, pond", "-mp: jump, bump, camp, lamp, stomp", "-st: best, fast, must, list, just", "-nt: ant, went, hunt, bent", "-nk: pink, bank, sunk, think", "-ft: left, soft, gift", "-lp: help, yelp"],
+        "flossRule": ["ff: off, stuff, cliff", "ll: bell, fall, tell, will", "ss: miss, pass, less, boss", "zz: buzz, fizz, jazz"],
+        "sightWords": ["Previous + you, are, was, for"],
+        "sightWordsCumulative": 19,
+        "pages": "14",
+        "decodability": "85%+"
+      },
+      "phonemicAwareness": "Segment CVCC words",
+      "fluencyTarget": "30-40 wpm",
+      "storyGuidance": "Action stories: jump, stomp, bump. Suspense: 'What was that?'"
+    },
+    "B4": {
+      "name": "Initial Blends",
+      "band": "B",
+      "index": 8,
+      "readerCan": "Decode words beginning with consonant blends",
+      "constraints": {
+        "wordsPerSentence": "5-7",
+        "maxWordsPerSentence": 7,
+        "phonicsPatterns": ["l-blends: black, clap, flag, glad, plan, slip, blue, club", "r-blends: brick, crab, drip, frog, grin, trap, tree, from", "s-blends: stop, step, swim, snap, spell, skip, smell, sled"],
+        "sightWords": ["Previous + said, have, they, come"],
+        "sightWordsCumulative": 23,
+        "pages": "14",
+        "decodability": "85%+"
+      },
+      "phonemicAwareness": "Segment CCVC words, identify blend",
+      "fluencyTarget": "35-45 wpm",
+      "storyGuidance": "Characters can swim, skip, trip, grab. Two characters interact."
+    },
+    "B5": {
+      "name": "Digraphs",
+      "band": "B",
+      "index": 9,
+      "readerCan": "Decode consonant digraphs (two letters = one sound)",
+      "constraints": {
+        "wordsPerSentence": "6-7",
+        "maxWordsPerSentence": 7,
+        "phonicsPatterns": ["sh: ship, shop, fish, wish, shell, shut, trash", "ch: chip, chat, much, rich, such, chin, chest", "th: this, that, then, with, them, thin, thick", "wh: when, what, which, where, why, white", "ck: back, kick, rock, duck, stick, black, truck", "ng: ring, sing, song, long, hung, king, thing"],
+        "sightWords": ["Previous + there, what, from"],
+        "sightWordsCumulative": 25,
+        "dialogue": "Introduced: one quote per page",
+        "pages": "14-16",
+        "decodability": "85%+"
+      },
+      "phonemicAwareness": "Recognize digraph as single phoneme",
+      "fluencyTarget": "40-50 wpm",
+      "storyGuidance": "Dialogue natural now. 'She said, \"What is that?\"' Questions in narrative."
+    },
+    "B6": {
+      "name": "Silent E (CVCe)",
+      "band": "B",
+      "index": 10,
+      "readerCan": "Decode long vowel words with magic e pattern",
+      "constraints": {
+        "wordsPerSentence": "6-8",
+        "maxWordsPerSentence": 8,
+        "phonicsPatterns": ["a_e: cake, make, lake, safe, game, name, came, take", "i_e: bike, like, time, hide, ride, five, nine, side", "o_e: home, bone, note, hope, stone, those, woke, rose", "u_e: cube, cute, huge, tube, mule, June, rule, use"],
+        "contrastPairs": ["cap/cape", "hop/hope", "kit/kite", "cub/cube"],
+        "sightWords": ["All B-band"],
+        "sightWordsCumulative": 25,
+        "pages": "16",
+        "decodability": "80%+"
+      },
+      "phonemicAwareness": "Distinguish CVC from CVCe (short vs long)",
+      "fluencyTarget": "45-55 wpm",
+      "storyGuidance": "Names with silent e (Jake, Kate, Mike). 'Kate made a cake at home.'"
+    },
+    "B7": {
+      "name": "Vowel Teams",
+      "band": "B",
+      "index": 11,
+      "readerCan": "Decode common vowel team patterns for long vowels",
+      "constraints": {
+        "wordsPerSentence": "7-9",
+        "maxWordsPerSentence": 9,
+        "phonicsPatterns": ["ai: rain, wait, tail, train, paint, mail", "ay: day, play, say, stay, way, may, gray", "ee: see, tree, feet, sleep, green, keep, need", "ea: read, eat, sea, team, beach, clean, dream", "oa: boat, coat, road, goat, foam, load, toast", "ow (long): snow, grow, show, slow, flow, know, low"],
+        "sightWords": ["Previous + would, could, should, very"],
+        "sightWordsCumulative": 29,
+        "pages": "16-18",
+        "decodability": "80%+"
+      },
+      "phonemicAwareness": "Identify vowel team as single vowel sound",
+      "fluencyTarget": "50-60 wpm",
+      "storyGuidance": "Weather, seasons work well. 'The rain came. We had to stay. Then the sun came out to play.'"
+    },
+    "B8": {
+      "name": "Diphthongs + Complex Vowels",
+      "band": "B",
+      "index": 12,
+      "readerCan": "Decode diphthongs and remaining vowel patterns",
+      "constraints": {
+        "wordsPerSentence": "7-9",
+        "maxWordsPerSentence": 9,
+        "phonicsPatterns": ["oi: oil, coin, boil, join, point, noise, voice", "oy: boy, toy, joy, enjoy, annoy", "ou: out, loud, cloud, sound, found, house, mouse", "ow (as in cow): cow, how, now, down, town, brown, owl", "oo (long): moon, soon, food, pool, school, room, cool", "oo (short): book, look, good, wood, foot, cook, took", "aw/au: saw, draw, paw, claw, cause, because, taught"],
+        "sightWords": ["Previous + other, another, people"],
+        "sightWordsCumulative": 32,
+        "pages": "18",
+        "decodability": "80%+"
+      },
+      "phonemicAwareness": "Identify diphthong glide (two sounds in one)",
+      "fluencyTarget": "55-65 wpm",
+      "storyGuidance": "Animals (owl, cow, mouse), outdoor settings. 'The boy found a coin by the brook.'"
+    },
+    "B9": {
+      "name": "R-Controlled Vowels",
+      "band": "B",
+      "index": 13,
+      "readerCan": "Decode vowel + r patterns (bossy r)",
+      "constraints": {
+        "wordsPerSentence": "8-10",
+        "maxWordsPerSentence": 10,
+        "phonicsPatterns": ["ar: car, barn, farm, star, dark, park, yard, hard, start", "or: for, corn, horse, storm, short, sport, fort, north", "er: her, fern, after, never, over, under, water", "ir: bird, first, girl, shirt, dirt, third, stir", "ur: turn, burn, hurt, nurse, purple, turtle, Thursday"],
+        "sightWords": ["Previous + where, were, here, there, their"],
+        "sightWordsCumulative": 37,
+        "paragraphs": "2-3 sentences per section",
+        "pages": "18-20",
+        "decodability": "75%+"
+      },
+      "phonemicAwareness": "Recognize r-controlled as distinct vowel sounds",
+      "fluencyTarget": "60-70 wpm",
+      "storyGuidance": "Farm, nature, adventure. Multiple scenes. 'After the storm, the girl went to the barn to find her horse.'"
+    },
+    "C1": {
+      "name": "Silent Letters",
+      "band": "C",
+      "index": 14,
+      "readerCan": "Decode words with silent letter patterns",
+      "constraints": {
+        "wordsPerSentence": "8-10",
+        "maxWordsPerSentence": 10,
+        "phonicsPatterns": ["kn-: knee, knife, knight, know, knock, knit, knot", "wr-: wrap, write, wrong, wrist, wreck, wring", "gn-: gnaw, gnat, gnome, sign, design", "-mb: climb, lamb, thumb, comb, dumb, numb, bomb", "gh: night, right, light, might, fight, bright, thought, through"],
+        "sightWords": ["Previous + thought, through, eight, enough"],
+        "sightWordsCumulative": 41,
+        "pages": "20",
+        "decodability": "75%+"
+      },
+      "fluencyTarget": "65-75 wpm",
+      "storyGuidance": "Knights, castles, mysteries. 'The knight knew he had to write a sign.'"
+    },
+    "C2": {
+      "name": "Soft C and G",
+      "band": "C",
+      "index": 15,
+      "readerCan": "Decode soft c (before e, i, y) and soft g patterns",
+      "constraints": {
+        "wordsPerSentence": "9-11",
+        "maxWordsPerSentence": 11,
+        "phonicsPatterns": ["Soft c (ce, ci, cy): face, race, place, ice, nice, city, pencil, circus, cycle", "Soft g (ge, gi, gy): age, cage, page, stage, giant, magic, gym, energy", "-dge: edge, bridge, fudge, badge, judge, ledge, ridge, hedge"],
+        "rule": "c and g are soft before e, i, y; hard before a, o, u",
+        "sightWords": ["Previous + once, dance, since"],
+        "sightWordsCumulative": 44,
+        "pages": "20",
+        "decodability": "75%+"
+      },
+      "fluencyTarget": "70-80 wpm",
+      "storyGuidance": "Cities, stages, magic. 'The giant stood on the bridge near the village.'"
+    },
+    "C3": {
+      "name": "Two-Syllable Closed",
+      "band": "C",
+      "index": 16,
+      "readerCan": "Divide and decode VC/CV pattern words",
+      "constraints": {
+        "wordsPerSentence": "9-12",
+        "maxWordsPerSentence": 12,
+        "phonicsPatterns": ["VC/CV division: rab-bit, kit-ten, hap-pen, but-ton, mit-ten, sud-den", "Double consonant: better, butter, dinner, funny, happy, puppy, silly, ladder"],
+        "syllableRule": "When two consonants between vowels, divide between them",
+        "sightWords": ["Previous + little, something, nothing"],
+        "sightWordsCumulative": 47,
+        "pages": "20-22",
+        "decodability": "70%+"
+      },
+      "fluencyTarget": "75-85 wpm",
+      "storyGuidance": "Chapter-style. 'The kitten was hidden in the basket. It happened so suddenly!'"
+    },
+    "C4": {
+      "name": "Two-Syllable Open + Consonant-le",
+      "band": "C",
+      "index": 17,
+      "readerCan": "Decode V/CV pattern and consonant-le syllables",
+      "constraints": {
+        "wordsPerSentence": "10-12",
+        "maxWordsPerSentence": 12,
+        "phonicsPatterns": ["V/CV open: pa-per, ti-ger, ro-bot, pi-lot, o-pen, e-ven, mo-ment, si-lent", "Consonant-le: ap-ple, lit-tle, pur-ple, tur-tle, sim-ple, mid-dle, puz-zle, bot-tle", "Compound words: sunshine, bedroom, homework, outside, birthday, airplane"],
+        "syllableRule": "When one consonant between vowels, first try dividing before it (open syllable)",
+        "sightWords": ["Previous + before, after, always"],
+        "sightWordsCumulative": 50,
+        "pages": "22",
+        "decodability": "70%+"
+      },
+      "fluencyTarget": "80-90 wpm",
+      "storyGuidance": "Robots, pilots, adventures. 'The purple turtle hid under the table.'"
+    },
+    "C5": {
+      "name": "Contractions + Compounds",
+      "band": "C",
+      "index": 18,
+      "readerCan": "Read contractions and compound words fluently",
+      "constraints": {
+        "wordsPerSentence": "10-13",
+        "maxWordsPerSentence": 13,
+        "phonicsPatterns": ["Contractions with not: can't, won't, don't, didn't, isn't, wasn't, couldn't, wouldn't, shouldn't", "Contractions with will: I'll, you'll, he'll, she'll, we'll, they'll", "Contractions with is/has: it's, he's, she's, that's, what's", "Contractions with am/are: I'm, you're, we're, they're", "Compound recognition: into, upon, without, however, anyone, everyone, something, everything"],
+        "sightWords": ["All C-band"],
+        "sightWordsCumulative": 50,
+        "pages": "22-24",
+        "decodability": "70%+"
+      },
+      "fluencyTarget": "85-95 wpm",
+      "storyGuidance": "Natural dialogue. 'I can't find it anywhere! Where'd it go?'"
+    },
+    "C6": {
+      "name": "Inflectional Endings",
+      "band": "C",
+      "index": 19,
+      "readerCan": "Decode and understand inflectional suffixes",
+      "constraints": {
+        "wordsPerSentence": "11-14",
+        "maxWordsPerSentence": 14,
+        "phonicsPatterns": ["-s/-es: cats, dogs, boxes, wishes, matches", "-ed (3 sounds): jumped (/t/), played (/d/), wanted (/ed/)", "-ing: running, jumping, hoping, making (drop e), sitting (double)", "-er comparative: bigger, faster, smaller, taller", "-est superlative: biggest, fastest, smallest, tallest"],
+        "spellingRules": ["Double final consonant: run→running, sit→sitting", "Drop silent e: make→making, hope→hoping", "-ed sounds: /t/ after voiceless, /d/ after voiced, /ed/ after t or d"],
+        "sightWords": ["All previous"],
+        "sightWordsCumulative": 50,
+        "pages": "24",
+        "decodability": "65%+"
+      },
+      "fluencyTarget": "90-100 wpm",
+      "storyGuidance": "Past tense narratives. 'She wanted the biggest cookie. She jumped and grabbed it!'"
+    },
+    "C7": {
+      "name": "Derivational Suffixes",
+      "band": "C",
+      "index": 20,
+      "readerCan": "Decode common derivational suffixes that change word meaning/part of speech",
+      "constraints": {
+        "wordsPerSentence": "12-15",
+        "maxWordsPerSentence": 15,
+        "phonicsPatterns": ["-ful (full of): careful, helpful, beautiful, wonderful, hopeful, peaceful", "-less (without): careless, helpless, hopeless, fearless, endless", "-ness (state of): kindness, darkness, happiness, sadness, illness", "-ment (action/result): movement, payment, treatment, amazement", "-ly (manner): quickly, slowly, carefully, quietly, suddenly, finally", "-tion/-sion: action, nation, station, mission, vision, decision"],
+        "morphologyFocus": "Identify base word + suffix, understand meaning change",
+        "sightWords": ["All previous + beautiful, special, important"],
+        "sightWordsCumulative": 53,
+        "pages": "24-26",
+        "decodability": "65%+"
+      },
+      "fluencyTarget": "95-105 wpm",
+      "storyGuidance": "Character emotions and motivations. 'She felt hopeless at first, but suddenly found the solution.'"
+    },
+    "C8": {
+      "name": "Prefixes",
+      "band": "C",
+      "index": 21,
+      "readerCan": "Decode common prefixes and understand how they modify meaning",
+      "constraints": {
+        "wordsPerSentence": "12-16",
+        "maxWordsPerSentence": 16,
+        "phonicsPatterns": ["un- (not, opposite): unhappy, unfair, unkind, unlock, untie, unsafe", "re- (again): return, reread, rewrite, rebuild, replay, redo", "pre- (before): preview, prepay, preheat, preschool", "dis- (not, opposite): disagree, disappear, dislike, discover, disable", "mis- (wrongly): mistake, misread, misspell, misunderstand", "in-/im-/il-/ir- (not): incorrect, impossible, illegal, irregular"],
+        "morphologyFocus": "prefix + base word, meaning modification",
+        "sightWords": ["All previous + impossible, disappear, discover"],
+        "sightWordsCumulative": 56,
+        "pages": "26",
+        "decodability": "60%+"
+      },
+      "fluencyTarget": "100-110 wpm",
+      "storyGuidance": "Problem-solving, overcoming. 'She had to redo the impossible task. But she didn't give up.'"
+    },
+    "D1": {
+      "name": "Sentence Variety + Dialogue",
+      "band": "D",
+      "index": 22,
+      "readerCan": "Read complex sentences and extended dialogue fluently",
+      "constraints": {
+        "wordsPerSentence": "14-18",
+        "maxWordsPerSentence": 18,
+        "syntaxPatterns": ["Compound: 'She ran, and he followed.'", "Complex: 'Although it was late, they kept going.'", "Compound-complex combinations", "Dialogue with varied tags: asked, replied, whispered, shouted"],
+        "punctuation": "Commas in complex sentences, dialogue punctuation mastery",
+        "pages": "26-30",
+        "lexile": "450-500L"
+      },
+      "fluencyTarget": "105-115 wpm with expression",
+      "storyGuidance": "Character-driven with rich dialogue. Multiple speakers distinguished by voice."
+    },
+    "D2": {
+      "name": "Inference + Chapter Books",
+      "band": "D",
+      "index": 23,
+      "readerCan": "Make inferences, read chapter-length narratives",
+      "constraints": {
+        "wordsPerSentence": "15-20",
+        "maxWordsPerSentence": 20,
+        "comprehensionFocus": ["Inference from text evidence", "Character motivation", "Cause and effect chains", "Theme identification"],
+        "structure": "Chapter books with 4-6 page chapters, cliffhangers",
+        "pages": "30-40 (chapter book)",
+        "lexile": "500-550L"
+      },
+      "fluencyTarget": "110-120 wpm",
+      "storyGuidance": "Show don't tell. 'Her hands trembled as she reached for the handle.' (inference: nervous)"
+    },
+    "D3": {
+      "name": "Latin Roots",
+      "band": "D",
+      "index": 24,
+      "readerCan": "Use Latin root knowledge to decode and understand unfamiliar words",
+      "constraints": {
+        "wordsPerSentence": "16-22",
+        "maxWordsPerSentence": 22,
+        "rootPatterns": ["struct (build): structure, construct, instruct, destruction, infrastructure", "port (carry): transport, import, export, support, report, portable", "dict (say): predict, dictionary, dictate, contradict, verdict", "ject (throw): project, reject, inject, eject, subject, object", "rupt (break): erupt, interrupt,rupt, disrupt, bankrupt, corrupt", "tract (pull): attract, subtract, tractor, extract, contract", "scrib/script (write): describe, inscribe, prescription, manuscript", "spec (see): inspect, respect, spectacle, spectacular, prospect"],
+        "morphologyFocus": "Root + prefix + suffix combinations",
+        "pages": "32-40",
+        "lexile": "550-600L"
+      },
+      "fluencyTarget": "115-125 wpm",
+      "storyGuidance": "Historical, construction, discovery themes. 'The architect inspected the ancient structure.'"
+    },
+    "D4": {
+      "name": "Greek Roots",
+      "band": "D",
+      "index": 25,
+      "readerCan": "Use Greek root knowledge for scientific and academic vocabulary",
+      "constraints": {
+        "wordsPerSentence": "18-24",
+        "maxWordsPerSentence": 24,
+        "rootPatterns": ["graph (write): paragraph, biography, photograph, autograph, geography", "phon (sound): telephone, symphony, microphone, phonics, cacophony", "photo (light): photograph, photosynthesis, photon", "bio (life): biology, biography, antibiotic, biodegradable", "geo (earth): geography, geology, geometry, geothermal", "chron (time): chronological, chronic, synchronize, chronicle", "tele (far): telephone, television, telescope, telegram", "auto (self): automatic, automobile, autobiography, autonomy", "meter/metr (measure): thermometer, centimeter, diameter", "scope (see): telescope, microscope, horoscope, stethoscope"],
+        "pages": "36-44",
+        "lexile": "600-650L"
+      },
+      "fluencyTarget": "120-130 wpm",
+      "storyGuidance": "Science fiction, exploration, biography. 'The biologist used her microscope to study the organism.'"
+    },
+    "D5": {
+      "name": "Figurative Language",
+      "band": "D",
+      "index": 26,
+      "readerCan": "Interpret and appreciate figurative language",
+      "constraints": {
+        "wordsPerSentence": "20-28",
+        "maxWordsPerSentence": 28,
+        "literaryDevices": ["Simile: 'brave as a lion', 'quick as lightning'", "Metaphor: 'time is money', 'life is a journey'", "Personification: 'the wind whispered', 'the sun smiled'", "Hyperbole: 'I've told you a million times'", "Idioms: 'break the ice', 'piece of cake', 'under the weather'", "Symbolism: objects representing ideas"],
+        "pages": "40-48",
+        "lexile": "650-700L"
+      },
+      "fluencyTarget": "125-135 wpm with expression",
+      "storyGuidance": "Literary fiction. 'The old house groaned in protest as the storm raged outside.'"
+    },
+    "D6": {
+      "name": "Grade-Level Prose",
+      "band": "D",
+      "index": 27,
+      "readerCan": "Read grade-level texts independently with full comprehension",
+      "constraints": {
+        "wordsPerSentence": "22-35",
+        "maxWordsPerSentence": 35,
+        "features": ["Full vocabulary range", "Complex themes (identity, justice, growth)", "Multiple perspectives", "Ambiguity and nuance", "Author's craft awareness"],
+        "pages": "48+",
+        "lexile": "700-800L"
+      },
+      "fluencyTarget": "130-145 wpm",
+      "storyGuidance": "Full literary complexity. Open endings possible. Themes reward reflection. 'Coming of age' narratives."
+    }
+  },
+  "universalConstraints": {
+    "oneChangeRule": {
+      "description": "Each level introduces only ONE major element",
+      "elements": ["New letter class", "New phonics pattern", "New syllable type", "New morpheme type", "New sentence complexity"]
+    },
+    "sightWordProgression": {
+      "bandA": "0 → 9 cumulative (cap: 9)",
+      "bandB": "9 → 37 cumulative (cap: 37)",
+      "bandC": "37 → 56 cumulative (cap: 56)",
+      "bandD": "No new explicit teaching - absorbed through reading"
+    },
+    "typography": {
+      "bandsAB": "Single-storey 'a' and 'g', large x-height, no decorative fonts",
+      "bandC": "Standard typography acceptable",
+      "bandD": "Any appropriate book typography"
+    },
+    "wordRepetition": {
+      "bandsAB": "Target pattern words appear 4+ times (orthographic mapping)",
+      "bandC": "Key vocabulary repeated in context",
+      "bandD": "Natural repetition through narrative"
+    },
+    "illustrationGuidelines": {
+      "bandA": "Illustrations carry primary meaning, directly match text",
+      "bandB": "Illustrations support but don't give away decodable words",
+      "bandC": "Illustrations enhance comprehension, text primary",
+      "bandD": "Illustrations optional, for mood/setting"
+    },
+    "assessmentCheckpoints": {
+      "everyLevel": ["Phonics pattern accuracy", "Sight word recognition", "Fluency (wpm)", "Comprehension check"],
+      "bandTransitions": "Mastery assessment before advancing to next band"
+    }
+  }
+}

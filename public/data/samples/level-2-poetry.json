@@ -1,0 +1,64 @@
+{
+  "level": 2,
+  "type": "art_poetry",
+  "title": "Red and Blue",
+  "summary": "A chromatic poem exploring color through all short vowel CVC words. Each color evokes emotion and sensory memory.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "Red is hot.",
+      "scene": "A vibrant red rose, warm and glowing against dark green leaves"
+    },
+    {
+      "page": 2,
+      "text": "The sun is red.",
+      "scene": "Sunset painting the sky in deep reds and oranges, horizon glowing"
+    },
+    {
+      "page": 3,
+      "text": "Blue is calm.",
+      "scene": "A peaceful blue sky, vast and serene, stretching endlessly"
+    },
+    {
+      "page": 4,
+      "text": "The cup is blue.",
+      "scene": "A delicate blue cup with steam rising, sitting on a saucer"
+    },
+    {
+      "page": 5,
+      "text": "A wet bug ran.",
+      "scene": "A small bug glistening with dew, moving through wet grass"
+    },
+    {
+      "page": 6,
+      "text": "The mud was wet.",
+      "scene": "Ripples spreading across wet brown mud after rain"
+    },
+    {
+      "page": 7,
+      "text": "Hum a song.",
+      "scene": "A figure humming contentedly, surrounded by floating musical notes"
+    },
+    {
+      "page": 8,
+      "text": "Red and blue and we.",
+      "scene": "Two figures in a garden, one in red, one in blue, holding hands"
+    }
+  ],
+  "word_list": {
+    "sight": ["is", "the", "and", "a", "was", "we"],
+    "decodable": ["red", "hot", "sun", "blue", "calm", "sky", "cup", "wet", "bug", "ran", "mud", "hum", "song"]
+  },
+  "phonics_focus": [
+    "CVC short a (ran, was)",
+    "CVC short e (wet)",
+    "CVC short i (hum, blue, cup - note: these are VCC pattern)",
+    "CVC short o (song)",
+    "CVC short u (cup, hum, bug, mud, sun)"
+  ],
+  "metadata": {
+    "word_count": 28,
+    "max_sentence_length": 4,
+    "aesthetic_focus": "Color as emotion, sensory warmth and calm"
+  }
+}

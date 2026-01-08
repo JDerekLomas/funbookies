@@ -1,0 +1,73 @@
+{
+  "level": 5,
+  "type": "hero_journey",
+  "title": "The Ant's Grand Quest",
+  "summary": "A determined ant discovers that teamwork and persistence can accomplish the impossible when it unites its colony to bring home an enormous treasure.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A tiny ant lived in a small black hill.",
+      "scene": "A small ant standing at the entrance of an ant hill"
+    },
+    {
+      "page": 2,
+      "text": "This ant was smart and loved to think.",
+      "scene": "Ant observing the world around with curiosity"
+    },
+    {
+      "page": 3,
+      "text": "One cold fall day, she found a grand pink lump.",
+      "scene": "Ant discovering a huge piece of candy in the grass"
+    },
+    {
+      "page": 4,
+      "text": "\"We must bring this food back fast!\" she said.",
+      "scene": "Ant realizing this treasure could feed the entire colony"
+    },
+    {
+      "page": 5,
+      "text": "But it was too big and too hard.",
+      "scene": "Ant struggling alone with the huge candy, unable to move it"
+    },
+    {
+      "page": 6,
+      "text": "The ant went back and sang a call.",
+      "scene": "Ant returning home and using special signals to gather helpers"
+    },
+    {
+      "page": 7,
+      "text": "Ten ants came to help and to push.",
+      "scene": "Multiple ants arriving and working together on the treasure"
+    },
+    {
+      "page": 8,
+      "text": "They bent and they bumped, pushed and pulled with all their strength.",
+      "scene": "Ants straining together to move the candy forward"
+    },
+    {
+      "page": 9,
+      "text": "At last, the pink lump went into the hill!",
+      "scene": "Ants successfully bringing treasure home"
+    },
+    {
+      "page": 10,
+      "text": "The ant had found that together, ants can do everything.",
+      "scene": "Colony celebrating the successful mission together"
+    },
+    {
+      "page": 11,
+      "text": "The end.",
+      "scene": "Ant as hero, surrounded by grateful colony members"
+    }
+  ],
+  "word_list": {
+    "decodable": ["tiny", "ant", "lived", "small", "black", "hill", "this", "smart", "loved", "think", "one", "cold", "fall", "day", "found", "grand", "pink", "lump", "must", "bring", "food", "back", "fast", "said", "too", "big", "hard", "went", "sang", "call", "came", "push", "bent", "bumped", "pulled", "strength", "last", "went", "found", "together", "everything"],
+    "sight": ["a", "in", "was", "and", "to", "she", "we", "but", "it", "ten", "help", "they", "with", "all", "the", "do", "end"]
+  },
+  "phonics_focus": ["-nd words", "-nt words", "-nk words", "-mp words", "-st words", "FLOSS (ff, ll, ss, zz)"],
+  "metadata": {
+    "word_count": 167,
+    "max_sentence_length": 7,
+    "decodability_target": "95%+"
+  }
+}

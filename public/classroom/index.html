@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Classroom - FunBookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <script src="/js/data-service.js"></script>
+    <style>
+        .classroom-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .classroom-header h1 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+        }
+
+        /* Class Info Bar */
+        .class-info {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--space-sm) var(--space-md);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .class-stat {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .class-stat-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .class-stat-label {
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Level Distribution Chart */
+        .level-chart-section {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 var(--space-sm);
+        }
+
+        .level-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 100px;
+            padding: var(--space-sm) 0;
+        }
+
+        .level-bar-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .level-bar {
+            width: 100%;
+            max-width: 30px;
+            background: var(--color-sage);
+            border-radius: 4px 4px 0 0;
+            min-height: 4px;
+            transition: height 0.3s;
+        }
+
+        .level-bar.empty { background: var(--color-border); }
+        .level-bar.band-a { background: #A5D6A7; }
+        .level-bar.band-b { background: #81C784; }
+        .level-bar.band-c { background: #66BB6A; }
+        .level-bar.band-d { background: #4CAF50; }
+
+        .level-bar-label {
+            font-size: 0.65rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .action-card {
+            background: var(--color-white);
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: transform 0.2s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .action-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-icon {
+            font-size: 1.75rem;
+        }
+
+        .action-info h3 {
+            font-size: 0.95rem;
+            margin: 0 0 2px;
+        }
+
+        .action-info p {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin: 0;
+        }
+
+        /* Students Table */
+        .students-section {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            margin-bottom: var(--space-md);
+        }
+
+        .students-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            background: var(--color-cream);
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            font-size: 0.9rem;
+            width: 150px;
+        }
+
+        .search-box input:focus { outline: none; }
+
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .student-table th {
+            text-align: left;
+            padding: var(--space-sm);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-muted);
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .student-table td {
+            padding: var(--space-sm);
+            border-bottom: 1px solid var(--color-border);
+            vertical-align: middle;
+        }
+
+        .student-table tr:hover td {
+            background: var(--color-cream);
+        }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .student-avatar {
+            font-size: 1.75rem;
+        }
+
+        .student-name {
+            font-weight: 500;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: var(--color-sage-light);
+            color: var(--color-sage-dark);
+        }
+
+        .level-badge.not-assessed {
+            background: var(--color-cream);
+            color: var(--color-text-muted);
+        }
+
+        .level-badge.needs-attention {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        .activity-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .activity-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-border);
+        }
+
+        .activity-dot.active { background: var(--color-sage); }
+        .activity-dot.recent { background: var(--color-terracotta); }
+
+        .actions-cell {
+            display: flex;
+            gap: 4px;
+        }
+
+        .btn-icon {
+            padding: 6px 10px;
+            border: none;
+            background: var(--color-cream);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+
+        .btn-icon:hover { background: var(--color-sage-light); }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .empty-state h3 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .empty-state p {
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-md);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 16px;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 { margin: 0; }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-text-muted);
+        }
+
+        .modal-body {
+            padding: var(--space-md);
+        }
+
+        .modal-footer {
+            padding: var(--space-md);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: flex-end;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-sage);
+        }
+
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-top: 4px;
+        }
+
+        /* Invite Link */
+        .invite-link-box {
+            background: var(--color-cream);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            margin-top: var(--space-sm);
+        }
+
+        .invite-link-url {
+            font-family: monospace;
+            font-size: 0.85rem;
+            word-break: break-all;
+            margin-bottom: var(--space-sm);
+            padding: var(--space-sm);
+            background: var(--color-white);
+            border-radius: 4px;
+        }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 600px) {
+            .student-table th:nth-child(3),
+            .student-table td:nth-child(3),
+            .student-table th:nth-child(4),
+            .student-table td:nth-child(4) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header" style="padding-top: var(--space-md);">
+            <a href="/" class="back-link">&larr; Back to Home</a>
+        </div>
+
+        <div class="classroom-header">
+            <h1>🏫 My Classroom</h1>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="showImportModal()">Import Students</button>
+                <button class="btn btn-primary" onclick="showAddStudentModal()">+ Add Student</button>
+            </div>
+        </div>
+
+        <!-- Class Stats Bar -->
+        <div class="class-info" id="classInfo">
+            <div class="class-stat">
+                <span class="class-stat-value" id="totalStudents">0</span>
+                <span class="class-stat-label">students</span>
+            </div>
+            <div class="class-stat">
+                <span class="class-stat-value" id="assessedCount">0</span>
+                <span class="class-stat-label">assessed</span>
+            </div>
+            <div class="class-stat">
+                <span class="class-stat-value" id="avgLevel">-</span>
+                <span class="class-stat-label">avg level</span>
+            </div>
+            <div class="class-stat">
+                <span class="class-stat-value" id="activeThisWeek">0</span>
+                <span class="class-stat-label">active this week</span>
+            </div>
+        </div>
+
+        <!-- Level Distribution -->
+        <div class="level-chart-section">
+            <h2 class="section-title">Level Distribution</h2>
+            <div class="level-bars" id="levelBars">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <a href="/activities/phonics-assessment.html" class="action-card">
+                <span class="action-icon">📊</span>
+                <div class="action-info">
+                    <h3>Run Assessment</h3>
+                    <p>Test a student's level</p>
+                </div>
+            </a>
+            <button class="action-card" onclick="showBulkLinksModal()">
+                <span class="action-icon">🔗</span>
+                <div class="action-info">
+                    <h3>Parent Links</h3>
+                    <p>Generate invite links</p>
+                </div>
+            </button>
+            <button class="action-card" onclick="exportReport()">
+                <span class="action-icon">📄</span>
+                <div class="action-info">
+                    <h3>Export Report</h3>
+                    <p>Download progress data</p>
+                </div>
+            </button>
+            <a href="/books/" class="action-card">
+                <span class="action-icon">📚</span>
+                <div class="action-info">
+                    <h3>Book Library</h3>
+                    <p>Browse all books</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Students List -->
+        <div class="students-section">
+            <div class="students-header">
+                <h2 class="section-title">Students</h2>
+                <div class="search-box">
+                    <span>🔍</span>
+                    <input type="text" placeholder="Search..." id="searchInput" oninput="filterStudents()">
+                </div>
+            </div>
+
+            <div id="studentsContainer">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div class="modal-overlay hidden" id="addStudentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add Student</h2>
+                <button class="modal-close" onclick="closeModal('addStudentModal')">&times;</button>
+            </div>
+            <form onsubmit="addStudent(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Student Name</label>
+                        <input type="text" id="newStudentName" required autocomplete="off">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal('addStudentModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Import Students Modal -->
+    <div class="modal-overlay hidden" id="importModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Import Students</h2>
+                <button class="modal-close" onclick="closeModal('importModal')">&times;</button>
+            </div>
+            <form onsubmit="importStudents(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Student Names (one per line)</label>
+                        <textarea id="importNames" rows="8" placeholder="Emma Smith&#10;James Wilson&#10;Sophie Brown"></textarea>
+                        <div class="form-hint">Paste a list of student names, one per line</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal('importModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Import</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Parent Link Modal -->
+    <div class="modal-overlay hidden" id="linkModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Parent Invite Link</h2>
+                <button class="modal-close" onclick="closeModal('linkModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Share this link with <strong id="linkStudentName">Student</strong>'s parent:</p>
+                <div class="invite-link-box">
+                    <div class="invite-link-url" id="inviteLinkUrl"></div>
+                    <button class="btn btn-primary" onclick="copyInviteLink()" style="width: 100%;">
+                        📋 Copy Link
+                    </button>
+                </div>
+                <p class="form-hint" style="margin-top: var(--space-sm);">
+                    Parents can use this link to access their child's reading practice from home.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Links Modal -->
+    <div class="modal-overlay hidden" id="bulkLinksModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Parent Invite Links</h2>
+                <button class="modal-close" onclick="closeModal('bulkLinksModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Generate links for all students to share with parents:</p>
+                <div id="bulkLinksList" style="max-height: 300px; overflow-y: auto;">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="copyAllLinks()">📋 Copy All Links</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allStudents = [];
+        let teacherName = localStorage.getItem('funbookies-teacher-name') || 'Teacher';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.FunBookiesDB.ready;
+
+            // Prompt for teacher name if not set
+            if (!localStorage.getItem('funbookies-teacher-name')) {
+                const name = prompt('Welcome! What should students call you?', 'Mrs. Smith');
+                if (name) {
+                    teacherName = name;
+                    localStorage.setItem('funbookies-teacher-name', name);
+                }
+            }
+
+            await loadClassroom();
+        });
+
+        async function loadClassroom() {
+            const overview = await window.FunBookiesDB.getClassOverview();
+            allStudents = overview.students || [];
+
+            // Update stats
+            document.getElementById('totalStudents').textContent = overview.totalStudents;
+            document.getElementById('assessedCount').textContent = overview.assessedStudents;
+
+            if (overview.averageLevelOrder !== null) {
+                const levels = Object.entries(window.FUNBOOKIES_LEVELS);
+                const avgLevel = levels.find(([_, info]) =>
+                    Math.round(info.order) === Math.round(overview.averageLevelOrder)
+                );
+                document.getElementById('avgLevel').textContent = avgLevel ? avgLevel[0] : '-';
+            }
+
+            // Count active this week
+            let activeCount = 0;
+            const weekAgo = new Date();
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            allStudents.forEach(s => {
+                if (s.activityStats && s.activityStats.totalSessions > 0) {
+                    activeCount++;
+                }
+            });
+            document.getElementById('activeThisWeek').textContent = activeCount;
+
+            // Render level distribution
+            renderLevelChart();
+
+            // Render students table
+            renderStudents();
+        }
+
+        function renderLevelChart() {
+            const container = document.getElementById('levelBars');
+            const levels = ['A0', 'A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6'];
+
+            // Count students per level
+            const counts = {};
+            levels.forEach(l => counts[l] = 0);
+            let notAssessed = 0;
+
+            allStudents.forEach(s => {
+                if (s.currentLevel && counts[s.currentLevel] !== undefined) {
+                    counts[s.currentLevel]++;
+                } else {
+                    notAssessed++;
+                }
+            });
+
+            const maxCount = Math.max(...Object.values(counts), 1);
+
+            // Only show levels with students or adjacent to levels with students
+            const relevantLevels = levels.filter((level, idx) => {
+                if (counts[level] > 0) return true;
+                if (idx > 0 && counts[levels[idx-1]] > 0) return true;
+                if (idx < levels.length - 1 && counts[levels[idx+1]] > 0) return true;
+                return false;
+            });
+
+            // If no students assessed, show A0-B2
+            const showLevels = relevantLevels.length > 0 ? relevantLevels : levels.slice(0, 8);
+
+            container.innerHTML = showLevels.map(level => {
+                const count = counts[level];
+                const height = count > 0 ? Math.max((count / maxCount) * 80, 10) : 4;
+                const band = level[0].toLowerCase();
+
+                return `
+                    <div class="level-bar-group">
+                        <div class="level-bar band-${band} ${count === 0 ? 'empty' : ''}"
+                             style="height: ${height}px;"
+                             title="${level}: ${count} students"></div>
+                        <span class="level-bar-label">${level}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderStudents(filter = '') {
+            const container = document.getElementById('studentsContainer');
+
+            if (allStudents.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">👋</div>
+                        <h3>No students yet</h3>
+                        <p>Add students to your class to get started.</p>
+                        <button class="btn btn-primary" onclick="showAddStudentModal()">+ Add Student</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const filtered = filter
+                ? allStudents.filter(s => s.student.name.toLowerCase().includes(filter.toLowerCase()))
+                : allStudents;
+
+            const rows = filtered.map(s => {
+                const levelBadge = s.currentLevel
+                    ? `<span class="level-badge">${s.currentLevel}</span>`
+                    : `<span class="level-badge not-assessed">Not assessed</span>`;
+
+                const lastActive = s.activityStats && s.activityStats.totalSessions > 0
+                    ? 'Active'
+                    : 'No activity';
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="student-info">
+                                <span class="student-avatar">${s.student.avatar}</span>
+                                <span class="student-name">${escapeHtml(s.student.name)}</span>
+                            </div>
+                        </td>
+                        <td>${levelBadge}</td>
+                        <td>${s.assessmentCount} assessments</td>
+                        <td>${lastActive}</td>
+                        <td>
+                            <div class="actions-cell">
+                                <button class="btn-icon" onclick="showParentLink('${s.student.id}')" title="Parent Link">🔗</button>
+                                <a href="/student-profile.html?id=${s.student.id}" class="btn-icon" title="View Profile">👤</a>
+                                <a href="/activities/phonics-assessment.html" class="btn-icon" title="Assess">📊</a>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <table class="student-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Level</th>
+                            <th>Progress</th>
+                            <th>Activity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${rows}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function filterStudents() {
+            const query = document.getElementById('searchInput').value;
+            renderStudents(query);
+        }
+
+        // Modal functions
+        function showAddStudentModal() {
+            document.getElementById('addStudentModal').classList.remove('hidden');
+            document.getElementById('newStudentName').focus();
+        }
+
+        function showImportModal() {
+            document.getElementById('importModal').classList.remove('hidden');
+            document.getElementById('importNames').focus();
+        }
+
+        async function showParentLink(studentId) {
+            const student = allStudents.find(s => s.student.id === studentId);
+            if (!student) return;
+
+            const level = student.currentLevel || '';
+            const link = generateInviteLink(student.student.name, level);
+
+            document.getElementById('linkStudentName').textContent = student.student.name;
+            document.getElementById('inviteLinkUrl').textContent = link;
+            document.getElementById('linkModal').classList.remove('hidden');
+        }
+
+        function showBulkLinksModal() {
+            const container = document.getElementById('bulkLinksList');
+
+            if (allStudents.length === 0) {
+                container.innerHTML = '<p>No students to generate links for.</p>';
+            } else {
+                container.innerHTML = allStudents.map(s => {
+                    const link = generateInviteLink(s.student.name, s.currentLevel || '');
+                    return `
+                        <div style="margin-bottom: var(--space-sm); padding: var(--space-sm); background: var(--color-cream); border-radius: var(--border-radius);">
+                            <strong>${escapeHtml(s.student.name)}</strong>
+                            <div style="font-size: 0.8rem; font-family: monospace; word-break: break-all; margin-top: 4px;">${link}</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            document.getElementById('bulkLinksModal').classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // Actions
+        async function addStudent(event) {
+            event.preventDefault();
+            const name = document.getElementById('newStudentName').value.trim();
+            if (!name) return;
+
+            await window.FunBookiesDB.createStudent(name);
+            document.getElementById('newStudentName').value = '';
+            closeModal('addStudentModal');
+            await loadClassroom();
+        }
+
+        async function importStudents(event) {
+            event.preventDefault();
+            const text = document.getElementById('importNames').value.trim();
+            if (!text) return;
+
+            const names = text.split('\n').map(n => n.trim()).filter(n => n.length > 0);
+
+            for (const name of names) {
+                await window.FunBookiesDB.createStudent(name);
+            }
+
+            document.getElementById('importNames').value = '';
+            closeModal('importModal');
+            await loadClassroom();
+        }
+
+        function generateInviteLink(studentName, level) {
+            const params = new URLSearchParams({
+                student: studentName,
+                teacher: teacherName
+            });
+            if (level) params.set('level', level);
+
+            return `${window.location.origin}/home/?${params.toString()}`;
+        }
+
+        function copyInviteLink() {
+            const link = document.getElementById('inviteLinkUrl').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Link copied to clipboard!');
+            });
+        }
+
+        function copyAllLinks() {
+            const links = allStudents.map(s => {
+                return `${s.student.name}: ${generateInviteLink(s.student.name, s.currentLevel || '')}`;
+            }).join('\n\n');
+
+            navigator.clipboard.writeText(links).then(() => {
+                alert('All links copied to clipboard!');
+            });
+        }
+
+        async function exportReport() {
+            const data = {
+                exportDate: new Date().toISOString(),
+                teacher: teacherName,
+                students: allStudents.map(s => ({
+                    name: s.student.name,
+                    level: s.currentLevel || 'Not assessed',
+                    assessments: s.assessmentCount,
+                    activities: s.activityStats?.totalSessions || 0
+                }))
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `funbookies-report-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // Close modals on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay').forEach(m => m.classList.add('hidden'));
+            }
+        });
+
+        // Close modals on backdrop click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

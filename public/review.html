@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Review - FunBookies</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #faf8f5;
+      color: #2d2a26;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 2px solid #e8e4dc;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .filters {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    select, button {
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 8px 16px;
+      border: 1px solid #d4cfc5;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #f0ebe3;
+    }
+
+    .btn-primary {
+      background: #5c8a4d;
+      color: white;
+      border-color: #5c8a4d;
+    }
+
+    .btn-primary:hover {
+      background: #4a7340;
+    }
+
+    .stats-bar {
+      display: flex;
+      gap: 30px;
+      padding: 15px 20px;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #5c8a4d;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: #7a756d;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 25px;
+    }
+
+    .story-list {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      max-height: calc(100vh - 250px);
+      overflow-y: auto;
+    }
+
+    .story-item {
+      padding: 15px;
+      border-bottom: 1px solid #e8e4dc;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .story-item:hover {
+      background: #faf8f5;
+    }
+
+    .story-item.active {
+      background: #f0ebe3;
+      border-left: 3px solid #5c8a4d;
+    }
+
+    .story-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 5px;
+    }
+
+    .story-item-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .story-item-level {
+      font-size: 0.8rem;
+      padding: 2px 8px;
+      background: #e8e4dc;
+      border-radius: 10px;
+    }
+
+    .story-item-type {
+      font-size: 0.8rem;
+      color: #7a756d;
+    }
+
+    .story-item-status {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .status-pending {
+      background: #f5f0e6;
+      color: #8b7355;
+    }
+
+    .status-approved {
+      background: #e6f2e6;
+      color: #3d7a3d;
+    }
+
+    .status-rejected {
+      background: #f9e6e6;
+      color: #a54545;
+    }
+
+    .story-detail {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .detail-header {
+      padding: 20px;
+      border-bottom: 1px solid #e8e4dc;
+    }
+
+    .detail-title {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .detail-meta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      font-size: 0.9rem;
+    }
+
+    .meta-label {
+      color: #7a756d;
+    }
+
+    .detail-tabs {
+      display: flex;
+      border-bottom: 1px solid #e8e4dc;
+    }
+
+    .tab {
+      padding: 12px 20px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      font-size: 0.95rem;
+    }
+
+    .tab:hover {
+      background: #faf8f5;
+    }
+
+    .tab.active {
+      border-bottom-color: #5c8a4d;
+      font-weight: 600;
+    }
+
+    .detail-content {
+      padding: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .story-page {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #e8e4dc;
+      border-radius: 8px;
+      background: #faf8f5;
+    }
+
+    .story-page:last-child {
+      margin-bottom: 0;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .page-number {
+      font-size: 0.8rem;
+      color: #7a756d;
+      font-weight: 600;
+    }
+
+    .page-feedback-buttons {
+      display: flex;
+      gap: 5px;
+    }
+
+    .page-btn {
+      padding: 4px 10px;
+      font-size: 1rem;
+      border: 1px solid #d4cfc5;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .page-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .page-btn.approved {
+      background: #3d7a3d;
+      border-color: #3d7a3d;
+    }
+
+    .page-btn.rejected {
+      background: #a54545;
+      border-color: #a54545;
+    }
+
+    .page-text {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    .page-scene {
+      font-size: 0.85rem;
+      color: #7a756d;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .page-comment-section {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .page-comment {
+      flex: 1;
+      padding: 6px 10px;
+      font-size: 0.85rem;
+      border: 1px solid #d4cfc5;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+
+    .page-comment:focus {
+      outline: none;
+      border-color: #5c8a4d;
+    }
+
+    .has-comment {
+      font-size: 0.9rem;
+    }
+
+    .prompt-box {
+      background: #f5f0e6;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+
+    .validation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .validation-card {
+      background: #faf8f5;
+      padding: 15px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .validation-value {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .validation-label {
+      font-size: 0.8rem;
+      color: #7a756d;
+    }
+
+    .validation-good { color: #3d7a3d; }
+    .validation-warning { color: #b8860b; }
+    .validation-bad { color: #a54545; }
+
+    .unknown-words {
+      margin-top: 15px;
+      padding: 10px;
+      background: #fff8e6;
+      border-radius: 6px;
+    }
+
+    .unknown-words-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #8b7355;
+    }
+
+    .unknown-word {
+      display: inline-block;
+      margin: 3px;
+      padding: 2px 8px;
+      background: white;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+
+    .feedback-section {
+      padding: 20px;
+      border-top: 1px solid #e8e4dc;
+      background: #faf8f5;
+    }
+
+    .feedback-buttons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .feedback-btn {
+      flex: 1;
+      padding: 15px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .feedback-btn.approve {
+      background: #e6f2e6;
+      border-color: #b8d4b8;
+    }
+
+    .feedback-btn.approve:hover, .feedback-btn.approve.selected {
+      background: #3d7a3d;
+      color: white;
+    }
+
+    .feedback-btn.reject {
+      background: #f9e6e6;
+      border-color: #e6b8b8;
+    }
+
+    .feedback-btn.reject:hover, .feedback-btn.reject.selected {
+      background: #a54545;
+      color: white;
+    }
+
+    .comment-box {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d4cfc5;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .comment-box:focus {
+      outline: none;
+      border-color: #5c8a4d;
+    }
+
+    .save-feedback {
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .nav-buttons button {
+      flex: 1;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #7a756d;
+    }
+
+    .export-section {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #e8e4dc;
+    }
+
+    @media (max-width: 900px) {
+      .story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .story-list {
+        max-height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Story Review</h1>
+      <div class="filters">
+        <select id="levelFilter">
+          <option value="all">All Levels</option>
+        </select>
+        <select id="typeFilter">
+          <option value="all">All Types</option>
+          <option value="sample">Sample</option>
+          <option value="hero_journey">Hero Journey</option>
+          <option value="art_poetry">Art/Poetry</option>
+        </select>
+        <select id="statusFilter">
+          <option value="all">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-value" id="totalCount">0</div>
+        <div class="stat-label">Total Stories</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="reviewedCount">0</div>
+        <div class="stat-label">Reviewed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="approvedCount">0</div>
+        <div class="stat-label">Approved</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="rejectedCount">0</div>
+        <div class="stat-label">Rejected</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="pendingCount">0</div>
+        <div class="stat-label">Pending</div>
+      </div>
+    </div>
+
+    <div class="story-grid">
+      <div class="story-list" id="storyList">
+        <!-- Stories loaded dynamically -->
+      </div>
+
+      <div class="story-detail" id="storyDetail">
+        <div class="empty-state">
+          <p>Select a story to review</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="export-section">
+      <button class="btn-primary" onclick="exportFeedback()">Export Feedback JSON</button>
+      <button onclick="importFeedback()">Import Feedback</button>
+      <input type="file" id="importFile" style="display:none" accept=".json" onchange="handleImport(event)">
+    </div>
+  </div>
+
+  <script>
+    // State
+    let stories = [];
+    let feedback = {};
+    let validationData = {};
+    let levelSpecs = {};
+    let currentStoryId = null;
+
+    // Load all data on page load
+    async function init() {
+      try {
+        // Load level specs for prompts
+        const specsRes = await fetch('/data/level-specs.json');
+        levelSpecs = await specsRes.json();
+
+        // Load validation report
+        const validationRes = await fetch('/data/validation-report.json');
+        validationData = await validationRes.json();
+
+        // Load feedback from localStorage
+        const savedFeedback = localStorage.getItem('storyFeedback');
+        if (savedFeedback) {
+          feedback = JSON.parse(savedFeedback);
+        }
+
+        // Try to load/sync server feedback
+        await loadServerFeedback();
+
+        // Load all stories
+        await loadStories();
+
+        // Populate level filter
+        const levelFilter = document.getElementById('levelFilter');
+        for (let i = 0; i <= 23; i++) {
+          const option = document.createElement('option');
+          option.value = i;
+          option.textContent = `Level ${i}`;
+          levelFilter.appendChild(option);
+        }
+
+        // Setup filters
+        document.getElementById('levelFilter').addEventListener('change', renderStoryList);
+        document.getElementById('typeFilter').addEventListener('change', renderStoryList);
+        document.getElementById('statusFilter').addEventListener('change', renderStoryList);
+
+        renderStoryList();
+        updateStats();
+      } catch (err) {
+        console.error('Failed to initialize:', err);
+      }
+    }
+
+    async function loadStories() {
+      // Load story list from validation report
+      const allResults = [
+        ...(validationData.byType?.sample || []),
+        ...(validationData.byType?.hero || []),
+        ...(validationData.byType?.poetry || [])
+      ];
+
+      // Fetch each story's full content
+      for (const result of allResults) {
+        const type = result.type || 'sample';
+        const typeSlug = type === 'hero_journey' ? 'hero' : (type === 'art_poetry' ? 'poetry' : 'sample');
+        const filename = `level-${result.level}-${typeSlug}.json`;
+
+        try {
+          const res = await fetch(`/data/samples/${filename}`);
+          const story = await res.json();
+          story.id = `${result.level}-${typeSlug}`;
+          story.validation = result;
+          stories.push(story);
+        } catch (err) {
+          console.error(`Failed to load ${filename}:`, err);
+        }
+      }
+
+      // Sort by level, then type
+      stories.sort((a, b) => {
+        if (a.level !== b.level) return a.level - b.level;
+        const typeOrder = { sample: 0, hero_journey: 1, art_poetry: 2 };
+        return (typeOrder[a.type] || 0) - (typeOrder[b.type] || 0);
+      });
+    }
+
+    function getFilteredStories() {
+      const levelFilter = document.getElementById('levelFilter').value;
+      const typeFilter = document.getElementById('typeFilter').value;
+      const statusFilter = document.getElementById('statusFilter').value;
+
+      return stories.filter(story => {
+        if (levelFilter !== 'all' && story.level !== parseInt(levelFilter)) return false;
+        if (typeFilter !== 'all' && story.type !== typeFilter) return false;
+
+        const status = feedback[story.id]?.status || 'pending';
+        if (statusFilter !== 'all' && status !== statusFilter) return false;
+
+        return true;
+      });
+    }
+
+    function renderStoryList() {
+      const list = document.getElementById('storyList');
+      const filtered = getFilteredStories();
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<div class="empty-state">No stories match filters</div>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(story => {
+        const status = feedback[story.id]?.status || 'pending';
+        const typeLabel = story.type === 'hero_journey' ? 'Hero' :
+                         story.type === 'art_poetry' ? 'Poetry' : 'Sample';
+
+        return `
+          <div class="story-item ${currentStoryId === story.id ? 'active' : ''}"
+               onclick="selectStory('${story.id}')">
+            <div class="story-item-header">
+              <span class="story-item-title">${story.title}</span>
+              <span class="story-item-level">L${story.level}</span>
+            </div>
+            <div class="story-item-type">${typeLabel}</div>
+            <div class="story-item-status">
+              <span class="status-badge status-${status}">${status}</span>
+              ${story.validation ? `<span class="status-badge">${story.validation.decodability.score}%</span>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectStory(id) {
+      currentStoryId = id;
+      const story = stories.find(s => s.id === id);
+      if (!story) return;
+
+      renderStoryList();
+      renderStoryDetail(story);
+    }
+
+    function renderStoryDetail(story) {
+      const detail = document.getElementById('storyDetail');
+      const spec = levelSpecs.levels?.[story.level] || {};
+      const storyFeedback = feedback[story.id] || {};
+
+      const typeLabel = story.type === 'hero_journey' ? 'Hero Journey' :
+                       story.type === 'art_poetry' ? 'Art/Poetry' : 'Sample';
+
+      // Build prompt from level specs
+      const promptText = buildPromptText(story.level, story.type, spec);
+
+      detail.innerHTML = `
+        <div class="detail-header">
+          <h2 class="detail-title">${story.title}</h2>
+          <div class="detail-meta">
+            <span class="meta-item"><span class="meta-label">Level:</span> ${story.level}</span>
+            <span class="meta-item"><span class="meta-label">Type:</span> ${typeLabel}</span>
+            <span class="meta-item"><span class="meta-label">Words:</span> ${story.validation?.totalWords || story.word_count || '?'}</span>
+            <span class="meta-item"><span class="meta-label">Pages:</span> ${story.pages?.length || '?'}</span>
+          </div>
+        </div>
+
+        <div class="detail-tabs">
+          <div class="tab active" onclick="showTab('story', this)">Story</div>
+          <div class="tab" onclick="showTab('prompt', this)">Prompt</div>
+          <div class="tab" onclick="showTab('validation', this)">Validation</div>
+        </div>
+
+        <div class="detail-content" id="tabContent">
+          ${renderStoryTab(story)}
+        </div>
+
+        <div class="feedback-section">
+          <div class="feedback-buttons">
+            <button class="feedback-btn approve ${storyFeedback.status === 'approved' ? 'selected' : ''}"
+                    onclick="setFeedback('${story.id}', 'approved')">
+              <span>👍</span> Approve
+            </button>
+            <button class="feedback-btn reject ${storyFeedback.status === 'rejected' ? 'selected' : ''}"
+                    onclick="setFeedback('${story.id}', 'rejected')">
+              <span>👎</span> Reject
+            </button>
+          </div>
+          <textarea class="comment-box" id="commentBox"
+                    placeholder="Add comments or notes about this story..."
+                    onchange="saveComment('${story.id}')">${storyFeedback.comment || ''}</textarea>
+
+          <div class="nav-buttons">
+            <button onclick="navigateStory(-1)">← Previous</button>
+            <button onclick="navigateStory(1)">Next →</button>
+          </div>
+        </div>
+      `;
+
+      // Store prompt for tab switching
+      detail.dataset.promptText = promptText;
+      detail.dataset.storyId = story.id;
+    }
+
+    function renderStoryTab(story) {
+      if (!story.pages) return '<p>No pages found</p>';
+
+      return story.pages.map((page, i) => {
+        const pageNum = page.page || i + 1;
+        const pageId = `${story.id}-page-${pageNum}`;
+        const pageFeedback = feedback[pageId] || {};
+
+        return `
+        <div class="story-page" data-page-id="${pageId}">
+          <div class="page-header">
+            <div class="page-number">Page ${pageNum}</div>
+            <div class="page-feedback-buttons">
+              <button class="page-btn ${pageFeedback.status === 'approved' ? 'approved' : ''}"
+                      onclick="setPageFeedback('${pageId}', 'approved', event)" title="Approve page">👍</button>
+              <button class="page-btn ${pageFeedback.status === 'rejected' ? 'rejected' : ''}"
+                      onclick="setPageFeedback('${pageId}', 'rejected', event)" title="Reject page">👎</button>
+            </div>
+          </div>
+          <div class="page-text">${page.text}</div>
+          ${page.scene ? `<div class="page-scene">[${page.scene}]</div>` : ''}
+          <div class="page-comment-section">
+            <input type="text" class="page-comment"
+                   id="comment-${pageId}"
+                   placeholder="Add comment on this page..."
+                   value="${escapeHtml(pageFeedback.comment || '')}"
+                   data-page-id="${pageId}">
+            ${pageFeedback.comment ? `<span class="has-comment">💬</span>` : ''}
+          </div>
+        </div>
+      `}).join('');
+    }
+
+    function renderPromptTab(promptText) {
+      return `<div class="prompt-box">${escapeHtml(promptText)}</div>`;
+    }
+
+    function renderValidationTab(story) {
+      const v = story.validation;
+      if (!v) return '<p>No validation data</p>';
+
+      const scoreClass = v.decodability.score >= 90 ? 'validation-good' :
+                        v.decodability.score >= 75 ? 'validation-warning' : 'validation-bad';
+
+      return `
+        <div class="validation-grid">
+          <div class="validation-card">
+            <div class="validation-value ${scoreClass}">${v.decodability.score}%</div>
+            <div class="validation-label">Decodability</div>
+          </div>
+          <div class="validation-card">
+            <div class="validation-value">${v.decodability.sight || 0}</div>
+            <div class="validation-label">Sight Words</div>
+          </div>
+          <div class="validation-card">
+            <div class="validation-value">${v.decodability.decodable || 0}</div>
+            <div class="validation-label">Decodable</div>
+          </div>
+          <div class="validation-card">
+            <div class="validation-value">${v.decodability.inflected || 0}</div>
+            <div class="validation-label">Inflected</div>
+          </div>
+          <div class="validation-card">
+            <div class="validation-value ${v.sentenceCheck.violations > 0 ? 'validation-bad' : 'validation-good'}">
+              ${v.sentenceCheck.violations}
+            </div>
+            <div class="validation-label">Sentence Violations</div>
+          </div>
+          <div class="validation-card">
+            <div class="validation-value">${v.sentenceCheck.maxFound}/${v.sentenceCheck.maxAllowed}</div>
+            <div class="validation-label">Max/Allowed Words</div>
+          </div>
+        </div>
+
+        ${v.decodability.unknownWords?.length > 0 ? `
+          <div class="unknown-words">
+            <div class="unknown-words-title">Unknown Words (${v.decodability.unknown})</div>
+            ${v.decodability.unknownWords.map(w => `<span class="unknown-word">${w}</span>`).join('')}
+          </div>
+        ` : ''}
+      `;
+    }
+
+    function showTab(tab, el) {
+      // Update active tab
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+
+      const detail = document.getElementById('storyDetail');
+      const content = document.getElementById('tabContent');
+      const story = stories.find(s => s.id === detail.dataset.storyId);
+
+      if (tab === 'story') {
+        content.innerHTML = renderStoryTab(story);
+      } else if (tab === 'prompt') {
+        content.innerHTML = renderPromptTab(detail.dataset.promptText);
+      } else if (tab === 'validation') {
+        content.innerHTML = renderValidationTab(story);
+      }
+    }
+
+    function buildPromptText(level, type, spec) {
+      const typeDesc = type === 'hero_journey' ?
+        'Hero\'s Journey narrative structure (ordinary world → call to adventure → challenges → transformation → return)' :
+        type === 'art_poetry' ?
+        'Art/Poetry aesthetic with lyrical language, sensory imagery, and contemplative focus' :
+        'Standard sample story following level guidelines';
+
+      return `LEVEL ${level} STORY GENERATION PROMPT
+
+Type: ${typeDesc}
+
+LEVEL SPECIFICATIONS:
+${spec.name || `Level ${level}`}
+
+Phonics Focus:
+${spec.phonics_focus?.join(', ') || 'See level-specs.json'}
+
+Sample Words:
+${spec.sample_words?.join(', ') || 'See level-specs.json'}
+
+Sight Words Available:
+${spec.sight_words?.join(', ') || 'Cumulative from previous levels'}
+
+Sentence Structure:
+${spec.sentence_structure || 'See level-specs.json'}
+
+Story Guidance:
+${spec.story_guidance || 'Age-appropriate content for this reading level'}
+
+Max Words Per Sentence: ${getMaxWordsPerSentence(level)}
+
+INSTRUCTIONS:
+1. Use only words from the phonics word bank and sight words for this level
+2. Follow the sentence length limits strictly
+3. Include target phonics patterns in the text
+4. Create engaging, age-appropriate content
+5. For ${type === 'hero_journey' ? 'hero journey: follow the classic narrative arc' :
+         type === 'art_poetry' ? 'poetry: emphasize rhythm, imagery, and emotion' :
+         'sample: demonstrate level-appropriate reading'}`;
+    }
+
+    function getMaxWordsPerSentence(level) {
+      if (level <= 2) return 4;
+      if (level <= 4) return 6;
+      if (level <= 6) return 8;
+      if (level <= 10) return 10;
+      return 12;
+    }
+
+    function setPageFeedback(pageId, status, event) {
+      event.stopPropagation();
+
+      if (!feedback[pageId]) {
+        feedback[pageId] = {};
+      }
+
+      // Toggle if clicking same status
+      if (feedback[pageId].status === status) {
+        delete feedback[pageId].status;
+      } else {
+        feedback[pageId].status = status;
+      }
+
+      feedback[pageId].timestamp = new Date().toISOString();
+      saveFeedback();
+
+      // Update just the buttons for this page
+      const pageEl = document.querySelector(`[data-page-id="${pageId}"]`);
+      if (pageEl) {
+        const approveBtn = pageEl.querySelector('.page-btn:first-child');
+        const rejectBtn = pageEl.querySelector('.page-btn:last-child');
+        approveBtn.classList.toggle('approved', feedback[pageId].status === 'approved');
+        rejectBtn.classList.toggle('rejected', feedback[pageId].status === 'rejected');
+      }
+    }
+
+    function savePageComment(pageId, comment) {
+      if (!feedback[pageId]) {
+        feedback[pageId] = {};
+      }
+      if (comment) {
+        feedback[pageId].comment = comment;
+      } else {
+        delete feedback[pageId].comment;
+      }
+      feedback[pageId].timestamp = new Date().toISOString();
+      saveFeedback();
+    }
+
+    function setFeedback(storyId, status) {
+      if (!feedback[storyId]) {
+        feedback[storyId] = {};
+      }
+
+      // Toggle if clicking same status
+      if (feedback[storyId].status === status) {
+        feedback[storyId].status = 'pending';
+      } else {
+        feedback[storyId].status = status;
+      }
+
+      feedback[storyId].timestamp = new Date().toISOString();
+      saveFeedback();
+
+      // Re-render
+      const story = stories.find(s => s.id === storyId);
+      if (story) renderStoryDetail(story);
+      renderStoryList();
+      updateStats();
+    }
+
+    function saveComment(storyId) {
+      const comment = document.getElementById('commentBox').value;
+      if (!feedback[storyId]) {
+        feedback[storyId] = {};
+      }
+      feedback[storyId].comment = comment;
+      feedback[storyId].timestamp = new Date().toISOString();
+      saveFeedback();
+    }
+
+    function saveFeedback() {
+      localStorage.setItem('storyFeedback', JSON.stringify(feedback));
+
+      // Sync to local file API (so Claude can read it)
+      fetch('/api/feedback-local', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ feedback })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          console.log('Feedback saved:', data.itemCount, 'items');
+        }
+      })
+      .catch(err => console.log('Server sync skipped:', err.message));
+    }
+
+    async function loadServerFeedback() {
+      try {
+        const res = await fetch('/api/feedback-local');
+        if (res.ok) {
+          const serverFeedback = await res.json();
+          // Filter out metadata keys
+          const feedbackOnly = {};
+          Object.keys(serverFeedback).forEach(key => {
+            if (!key.startsWith('_')) {
+              feedbackOnly[key] = serverFeedback[key];
+            }
+          });
+          if (Object.keys(feedbackOnly).length > 0) {
+            // Merge server feedback with local (local takes precedence for conflicts)
+            feedback = { ...feedbackOnly, ...feedback };
+            localStorage.setItem('storyFeedback', JSON.stringify(feedback));
+          }
+        }
+      } catch (err) {
+        console.log('Server feedback not available:', err.message);
+      }
+    }
+
+    function updateStats() {
+      const total = stories.length;
+      const approved = Object.values(feedback).filter(f => f.status === 'approved').length;
+      const rejected = Object.values(feedback).filter(f => f.status === 'rejected').length;
+      const reviewed = approved + rejected;
+      const pending = total - reviewed;
+
+      document.getElementById('totalCount').textContent = total;
+      document.getElementById('reviewedCount').textContent = reviewed;
+      document.getElementById('approvedCount').textContent = approved;
+      document.getElementById('rejectedCount').textContent = rejected;
+      document.getElementById('pendingCount').textContent = pending;
+    }
+
+    function navigateStory(direction) {
+      const filtered = getFilteredStories();
+      const currentIndex = filtered.findIndex(s => s.id === currentStoryId);
+      const newIndex = currentIndex + direction;
+
+      if (newIndex >= 0 && newIndex < filtered.length) {
+        selectStory(filtered[newIndex].id);
+      }
+    }
+
+    function exportFeedback() {
+      const data = {
+        exportDate: new Date().toISOString(),
+        feedback: feedback,
+        stats: {
+          total: stories.length,
+          approved: Object.values(feedback).filter(f => f.status === 'approved').length,
+          rejected: Object.values(feedback).filter(f => f.status === 'rejected').length
+        }
+      };
+
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `story-feedback-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importFeedback() {
+      document.getElementById('importFile').click();
+    }
+
+    function handleImport(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (data.feedback) {
+            feedback = { ...feedback, ...data.feedback };
+            saveFeedback();
+            renderStoryList();
+            updateStats();
+            alert('Feedback imported successfully!');
+          }
+        } catch (err) {
+          alert('Failed to import feedback: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+
+      if (e.key === 'ArrowUp' || e.key === 'k') {
+        navigateStory(-1);
+      } else if (e.key === 'ArrowDown' || e.key === 'j') {
+        navigateStory(1);
+      } else if (e.key === 'a') {
+        if (currentStoryId) setFeedback(currentStoryId, 'approved');
+      } else if (e.key === 'r') {
+        if (currentStoryId) setFeedback(currentStoryId, 'rejected');
+      }
+    });
+
+    // Debounced comment saving using event delegation
+    let commentTimeout = null;
+    document.addEventListener('input', (e) => {
+      if (e.target.classList.contains('page-comment')) {
+        const pageId = e.target.dataset.pageId;
+        const value = e.target.value;
+
+        // Clear previous timeout
+        if (commentTimeout) clearTimeout(commentTimeout);
+
+        // Save after 500ms of no typing
+        commentTimeout = setTimeout(() => {
+          savePageComment(pageId, value);
+        }, 500);
+      }
+    });
+
+    // Also save on blur (when clicking away)
+    document.addEventListener('blur', (e) => {
+      if (e.target.classList.contains('page-comment')) {
+        const pageId = e.target.dataset.pageId;
+        const value = e.target.value;
+        if (commentTimeout) clearTimeout(commentTimeout);
+        savePageComment(pageId, value);
+      }
+    }, true);
+
+    // Initialize
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+{
+  "level": 3,
+  "type": "art_poetry",
+  "title": "Shell by the Shore",
+  "summary": "A meditative piece about shells and the seashore, exploring digraph sounds and the rhythm of waves through repetitive language.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "The shell is white.",
+      "scene": "A single pristine white shell lying on wet sand, light catching its curves"
+    },
+    {
+      "page": 2,
+      "text": "Shh. The beach is still.",
+      "scene": "A quiet morning beach, mist rising, all is silent and peaceful"
+    },
+    {
+      "page": 3,
+      "text": "What do you think?",
+      "scene": "A child gazing at the shell, wondering, with a soft questioning expression"
+    },
+    {
+      "page": 4,
+      "text": "This shell is thin.",
+      "scene": "Close-up of shell detail, showing delicate texture and fragile edges"
+    },
+    {
+      "page": 5,
+      "text": "The chip and crack.",
+      "scene": "Another shell nearby, weathered and broken, showing age"
+    },
+    {
+      "page": 6,
+      "text": "Which shell will you choose?",
+      "scene": "Many shells scattered in the sand, each unique, waiting to be discovered"
+    },
+    {
+      "page": 7,
+      "text": "The shells sing here.",
+      "scene": "Shells being gently tumbled by waves, making soft musical sounds"
+    },
+    {
+      "page": 8,
+      "text": "The shore. The shell. You.",
+      "scene": "Figure holding a shell, watching the sunset over water, complete peace"
+    }
+  ],
+  "word_list": {
+    "sight": ["the", "is", "do", "you", "will", "here"],
+    "decodable": ["shell", "white", "shh", "beach", "still", "what", "think", "this", "thin", "chip", "crack", "which", "choose", "shells", "sing", "shore"]
+  },
+  "phonics_focus": [
+    "sh- (shell, shh, shore)",
+    "ch- (chip, choose, think)",
+    "th- (the, thin, this, think, that)",
+    "wh- (which, what, white, will)",
+    "-ck (crack, thick, check)"
+  ],
+  "metadata": {
+    "word_count": 36,
+    "max_sentence_length": 5,
+    "aesthetic_focus": "Seashore tranquility, weathered beauty, quiet wonder"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "id": "b5-the-ship-in-the-shell",
+  "title": "The Ship in the Shell",
+  "slug": "the-ship-in-the-shell",
+  "level": "B5",
+  "band": "B",
+  "targetPhonics": "Digraphs",
+  "wordFamilies": ["sh", "ch", "th", "wh", "ck", "ng"],
+  "skill": "Consonant Digraphs",
+  "skill_description": "Practice reading consonant digraphs where two letters make one sound: sh, ch, th, wh, ck, and ng.",
+  "age_range": "K-1",
+  "created": "2026-01-06",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Chuck finds a shell on the beach that holds a tiny ship. He and his friend Beth wish upon it and discover that sharing and friendship are the best treasures.",
+
+  "word_list": {
+    "sound_out": ["ship", "shell", "shop", "shut", "shack", "fish", "wish", "rush", "dash", "trash", "chip", "chop", "chat", "chin", "rich", "much", "such", "lunch", "this", "that", "them", "then", "with", "bath", "path", "thick", "thin", "when", "what", "which", "where", "white", "back", "kick", "rock", "duck", "stick", "black", "truck", "ring", "sing", "song", "long", "king", "thing", "bring", "wing"],
+    "sight": ["a", "I", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from"],
+    "new": ["Chuck", "Beth", "beach"]
+  },
+
+  "sightWordsUsed": ["a", "I", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from"],
+
+  "wordsearch_words": ["ship", "shell", "fish", "wish", "chat", "this", "ring", "king"],
+
+  "pages": [
+    { "page": 1, "type": "cover", "text": "The Ship in the Shell", "scene": "A small boy holding up a large pink shell with a tiny ship visible inside. Beach background. Warm watercolor style." },
+    { "page": 2, "type": "copyright" },
+    { "page": 3, "type": "parent_guide" },
+    { "page": 4, "type": "level_info" },
+    { "page": 5, "type": "wordlist", "text": "Words to Know" },
+    { "page": 6, "story_page": 1, "type": "story", "text": "Chuck went to the beach with his friend Beth.", "scene": "A boy and girl walking onto a sandy beach together. Warm watercolor style." },
+    { "page": 7, "story_page": 2, "type": "story", "text": "\"What is that?\" said Chuck. He saw a shell in the sand.", "scene": "A boy pointing at a large pink shell on the beach. Warm watercolor style." },
+    { "page": 8, "story_page": 3, "type": "story", "text": "Chuck ran to grab the shell. It was thick and white.", "scene": "A boy picking up a large white and pink shell. Warm watercolor style." },
+    { "page": 9, "story_page": 4, "type": "story", "text": "\"What is in this shell?\" said Beth. She took a long look.", "scene": "A girl peering into a large shell with curiosity. Warm watercolor style." },
+    { "page": 10, "story_page": 5, "type": "story", "text": "\"I see a ship!\" said Chuck. \"A ship is in the shell!\"", "scene": "A tiny magical ship visible inside the shell, glowing softly. Warm watercolor style." },
+    { "page": 11, "story_page": 6, "type": "story", "text": "The ship was such a rich thing. It had a flag with a ring.", "scene": "Close-up of a tiny ornate ship with a flag showing a ring symbol. Warm watercolor style." },
+    { "page": 12, "story_page": 7, "type": "story", "text": "\"I wish I had a ship,\" said Beth with a long sigh.", "scene": "A girl looking wistfully at the tiny ship in the shell. Warm watercolor style." },
+    { "page": 13, "story_page": 8, "type": "story", "text": "\"What if we wish on this shell?\" said Chuck.", "scene": "A boy holding up the shell, looking hopeful. Warm watercolor style." },
+    { "page": 14, "story_page": 9, "type": "story", "text": "Chuck and Beth shut them and made a wish. \"I wish!\"", "scene": "Two children with eyes closed, holding the shell together, making wishes. Warm watercolor style." },
+    { "page": 15, "story_page": 10, "type": "story", "text": "Then the ship began to sing! Chuck and Beth could not rush.", "scene": "The tiny ship glowing and musical notes floating around it. Warm watercolor style." },
+    { "page": 16, "story_page": 11, "type": "story", "text": "\"This song is long and grand,\" said Beth. \"What a thing!\"", "scene": "Both children listening enchanted to the singing shell. Warm watercolor style." },
+    { "page": 17, "story_page": 12, "type": "story", "text": "\"We can bring this shell back,\" said Chuck. \"We can share it!\"", "scene": "A boy gesturing excitedly about sharing their discovery. Warm watercolor style." },
+    { "page": 18, "story_page": 13, "type": "story", "text": "\"That is the best wish,\" said Beth. \"To share with a friend!\"", "scene": "A girl smiling warmly at her friend. Warm watercolor style." },
+    { "page": 19, "story_page": 14, "type": "story", "text": "Chuck and Beth sat on the sand with the shell and sang along.", "scene": "Two friends sitting on the beach, singing with the magical shell. Warm watercolor style." },
+    { "page": 20, "story_page": 15, "type": "story", "text": "\"This is much fun,\" said Chuck. \"Friends share the best things!\"", "scene": "Both children happy together, shell between them. Warm watercolor style." },
+    { "page": 21, "story_page": 16, "type": "story", "text": "The ship sang on. Chuck and Beth had a grand wish that came true.", "scene": "The children walking home at sunset, shell in hand, ship glowing inside. Warm watercolor style." },
+    { "page": 22, "type": "end", "text": "The End", "scene": "The shell on a shelf, with the tiny ship still glowing inside. Warm watercolor style." },
+    { "page": 23, "type": "wordsearch" },
+    { "page": 24, "type": "series_info" },
+    { "page": 25, "type": "back_cover", "text": "" }
+  ],
+
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 268,
+    "decodabilityTarget": "85%+",
+    "storyPages": 16
+  }
+}

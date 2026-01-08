@@ -1,0 +1,40 @@
+{
+  "id": "c4-robot-pilot",
+  "title": "The Robot and the Pilot",
+  "level": "C4",
+  "band": "C",
+  "targetPhonics": "Two-Syllable Open + Consonant-le",
+  "morphologyFocus": ["V/CV open syllable", "consonant-le", "compound words"],
+  "sightWordsUsed": ["before", "after", "always", "open", "even", "little"],
+  "pages": [
+    {"page": 1, "text": "A robot named Robo lived in a little cabin near the airplane runway.", "scene": "A friendly robot standing outside a small cabin near an airport runway."},
+    {"page": 2, "text": "Robo had always wanted to be a pilot and fly an airplane someday.", "scene": "The robot gazing at airplanes taking off, dreaming expression on its face."},
+    {"page": 3, "text": "One sunny day, a paper airplane landed right outside the cabin door.", "scene": "A paper airplane floating down and landing near the robot's cabin door."},
+    {"page": 4, "text": "Robo picked up the paper and read the simple message written on it.", "scene": "The robot holding the paper airplane, reading the note carefully."},
+    {"page": 5, "text": "The note said a tiger pilot needed a robot helper at the airport.", "scene": "Close-up of the note with a drawing of a tiger pilot."},
+    {"page": 6, "text": "Robo felt a tingle of excitement and hurried to the airport right away.", "scene": "The robot running excitedly toward the airport terminal building."},
+    {"page": 7, "text": "At the middle of the runway stood a purple airplane with sparkles.", "scene": "A vibrant purple airplane covered in sparkles sitting on the runway."},
+    {"page": 8, "text": "A tiger in a uniform stood beside the airplane with a gentle smile.", "scene": "A tiger wearing a pilot uniform, smiling warmly at the approaching robot."},
+    {"page": 9, "text": "The tiger pilot said that flying was simple if you stayed focused.", "scene": "The tiger gesturing while explaining, robot listening attentively."},
+    {"page": 10, "text": "Before the flight, they checked the airplane from nose to tail together.", "scene": "Robot and tiger inspecting the airplane, checking various parts."},
+    {"page": 11, "text": "They made sure even the little handle on the door was working well.", "scene": "Close-up of hands checking the door handle mechanism."},
+    {"page": 12, "text": "After the check, they climbed into the cockpit of the purple airplane.", "scene": "Robot and tiger climbing into the airplane cockpit, excited expressions."},
+    {"page": 13, "text": "The tiger showed Robo how to open the throttle and start the motor.", "scene": "Inside the cockpit, tiger demonstrating the controls to the robot."},
+    {"page": 14, "text": "The airplane began to rumble and shake as the engine came alive.", "scene": "The airplane vibrating on the runway, propeller spinning fast."},
+    {"page": 15, "text": "They raced down the runway and lifted up into the sunshine outside.", "scene": "The airplane taking off into a bright blue sky with fluffy clouds."},
+    {"page": 16, "text": "Robo looked outside and saw the whole city spread out far below them.", "scene": "View from airplane window showing the city and landscape below."},
+    {"page": 17, "text": "They flew over a purple castle and a lake that sparkled like a bottle.", "scene": "Aerial view of a purple castle and a shimmering lake below."},
+    {"page": 18, "text": "The tiger let Robo take the controls and steer the airplane in circles.", "scene": "Robot at the controls, tiger watching proudly as they fly."},
+    {"page": 19, "text": "Flying felt like a puzzle that Robo was finally able to solve.", "scene": "The robot looking confident and happy while piloting the plane."},
+    {"page": 20, "text": "After landing, the tiger gave Robo a little golden apple badge to keep.", "scene": "The tiger pinning a golden apple-shaped badge on the robot."},
+    {"page": 21, "text": "Robo knew that homework and practice would make future flights even better.", "scene": "Robot studying a flight manual in its cabin, determined expression."},
+    {"page": 22, "text": "From that birthday moment on, Robo the robot was also a real pilot.", "scene": "Robot in pilot uniform standing proudly next to the purple airplane at sunset."}
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 450,
+    "decodabilityTarget": "70%+",
+    "targetPatternWords": ["robot", "pilot", "tiger", "paper", "open", "even", "moment", "motor", "focus", "silent", "little", "apple", "purple", "sparkle", "tingle", "simple", "middle", "handle", "rumble", "bottle", "puzzle", "circle", "sunshine", "airplane", "runway", "outside", "birthday", "homework", "cockpit", "before", "after", "always"]
+  }
+}

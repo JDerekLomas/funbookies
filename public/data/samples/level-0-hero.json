@@ -1,0 +1,58 @@
+{
+  "level": 0,
+  "type": "hero_journey",
+  "title": "Go, Cat, Go!",
+  "summary": "A brave cat answers the call to help find a lost toy, discovering courage within itself.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A cat.",
+      "scene": "A small gray cat sitting peacefully in a cozy home"
+    },
+    {
+      "page": 2,
+      "text": "The cat is.",
+      "scene": "Cat's ordinary day, napping in sunlight"
+    },
+    {
+      "page": 3,
+      "text": "A toy!",
+      "scene": "Child pointing at a toy that has rolled away into a dark corner"
+    },
+    {
+      "page": 4,
+      "text": "Go, cat, go!",
+      "scene": "Child calling to the cat with excitement and hope"
+    },
+    {
+      "page": 5,
+      "text": "I go.",
+      "scene": "Cat stepping forward bravely toward the dark space"
+    },
+    {
+      "page": 6,
+      "text": "The toy!",
+      "scene": "Cat discovering the toy in the shadows"
+    },
+    {
+      "page": 7,
+      "text": "A cat is. We go.",
+      "scene": "Cat carrying toy back to child triumphantly"
+    },
+    {
+      "page": 8,
+      "text": "The end.",
+      "scene": "Child hugging the cat, both happy and celebrating"
+    }
+  ],
+  "word_list": {
+    "decodable": [],
+    "sight": ["a", "cat", "the", "is", "toy", "go", "i", "we", "end"]
+  },
+  "phonics_focus": ["sight words only"],
+  "metadata": {
+    "word_count": 24,
+    "max_sentence_length": 2,
+    "decodability_target": "100% sight words"
+  }
+}

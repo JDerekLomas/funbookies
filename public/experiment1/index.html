@@ -104,17 +104,48 @@
 
         .level-list {
             list-style: none;
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        .level-group {
+            margin-bottom: var(--space-sm);
+        }
+
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 4px;
+        }
+
+        .group-header strong {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--color-charcoal);
+        }
+
+        .group-grades {
+            font-size: 0.7rem;
+            color: #999;
+        }
+
+        .group-levels {
+            list-style: none;
         }
 
         .level-item {
             display: flex;
             align-items: center;
-            gap: var(--space-sm);
-            padding: var(--space-sm);
-            border-radius: 8px;
+            gap: 8px;
+            padding: 6px 8px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 4px;
+            transition: all 0.15s;
+            margin-bottom: 2px;
+            font-size: 0.85rem;
         }
 
         .level-item:hover {
@@ -124,6 +155,25 @@
         .level-item.selected {
             background: var(--color-sage-light);
             border-left: 3px solid var(--color-sage);
+        }
+
+        .level-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.7rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .level-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .level-badge {
@@ -138,27 +188,35 @@
             color: white;
         }
 
-        .level-info h3 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .level-info p {
-            font-size: 0.75rem;
-            color: #666;
-        }
-
-        /* Level colors */
-        .level-0 { background: #FFB6C1; }
-        .level-1 { background: #FFD700; }
-        .level-2 { background: #FFA500; }
-        .level-3 { background: #FF6347; }
-        .level-4 { background: #9370DB; }
-        .level-5 { background: #4169E1; }
-        .level-6 { background: #32CD32; }
-        .level-7 { background: #DAA520; }
-        .level-8 { background: #C0C0C0; }
+        /* Level colors - Phonics Foundation (0-8) */
+        .level-0, [data-level="0"] .level-num { background: #FFB6C1; }
+        .level-1, [data-level="1"] .level-num { background: #FFD700; }
+        .level-2, [data-level="2"] .level-num { background: #FFA500; }
+        .level-3, [data-level="3"] .level-num { background: #FF8C00; }
+        .level-4, [data-level="4"] .level-num { background: #DC143C; }
+        .level-5, [data-level="5"] .level-num { background: #9370DB; }
+        .level-6, [data-level="6"] .level-num { background: #4169E1; }
+        .level-7, [data-level="7"] .level-num { background: #228B22; }
+        .level-8, [data-level="8"] .level-num { background: #DAA520; }
+        /* Transitional (9-12) */
+        .level-9, [data-level="9"] .level-num { background: #20B2AA; }
+        .level-10, [data-level="10"] .level-num { background: #4B0082; }
+        .level-11, [data-level="11"] .level-num { background: #FF7F50; }
+        .level-12, [data-level="12"] .level-num { background: #32CD32; }
+        /* Developing (13-16) */
+        .level-13, [data-level="13"] .level-num { background: #FF00FF; }
+        .level-14, [data-level="14"] .level-num { background: #00CED1; }
+        .level-15, [data-level="15"] .level-num { background: #FFBF00; }
+        .level-16, [data-level="16"] .level-num { background: #708090; }
+        /* Fluent (17-20) */
+        .level-17, [data-level="17"] .level-num { background: #DC143C; }
+        .level-18, [data-level="18"] .level-num { background: #50C878; }
+        .level-19, [data-level="19"] .level-num { background: #8A2BE2; }
+        .level-20, [data-level="20"] .level-num { background: #CD7F32; }
+        /* Advanced (21-23) */
+        .level-21, [data-level="21"] .level-num { background: #C0C0C0; }
+        .level-22, [data-level="22"] .level-num { background: #E5E4E2; color: #333; }
+        .level-23, [data-level="23"] .level-num { background: #0C0C0C; }
 
         /* Content area */
         .content {
@@ -478,6 +536,128 @@
             font-size: 0.75rem;
             color: #666;
         }
+
+        /* Validation results */
+        .validation-section {
+            margin-top: var(--space-md);
+            padding: var(--space-md);
+            background: var(--color-cream);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .validation-section.visible {
+            display: block;
+        }
+
+        .validation-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .validation-header h4 {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .validation-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .validation-badge.pass {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .validation-badge.fail {
+            background: #F8D7DA;
+            color: #721C24;
+        }
+
+        .validation-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .stat-item {
+            background: var(--color-white);
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-item .value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-sage-dark);
+        }
+
+        .stat-item .label {
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .validation-issues {
+            margin-top: var(--space-sm);
+        }
+
+        .validation-issues h5 {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: #721C24;
+        }
+
+        .issue-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .issue-item {
+            background: var(--color-white);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            border-left: 3px solid var(--color-terracotta);
+        }
+
+        .issue-item .word {
+            font-weight: 600;
+            color: var(--color-terracotta);
+        }
+
+        .issue-item .suggestion {
+            color: var(--color-sage-dark);
+            font-style: italic;
+        }
+
+        .decodability-bar {
+            height: 8px;
+            background: #E0E0E0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .decodability-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .decodability-fill.excellent { background: #28A745; }
+        .decodability-fill.good { background: #9FC7AA; }
+        .decodability-fill.fair { background: #FFC107; }
+        .decodability-fill.poor { background: #DC3545; }
     </style>
 </head>
 <body>
@@ -513,12 +693,16 @@
                     </div>
                     <div class="level-meta">
                         <div class="meta-item">
+                            <strong>Grade</strong>
+                            <span id="levelGrade">K</span>
+                        </div>
+                        <div class="meta-item">
                             <strong>Skill</strong>
                             <span id="levelSkill">CVC with short u</span>
                         </div>
                         <div class="meta-item">
-                            <strong>Words/Sentence</strong>
-                            <span id="levelWords">4 words max</span>
+                            <strong>Max Words</strong>
+                            <span id="levelWords">4 words</span>
                         </div>
                         <div class="meta-item">
                             <strong>Age Range</strong>
@@ -616,8 +800,33 @@
                     <div class="story-preview" id="storyPreview">
                         <!-- Pages inserted here -->
                     </div>
-                    <div style="display: flex; gap: var(--space-sm);">
-                        <button class="btn btn-primary" onclick="generateImages()">Generate Images</button>
+
+                    <!-- Validation Results -->
+                    <div class="validation-section" id="validationSection">
+                        <div class="validation-header">
+                            <h4>Reading Level Validation</h4>
+                            <span class="validation-badge" id="validationBadge">Checking...</span>
+                        </div>
+                        <div class="validation-stats" id="validationStats">
+                            <!-- Stats populated by JS -->
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                                <span>Decodability Score</span>
+                                <span id="decodabilityPercent">--</span>
+                            </div>
+                            <div class="decodability-bar">
+                                <div class="decodability-fill" id="decodabilityFill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="validation-issues" id="validationIssues">
+                            <!-- Issues populated by JS -->
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap; margin-top: var(--space-md);">
+                        <button class="btn btn-primary" onclick="reviseStory()">Revise to Fit Level</button>
+                        <button class="btn btn-secondary" onclick="generateImages()">Generate Images</button>
                         <button class="btn btn-secondary" onclick="downloadJSON()">Download JSON</button>
                         <button class="btn btn-secondary" onclick="regenerate()">Try Again</button>
                     </div>
@@ -635,18 +844,299 @@
     </div>
 
     <script>
-        // Reading levels data
+        // Reading levels data - Phonics → Fluency → Comprehension progression
+        // Levels 0-8: Phonics Foundation (Pre-K to Grade 2)
+        // Levels 9-12: Transitional (Grades 2-3)
+        // Levels 13-16: Developing (Grades 3-5)
+        // Levels 17-20: Fluent (Grades 5-7)
+        // Levels 21-23: Advanced (Grades 7-12)
         const LEVELS = [
-            { level: 0, color: 'Pink', name: 'Pre-reader', skill: 'Picture reading', words: 2, age: '3-5', examples: ['I', 'a', 'the', 'cat', 'dog'] },
-            { level: 1, color: 'Yellow', name: 'Simple CVC', skill: 'Basic CVC words', words: 3, age: '4-5', examples: ['cat', 'dog', 'sun', 'hat', 'pig'] },
-            { level: 2, color: 'Orange', name: 'CVC + short u', skill: 'CVC with short u', words: 4, age: '4-6', examples: ['mud', 'bug', 'cup', 'fun', 'run'] },
-            { level: 3, color: 'Orange', name: 'CVC + Digraphs', skill: 'Digraphs (sh, ch, th)', words: 5, age: '4-6', examples: ['ship', 'chat', 'that', 'fish', 'much'] },
-            { level: 4, color: 'Red', name: 'Beginning blends', skill: 'Consonant blends', words: 6, age: '5-7', examples: ['stop', 'flag', 'crab', 'drum', 'frog'] },
-            { level: 5, color: 'Purple', name: 'Ending blends', skill: 'Ending blends', words: 7, age: '5-7', examples: ['jump', 'help', 'fast', 'crisp', 'stamp'] },
-            { level: 6, color: 'Blue', name: 'Silent e', skill: 'Magic e words', words: 8, age: '5-8', examples: ['cake', 'bike', 'home', 'tube', 'make'] },
-            { level: 7, color: 'Green', name: 'Vowel teams', skill: 'Vowel teams', words: 10, age: '6-8', examples: ['rain', 'boat', 'see', 'coat', 'team'] },
-            { level: 8, color: 'Gold', name: 'R-controlled', skill: 'R-controlled vowels', words: 12, age: '6-9', examples: ['car', 'bird', 'corn', 'turn', 'hurt'] },
+            // === PHONICS FOUNDATION (Pre-K to Grade 2) ===
+            { level: 0, color: 'Pink', name: 'Pre-reader', skill: 'Picture reading', words: 2, age: '3-5', grade: 'Pre-K', examples: ['I', 'a', 'the', 'cat', 'dog'] },
+            { level: 1, color: 'Yellow', name: 'CVC Short a/i/o', skill: 'Basic CVC words', words: 3, age: '4-5', grade: 'K', examples: ['cat', 'sit', 'hot', 'pig', 'map'] },
+            { level: 2, color: 'Orange', name: 'CVC All Vowels', skill: 'Short e, u added', words: 4, age: '4-6', grade: 'K', examples: ['bed', 'mud', 'pet', 'cup', 'run'] },
+            { level: 3, color: 'Orange', name: 'Digraphs', skill: 'sh, ch, th, wh, ck, ng', words: 5, age: '5-6', grade: 'K-1', examples: ['ship', 'chat', 'this', 'kick', 'ring'] },
+            { level: 4, color: 'Red', name: 'Initial Blends', skill: 'bl, cr, st, sw...', words: 6, age: '5-7', grade: '1', examples: ['stop', 'flag', 'crab', 'swim', 'frog'] },
+            { level: 5, color: 'Purple', name: 'Final Blends', skill: '-nd, -mp, -st, FLOSS', words: 7, age: '5-7', grade: '1', examples: ['jump', 'fast', 'bell', 'miss', 'sand'] },
+            { level: 6, color: 'Blue', name: 'Silent E', skill: 'VCe long vowels', words: 8, age: '5-8', grade: '1', examples: ['cake', 'bike', 'home', 'tube', 'make'] },
+            { level: 7, color: 'Green', name: 'Vowel Teams', skill: 'ai, ea, oa, ee, oo', words: 10, age: '6-8', grade: '1-2', examples: ['rain', 'boat', 'see', 'moon', 'team'] },
+            { level: 8, color: 'Gold', name: 'R-Controlled', skill: 'ar, er, ir, or, ur', words: 12, age: '6-9', grade: '2', examples: ['car', 'bird', 'corn', 'turn', 'hurt'] },
+
+            // === TRANSITIONAL (Grades 2-3) ===
+            { level: 9, color: 'Teal', name: 'Diphthongs', skill: 'oi/oy, ou/ow, au/aw', words: 14, age: '7-9', grade: '2', examples: ['boy', 'coin', 'cloud', 'down', 'saw', 'haul'] },
+            { level: 10, color: 'Indigo', name: 'Silent Letters', skill: 'kn, wr, gn, mb, gh', words: 15, age: '7-9', grade: '2-3', examples: ['know', 'write', 'sign', 'lamb', 'night', 'thought'] },
+            { level: 11, color: 'Coral', name: 'Soft C & G', skill: 'ce, ci, ge, gi, dge', words: 16, age: '7-9', grade: '2-3', examples: ['city', 'race', 'giant', 'bridge', 'edge', 'prince'] },
+            { level: 12, color: 'Lime', name: '2-Syllable Words', skill: 'Closed + open syllables', words: 18, age: '7-10', grade: '3', examples: ['rabbit', 'napkin', 'robot', 'even', 'tiger', 'open'] },
+
+            // === DEVELOPING READERS (Grades 3-5) ===
+            { level: 13, color: 'Magenta', name: 'Syllable Types', skill: 'All 6 syllable types', words: 20, age: '8-10', grade: '3', examples: ['Complete', 'table', 'market', 'rescue', 'highway', 'employ'] },
+            { level: 14, color: 'Cyan', name: 'Common Suffixes', skill: '-ed, -ing, -ly, -ful, -less', words: 22, age: '8-11', grade: '3-4', examples: ['jumped', 'running', 'quickly', 'helpful', 'careless', 'excitement'] },
+            { level: 15, color: 'Amber', name: 'Common Prefixes', skill: 'un-, re-, pre-, dis-, mis-', words: 24, age: '9-11', grade: '4', examples: ['unhappy', 'return', 'preview', 'disagree', 'misplace', 'invisible'] },
+            { level: 16, color: 'Slate', name: 'Latin Roots', skill: 'Basic morphology', words: 26, age: '9-12', grade: '4-5', examples: ['inspect', 'transport', 'construct', 'describe', 'interrupt', 'predict'] },
+
+            // === FLUENT READERS (Grades 5-7) ===
+            { level: 17, color: 'Crimson', name: 'Greek Roots', skill: 'Advanced morphology', words: 28, age: '10-12', grade: '5', examples: ['telephone', 'biography', 'photograph', 'democracy', 'chronology', 'geography'] },
+            { level: 18, color: 'Emerald', name: 'Academic Vocab Tier 2', skill: 'Cross-curricular words', words: 30, age: '10-13', grade: '5-6', examples: ['analyze', 'evidence', 'significant', 'conclude', 'compare', 'influence'] },
+            { level: 19, color: 'Violet', name: 'Complex Sentences', skill: 'Subordinate clauses', words: 35, age: '11-13', grade: '6', examples: ['Although...', 'Because...', 'While...', 'If...then', 'Not only...but also'] },
+            { level: 20, color: 'Bronze', name: 'Figurative Language', skill: 'Idioms, metaphor, irony', words: 40, age: '11-14', grade: '6-7', examples: ['Break the ice', 'Time flies', 'Heart of gold', 'Sharp as a tack'] },
+
+            // === ADVANCED READERS (Grades 7-12) ===
+            { level: 21, color: 'Silver', name: 'Domain Vocabulary', skill: 'Subject-specific Tier 3', words: 45, age: '12-15', grade: '7-8', examples: ['photosynthesis', 'democracy', 'allegory', 'variable', 'revolution', 'catalyst'] },
+            { level: 22, color: 'Platinum', name: 'Nuanced Language', skill: 'Connotation, tone, register', words: 50, age: '13-16', grade: '8-10', examples: ['Nevertheless', 'Subsequently', 'Notwithstanding', 'Albeit', 'Whereas'] },
+            { level: 23, color: 'Obsidian', name: 'Advanced Literary', skill: 'Complex texts, analysis', words: 60, age: '14-18', grade: '9-12', examples: ['Juxtaposition', 'Foreshadowing', 'Epistolary', 'Antithesis', 'Verisimilitude'] },
         ];
+
+        // Detailed phonics specifications per level (Orton-Gillingham / Science of Reading based)
+        const LEVEL_SPECS = {
+            0: {
+                name: "Pre-reader (Pink)",
+                phonics: "No decoding required. Memorized words only.",
+                patterns: ["Single words or 2-word phrases"],
+                decodable: [],
+                sightWords: ["I", "a", "the", "is", "it", "my", "me", "we", "go", "no", "so", "to", "do", "he", "she", "be"],
+                avoid: ["Any word requiring decoding", "Sentences longer than 2 words"],
+                sentenceStructure: "Label format: 'The [noun].' or '[Noun]!' Maximum 2 words.",
+                examples: ["The cat.", "A dog.", "I go.", "My hat."]
+            },
+            1: {
+                name: "CVC Short A, I, O (Yellow)",
+                phonics: "Closed syllables with short a, i, o only. Single consonants.",
+                patterns: ["CVC with /a/: cat, hat, sat, mat, bat, rat, can, pan, man, ran, fan, van, dad, sad, mad, bad, had, nap, tap, cap, map, gap, lap, tag, bag, rag, wag"],
+                decodable: ["CVC with /i/: sit, hit, bit, fit, pit, kit, dig, big, pig, wig, fig, jig, did, hid, kid, lid, rid, dim, him, rim, tin, pin, bin, fin, win, dip, hip, lip, rip, sip, tip, zip"],
+                sightWords: ["I", "a", "the", "is", "it", "my", "to", "go", "no", "so", "we", "he", "she", "be", "me", "do", "was", "said", "you", "are", "have", "they", "what", "were", "there", "your"],
+                avoid: ["Short e, u words", "Digraphs", "Blends", "Silent e", "Multi-syllable words"],
+                sentenceStructure: "Simple declarative. Subject + verb or Subject + verb + object. Max 3 words.",
+                examples: ["The cat sat.", "A pig hid.", "I can nap.", "The dog ran."]
+            },
+            2: {
+                name: "CVC All Short Vowels (Orange)",
+                phonics: "All 5 short vowels in CVC pattern. Still single consonants only.",
+                patterns: ["Add short e: bed, red, fed, led, pet, bet, get, jet, let, met, net, set, wet, yet, hen, den, men, pen, ten, peg, leg, beg"],
+                decodable: ["Add short u: bug, dug, hug, jug, mug, rug, tug, bud, cud, mud, bus, us, but, cut, gut, hut, jut, nut, rut, bun, fun, gun, nun, pun, run, sun, cup, pup, up"],
+                sightWords: ["Previous + come, some, one, done, from, of, or, for, her, very, want, says, could, would, should, who, two, into, many, water"],
+                avoid: ["Digraphs", "Blends", "Silent e", "Vowel teams", "Multi-syllable"],
+                sentenceStructure: "Simple sentences. Can use 'and' to join. Max 4 words per clause.",
+                examples: ["The pup dug mud.", "A hen sat.", "I pet the cat.", "We had fun."]
+            },
+            3: {
+                name: "Digraphs (Orange+)",
+                phonics: "Consonant digraphs: sh, ch, th, wh, ck, ng. Still short vowels.",
+                patterns: ["sh-: ship, shop, shed, shell, shin, shut, shun, shot, sham, shag, shack"],
+                decodable: ["ch-: chip, chop, chin, chat, chess, chill, chug, check, chest, chick", "th-: this, that, them, then, than, thin, thick, thud", "wh-: when, which, whip, whim", "-ck: back, pack, tack, rack, sack, kick, pick, sick, tick, wick, dock, lock, rock, sock, duck, luck, muck, tuck, stuck", "-ng: bang, hang, rang, sang, king, ring, sing, wing, gong, song, hung, lung, rung, sung"],
+                sightWords: ["Previous + because, before, after, again, give, live, does, goes, been, being, where, here, any, only, our, new, know, now, how, down, out, about"],
+                avoid: ["Blends", "Silent e", "Vowel teams", "R-controlled"],
+                sentenceStructure: "Can include questions and exclamations. Max 5 words.",
+                examples: ["The ship is big!", "Which shell is that?", "They sang a song.", "Chuck had a snack."]
+            },
+            4: {
+                name: "Initial Blends (Red)",
+                phonics: "Beginning consonant blends: bl, cl, fl, gl, pl, sl, br, cr, dr, fr, gr, pr, tr, sc, sk, sm, sn, sp, st, sw.",
+                patterns: ["l-blends: black, clap, flag, glad, plan, slap, slip, blob, clock, flip, glum, plus, slug", "r-blends: brick, crab, drip, frog, grin, press, trap, trim, trip, drop, gram, prop"],
+                decodable: ["s-blends: scan, skin, smell, snap, spin, spot, stem, step, stop, swim, swam, skit, skip, skid, snug, sled, slid"],
+                sightWords: ["Previous + friend, special, sure, even, always, often, please, once, own, use, used, make, made, just, must, much, such, other, another"],
+                avoid: ["Silent e", "Vowel teams", "R-controlled vowels", "Ending blends (except simple -st, -nd)"],
+                sentenceStructure: "Compound sentences with 'and', 'but'. Max 6 words per clause.",
+                examples: ["The frog can stop and swim.", "Brad slid on the sled.", "Grab the flag, Stan!"]
+            },
+            5: {
+                name: "Final Blends & FLOSS (Purple)",
+                phonics: "Ending blends: -st, -sk, -sp, -nd, -nt, -nk, -mp, -lt, -ft, -lp, -ct, -pt. FLOSS rule (ff, ll, ss, zz).",
+                patterns: ["-nd: and, band, hand, land, sand, bend, lend, send, end, fond, pond, bond", "-nt: ant, bent, dent, hint, mint, tent, went, hunt, punt, bunt", "-nk: bank, rank, sank, tank, ink, link, mink, pink, sink, wink, bunk, dunk, junk, sunk, trunk"],
+                decodable: ["-mp: bump, camp, damp, jump, lamp, pump, ramp, stamp, stomp, clamp, crimp", "-st: best, fast, fist, just, last, list, lost, mist, must, nest, past, rest, test, vest, west, cost, dust, bust, cast, frost", "-ft: craft, draft, drift, gift, left, lift, loft, raft, shift, soft, swift, theft, tuft", "-lp: gulp, help, kelp, yelp", "FLOSS: bell, bill, doll, dull, fell, fill, full, gull, hill, hull, mill, mull, pill, pull, sell, tell, well, will, yell, boss, fuss, hiss, kiss, less, loss, mass, mess, miss, moss, pass, toss, buzz, fuzz, jazz, fizz, frizz, cliff, cuff, fluff, gruff, miff, muff, puff, scoff, sniff, staff, stiff, stuff, whiff, bluff"],
+                sightWords: ["Previous + through, thought, though, enough, right, might, night, light, high, while, because, people, little, first, work, word, world"],
+                avoid: ["Silent e", "Vowel teams", "R-controlled"],
+                sentenceStructure: "More complex. Adjectives OK. Max 7 words.",
+                examples: ["The swift fox went past the pond.", "She felt the soft, damp sand.", "Help! The lamp fell off!"]
+            },
+            6: {
+                name: "Silent E / VCe (Blue)",
+                phonics: "Vowel-consonant-e pattern. Long vowels: a_e, i_e, o_e, u_e, (e_e rare).",
+                patterns: ["a_e (long a): bake, cake, fake, lake, make, rake, take, wake, came, fame, game, lame, name, same, tame, cane, lane, mane, pane, cape, tape, gape, base, case, vase, cave, gave, pave, save, wave, Dave, daze, gaze, haze, maze, late, date, fate, gate, hate, mate, rate, face, lace, pace, race, age, cage, page, rage, sage, stage, wage, ape, grape, shape, brave, crave, shade, trade, blade, flame, frame, plane, plate, scale, skate, snake, space, stage, state, stake, stale"],
+                decodable: ["i_e (long i): bike, hike, like, Mike, pike, bite, kite, mite, site, dime, lime, mime, time, dine, fine, line, mine, nine, pine, vine, wine, dive, five, hive, jive, live, fire, hire, tire, wire, file, mile, pile, tile, vile, while, ripe, pipe, wipe, side, hide, ride, tide, wide, glide, pride, slide, bride, chime, crime, grime, prime, slime, spine, shine, twine, write, drive, prize, stripe, smile", "o_e (long o): bone, cone, lone, tone, zone, dome, home, Rome, dope, hope, mope, rope, dose, hose, nose, pose, rose, cove, dove, wove, stove, drove, froze, phone, stone, smoke, spoke, broke, choke, close, those, whole, globe, scope, slope", "u_e (long u): cube, tube, dude, rude, dune, June, tune, cure, pure, fuse, muse, use, huge, cute, mute, prune, flute, brute"],
+                sightWords: ["Previous + would, could, should, there, their, where, were, here, come, some, done, none, gone, move, love, give, live, have, one, once"],
+                avoid: ["Vowel teams (ai, ea, etc.)", "R-controlled vowels"],
+                sentenceStructure: "Full sentences with descriptions. Dialogue OK. Max 8 words.",
+                examples: ["Kate made a huge cake at home.", "Mike rode his bike to the lake.", "\"Come take a dive!\" said Dave."]
+            },
+            7: {
+                name: "Vowel Teams (Green)",
+                phonics: "Two vowels together: ai, ay, ee, ea, oa, oe, ue, ew, ow (long o), ie, igh, oo (long & short).",
+                patterns: ["ai/ay (long a): aid, braid, maid, paid, raid, snail, tail, wail, brain, chain, drain, grain, plain, rain, spain, stain, strain, train, main, pain, gain, faint, paint, saint, wait, bait, bay, day, gay, hay, jay, lay, may, pay, ray, say, way, clay, gray, play, pray, spray, stay, stray, tray"],
+                decodable: ["ee/ea (long e): bee, fee, flee, free, glee, knee, see, tee, three, tree, beep, deep, jeep, keep, peep, seep, weep, beef, reef, beet, feet, meet, deer, beer, steer, bead, lead, read, bean, lean, mean, dean, clean, dream, cream, stream, team, beam, seam, beat, heat, meat, neat, peat, seat, cheat, treat, wheat, beach, peach, reach, teach, leak, peak, weak, speak, sneak, deal, heal, meal, real, seal, steal, each, feast, beast, least, east", "oa/oe (long o): oak, soak, cloak, croak, boat, coat, float, goat, moat, load, road, toad, coal, foal, goal, foam, roam, loan, moan, groan, boast, coast, roast, toast, doe, foe, hoe, Joe, toe, woe", "ow (long o): bow, low, mow, row, sow, tow, blow, flow, glow, grow, know, show, slow, snow, throw, own, bowl, grown, shown, blown", "ue/ew: blue, clue, glue, true, due, Sue, cue, dew, few, hew, Jew, mew, new, pew, flew, blew, brew, chew, drew, grew, knew, slew, stew, threw", "oo (long): boo, coo, goo, moo, too, woo, zoo, boom, bloom, broom, doom, gloom, room, zoom, boot, hoot, loot, root, toot, scoot, shoot, cool, drool, fool, pool, spool, stool, tool, food, mood, goof, hoof, proof, roof, spoof, woof, goose, loose, moose, noose, boost, roost, tooth, smooth", "oo (short): book, cook, hook, look, nook, rook, took, brook, crook, shook, foot, good, hood, wood, stood"],
+                sightWords: ["Previous + again, against, often, listen, learn, heard, early, earth, answer, hour, carry, every, everything, bought, brought, thought, caught, taught, eight, weigh, neighbor"],
+                avoid: ["R-controlled (save for level 8)"],
+                sentenceStructure: "Complex sentences. Can use 'because', 'when', 'while'. Max 10 words.",
+                examples: ["The goat in the boat floated down the stream.", "When it rained, we stayed home to read.", "\"Look! Three deer by the oak tree!\" she said."]
+            },
+            8: {
+                name: "R-Controlled Vowels (Gold)",
+                phonics: "Vowel + r changes the sound: ar, er, ir, ur, or. Also -le syllables.",
+                patterns: ["ar (car): bar, car, far, jar, star, tar, scar, barn, darn, yarn, ark, bark, dark, mark, park, shark, spark, art, cart, dart, part, start, smart, chart, arm, farm, harm, charm, card, hard, yard, guard, arch, march, large, charge, sharp, harp, scarf"],
+                decodable: ["er/ir/ur (same sound): her, fern, germ, term, herd, nerd, verb, perch, jerk, perk, clerk, stern, serve, nerve, swerve, bird, dirt, firm, girl, sir, stir, swirl, third, shirt, skirt, thirst, first, birth, chirp, squirm, squirt, blur, burn, churn, turn, curb, curl, hurl, hurt, burst, nurse, purse, curse, church, fur, burp, slurp", "or (corn): for, nor, or, born, corn, horn, morn, torn, worn, fork, pork, stork, cord, lord, fort, port, sort, sport, short, storm, form, worm, north, forth, torch, porch, horse, force, scorch, score, shore, store, more, core, bore, wore, tore, snore, chore", "-le syllables: able, table, cable, fable, stable, bubble, double, trouble, rubble, stubble, cuddle, huddle, muddle, puddle, giggle, wiggle, jiggle, juggle, struggle, snuggle, apple, maple, purple, simple, temple, people, little, middle, riddle, fiddle, paddle, saddle, rattle, battle, cattle, bottle, settle, kettle, gentle, turtle, circle, uncle, ankle, crinkle, wrinkle, sparkle, puzzle, drizzle, sizzle, nozzle"],
+                sightWords: ["Previous + journal, world, worth, worse, work, word, worst, worry, worm, worn, warm, war, want, walk, talk, chalk, stalk, half, calf, calm, palm, folk, yolk, shoulder, could, would, should, island, answer, sword, guard"],
+                avoid: [],
+                sentenceStructure: "Full narrative complexity. All structures. Max 12 words.",
+                examples: ["The girl in the purple shirt rode her horse to the barn.", "After the storm, we searched the shore for starfish.", "\"Turn left at the church,\" the nurse told her."]
+            },
+
+            // === TRANSITIONAL READERS (Grades 2-3) ===
+            9: {
+                name: "Diphthongs (Teal)",
+                phonics: "Vowel glides where sound shifts: oi/oy, ou/ow (as in cow), au/aw.",
+                patterns: ["oi/oy: oil, boil, coil, foil, soil, toil, coin, join, point, moist, voice, choice, noise, boy, joy, toy, coy, ploy, annoy, enjoy, destroy, loyal, royal"],
+                decodable: ["ou/ow (cow sound): out, our, hour, sour, flour, cloud, loud, proud, shout, scout, count, mount, found, ground, round, sound, bound, mound, pound, house, mouse, blouse, cow, how, now, wow, bow, plow, brow, crowd, clown, crown, drown, frown, brown, down, town, gown, owl, howl, growl, prowl, scowl", "au/aw: saw, raw, jaw, law, paw, claw, draw, straw, thaw, yawn, dawn, fawn, lawn, spawn, crawl, shawl, brawl, cause, pause, sauce, fault, vault, haul, maul, haunt, jaunt, launch, staunch, caught, taught"],
+                sightWords: ["All previous + thought, through, although, enough, tough, rough, cough, buy, guy, build, built, guard, guide, guest, guess, guitar"],
+                avoid: [],
+                sentenceStructure: "Compound and complex sentences. Dialogue with tags. Max 14 words.",
+                examples: ["The boy found a shiny coin on the ground near the old house.", "\"How loud was that owl?\" asked Roy with a frown.", "We saw the brown cow walk down to the pond at dawn."]
+            },
+            10: {
+                name: "Silent Letters (Indigo)",
+                phonics: "Letters that are written but not pronounced: kn-, wr-, gn-, -mb, gh patterns.",
+                patterns: ["kn- (silent k): knee, kneel, knew, knife, knight, knit, knob, knock, knot, know, knowledge, knuckle", "wr- (silent w): wrap, wreath, wreck, wren, wrestle, wriggle, wring, wrinkle, wrist, write, writhe, wrong, wrote, wry"],
+                decodable: ["gn- (silent g): gnarl, gnash, gnat, gnaw, gnome, gnu, sign, design, assign, resign, align, benign, reign, feign", "-mb (silent b): bomb, climb, comb, crumb, dumb, lamb, limb, numb, plumb, thumb, tomb, womb", "gh patterns: high, sigh, thigh, night, right, sight, tight, bright, flight, fright, knight, light, might, slight, weigh, sleigh, neigh, eight, weight, freight, neighbor, caught, taught, daughter, bought, brought, fought, thought, ought, though, although, dough, thorough"],
+                sightWords: ["All previous + answer, island, listen, often, soften, fasten, castle, whistle, bustle, hustle, rustle, wrestle"],
+                avoid: [],
+                sentenceStructure: "Multiple clauses. Introductory phrases. Max 15 words.",
+                examples: ["The knight knew he ought to climb the winding path to the castle.", "I thought I might write a sign about the gnome in the garden.", "Although the lamb was dumb, it could wriggle through the tight fence."]
+            },
+            11: {
+                name: "Soft C & G (Coral)",
+                phonics: "C says /s/ before e, i, y. G says /j/ before e, i, y. Also -dge pattern.",
+                patterns: ["Soft c (ce, ci, cy): ace, face, lace, pace, race, place, space, grace, trace, brace, ice, dice, mice, nice, rice, price, slice, spice, twice, voice, choice, cell, cent, center, certain, circle, city, civil, cycle, bicycle, icy, fancy, mercy, policy"],
+                decodable: ["Soft g (ge, gi, gy): age, cage, page, rage, sage, stage, wage, huge, change, charge, large, strange, gem, gentle, germ, giant, giraffe, gym, energy, allergy, apology, biology, technology, magic, tragic, logic, allergic, Egypt, oxygen", "-dge (says /j/): badge, cadge, edge, hedge, ledge, wedge, bridge, fridge, ridge, budge, fudge, judge, nudge, smudge, trudge, dodge, lodge, knowledge, acknowledge"],
+                sightWords: ["All previous + ocean, special, ancient, especially, social, official, delicious, precious, conscious, anxious, cautious"],
+                avoid: [],
+                sentenceStructure: "Varied sentence beginnings. Transitions. Max 16 words.",
+                examples: ["The gentle giant from the city placed the mice in a large cage.", "Grace decided to dance across the stage twice before the judge arrived.", "In ancient Egypt, people built huge bridges over the edge of the ridge."]
+            },
+            12: {
+                name: "2-Syllable Words (Lime)",
+                phonics: "Syllable division: VC/CV (closed), V/CV (open), VC/V patterns. Compound words.",
+                patterns: ["Closed syllables (VC/CV - divide between consonants): rabbit, happen, butter, kitten, cotton, button, mitten, hidden, sudden, muffin, pumpkin, napkin, basket, helmet, puppet, magnet, insect, sunset, consist, contest"],
+                decodable: ["Open syllables (V/CV - first syllable open, long vowel): even, open, over, paper, baby, lazy, lady, crazy, tiger, spider, robot, total, moment, vocal, local, focus, bonus, basic, unit, music, student, humid", "Mixed patterns: lemon, never, seven, clever, river, visit, limit, spirit, cabin, robin, planet, rapid, manage, balance, damage, publish, vanish, punish, finish, polish", "Compound words: into, upon, until, within, without, inside, outside, upstairs, downstairs, birthday, popcorn, sometimes, airplane, sunshine, rainbow, homework, football, bedroom, bathroom, breakfast"],
+                sightWords: ["All previous + complete, repeat, machine, magazine, routine, unique, technique, antique, fatigue, league, colleague, vague, plague"],
+                avoid: [],
+                sentenceStructure: "Topic sentences. Supporting details. Max 18 words.",
+                examples: ["The baby tiger was hidden inside the cabin until sunset when the robot arrived.", "After breakfast, the clever student finished her homework about insects and spiders.", "Sometimes a rainbow appears over the mountains, and the moment feels truly magic."]
+            },
+
+            // === DEVELOPING READERS (Grades 3-5) ===
+            13: {
+                name: "All 6 Syllable Types (Magenta)",
+                phonics: "Mastery of: Closed, Open, VCe, Vowel Team, R-controlled, Consonant-le.",
+                patterns: ["Closed (short vowel, ends in consonant): basket, dentist, fantastic, magnetism, experiment", "Open (ends in long vowel): locate, donate, rotate, migrate, hibernate, demonstrate", "VCe (silent e makes vowel long): complete, translate, organize, recognize, demonstrate"],
+                decodable: ["Vowel Team (two vowels make one sound): explain, complain, entertain, maintain, repeat, defeat, reveal, conceal, appeal, approach, reproach", "R-Controlled (vowel + r): surprise, perform, important, departure, furthermore, thermometer, determine", "Consonant-le (ends in -le): terrible, horrible, possible, responsible, comfortable, miserable, remarkable, vegetable, considerable, syllable"],
+                sightWords: ["All previous + guarantee, restaurant, calendar, February, Wednesday, secretary, necessary, different, experience, experiment, especially, government, environment"],
+                avoid: [],
+                sentenceStructure: "Paragraph structure. Main idea and details. Max 20 words.",
+                examples: ["The responsible scientist performed a remarkable experiment to determine if hibernation was possible.", "It seems necessary to explain the considerable difference between vegetables grown in February.", "The government's environmental approach was especially important for the comfortable future of wildlife."]
+            },
+            14: {
+                name: "Common Suffixes (Cyan)",
+                phonics: "Inflectional: -s, -es, -ed, -ing, -er, -est. Derivational: -ly, -ful, -less, -ness, -ment, -tion, -able.",
+                patterns: ["Inflectional endings: walks, walking, walked, walker; jumps, jumping, jumped, jumper; boxes, foxes; happier, happiest; bigger, biggest; running, swimming (double consonant)", "Base word changes: hope→hoping, make→making (drop e); happy→happily, beauty→beautiful (y to i); occur→occurring, begin→beginning (double final consonant)"],
+                decodable: ["-ly (adverbs): quickly, slowly, quietly, loudly, carefully, suddenly, probably, actually, finally, usually, especially, certainly, definitely, unfortunately", "-ful/-less (adjectives): beautiful, wonderful, powerful, peaceful, harmful, careful, hopeful, thankful, careless, hopeless, useless, helpless, fearless, endless, countless", "-ness/-ment (nouns): happiness, sadness, kindness, darkness, weakness, illness, goodness, excitement, enjoyment, amazement, achievement, agreement, government, environment, improvement", "-tion/-sion (nouns): action, nation, station, vacation, education, information, celebration, imagination, attention, invention, decision, television, permission, expression, discussion"],
+                sightWords: ["All previous + education, situation, imagination, information, communication, transportation, explanation, investigation, recommendation, determination"],
+                avoid: [],
+                sentenceStructure: "Varied sentence types. Cause and effect. Compare and contrast. Max 22 words.",
+                examples: ["The careful investigation unfortunately revealed that the powerful invention caused harmful environmental damage.", "Surprisingly, the peaceful celebration brought tremendous happiness and definitely improved communication between the nations.", "Without careful attention, the careless decision quickly led to endless problems and considerable disappointment."]
+            },
+            15: {
+                name: "Common Prefixes (Amber)",
+                phonics: "un-, re-, pre-, dis-, mis-, in-/im-/il-/ir-, over-, under-, non-, anti-, semi-, super-.",
+                patterns: ["Negation prefixes: unhappy, unkind, unfair, unable, unlock, uncomfortable; disagree, disappear, dislike, disconnect, disappoint; misunderstand, misbehave, misspell, mistrust, mislead"],
+                decodable: ["Direction/position: return, review, rewrite, rebuild, recycle, repeat; preview, predict, prepare, prevent, prehistoric; overload, overcome, overlook, overnight; underwater, understand, underground, underline", "Degree/manner: impossible, impatient, imperfect, impolite; illegal, illogical; irregular, irresponsible; nonviolent, nonsense, nonfiction; antiwar, antisocial, antibiotic; semicircle, semifinal; superhero, supernatural, supermarket"],
+                sightWords: ["All previous + prejudice, prejudge, preposition, prescription, presentation, preparation, independence, incredible, inexpensive, intersection, international, interrupt, irrelevant, irresistible"],
+                avoid: [],
+                sentenceStructure: "Complex sentences with multiple clauses. Transition words. Max 24 words.",
+                examples: ["Although it seemed impossible, the irresponsible superhero quickly returned to rebuild the underground shelter before the semifinal.", "The international presentation unfortunately revealed that the nonfiction manuscript contained several irrelevant and misleading statements.", "Without preparation, the impatient students could not possibly understand the prehistoric artifacts displayed at the supermarket intersection."]
+            },
+            16: {
+                name: "Latin Roots (Slate)",
+                phonics: "Common Latin roots: struct, port, dict, scrib/script, spec/spect, ject, rupt, tract, form, aud, vid/vis.",
+                patterns: ["struct (build): structure, construct, instruct, destruct, obstruct, destruction, construction, instruction, infrastructure", "port (carry): transport, import, export, report, support, portable, important, transportation", "dict (say): dictate, predict, verdict, dictionary, contradict, addiction, prediction, diction"],
+                decodable: ["scrib/script (write): scribble, describe, inscribe, prescribe, subscribe, manuscript, transcript, prescription, description", "spec/spect (see/look): inspect, respect, expect, suspect, spectacle, perspective, inspector, spectator, spectacular", "ject (throw): project, reject, inject, object, subject, eject, projection, rejection, injection, objection", "rupt (break):rupt, erupt, corrupt, disrupt, abrupt, bankrupt, eruption, corruption, disruption, interruption", "tract (pull/drag): tractor, attract, distract, extract, contract, subtract, retract, attraction, distraction", "form (shape): form, reform, inform, perform, transform, uniform, formula, formation, information, transformation", "aud (hear): audio, audience, audition, auditorium, audible, inaudible", "vid/vis (see): video, vision, visible, invisible, visualize, television, supervisor, revision, evidence"],
+                sightWords: ["All previous + architecture, circumstance, consequence, constitution, contemporary, controversy, cooperation, correspondence, curriculum, democracy"],
+                avoid: [],
+                sentenceStructure: "Academic writing style. Evidence and explanation. Formal transitions. Max 26 words.",
+                examples: ["The construction project required considerable infrastructure support, and the inspector predicted that the transformation would attract significant attention.", "According to the evidence, the spectacular eruption caused substantial disruption, which consequently interrupted the transportation of important manuscripts.", "The supervisor instructed the audience to visualize the transformation and describe their perspective on the controversial democratic reforms."]
+            },
+
+            // === FLUENT READERS (Grades 5-7) ===
+            17: {
+                name: "Greek Roots (Crimson)",
+                phonics: "Common Greek roots: graph, phon, photo, bio, geo, chron, log, tele, therm, meter, scope, auto, psych, path.",
+                patterns: ["graph (write): graph, paragraph, autograph, biography, photography, geography, bibliography, choreography, demographic, graphic, telegraph", "phon (sound): phone, phonics, telephone, microphone, symphony, saxophone, homophone, phonograph, euphony, cacophony", "photo (light): photo, photograph, photographer, photosynthesis, photocopy, photogenic, telephoto"],
+                decodable: ["bio (life): biology, biography, antibiotic, biodegradable, biochemistry, biome, biosphere, biopsy, symbiosis", "geo (earth): geography, geology, geometry, geothermal, geocentric, geopolitical, geographic", "chron (time): chronic, chronicle, chronological, synchronize, anachronism, chronometer", "log/logy (word/study): logic, dialogue, monologue, apology, technology, psychology, sociology, ecology, mythology, anthology, biology, geology, etymology", "tele (far): telephone, telescope, television, telegram, telepathy, telecommunication, telecommute", "therm (heat): thermometer, thermal, thermostat, hypothermia, geothermal, thermos, exothermic, endothermic", "auto (self): automatic, automobile, autonomy, autobiography, autograph, autopilot, autocrat, autonomous", "scope (see): microscope, telescope, stethoscope, horoscope, periscope, kaleidoscope, endoscope"],
+                sightWords: ["All previous + analyze, analyze, archaeology, bureaucracy, catastrophe, characteristic, choreography, chronological, comprehensive, contemporary, continuous"],
+                avoid: [],
+                sentenceStructure: "Academic paragraphs. Thesis and evidence. Formal register. Max 28 words.",
+                examples: ["The biologist's comprehensive autobiography chronicled her groundbreaking research on photosynthesis and the symbiotic relationships within diverse biomes.", "Using the telescope and microscope, the geologist analyzed the geographic characteristics of the autonomous region's geothermal activity.", "The psychology professor's chronological dialogue about technology's impact on contemporary society demonstrated sophisticated understanding of human behavior."]
+            },
+            18: {
+                name: "Academic Vocabulary Tier 2 (Emerald)",
+                phonics: "High-utility cross-curricular words that appear across domains: analyze, evidence, significant, context, interpret, conclude.",
+                patterns: ["Analysis words: analyze, examine, investigate, evaluate, assess, compare, contrast, distinguish, categorize, classify, identify, determine, conclude, infer, deduce"],
+                decodable: ["Evidence words: evidence, support, demonstrate, illustrate, indicate, suggest, reveal, confirm, verify, substantiate, corroborate, validate", "Argument words: argue, claim, assert, contend, maintain, propose, suggest, recommend, conclude, justify, persuade, convince", "Process words: process, procedure, method, approach, strategy, technique, system, mechanism, function, operate, sequence, phase, stage", "Relationship words: relationship, connection, association, correlation, interaction, influence, impact, effect, consequence, result, cause, factor, contribute", "Degree words: significant, considerable, substantial, extensive, comprehensive, thorough, sufficient, adequate, primary, secondary, fundamental, essential, critical"],
+                sightWords: ["All previous + accumulate, acknowledge, adjacent, alternative, ambiguous, anticipate, appreciate, approximate, arbitrary, attribute, circumstances, coherent, commence"],
+                avoid: [],
+                sentenceStructure: "Formal academic prose. Hedging language. Citations and attributions. Max 30 words.",
+                examples: ["The comprehensive analysis suggests that significant environmental factors substantially contributed to the substantial decline, although alternative interpretations remain valid.", "Researchers demonstrated that the correlation between these variables indicated a fundamental connection; however, the evidence was insufficient to establish causation.", "To effectively evaluate this argument, one must first acknowledge the considerable impact of contextual factors and thoroughly examine the supporting evidence."]
+            },
+            19: {
+                name: "Complex Sentences (Violet)",
+                phonics: "Subordinate clauses, relative clauses, participial phrases, appositives, parallel structure.",
+                patterns: ["Subordinate conjunctions: although, because, since, while, whereas, unless, until, whenever, wherever, if, even though, so that, in order that, as long as, provided that"],
+                decodable: ["Relative clauses: who, whom, whose, which, that, where, when - The scientist who discovered the cure / The book that changed everything / The place where we first met", "Participial phrases: Walking through the forest, she noticed... / Exhausted from the journey, they rested... / Having completed the experiment, the team celebrated...", "Appositives: My brother, an accomplished musician, performed at Carnegie Hall. / The Amazon, the world's largest rainforest, contains incredible biodiversity.", "Parallel structure: She likes hiking, swimming, and cycling. / The program was designed to educate, inspire, and motivate students."],
+                sightWords: ["All previous + accommodate, accompany, accomplish, according, accumulate, achieve, acquire, adequate, administration, adolescent, advantageous, advertisement, aesthetic"],
+                avoid: [],
+                sentenceStructure: "Sophisticated syntax. Embedded clauses. Varied sentence length for rhythm. Max 35 words.",
+                examples: ["Although the expedition, which had been meticulously planned for months, encountered unexpected challenges, the determined researchers, having adapted their approach, successfully completed their groundbreaking study.", "The renowned architect, whose innovative designs have transformed urban landscapes, believes that sustainable buildings, when properly constructed, can significantly reduce environmental impact while enhancing quality of life.", "Because the committee recognized that traditional methods were insufficient, they implemented comprehensive reforms; consequently, participation increased dramatically, exceeding all preliminary projections."]
+            },
+            20: {
+                name: "Figurative Language (Bronze)",
+                phonics: "Idioms, metaphors, similes, personification, hyperbole, alliteration, onomatopoeia, symbolism, irony.",
+                patterns: ["Idioms: break the ice, piece of cake, hit the nail on the head, under the weather, cost an arm and a leg, bite the bullet, beat around the bush, let the cat out of the bag, once in a blue moon, the ball is in your court"],
+                decodable: ["Metaphor: Life is a journey. Time is money. The world is a stage. Her voice was music. He has a heart of stone. The classroom was a zoo.", "Simile: As brave as a lion. Like a fish out of water. Quick as lightning. Smooth as silk. Cold as ice. Busy as a bee. Light as a feather.", "Personification: The wind whispered secrets. Time flies. The sun smiled down. Opportunity knocked. Fear gripped him. The flowers danced in the breeze.", "Hyperbole: I've told you a million times. I'm so hungry I could eat a horse. This bag weighs a ton. I nearly died laughing. He's older than the hills.", "Irony: Situational (a fire station burns down), Verbal (saying 'nice weather' during a storm), Dramatic (audience knows what character doesn't)"],
+                sightWords: ["All previous + allude, allusion, allegory, ambiguity, connotation, denotation, euphemism, innuendo, juxtaposition, metaphorical, paradox, rhetorical, sarcasm, satire, symbolism"],
+                avoid: [],
+                sentenceStructure: "Literary style. Varied for effect. Intentional use of figurative devices. Max 40 words.",
+                examples: ["The opportunity that knocked at her door was, ironically, disguised as failure—a blessing in sheep's clothing that would ultimately transform her entire perspective on success.", "Time, that relentless thief, had stolen the vibrant colors from his memories, leaving only sepia-toned shadows that whispered of summers as endless as the ocean.", "The politician's promises, as empty as a drum, echoed through the hall; yet the audience, hungry for hope, devoured every crumb as if it were a feast."]
+            },
+
+            // === ADVANCED READERS (Grades 7-12) ===
+            21: {
+                name: "Domain Vocabulary Tier 3 (Silver)",
+                phonics: "Subject-specific technical vocabulary: scientific, mathematical, historical, literary terms.",
+                patterns: ["Science: hypothesis, photosynthesis, mitochondria, equilibrium, catalyst, chromosome, ecosystem, electromagnetic, biodiversity, metabolism, oxidation, evolution, genome, pandemic, vaccine", "Math: algorithm, coefficient, denominator, exponential, factorial, geometric, integer, polynomial, quadratic, theorem, variable, circumference, perpendicular, statistical, probability"],
+                decodable: ["History/Social Studies: civilization, constitution, democracy, imperialism, industrialization, nationalism, revolution, sovereignty, totalitarian, bureaucracy, capitalism, colonialism, communism, federalism, feudalism", "Literature/Arts: allegory, antagonist, archetype, characterization, denouement, foreshadowing, juxtaposition, metaphor, motif, narrative, omniscient, protagonist, rhetoric, symbolism, vernacular", "Philosophy/Psychology: cognition, consciousness, epistemology, existentialism, hypothesis, ideology, perception, rationalism, relativism, skepticism, subjective, synthesis, transcendence, utilitarianism"],
+                sightWords: ["All previous + aberration, abstraction, acquisition, aesthetic, amalgamation, anomaly, antithesis, archaic, articulate, assimilate, autonomous, benevolent, Byzantine, capricious, circumvent"],
+                avoid: [],
+                sentenceStructure: "Discipline-specific conventions. Technical precision. Appropriate jargon. Max 45 words.",
+                examples: ["The protagonist's existential crisis, foreshadowed through recurring motifs of isolation, reaches its denouement when she recognizes the fundamental antithesis between her ideological convictions and societal expectations.", "The catalyst initiated an exothermic reaction, demonstrating the equilibrium between oxidation and reduction; subsequently, the mitochondrial function exhibited predictable patterns consistent with the researcher's hypothesis.", "Analyzing the socioeconomic factors that precipitated the revolution reveals the inherent contradictions within the feudal system and the subsequent emergence of nationalistic ideology."]
+            },
+            22: {
+                name: "Nuanced Language (Platinum)",
+                phonics: "Connotation vs denotation, tone, register, formal vs informal, euphemism, understatement, loaded language.",
+                patterns: ["Register shifts: Formal (Subsequently, the committee convened) → Informal (Then, the group got together); Academic (The data suggests) → Conversational (It looks like)", "Connotation: childlike (positive) vs childish (negative); slender (positive) vs skinny (negative); confident (positive) vs arrogant (negative); thrifty (positive) vs cheap (negative)"],
+                decodable: ["Hedging language: It appears that, Evidence suggests, One might argue, It could be interpreted as, There is reason to believe, This seems to indicate", "Intensifiers and downtoners: extremely, considerably, somewhat, relatively, quite, rather, fairly, slightly, marginally, fundamentally, inherently, essentially", "Formal transitions: Furthermore, Moreover, Nevertheless, Notwithstanding, Consequently, Subsequently, Hitherto, Heretofore, Whereby, Wherein, Therein, Thereof", "Euphemisms: passed away (died), let go (fired), economically disadvantaged (poor), correctional facility (prison), collateral damage (civilian casualties), downsizing (layoffs)"],
+                sightWords: ["All previous + albeit, apropos, commensurate, concomitant, de facto, didactic, efficacious, equivocate, ersatz, exacerbate, exemplary, expedient, fortuitous, gratuitous, hegemony, idiosyncratic"],
+                avoid: [],
+                sentenceStructure: "Sophisticated register control. Deliberate word choice. Nuanced argumentation. Max 50 words.",
+                examples: ["While the administration characterized the workforce reduction as 'strategic restructuring,' the somewhat euphemistic terminology notwithstanding, those affected experienced the consequences as fundamentally devastating—a rhetorical distinction that, albeit subtle, reveals considerably about institutional priorities.", "The ostensibly gratuitous violence in the narrative, rather than being merely sensational, functions didactically; furthermore, the author's idiosyncratic style, wherein brutality becomes allegory, exemplifies how aesthetic choices can efficaciously illuminate hegemonic structures.", "Albeit controversial, the de facto policy shift represented a commensurate response to exacerbating conditions; nevertheless, critics argued that the expedient solution would prove neither sustainable nor, ultimately, efficacious."]
+            },
+            23: {
+                name: "Advanced Literary Analysis (Obsidian)",
+                phonics: "Critical reading of complex texts. Rhetorical analysis. Synthesis across sources. Original argumentation.",
+                patterns: ["Literary movements: Romanticism, Realism, Naturalism, Modernism, Postmodernism, Existentialism, Transcendentalism, Surrealism, Absurdism, Magical Realism", "Rhetorical strategies: ethos, pathos, logos, kairos, anaphora, epistrophe, chiasmus, antithesis, parallelism, rhetorical question, apostrophe, syllogism"],
+                decodable: ["Critical lenses: Formalist, Biographical, Historical, Marxist, Feminist, Psychoanalytic, Deconstructionist, Reader-Response, New Historicist, Postcolonial, Ecocritical, Queer Theory", "Analytical verbs: interrogate, problematize, deconstruct, synthesize, juxtapose, elucidate, extrapolate, contextualize, historicize, foreground, subvert, destabilize, complicate, nuance", "Argumentation: thesis, antithesis, synthesis, premise, warrant, qualifier, rebuttal, concession, counterargument, implication, ramification, corollary"],
+                sightWords: ["All previous + anathema, apotheosis, chimera, denouement, dichotomy, ennui, epistolary, ineffable, intertextuality, liminal, melancholy, mise-en-scène, palimpsest, polyphonic, quintessential, verisimilitude, zeitgeist"],
+                avoid: [],
+                sentenceStructure: "Scholarly prose. Complex argumentation. Synthesis and original insight. No practical word limit—sophistication over brevity.",
+                examples: ["The narrative's polyphonic structure—wherein multiple, often contradictory perspectives coalesce into what Bakhtin might term a 'dialogic' text—destabilizes conventional notions of authorial omniscience, thereby problematizing the reader's epistemological assumptions about textual meaning and interpretive authority.", "Through the lens of postcolonial criticism, the seemingly innocuous pastoral imagery reveals itself as a palimpsest of imperial ideology; the bucolic landscape, ostensibly celebrating natural beauty, simultaneously effaces the violence of colonial appropriation that enabled such aesthetic appreciation.", "The protagonist's existential ennui, far from representing mere psychological characterization, functions as an allegory for the broader cultural malaise of late capitalism—a reading that gains additional resonance when juxtaposed with the text's publication during the economic turbulence of the interwar period."]
+            }
+        };
 
         // Existing books by level
         const BOOKS = [
@@ -671,14 +1161,29 @@
 
         function renderLevelList() {
             const list = document.getElementById('levelList');
-            list.innerHTML = LEVELS.map(l => `
-                <li class="level-item ${l.level === selectedLevel ? 'selected' : ''}"
-                    data-level="${l.level}" onclick="selectLevel(${l.level})">
-                    <span class="level-badge level-${l.level}">${l.level}</span>
-                    <div class="level-info">
-                        <h3>${l.color}</h3>
-                        <p>${l.skill}</p>
+            const groups = [
+                { name: 'Phonics Foundation', range: [0, 8], grades: 'Pre-K to 2' },
+                { name: 'Transitional', range: [9, 12], grades: 'Grades 2-3' },
+                { name: 'Developing', range: [13, 16], grades: 'Grades 3-5' },
+                { name: 'Fluent', range: [17, 20], grades: 'Grades 5-7' },
+                { name: 'Advanced', range: [21, 23], grades: 'Grades 7-12' }
+            ];
+
+            list.innerHTML = groups.map(g => `
+                <li class="level-group">
+                    <div class="group-header">
+                        <strong>${g.name}</strong>
+                        <span class="group-grades">${g.grades}</span>
                     </div>
+                    <ul class="group-levels">
+                        ${LEVELS.slice(g.range[0], g.range[1] + 1).map(l => `
+                            <li class="level-item ${l.level === selectedLevel ? 'selected' : ''}"
+                                data-level="${l.level}" onclick="selectLevel(${l.level})">
+                                <span class="level-num">${l.level}</span>
+                                <span class="level-name">${l.name}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
                 </li>
             `).join('');
         }
@@ -696,9 +1201,10 @@
             const l = LEVELS[level];
             document.getElementById('levelBadge').textContent = level;
             document.getElementById('levelBadge').className = `level-badge level-${level}`;
-            document.getElementById('levelTitle').textContent = `Level ${level}: ${l.color}`;
+            document.getElementById('levelTitle').textContent = `Level ${level}: ${l.name}`;
+            document.getElementById('levelGrade').textContent = `Grade ${l.grade}`;
             document.getElementById('levelSkill').textContent = l.skill;
-            document.getElementById('levelWords').textContent = `${l.words} words max`;
+            document.getElementById('levelWords').textContent = `${l.words} words`;
             document.getElementById('levelAge').textContent = `${l.age} years`;
             document.getElementById('wordExamples').innerHTML = l.examples.map(w =>
                 `<span class="word-chip">${w}</span>`
@@ -767,37 +1273,53 @@
                 characterInstruction = `Main character: a ${selectedCharacter}`;
             }
 
-            const systemPrompt = `You are creating a decodable leveled reader for beginning readers.
+            const spec = LEVEL_SPECS[selectedLevel];
 
-READING LEVEL: ${selectedLevel} (${levelInfo.color})
-- Skill focus: ${levelInfo.skill}
-- Maximum words per sentence: ${levelInfo.words}
-- Use only words appropriate for this level
+            const systemPrompt = `You are a reading specialist creating a decodable leveled reader using Science of Reading / Orton-Gillingham principles.
 
+=== TARGET: LEVEL ${selectedLevel} - ${spec.name} ===
+
+PHONICS SCOPE: ${spec.phonics}
+
+DECODABLE WORD PATTERNS (use these!):
+${spec.patterns.slice(0, 2).join('\n')}
+${spec.decodable.slice(0, 2).join('\n')}
+
+SIGHT WORDS OK: ${spec.sightWords.slice(0, 20).join(', ')}...
+
+AVOID (too advanced for this level): ${spec.avoid.join(', ')}
+
+SENTENCE RULES: ${spec.sentenceStructure}
+
+EXAMPLES OF GOOD SENTENCES:
+${spec.examples.map(e => `• "${e}"`).join('\n')}
+
+=== STORY PARAMETERS ===
 CHARACTER: ${characterInstruction}
 ${customWords ? `INCLUDE THESE WORDS: ${customWords}` : ''}
-
 STORY IDEA: ${prompt}
 
-Generate a story with 10-14 pages following these rules:
-1. Use ONLY words a child at level ${selectedLevel} can decode
-2. Keep sentences SHORT - max ${levelInfo.words} words
-3. Follow a simple Hero's Journey: ordinary world → call → challenge → success → return
-4. Make it engaging despite simple vocabulary
-5. Each page should have an image_prompt for illustration
+=== REQUIREMENTS ===
+1. Write 10-14 pages
+2. STRICT: Maximum ${levelInfo.words} words per sentence
+3. Use ONLY decodable patterns from this level or below
+4. Follow Hero's Journey: ordinary world → call to adventure → challenge → triumph → return
+5. Keep it engaging - repetition and rhythm help emerging readers!
+6. Each page needs a scene description for illustration
 
-Return JSON:
+Return ONLY valid JSON:
 {
   "title": "Story Title",
   "summary": "One sentence summary",
   "pages": [
-    {"page": 1, "text": "Page text.", "scene": "Brief scene description for illustration"}
+    {"page": 1, "text": "Page text here.", "scene": "Visual description for illustrator"}
   ],
   "word_list": {
-    "sound_out": ["decodable", "words"],
-    "sight": ["sight", "words"],
-    "new": ["new", "vocabulary"]
-  }
+    "decodable": ["words", "child", "sounds", "out"],
+    "sight": ["high", "frequency", "words"],
+    "new_vocabulary": ["any", "new", "words"]
+  },
+  "phonics_focus": ["patterns", "practiced", "in", "story"]
 }`;
 
             try {
@@ -824,23 +1346,262 @@ Return JSON:
         }
 
         function displayStory(story) {
-            document.getElementById('storyTitle').textContent = story.title;
+            const titleEl = document.getElementById('storyTitle');
+            titleEl.innerHTML = story.title + (story.revised ? ' <span style="background: var(--color-sage); color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; margin-left: 8px; vertical-align: middle;">Revised</span>' : '');
 
             const preview = document.getElementById('storyPreview');
-            preview.innerHTML = story.pages.map(p => `
+            const levelInfo = LEVELS[selectedLevel];
+
+            preview.innerHTML = story.pages.map(p => {
+                const wordCount = p.text.split(/\s+/).filter(w => w).length;
+                const sentences = p.text.split(/[.!?]+/).filter(s => s.trim());
+                const maxSentenceWords = Math.max(...sentences.map(s => s.trim().split(/\s+/).filter(w => w).length));
+                const overLimit = maxSentenceWords > levelInfo.words;
+
+                return `
                 <div class="story-page">
-                    <div class="page-num">Page ${p.page}</div>
+                    <div class="page-num">Page ${p.page} ${overLimit ? '<span style="color: var(--color-terracotta); font-size: 0.75rem;">⚠️ ' + maxSentenceWords + '/' + levelInfo.words + ' words</span>' : ''}</div>
                     <div class="text">${p.text}</div>
                     ${p.scene ? `<div class="scene">[${p.scene}]</div>` : ''}
                 </div>
-            `).join('');
+            `}).join('');
 
             document.getElementById('output').classList.add('visible');
+
+            // Auto-validate the story
+            validateStory(story);
+        }
+
+        async function validateStory(story) {
+            const validationSection = document.getElementById('validationSection');
+            const badge = document.getElementById('validationBadge');
+            const stats = document.getElementById('validationStats');
+            const issues = document.getElementById('validationIssues');
+            const decodabilityPercent = document.getElementById('decodabilityPercent');
+            const decodabilityFill = document.getElementById('decodabilityFill');
+
+            // Show section with loading state
+            validationSection.classList.add('visible');
+            badge.textContent = 'Checking...';
+            badge.className = 'validation-badge';
+
+            // Combine all page text
+            const fullText = story.pages.map(p => p.text).join(' ');
+
+            try {
+                const response = await fetch('/api/validate-text', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        text: fullText,
+                        level: selectedLevel
+                    })
+                });
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.message || 'Validation failed');
+                }
+
+                const result = await response.json();
+                displayValidationResults(result);
+
+            } catch (error) {
+                console.error('Validation error:', error);
+                badge.textContent = 'Unable to validate';
+                badge.className = 'validation-badge fail';
+                stats.innerHTML = `<p style="color: #666; font-size: 0.85rem;">Word banks are being set up. Try again shortly.</p>`;
+                issues.innerHTML = '';
+                decodabilityPercent.textContent = '--';
+                decodabilityFill.style.width = '0%';
+            }
+        }
+
+        function displayValidationResults(result) {
+            const badge = document.getElementById('validationBadge');
+            const stats = document.getElementById('validationStats');
+            const issues = document.getElementById('validationIssues');
+            const decodabilityPercent = document.getElementById('decodabilityPercent');
+            const decodabilityFill = document.getElementById('decodabilityFill');
+
+            // Update badge
+            if (result.passed) {
+                badge.textContent = 'PASS';
+                badge.className = 'validation-badge pass';
+            } else {
+                badge.textContent = 'NEEDS REVISION';
+                badge.className = 'validation-badge fail';
+            }
+
+            // Update stats
+            stats.innerHTML = `
+                <div class="stat-item">
+                    <div class="value">${result.analysis.totalWords}</div>
+                    <div class="label">Total Words</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">${result.analysis.uniqueWords}</div>
+                    <div class="label">Unique Words</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">${result.decodability.decodableWords}</div>
+                    <div class="label">Decodable</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">${result.decodability.sightWords}</div>
+                    <div class="label">Sight Words</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">${result.decodability.unknownWords.length}</div>
+                    <div class="label">Unknown</div>
+                </div>
+            `;
+
+            // Update decodability bar
+            const score = result.decodability.score;
+            decodabilityPercent.textContent = score.toFixed(1) + '%';
+            decodabilityFill.style.width = score + '%';
+
+            if (score >= 95) {
+                decodabilityFill.className = 'decodability-fill excellent';
+            } else if (score >= 85) {
+                decodabilityFill.className = 'decodability-fill good';
+            } else if (score >= 70) {
+                decodabilityFill.className = 'decodability-fill fair';
+            } else {
+                decodabilityFill.className = 'decodability-fill poor';
+            }
+
+            // Update issues
+            if (result.violations.length === 0 && result.sentenceCheck.passed) {
+                issues.innerHTML = '<p style="color: var(--color-sage-dark); font-size: 0.85rem;">All words match Level ' + selectedLevel + ' requirements!</p>';
+            } else {
+                let issuesHtml = '';
+
+                // Word violations
+                if (result.violations.length > 0) {
+                    issuesHtml += `<h5>Unknown Words (${result.violations.length})</h5><ul class="issue-list">`;
+                    result.violations.slice(0, 10).forEach(v => {
+                        issuesHtml += `<li class="issue-item">
+                            <span class="word">"${v.word}"</span> - ${v.reason}
+                            ${v.suggestion ? `<br><span class="suggestion">Try: "${v.suggestion}"</span>` : ''}
+                        </li>`;
+                    });
+                    if (result.violations.length > 10) {
+                        issuesHtml += `<li class="issue-item" style="border-left-color: #999;">...and ${result.violations.length - 10} more</li>`;
+                    }
+                    issuesHtml += '</ul>';
+                }
+
+                // Sentence violations
+                if (!result.sentenceCheck.passed) {
+                    issuesHtml += `<h5>Sentence Length Violations</h5><ul class="issue-list">`;
+                    result.sentenceCheck.violations.forEach(v => {
+                        issuesHtml += `<li class="issue-item">
+                            Sentence ${v.sentenceNumber}: <span class="word">${v.wordCount} words</span> (max ${v.maxAllowed})
+                            <br><span style="color: #666; font-size: 0.8rem;">"${v.text}"</span>
+                        </li>`;
+                    });
+                    issuesHtml += '</ul>';
+                }
+
+                issues.innerHTML = issuesHtml;
+            }
         }
 
         function regenerate() {
             document.getElementById('output').classList.remove('visible');
             generateStory();
+        }
+
+        async function reviseStory() {
+            if (!currentStory) return;
+
+            // Show loading
+            document.getElementById('loading').classList.add('visible');
+            document.getElementById('output').classList.remove('visible');
+
+            const levelInfo = LEVELS[selectedLevel];
+            const spec = LEVEL_SPECS[selectedLevel];
+
+            const revisionPrompt = `You are a reading specialist revising a decodable reader using Science of Reading / Orton-Gillingham principles.
+
+=== LEVEL ${selectedLevel}: ${spec.name} ===
+
+PHONICS SCOPE: ${spec.phonics}
+
+DECODABLE PATTERNS FOR THIS LEVEL:
+${spec.patterns.join('\n')}
+${spec.decodable.join('\n')}
+
+SIGHT WORDS ALLOWED: ${spec.sightWords.join(', ')}
+
+MUST AVOID (too advanced): ${spec.avoid.join(', ')}
+
+SENTENCE STRUCTURE: ${spec.sentenceStructure}
+
+EXAMPLE SENTENCES AT THIS LEVEL:
+${spec.examples.map(e => `• "${e}"`).join('\n')}
+
+=== STORY TO REVISE ===
+${JSON.stringify(currentStory, null, 2)}
+
+=== REVISION INSTRUCTIONS ===
+
+1. WORD-LEVEL FIXES:
+   - Replace any word NOT in the decodable patterns or sight words list
+   - If a word uses patterns from a HIGHER level (check "avoid" list), substitute it
+   - Example: At level 2, "shop" uses digraph 'sh' → replace with "go" or restructure
+
+2. SENTENCE-LEVEL FIXES:
+   - MAXIMUM ${levelInfo.words} words per sentence - this is STRICT
+   - Split longer sentences into multiple shorter ones
+   - Follow the sentence structure guidelines for this level
+
+3. PHONICS INTEGRITY:
+   - Every decodable word must match the patterns taught at level ${selectedLevel} or below
+   - Cumulative: Level ${selectedLevel} can use patterns from levels 0-${selectedLevel}
+   - When in doubt, use a simpler word from the examples provided
+
+4. PRESERVE:
+   - Story meaning and emotional arc
+   - Scene descriptions (for illustrations)
+   - Character names (treat as sight words if needed)
+
+Return ONLY valid JSON:
+{
+  "title": "...",
+  "summary": "...",
+  "pages": [{"page": 1, "text": "...", "scene": "..."}],
+  "word_list": {
+    "decodable": ["words", "reader", "can", "sound", "out"],
+    "sight": ["high", "frequency", "words"],
+    "new_vocabulary": ["any", "challenging", "words", "introduced"]
+  },
+  "phonics_focus": ["specific", "patterns", "practiced"]
+}`;
+
+            try {
+                const response = await fetch('/api/generate-story', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: revisionPrompt })
+                });
+
+                if (!response.ok) throw new Error('Failed to revise');
+
+                currentStory = await response.json();
+                currentStory.level = selectedLevel;
+                currentStory.revised = true;
+                displayStory(currentStory);
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to revise story. Please try again.');
+                document.getElementById('output').classList.add('visible');
+            }
+
+            document.getElementById('loading').classList.remove('visible');
         }
 
         function downloadJSON() {

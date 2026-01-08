@@ -1,0 +1,58 @@
+{
+  "level": 0,
+  "type": "art_poetry",
+  "title": "I See",
+  "summary": "A sensory exploration of sight. Simple sight words paired with evocative visual imagery to invite wonder in pre-readers.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "I see.",
+      "scene": "A small child looking out at the world, wonder in their eyes, soft light streaming"
+    },
+    {
+      "page": 2,
+      "text": "The sun.",
+      "scene": "A warm golden sun rising, painting the sky in soft oranges and pinks"
+    },
+    {
+      "page": 3,
+      "text": "A cat.",
+      "scene": "A fluffy cat, soft and peaceful, with bright curious eyes"
+    },
+    {
+      "page": 4,
+      "text": "It is soft.",
+      "scene": "Close-up of the cat's fur, texture emphasized, whispery and gentle"
+    },
+    {
+      "page": 5,
+      "text": "The sky.",
+      "scene": "A vast, dreamy sky in shades of blue and white with gentle clouds"
+    },
+    {
+      "page": 6,
+      "text": "She go.",
+      "scene": "A figure moving gracefully through a garden, flowers nodding as she passes"
+    },
+    {
+      "page": 7,
+      "text": "I go.",
+      "scene": "Child running joyfully through sunlit grass, arms open"
+    },
+    {
+      "page": 8,
+      "text": "We see.",
+      "scene": "Child and cat together, both looking at something beautiful, bathed in warm light"
+    }
+  ],
+  "word_list": {
+    "sight": ["I", "see", "the", "a", "is", "it", "soft", "sun", "cat", "sky", "she", "go", "we"],
+    "decodable": []
+  },
+  "phonics_focus": [],
+  "metadata": {
+    "word_count": 13,
+    "max_sentence_length": 2,
+    "aesthetic_focus": "Visual wonder, softness, light"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "level": 4,
+  "type": "hero_journey",
+  "title": "Blaze the Dragon's Quest",
+  "summary": "A young dragon learns that true strength comes from helping others when it saves a trapped animal using its special flame.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A small black dragon lived in a tall cliff cave.",
+      "scene": "A young dragon with small flames perched on rocky cliffs"
+    },
+    {
+      "page": 2,
+      "text": "Blaze felt trapped and wanted to fly free.",
+      "scene": "Dragon looking out at the vast world below, longing for adventure"
+    },
+    {
+      "page": 3,
+      "text": "One day a cry came from the trees.",
+      "scene": "A frightened animal sound echoing from the forest below"
+    },
+    {
+      "page": 4,
+      "text": "\"Please help! I am stuck!\" said the frog.",
+      "scene": "A green frog tangled in thick vines, struggling desperately"
+    },
+    {
+      "page": 5,
+      "text": "Blaze flew down fast and quick.",
+      "scene": "Dragon diving swiftly through the air toward the frog"
+    },
+    {
+      "page": 6,
+      "text": "Can you cut the vines? Please!",
+      "scene": "Frog begging dragon for help"
+    },
+    {
+      "page": 7,
+      "text": "Blaze's flame was bright and strong, and it cut the vines.",
+      "scene": "Dragon using precise flames to burn away the tangled vines"
+    },
+    {
+      "page": 8,
+      "text": "The frog was free and glad!",
+      "scene": "Frog leaping away, celebrating its freedom"
+    },
+    {
+      "page": 9,
+      "text": "Blaze learned that being a hero meant being kind and brave.",
+      "scene": "Dragon and frog together, dragon no longer feeling trapped"
+    },
+    {
+      "page": 10,
+      "text": "The end.",
+      "scene": "Dragon flying freely, now with purpose and friendship"
+    }
+  ],
+  "word_list": {
+    "decodable": ["small", "black", "dragon", "lived", "tall", "cliff", "cave", "blaze", "felt", "trapped", "wanted", "fly", "free", "day", "cry", "came", "trees", "stuck", "frog", "green", "tangled", "vines", "struggling", "down", "fast", "quick", "flame", "bright", "strong", "cut", "free", "glad", "learned", "hero", "meant", "kind", "brave"],
+    "sight": ["a", "in", "and", "to", "one", "from", "the", "i", "am", "said", "you", "please", "was", "being", "end"]
+  },
+  "phonics_focus": ["l-blends (bl, cl, fl, gl, pl, sl)", "r-blends (br, cr, dr, fr, gr, pr, tr)"],
+  "metadata": {
+    "word_count": 146,
+    "max_sentence_length": 6,
+    "decodability_target": "95%+"
+  }
+}

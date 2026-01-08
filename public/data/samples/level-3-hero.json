@@ -1,0 +1,63 @@
+{
+  "level": 3,
+  "type": "hero_journey",
+  "title": "Wish the Fish",
+  "summary": "A young fish discovers it has the ability to guide others through dangerous waters, becoming the hero of its pond.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A fish lived in a small pond.",
+      "scene": "A small golden fish swimming happily in calm water"
+    },
+    {
+      "page": 2,
+      "text": "This fish was shy and wished to help.",
+      "scene": "Fish watching other creatures from behind weeds"
+    },
+    {
+      "page": 3,
+      "text": "When it rained, the water was bad and thick.",
+      "scene": "Heavy rain making the pond murky and dangerous"
+    },
+    {
+      "page": 4,
+      "text": "The shell was lost! Which way? Help!",
+      "scene": "A frightened turtle shell floating, unable to see"
+    },
+    {
+      "page": 5,
+      "text": "The fish did chat and think.",
+      "scene": "Fish thinking hard about how to help"
+    },
+    {
+      "page": 6,
+      "text": "\"Come this way!\" said the fish.",
+      "scene": "Fish swimming determinedly toward turtle, showing path"
+    },
+    {
+      "page": 7,
+      "text": "The fish sang and rang a rock.",
+      "scene": "Fish making sounds to guide turtle through storm"
+    },
+    {
+      "page": 8,
+      "text": "The shell was safe at last!",
+      "scene": "Turtle reaching safety in shallow, calm waters"
+    },
+    {
+      "page": 9,
+      "text": "The shy fish was the thing they needed! The end.",
+      "scene": "Fish and turtle together, pond creatures celebrating the hero"
+    }
+  ],
+  "word_list": {
+    "decodable": ["fish", "lived", "pond", "shy", "wished", "help", "when", "rained", "water", "bad", "thick", "shell", "lost", "which", "way", "chat", "think", "said", "sang", "rang", "rock", "safe", "last", "thing"],
+    "sight": ["a", "in", "was", "this", "to", "and", "the", "did", "come", "they", "needed", "end"]
+  },
+  "phonics_focus": ["sh- words", "ch- words", "th- words", "wh- words", "-ck words"],
+  "metadata": {
+    "word_count": 108,
+    "max_sentence_length": 5,
+    "decodability_target": "95%+"
+  }
+}

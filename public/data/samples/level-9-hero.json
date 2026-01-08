@@ -1,0 +1,112 @@
+{
+  "level": 9,
+  "type": "hero_journey",
+  "title": "Maya's Brave Journey",
+  "summary": "Maya the young girl hears about a lost child in the forest and embarks on a daring adventure to rescue them, discovering courage within herself and finding joy in helping others.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "Maya was a normal girl living in a small town. She played with her friends and went to school each day.",
+      "scene": "A young girl in her cozy room, looking at a map on her wall with mountains and forests"
+    },
+    {
+      "page": 2,
+      "text": "One loud morning, she heard shocking news. A small boy was lost in the dark woods.",
+      "scene": "Maya hearing urgent news from townspeople gathered in the town square, looking worried"
+    },
+    {
+      "page": 3,
+      "text": "\"Someone must find him!\" cried the boy's mother. Maya's heart pounded. \"I will go!\" she said out loud.",
+      "scene": "Maya standing up bravely, volunteers and townspeople looking at her with doubt"
+    },
+    {
+      "page": 4,
+      "text": "Maya gathered supplies. She took a rope, a light, and food. Her friends said, \"You are too young!\"",
+      "scene": "Maya packing a backpack with supplies, her worried friends trying to stop her"
+    },
+    {
+      "page": 5,
+      "text": "But Maya would not listen. She was determined. She walked to the forest's edge as the sun went down.",
+      "scene": "Maya marching toward a dark forest at dusk, determined despite her fear"
+    },
+    {
+      "page": 6,
+      "text": "The forest was loud with strange sounds. Owls called out in the night. Maya felt scared.",
+      "scene": "Maya in the dark forest, looking frightened but pressing forward through the trees"
+    },
+    {
+      "page": 7,
+      "text": "She heard a sound. It was soft crying. \"Hello! Are you there?\" she called out loud.",
+      "scene": "Maya listening intently, moving toward the sound of the small boy's cry"
+    },
+    {
+      "page": 8,
+      "text": "Maya found the boy sitting down by a big rock. He was cold and tired.",
+      "scene": "A frightened young boy huddled near a large rock, eyes wide when he sees Maya"
+    },
+    {
+      "page": 9,
+      "text": "\"Do not worry,\" Maya said softly. \"I will take you home. You are safe now.\"",
+      "scene": "Maya kneeling down, putting her coat around the small boy's shoulders"
+    },
+    {
+      "page": 10,
+      "text": "She gave him food and water. The boy stopped crying. \"Thank you,\" he said with a small smile.",
+      "scene": "The boy eating and drinking, looking less scared as Maya comforts him"
+    },
+    {
+      "page": 11,
+      "text": "Maya held his hand and they walked through the woods. It was slow but they did not give up.",
+      "scene": "Maya and the boy walking together through the forest, supporting each other"
+    },
+    {
+      "page": 12,
+      "text": "As dawn came, they saw the town below. \"There! Our home!\" cried the boy with joy.",
+      "scene": "The town appearing below them in the morning light, both looking relieved and happy"
+    },
+    {
+      "page": 13,
+      "text": "The boy's mother ran out and grabbed him. She hugged Maya too. \"You saved my child!\"",
+      "scene": "A joyful reunion with the mother embracing both the boy and Maya tearfully"
+    },
+    {
+      "page": 14,
+      "text": "The whole town cheered. Maya realized something important that day.",
+      "scene": "The town gathered around, celebrating Maya's bravery with applause and cheers"
+    },
+    {
+      "page": 15,
+      "text": "She was brave. She was strong. She could make a difference. Inside her was courage she did not know about.",
+      "scene": "Maya standing proud and tall, looking confident, with the grateful townspeople around her"
+    },
+    {
+      "page": 16,
+      "text": "From that day on, Maya knew she could do hard things. She brought hope to her town.",
+      "scene": "Maya walking through town with new confidence, other children looking up to her with admiration"
+    }
+  ],
+  "word_list": {
+    "decodable": [
+      "normal", "played", "heard", "lost", "boy", "woods", "someone", "find", "heart", "pounded", "young", "gathered", "supplies", "took", "rope", "light", "food", "friends", "said", "would", "listen", "determined", "walked", "forest", "edge", "sun", "went", "down", "loud", "strange", "sounds", "owls", "called", "felt", "scared", "sound", "soft", "crying", "hello", "there", "called", "found", "sitting", "rock", "cold", "tired", "worry", "take", "home", "safe", "gave", "water", "stopped", "thank", "held", "hand", "slow", "give", "up", "dawn", "town", "below", "home", "joy", "cried", "mother", "ran", "out", "grabbed", "hugged", "saved", "child", "cheered", "realized", "something", "important", "brave", "strong", "could", "make", "difference", "inside", "courage", "know", "about", "day", "brought", "hope"
+    ],
+    "sight": [
+      "a", "the", "was", "were", "would", "could", "should", "said", "to", "from", "have", "has", "do", "does", "did", "go", "goes", "went", "see", "saw", "come", "came", "there", "their", "where", "here", "his", "her", "its", "my", "your", "our", "who", "what", "which", "when", "why", "how", "all", "are", "be", "but", "by", "for", "if", "in", "is", "it", "me", "no", "of", "on", "or", "so", "some", "that", "this", "very", "we", "and", "as", "been", "each", "one", "other", "just", "know", "than", "them", "then", "these", "think", "use", "way", "because", "also", "after", "before", "too", "only", "need", "want", "get", "give", "make", "new", "now", "over", "such", "through", "thought", "although", "enough", "tough", "buy", "build"
+    ]
+  },
+  "phonics_focus": [
+    "oi/oy (boy, joy, noise, voice, choice, coin, oil, soil, enjoy, employ, annoy, toy, soy)",
+    "ou/ow (out, shout, loud, sound, found, round, ground, house, mouse, mouth, south, cow, how, now, down, town, brown, crown, grow, know, show)",
+    "au/aw (saw, law, paw, cause, pause, because, caught, taught, bought, brought, thought, draw)"
+  ],
+  "metadata": {
+    "word_count": 286,
+    "max_sentence_length": 14,
+    "decodability_target": "90%",
+    "theme": "courage and rescue",
+    "story_arc": "Ordinary girl hears call of lost child, overcomes doubt and fear, rescues boy from forest, returns as hero with newfound courage",
+    "characters": ["Maya (brave young girl)", "Lost boy (child in need)", "Mother (grateful parent)", "Friends and townspeople"],
+    "conflict": "A boy is lost in the dark forest; Maya must overcome fear and doubt to rescue him",
+    "resolution": "Maya finds the boy, guides him home safely, and discovers her own courage and strength",
+    "hero_journey_elements": ["Ordinary World: Maya's normal life", "Call to Adventure: Boy lost in forest", "Initial Refusal: Friends doubt her", "Crossing Threshold: Entering the dark forest", "Trials: Fear, darkness, confusion", "Transformation: Maya discovers inner courage", "Return: Brings boy home, becomes community hero"]
+  }
+}

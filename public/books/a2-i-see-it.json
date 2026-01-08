@@ -1,0 +1,54 @@
+{
+  "id": "a2-i-see-it",
+  "title": "I See It",
+  "slug": "i-see-it",
+  "level": "A2",
+  "band": "A",
+  "color": "Cream",
+  "skill": "CV/VC Words + Patterns",
+  "skill_description": "Blend 2 sounds, read patterned sentences with CV and VC words.",
+  "age_range": "Pre-K to early K",
+  "created": "2026-01-06",
+  "model": "claude-opus-4-5",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "A repetitive pattern book using the frame 'I see the ___' to practice CV and VC word patterns.",
+  "targetPhonics": "CV patterns (ma, so) and VC patterns (am, at, it) with letters M, S, A, T, O, I, L, C",
+  "sightWordsUsed": ["a", "I", "the"],
+
+  "word_list": {
+    "sound_out": ["cat", "mat", "sat", "it"],
+    "sight": ["a", "I", "the"],
+    "new": []
+  },
+
+  "wordsearch_words": ["cat", "mat", "sat"],
+
+  "pages": [
+    { "page": 1, "type": "cover", "text": "I See It", "scene": "A child with binoculars looking at various animals. Warm watercolor style." },
+    { "page": 2, "type": "copyright" },
+    { "page": 3, "type": "parent_guide" },
+    { "page": 4, "type": "level_info" },
+    { "page": 5, "type": "wordlist", "text": "Words to Know" },
+    { "page": 6, "story_page": 1, "type": "story", "text": "I see a cat.", "scene": "A friendly cat sitting and looking at the viewer." },
+    { "page": 7, "story_page": 2, "type": "story", "text": "I see a mat.", "scene": "A colorful mat on the floor." },
+    { "page": 8, "story_page": 3, "type": "story", "text": "The cat sat.", "scene": "A cat sitting down on the floor." },
+    { "page": 9, "story_page": 4, "type": "story", "text": "I see it.", "scene": "A child pointing at the cat on the mat." },
+    { "page": 10, "story_page": 5, "type": "story", "text": "The cat sat.", "scene": "The cat sitting comfortably on the mat." },
+    { "page": 11, "story_page": 6, "type": "story", "text": "I see it!", "scene": "A child smiling and watching the cat." },
+    { "page": 12, "story_page": 7, "type": "story", "text": "A cat sat.", "scene": "The cat curled up happily on the mat." },
+    { "page": 13, "story_page": 8, "type": "story", "text": "I see it!", "scene": "A child sitting next to the cat, both happy." },
+    { "page": 14, "type": "end", "text": "The End", "scene": "A child and cat together on the mat, cozy scene." },
+    { "page": 15, "type": "wordsearch" },
+    { "page": 16, "type": "back_cover", "text": "" }
+  ],
+
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00Z",
+    "levelSpecs": "v2",
+    "wordCount": 28,
+    "uniqueWords": 6,
+    "letterConstraints": "M, S, A, T, O, I, L, C",
+    "caseConstraint": "Sentence-initial caps, lowercase for known letters"
+  }
+}

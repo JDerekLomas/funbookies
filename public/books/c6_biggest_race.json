@@ -1,0 +1,42 @@
+{
+  "id": "c6-biggest-race",
+  "title": "The Biggest Race",
+  "level": "C6",
+  "band": "C",
+  "targetPhonics": "Inflectional Endings",
+  "morphologyFocus": ["-s/-es", "-ed (3 sounds)", "-ing", "-er", "-est"],
+  "sightWordsUsed": ["wanted", "jumped", "played", "running", "bigger", "fastest"],
+  "pages": [
+    {"page": 1, "text": "Mia wanted to enter the biggest race in the whole town more than anything else.", "scene": "A young girl looking at a poster advertising a big town race."},
+    {"page": 2, "text": "She had been running every morning and getting faster each day for many weeks.", "scene": "Mia jogging through a park at sunrise, looking determined."},
+    {"page": 3, "text": "Her older brother Alex was taller and had longer legs, but she never stopped trying.", "scene": "Mia and her taller brother stretching together before practice."},
+    {"page": 4, "text": "\"Running takes practice,\" Alex reminded her as they stretched their tired muscles together.", "scene": "Both siblings doing warm-up stretches on a grassy field."},
+    {"page": 5, "text": "Mia nodded and started jogging faster, her feet pounding against the hard packed trail.", "scene": "Mia running on a dirt trail, dust kicking up behind her."},
+    {"page": 6, "text": "The morning of the race arrived, and runners from all the nearby towns gathered together.", "scene": "A crowded starting line with runners of all ages stretching."},
+    {"page": 7, "text": "Mia looked at the other racers and noticed some were bigger and looked much stronger.", "scene": "Mia observing other competitors, some looking more athletic."},
+    {"page": 8, "text": "She reminded herself that she had trained harder than ever before and was truly ready.", "scene": "Mia taking a deep breath at the starting line, focused."},
+    {"page": 9, "text": "The starting horn sounded and all the runners dashed forward at the very same moment.", "scene": "Runners bursting from the starting line in a blur of motion."},
+    {"page": 10, "text": "Mia started slower than the others but kept a steady pace without rushing too much.", "scene": "Mia running at the back of the pack, calm expression."},
+    {"page": 11, "text": "As the racers rounded the first corner, some tired runners began slowing down already.", "scene": "Some runners slowing and breathing hard around a corner."},
+    {"page": 12, "text": "Mia passed them easily because she had trained smarter and saved her best energy.", "scene": "Mia passing tired runners, moving up in the pack."},
+    {"page": 13, "text": "The fastest runners were still far ahead, but Mia kept pushing and never stopped.", "scene": "Mia in the middle of the pack, leaders visible ahead."},
+    {"page": 14, "text": "Her legs burned and her lungs ached, but she remembered all her morning practices.", "scene": "Mia showing effort but determination on her face mid-race."},
+    {"page": 15, "text": "She passed more racers as they slowed, and she moved into the top ten runners.", "scene": "Mia advancing through the field, spectators cheering."},
+    {"page": 16, "text": "The finish line appeared ahead, and Mia spotted Alex cheering and jumping in the crowd.", "scene": "The finish line visible, Alex waving excitedly from the sidelines."},
+    {"page": 17, "text": "Mia pushed harder than she ever had before, her arms pumping and legs flying.", "scene": "Mia sprinting with everything she has toward the finish line."},
+    {"page": 18, "text": "She crossed the finish line in fifth place, her best result in any race ever.", "scene": "Mia crossing the finish line, arms raised in triumph."},
+    {"page": 19, "text": "Alex rushed over and hugged her tightly, saying she was the bravest runner there.", "scene": "Alex hugging Mia, both smiling broadly."},
+    {"page": 20, "text": "\"You trained harder and ran smarter than all those faster kids,\" Alex told her proudly.", "scene": "Alex handing Mia water, speaking encouragingly."},
+    {"page": 21, "text": "Mia smiled because she learned that being the biggest or fastest is not everything.", "scene": "Mia looking content, holding her participation ribbon."},
+    {"page": 22, "text": "Working harder and never quitting mattered most, and that made her the happiest racer today.", "scene": "Mia standing on a small platform receiving a medal."},
+    {"page": 23, "text": "She promised herself that she would keep training and racing for many more wonderful years.", "scene": "Mia and Alex walking home together at sunset, talking happily."},
+    {"page": 24, "text": "And the next year, Mia entered the same race and finished even higher than before.", "scene": "Mia crossing a finish line with a huge smile, holding up three fingers for third place."}
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 530,
+    "decodabilityTarget": "65%+",
+    "targetPatternWords": ["wanted", "started", "reminded", "nodded", "arrived", "gathered", "noticed", "sounded", "dashed", "rounded", "passed", "trained", "pushed", "crossed", "rushed", "hugged", "learned", "promised", "entered", "finished", "running", "getting", "jogging", "stretching", "pounding", "rushing", "slowing", "pushing", "pumping", "quitting", "racing", "runners", "racers", "bigger", "longer", "taller", "older", "faster", "slower", "harder", "smarter", "higher", "biggest", "fastest", "bravest", "happiest", "legs", "muscles", "towns", "runners", "racers", "lungs", "arms", "boxes", "wishes", "matches"]
+  }
+}

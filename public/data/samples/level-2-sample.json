@@ -1,0 +1,62 @@
+{
+  "level": 2,
+  "title": "Pup in the Mud",
+  "summary": "A puppy gets muddy and needs a bath, discovering all five short vowels.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A pup ran and hid.",
+      "scene": "A golden retriever puppy running playfully"
+    },
+    {
+      "page": 2,
+      "text": "The pup dug in mud.",
+      "scene": "The puppy digging enthusiastically in muddy ground"
+    },
+    {
+      "page": 3,
+      "text": "It was wet and bad.",
+      "scene": "The mud-covered puppy shaking, mud flying everywhere"
+    },
+    {
+      "page": 4,
+      "text": "A hen sat on a log.",
+      "scene": "A brown hen perched on wood, watching the puppy"
+    },
+    {
+      "page": 5,
+      "text": "The hen did cluck.",
+      "scene": "The hen clucking and bobbing its head disapprovingly"
+    },
+    {
+      "page": 6,
+      "text": "We can get a tub.",
+      "scene": "A child and adult preparing a bathtub outside"
+    },
+    {
+      "page": 7,
+      "text": "The pup sat in tub.",
+      "scene": "The muddy puppy sitting in a tub of soapy water"
+    },
+    {
+      "page": 8,
+      "text": "The pup got wet and clean.",
+      "scene": "A clean, fluffy puppy being dried with a towel"
+    },
+    {
+      "page": 9,
+      "text": "We had fun. The end.",
+      "scene": "Happy child hugging clean puppy, both smiling"
+    }
+  ],
+  "word_list": {
+    "decodable": ["pup", "ran", "hid", "dug", "mud", "wet", "bad", "hen", "sat", "log", "did", "cluck", "tub", "got", "clean", "fun"],
+    "sight": ["a", "the", "it", "was", "and", "on", "we", "can", "in", "had", "end"]
+  },
+  "phonics_focus": ["CVC short a", "CVC short e", "CVC short i", "CVC short o", "CVC short u"],
+  "metadata": {
+    "word_count": 65,
+    "max_sentence_length": 4,
+    "decodability_target": "95%+"
+  }
+}

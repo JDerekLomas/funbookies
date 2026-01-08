@@ -1,0 +1,57 @@
+{
+  "level": 0,
+  "title": "A Cat",
+  "summary": "Simple sight words introduce a cat in a picture book style.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A cat.",
+      "scene": "A fluffy orange tabby cat sitting in sunlight, looking content"
+    },
+    {
+      "page": 2,
+      "text": "The cat.",
+      "scene": "Close-up of the same cat's face with bright eyes"
+    },
+    {
+      "page": 3,
+      "text": "I see.",
+      "scene": "A child pointing at the cat with a smile"
+    },
+    {
+      "page": 4,
+      "text": "Go, cat.",
+      "scene": "The cat running through a garden with flowers"
+    },
+    {
+      "page": 5,
+      "text": "The cat is.",
+      "scene": "The cat resting in a sunny patch on the floor"
+    },
+    {
+      "page": 6,
+      "text": "I go.",
+      "scene": "A child walking toward the cat with arms open"
+    },
+    {
+      "page": 7,
+      "text": "We go.",
+      "scene": "Child and cat playing together outside"
+    },
+    {
+      "page": 8,
+      "text": "The end.",
+      "scene": "Child hugging the cat, both happy and content"
+    }
+  ],
+  "word_list": {
+    "decodable": [],
+    "sight": ["a", "cat", "the", "I", "see", "go", "is", "we", "the", "end"]
+  },
+  "phonics_focus": ["sight words only"],
+  "metadata": {
+    "word_count": 20,
+    "max_sentence_length": 2,
+    "decodability_target": "100% sight words"
+  }
+}

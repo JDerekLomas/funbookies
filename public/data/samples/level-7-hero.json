@@ -1,0 +1,98 @@
+{
+  "level": 7,
+  "type": "hero_journey",
+  "title": "The Goat Who Stood Tall",
+  "summary": "A young goat must gather courage to cross a roaring stream and deliver important news to the mountain village, learning that true heroes face their fears.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "In a green meadow by a deep stream lived a young goat named Lee.",
+      "scene": "A small gray goat standing in a sunny field near rushing water"
+    },
+    {
+      "page": 2,
+      "text": "Lee loved to eat the sweet grass and play with his goat friends.",
+      "scene": "Goat happily grazing with other goats in peaceful routine"
+    },
+    {
+      "page": 3,
+      "text": "One afternoon, a worried goose flew down and said, \"Help! The rain has come!\"",
+      "scene": "A frightened goose landing, signaling urgent danger"
+    },
+    {
+      "page": 4,
+      "text": "\"The stream is deep and will float things away!\" cried the goose.",
+      "scene": "Stream swelling dangerously with water flowing fast"
+    },
+    {
+      "page": 5,
+      "text": "\"Lee, you must go to the hill town and tell them to stay!\"",
+      "scene": "Goose desperately asking Lee to make a dangerous journey"
+    },
+    {
+      "page": 6,
+      "text": "Lee's heart beat fast as he looked at the wild water.",
+      "scene": "Young goat staring anxiously at the roaring stream"
+    },
+    {
+      "page": 7,
+      "text": "\"I am small,\" he said, \"but I will be strong and brave.\"",
+      "scene": "Lee taking a deep breath and building his courage"
+    },
+    {
+      "page": 8,
+      "text": "Lee stepped into the stream and felt the cold, swift flow.",
+      "scene": "Goat carefully wading through rushing water"
+    },
+    {
+      "page": 9,
+      "text": "The water pushed him, but he held tight and did not float away.",
+      "scene": "Lee struggling but determinedly crossing the stream"
+    },
+    {
+      "page": 10,
+      "text": "He climbed up the steep path to the town.",
+      "scene": "Goat climbing steadily up the hillside toward village"
+    },
+    {
+      "page": 11,
+      "text": "\"Rain is coming! Stay high!\" he cried to each door.",
+      "scene": "Lee going house to house, warning villagers"
+    },
+    {
+      "page": 12,
+      "text": "The people heard Lee and moved their things to safe ground.",
+      "scene": "Villagers listening to Lee and preparing for danger"
+    },
+    {
+      "page": 13,
+      "text": "When the flood passed, the town was safe because of Lee!",
+      "scene": "Village safe after the waters recede"
+    },
+    {
+      "page": 14,
+      "text": "Lee learned that being a hero is not about being big.",
+      "scene": "Lee standing tall, recognized by the grateful villagers"
+    },
+    {
+      "page": 15,
+      "text": "It is about being brave enough to try when others need you.",
+      "scene": "Lee returning home as a true hero"
+    },
+    {
+      "page": 16,
+      "text": "The end.",
+      "scene": "Lee with all the animals, celebrated for bravery"
+    }
+  ],
+  "word_list": {
+    "decodable": ["green", "meadow", "deep", "stream", "lived", "young", "goat", "named", "loved", "sweet", "grass", "play", "friends", "afternoon", "worried", "goose", "flew", "down", "said", "help", "rain", "come", "float", "things", "away", "cried", "must", "town", "tell", "stay", "heart", "beat", "fast", "looked", "wild", "water", "small", "strong", "brave", "stepped", "into", "felt", "cold", "swift", "flow", "pushed", "held", "tight", "did", "not", "climbed", "steep", "path", "to", "town", "coming", "high", "each", "door", "heard", "moved", "their", "ground", "when", "flood", "passed", "safe", "because", "learned", "being", "hero", "about", "being", "big", "about", "enough", "try", "when", "others", "need", "you", "returned", "home", "true"],
+    "sight": ["in", "a", "by", "the", "and", "to", "of", "with", "his", "one", "has", "will", "is", "at", "i", "am", "he", "from", "up", "each", "that", "it", "be", "all", "your", "for", "her", "were", "where", "end"]
+  },
+  "phonics_focus": ["ai/ay (rain, stay, day)", "ee/ea (green, deep, see, sweet, stream, tea)", "oa/oe (goat, float, toe)", "oo (flood, too)", "ow (know, own)"],
+  "metadata": {
+    "word_count": 284,
+    "max_sentence_length": 10,
+    "decodability_target": "95%+"
+  }
+}

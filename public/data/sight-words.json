@@ -1,0 +1,136 @@
+{
+  "version": "2.0",
+  "description": "Sight words by level for 28-level system (A0-D6)",
+  "bands": {
+    "A": {
+      "name": "Pre-Reader / Emergent",
+      "cumulativeCap": 9
+    },
+    "B": {
+      "name": "Phonics Foundation",
+      "cumulativeCap": 37
+    },
+    "C": {
+      "name": "Word Study",
+      "cumulativeCap": 56
+    },
+    "D": {
+      "name": "Fluent Reading",
+      "cumulativeCap": "unlimited"
+    }
+  },
+  "levels": {
+    "A0": {
+      "words": [],
+      "cumulative": []
+    },
+    "A1": {
+      "words": ["a", "i"],
+      "cumulative": ["a", "i"]
+    },
+    "A2": {
+      "words": ["the"],
+      "cumulative": ["a", "i", "the"]
+    },
+    "A3": {
+      "words": ["is", "to"],
+      "cumulative": ["a", "i", "the", "is", "to"]
+    },
+    "A4": {
+      "words": ["and", "it", "in", "on"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on"]
+    },
+    "B1": {
+      "words": ["my", "see"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see"]
+    },
+    "B2": {
+      "words": ["he", "she", "we", "be"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be"]
+    },
+    "B3": {
+      "words": ["you", "are", "was", "for"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for"]
+    },
+    "B4": {
+      "words": ["said", "have", "they", "come"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come"]
+    },
+    "B5": {
+      "words": ["there", "what", "from"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from"]
+    },
+    "B6": {
+      "words": [],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from"]
+    },
+    "B7": {
+      "words": ["would", "could", "should", "very"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very"]
+    },
+    "B8": {
+      "words": ["other", "another", "people"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people"]
+    },
+    "B9": {
+      "words": ["where", "were", "here", "there", "their"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people", "where", "were", "here", "their"]
+    },
+    "C1": {
+      "words": ["thought", "through", "eight", "enough"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people", "where", "were", "here", "their", "thought", "through", "eight", "enough"]
+    },
+    "C2": {
+      "words": ["once", "dance", "since"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people", "where", "were", "here", "their", "thought", "through", "eight", "enough", "once", "dance", "since"]
+    },
+    "C3": {
+      "words": ["little", "something", "nothing"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people", "where", "were", "here", "their", "thought", "through", "eight", "enough", "once", "dance", "since", "little", "something", "nothing"]
+    },
+    "C4": {
+      "words": ["before", "after", "always"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people", "where", "were", "here", "their", "thought", "through", "eight", "enough", "once", "dance", "since", "little", "something", "nothing", "before", "after", "always"]
+    },
+    "C5": {
+      "words": [],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people", "where", "were", "here", "their", "thought", "through", "eight", "enough", "once", "dance", "since", "little", "something", "nothing", "before", "after", "always"]
+    },
+    "C6": {
+      "words": [],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people", "where", "were", "here", "their", "thought", "through", "eight", "enough", "once", "dance", "since", "little", "something", "nothing", "before", "after", "always"]
+    },
+    "C7": {
+      "words": ["beautiful", "special", "important"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people", "where", "were", "here", "their", "thought", "through", "eight", "enough", "once", "dance", "since", "little", "something", "nothing", "before", "after", "always", "beautiful", "special", "important"]
+    },
+    "C8": {
+      "words": ["impossible", "disappear", "discover"],
+      "cumulative": ["a", "i", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people", "where", "were", "here", "their", "thought", "through", "eight", "enough", "once", "dance", "since", "little", "something", "nothing", "before", "after", "always", "beautiful", "special", "important", "impossible", "disappear", "discover"]
+    },
+    "D1": {
+      "words": [],
+      "cumulative": []
+    },
+    "D2": {
+      "words": [],
+      "cumulative": []
+    },
+    "D3": {
+      "words": [],
+      "cumulative": []
+    },
+    "D4": {
+      "words": [],
+      "cumulative": []
+    },
+    "D5": {
+      "words": [],
+      "cumulative": []
+    },
+    "D6": {
+      "words": [],
+      "cumulative": []
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "level": 1,
+  "type": "art_poetry",
+  "title": "Cat Sat",
+  "summary": "A rhythmic exploration of stillness and observation. The cat sits, watching the world, with sensory details woven through simple CVC words.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "The cat sat.",
+      "scene": "A tabby cat sitting peacefully on a soft cushion, watching with half-closed eyes"
+    },
+    {
+      "page": 2,
+      "text": "It sat still.",
+      "scene": "The cat's silhouette against a window, completely motionless, patient"
+    },
+    {
+      "page": 3,
+      "text": "A bug ran.",
+      "scene": "A tiny insect scurrying across the floor, bright and quick"
+    },
+    {
+      "page": 4,
+      "text": "The cat can sit.",
+      "scene": "Cat's tail twitches slightly, eyes tracking movement"
+    },
+    {
+      "page": 5,
+      "text": "It hid here.",
+      "scene": "The cat tucked into a small corner, barely visible, eyes glowing"
+    },
+    {
+      "page": 6,
+      "text": "The cat sat, sat, sat.",
+      "scene": "Cat waiting in the afternoon light, sunbeams dancing around it"
+    },
+    {
+      "page": 7,
+      "text": "The sun is hot.",
+      "scene": "Golden afternoon light streaming through windows, everything bathed in warmth"
+    },
+    {
+      "page": 8,
+      "text": "The cat sat in it.",
+      "scene": "Cat basking contentedly in a pool of warm sunlight"
+    }
+  ],
+  "word_list": {
+    "sight": ["the", "it", "a", "is", "can", "sat", "sit"],
+    "decodable": ["cat", "bug", "ran", "hid", "hot", "sun", "in"]
+  },
+  "phonics_focus": [
+    "CVC short a (cat, sat)",
+    "CVC short i (hid, sit, in)",
+    "CVC short u (bug)",
+    "CVC short o (hot)"
+  ],
+  "metadata": {
+    "word_count": 24,
+    "max_sentence_length": 3,
+    "aesthetic_focus": "Stillness, observation, warmth, light"
+  }
+}

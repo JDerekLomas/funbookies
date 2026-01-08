@@ -1,0 +1,40 @@
+{
+  "id": "c3-kitten-adventure",
+  "title": "The Kitten in the Basket",
+  "level": "C3",
+  "band": "C",
+  "targetPhonics": "Two-Syllable Closed",
+  "morphologyFocus": ["VC/CV division", "double consonant", "rabbit", "kitten", "sudden"],
+  "sightWordsUsed": ["little", "something", "nothing", "hidden", "happen"],
+  "pages": [
+    {"page": 1, "text": "A little kitten named Mittens was hidden inside a big basket.", "scene": "A fluffy orange kitten peeking out from a woven basket in a sunny room."},
+    {"page": 2, "text": "Mittens was a happy kitten who loved to run and play all day.", "scene": "The playful kitten bounding through a living room, toys scattered around."},
+    {"page": 3, "text": "One day, something funny happened in the kitchen near the ladder.", "scene": "The kitchen with a wooden ladder against the wall, kitten looking curious."},
+    {"page": 4, "text": "A rabbit hopped in through the open window and landed on the rug.", "scene": "A brown rabbit mid-hop, coming through an open kitchen window."},
+    {"page": 5, "text": "Mittens had never seen a rabbit before and felt a sudden surprise.", "scene": "The kitten with wide eyes, fur slightly raised, staring at the rabbit."},
+    {"page": 6, "text": "The rabbit looked at the kitten and began to nibble on a carrot.", "scene": "The rabbit calmly eating a carrot while the kitten watches intently."},
+    {"page": 7, "text": "Mittens thought the rabbit was silly but also pretty and fluffy.", "scene": "The kitten tilting its head, studying the soft fluffy rabbit."},
+    {"page": 8, "text": "The kitten crept closer and sniffed the rabbit with her little button nose.", "scene": "The kitten cautiously approaching, nose twitching near the rabbit."},
+    {"page": 9, "text": "The rabbit did not run away but just kept munching on dinner.", "scene": "The relaxed rabbit continuing to eat, kitten sitting nearby watching."},
+    {"page": 10, "text": "Mittens felt happy that the rabbit was not afraid of her at all.", "scene": "The kitten looking pleased, sitting companionably next to the rabbit."},
+    {"page": 11, "text": "They sat together on the rug and looked out the window at sunset.", "scene": "Kitten and rabbit sitting side by side, golden sunset light streaming in."},
+    {"page": 12, "text": "A puppy ran past the window and barked at a passing jogger.", "scene": "View through window of a puppy chasing after someone jogging by."},
+    {"page": 13, "text": "The sudden noise made the rabbit hop into the basket in a hurry.", "scene": "The startled rabbit leaping into the woven basket beside the kitten."},
+    {"page": 14, "text": "Mittens followed the rabbit and snuggled into the basket with her new buddy.", "scene": "Both animals curled up together cozily in the basket."},
+    {"page": 15, "text": "The kitten purred and the rabbit felt better in the hidden spot.", "scene": "The kitten purring contentedly, rabbit's nose twitching peacefully."},
+    {"page": 16, "text": "Nothing could bother them when they were hidden in the cozy basket.", "scene": "The basket with both animals inside, looking safe and warm."},
+    {"page": 17, "text": "When dinner time came, the children put food in two little dishes.", "scene": "Children placing food bowls near the basket, animals perking up."},
+    {"page": 18, "text": "Mittens ate her kitten food and the rabbit ate fresh lettuce.", "scene": "Both animals eating from their respective bowls side by side."},
+    {"page": 19, "text": "After dinner, they went back to the basket and fell asleep together.", "scene": "The kitten and rabbit curled up sleeping peacefully in the basket."},
+    {"page": 20, "text": "From that day on, the kitten and the rabbit were the best of buddies.", "scene": "The kitten and rabbit playing together in a sunny garden, both happy."},
+    {"page": 21, "text": "Mittens learned that sudden surprises can sometimes bring wonderful new friends.", "scene": "The kitten and rabbit nuzzling each other affectionately."},
+    {"page": 22, "text": "And the little basket became their favorite hidden spot in the whole house.", "scene": "The cozy basket with both animals inside, surrounded by soft blankets, warm light."}
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 420,
+    "decodabilityTarget": "70%+",
+    "targetPatternWords": ["kitten", "Mittens", "hidden", "basket", "rabbit", "sudden", "button", "dinner", "better", "letter", "lettuce", "happy", "fluffy", "puppy", "silly", "pretty", "buddy", "buddies", "ladder", "jogger", "follow", "nibble", "snuggle", "happen", "little", "nothing", "something"]
+  }
+}

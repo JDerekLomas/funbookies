@@ -14,6 +14,7 @@
     { "src": "/api/generate-story", "dest": "/api/generate-story.js" },
     { "src": "/api/evaluations", "dest": "/api/evaluations.js" },
     { "src": "/api/feedback", "dest": "/api/feedback.js" },
+    { "src": "/api/validate-text", "dest": "/api/validate-text.js" },
     { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }

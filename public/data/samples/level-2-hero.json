@@ -1,0 +1,63 @@
+{
+  "level": 2,
+  "type": "hero_journey",
+  "title": "The Bug and The Hen",
+  "summary": "A tiny bug sets out to warn a hen of danger, discovering that even the smallest creature can make a big difference.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A bug sat in the mud.",
+      "scene": "A small red bug resting peacefully in warm earth"
+    },
+    {
+      "page": 2,
+      "text": "A big dog ran and ran.",
+      "scene": "A large dog running fast through the garden, chasing a hen"
+    },
+    {
+      "page": 3,
+      "text": "The hen! The hen was bad!",
+      "scene": "A frightened hen running from the dog"
+    },
+    {
+      "page": 4,
+      "text": "The bug must go and help.",
+      "scene": "Bug deciding it must do something brave"
+    },
+    {
+      "page": 5,
+      "text": "The bug hit the dog on the leg.",
+      "scene": "Tiny bug buzzing around dog's leg insistently"
+    },
+    {
+      "page": 6,
+      "text": "The dog got mad and ran away.",
+      "scene": "Dog giving up chase and running off in frustration"
+    },
+    {
+      "page": 7,
+      "text": "The hen sat and got a rest.",
+      "scene": "Hen sitting safely, catching its breath"
+    },
+    {
+      "page": 8,
+      "text": "The bug was so brave and small.",
+      "scene": "Hen looking at tiny bug with gratitude and wonder"
+    },
+    {
+      "page": 9,
+      "text": "We had fun and we are glad. The end.",
+      "scene": "Bug and hen together as friends, celebrating"
+    }
+  ],
+  "word_list": {
+    "decodable": ["bug", "sat", "mud", "big", "dog", "ran", "hen", "was", "bad", "hit", "leg", "got", "mad", "ran", "rest", "so", "brave", "small", "fun", "glad"],
+    "sight": ["a", "the", "in", "and", "must", "go", "help", "on", "away", "we", "are", "end"]
+  },
+  "phonics_focus": ["CVC short a", "CVC short e", "CVC short i", "CVC short o", "CVC short u"],
+  "metadata": {
+    "word_count": 89,
+    "max_sentence_length": 4,
+    "decodability_target": "95%+"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "a0-look",
+  "title": "LOOK!",
+  "slug": "look",
+  "level": "A0",
+  "band": "A",
+  "color": "White",
+  "skill": "Concept of Print",
+  "skill_description": "Visual tracking, handling books, recognizing that print carries meaning.",
+  "age_range": "Pre-K",
+  "created": "2026-01-06",
+  "model": "claude-opus-4-5",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "A wordless pattern book introducing the concept of looking and observing simple objects.",
+  "targetPhonics": "Letters O, I, L only - basic visual discrimination",
+  "sightWordsUsed": [],
+
+  "word_list": {
+    "sound_out": [],
+    "sight": [],
+    "new": ["LOOK", "OOO", "LI"]
+  },
+
+  "wordsearch_words": [],
+
+  "pages": [
+    { "page": 1, "type": "cover", "text": "LOOK!", "scene": "A friendly eye looking at the viewer with wonder. Simple, bold illustration." },
+    { "page": 2, "type": "copyright" },
+    { "page": 3, "type": "parent_guide" },
+    { "page": 4, "type": "level_info" },
+    { "page": 5, "story_page": 1, "type": "story", "text": "OOO", "scene": "Three round oranges in a row. Simple bold shapes." },
+    { "page": 6, "story_page": 2, "type": "story", "text": "OO", "scene": "Two round eyes looking up. Cute owl face." },
+    { "page": 7, "story_page": 3, "type": "story", "text": "LI", "scene": "A tall tree with a little bird. Vertical shapes." },
+    { "page": 8, "story_page": 4, "type": "story", "text": "O", "scene": "One big full moon in a night sky." },
+    { "page": 9, "story_page": 5, "type": "story", "text": "OOO", "scene": "Three bubbles floating up." },
+    { "page": 10, "story_page": 6, "type": "story", "text": "LOOK!", "scene": "A child pointing at the sky with wonder." },
+    { "page": 11, "type": "end", "text": "THE END", "scene": "A smiling sun in the sky." },
+    { "page": 12, "type": "back_cover", "text": "" }
+  ],
+
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00Z",
+    "levelSpecs": "v2",
+    "wordCount": 10,
+    "uniqueWords": 4,
+    "letterConstraints": "O, I, L only",
+    "caseConstraint": "UPPERCASE ONLY"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "level": 8,
+  "type": "art_poetry",
+  "title": "Forest Dreams",
+  "summary": "A meditative exploration of a forest and inner landscape. R-controlled vowels and syllables create sophisticated rhythm while maintaining emotional resonance.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "The forest hums a gentle song.",
+      "scene": "Dense forest with cathedral-like light filtering through trees"
+    },
+    {
+      "page": 2,
+      "text": "Birds chirp their stories in the ferns.",
+      "scene": "Small forest birds among delicate fronds, creating a chorus"
+    },
+    {
+      "page": 3,
+      "text": "The world turns over, soft and worn.",
+      "scene": "Forest floor carpeted with moss, earth in constant transformation"
+    },
+    {
+      "page": 4,
+      "text": "Purple flowers bloom where sunshine turns.",
+      "scene": "Clearing in the forest with purple wildflowers in dappled light"
+    },
+    {
+      "page": 5,
+      "text": "I hear the heart of growing things.",
+      "scene": "Figure listening intently, surrounded by ferns and growth"
+    },
+    {
+      "page": 6,
+      "text": "The turtle walks with quiet grace.",
+      "scene": "Slow-moving turtle traversing the forest floor"
+    },
+    {
+      "page": 7,
+      "text": "Stories live in every circle here.",
+      "scene": "Tree rings, growth patterns, layered meanings in wood"
+    },
+    {
+      "page": 8,
+      "text": "The forest holds us, still and clear.",
+      "scene": "Forest sanctuary at dusk, peaceful and embracing"
+    }
+  ],
+  "word_list": {
+    "sight": ["the", "a", "in", "where", "I", "hear", "of", "with", "here"],
+    "decodable": ["forest", "hums", "gentle", "song", "birds", "chirp", "their", "stories", "ferns", "world", "turns", "over", "soft", "worn", "purple", "flowers", "bloom", "sunshine", "heart", "growing", "things", "turtle", "walks", "quiet", "grace", "circle", "live", "every", "still", "clear", "holds"]
+  },
+  "phonics_focus": [
+    "ar (heart, farm, start, dark, part)",
+    "er (gentle, her, ferns, turn, over, server)",
+    "ir (birds, circle, first, dirt, shirt)",
+    "ur (turns, hurt, turtle)",
+    "or (forest, story, worn, more, for)",
+    "-le (circle, gentle, purple, little, bottle)"
+  ],
+  "metadata": {
+    "word_count": 97,
+    "max_sentence_length": 12,
+    "aesthetic_focus": "Inner consciousness and nature connection, transformation and growth"
+  }
+}

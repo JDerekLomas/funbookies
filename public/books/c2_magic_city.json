@@ -1,0 +1,38 @@
+{
+  "id": "c2-magic-city",
+  "title": "The Magic City",
+  "level": "C2",
+  "band": "C",
+  "targetPhonics": "Soft C and G",
+  "morphologyFocus": ["ce", "ci", "cy", "ge", "gi", "gy", "-dge"],
+  "sightWordsUsed": ["once", "dance", "since", "city", "giant", "magic"],
+  "pages": [
+    {"page": 1, "text": "Once upon a time, there was a magic city by the sea.", "scene": "A sparkling coastal city with tall crystal towers and glowing bridges at sunset."},
+    {"page": 2, "text": "In the center of the city stood a giant ice palace.", "scene": "A magnificent ice palace with frozen spires in a busy city square."},
+    {"page": 3, "text": "A young girl named Grace lived near the edge of the city.", "scene": "A kind-looking girl with braids standing outside a cozy cottage near city walls."},
+    {"page": 4, "text": "Grace loved to dance on the stage at the circus.", "scene": "Grace dancing gracefully on a colorful circus stage under bright lights."},
+    {"page": 5, "text": "One day, a gentle giant came to the city from far away.", "scene": "A friendly giant walking toward the city gates, villagers looking up in wonder."},
+    {"page": 6, "text": "The giant had a kind face and gentle eyes that sparkled.", "scene": "Close-up of the giant's friendly face with warm, twinkling eyes."},
+    {"page": 7, "text": "He needed to cross the bridge over the deep gorge.", "scene": "The giant standing before a rope bridge spanning a misty gorge."},
+    {"page": 8, "text": "But the bridge was made of ice and looked too fragile.", "scene": "The delicate ice bridge glistening, cracks visible in the frozen surface."},
+    {"page": 9, "text": "The giant was in danger of falling into the gorge below.", "scene": "The giant carefully stepping on the bridge, looking down nervously."},
+    {"page": 10, "text": "Grace ran to the center of the city to find the mage.", "scene": "Grace running through crowded city streets toward a tower with magic symbols."},
+    {"page": 11, "text": "The mage was a wise woman who knew ancient magic spells.", "scene": "An elderly woman in robes surrounded by glowing books and potions."},
+    {"page": 12, "text": "She gave Grace a special gem that glowed with orange energy.", "scene": "The mage placing a bright orange crystal in Grace's outstretched hands."},
+    {"page": 13, "text": "Grace ran back to the bridge at the edge of the city.", "scene": "Grace sprinting through the streets, the gem glowing in her pocket."},
+    {"page": 14, "text": "She placed the gem on the ledge by the frozen bridge.", "scene": "Grace carefully setting the gem on a stone ledge near the ice bridge."},
+    {"page": 15, "text": "The magic changed the ice into strong stone in an instant.", "scene": "The ice bridge transforming into solid stone, magic sparkles everywhere."},
+    {"page": 16, "text": "The giant could now cross the bridge with no danger at all.", "scene": "The smiling giant walking confidently across the sturdy stone bridge."},
+    {"page": 17, "text": "He gave Grace a hug and danced a gentle dance of joy.", "scene": "The giant and Grace dancing together in celebration, villagers clapping."},
+    {"page": 18, "text": "Since that day, Grace became a hero of the magic city.", "scene": "Grace standing on a stage receiving a medal, crowds cheering."},
+    {"page": 19, "text": "The giant visits the city center every year in the spring.", "scene": "The giant walking through blooming city gardens, waving to happy citizens."},
+    {"page": 20, "text": "And Grace still dances on the stage at the circus with joy.", "scene": "Grace performing a beautiful dance on stage, spotlights shining, audience applauding."}
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-06T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 380,
+    "decodabilityTarget": "70-75%",
+    "targetPatternWords": ["city", "ice", "place", "Grace", "face", "dance", "center", "circus", "once", "since", "giant", "gentle", "gem", "magic", "mage", "stage", "edge", "bridge", "ledge", "gorge", "danger", "changed", "orange", "energy"]
+  }
+}

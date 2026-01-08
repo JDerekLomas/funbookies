@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Dashboard - FunBookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <script src="/js/data-service.js"></script>
+    <script src="/js/student-picker.js"></script>
+    <style>
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        /* Stats Overview */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .stat-card {
+            background: var(--color-white);
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .stat-card .stat-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--color-sage-dark);
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Student Grid */
+        .students-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .student-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .student-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .student-card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .student-card-avatar {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        .student-card-info {
+            flex: 1;
+        }
+
+        .student-card-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .student-card-level {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--color-sage-light);
+            color: var(--color-sage-dark);
+        }
+
+        .level-badge.not-assessed {
+            background: var(--color-cream);
+            color: var(--color-text-muted);
+        }
+
+        .student-card-stats {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .mini-stat {
+            flex: 1;
+            text-align: center;
+        }
+
+        .mini-stat-value {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .mini-stat-label {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl);
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .empty-state h3 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .empty-state p {
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-md);
+        }
+
+        /* Student Detail Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 16px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-text-muted);
+        }
+
+        .modal-body {
+            padding: var(--space-md);
+        }
+
+        .detail-section {
+            margin-bottom: var(--space-md);
+        }
+
+        .detail-section h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-sm);
+        }
+
+        .progress-chart {
+            background: var(--color-cream);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            min-height: 100px;
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-xs) 0;
+        }
+
+        .progress-date {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            width: 80px;
+        }
+
+        .progress-level {
+            font-weight: 600;
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-xs);
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-xs);
+            background: var(--color-cream);
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .skill-status {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .skill-status.mastered { background: #E8F5E9; color: #2E7D32; }
+        .skill-status.learning { background: #FFF3E0; color: #E65100; }
+        .skill-status.needs-work { background: #FFEBEE; color: #C62828; }
+        .skill-status.not-tested { background: #ECEFF1; color: #607D8B; }
+
+        .modal-actions {
+            padding: var(--space-md);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        .btn-danger {
+            background: var(--color-terracotta);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: var(--color-terracotta-dark);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .action-card {
+            background: var(--color-white);
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: transform 0.2s;
+        }
+
+        .action-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-icon {
+            font-size: 2rem;
+        }
+
+        .action-info h3 {
+            font-size: 1rem;
+            margin: 0 0 4px;
+        }
+
+        .action-info p {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin: 0;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header" style="padding-top: var(--space-md);">
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+
+        <div class="dashboard-header">
+            <h1>Dashboard</h1>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="exportData()">Export Data</button>
+                <button class="btn btn-primary" onclick="addStudent()">+ Add Student</button>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-overview" id="statsOverview">
+            <div class="stat-card">
+                <div class="stat-value" id="totalStudents">0</div>
+                <div class="stat-label">Students</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="assessedStudents">0</div>
+                <div class="stat-label">Assessed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgLevel">-</div>
+                <div class="stat-label">Avg Level</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalActivities">0</div>
+                <div class="stat-label">Activities (7d)</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <a href="/activities/phonics-assessment.html" class="action-card">
+                <span class="action-icon">📊</span>
+                <div class="action-info">
+                    <h3>Run Assessment</h3>
+                    <p>Test a student's reading level</p>
+                </div>
+            </a>
+            <a href="/activities/" class="action-card">
+                <span class="action-icon">🎮</span>
+                <div class="action-info">
+                    <h3>Practice Activities</h3>
+                    <p>Word games and exercises</p>
+                </div>
+            </a>
+            <a href="/books/" class="action-card">
+                <span class="action-icon">📚</span>
+                <div class="action-info">
+                    <h3>Reading Library</h3>
+                    <p>Browse decodable books</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Students Section -->
+        <div class="students-section">
+            <div class="section-header">
+                <h2>Students</h2>
+            </div>
+
+            <div id="studentsContainer">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Detail Modal -->
+    <div class="modal-overlay hidden" id="studentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    <span id="modalAvatar">🦊</span>
+                    <span id="modalName">Student</span>
+                </h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-section">
+                    <h3>Current Level</h3>
+                    <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                        <span class="level-badge" id="modalLevel" style="font-size: 1.25rem; padding: 8px 16px;">-</span>
+                        <span id="modalLevelName" style="color: var(--color-text-muted);"></span>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Assessment History</h3>
+                    <div class="progress-chart" id="modalProgress">
+                        <p style="color: var(--color-text-muted); text-align: center;">No assessments yet</p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Skills</h3>
+                    <div class="skill-grid" id="modalSkills">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Recent Activity</h3>
+                    <div id="modalActivity">
+                        <p style="color: var(--color-text-muted);">No recent activity</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <a href="/activities/phonics-assessment.html" class="btn btn-primary" id="assessBtn">Run Assessment</a>
+                <a href="/activities/" class="btn btn-secondary">Practice</a>
+                <button class="btn btn-danger" onclick="deleteStudent()" style="margin-left: auto;">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStudentId = null;
+
+        async function init() {
+            await window.FunBookiesDB.ready;
+            await loadDashboard();
+        }
+
+        async function loadDashboard() {
+            const overview = await window.FunBookiesDB.getClassOverview();
+
+            // Update stats
+            document.getElementById('totalStudents').textContent = overview.totalStudents;
+            document.getElementById('assessedStudents').textContent = overview.assessedStudents;
+
+            if (overview.averageLevelOrder !== null) {
+                // Convert order back to level
+                const levels = Object.entries(window.FUNBOOKIES_LEVELS);
+                const avgLevel = levels.find(([_, info]) =>
+                    Math.round(info.order) === Math.round(overview.averageLevelOrder)
+                );
+                document.getElementById('avgLevel').textContent = avgLevel ? avgLevel[0] : '-';
+            }
+
+            // Count recent activities
+            let totalActivities = 0;
+            overview.students.forEach(s => {
+                if (s?.activityStats) {
+                    totalActivities += s.activityStats.totalSessions;
+                }
+            });
+            document.getElementById('totalActivities').textContent = totalActivities;
+
+            // Render students
+            const container = document.getElementById('studentsContainer');
+
+            if (overview.totalStudents === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">👋</div>
+                        <h3>Welcome to FunBookies!</h3>
+                        <p>Add your first student to get started with assessments and practice.</p>
+                        <button class="btn btn-primary btn-lg" onclick="addStudent()">+ Add Student</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const studentCards = overview.students.map(s => {
+                if (!s) return '';
+
+                const levelBadge = s.currentLevel
+                    ? `<span class="level-badge">${s.currentLevel}</span>`
+                    : `<span class="level-badge not-assessed">Not assessed</span>`;
+
+                const lastDate = s.lastAssessmentDate
+                    ? new Date(s.lastAssessmentDate).toLocaleDateString()
+                    : 'Never';
+
+                return `
+                    <a href="/student-profile.html?id=${s.student.id}" class="student-card">
+                        <div class="student-card-header">
+                            <span class="student-card-avatar">${s.student.avatar}</span>
+                            <div class="student-card-info">
+                                <h3 class="student-card-name">${escapeHtml(s.student.name)}</h3>
+                                <div class="student-card-level">${levelBadge}</div>
+                            </div>
+                        </div>
+                        <div class="student-card-stats">
+                            <div class="mini-stat">
+                                <div class="mini-stat-value">${s.assessmentCount}</div>
+                                <div class="mini-stat-label">Assessments</div>
+                            </div>
+                            <div class="mini-stat">
+                                <div class="mini-stat-value">${s.activityStats.totalSessions}</div>
+                                <div class="mini-stat-label">Activities</div>
+                            </div>
+                            <div class="mini-stat">
+                                <div class="mini-stat-value">${s.streak || 0}🔥</div>
+                                <div class="mini-stat-label">Streak</div>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+
+            container.innerHTML = `<div class="student-grid">${studentCards}</div>`;
+        }
+
+        async function addStudent() {
+            const picker = new StudentPicker({
+                title: 'Add a Student',
+                allowSkip: true,
+                allowCreate: true
+            });
+
+            const student = await picker.show();
+            if (student) {
+                await loadDashboard();
+            }
+        }
+
+        async function showStudentDetail(studentId) {
+            currentStudentId = studentId;
+            const summary = await window.FunBookiesDB.getStudentSummary(studentId);
+
+            if (!summary) return;
+
+            // Update modal
+            document.getElementById('modalAvatar').textContent = summary.student.avatar;
+            document.getElementById('modalName').textContent = summary.student.name;
+
+            const levelEl = document.getElementById('modalLevel');
+            const levelNameEl = document.getElementById('modalLevelName');
+
+            if (summary.currentLevel) {
+                levelEl.textContent = summary.currentLevel;
+                levelEl.classList.remove('not-assessed');
+                levelNameEl.textContent = summary.levelInfo?.name || '';
+            } else {
+                levelEl.textContent = 'Not assessed';
+                levelEl.classList.add('not-assessed');
+                levelNameEl.textContent = '';
+            }
+
+            // Assessment history
+            const progressEl = document.getElementById('modalProgress');
+            if (summary.levelProgress.length > 0) {
+                progressEl.innerHTML = summary.levelProgress.slice(-5).map(p => `
+                    <div class="progress-item">
+                        <span class="progress-date">${new Date(p.date).toLocaleDateString()}</span>
+                        <span class="progress-level">${p.level}</span>
+                    </div>
+                `).join('');
+            } else {
+                progressEl.innerHTML = '<p style="color: var(--color-text-muted); text-align: center;">No assessments yet</p>';
+            }
+
+            // Skills
+            const skillsEl = document.getElementById('modalSkills');
+            if (summary.skills.length > 0) {
+                skillsEl.innerHTML = summary.skills.map(skill => `
+                    <div class="skill-item">
+                        <span>${skill.name}</span>
+                        <span class="skill-status ${skill.status}">${
+                            skill.status === 'not-tested' ? '-' :
+                            skill.percentage !== undefined ? skill.percentage + '%' : skill.status
+                        }</span>
+                    </div>
+                `).join('');
+            } else {
+                skillsEl.innerHTML = '<p style="color: var(--color-text-muted);">Complete an assessment to see skills</p>';
+            }
+
+            // Recent activity
+            const activityEl = document.getElementById('modalActivity');
+            const activities = await window.FunBookiesDB.getActivities(studentId, { limit: 5 });
+            if (activities.length > 0) {
+                activityEl.innerHTML = activities.map(a => `
+                    <div style="display: flex; justify-content: space-between; padding: 4px 0; font-size: 0.9rem;">
+                        <span>${a.type}</span>
+                        <span style="color: var(--color-text-muted);">${a.score}/${a.total}</span>
+                    </div>
+                `).join('');
+            } else {
+                activityEl.innerHTML = '<p style="color: var(--color-text-muted);">No recent activity</p>';
+            }
+
+            // Show modal
+            document.getElementById('studentModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('studentModal').classList.add('hidden');
+            currentStudentId = null;
+        }
+
+        async function deleteStudent() {
+            if (!currentStudentId) return;
+
+            const student = await window.FunBookiesDB.getStudent(currentStudentId);
+            if (!confirm(`Delete ${student.name} and all their data? This cannot be undone.`)) {
+                return;
+            }
+
+            await window.FunBookiesDB.deleteStudent(currentStudentId);
+            closeModal();
+            await loadDashboard();
+        }
+
+        async function exportData() {
+            const data = await window.FunBookiesDB.exportData();
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `funbookies-data-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+
+            URL.revokeObjectURL(url);
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // Close modal on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Close modal on outside click
+        document.getElementById('studentModal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) closeModal();
+        });
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "level": 4,
+  "title": "Frog Flies and Swims",
+  "summary": "A frog learns to fly with a dragonfly friend using initial blends.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A frog sat by the pond.",
+      "scene": "A green frog on a lily pad in still water"
+    },
+    {
+      "page": 2,
+      "text": "A fly came and said hello.",
+      "scene": "A bright dragonfly hovering above the water"
+    },
+    {
+      "page": 3,
+      "text": "The frog can swim and splash.",
+      "scene": "The frog swimming quickly, creating splashes"
+    },
+    {
+      "page": 4,
+      "text": "Can I fly like you?",
+      "scene": "The frog looking up at the dragonfly with wonder"
+    },
+    {
+      "page": 5,
+      "text": "No, but you can skip and leap!",
+      "scene": "The frog jumping high off the lily pad"
+    },
+    {
+      "page": 6,
+      "text": "The frog tried to jump up.",
+      "scene": "Frog leaping through the air with effort"
+    },
+    {
+      "page": 7,
+      "text": "Up, up, up went the frog!",
+      "scene": "Frog soaring higher than before, almost flying"
+    },
+    {
+      "page": 8,
+      "text": "The frog can fly and float!",
+      "scene": "Frog seeming to hang in air like the dragonfly"
+    },
+    {
+      "page": 9,
+      "text": "We can play and stop to rest.",
+      "scene": "Frog and dragonfly playing together in the sun"
+    },
+    {
+      "page": 10,
+      "text": "The frog was so glad.",
+      "scene": "Happy frog and dragonfly hovering side by side"
+    },
+    {
+      "page": 11,
+      "text": "Friends can do big things.",
+      "scene": "Frog and dragonfly as a team triumphant"
+    },
+    {
+      "page": 12,
+      "text": "The end.",
+      "scene": "Both creatures silhouetted against sunset"
+    }
+  ],
+  "word_list": {
+    "decodable": ["frog", "fly", "pond", "swim", "splash", "skip", "leap", "tried", "jump", "float", "glad", "friends", "things"],
+    "sight": ["a", "the", "can", "and", "said", "like", "you", "no", "but", "up", "we", "play", "stop", "rest", "was", "so", "do", "big"]
+  },
+  "phonics_focus": ["fr initial blend", "fl initial blend", "sp initial blend", "st initial blend", "sl initial blend"],
+  "metadata": {
+    "word_count": 115,
+    "max_sentence_length": 6,
+    "decodability_target": "95%+"
+  }
+}

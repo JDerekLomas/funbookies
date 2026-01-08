@@ -1,0 +1,77 @@
+{
+  "level": 3,
+  "title": "The Chick and the Shell",
+  "summary": "A chick breaks out of its shell with determination while other animals help.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "A chick sat in a shell.",
+      "scene": "A white egg with a small chick inside, waiting"
+    },
+    {
+      "page": 2,
+      "text": "The chick will hatch soon.",
+      "scene": "The egg beginning to crack with tiny lines"
+    },
+    {
+      "page": 3,
+      "text": "Tap, tap, tap it went!",
+      "scene": "The chick pecking at the shell from inside"
+    },
+    {
+      "page": 4,
+      "text": "A fish will check on it.",
+      "scene": "A colorful fish swimming nearby, watching the egg"
+    },
+    {
+      "page": 5,
+      "text": "The shell will crack and split.",
+      "scene": "Large cracks appearing across the egg shell"
+    },
+    {
+      "page": 6,
+      "text": "Will the chick get out?",
+      "scene": "Pieces of shell breaking away, chick pushing hard"
+    },
+    {
+      "page": 7,
+      "text": "Yes! The chick is out!",
+      "scene": "A wet, fluffy chick emerging triumphantly"
+    },
+    {
+      "page": 8,
+      "text": "The chick can sing and hop.",
+      "scene": "Baby chick chirping with wings spread wide"
+    },
+    {
+      "page": 9,
+      "text": "We will help the chick thrive.",
+      "scene": "Multiple animals gathered around celebrating"
+    },
+    {
+      "page": 10,
+      "text": "Sing, sing, sing and ring!",
+      "scene": "Happy chick with friends, joyful atmosphere"
+    },
+    {
+      "page": 11,
+      "text": "The chick was so strong.",
+      "scene": "The young chick standing proudly with friends"
+    },
+    {
+      "page": 12,
+      "text": "The end.",
+      "scene": "All animals together in a sunny barn setting"
+    }
+  ],
+  "word_list": {
+    "decodable": ["chick", "shell", "sat", "will", "hatch", "soon", "tap", "went", "fish", "check", "crack", "split", "get", "out", "sing", "hop", "help", "thrive", "ring", "strong"],
+    "sight": ["a", "the", "in", "and", "on", "can", "is", "so"]
+  },
+  "phonics_focus": ["ch initial digraph", "sh initial digraph", "ck final digraph", "th initial digraph"],
+  "metadata": {
+    "word_count": 92,
+    "max_sentence_length": 5,
+    "decodability_target": "95%+"
+  }
+}

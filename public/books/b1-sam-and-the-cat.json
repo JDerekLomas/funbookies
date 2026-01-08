@@ -24,6 +24,19 @@
 
   "wordsearch_words": ["cat", "sat", "hat", "nap", "ran", "big", "sit", "pan"],
 
+  "parent_tips": {
+    "before_reading": "Point to the cover. Ask: What do you see? What sound does 'cat' start with?",
+    "during_reading": "When you see a word like 'sat' or 'cat', help your child sound it out: /s/-/a/-/t/. Notice how changing one letter makes a new word!",
+    "after_reading": "Ask: Where did the cat like to sit? Can you find all the -at words in the story?"
+  },
+
+  "comprehension_questions": [
+    {"question": "Where was the cat napping?", "answer": "In a pan"},
+    {"question": "What did the cat sit on?", "answer": "The mat and the hat"},
+    {"question": "What did Sam and the cat do together?", "answer": "They ran and played"},
+    {"question": "How do you think Sam feels about the cat?", "answer": "Sam loves the cat / They are friends"}
+  ],
+
   "pages": [
     { "page": 1, "type": "cover", "text": "Sam and the Cat", "scene": "A cheerful child named Sam hugging a happy orange cat on a sunny day. Warm watercolor style." },
     { "page": 2, "type": "copyright" },

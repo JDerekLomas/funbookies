@@ -2,7 +2,7 @@
   "id": "b9-a-star-at-the-farm",
   "title": "A Star at the Farm",
   "slug": "a-star-at-the-farm",
-  "level": "B9",
+  "level": "B7",
   "band": "B",
   "targetPhonics": "R-Controlled Vowels",
   "wordFamilies": ["ar", "or", "er", "ir", "ur"],
@@ -23,6 +23,19 @@
   "sightWordsUsed": ["a", "I", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be", "you", "are", "was", "for", "said", "have", "they", "come", "there", "what", "from", "would", "could", "should", "very", "other", "another", "people", "where", "were", "here", "their"],
 
   "wordsearch_words": ["star", "farm", "horse", "bird", "turtle", "storm", "girl", "water"],
+
+  "parent_tips": {
+    "before_reading": "Look at the cover. Ask: What do you see on a farm? The 'ar' in 'star' and 'farm' makes a special sound. Let's listen for it!",
+    "during_reading": "R-controlled vowels are tricky! Point out: ar (star, farm), or (horse, storm), er (her, water), ir (bird, girl), ur (turn, hurt). The r 'bosses' the vowel around!",
+    "after_reading": "Ask: How did Fern help her animals during the storm? What gave Fern hope at the end?"
+  },
+
+  "comprehension_questions": [
+    {"question": "What animals does Fern take care of?", "answer": "A horse, birds, and a turtle"},
+    {"question": "What happened during the storm?", "answer": "Fern had to rescue her horse from the river"},
+    {"question": "What did Fern see after the storm?", "answer": "A bright star in the north"},
+    {"question": "Why is the star important to Fern?", "answer": "It gives her hope after hard times"}
+  ],
 
   "pages": [
     { "page": 1, "type": "cover", "text": "A Star at the Farm", "scene": "A girl named Fern standing in a farm yard at dusk, looking up at a bright star. A barn and horse visible behind her. Warm watercolor style." },

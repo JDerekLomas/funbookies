@@ -20,6 +20,20 @@
     "sight": ["the"],
     "new": []
   },
+
+  "parent_tips": {
+    "before_reading": "Look at the cover. Ask: Uh oh, what did Dog do? What do you think this book is about?",
+    "during_reading": "Use a fun voice for 'No, no!' - make it playful, not angry. Pause to let your child look at each mess Dog made. Ask: What did Dog do this time?",
+    "after_reading": "Ask: Why did Dog make messes? (Dogs get excited!) Did the child still love Dog at the end? Talk about pets and forgiveness."
+  },
+
+  "comprehension_questions": [
+    {"question": "What did Dog do on the couch?", "answer": "Jumped on it / Made cushions fly"},
+    {"question": "What did Dog play in?", "answer": "The mud puddle"},
+    {"question": "How did the child feel at the end?", "answer": "Happy / Still loved Dog"},
+    {"question": "Do you think Dog was being naughty on purpose?", "answer": "No, dogs just like to play and explore"}
+  ],
+
   "pages": [
     {"page": 1, "type": "cover", "text": "No, No, Dog!", "image_prompt": "NO TEXT IN IMAGE. Cute fluffy brown dog with floppy ears looking mischievous, wagging tail, standing next to knocked over plant pot. Dirt everywhere. BOLD BLACK OUTLINES. Simple children's book style."},
     {"page": 2, "type": "wordlist", "text": "Words to Know"},

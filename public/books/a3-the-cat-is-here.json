@@ -24,6 +24,19 @@
 
   "wordsearch_words": ["cat", "sat", "mat", "hat", "ran", "here"],
 
+  "parent_tips": {
+    "before_reading": "Look at the cover. Ask: Where is the cat? Notice that 'cat', 'sat', 'mat', and 'hat' all rhyme - they're in the -at word family!",
+    "during_reading": "Point to each word as you read. Help your child follow along. When you see 'cat', 'sat', 'mat', 'hat' - ask: What's the same about these words?",
+    "after_reading": "Ask: Where did the cat sit? Can you think of other -at words? (bat, rat, pat, flat)"
+  },
+
+  "comprehension_questions": [
+    {"question": "What did the child see at the beginning?", "answer": "A cat"},
+    {"question": "Where did the cat sit first?", "answer": "On the mat"},
+    {"question": "What did the cat sit on at the end?", "answer": "The hat"},
+    {"question": "How does the child feel about the cat?", "answer": "Happy / loves the cat"}
+  ],
+
   "pages": [
     { "page": 1, "type": "cover", "text": "The Cat Is Here", "scene": "A friendly orange cat peeking around a corner. Warm watercolor style." },
     { "page": 2, "type": "copyright" },

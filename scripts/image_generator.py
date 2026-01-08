@@ -155,6 +155,9 @@ class MuleRouterClient:
                         with open(request.output_path, "wb") as f:
                             f.write(image_bytes)
 
+                    # Create responsive versions
+                    await self._create_responsive_versions(request.output_path)
+
                     return ImageResult(
                         page_id=request.page_id,
                         success=True,
@@ -185,6 +188,66 @@ class MuleRouterClient:
                 content = await response.read()
                 with open(output_path, "wb") as f:
                     f.write(content)
+
+    async def _create_responsive_versions(self, png_path: str):
+        """Create responsive image versions (1x, 2x, 3x, 4x) + thumbnail"""
+        from PIL import Image
+        from pathlib import Path
+
+        base_path = Path(png_path).with_suffix('')
+
+        # Define responsive widths (prioritize width, calculate height from aspect ratio)
+        target_widths = {
+            '4x': 800,   # Large tablets, retina
+            '3x': 600,   # Standard tablets
+            '2x': 400,   # Large phones
+            '1x': 256,   # Small phones, slow connections
+        }
+
+        try:
+            with Image.open(png_path) as img:
+                original_size = Path(png_path).stat().st_size
+                original_width, original_height = img.size
+                aspect_ratio = original_height / original_width
+                print(f"  Original: {original_size/1024:.0f}KB ({original_width}x{original_height})")
+
+                # Generate each responsive version
+                for suffix, target_width in target_widths.items():
+                    # Calculate height maintaining aspect ratio
+                    target_height = int(target_width * aspect_ratio)
+
+                    # WebP version (primary)
+                    webp_path = f"{base_path}_{suffix}.webp"
+                    resized = img.resize((target_width, target_height), Image.Resampling.LANCZOS)
+                    resized.save(webp_path, 'WEBP', quality=85, method=6)
+                    webp_size = Path(webp_path).stat().st_size
+
+                    # PNG fallback
+                    png_fallback = f"{base_path}_{suffix}.png"
+                    resized.save(png_fallback, 'PNG', optimize=True, compress_level=9)
+                    png_size = Path(png_fallback).stat().st_size
+
+                    print(f"  {suffix}: {target_width}x{target_height} - WebP {webp_size/1024:.0f}KB, PNG {png_size/1024:.0f}KB")
+
+                # Tiny thumbnail for blur placeholder (LQIP)
+                thumb = img.copy()
+                thumb.thumbnail((20, 16), Image.Resampling.LANCZOS)
+                thumb_path = f"{base_path}_thumb.webp"
+                thumb.save(thumb_path, 'WEBP', quality=60)
+                thumb_size = Path(thumb_path).stat().st_size
+                print(f"  Thumbnail: {thumb_size/1024:.1f}KB")
+
+                # Optimize original PNG
+                img.save(png_path, 'PNG', optimize=True, compress_level=9)
+                optimized_size = Path(png_path).stat().st_size
+                print(f"  Original optimized: {optimized_size/1024:.0f}KB")
+
+                # Calculate savings
+                smallest_webp = Path(f"{base_path}_2x.webp").stat().st_size
+                print(f"  ✅ Total bandwidth savings: {(original_size - smallest_webp)/1024:.0f}KB per load")
+
+        except Exception as e:
+            print(f"  ✗ Optimization failed: {e}")
 
     async def generate_batch(
         self,
@@ -221,7 +284,30 @@ class BookImageGenerator:
             return json.load(f)
 
     def save_book(self, book_data: dict):
-        """Save book JSON"""
+        """Save book JSON with responsive image references"""
+        from pathlib import Path
+
+        # Add responsive image references to each page
+        for page in book_data.get("pages", []):
+            if "image" in page:
+                base_path = str(Path(page["image"]).with_suffix(''))
+
+                # Store all available versions
+                page["image_versions"] = {
+                    "original": page["image"],
+                    "4x": f"{base_path}_4x.webp",
+                    "3x": f"{base_path}_3x.webp",
+                    "2x": f"{base_path}_2x.webp",
+                    "1x": f"{base_path}_1x.webp",
+                    "thumb": f"{base_path}_thumb.webp",
+                    # PNG fallbacks
+                    "4x_png": f"{base_path}_4x.png",
+                    "3x_png": f"{base_path}_3x.png",
+                    "2x_png": f"{base_path}_2x.png",
+                    "1x_png": f"{base_path}_1x.png",
+                }
+
+        # Save JSON
         book_path = self.books_dir / f"{book_data['slug']}.json"
         with open(book_path, "w") as f:
             json.dump(book_data, f, indent=2)

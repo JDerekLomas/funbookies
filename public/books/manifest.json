@@ -1,0 +1,432 @@
+[
+  {
+    "slug": "a0-look",
+    "jsonFile": "a0-look.json",
+    "title": "LOOK!",
+    "level": "A0",
+    "band": "A",
+    "color": "White",
+    "skill": "Concept of Print",
+    "coverImg": "/images/covers/a0-look.png"
+  },
+  {
+    "slug": "a1-i-sit",
+    "jsonFile": "a1-i-sit.json",
+    "title": "I SIT",
+    "level": "A1",
+    "band": "A",
+    "color": "White",
+    "skill": "Letter Recognition",
+    "coverImg": "/images/covers/a1-i-sit.png"
+  },
+  {
+    "slug": "dog_pink",
+    "jsonFile": "dog_pink.json",
+    "title": "No, No, Dog!",
+    "level": "A1",
+    "band": "A",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/dog_pink.png"
+  },
+  {
+    "slug": "a2-i-see-it",
+    "jsonFile": "a2-i-see-it.json",
+    "title": "I See It",
+    "level": "A2",
+    "band": "A",
+    "color": "Cream",
+    "skill": "CV/VC Words + Patterns",
+    "coverImg": "/images/covers/a2-i-see-it.png"
+  },
+  {
+    "slug": "pig_yellow",
+    "jsonFile": "pig_yellow.json",
+    "title": "Pig in Mud",
+    "level": "A2",
+    "band": "A",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/pig_yellow.png"
+  },
+  {
+    "slug": "a3-the-cat-is-here",
+    "jsonFile": "a3-the-cat-is-here.json",
+    "title": "The Cat Is Here",
+    "level": "A3",
+    "band": "A",
+    "color": "Cream",
+    "skill": "Mixed Case Sentences",
+    "coverImg": "/images/covers/a3-the-cat-is-here.png"
+  },
+  {
+    "slug": "a4-sam-and-the-hat",
+    "jsonFile": "a4-sam-and-the-hat.json",
+    "title": "Sam and the Hat",
+    "level": "A4",
+    "band": "A",
+    "color": "Cream",
+    "skill": "Emergent Bridge",
+    "coverImg": "/images/covers/a4-sam-and-the-hat.png"
+  },
+  {
+    "slug": "b1-sam-and-the-cat",
+    "jsonFile": "b1-sam-and-the-cat.json",
+    "title": "Sam and the Cat",
+    "level": "B1",
+    "band": "B",
+    "color": "Gray",
+    "skill": "CVC Short a, i",
+    "coverImg": "/images/covers/b1-sam-and-the-cat.png"
+  },
+  {
+    "slug": "b2-pup-in-the-mud",
+    "jsonFile": "b2-pup-in-the-mud.json",
+    "title": "Pup in the Mud",
+    "level": "B2",
+    "band": "B",
+    "color": "Gray",
+    "skill": "CVC Short o, u, e (All 5 short vowels)",
+    "coverImg": "/images/covers/b2-pup-in-the-mud.png"
+  },
+  {
+    "slug": "castle",
+    "jsonFile": "castle.json",
+    "title": "Rats in the Castle",
+    "level": "B2",
+    "band": "B",
+    "color": "Orange",
+    "skill": "CVC + Digraphs",
+    "coverImg": "/images/covers/castle.png"
+  },
+  {
+    "slug": "fern_gust_orange",
+    "jsonFile": "fern_gust_orange.json",
+    "title": "Fern and the Gust",
+    "level": "B2",
+    "band": "B",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/fern_gust_orange.png"
+  },
+  {
+    "slug": "jungle_v2",
+    "jsonFile": "jungle_v2.json",
+    "title": "Zee and the Jungle",
+    "level": "B2",
+    "band": "B",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/jungle_v2.png"
+  },
+  {
+    "slug": "pig_mud",
+    "jsonFile": "pig_mud.json",
+    "title": "Pig in the Mud",
+    "level": "B2",
+    "band": "B",
+    "color": "Orange",
+    "skill": "CVC with short u",
+    "coverImg": "/images/covers/pig_mud.png"
+  },
+  {
+    "slug": "pip_well_orange",
+    "jsonFile": "pip_well_orange.json",
+    "title": "Pip and the Well",
+    "level": "B2",
+    "band": "B",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/pip_well_orange.png"
+  },
+  {
+    "slug": "sol_stone_orange",
+    "jsonFile": "sol_stone_orange.json",
+    "title": "Sol and the Stone",
+    "level": "B2",
+    "band": "B",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/sol_stone_orange.png"
+  },
+  {
+    "slug": "volcano",
+    "jsonFile": "volcano.json",
+    "title": "Gus and the Volcano",
+    "level": "B2",
+    "band": "B",
+    "color": "Orange",
+    "skill": "CVC words",
+    "coverImg": "/images/covers/volcano.png"
+  },
+  {
+    "slug": "b3-jump-at-camp",
+    "jsonFile": "b3-jump-at-camp.json",
+    "title": "Jump at Camp",
+    "level": "B3",
+    "band": "B",
+    "color": "Gray",
+    "skill": "Final Blends + FLOSS Rule",
+    "coverImg": "/images/covers/b3-jump-at-camp.png"
+  },
+  {
+    "slug": "elephant_red",
+    "jsonFile": "elephant_red.json",
+    "title": "Stomp! Stomp! Elephant",
+    "level": "B3",
+    "band": "B",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/elephant_red.png"
+  },
+  {
+    "slug": "b4-frog-and-crab",
+    "jsonFile": "b4-frog-and-crab.json",
+    "title": "Frog and Crab",
+    "level": "B4",
+    "band": "B",
+    "color": "Gray",
+    "skill": "Initial Blends",
+    "coverImg": "/images/covers/b4-frog-and-crab.png"
+  },
+  {
+    "slug": "b5-the-ship-in-the-shell",
+    "jsonFile": "b5-the-ship-in-the-shell.json",
+    "title": "The Ship in the Shell",
+    "level": "B5",
+    "band": "B",
+    "color": "Gray",
+    "skill": "Consonant Digraphs",
+    "coverImg": "/images/covers/b5-the-ship-in-the-shell.png"
+  },
+  {
+    "slug": "fox_purple",
+    "jsonFile": "fox_purple.json",
+    "title": "The Cake Mistake",
+    "level": "B5",
+    "band": "B",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/fox_purple.png"
+  },
+  {
+    "slug": "b6-kate-and-the-lake",
+    "jsonFile": "b6-kate-and-the-lake.json",
+    "title": "Kate and the Lake",
+    "level": "B6",
+    "band": "B",
+    "color": "Gray",
+    "skill": "Silent E / Magic E Pattern",
+    "coverImg": "/images/covers/b6-kate-and-the-lake.png"
+  },
+  {
+    "slug": "snail_blue",
+    "jsonFile": "snail_blue.json",
+    "title": "The Sneaky Snail",
+    "level": "B6",
+    "band": "B",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/snail_blue.png"
+  },
+  {
+    "slug": "b7-the-rain-and-the-snow",
+    "jsonFile": "b7-the-rain-and-the-snow.json",
+    "title": "The Rain and the Snow",
+    "level": "B7",
+    "band": "B",
+    "color": "Gray",
+    "skill": "Vowel Teams",
+    "coverImg": "/images/covers/b7-the-rain-and-the-snow.png"
+  },
+  {
+    "slug": "owl_green",
+    "jsonFile": "owl_green.json",
+    "title": "The First Star",
+    "level": "B7",
+    "band": "B",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/owl_green.png"
+  },
+  {
+    "slug": "b8-the-owl-and-the-boy",
+    "jsonFile": "b8-the-owl-and-the-boy.json",
+    "title": "The Owl and the Boy",
+    "level": "B8",
+    "band": "B",
+    "color": "Gray",
+    "skill": "Diphthongs and Complex Vowels",
+    "coverImg": "/images/covers/b8-the-owl-and-the-boy.png"
+  },
+  {
+    "slug": "b9-a-star-at-the-farm",
+    "jsonFile": "b9-a-star-at-the-farm.json",
+    "title": "A Star at the Farm",
+    "level": "B9",
+    "band": "B",
+    "color": "Gray",
+    "skill": "R-Controlled Vowels (Bossy R)",
+    "coverImg": "/images/covers/b9-a-star-at-the-farm.png"
+  },
+  {
+    "slug": "mouse_gold",
+    "jsonFile": "mouse_gold.json",
+    "title": "Mouse in the House",
+    "level": "B9",
+    "band": "B",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/mouse_gold.png"
+  },
+  {
+    "slug": "c1_knight_quest",
+    "jsonFile": "c1_knight_quest.json",
+    "title": "The Knight's Quest",
+    "level": "C1",
+    "band": "C",
+    "color": "Gray",
+    "skill": "Silent letters",
+    "coverImg": "/images/covers/c1_knight_quest.png"
+  },
+  {
+    "slug": "puppy_silver",
+    "jsonFile": "puppy_silver.json",
+    "title": "Puppy's Birthday",
+    "level": "C1",
+    "band": "C",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/puppy_silver.png"
+  },
+  {
+    "slug": "c2_magic_city",
+    "jsonFile": "c2_magic_city.json",
+    "title": "The Magic City",
+    "level": "C2",
+    "band": "C",
+    "color": "Gray",
+    "skill": "Soft C and G",
+    "coverImg": "/images/covers/c2_magic_city.png"
+  },
+  {
+    "slug": "c3_kitten_adventure",
+    "jsonFile": "c3_kitten_adventure.json",
+    "title": "The Kitten in the Basket",
+    "level": "C3",
+    "band": "C",
+    "color": "Gray",
+    "skill": "Two-Syllable Closed",
+    "coverImg": "/images/covers/c3_kitten_adventure.png"
+  },
+  {
+    "slug": "c4_robot_pilot",
+    "jsonFile": "c4_robot_pilot.json",
+    "title": "The Robot and the Pilot",
+    "level": "C4",
+    "band": "C",
+    "color": "Gray",
+    "skill": "Two-Syllable Open + Consonant-le",
+    "coverImg": "/images/covers/c4_robot_pilot.png"
+  },
+  {
+    "slug": "c5_treehouse_mystery",
+    "jsonFile": "c5_treehouse_mystery.json",
+    "title": "The Treehouse Mystery",
+    "level": "C5",
+    "band": "C",
+    "color": "Gray",
+    "skill": "Contractions + Compounds",
+    "coverImg": "/images/covers/c5_treehouse_mystery.png"
+  },
+  {
+    "slug": "c6_biggest_race",
+    "jsonFile": "c6_biggest_race.json",
+    "title": "The Biggest Race",
+    "level": "C6",
+    "band": "C",
+    "color": "Gray",
+    "skill": "Inflectional Endings",
+    "coverImg": "/images/covers/c6_biggest_race.png"
+  },
+  {
+    "slug": "c7_hopeless_garden",
+    "jsonFile": "c7_hopeless_garden.json",
+    "title": "The Hopeless Garden",
+    "level": "C7",
+    "band": "C",
+    "color": "Gray",
+    "skill": "Derivational Suffixes",
+    "coverImg": "/images/covers/c7_hopeless_garden.png"
+  },
+  {
+    "slug": "c8_impossible_invention",
+    "jsonFile": "c8_impossible_invention.json",
+    "title": "The Impossible Invention",
+    "level": "C8",
+    "band": "C",
+    "color": "Gray",
+    "skill": "Prefixes",
+    "coverImg": "/images/covers/c8_impossible_invention.png"
+  },
+  {
+    "slug": "d1-the-lighthouse-keeper",
+    "jsonFile": "d1-the-lighthouse-keeper.json",
+    "title": "The Lighthouse Keeper",
+    "level": "D1",
+    "band": "D",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/d1-the-lighthouse-keeper.png"
+  },
+  {
+    "slug": "d2-the-hidden-garden",
+    "jsonFile": "d2-the-hidden-garden.json",
+    "title": "The Hidden Garden",
+    "level": "D2",
+    "band": "D",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/d2-the-hidden-garden.png"
+  },
+  {
+    "slug": "d3-the-architects-secret",
+    "jsonFile": "d3-the-architects-secret.json",
+    "title": "The Architect's Secret",
+    "level": "D3",
+    "band": "D",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/d3-the-architects-secret.png"
+  },
+  {
+    "slug": "d4-signals-from-kepler",
+    "jsonFile": "d4-signals-from-kepler.json",
+    "title": "Signals from Kepler",
+    "level": "D4",
+    "band": "D",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/d4-signals-from-kepler.png"
+  },
+  {
+    "slug": "d5-the-winter-of-words",
+    "jsonFile": "d5-the-winter-of-words.json",
+    "title": "The Winter of Words",
+    "level": "D5",
+    "band": "D",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/d5-the-winter-of-words.png"
+  },
+  {
+    "slug": "d6-the-bridge-between",
+    "jsonFile": "d6-the-bridge-between.json",
+    "title": "The Bridge Between",
+    "level": "D6",
+    "band": "D",
+    "color": "Gray",
+    "skill": "",
+    "coverImg": "/images/covers/d6-the-bridge-between.png"
+  }
+]

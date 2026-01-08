@@ -466,6 +466,11 @@
         .level-blue { background: #E8F0F8; color: #5A7A9D; }
         .level-green { background: #E8F8EC; color: #5A9D6B; }
         .level-gold { background: #F8F4E8; color: #9D8B5A; }
+        /* Band levels A-D */
+        .level-a { background: #E8F5E9; color: #2E7D32; }
+        .level-b { background: #E3F2FD; color: #1565C0; }
+        .level-c { background: #FFF3E0; color: #E65100; }
+        .level-d { background: #FCE4EC; color: #C2185B; }
 
         /* Activities Section */
         .activities-section {
@@ -962,18 +967,8 @@
     </div>
 
     <script>
-        // Book data
-        const bookData = [
-            { title: 'No, No, Dog!', level: 0, color: 'Pink', skill: 'Pre-reader', slug: 'dog_pink', jsonFile: 'dog_pink.json', coverImg: '/images/covers/dog_pink.png' },
-            { title: 'Pig in Mud', level: 1, color: 'Yellow', skill: 'Short vowels', slug: 'pig_yellow', jsonFile: 'pig_yellow.json', coverImg: '/images/covers/pig_yellow.png' },
-            { title: 'Gus and the Volcano', level: 2, color: 'Orange', skill: 'CVC words', slug: 'volcano', jsonFile: 'volcano.json', coverImg: '/images/covers/volcano.png' },
-            { title: 'Rats in the Castle', level: 3, color: 'Orange', skill: 'CVC + Digraphs', slug: 'castle', jsonFile: 'castle.json', coverImg: '/images/covers/castle.png' },
-            { title: 'Stomp! Elephant', level: 4, color: 'Red', skill: 'Ending blends', slug: 'elephant_red', jsonFile: 'elephant_red.json', coverImg: '/images/covers/elephant_red.png' },
-            { title: 'The Cake Mistake', level: 5, color: 'Purple', skill: 'Digraphs', slug: 'fox_purple', jsonFile: 'fox_purple.json', coverImg: '/images/covers/fox_purple.png' },
-            { title: 'The Sneaky Snail', level: 6, color: 'Blue', skill: 'Silent e', slug: 'snail_blue', jsonFile: 'snail_blue.json', coverImg: '/images/covers/snail_blue.png' },
-            { title: 'The Owl at Night', level: 7, color: 'Green', skill: 'Vowel teams', slug: 'owl_green', jsonFile: 'owl_green.json', coverImg: '/images/covers/owl_green.png' },
-            { title: 'Mouse in the House', level: 8, color: 'Gold', skill: 'R-controlled', slug: 'mouse_gold', jsonFile: 'mouse_gold.json', coverImg: '/images/covers/mouse_gold.png' }
-        ];
+        // Book data - loaded from manifest
+        let bookData = [];
 
         // Render books
         function renderBooks() {
@@ -981,17 +976,28 @@
             grid.innerHTML = bookData.map(book => `
                 <a class="book-card" href="/reader.html?book=${book.slug}">
                     <div class="book-cover">
-                        <img src="${book.coverImg}" alt="${book.title}" loading="lazy">
+                        <img src="${book.coverImg}" alt="${book.title}" loading="lazy" onerror="this.src='/images/covers/placeholder.png'">
                     </div>
                     <div class="book-info">
                         <h3>${book.title}</h3>
                         <div class="book-meta">
-                            <span class="book-level level-${book.color.toLowerCase()}">${book.color}</span>
-                            <span class="book-skill">${book.skill}</span>
+                            <span class="book-level level-${(book.band || 'a').toLowerCase()}">${book.level}</span>
+                            <span class="book-skill">${book.skill || ''}</span>
                         </div>
                     </div>
                 </a>
             `).join('');
+        }
+
+        // Load books from manifest
+        async function loadBooks() {
+            try {
+                const response = await fetch('/books/manifest.json');
+                bookData = await response.json();
+                renderBooks();
+            } catch (e) {
+                console.error('Failed to load books manifest:', e);
+            }
         }
 
         // Book reader
@@ -1063,7 +1069,7 @@
         });
 
         // Init
-        renderBooks();
+        loadBooks();
     </script>
 </body>
 </html>

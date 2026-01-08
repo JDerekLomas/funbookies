@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <title>Reading - FunBookies</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --color-cream: #FAF8F5;
@@ -50,7 +53,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 16px 24px;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
             z-index: 100;
         }
@@ -89,7 +92,7 @@
             background: var(--color-cream);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
 
         /* Image takes top 80% */
@@ -107,6 +110,60 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+
+        .page-image img.loaded {
+            opacity: 1;
+        }
+
+        /* Loading skeleton animation */
+        .page-image.loading {
+            background: linear-gradient(90deg,
+                    var(--color-sage-light) 25%,
+                    var(--color-cream) 50%,
+                    var(--color-sage-light) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* Error state styling */
+        .load-error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--color-text-muted);
+            gap: 1rem;
+        }
+
+        .retry-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--color-sage);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .retry-btn:hover {
+            background: var(--color-sage-dark);
+            transform: translateY(-2px);
         }
 
         /* Text section takes bottom 20% */
@@ -202,7 +259,10 @@
         /* Copyright page */
         .page-copyright {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: var(--color-cream);
             display: flex;
             flex-direction: column;
@@ -230,7 +290,10 @@
         /* Parent guide page */
         .page-parent-guide {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-cream) 100%);
             display: flex;
             flex-direction: column;
@@ -293,7 +356,10 @@
         /* Level info page */
         .page-level-info {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: var(--color-cream);
             display: flex;
             flex-direction: column;
@@ -313,14 +379,45 @@
             letter-spacing: 1px;
         }
 
-        .level-badge.pink { background: #FFEEF2; color: #D4527B; }
-        .level-badge.yellow { background: #FFF9E6; color: #B8860B; }
-        .level-badge.orange { background: #FFF0E6; color: #E07020; }
-        .level-badge.red { background: #FFEBEE; color: #D32F2F; }
-        .level-badge.purple { background: #F3E5F5; color: #7B1FA2; }
-        .level-badge.blue { background: #E3F2FD; color: #1976D2; }
-        .level-badge.green { background: #E8F5E9; color: #388E3C; }
-        .level-badge.gold { background: #FFF8E1; color: #F9A825; }
+        .level-badge.pink {
+            background: #FFEEF2;
+            color: #D4527B;
+        }
+
+        .level-badge.yellow {
+            background: #FFF9E6;
+            color: #B8860B;
+        }
+
+        .level-badge.orange {
+            background: #FFF0E6;
+            color: #E07020;
+        }
+
+        .level-badge.red {
+            background: #FFEBEE;
+            color: #D32F2F;
+        }
+
+        .level-badge.purple {
+            background: #F3E5F5;
+            color: #7B1FA2;
+        }
+
+        .level-badge.blue {
+            background: #E3F2FD;
+            color: #1976D2;
+        }
+
+        .level-badge.green {
+            background: #E8F5E9;
+            color: #388E3C;
+        }
+
+        .level-badge.gold {
+            background: #FFF8E1;
+            color: #F9A825;
+        }
 
         .page-level-info h3 {
             font-family: var(--font-display);
@@ -338,7 +435,10 @@
         /* Word search page */
         .page-wordsearch {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: var(--color-cream);
             display: flex;
             flex-direction: column;
@@ -393,7 +493,10 @@
         /* Series info page */
         .page-series-info {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: linear-gradient(180deg, var(--color-sage-light) 0%, var(--color-cream) 100%);
             display: flex;
             flex-direction: column;
@@ -434,7 +537,10 @@
         /* Back cover - redesigned with image */
         .page-back-cover {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: var(--color-cream);
             display: flex;
             flex-direction: column;
@@ -550,7 +656,10 @@
         /* Cover page styling */
         .page-cover {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             display: flex;
             flex-direction: column;
         }
@@ -574,7 +683,7 @@
             background: var(--color-terracotta);
             transform: rotate(-45deg);
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
         }
 
         .corner-ribbon::before,
@@ -609,7 +718,7 @@
             font-family: var(--font-body);
             font-size: 0.55rem;
             font-weight: 500;
-            color: rgba(255,255,255,0.85);
+            color: rgba(255, 255, 255, 0.85);
             display: block;
             margin-top: 1px;
         }
@@ -634,7 +743,10 @@
 
         .cover-pattern {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
 
         .cover-title-frame {
@@ -645,7 +757,7 @@
             background: rgba(255, 255, 255, 0.95);
             padding: 10px 24px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             text-align: center;
             max-width: 85%;
         }
@@ -680,7 +792,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .nav-btn:hover:not(:disabled) {
@@ -721,12 +833,12 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255,255,255,0.5);
+            color: rgba(255, 255, 255, 0.5);
             font-size: 0.85rem;
         }
 
         .keyboard-hint kbd {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             padding: 4px 8px;
             border-radius: 4px;
             margin: 0 4px;
@@ -747,6 +859,7 @@
         }
     </style>
 </head>
+
 <body>
     <header class="reader-header">
         <a href="/books/">← Back to Books</a>
@@ -800,6 +913,88 @@
             'mouse_gold': { jsonFile: 'mouse_gold.json', imageFolder: 'images', imagePrefix: 'mouse_gold_page' }
         };
 
+        // IndexedDB wrapper for book metadata
+        const BookCache = {
+            dbName: 'FunBookiesDB',
+            version: 1,
+            db: null,
+
+            async init() {
+                if (this.db) return this.db;
+
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(this.dbName, this.version);
+
+                    request.onerror = () => reject(request.error);
+                    request.onsuccess = () => {
+                        this.db = request.result;
+                        resolve(this.db);
+                    };
+
+                    request.onupgradeneeded = (event) => {
+                        const db = event.target.result;
+                        if (!db.objectStoreNames.contains('books')) {
+                            const store = db.createObjectStore('books', { keyPath: 'slug' });
+                            store.createIndex('cached_at', 'cached_at', { unique: false });
+                        }
+                    };
+                });
+            },
+
+            async getBook(slug) {
+                const db = await this.init();
+                return new Promise((resolve, reject) => {
+                    const tx = db.transaction('books', 'readonly');
+                    const store = tx.objectStore('books');
+                    const request = store.get(slug);
+
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => reject(request.error);
+                });
+            },
+
+            async saveBook(bookData) {
+                const db = await this.init();
+                return new Promise((resolve, reject) => {
+                    const tx = db.transaction('books', 'readwrite');
+                    const store = tx.objectStore('books');
+                    const request = store.put({
+                        ...bookData,
+                        cached_at: Date.now()
+                    });
+
+                    request.onsuccess = () => resolve();
+                    request.onerror = () => reject(request.error);
+                });
+            },
+
+            async clearOldCache(maxAge = 7 * 24 * 60 * 60 * 1000) { // 7 days
+                const db = await this.init();
+                const tx = db.transaction('books', 'readwrite');
+                const store = tx.objectStore('books');
+                const index = store.index('cached_at');
+                const cutoff = Date.now() - maxAge;
+
+                const range = IDBKeyRange.upperBound(cutoff);
+                const request = index.openCursor(range);
+
+                request.onsuccess = (event) => {
+                    const cursor = event.target.result;
+                    if (cursor) {
+                        cursor.delete();
+                        cursor.continue();
+                    }
+                };
+            }
+        };
+
+        // Initialize and cleanup old cache on load
+        BookCache.init().then(() => {
+            BookCache.clearOldCache();
+        }).catch(err => {
+            console.warn('IndexedDB initialization failed:', err);
+        });
+
         async function loadBook() {
             if (!bookId || !bookRegistry[bookId]) {
                 document.getElementById('bookPage').innerHTML = `
@@ -812,15 +1007,40 @@
             const bookInfo = bookRegistry[bookId];
 
             try {
+                // Try IndexedDB cache first
+                let cachedBook = await BookCache.getBook(bookSlug).catch(() => null);
+                const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
+
+                if (cachedBook && (Date.now() - cachedBook.cached_at < CACHE_DURATION)) {
+                    console.log('📦 Loading book from cache');
+                    currentBook = cachedBook;
+                    currentBook._info = bookInfo;
+                    currentPage = 0;
+
+                    document.getElementById('bookTitle').textContent = currentBook.title;
+                    document.title = `${currentBook.title} - FunBookies`;
+
+                    renderPage();
+                    return;
+                }
+
+                // Fetch from network
+                console.log('🌐 Loading book from network');
                 const res = await fetch(`/books/${bookInfo.jsonFile}`);
                 if (!res.ok) throw new Error('Failed to load book');
 
                 currentBook = await res.json();
                 currentBook._info = bookInfo;
+                currentBook.slug = bookSlug;
                 currentPage = 0;
 
                 document.getElementById('bookTitle').textContent = currentBook.title;
                 document.title = `${currentBook.title} - FunBookies`;
+
+                // Save to cache for next time
+                BookCache.saveBook(currentBook).catch(err => {
+                    console.warn('Failed to cache book:', err);
+                });
 
                 renderPage();
             } catch (e) {
@@ -1038,6 +1258,78 @@
             return grid;
         }
 
+        function getResponsiveImageSources(page) {
+            // Get base path
+            const imagePath = getImagePath(page);
+            const base = imagePath.replace(/\.png$/, '');
+            return {
+                srcsetWebP: `${base}_1x.webp 256w, ${base}_2x.webp 400w, ${base}_3x.webp 600w, ${base}_4x.webp 800w`,
+                srcsetPng: `${base}_1x.png 256w, ${base}_2x.png 400w, ${base}_3x.png 600w, ${base}_4x.png 800w`,
+                src: `${base}.png`,
+                thumb: `${base}_thumb.webp`,
+                original: imagePath
+            };
+        }
+
+        // Determine appropriate sizes attribute based on layout
+        function getImageSizes() {
+            // Page image takes 80% of viewport height with aspect-ratio 1
+            // On mobile: typically full width (100vw)
+            // On tablet: ~600px
+            // On desktop: ~800px max
+            return "(max-width: 480px) 100vw, (max-width: 768px) 600px, 800px";
+        }
+
+        // Generate responsive image HTML (reusable for all page types)
+        function generateResponsiveImageHTML(page, options = {}) {
+            const {
+                alt = '',
+                className = '',
+                onLoad = 'handleImageLoad(this)',
+                onError = "this.style.display='none'",
+                includeLoadingPlaceholder = false
+            } = options;
+
+            const sources = getResponsiveImageSources(page);
+            const sizes = getImageSizes();
+
+            let html = '';
+
+            // Optional blur placeholder for loading state
+            if (includeLoadingPlaceholder && sources.thumb) {
+                html += `
+                    <img src="${sources.thumb}" class="thumb-placeholder"
+                         style="position:absolute;width:100%;height:100%;object-fit:cover;
+                                filter:blur(10px);transform:scale(1.1);z-index:1;"
+                         aria-hidden="true">
+                `;
+            }
+
+            // Responsive picture element
+            html += `
+                <picture>
+                    <source
+                        type="image/webp"
+                        srcset="${sources.srcsetWebP}"
+                        sizes="${sizes}">
+                    <source
+                        type="image/png"
+                        srcset="${sources.srcsetPng}"
+                        sizes="${sizes}">
+                    <img
+                        src="${sources.src}"
+                        alt="${alt}"
+                        class="${className}"
+                        sizes="${sizes}"
+                        ${onLoad ? `onload="${onLoad}"` : ''}
+                        ${onError ? `onerror="${onError}"` : ''}
+                        ${includeLoadingPlaceholder ? 'style="position:relative;z-index:2;"' : ''}>
+                </picture>
+            `;
+
+            return html;
+        }
+
         function renderPage() {
             if (!currentBook) return;
 
@@ -1173,11 +1465,14 @@
 
                 case 'back_cover':
                     const lvlData = levelReadiness[color] || levelReadiness['orange'];
-                    const backImgPath = getImagePath(page);
                     bookPage.innerHTML = `
                         <div class="page-back-cover">
                             <div class="back-cover-image">
-                                <img src="${backImgPath}" alt="" onerror="this.style.display='none'">
+                                ${generateResponsiveImageHTML(page, {
+                        alt: '',
+                        onLoad: null,
+                        onError: "this.style.display='none'"
+                    })}
                             </div>
                             <div class="back-cover-content">
                                 <div class="back-cover-row">
@@ -1209,10 +1504,10 @@
                     break;
 
                 case 'cover':
-                    const coverImgPath = getImagePath(page);
                     // Use title length as seed for consistent pattern per book
                     const patternSeed = (currentBook.title || '').length;
                     const patternSvg = generateCoverPattern(patternSeed);
+
                     bookPage.innerHTML = `
                         <div class="page-cover">
                             <div class="cover-corner-tab">
@@ -1222,7 +1517,11 @@
                                 </div>
                             </div>
                             <div class="cover-image">
-                                <img src="${coverImgPath}" alt="" onerror="this.style.display='none'">
+                                ${generateResponsiveImageHTML(page, {
+                        alt: '',
+                        onLoad: null,
+                        onError: "this.style.display='none'"
+                    })}
                             </div>
                             <div class="cover-pattern-banner">
                                 <div class="cover-pattern">${patternSvg}</div>
@@ -1235,11 +1534,15 @@
                     break;
 
                 default:
-                    // Regular story page with image and text
-                    const storyImgPath = getImagePath(page);
+                    // Regular story page with responsive images and loading placeholder
                     bookPage.innerHTML = `
-                        <div class="page-image">
-                            <img src="${storyImgPath}" alt="" onerror="this.style.display='none'">
+                        <div class="page-image loading" id="pageImageContainer">
+                            ${generateResponsiveImageHTML(page, {
+                        alt: page.text || '',
+                        onLoad: 'handleImageLoad(this)',
+                        onError: 'handleImageError(this)',
+                        includeLoadingPlaceholder: true
+                    })}
                         </div>
                         <div class="page-text">
                             <p>${page.text || ''}</p>
@@ -1251,6 +1554,127 @@
             document.getElementById('pageIndicator').textContent = `${currentPage + 1} / ${currentBook.pages.length}`;
             document.getElementById('prevBtn').disabled = currentPage === 0;
             document.getElementById('nextBtn').disabled = currentPage >= currentBook.pages.length - 1;
+
+            // Preload adjacent pages after a short delay
+            setTimeout(() => preloadAdjacentPages(), 100);
+        }
+
+        // Image load success handler
+        function handleImageLoad(img) {
+            img.classList.add('loaded');
+            const container = img.closest('.page-image');
+            if (container) {
+                container.classList.remove('loading');
+
+                // Fade out blur placeholder
+                const thumb = container.querySelector('.thumb-placeholder');
+                if (thumb) {
+                    setTimeout(() => {
+                        thumb.style.opacity = '0';
+                        thumb.style.transition = 'opacity 0.3s';
+                        setTimeout(() => thumb.remove(), 300);
+                    }, 100);
+                }
+            }
+        }
+
+        // Image load error handler with retry
+        function handleImageError(img) {
+            const container = img.parentElement;
+            if (!container) return;
+
+            container.classList.remove('loading');
+            container.innerHTML = `
+                <div class="load-error">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    <p>Image failed to load</p>
+                    <button class="retry-btn" onclick="renderPage()">Retry</button>
+                </div>
+            `;
+        }
+
+        // Preload cache to prevent duplicate downloads
+        const imagePreloadCache = new Map();
+
+        function preloadImage(src) {
+            if (imagePreloadCache.has(src)) {
+                return imagePreloadCache.get(src);
+            }
+
+            const promise = new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = () => reject(new Error(`Failed to load: ${src}`));
+                img.src = src;
+            });
+
+            imagePreloadCache.set(src, promise);
+            return promise;
+        }
+
+        function preloadAdjacentPages() {
+            if (!currentBook) return;
+
+            const pagesToPreload = [];
+
+            function support_format_webp() {
+                var elem = document.createElement('canvas');
+
+                if (!!(elem.getContext && elem.getContext('2d'))) {
+                    // was able or not to get WebP representation
+                    return elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
+                }
+                else {
+                    // very old browser like IE 8, canvas not supported
+                    return false;
+                }
+            }
+
+
+            // Helper to get the most likely responsive version to preload
+            function getPreloadPaths(page) {
+                const path = getImagePath(page);
+                const base = path.replace(/\.png$/, '');
+                const webpSupported = support_format_webp();
+                const extension = webpSupported ? 'webp' : 'png';
+
+                const windowWidth = window.innerWidth;
+                if (windowWidth < 480) {
+                    return [`${base}_1x.${extension}`, `${base}_2x.${extension}`];
+                } else if (windowWidth < 768) {
+                    return [`${base}_2x.${extension}`, `${base}_3x.${extension}`];
+                } else {
+                    return [`${base}_3x.${extension}`, `${base}_4x.${extension}`];
+                }
+            }
+
+            // Preload next page (highest priority)
+            if (currentPage < currentBook.pages.length - 1) {
+                const nextPage = currentBook.pages[currentPage + 1];
+                if (nextPage.image || nextPage.type === 'story' || nextPage.type === 'cover' || nextPage.type === 'back_cover') {
+                    pagesToPreload.push(...getPreloadPaths(nextPage));
+                }
+            }
+
+            // Preload page after next (for smooth fast navigation) - only 2x to save bandwidth
+            if (currentPage < currentBook.pages.length - 2) {
+                const nextNextPage = currentBook.pages[currentPage + 2];
+                if (nextNextPage.image || nextNextPage.type === 'story' || nextNextPage.type === 'cover' || nextNextPage.type === 'back_cover') {
+                    const paths = getPreloadPaths(nextNextPage);
+                    if (paths[0]) pagesToPreload.push(paths[0]);
+                }
+            }
+
+            // Start preloading (non-blocking)
+            pagesToPreload.forEach(src => {
+                preloadImage(src).catch(err => {
+                    console.warn('Failed to preload image:', src, err);
+                });
+            });
         }
 
         function prevPage() {
@@ -1291,7 +1715,21 @@
         });
 
         // Load book on page load
+        // Service Worker registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then((registration) => {
+                        console.log('✅ Service Worker registered:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.warn('❌ Service Worker registration failed:', error);
+                    });
+            });
+        }
+
         loadBook();
     </script>
 </body>
+
 </html>

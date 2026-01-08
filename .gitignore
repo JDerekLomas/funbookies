@@ -31,3 +31,5 @@ build/
 web/
 .vercel
 .env*.local
+
+venv/

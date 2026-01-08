@@ -1109,26 +1109,57 @@
                     break;
 
                 case 'parent_guide':
-                    bookPage.innerHTML = `
-                        <div class="page-parent-guide">
-                            <h3>Read Together!</h3>
-                            <p class="parent-intro">
-                                Reading with your child is one of the most valuable things you can do.
-                                This book is designed so your child can succeed. Be patient, be encouraging,
-                                and most importantly—have fun!
-                            </p>
-                            <div class="tips-box">
-                                <h4>A few tips:</h4>
-                                <ul>
-                                    <li>Point to each word as you read</li>
-                                    <li>Give your child time to sound out words</li>
-                                    <li>Praise effort, not just correct answers</li>
-                                    <li>Reading the same book again builds confidence</li>
-                                    <li>Keep it short and positive</li>
-                                </ul>
+                    const tips = currentBook.parent_tips;
+                    if (tips && (tips.before_reading || tips.during_reading || tips.after_reading)) {
+                        // Book-specific parent tips
+                        bookPage.innerHTML = `
+                            <div class="page-parent-guide">
+                                <h3>Reading Tips</h3>
+                                <div class="tips-box" style="max-width: 340px;">
+                                    ${tips.before_reading ? `
+                                        <div style="margin-bottom: 12px;">
+                                            <h4 style="color: var(--color-sage); font-size: 0.75rem; margin-bottom: 4px;">Before Reading</h4>
+                                            <p style="font-size: 0.85rem; color: var(--color-charcoal); line-height: 1.4;">${tips.before_reading}</p>
+                                        </div>
+                                    ` : ''}
+                                    ${tips.during_reading ? `
+                                        <div style="margin-bottom: 12px;">
+                                            <h4 style="color: var(--color-terracotta); font-size: 0.75rem; margin-bottom: 4px;">During Reading</h4>
+                                            <p style="font-size: 0.85rem; color: var(--color-charcoal); line-height: 1.4;">${tips.during_reading}</p>
+                                        </div>
+                                    ` : ''}
+                                    ${tips.after_reading ? `
+                                        <div>
+                                            <h4 style="color: var(--color-sage); font-size: 0.75rem; margin-bottom: 4px;">After Reading</h4>
+                                            <p style="font-size: 0.85rem; color: var(--color-charcoal); line-height: 1.4;">${tips.after_reading}</p>
+                                        </div>
+                                    ` : ''}
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    } else {
+                        // Generic tips fallback
+                        bookPage.innerHTML = `
+                            <div class="page-parent-guide">
+                                <h3>Read Together!</h3>
+                                <p class="parent-intro">
+                                    Reading with your child is one of the most valuable things you can do.
+                                    This book is designed so your child can succeed. Be patient, be encouraging,
+                                    and most importantly—have fun!
+                                </p>
+                                <div class="tips-box">
+                                    <h4>A few tips:</h4>
+                                    <ul>
+                                        <li>Point to each word as you read</li>
+                                        <li>Give your child time to sound out words</li>
+                                        <li>Praise effort, not just correct answers</li>
+                                        <li>Reading the same book again builds confidence</li>
+                                        <li>Keep it short and positive</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `;
+                    }
                     break;
 
                 case 'level_info':

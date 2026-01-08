@@ -230,14 +230,14 @@
     "coverImg": "/images/covers/snail_blue.png"
   },
   {
-    "slug": "b7-the-rain-and-the-snow",
-    "jsonFile": "b7-the-rain-and-the-snow.json",
-    "title": "The Rain and the Snow",
-    "level": "B8",
+    "slug": "b9-a-star-at-the-farm",
+    "jsonFile": "b9-a-star-at-the-farm.json",
+    "title": "A Star at the Farm",
+    "level": "B7",
     "band": "B",
     "color": "Gray",
-    "skill": "Vowel Teams",
-    "coverImg": "/images/covers/b7-the-rain-and-the-snow.png"
+    "skill": "R-Controlled Vowels (Bossy R)",
+    "coverImg": "/images/covers/b9-a-star-at-the-farm.png"
   },
   {
     "slug": "owl_green",
@@ -250,6 +250,16 @@
     "coverImg": "/images/covers/owl_green.png"
   },
   {
+    "slug": "b7-the-rain-and-the-snow",
+    "jsonFile": "b7-the-rain-and-the-snow.json",
+    "title": "The Rain and the Snow",
+    "level": "B8",
+    "band": "B",
+    "color": "Gray",
+    "skill": "Vowel Teams",
+    "coverImg": "/images/covers/b7-the-rain-and-the-snow.png"
+  },
+  {
     "slug": "b8-the-owl-and-the-boy",
     "jsonFile": "b8-the-owl-and-the-boy.json",
     "title": "The Owl and the Boy",
@@ -258,16 +268,6 @@
     "color": "Gray",
     "skill": "Diphthongs and Complex Vowels",
     "coverImg": "/images/covers/b8-the-owl-and-the-boy.png"
-  },
-  {
-    "slug": "b9-a-star-at-the-farm",
-    "jsonFile": "b9-a-star-at-the-farm.json",
-    "title": "A Star at the Farm",
-    "level": "B7",
-    "band": "B",
-    "color": "Gray",
-    "skill": "R-Controlled Vowels (Bossy R)",
-    "coverImg": "/images/covers/b9-a-star-at-the-farm.png"
   },
   {
     "slug": "mouse_gold",

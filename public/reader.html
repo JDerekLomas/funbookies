@@ -1265,7 +1265,7 @@
             return {
                 srcsetWebP: `${base}_1x.webp 256w, ${base}_2x.webp 400w, ${base}_3x.webp 600w, ${base}_4x.webp 800w`,
                 srcsetPng: `${base}_1x.png 256w, ${base}_2x.png 400w, ${base}_3x.png 600w, ${base}_4x.png 800w`,
-                src: `${base}_2x.webp`,
+                src: `${base}.png`,
                 thumb: `${base}_thumb.webp`,
                 original: imagePath
             };
@@ -1289,13 +1289,6 @@
                 onError = "this.style.display='none'",
                 includeLoadingPlaceholder = false
             } = options;
-
-            // Check if page has responsive versions
-            if (!page.image_versions) {
-                // Fallback for pages without responsive versions
-                const imgPath = getImagePath(page);
-                return `<img src="${imgPath}" alt="${alt}" class="${className}" onerror="${onError}">`;
-            }
 
             const sources = getResponsiveImageSources(page);
             const sizes = getImageSizes();

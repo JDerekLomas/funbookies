@@ -10,9 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles/shared.css">
   <style>
-    .page-header {
-      padding-top: var(--space-md);
-    }
+    .page-header { padding-top: var(--space-md); }
 
     .game-header {
       display: flex;
@@ -21,12 +19,9 @@
       margin-bottom: var(--space-md);
     }
 
-    .game-header h1 {
-      font-size: 1.5rem;
-    }
+    .game-header h1 { font-size: 1.5rem; }
 
     .score-badge {
-      background: var(--color-dusty-blue);
       background: rgba(168, 196, 212, 0.3);
       padding: 8px 16px;
       border-radius: 20px;
@@ -34,20 +29,54 @@
       color: #5A7A9D;
     }
 
+    .level-select {
+      display: flex;
+      gap: 8px;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .level-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .level-group-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+
     .family-selector {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
       margin-bottom: var(--space-md);
+      padding: var(--space-sm);
+      background: var(--color-cream);
+      border-radius: var(--border-radius);
     }
 
-    .game-area {
-      text-align: center;
+    .family-chip {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid transparent;
+      background: var(--color-white);
+      color: var(--color-text-muted);
+      transition: all 0.2s;
     }
 
-    .family-display {
-      margin-bottom: var(--space-md);
-    }
+    .family-chip:hover { border-color: var(--color-sage); }
+    .family-chip.active { background: var(--color-sage); color: var(--color-white); border-color: var(--color-sage); }
+
+    .game-area { text-align: center; }
+
+    .family-display { margin-bottom: var(--space-md); }
 
     .family-display .label {
       font-size: 0.9rem;
@@ -59,7 +88,6 @@
       font-family: var(--font-display);
       font-size: clamp(2.5rem, 8vw, 4rem);
       font-weight: 500;
-      color: var(--color-dusty-blue);
       color: #5A7A9D;
     }
 
@@ -72,13 +100,8 @@
       min-height: 60px;
     }
 
-    .word-display .onset {
-      color: var(--color-terracotta);
-    }
-
-    .word-display .rime {
-      color: #5A7A9D;
-    }
+    .word-display .onset { color: var(--color-terracotta); }
+    .word-display .rime { color: #5A7A9D; }
 
     .onset-choices {
       display: flex;
@@ -102,23 +125,9 @@
       transition: all 0.2s;
     }
 
-    .onset-btn:hover {
-      border-color: var(--color-sage);
-      background: var(--color-sage-light);
-    }
-
-    .onset-btn.used {
-      background: var(--color-sage-light);
-      border-color: var(--color-sage);
-      color: var(--color-sage-dark);
-    }
-
-    .onset-btn.current {
-      background: var(--color-sage);
-      border-color: var(--color-sage);
-      color: var(--color-white);
-      transform: scale(1.1);
-    }
+    .onset-btn:hover { border-color: var(--color-sage); background: var(--color-sage-light); }
+    .onset-btn.used { background: var(--color-sage-light); border-color: var(--color-sage); color: var(--color-sage-dark); }
+    .onset-btn.current { background: var(--color-sage); border-color: var(--color-sage); color: var(--color-white); transform: scale(1.1); }
 
     .words-found {
       background: var(--color-cream);
@@ -133,12 +142,7 @@
       margin-bottom: 8px;
     }
 
-    .found-words {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-    }
+    .found-words { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
 
     .found-word {
       background: rgba(168, 196, 212, 0.3);
@@ -148,29 +152,12 @@
       font-weight: 500;
     }
 
-    .controls {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-    }
+    .controls { display: flex; gap: 10px; justify-content: center; }
 
-    .btn-say {
-      background: var(--color-sage);
-      color: var(--color-white);
-    }
-
-    .btn-say:hover {
-      background: var(--color-sage-dark);
-    }
-
-    .btn-next {
-      background: var(--color-terracotta);
-      color: var(--color-soft-black);
-    }
-
-    .btn-next:hover {
-      background: var(--color-terracotta-dark);
-    }
+    .btn-say { background: var(--color-sage); color: var(--color-white); }
+    .btn-say:hover { background: var(--color-sage-dark); }
+    .btn-next { background: var(--color-terracotta); color: var(--color-soft-black); }
+    .btn-next:hover { background: var(--color-terracotta-dark); }
 
     .feedback {
       margin-top: var(--space-sm);
@@ -189,13 +176,25 @@
       margin-top: var(--space-sm);
     }
 
-    .timer span {
-      font-weight: 700;
-      color: #5A7A9D;
+    .timer span { font-weight: 700; color: #5A7A9D; }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      vertical-align: middle;
+      margin-left: 8px;
     }
+
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -203,18 +202,27 @@
 
     <div class="game-card">
       <div class="game-header">
-        <h1>Word Families</h1>
+        <h1>Word Families <span id="studentBadge" class="student-badge hidden"></span></h1>
         <div class="score-badge">Words: <span id="totalWords">0</span></div>
       </div>
 
-      <div class="family-selector" id="familySelector">
-        <button class="chip active" data-family="at">-at</button>
-        <button class="chip" data-family="an">-an</button>
-        <button class="chip" data-family="ig">-ig</button>
-        <button class="chip" data-family="op">-op</button>
-        <button class="chip" data-family="ug">-ug</button>
-        <button class="chip" data-family="en">-en</button>
+      <div class="level-select">
+        <div class="level-group">
+          <span class="level-group-label">A:</span>
+          <button class="chip active" data-level="A4">A4</button>
+        </div>
+        <div class="level-group">
+          <span class="level-group-label">B:</span>
+          <button class="chip" data-level="B1">B1</button>
+          <button class="chip" data-level="B2">B2</button>
+          <button class="chip" data-level="B4">B4</button>
+          <button class="chip" data-level="B5">B5</button>
+          <button class="chip" data-level="B6">B6</button>
+          <button class="chip" data-level="B8">B8</button>
+        </div>
       </div>
+
+      <div class="family-selector" id="familySelector"></div>
 
       <div class="game-area">
         <div class="family-display">
@@ -234,68 +242,145 @@
         </div>
 
         <div class="controls">
-          <button class="btn btn-say" onclick="sayWord()">Say It</button>
+          <button class="btn btn-say" onclick="sayWord()">&#x1F50A; Say It</button>
           <button class="btn btn-next" onclick="nextFamily()">Next Family</button>
         </div>
 
         <div class="feedback" id="feedback"></div>
-        <div class="timer">Family progress: <span id="foundCount">0</span>/<span id="totalInFamily">0</span></div>
+        <div class="timer">Progress: <span id="foundCount">0</span>/<span id="totalInFamily">0</span></div>
       </div>
     </div>
   </div>
 
   <script>
-    const families = {
-      'at': {
-        rime: 'at',
-        onsets: ['c', 'h', 'b', 'm', 'r', 's', 'p', 'f', 'v', 'fl', 'br', 'ch'],
-        validWords: ['cat', 'hat', 'bat', 'mat', 'rat', 'sat', 'pat', 'fat', 'vat', 'flat', 'brat', 'chat']
+    const familiesByLevel = {
+      'A4': {
+        'at': { rime: 'at', onsets: ['c', 'h', 'b', 'm', 'r', 's', 'p', 'f'], validWords: ['cat', 'hat', 'bat', 'mat', 'rat', 'sat', 'pat', 'fat'] },
+        'an': { rime: 'an', onsets: ['c', 'm', 'p', 'f', 'r', 't', 'v'], validWords: ['can', 'man', 'pan', 'fan', 'ran', 'tan', 'van'] },
+        'ig': { rime: 'ig', onsets: ['p', 'b', 'd', 'w', 'f', 'j'], validWords: ['pig', 'big', 'dig', 'wig', 'fig', 'jig'] },
+        'ot': { rime: 'ot', onsets: ['h', 'p', 'd', 'g', 'n', 'l', 'c'], validWords: ['hot', 'pot', 'dot', 'got', 'not', 'lot', 'cot'] },
+        'ug': { rime: 'ug', onsets: ['b', 'h', 'm', 'r', 't', 'd', 'j'], validWords: ['bug', 'hug', 'mug', 'rug', 'tug', 'dug', 'jug'] },
+        'ed': { rime: 'ed', onsets: ['b', 'r', 'f', 'l'], validWords: ['bed', 'red', 'fed', 'led'] },
       },
-      'an': {
-        rime: 'an',
-        onsets: ['c', 'm', 'p', 'f', 'r', 't', 'v', 'b', 'pl', 'sp', 'br'],
-        validWords: ['can', 'man', 'pan', 'fan', 'ran', 'tan', 'van', 'ban', 'plan', 'span', 'bran']
+      'B1': {
+        'at': { rime: 'at', onsets: ['c', 'h', 'b', 'm', 'r', 's', 'p', 'f', 'fl', 'br', 'ch'], validWords: ['cat', 'hat', 'bat', 'mat', 'rat', 'sat', 'pat', 'fat', 'flat', 'brat', 'chat'] },
+        'an': { rime: 'an', onsets: ['c', 'm', 'p', 'f', 'r', 't', 'v', 'pl', 'sp'], validWords: ['can', 'man', 'pan', 'fan', 'ran', 'tan', 'van', 'plan', 'span'] },
+        'it': { rime: 'it', onsets: ['s', 'h', 'b', 'f', 'p', 'l', 'k', 'sp', 'qu'], validWords: ['sit', 'hit', 'bit', 'fit', 'pit', 'lit', 'kit', 'spit', 'quit'] },
+        'ig': { rime: 'ig', onsets: ['p', 'b', 'd', 'w', 'f', 'j', 'r'], validWords: ['pig', 'big', 'dig', 'wig', 'fig', 'jig', 'rig'] },
+        'ip': { rime: 'ip', onsets: ['l', 't', 'd', 'h', 'r', 's', 'z', 'sh', 'ch'], validWords: ['lip', 'tip', 'dip', 'hip', 'rip', 'sip', 'zip', 'ship', 'chip'] },
+        'in': { rime: 'in', onsets: ['p', 'w', 't', 'b', 'f', 'ch', 'th', 'sp'], validWords: ['pin', 'win', 'tin', 'bin', 'fin', 'chin', 'thin', 'spin'] },
       },
-      'ig': {
-        rime: 'ig',
-        onsets: ['p', 'b', 'd', 'w', 'f', 'j', 'r', 'tw', 'sp'],
-        validWords: ['pig', 'big', 'dig', 'wig', 'fig', 'jig', 'rig', 'twig', 'sprig']
+      'B2': {
+        'ot': { rime: 'ot', onsets: ['h', 'p', 'd', 'g', 'n', 'l', 'c', 'sh', 'sp'], validWords: ['hot', 'pot', 'dot', 'got', 'not', 'lot', 'cot', 'shot', 'spot'] },
+        'op': { rime: 'op', onsets: ['t', 'h', 'p', 'm', 'c', 'st', 'sh', 'dr', 'ch'], validWords: ['top', 'hop', 'pop', 'mop', 'cop', 'stop', 'shop', 'drop', 'chop'] },
+        'ug': { rime: 'ug', onsets: ['b', 'h', 'm', 'r', 't', 'd', 'j', 'pl', 'sn'], validWords: ['bug', 'hug', 'mug', 'rug', 'tug', 'dug', 'jug', 'plug', 'snug'] },
+        'un': { rime: 'un', onsets: ['s', 'r', 'f', 'b', 'g', 'sp'], validWords: ['sun', 'run', 'fun', 'bun', 'gun', 'spun'] },
+        'ut': { rime: 'ut', onsets: ['c', 'b', 'n', 'h', 'g', 'sh'], validWords: ['cut', 'but', 'nut', 'hut', 'gut', 'shut'] },
+        'en': { rime: 'en', onsets: ['p', 'h', 't', 'm', 'd', 'th', 'wh'], validWords: ['pen', 'hen', 'ten', 'men', 'den', 'then', 'when'] },
+        'et': { rime: 'et', onsets: ['p', 'w', 'g', 's', 'l', 'n', 'b', 'j'], validWords: ['pet', 'wet', 'get', 'set', 'let', 'net', 'bet', 'jet'] },
       },
-      'op': {
-        rime: 'op',
-        onsets: ['t', 'h', 'p', 'm', 'c', 'st', 'sh', 'dr', 'ch', 'fl'],
-        validWords: ['top', 'hop', 'pop', 'mop', 'cop', 'stop', 'shop', 'drop', 'chop', 'flop']
+      'B4': {
+        'all': { rime: 'all', onsets: ['b', 'c', 'f', 't', 'w', 'h', 'm', 'sm'], validWords: ['ball', 'call', 'fall', 'tall', 'wall', 'hall', 'mall', 'small'] },
+        'ell': { rime: 'ell', onsets: ['b', 'f', 't', 'w', 's', 'sh', 'sm', 'sp'], validWords: ['bell', 'fell', 'tell', 'well', 'sell', 'shell', 'smell', 'spell'] },
+        'ill': { rime: 'ill', onsets: ['h', 'f', 'w', 'b', 'p', 'm', 'st', 'sp'], validWords: ['hill', 'fill', 'will', 'bill', 'pill', 'mill', 'still', 'spill'] },
+        'ull': { rime: 'ull', onsets: ['b', 'f', 'p', 'd'], validWords: ['bull', 'full', 'pull', 'dull'] },
+        'oss': { rime: 'oss', onsets: ['b', 'l', 't', 'cr', 'fl'], validWords: ['boss', 'loss', 'toss', 'cross', 'floss'] },
+        'ess': { rime: 'ess', onsets: ['m', 'l', 'dr', 'gu', 'pr'], validWords: ['mess', 'less', 'dress', 'guess', 'press'] },
       },
-      'ug': {
-        rime: 'ug',
-        onsets: ['b', 'h', 'm', 'r', 't', 'd', 'j', 'pl', 'sl', 'sn'],
-        validWords: ['bug', 'hug', 'mug', 'rug', 'tug', 'dug', 'jug', 'plug', 'slug', 'snug']
+      'B5': {
+        'ash': { rime: 'ash', onsets: ['d', 'c', 'b', 'm', 'r', 'cr', 'fl', 'spl'], validWords: ['dash', 'cash', 'bash', 'mash', 'rash', 'crash', 'flash', 'splash'] },
+        'ish': { rime: 'ish', onsets: ['f', 'd', 'w', 'sw'], validWords: ['fish', 'dish', 'wish', 'swish'] },
+        'ush': { rime: 'ush', onsets: ['b', 'p', 'r', 'h', 'm', 'br', 'cr'], validWords: ['bush', 'push', 'rush', 'hush', 'mush', 'brush', 'crush'] },
+        'ing': { rime: 'ing', onsets: ['r', 's', 'k', 'w', 'th', 'br', 'sw', 'spr'], validWords: ['ring', 'sing', 'king', 'wing', 'thing', 'bring', 'swing', 'spring'] },
+        'ank': { rime: 'ank', onsets: ['b', 't', 's', 'r', 'bl', 'th', 'cr'], validWords: ['bank', 'tank', 'sank', 'rank', 'blank', 'thank', 'crank'] },
+        'atch': { rime: 'atch', onsets: ['c', 'm', 'p', 'b', 'h', 'l'], validWords: ['catch', 'match', 'patch', 'batch', 'hatch', 'latch'] },
       },
-      'en': {
-        rime: 'en',
-        onsets: ['p', 'h', 't', 'm', 'd', 'th', 'wh', 'gl'],
-        validWords: ['pen', 'hen', 'ten', 'men', 'den', 'then', 'when', 'glen']
-      }
+      'B6': {
+        'ake': { rime: 'ake', onsets: ['c', 'm', 'b', 'l', 'r', 't', 'sh', 'sn'], validWords: ['cake', 'make', 'bake', 'lake', 'rake', 'take', 'shake', 'snake'] },
+        'ame': { rime: 'ame', onsets: ['g', 'n', 'c', 's', 't', 'f', 'bl', 'fl'], validWords: ['game', 'name', 'came', 'same', 'tame', 'fame', 'blame', 'flame'] },
+        'ike': { rime: 'ike', onsets: ['b', 'l', 'h', 'm', 'sp', 'str'], validWords: ['bike', 'like', 'hike', 'mike', 'spike', 'strike'] },
+        'ime': { rime: 'ime', onsets: ['t', 'd', 'l', 'ch', 'cl', 'pr'], validWords: ['time', 'dime', 'lime', 'chime', 'climb', 'prime'] },
+        'ine': { rime: 'ine', onsets: ['l', 'f', 'm', 'n', 'p', 'v', 'sh', 'sp'], validWords: ['line', 'fine', 'mine', 'nine', 'pine', 'vine', 'shine', 'spine'] },
+        'one': { rime: 'one', onsets: ['b', 'c', 't', 'z', 'ph', 'st', 'cl'], validWords: ['bone', 'cone', 'tone', 'zone', 'phone', 'stone', 'clone'] },
+      },
+      'B8': {
+        'ain': { rime: 'ain', onsets: ['r', 'm', 'p', 'g', 'tr', 'br', 'ch', 'pl'], validWords: ['rain', 'main', 'pain', 'gain', 'train', 'brain', 'chain', 'plain'] },
+        'ail': { rime: 'ail', onsets: ['t', 'm', 's', 'p', 'n', 'tr', 'sn'], validWords: ['tail', 'mail', 'sail', 'pail', 'nail', 'trail', 'snail'] },
+        'ay': { rime: 'ay', onsets: ['d', 's', 'm', 'w', 'pl', 'st', 'gr', 'pr'], validWords: ['day', 'say', 'may', 'way', 'play', 'stay', 'gray', 'pray'] },
+        'ee': { rime: 'ee', onsets: ['b', 's', 'f', 'tr', 'fr', 'thr'], validWords: ['bee', 'see', 'fee', 'tree', 'free', 'three'] },
+        'eat': { rime: 'eat', onsets: ['', 'b', 'h', 'm', 's', 'n', 'tr'], validWords: ['eat', 'beat', 'heat', 'meat', 'seat', 'neat', 'treat'] },
+        'oat': { rime: 'oat', onsets: ['b', 'c', 'g', 'fl'], validWords: ['boat', 'coat', 'goat', 'float'] },
+        'ow': { rime: 'ow', onsets: ['b', 'l', 'r', 'gr', 'sh', 'sn', 'sl', 'fl'], validWords: ['bow', 'low', 'row', 'grow', 'show', 'snow', 'slow', 'flow'] },
+      },
     };
 
-    let currentFamily = 'at';
+    let currentLevel = 'A4';
+    let currentFamily = '';
     let foundWords = new Set();
     let currentOnset = '';
     let totalWordsFound = 0;
+    let currentStudent = null;
+    let sessionStartTime = null;
 
-    document.addEventListener('DOMContentLoaded', () => {
-      setupFamilyButtons();
-      loadFamily('at');
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupLevelButtons();
+
+      // Show student picker
+      const picker = new StudentPicker({
+        title: 'Who is exploring word families?',
+        allowSkip: true
+      });
+      currentStudent = await picker.show();
+
+      if (currentStudent) {
+        const badge = document.getElementById('studentBadge');
+        badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+        badge.classList.remove('hidden');
+
+        const level = await window.FunBookiesDB.getCurrentLevel(currentStudent.id);
+        if (level && familiesByLevel[level]) {
+          currentLevel = level;
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+          const levelBtn = document.querySelector(`.chip[data-level="${level}"]`);
+          if (levelBtn) levelBtn.classList.add('active');
+        }
+      }
+
+      sessionStartTime = Date.now();
+      loadLevel(currentLevel);
     });
 
-    function setupFamilyButtons() {
+    function setupLevelButtons() {
       document.querySelectorAll('.chip').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          loadFamily(btn.dataset.family);
+          loadLevel(btn.dataset.level);
         });
       });
+    }
+
+    function loadLevel(level) {
+      currentLevel = level;
+      const families = familiesByLevel[level] || familiesByLevel['A4'];
+      const familyNames = Object.keys(families);
+
+      const selector = document.getElementById('familySelector');
+      selector.innerHTML = '';
+      familyNames.forEach((name, idx) => {
+        const chip = document.createElement('button');
+        chip.className = 'family-chip' + (idx === 0 ? ' active' : '');
+        chip.textContent = '-' + name;
+        chip.dataset.family = name;
+        chip.onclick = () => {
+          document.querySelectorAll('.family-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          loadFamily(name);
+        };
+        selector.appendChild(chip);
+      });
+
+      loadFamily(familyNames[0]);
     }
 
     function loadFamily(family) {
@@ -303,7 +388,7 @@
       foundWords.clear();
       currentOnset = '';
 
-      const data = families[family];
+      const data = (familiesByLevel[currentLevel] || familiesByLevel['A4'])[family];
       document.getElementById('familyEnding').textContent = '-' + data.rime;
       document.getElementById('foundWords').innerHTML = '';
       document.getElementById('foundCount').textContent = '0';
@@ -316,21 +401,18 @@
 
     function renderOnsets() {
       const container = document.getElementById('onsetChoices');
-      const data = families[currentFamily];
+      const data = (familiesByLevel[currentLevel] || familiesByLevel['A4'])[currentFamily];
       container.innerHTML = '';
 
       data.onsets.forEach(onset => {
         const btn = document.createElement('button');
         btn.className = 'onset-btn';
-        btn.textContent = onset;
+        btn.textContent = onset || '(blank)';
+        if (onset === '') btn.textContent = '-';
 
         const word = onset + data.rime;
-        if (foundWords.has(word)) {
-          btn.classList.add('used');
-        }
-        if (onset === currentOnset) {
-          btn.classList.add('current');
-        }
+        if (foundWords.has(word)) btn.classList.add('used');
+        if (onset === currentOnset) btn.classList.add('current');
 
         btn.onclick = () => selectOnset(onset);
         container.appendChild(btn);
@@ -339,13 +421,12 @@
 
     function selectOnset(onset) {
       currentOnset = onset;
-      const data = families[currentFamily];
+      const data = (familiesByLevel[currentLevel] || familiesByLevel['A4'])[currentFamily];
       const word = onset + data.rime;
 
       updateWordDisplay();
       renderOnsets();
 
-      // Check if it's a valid word
       if (data.validWords.includes(word) && !foundWords.has(word)) {
         foundWords.add(word);
         totalWordsFound++;
@@ -355,16 +436,16 @@
         document.getElementById('feedback').textContent = `"${word}" is a word!`;
         document.getElementById('feedback').className = 'feedback correct';
 
-        // Add to found words display
         const foundContainer = document.getElementById('foundWords');
         const wordSpan = document.createElement('span');
         wordSpan.className = 'found-word';
         wordSpan.textContent = word;
+        wordSpan.onclick = () => speakWordDirect(word);
         foundContainer.appendChild(wordSpan);
 
+        speakWordDirect(word);
         renderOnsets();
 
-        // Check if family complete
         if (foundWords.size === data.validWords.length) {
           document.getElementById('feedback').textContent = 'Family complete! Try another!';
           document.getElementById('feedback').className = 'feedback info';
@@ -376,10 +457,10 @@
     }
 
     function updateWordDisplay() {
-      const data = families[currentFamily];
+      const data = (familiesByLevel[currentLevel] || familiesByLevel['A4'])[currentFamily];
       const display = document.getElementById('wordDisplay');
 
-      if (currentOnset) {
+      if (currentOnset !== '') {
         display.innerHTML = `<span class="onset">${currentOnset}</span><span class="rime">${data.rime}</span>`;
       } else {
         display.innerHTML = `<span class="onset">?</span><span class="rime">${data.rime}</span>`;
@@ -387,32 +468,62 @@
     }
 
     function sayWord() {
-      if (!currentOnset) return;
+      if (currentOnset === '') return;
+      const data = (familiesByLevel[currentLevel] || familiesByLevel['A4'])[currentFamily];
+      speakWordDirect(currentOnset + data.rime);
+    }
 
-      const data = families[currentFamily];
-      const word = currentOnset + data.rime;
-
-      // Use Web Speech API if available
+    function speakWordDirect(word) {
       if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(word);
         utterance.rate = 0.8;
         speechSynthesis.speak(utterance);
       }
     }
 
-    function nextFamily() {
+    async function nextFamily() {
+      // Save activity when switching families
+      if (currentStudent && totalWordsFound > 0) {
+        await saveActivity();
+      }
+
+      const families = familiesByLevel[currentLevel] || familiesByLevel['A4'];
       const familyKeys = Object.keys(families);
       const currentIndex = familyKeys.indexOf(currentFamily);
       const nextIndex = (currentIndex + 1) % familyKeys.length;
-      const nextFamily = familyKeys[nextIndex];
+      const nextFamilyName = familyKeys[nextIndex];
 
-      // Update button
-      document.querySelectorAll('.chip').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.family === nextFamily);
+      document.querySelectorAll('.family-chip').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.family === nextFamilyName);
       });
 
-      loadFamily(nextFamily);
+      loadFamily(nextFamilyName);
     }
+
+    async function saveActivity() {
+      if (!currentStudent || totalWordsFound === 0) return;
+      try {
+        await window.FunBookiesDB.saveActivity({
+          studentId: currentStudent.id,
+          type: 'word-families',
+          level: currentLevel,
+          score: totalWordsFound,
+          total: totalWordsFound,
+          duration: Math.round((Date.now() - sessionStartTime) / 1000),
+          details: {}
+        });
+      } catch (e) {
+        console.error('Failed to save activity:', e);
+      }
+    }
+
+    // Save on page unload
+    window.addEventListener('beforeunload', () => {
+      if (currentStudent && totalWordsFound > 0) {
+        saveActivity();
+      }
+    });
   </script>
 </body>
 </html>

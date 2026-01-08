@@ -10,9 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles/shared.css">
   <style>
-    .page-header {
-      padding-top: var(--space-md);
-    }
+    .page-header { padding-top: var(--space-md); }
 
     .game-header {
       display: flex;
@@ -21,10 +19,7 @@
       margin-bottom: var(--space-md);
     }
 
-    .game-header h1 {
-      font-size: 1.5rem;
-      color: var(--color-soft-black);
-    }
+    .game-header h1 { font-size: 1.5rem; color: var(--color-soft-black); }
 
     .score-badge {
       background: var(--color-terracotta-light);
@@ -39,6 +34,20 @@
       gap: 8px;
       margin-bottom: var(--space-md);
       flex-wrap: wrap;
+    }
+
+    .level-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .level-group-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .target-area {
@@ -59,9 +68,7 @@
       transition: transform 0.2s;
     }
 
-    .target-image:hover {
-      transform: scale(1.1);
-    }
+    .target-image:hover { transform: scale(1.1); }
 
     .target-word {
       font-size: 1rem;
@@ -140,14 +147,9 @@
       box-shadow: 0 5px 12px rgba(159, 199, 170, 0.4);
     }
 
-    .letter-tile:active {
-      transform: translateY(0) scale(0.95);
-    }
+    .letter-tile:active { transform: translateY(0) scale(0.95); }
 
-    .letter-tile.used {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
+    .letter-tile.used { opacity: 0.3; cursor: not-allowed; }
 
     .controls {
       display: flex;
@@ -165,13 +167,8 @@
       min-height: 40px;
     }
 
-    .feedback.correct {
-      color: var(--color-success);
-    }
-
-    .feedback.wrong {
-      color: var(--color-error);
-    }
+    .feedback.correct { color: var(--color-success); }
+    .feedback.wrong { color: var(--color-error); }
 
     .streak {
       text-align: center;
@@ -180,21 +177,29 @@
       color: var(--color-text-muted);
     }
 
-    .streak span {
-      color: var(--color-terracotta);
-      font-weight: 700;
-    }
+    .streak span { color: var(--color-terracotta); font-weight: 700; }
 
     @media (max-width: 480px) {
-      .slot, .letter-tile {
-        width: 48px;
-        height: 56px;
-        font-size: 1.5rem;
-      }
+      .slot, .letter-tile { width: 48px; height: 56px; font-size: 1.5rem; }
     }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -202,15 +207,27 @@
 
     <div class="game-card">
       <div class="game-header">
-        <h1>Word Builder</h1>
+        <h1>Word Builder <span id="studentBadge" class="student-badge hidden"></span></h1>
         <div class="score-badge">Score: <span id="score">0</span></div>
       </div>
 
       <div class="level-select">
-        <button class="chip active" data-level="0">CVC</button>
-        <button class="chip" data-level="1">Short U</button>
-        <button class="chip" data-level="2">Blends</button>
-        <button class="chip" data-level="3">Digraphs</button>
+        <div class="level-group">
+          <span class="level-group-label">A:</span>
+          <button class="chip active" data-level="A4">A4</button>
+        </div>
+        <div class="level-group">
+          <span class="level-group-label">B:</span>
+          <button class="chip" data-level="B1">B1</button>
+          <button class="chip" data-level="B2">B2</button>
+          <button class="chip" data-level="B3">B3</button>
+          <button class="chip" data-level="B4">B4</button>
+          <button class="chip" data-level="B5">B5</button>
+          <button class="chip" data-level="B6">B6</button>
+          <button class="chip" data-level="B7">B7</button>
+          <button class="chip" data-level="B8">B8</button>
+          <button class="chip" data-level="B9">B9</button>
+        </div>
       </div>
 
       <div class="target-area">
@@ -220,7 +237,6 @@
       </div>
 
       <div class="word-slots" id="wordSlots"></div>
-
       <div class="letter-bank" id="letterBank"></div>
 
       <div class="controls">
@@ -236,7 +252,7 @@
   </div>
 
   <script>
-    // Text-to-Speech
+    // TTS
     function speak(text, rate = 0.85) {
       if (!text) return;
       window.speechSynthesis.cancel();
@@ -249,17 +265,12 @@
       window.speechSynthesis.speak(utterance);
     }
 
-    function speakLetter(letter) {
-      speak(letter.toUpperCase(), 0.7);
-    }
+    function speakLetter(letter) { speak(letter.toUpperCase(), 0.7); }
+    function speakWord(word) { speak(word, 0.75); }
 
-    function speakWord(word) {
-      speak(word, 0.75);
-    }
-
-    // Word banks by level
+    // Word banks by A0-D6 level
     const wordBanks = {
-      0: [ // Simple CVC
+      'A4': [
         { word: 'cat', image: '&#x1F431;', hint: 'a furry pet that says meow' },
         { word: 'dog', image: '&#x1F415;', hint: 'a pet that barks' },
         { word: 'sun', image: '&#x2600;&#xFE0F;', hint: 'bright in the sky' },
@@ -275,55 +286,250 @@
         { word: 'net', image: '&#x1F945;', hint: 'catch fish or balls' },
         { word: 'pot', image: '&#x1F372;', hint: 'cook food in it' },
         { word: 'fan', image: '&#x1FAAD;', hint: 'keeps you cool' },
-      ],
-      1: [ // Short U focus
-        { word: 'bug', image: '&#x1F41B;', hint: 'a small crawling creature' },
+        { word: 'rat', image: '&#x1F400;', hint: 'small gray rodent' },
+        { word: 'log', image: '&#x1FAB5;', hint: 'part of a tree' },
         { word: 'rug', image: '&#x1F9F6;', hint: 'soft on the floor' },
-        { word: 'mud', image: '&#x1F4A9;', hint: 'wet dirt' },
-        { word: 'tub', image: '&#x1F6C1;', hint: 'take a bath in it' },
-        { word: 'hug', image: '&#x1F917;', hint: 'wrap your arms around' },
-        { word: 'jug', image: '&#x1FAD7;', hint: 'holds water' },
-        { word: 'nut', image: '&#x1F95C;', hint: 'squirrels love these' },
-        { word: 'cut', image: '&#x2702;&#xFE0F;', hint: 'use scissors to do this' },
-        { word: 'pup', image: '&#x1F436;', hint: 'a baby dog' },
-        { word: 'sun', image: '&#x2600;&#xFE0F;', hint: 'bright in the sky' },
       ],
-      2: [ // Blends
+      'B1': [
+        { word: 'cat', image: '&#x1F431;', hint: 'says meow' },
+        { word: 'hat', image: '&#x1F3A9;', hint: 'on your head' },
+        { word: 'bat', image: '&#x1F987;', hint: 'flies at night' },
+        { word: 'mat', image: '&#x1F9F9;', hint: 'wipe your feet' },
+        { word: 'rat', image: '&#x1F400;', hint: 'gray rodent' },
+        { word: 'sat', image: '&#x1FA91;', hint: 'took a seat' },
+        { word: 'can', image: '&#x1F96B;', hint: 'holds soup' },
+        { word: 'man', image: '&#x1F468;', hint: 'adult male' },
+        { word: 'pan', image: '&#x1F373;', hint: 'cook eggs in it' },
+        { word: 'fan', image: '&#x1FAAD;', hint: 'keeps you cool' },
+        { word: 'ran', image: '&#x1F3C3;', hint: 'moved fast' },
+        { word: 'van', image: '&#x1F690;', hint: 'big car' },
+        { word: 'sit', image: '&#x1FA91;', hint: 'take a seat' },
+        { word: 'bit', image: '&#x1F9B7;', hint: 'small piece' },
+        { word: 'hit', image: '&#x1F44A;', hint: 'strike' },
+        { word: 'pit', image: '&#x1F573;&#xFE0F;', hint: 'a hole' },
+        { word: 'pig', image: '&#x1F437;', hint: 'oink oink' },
+        { word: 'big', image: '&#x1F418;', hint: 'very large' },
+        { word: 'dig', image: '&#x26CF;&#xFE0F;', hint: 'use a shovel' },
+        { word: 'wig', image: '&#x1F9D1;', hint: 'fake hair' },
+      ],
+      'B2': [
+        { word: 'hot', image: '&#x1F525;', hint: 'very warm' },
+        { word: 'pot', image: '&#x1F372;', hint: 'cook in it' },
+        { word: 'dot', image: '&#x26AB;', hint: 'small circle' },
+        { word: 'cot', image: '&#x1F6CF;&#xFE0F;', hint: 'small bed' },
+        { word: 'got', image: '&#x1F381;', hint: 'received' },
+        { word: 'hop', image: '&#x1F430;', hint: 'jump like a bunny' },
+        { word: 'mop', image: '&#x1F9F9;', hint: 'clean the floor' },
+        { word: 'top', image: '&#x1FA80;', hint: 'spinning toy' },
+        { word: 'bug', image: '&#x1F41B;', hint: 'crawling creature' },
+        { word: 'rug', image: '&#x1F9F6;', hint: 'on the floor' },
+        { word: 'hug', image: '&#x1F917;', hint: 'wrap arms around' },
+        { word: 'mug', image: '&#x2615;', hint: 'coffee cup' },
+        { word: 'tub', image: '&#x1F6C1;', hint: 'take a bath' },
+        { word: 'sun', image: '&#x2600;&#xFE0F;', hint: 'in the sky' },
+        { word: 'run', image: '&#x1F3C3;', hint: 'move fast' },
+        { word: 'fun', image: '&#x1F389;', hint: 'enjoyable' },
+        { word: 'bed', image: '&#x1F6CF;&#xFE0F;', hint: 'sleep on it' },
+        { word: 'red', image: '&#x1F534;', hint: 'apple color' },
+        { word: 'pen', image: '&#x1F58A;&#xFE0F;', hint: 'write with it' },
+        { word: 'hen', image: '&#x1F414;', hint: 'female chicken' },
+      ],
+      'B3': [
         { word: 'frog', image: '&#x1F438;', hint: 'green and hops' },
         { word: 'crab', image: '&#x1F980;', hint: 'has claws' },
-        { word: 'flag', image: '&#x1F6A9;', hint: 'waves in the wind' },
+        { word: 'flag', image: '&#x1F6A9;', hint: 'waves in wind' },
         { word: 'drum', image: '&#x1F941;', hint: 'bang on it' },
-        { word: 'swim', image: '&#x1F3CA;', hint: 'do this in water' },
+        { word: 'swim', image: '&#x1F3CA;', hint: 'in the water' },
         { word: 'stop', image: '&#x1F6D1;', hint: 'red sign' },
-        { word: 'trip', image: '&#x2708;&#xFE0F;', hint: 'go on a journey' },
-        { word: 'clap', image: '&#x1F44F;', hint: 'hit hands together' },
-        { word: 'snap', image: '&#x1FAF0;', hint: 'click your fingers' },
-        { word: 'grin', image: '&#x1F601;', hint: 'a big smile' },
+        { word: 'trip', image: '&#x2708;&#xFE0F;', hint: 'go somewhere' },
+        { word: 'clap', image: '&#x1F44F;', hint: 'hands together' },
+        { word: 'snap', image: '&#x1FAF0;', hint: 'click fingers' },
+        { word: 'grin', image: '&#x1F601;', hint: 'big smile' },
+        { word: 'slip', image: '&#x1F9CA;', hint: 'fall on ice' },
+        { word: 'drop', image: '&#x1F4A7;', hint: 'let fall' },
+        { word: 'step', image: '&#x1F463;', hint: 'one foot move' },
+        { word: 'spin', image: '&#x1F300;', hint: 'go round' },
+        { word: 'skip', image: '&#x1F57A;', hint: 'hop along' },
+        { word: 'plum', image: '&#x1FAD0;', hint: 'purple fruit' },
+        { word: 'crib', image: '&#x1F6CF;&#xFE0F;', hint: 'baby bed' },
+        { word: 'sled', image: '&#x1F6F7;', hint: 'ride on snow' },
       ],
-      3: [ // Digraphs
+      'B4': [
+        { word: 'ball', image: '&#x1F3C0;', hint: 'round toy' },
+        { word: 'call', image: '&#x1F4DE;', hint: 'phone someone' },
+        { word: 'fall', image: '&#x1F342;', hint: 'autumn season' },
+        { word: 'tall', image: '&#x1F9CD;', hint: 'very high' },
+        { word: 'wall', image: '&#x1F9F1;', hint: 'room side' },
+        { word: 'bell', image: '&#x1F514;', hint: 'ding dong' },
+        { word: 'fell', image: '&#x1F938;', hint: 'went down' },
+        { word: 'tell', image: '&#x1F5E3;&#xFE0F;', hint: 'say to someone' },
+        { word: 'well', image: '&#x1F573;&#xFE0F;', hint: 'water hole' },
+        { word: 'sell', image: '&#x1F4B0;', hint: 'trade for money' },
+        { word: 'hill', image: '&#x26F0;&#xFE0F;', hint: 'small mountain' },
+        { word: 'fill', image: '&#x1FAD9;', hint: 'make full' },
+        { word: 'will', image: '&#x1F4DD;', hint: 'future action' },
+        { word: 'doll', image: '&#x1F9F8;', hint: 'toy person' },
+        { word: 'pull', image: '&#x1F4AA;', hint: 'tug toward you' },
+        { word: 'full', image: '&#x2B55;', hint: 'not empty' },
+        { word: 'miss', image: '&#x1F494;', hint: 'feel sad about' },
+        { word: 'kiss', image: '&#x1F48B;', hint: 'show love' },
+      ],
+      'B5': [
         { word: 'ship', image: '&#x1F6A2;', hint: 'sails on water' },
         { word: 'fish', image: '&#x1F41F;', hint: 'swims in water' },
+        { word: 'dish', image: '&#x1F37D;&#xFE0F;', hint: 'eat food from' },
+        { word: 'wish', image: '&#x2B50;', hint: 'hope for' },
+        { word: 'shop', image: '&#x1F3EA;', hint: 'buy things' },
+        { word: 'shut', image: '&#x1F6AA;', hint: 'close it' },
         { word: 'chat', image: '&#x1F4AC;', hint: 'have a talk' },
-        { word: 'chin', image: '&#x1F9D4;', hint: 'below your mouth' },
-        { word: 'chop', image: '&#x1FA93;', hint: 'cut with an axe' },
-        { word: 'shop', image: '&#x1F3EA;', hint: 'buy things here' },
+        { word: 'chin', image: '&#x1F9D4;', hint: 'below mouth' },
+        { word: 'chop', image: '&#x1FA93;', hint: 'cut wood' },
+        { word: 'chip', image: '&#x1F35F;', hint: 'potato snack' },
         { word: 'thin', image: '&#x1F4CF;', hint: 'not thick' },
-        { word: 'path', image: '&#x1F6E4;&#xFE0F;', hint: 'walk on it' },
+        { word: 'this', image: '&#x1F449;', hint: 'right here' },
+        { word: 'that', image: '&#x1F448;', hint: 'over there' },
+        { word: 'them', image: '&#x1F46B;', hint: 'those people' },
+        { word: 'then', image: '&#x23E9;', hint: 'after that' },
         { word: 'with', image: '&#x1F91D;', hint: 'together' },
+        { word: 'path', image: '&#x1F6E4;&#xFE0F;', hint: 'walk on it' },
         { word: 'math', image: '&#x1F522;', hint: 'numbers subject' },
-      ]
+        { word: 'bath', image: '&#x1F6C1;', hint: 'get clean' },
+        { word: 'ring', image: '&#x1F48D;', hint: 'on your finger' },
+        { word: 'king', image: '&#x1F451;', hint: 'wears a crown' },
+        { word: 'sing', image: '&#x1F3A4;', hint: 'make music' },
+        { word: 'wing', image: '&#x1F985;', hint: 'birds fly with' },
+      ],
+      'B6': [
+        { word: 'cake', image: '&#x1F370;', hint: 'birthday treat' },
+        { word: 'make', image: '&#x1F3A8;', hint: 'create something' },
+        { word: 'bake', image: '&#x1F9C1;', hint: 'cook in oven' },
+        { word: 'lake', image: '&#x1F30A;', hint: 'body of water' },
+        { word: 'name', image: '&#x1F3F7;&#xFE0F;', hint: 'what you call someone' },
+        { word: 'game', image: '&#x1F3AE;', hint: 'fun to play' },
+        { word: 'came', image: '&#x1F6B6;', hint: 'arrived' },
+        { word: 'bike', image: '&#x1F6B2;', hint: 'two wheels' },
+        { word: 'like', image: '&#x1F44D;', hint: 'enjoy' },
+        { word: 'hike', image: '&#x1F6B6;', hint: 'walk in nature' },
+        { word: 'time', image: '&#x23F0;', hint: 'clock shows' },
+        { word: 'dime', image: '&#x1FA99;', hint: 'ten cents' },
+        { word: 'home', image: '&#x1F3E0;', hint: 'where you live' },
+        { word: 'bone', image: '&#x1F9B4;', hint: 'inside body' },
+        { word: 'cone', image: '&#x1F366;', hint: 'ice cream holder' },
+        { word: 'hope', image: '&#x1F91E;', hint: 'wish for' },
+        { word: 'rope', image: '&#x1F9F6;', hint: 'tie things' },
+        { word: 'cute', image: '&#x1F97A;', hint: 'adorable' },
+        { word: 'mule', image: '&#x1F434;', hint: 'donkey horse' },
+        { word: 'cube', image: '&#x1F9CA;', hint: 'ice shape' },
+      ],
+      'B7': [
+        { word: 'car', image: '&#x1F697;', hint: 'drive it' },
+        { word: 'far', image: '&#x1F30D;', hint: 'long distance' },
+        { word: 'star', image: '&#x2B50;', hint: 'twinkle at night' },
+        { word: 'jar', image: '&#x1FAD9;', hint: 'holds jam' },
+        { word: 'barn', image: '&#x1F3DA;', hint: 'farm building' },
+        { word: 'card', image: '&#x1F3B4;', hint: 'play games with' },
+        { word: 'park', image: '&#x1F3DE;&#xFE0F;', hint: 'playground area' },
+        { word: 'dark', image: '&#x1F319;', hint: 'no light' },
+        { word: 'for', image: '&#x1F381;', hint: 'meant to have' },
+        { word: 'corn', image: '&#x1F33D;', hint: 'yellow vegetable' },
+        { word: 'horn', image: '&#x1F4EF;', hint: 'make noise' },
+        { word: 'fork', image: '&#x1F374;', hint: 'eat with it' },
+        { word: 'her', image: '&#x1F469;', hint: 'belongs to she' },
+        { word: 'fern', image: '&#x1F33F;', hint: 'green plant' },
+        { word: 'bird', image: '&#x1F426;', hint: 'has feathers' },
+        { word: 'girl', image: '&#x1F467;', hint: 'young female' },
+        { word: 'turn', image: '&#x1F504;', hint: 'go around' },
+        { word: 'burn', image: '&#x1F525;', hint: 'on fire' },
+        { word: 'hurt', image: '&#x1FA79;', hint: 'feel pain' },
+      ],
+      'B8': [
+        { word: 'rain', image: '&#x1F327;&#xFE0F;', hint: 'falls from clouds' },
+        { word: 'tail', image: '&#x1F415;', hint: 'dog wags it' },
+        { word: 'mail', image: '&#x1F4EC;', hint: 'letters come' },
+        { word: 'sail', image: '&#x26F5;', hint: 'boat has one' },
+        { word: 'day', image: '&#x2600;&#xFE0F;', hint: 'not night' },
+        { word: 'say', image: '&#x1F5E3;&#xFE0F;', hint: 'speak words' },
+        { word: 'play', image: '&#x1F3AE;', hint: 'have fun' },
+        { word: 'stay', image: '&#x1F3E0;', hint: 'remain here' },
+        { word: 'tree', image: '&#x1F333;', hint: 'has leaves' },
+        { word: 'bee', image: '&#x1F41D;', hint: 'makes honey' },
+        { word: 'see', image: '&#x1F440;', hint: 'use your eyes' },
+        { word: 'feet', image: '&#x1F9B6;', hint: 'walk on them' },
+        { word: 'read', image: '&#x1F4D6;', hint: 'look at words' },
+        { word: 'meat', image: '&#x1F356;', hint: 'protein food' },
+        { word: 'seat', image: '&#x1FA91;', hint: 'sit on it' },
+        { word: 'boat', image: '&#x26F5;', hint: 'floats on water' },
+        { word: 'coat', image: '&#x1F9E5;', hint: 'wear when cold' },
+        { word: 'goat', image: '&#x1F410;', hint: 'farm animal' },
+        { word: 'road', image: '&#x1F6E4;&#xFE0F;', hint: 'cars drive on' },
+        { word: 'snow', image: '&#x2744;&#xFE0F;', hint: 'white and cold' },
+        { word: 'grow', image: '&#x1F331;', hint: 'get bigger' },
+        { word: 'show', image: '&#x1F3AC;', hint: 'let others see' },
+      ],
+      'B9': [
+        { word: 'boy', image: '&#x1F466;', hint: 'young male' },
+        { word: 'toy', image: '&#x1F9F8;', hint: 'play with it' },
+        { word: 'joy', image: '&#x1F600;', hint: 'happiness' },
+        { word: 'coin', image: '&#x1FA99;', hint: 'money metal' },
+        { word: 'join', image: '&#x1F91D;', hint: 'come together' },
+        { word: 'out', image: '&#x1F6AA;', hint: 'not inside' },
+        { word: 'loud', image: '&#x1F50A;', hint: 'very noisy' },
+        { word: 'cloud', image: '&#x2601;&#xFE0F;', hint: 'in the sky' },
+        { word: 'house', image: '&#x1F3E0;', hint: 'where you live' },
+        { word: 'mouse', image: '&#x1F401;', hint: 'small rodent' },
+        { word: 'down', image: '&#x1F447;', hint: 'opposite of up' },
+        { word: 'town', image: '&#x1F3D8;&#xFE0F;', hint: 'small city' },
+        { word: 'brown', image: '&#x1F7EB;', hint: 'chocolate color' },
+        { word: 'moon', image: '&#x1F319;', hint: 'night light' },
+        { word: 'soon', image: '&#x23F0;', hint: 'in a bit' },
+        { word: 'food', image: '&#x1F354;', hint: 'you eat it' },
+        { word: 'book', image: '&#x1F4D6;', hint: 'has pages' },
+        { word: 'look', image: '&#x1F440;', hint: 'see it' },
+        { word: 'cook', image: '&#x1F468;&#x200D;&#x1F373;', hint: 'make food' },
+        { word: 'good', image: '&#x1F44D;', hint: 'not bad' },
+        { word: 'wood', image: '&#x1FAB5;', hint: 'from trees' },
+        { word: 'foot', image: '&#x1F9B6;', hint: 'walk on it' },
+      ],
     };
 
-    let currentLevel = 0;
+    let currentLevel = 'A4';
     let currentWord = null;
     let builtWord = [];
     let score = 0;
     let streak = 0;
     let usedWords = new Set();
+    let currentStudent = null;
+    let sessionStartTime = null;
+    let sessionCorrect = 0;
+    let sessionTotal = 0;
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       setupLevelButtons();
+
+      // Show student picker
+      const picker = new StudentPicker({
+        title: 'Who is building words?',
+        allowSkip: true
+      });
+      currentStudent = await picker.show();
+
+      if (currentStudent) {
+        // Show student badge
+        const badge = document.getElementById('studentBadge');
+        badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+        badge.classList.remove('hidden');
+
+        // Auto-set level based on assessed level
+        const level = await window.FunBookiesDB.getCurrentLevel(currentStudent.id);
+        if (level && wordBanks[level]) {
+          currentLevel = level;
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+          const levelBtn = document.querySelector(`.chip[data-level="${level}"]`);
+          if (levelBtn) levelBtn.classList.add('active');
+        }
+      }
+
+      sessionStartTime = Date.now();
       newWord();
     });
 
@@ -332,7 +538,7 @@
         btn.addEventListener('click', () => {
           document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          currentLevel = parseInt(btn.dataset.level);
+          currentLevel = btn.dataset.level;
           usedWords.clear();
           newWord();
         });
@@ -340,12 +546,10 @@
     }
 
     function newWord() {
-      const bank = wordBanks[currentLevel];
+      const bank = wordBanks[currentLevel] || wordBanks['A4'];
       const available = bank.filter(w => !usedWords.has(w.word));
 
-      if (available.length === 0) {
-        usedWords.clear();
-      }
+      if (available.length === 0) usedWords.clear();
 
       const words = available.length > 0 ? available : bank;
       currentWord = words[Math.floor(Math.random() * words.length)];
@@ -354,7 +558,6 @@
       builtWord = [];
       document.getElementById('feedback').textContent = '';
       document.getElementById('feedback').className = 'feedback';
-
       document.getElementById('targetImage').innerHTML = currentWord.image;
       document.getElementById('targetHint').textContent = `(${currentWord.hint})`;
 
@@ -379,7 +582,6 @@
       const container = document.getElementById('letterBank');
       container.innerHTML = '';
 
-      // Get letters from word + some extras
       const letters = currentWord.word.split('');
       const extras = 'aeiounrstlcmpbdfgh'.split('');
       const extraCount = Math.min(4, 8 - letters.length);
@@ -391,7 +593,6 @@
         }
       }
 
-      // Shuffle
       letters.sort(() => Math.random() - 0.5);
 
       letters.forEach((letter, idx) => {
@@ -399,7 +600,6 @@
         tile.className = 'letter-tile';
         tile.textContent = letter;
         tile.dataset.index = idx;
-
         tile.onclick = () => addLetter(letter, tile);
         container.appendChild(tile);
       });
@@ -430,13 +630,12 @@
       document.getElementById('feedback').className = 'feedback';
     }
 
-    function checkWord() {
-      if (builtWord.length !== currentWord.word.length) {
-        return;
-      }
+    async function checkWord() {
+      if (builtWord.length !== currentWord.word.length) return;
 
       const attempt = builtWord.join('');
       const slots = document.querySelectorAll('.slot');
+      sessionTotal++;
 
       if (attempt === currentWord.word) {
         slots.forEach(s => s.classList.add('correct'));
@@ -444,17 +643,21 @@
         document.getElementById('feedback').className = 'feedback correct';
         score += 10 + streak * 2;
         streak++;
+        sessionCorrect++;
         document.getElementById('score').textContent = score;
         document.getElementById('streak').textContent = streak;
 
         speakWord(currentWord.word);
 
+        // Save activity every 10 words
+        if (sessionTotal > 0 && sessionTotal % 10 === 0 && currentStudent) {
+          await saveActivity();
+        }
+
         setTimeout(newWord, 1500);
       } else {
         slots.forEach((s, i) => {
-          if (builtWord[i] !== currentWord.word[i]) {
-            s.classList.add('wrong');
-          }
+          if (builtWord[i] !== currentWord.word[i]) s.classList.add('wrong');
         });
         document.getElementById('feedback').textContent = 'Try again!';
         document.getElementById('feedback').className = 'feedback wrong';
@@ -462,6 +665,41 @@
         document.getElementById('streak').textContent = streak;
       }
     }
+
+    async function saveActivity() {
+      if (!currentStudent || sessionTotal === 0) return;
+      try {
+        await window.FunBookiesDB.saveActivity({
+          studentId: currentStudent.id,
+          type: 'word-builder',
+          level: currentLevel,
+          score: sessionCorrect,
+          total: sessionTotal,
+          duration: Math.round((Date.now() - sessionStartTime) / 1000),
+          details: { finalScore: score, bestStreak: streak }
+        });
+      } catch (e) {
+        console.error('Failed to save activity:', e);
+      }
+    }
+
+    // Save on page unload
+    window.addEventListener('beforeunload', () => {
+      if (currentStudent && sessionTotal > 0) {
+        // Use sendBeacon for reliable save on unload
+        const data = {
+          studentId: currentStudent.id,
+          type: 'word-builder',
+          level: currentLevel,
+          score: sessionCorrect,
+          total: sessionTotal,
+          duration: Math.round((Date.now() - sessionStartTime) / 1000),
+          details: { finalScore: score, bestStreak: streak }
+        };
+        // Fallback: just save synchronously
+        saveActivity();
+      }
+    });
 
     function skipWord() {
       streak = 0;

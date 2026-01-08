@@ -10,9 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles/shared.css">
   <style>
-    .page-header {
-      padding-top: var(--space-md);
-    }
+    .page-header { padding-top: var(--space-md); }
 
     .game-header {
       display: flex;
@@ -21,9 +19,7 @@
       margin-bottom: var(--space-md);
     }
 
-    .game-header h1 {
-      font-size: 1.5rem;
-    }
+    .game-header h1 { font-size: 1.5rem; }
 
     .score-badge {
       background: var(--color-terracotta-light);
@@ -31,6 +27,26 @@
       border-radius: 20px;
       font-weight: 600;
       color: var(--color-terracotta-dark);
+    }
+
+    .level-select {
+      display: flex;
+      gap: 8px;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .level-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .level-group-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
     }
 
     .progress-bar-container {
@@ -71,7 +87,10 @@
       font-size: clamp(2.5rem, 8vw, 3.5rem);
       font-weight: 500;
       color: var(--color-terracotta-dark);
+      cursor: pointer;
     }
+
+    .target-word .word:hover { opacity: 0.8; }
 
     .choices {
       display: grid;
@@ -116,10 +135,7 @@
       animation: shake 0.3s;
     }
 
-    .choice-btn:disabled {
-      cursor: not-allowed;
-      opacity: 0.7;
-    }
+    .choice-btn:disabled { cursor: not-allowed; opacity: 0.7; }
 
     .feedback {
       text-align: center;
@@ -141,10 +157,7 @@
       color: var(--color-text-muted);
     }
 
-    .stats span {
-      font-weight: 700;
-      color: var(--color-terracotta);
-    }
+    .stats span { font-weight: 700; color: var(--color-terracotta); }
 
     .round-complete {
       text-align: center;
@@ -166,15 +179,25 @@
       margin-bottom: var(--space-md);
     }
 
-    .round-complete p {
-      color: var(--color-text-muted);
-      margin-bottom: var(--space-md);
-    }
+    .round-complete p { color: var(--color-text-muted); margin-bottom: var(--space-md); }
 
     .hidden { display: none; }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      vertical-align: middle;
+      margin-left: 8px;
+    }
   </style>
 </head>
 <body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -183,8 +206,24 @@
     <div class="game-card">
       <div id="gameArea">
         <div class="game-header">
-          <h1>Rhyme Match</h1>
+          <h1>Rhyme Match <span id="studentBadge" class="student-badge hidden"></span></h1>
           <div class="score-badge">Score: <span id="score">0</span></div>
+        </div>
+
+        <div class="level-select">
+          <div class="level-group">
+            <span class="level-group-label">A:</span>
+            <button class="chip active" data-level="A4">A4</button>
+          </div>
+          <div class="level-group">
+            <span class="level-group-label">B:</span>
+            <button class="chip" data-level="B1">B1</button>
+            <button class="chip" data-level="B2">B2</button>
+            <button class="chip" data-level="B4">B4</button>
+            <button class="chip" data-level="B5">B5</button>
+            <button class="chip" data-level="B6">B6</button>
+            <button class="chip" data-level="B8">B8</button>
+          </div>
         </div>
 
         <div class="progress-bar-container">
@@ -195,11 +234,10 @@
 
         <div class="target-word">
           <div class="label">Find the rhyme for:</div>
-          <div class="word" id="targetWord">cat</div>
+          <div class="word" id="targetWord" onclick="speakWord(this.textContent)">cat</div>
         </div>
 
         <div class="choices" id="choices"></div>
-
         <div class="feedback" id="feedback"></div>
 
         <div class="stats">
@@ -218,34 +256,126 @@
   </div>
 
   <script>
-    // Rhyme pairs organized by word family
-    const rhymeSets = [
-      { family: 'at', words: ['cat', 'hat', 'bat', 'mat', 'rat', 'sat', 'pat', 'fat'] },
-      { family: 'an', words: ['can', 'man', 'pan', 'fan', 'ran', 'tan', 'van', 'ban'] },
-      { family: 'ap', words: ['cap', 'map', 'nap', 'tap', 'lap', 'gap', 'rap', 'zap'] },
-      { family: 'ag', words: ['bag', 'tag', 'wag', 'rag', 'flag', 'drag'] },
-      { family: 'ig', words: ['pig', 'big', 'dig', 'wig', 'fig', 'jig'] },
-      { family: 'in', words: ['pin', 'win', 'tin', 'bin', 'fin', 'chin', 'thin', 'spin'] },
-      { family: 'ip', words: ['lip', 'tip', 'dip', 'hip', 'rip', 'sip', 'zip', 'ship', 'chip'] },
-      { family: 'it', words: ['sit', 'hit', 'bit', 'fit', 'pit', 'kit', 'lit', 'quit'] },
-      { family: 'og', words: ['dog', 'log', 'fog', 'hog', 'jog', 'frog'] },
-      { family: 'op', words: ['top', 'hop', 'pop', 'mop', 'cop', 'stop', 'shop', 'drop'] },
-      { family: 'ot', words: ['hot', 'pot', 'dot', 'got', 'not', 'lot', 'cot', 'shot'] },
-      { family: 'ug', words: ['bug', 'hug', 'mug', 'rug', 'tug', 'dug', 'jug', 'plug'] },
-      { family: 'un', words: ['sun', 'run', 'fun', 'bun', 'gun', 'nun', 'spun'] },
-      { family: 'ut', words: ['cut', 'but', 'nut', 'hut', 'gut', 'shut'] },
-      { family: 'et', words: ['pet', 'wet', 'get', 'set', 'let', 'net', 'bet', 'jet'] },
-      { family: 'en', words: ['pen', 'hen', 'ten', 'men', 'den', 'then', 'when'] },
-    ];
+    // Rhyme sets by level
+    const rhymeSetsByLevel = {
+      'A4': [
+        { family: 'at', words: ['cat', 'hat', 'bat', 'mat', 'rat', 'sat', 'pat', 'fat'] },
+        { family: 'an', words: ['can', 'man', 'pan', 'fan', 'ran', 'tan', 'van'] },
+        { family: 'ap', words: ['cap', 'map', 'nap', 'tap', 'lap', 'gap'] },
+        { family: 'ig', words: ['pig', 'big', 'dig', 'wig', 'fig', 'jig'] },
+        { family: 'it', words: ['sit', 'hit', 'bit', 'fit', 'pit', 'lit'] },
+        { family: 'ot', words: ['hot', 'pot', 'dot', 'got', 'not', 'lot', 'cot'] },
+        { family: 'op', words: ['top', 'hop', 'pop', 'mop', 'cop', 'stop'] },
+        { family: 'ug', words: ['bug', 'hug', 'mug', 'rug', 'tug', 'dug', 'jug'] },
+        { family: 'un', words: ['sun', 'run', 'fun', 'bun', 'gun'] },
+        { family: 'ed', words: ['bed', 'red', 'fed', 'led'] },
+      ],
+      'B1': [
+        { family: 'at', words: ['cat', 'hat', 'bat', 'mat', 'rat', 'sat', 'pat', 'fat', 'flat', 'chat'] },
+        { family: 'an', words: ['can', 'man', 'pan', 'fan', 'ran', 'tan', 'van', 'plan', 'than'] },
+        { family: 'it', words: ['sit', 'hit', 'bit', 'fit', 'pit', 'lit', 'kit', 'spit', 'quit'] },
+        { family: 'ig', words: ['pig', 'big', 'dig', 'wig', 'fig', 'jig', 'rig'] },
+        { family: 'ip', words: ['lip', 'tip', 'dip', 'hip', 'rip', 'sip', 'zip', 'ship', 'chip'] },
+        { family: 'in', words: ['pin', 'win', 'tin', 'bin', 'fin', 'chin', 'thin', 'spin'] },
+      ],
+      'B2': [
+        { family: 'ot', words: ['hot', 'pot', 'dot', 'got', 'not', 'lot', 'cot', 'shot', 'spot'] },
+        { family: 'op', words: ['top', 'hop', 'pop', 'mop', 'cop', 'stop', 'shop', 'drop', 'chop'] },
+        { family: 'ug', words: ['bug', 'hug', 'mug', 'rug', 'tug', 'dug', 'jug', 'plug', 'snug'] },
+        { family: 'un', words: ['sun', 'run', 'fun', 'bun', 'gun', 'spun'] },
+        { family: 'ut', words: ['cut', 'but', 'nut', 'hut', 'gut', 'shut'] },
+        { family: 'ed', words: ['bed', 'red', 'fed', 'led', 'shed', 'sled'] },
+        { family: 'en', words: ['pen', 'hen', 'ten', 'men', 'den', 'then', 'when'] },
+        { family: 'et', words: ['pet', 'wet', 'get', 'set', 'let', 'net', 'bet', 'jet'] },
+      ],
+      'B4': [
+        { family: 'all', words: ['ball', 'call', 'fall', 'tall', 'wall', 'hall', 'mall', 'small'] },
+        { family: 'ell', words: ['bell', 'fell', 'tell', 'well', 'sell', 'shell', 'smell', 'spell'] },
+        { family: 'ill', words: ['hill', 'fill', 'will', 'bill', 'pill', 'mill', 'still', 'spill'] },
+        { family: 'ull', words: ['bull', 'full', 'pull', 'dull'] },
+        { family: 'oll', words: ['doll', 'roll', 'poll'] },
+        { family: 'iss', words: ['miss', 'kiss', 'hiss'] },
+        { family: 'oss', words: ['boss', 'loss', 'toss', 'cross', 'floss'] },
+        { family: 'ess', words: ['mess', 'less', 'dress', 'guess', 'press'] },
+      ],
+      'B5': [
+        { family: 'ash', words: ['dash', 'cash', 'bash', 'mash', 'rash', 'crash', 'flash', 'splash'] },
+        { family: 'ish', words: ['fish', 'dish', 'wish', 'swish'] },
+        { family: 'ush', words: ['bush', 'push', 'rush', 'hush', 'mush', 'brush', 'crush'] },
+        { family: 'ath', words: ['bath', 'math', 'path'] },
+        { family: 'atch', words: ['catch', 'match', 'patch', 'batch', 'hatch', 'latch'] },
+        { family: 'itch', words: ['ditch', 'pitch', 'witch', 'stitch', 'switch'] },
+        { family: 'ing', words: ['ring', 'sing', 'king', 'wing', 'thing', 'bring', 'swing', 'spring'] },
+        { family: 'ank', words: ['bank', 'tank', 'sank', 'rank', 'blank', 'thank', 'crank'] },
+      ],
+      'B6': [
+        { family: 'ake', words: ['cake', 'make', 'bake', 'lake', 'rake', 'take', 'shake', 'snake'] },
+        { family: 'ame', words: ['game', 'name', 'came', 'same', 'tame', 'fame', 'blame', 'flame'] },
+        { family: 'ike', words: ['bike', 'like', 'hike', 'mike', 'spike', 'strike'] },
+        { family: 'ime', words: ['time', 'dime', 'lime', 'chime', 'climb', 'prime'] },
+        { family: 'ine', words: ['line', 'fine', 'mine', 'nine', 'pine', 'vine', 'shine', 'spine'] },
+        { family: 'one', words: ['bone', 'cone', 'tone', 'zone', 'phone', 'stone', 'clone'] },
+        { family: 'ope', words: ['hope', 'rope', 'cope', 'slope'] },
+        { family: 'ube', words: ['cube', 'tube'] },
+      ],
+      'B8': [
+        { family: 'ain', words: ['rain', 'main', 'pain', 'gain', 'train', 'brain', 'chain', 'plain'] },
+        { family: 'ail', words: ['tail', 'mail', 'sail', 'pail', 'nail', 'trail', 'snail'] },
+        { family: 'ay', words: ['day', 'say', 'may', 'way', 'play', 'stay', 'gray', 'pray'] },
+        { family: 'ee', words: ['bee', 'see', 'fee', 'tree', 'free', 'three'] },
+        { family: 'eat', words: ['eat', 'beat', 'heat', 'meat', 'seat', 'neat', 'treat'] },
+        { family: 'oat', words: ['boat', 'coat', 'goat', 'float'] },
+        { family: 'ow', words: ['bow', 'low', 'row', 'grow', 'show', 'snow', 'slow', 'flow'] },
+      ],
+    };
 
+    let currentLevel = 'A4';
     let currentRound = 0;
     let score = 0;
     let correctCount = 0;
     let totalRounds = 10;
     let currentQuestion = null;
+    let currentStudent = null;
+    let sessionStartTime = null;
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', startNewGame);
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupLevelButtons();
+
+      // Show student picker
+      const picker = new StudentPicker({
+        title: 'Who is matching rhymes?',
+        allowSkip: true
+      });
+      currentStudent = await picker.show();
+
+      if (currentStudent) {
+        const badge = document.getElementById('studentBadge');
+        badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+        badge.classList.remove('hidden');
+
+        const level = await window.FunBookiesDB.getCurrentLevel(currentStudent.id);
+        if (level && rhymeSetsByLevel[level]) {
+          currentLevel = level;
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+          const levelBtn = document.querySelector(`.chip[data-level="${level}"]`);
+          if (levelBtn) levelBtn.classList.add('active');
+        }
+      }
+
+      sessionStartTime = Date.now();
+      startNewGame();
+    });
+
+    function setupLevelButtons() {
+      document.querySelectorAll('.chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLevel = btn.dataset.level;
+          startNewGame();
+        });
+      });
+    }
 
     function startNewGame() {
       currentRound = 0;
@@ -272,27 +402,27 @@
         return;
       }
 
-      // Pick a random rhyme set
-      const set = rhymeSets[Math.floor(Math.random() * rhymeSets.length)];
+      const sets = rhymeSetsByLevel[currentLevel] || rhymeSetsByLevel['A4'];
+      const set = sets[Math.floor(Math.random() * sets.length)];
       const shuffled = [...set.words].sort(() => Math.random() - 0.5);
 
       const target = shuffled[0];
       const correct = shuffled[1];
 
-      // Get wrong answers from different families
-      const wrongSets = rhymeSets.filter(s => s.family !== set.family);
+      const wrongSets = sets.filter(s => s.family !== set.family);
       const wrongs = [];
       for (let i = 0; i < 3; i++) {
-        const wrongSet = wrongSets[Math.floor(Math.random() * wrongSets.length)];
-        const wrongWord = wrongSet.words[Math.floor(Math.random() * wrongSet.words.length)];
-        if (!wrongs.includes(wrongWord)) {
-          wrongs.push(wrongWord);
+        if (wrongSets.length > 0) {
+          const wrongSet = wrongSets[Math.floor(Math.random() * wrongSets.length)];
+          const wrongWord = wrongSet.words[Math.floor(Math.random() * wrongSet.words.length)];
+          if (!wrongs.includes(wrongWord)) wrongs.push(wrongWord);
         }
       }
 
       currentQuestion = {
         target,
         correct,
+        family: set.family,
         options: [correct, ...wrongs.slice(0, 3)].sort(() => Math.random() - 0.5)
       };
 
@@ -301,6 +431,7 @@
 
     function renderQuestion() {
       document.getElementById('targetWord').textContent = currentQuestion.target;
+      speakWord(currentQuestion.target);
 
       const container = document.getElementById('choices');
       container.innerHTML = '';
@@ -315,24 +446,21 @@
     }
 
     function selectAnswer(word, btn) {
-      // Disable all buttons
       document.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
 
       if (word === currentQuestion.correct) {
         btn.classList.add('correct');
-        document.getElementById('feedback').textContent = 'Correct! They both end in -' + getRhymeEnding(word);
+        document.getElementById('feedback').textContent = `Correct! They both end in -${currentQuestion.family}`;
         document.getElementById('feedback').className = 'feedback correct';
         score += 10;
         correctCount++;
         document.getElementById('score').textContent = score;
         document.getElementById('correctCount').textContent = correctCount;
+        speakWord(word);
       } else {
         btn.classList.add('wrong');
-        // Highlight correct answer
         document.querySelectorAll('.choice-btn').forEach(b => {
-          if (b.textContent === currentQuestion.correct) {
-            b.classList.add('correct');
-          }
+          if (b.textContent === currentQuestion.correct) b.classList.add('correct');
         });
         document.getElementById('feedback').textContent = `${currentQuestion.target} rhymes with ${currentQuestion.correct}`;
         document.getElementById('feedback').className = 'feedback wrong';
@@ -341,21 +469,37 @@
       setTimeout(nextRound, 1500);
     }
 
-    function getRhymeEnding(word) {
-      // Find the word family
-      for (const set of rhymeSets) {
-        if (set.words.includes(word)) {
-          return set.family;
-        }
-      }
-      return word.slice(-2);
-    }
-
-    function endGame() {
+    async function endGame() {
       document.getElementById('gameArea').classList.add('hidden');
       document.getElementById('completeArea').classList.remove('hidden');
       document.getElementById('finalScore').textContent = score;
       document.getElementById('progressBar').style.width = '100%';
+
+      // Save activity
+      if (currentStudent) {
+        try {
+          await window.FunBookiesDB.saveActivity({
+            studentId: currentStudent.id,
+            type: 'rhyme-match',
+            level: currentLevel,
+            score: correctCount,
+            total: totalRounds,
+            duration: Math.round((Date.now() - sessionStartTime) / 1000),
+            details: { finalScore: score }
+          });
+        } catch (e) {
+          console.error('Failed to save activity:', e);
+        }
+      }
+    }
+
+    function speakWord(word) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.rate = 0.8;
+        speechSynthesis.speak(utterance);
+      }
     }
   </script>
 </body>

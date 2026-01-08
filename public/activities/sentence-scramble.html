@@ -10,9 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles/shared.css">
   <style>
-    .page-header {
-      padding-top: var(--space-md);
-    }
+    .page-header { padding-top: var(--space-md); }
 
     .game-header {
       display: flex;
@@ -21,9 +19,7 @@
       margin-bottom: var(--space-md);
     }
 
-    .game-header h1 {
-      font-size: 1.5rem;
-    }
+    .game-header h1 { font-size: 1.5rem; }
 
     .score-badge {
       background: rgba(212, 196, 176, 0.4);
@@ -40,10 +36,24 @@
       flex-wrap: wrap;
     }
 
+    .level-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .level-group-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+
     .image-hint {
       text-align: center;
       font-size: 4rem;
       margin-bottom: var(--space-md);
+      cursor: pointer;
     }
 
     .sentence-area {
@@ -60,22 +70,9 @@
       transition: all 0.2s;
     }
 
-    .sentence-area.active {
-      border-color: var(--color-sage);
-      background: var(--color-sage-light);
-    }
-
-    .sentence-area.correct {
-      border-color: var(--color-success);
-      border-style: solid;
-      background: #E8F5E9;
-    }
-
-    .sentence-area.wrong {
-      border-color: var(--color-error);
-      background: #FFEBEE;
-      animation: shake 0.3s;
-    }
+    .sentence-area.active { border-color: var(--color-sage); background: var(--color-sage-light); }
+    .sentence-area.correct { border-color: var(--color-success); border-style: solid; background: #E8F5E9; }
+    .sentence-area.wrong { border-color: var(--color-error); background: #FFEBEE; animation: shake 0.3s; }
 
     .word-tile {
       padding: 12px 20px;
@@ -91,24 +88,10 @@
       user-select: none;
     }
 
-    .word-tile:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(159, 199, 170, 0.3);
-    }
-
-    .word-tile.in-sentence {
-      background: var(--color-sage);
-      color: var(--color-white);
-    }
-
-    .word-tile.sight-word {
-      border-color: var(--color-terracotta);
-    }
-
-    .word-tile.sight-word.in-sentence {
-      background: var(--color-terracotta);
-      color: var(--color-soft-black);
-    }
+    .word-tile:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(159, 199, 170, 0.3); }
+    .word-tile.in-sentence { background: var(--color-sage); color: var(--color-white); }
+    .word-tile.sight-word { border-color: var(--color-terracotta); }
+    .word-tile.sight-word.in-sentence { background: var(--color-terracotta); color: var(--color-soft-black); }
 
     .word-bank {
       display: flex;
@@ -134,23 +117,10 @@
       flex-wrap: wrap;
     }
 
-    .btn-check {
-      background: var(--color-sage);
-      color: var(--color-white);
-    }
-
-    .btn-check:hover {
-      background: var(--color-sage-dark);
-    }
-
-    .btn-hint {
-      background: var(--color-terracotta);
-      color: var(--color-soft-black);
-    }
-
-    .btn-hint:hover {
-      background: var(--color-terracotta-dark);
-    }
+    .btn-check { background: var(--color-sage); color: var(--color-white); }
+    .btn-check:hover { background: var(--color-sage-dark); }
+    .btn-hint { background: var(--color-terracotta); color: var(--color-soft-black); }
+    .btn-hint:hover { background: var(--color-terracotta-dark); }
 
     .feedback {
       text-align: center;
@@ -174,23 +144,28 @@
       color: var(--color-text-muted);
     }
 
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 4px;
-    }
-
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 4px; }
     .legend-dot.decodable { background: var(--color-sage); }
     .legend-dot.sight { background: var(--color-terracotta); }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -198,17 +173,27 @@
 
     <div class="game-card">
       <div class="game-header">
-        <h1>Sentence Scramble</h1>
+        <h1>Sentence Scramble <span id="studentBadge" class="student-badge hidden"></span></h1>
         <div class="score-badge">Score: <span id="score">0</span></div>
       </div>
 
       <div class="level-select">
-        <button class="chip active" data-level="0">Easy (3-4 words)</button>
-        <button class="chip" data-level="1">Medium (4-5 words)</button>
-        <button class="chip" data-level="2">Hard (5-6 words)</button>
+        <div class="level-group">
+          <span class="level-group-label">A:</span>
+          <button class="chip active" data-level="A4">A4</button>
+        </div>
+        <div class="level-group">
+          <span class="level-group-label">B:</span>
+          <button class="chip" data-level="B1">B1</button>
+          <button class="chip" data-level="B2">B2</button>
+          <button class="chip" data-level="B3">B3</button>
+          <button class="chip" data-level="B5">B5</button>
+          <button class="chip" data-level="B6">B6</button>
+          <button class="chip" data-level="B8">B8</button>
+        </div>
       </div>
 
-      <div class="image-hint" id="imageHint">&#x1F431;</div>
+      <div class="image-hint" id="imageHint" onclick="speakSentence()">&#x1F431;</div>
 
       <div class="sentence-area" id="sentenceArea">
         <span class="punctuation" style="opacity: 0.3;">Start building your sentence...</span>
@@ -226,57 +211,103 @@
       <div class="feedback" id="feedback"></div>
 
       <div class="legend">
-        <div class="legend-item">
-          <div class="legend-dot decodable"></div>
-          <span>Sound-out words</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-dot sight"></div>
-          <span>Sight words</span>
-        </div>
+        <div class="legend-item"><div class="legend-dot decodable"></div><span>Decodable</span></div>
+        <div class="legend-item"><div class="legend-dot sight"></div><span>Sight words</span></div>
       </div>
     </div>
   </div>
 
   <script>
-    const sentenceBanks = {
-      0: [ // Easy - 3-4 words
+    const sentencesByLevel = {
+      'A4': [
         { sentence: ['The', 'cat', 'sat'], image: '&#x1F431;', sightWords: ['the'] },
         { sentence: ['I', 'see', 'a', 'dog'], image: '&#x1F415;', sightWords: ['i', 'see', 'a'] },
         { sentence: ['The', 'sun', 'is', 'hot'], image: '&#x2600;&#xFE0F;', sightWords: ['the', 'is'] },
         { sentence: ['A', 'big', 'pig'], image: '&#x1F437;', sightWords: ['a'] },
-        { sentence: ['I', 'can', 'run'], image: '&#x1F3C3;', sightWords: ['i', 'can'] },
+        { sentence: ['I', 'can', 'run'], image: '&#x1F3C3;', sightWords: ['i'] },
         { sentence: ['The', 'hat', 'is', 'red'], image: '&#x1F3A9;', sightWords: ['the', 'is'] },
         { sentence: ['A', 'bug', 'in', 'mud'], image: '&#x1F41B;', sightWords: ['a', 'in'] },
-        { sentence: ['I', 'like', 'my', 'cup'], image: '&#x1F964;', sightWords: ['i', 'like', 'my'] },
+        { sentence: ['I', 'see', 'the', 'cup'], image: '&#x1F964;', sightWords: ['i', 'see', 'the'] },
       ],
-      1: [ // Medium - 4-5 words
-        { sentence: ['The', 'dog', 'can', 'run', 'fast'], image: '&#x1F415;', sightWords: ['the', 'can'] },
-        { sentence: ['I', 'see', 'a', 'big', 'frog'], image: '&#x1F438;', sightWords: ['i', 'see', 'a'] },
+      'B1': [
         { sentence: ['The', 'cat', 'sat', 'on', 'a', 'mat'], image: '&#x1F431;', sightWords: ['the', 'on', 'a'] },
-        { sentence: ['A', 'fox', 'hid', 'in', 'the', 'box'], image: '&#x1F98A;', sightWords: ['a', 'in', 'the'] },
-        { sentence: ['The', 'pig', 'is', 'in', 'the', 'pen'], image: '&#x1F437;', sightWords: ['the', 'is', 'in'] },
-        { sentence: ['I', 'had', 'fun', 'in', 'the', 'sun'], image: '&#x2600;&#xFE0F;', sightWords: ['i', 'in', 'the'] },
-        { sentence: ['We', 'can', 'hop', 'and', 'run'], image: '&#x1F430;', sightWords: ['we', 'can', 'and'] },
+        { sentence: ['I', 'can', 'see', 'the', 'big', 'pig'], image: '&#x1F437;', sightWords: ['i', 'see', 'the'] },
+        { sentence: ['The', 'man', 'ran', 'to', 'the', 'van'], image: '&#x1F690;', sightWords: ['the', 'to'] },
+        { sentence: ['A', 'rat', 'sat', 'in', 'a', 'pan'], image: '&#x1F373;', sightWords: ['a', 'in'] },
+        { sentence: ['Can', 'the', 'cat', 'sit', 'on', 'it'], image: '&#x1F431;', sightWords: ['the', 'on', 'it'] },
       ],
-      2: [ // Hard - 5-6 words
-        { sentence: ['The', 'ship', 'is', 'on', 'the', 'sea'], image: '&#x1F6A2;', sightWords: ['the', 'is', 'on'] },
-        { sentence: ['I', 'wish', 'to', 'swim', 'with', 'fish'], image: '&#x1F41F;', sightWords: ['i', 'to', 'with'] },
+      'B2': [
+        { sentence: ['The', 'dog', 'got', 'hot', 'in', 'the', 'sun'], image: '&#x1F415;', sightWords: ['the', 'in'] },
+        { sentence: ['A', 'bug', 'hid', 'in', 'the', 'rug'], image: '&#x1F41B;', sightWords: ['a', 'in', 'the'] },
+        { sentence: ['I', 'can', 'run', 'and', 'hop'], image: '&#x1F3C3;', sightWords: ['i', 'and'] },
+        { sentence: ['The', 'red', 'hen', 'is', 'in', 'the', 'pen'], image: '&#x1F414;', sightWords: ['the', 'is', 'in'] },
+        { sentence: ['We', 'had', 'fun', 'in', 'the', 'sun'], image: '&#x2600;&#xFE0F;', sightWords: ['we', 'in', 'the'] },
+      ],
+      'B3': [
         { sentence: ['The', 'frog', 'sat', 'on', 'a', 'log'], image: '&#x1F438;', sightWords: ['the', 'on', 'a'] },
-        { sentence: ['We', 'clap', 'and', 'snap', 'our', 'hands'], image: '&#x1F44F;', sightWords: ['we', 'and', 'our'] },
-        { sentence: ['The', 'crab', 'ran', 'on', 'the', 'sand'], image: '&#x1F980;', sightWords: ['the', 'on'] },
-        { sentence: ['I', 'like', 'to', 'chat', 'with', 'my', 'chum'], image: '&#x1F4AC;', sightWords: ['i', 'like', 'to', 'with', 'my'] },
-      ]
+        { sentence: ['I', 'can', 'clap', 'and', 'snap'], image: '&#x1F44F;', sightWords: ['i', 'and'] },
+        { sentence: ['The', 'crab', 'ran', 'to', 'the', 'sand'], image: '&#x1F980;', sightWords: ['the', 'to'] },
+        { sentence: ['We', 'swim', 'and', 'skip', 'and', 'trip'], image: '&#x1F3CA;', sightWords: ['we', 'and'] },
+        { sentence: ['The', 'flag', 'is', 'on', 'the', 'top'], image: '&#x1F6A9;', sightWords: ['the', 'is', 'on'] },
+      ],
+      'B5': [
+        { sentence: ['The', 'ship', 'is', 'on', 'the', 'sea'], image: '&#x1F6A2;', sightWords: ['the', 'is', 'on'] },
+        { sentence: ['I', 'wish', 'to', 'see', 'a', 'fish'], image: '&#x1F41F;', sightWords: ['i', 'to', 'see', 'a'] },
+        { sentence: ['The', 'king', 'has', 'a', 'ring'], image: '&#x1F451;', sightWords: ['the', 'has', 'a'] },
+        { sentence: ['We', 'chat', 'and', 'sing', 'a', 'song'], image: '&#x1F3A4;', sightWords: ['we', 'and', 'a'] },
+        { sentence: ['The', 'bath', 'is', 'on', 'the', 'path'], image: '&#x1F6C1;', sightWords: ['the', 'is', 'on'] },
+      ],
+      'B6': [
+        { sentence: ['I', 'like', 'to', 'bake', 'a', 'cake'], image: '&#x1F370;', sightWords: ['i', 'to', 'a'] },
+        { sentence: ['The', 'bike', 'is', 'by', 'the', 'lake'], image: '&#x1F6B2;', sightWords: ['the', 'is', 'by'] },
+        { sentence: ['We', 'came', 'home', 'at', 'the', 'same', 'time'], image: '&#x1F3E0;', sightWords: ['we', 'at', 'the'] },
+        { sentence: ['I', 'hope', 'to', 'make', 'a', 'game'], image: '&#x1F3AE;', sightWords: ['i', 'to', 'a'] },
+        { sentence: ['The', 'cute', 'mule', 'has', 'a', 'name'], image: '&#x1F434;', sightWords: ['the', 'has', 'a'] },
+      ],
+      'B8': [
+        { sentence: ['The', 'rain', 'came', 'down', 'on', 'the', 'day'], image: '&#x1F327;&#xFE0F;', sightWords: ['the', 'on'] },
+        { sentence: ['I', 'see', 'a', 'bee', 'in', 'the', 'tree'], image: '&#x1F41D;', sightWords: ['i', 'see', 'a', 'in', 'the'] },
+        { sentence: ['The', 'boat', 'will', 'float', 'and', 'sail'], image: '&#x26F5;', sightWords: ['the', 'will', 'and'] },
+        { sentence: ['We', 'play', 'and', 'stay', 'all', 'day'], image: '&#x1F3AE;', sightWords: ['we', 'and', 'all'] },
+        { sentence: ['The', 'goat', 'has', 'a', 'coat', 'of', 'brown'], image: '&#x1F410;', sightWords: ['the', 'has', 'a', 'of'] },
+      ],
     };
 
-    let currentLevel = 0;
+    let currentLevel = 'A4';
     let currentSentence = null;
     let builtSentence = [];
     let score = 0;
     let hintsUsed = 0;
+    let currentStudent = null;
+    let sessionStartTime = null;
+    let sessionCorrect = 0;
+    let sessionTotal = 0;
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       setupLevelButtons();
+
+      // Show student picker
+      const picker = new StudentPicker({
+        title: 'Who is scrambling sentences?',
+        allowSkip: true
+      });
+      currentStudent = await picker.show();
+
+      if (currentStudent) {
+        const badge = document.getElementById('studentBadge');
+        badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+        badge.classList.remove('hidden');
+
+        const level = await window.FunBookiesDB.getCurrentLevel(currentStudent.id);
+        if (level && sentencesByLevel[level]) {
+          currentLevel = level;
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+          const levelBtn = document.querySelector(`.chip[data-level="${level}"]`);
+          if (levelBtn) levelBtn.classList.add('active');
+        }
+      }
+
+      sessionStartTime = Date.now();
       newSentence();
     });
 
@@ -285,14 +316,14 @@
         btn.addEventListener('click', () => {
           document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          currentLevel = parseInt(btn.dataset.level);
+          currentLevel = btn.dataset.level;
           newSentence();
         });
       });
     }
 
     function newSentence() {
-      const bank = sentenceBanks[currentLevel];
+      const bank = sentencesByLevel[currentLevel] || sentencesByLevel['A4'];
       currentSentence = bank[Math.floor(Math.random() * bank.length)];
       builtSentence = [];
       hintsUsed = 0;
@@ -310,7 +341,6 @@
       const container = document.getElementById('wordBank');
       container.innerHTML = '';
 
-      // Shuffle words
       const shuffled = [...currentSentence.sentence].sort(() => Math.random() - 0.5);
 
       shuffled.forEach(word => {
@@ -355,7 +385,6 @@
         container.appendChild(tile);
       });
 
-      // Add period placeholder
       if (builtSentence.length > 0) {
         const period = document.createElement('span');
         period.className = 'punctuation';
@@ -369,6 +398,7 @@
       document.getElementById('sentenceArea').classList.add('active');
       renderSentenceArea();
       renderWordBank();
+      speakWordDirect(word);
 
       setTimeout(() => {
         document.getElementById('sentenceArea').classList.remove('active');
@@ -399,11 +429,12 @@
       hintsUsed++;
     }
 
-    function checkSentence() {
+    async function checkSentence() {
       const isCorrect = builtSentence.length === currentSentence.sentence.length &&
         builtSentence.every((word, idx) => word === currentSentence.sentence[idx]);
 
       const area = document.getElementById('sentenceArea');
+      sessionTotal++;
 
       if (isCorrect) {
         area.classList.add('correct');
@@ -412,24 +443,69 @@
 
         const points = Math.max(10 - hintsUsed * 2, 5);
         score += points;
+        sessionCorrect++;
         document.getElementById('score').textContent = score;
 
-        setTimeout(newSentence, 1500);
+        // Save activity every 5 sentences
+        if (sessionTotal > 0 && sessionTotal % 5 === 0 && currentStudent) {
+          await saveActivity();
+        }
+
+        speakSentence();
+        setTimeout(newSentence, 2000);
       } else {
         area.classList.add('wrong');
         document.getElementById('feedback').textContent = 'Not quite right. Try again!';
         document.getElementById('feedback').className = 'feedback wrong';
 
-        setTimeout(() => {
-          area.classList.remove('wrong');
-        }, 500);
+        setTimeout(() => { area.classList.remove('wrong'); }, 500);
       }
     }
+
+    async function saveActivity() {
+      if (!currentStudent || sessionTotal === 0) return;
+      try {
+        await window.FunBookiesDB.saveActivity({
+          studentId: currentStudent.id,
+          type: 'sentence-scramble',
+          level: currentLevel,
+          score: sessionCorrect,
+          total: sessionTotal,
+          duration: Math.round((Date.now() - sessionStartTime) / 1000),
+          details: { finalScore: score }
+        });
+      } catch (e) {
+        console.error('Failed to save activity:', e);
+      }
+    }
+
+    // Save on page unload
+    window.addEventListener('beforeunload', () => {
+      if (currentStudent && sessionTotal > 0) {
+        saveActivity();
+      }
+    });
 
     function skipSentence() {
       document.getElementById('feedback').textContent = `Answer: "${currentSentence.sentence.join(' ')}."`;
       document.getElementById('feedback').className = 'feedback hint';
-      setTimeout(newSentence, 2000);
+      speakSentence();
+      setTimeout(newSentence, 2500);
+    }
+
+    function speakSentence() {
+      if (currentSentence) {
+        speakWordDirect(currentSentence.sentence.join(' '));
+      }
+    }
+
+    function speakWordDirect(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.85;
+        speechSynthesis.speak(utterance);
+      }
     }
   </script>
 </body>

@@ -39,11 +39,26 @@
       font-size: 0.85rem;
     }
 
-    .list-selector {
+    .level-selector {
       display: flex;
       gap: 8px;
       margin-bottom: var(--space-md);
       flex-wrap: wrap;
+    }
+
+    .level-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .level-group-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-right: 4px;
     }
 
     .flashcard-area {
@@ -67,11 +82,21 @@
       border-color: var(--color-sage);
     }
 
+    .flashcard:active {
+      transform: scale(0.98);
+    }
+
     .word {
       font-family: var(--font-display);
       font-size: clamp(3rem, 10vw, 4.5rem);
       font-weight: 500;
       color: var(--color-soft-black);
+    }
+
+    .word-hint {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
     }
 
     .response-buttons {
@@ -191,10 +216,34 @@
       margin: var(--space-sm) 0;
     }
 
+    .empty-state {
+      text-align: center;
+      padding: var(--space-lg);
+      color: var(--color-text-muted);
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-sm);
+    }
+
     .hidden { display: none !important; }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      vertical-align: middle;
+      margin-left: 8px;
+    }
   </style>
 </head>
 <body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -202,29 +251,59 @@
 
     <div class="game-card">
       <div class="game-header">
-        <h1>Sight Words</h1>
+        <h1>Sight Words <span id="studentBadge" class="student-badge hidden"></span></h1>
         <div class="stats">
           <div class="stat-pill">Session: <span id="sessionCount">0</span></div>
           <div class="stat-pill">Mastered: <span id="masteredCount">0</span></div>
         </div>
       </div>
 
-      <div class="list-selector">
-        <button class="chip active" data-list="dolch-pre">Pre-K</button>
-        <button class="chip" data-list="dolch-primer">Primer</button>
-        <button class="chip" data-list="dolch-1">Grade 1</button>
-        <button class="chip" data-list="fry-100">Fry 100</button>
+      <div class="level-selector" id="levelSelector">
+        <div class="level-group">
+          <span class="level-group-label">Band A:</span>
+          <button class="chip" data-level="A1">A1</button>
+          <button class="chip" data-level="A2">A2</button>
+          <button class="chip" data-level="A3">A3</button>
+          <button class="chip active" data-level="A4">A4</button>
+        </div>
+        <div class="level-group">
+          <span class="level-group-label">Band B:</span>
+          <button class="chip" data-level="B1">B1</button>
+          <button class="chip" data-level="B2">B2</button>
+          <button class="chip" data-level="B3">B3</button>
+          <button class="chip" data-level="B4">B4</button>
+          <button class="chip" data-level="B5">B5</button>
+          <button class="chip" data-level="B7">B7</button>
+          <button class="chip" data-level="B8">B8</button>
+          <button class="chip" data-level="B9">B9</button>
+        </div>
+        <div class="level-group">
+          <span class="level-group-label">Band C:</span>
+          <button class="chip" data-level="C1">C1</button>
+          <button class="chip" data-level="C2">C2</button>
+          <button class="chip" data-level="C3">C3</button>
+          <button class="chip" data-level="C4">C4</button>
+          <button class="chip" data-level="C7">C7</button>
+          <button class="chip" data-level="C8">C8</button>
+        </div>
       </div>
 
       <div class="flashcard-area" id="flashcardArea">
-        <div class="flashcard">
+        <div class="flashcard" onclick="speakWord()">
           <div class="word" id="currentWord">the</div>
+          <div class="word-hint">Tap to hear the word</div>
         </div>
 
         <div class="response-buttons">
           <button class="btn btn-know" onclick="respond(true)">I Know It!</button>
           <button class="btn btn-learning" onclick="respond(false)">Still Learning</button>
         </div>
+      </div>
+
+      <div class="empty-state hidden" id="emptyState">
+        <div class="empty-state-icon">📚</div>
+        <h3>No new words at this level</h3>
+        <p>This level doesn't introduce new sight words. Try a different level!</p>
       </div>
 
       <div class="session-complete" id="sessionComplete">
@@ -236,7 +315,7 @@
       </div>
 
       <div class="progress-section">
-        <h3>Progress (<span id="progressPercent">0</span>% mastered)</h3>
+        <h3>Progress at <span id="levelName">A4</span> (<span id="progressPercent">0</span>% mastered)</h3>
         <div class="progress-bar-container">
           <div class="progress-bar" id="progressBar" style="width: 0%"></div>
         </div>
@@ -246,31 +325,87 @@
   </div>
 
   <script>
-    // Word lists
-    const wordLists = {
-      'dolch-pre': ['a', 'and', 'away', 'big', 'blue', 'can', 'come', 'down', 'find', 'for', 'funny', 'go', 'help', 'here', 'I', 'in', 'is', 'it', 'jump', 'little', 'look', 'make', 'me', 'my', 'not', 'one', 'play', 'red', 'run', 'said', 'see', 'the', 'three', 'to', 'two', 'up', 'we', 'where', 'yellow', 'you'],
-      'dolch-primer': ['all', 'am', 'are', 'at', 'ate', 'be', 'black', 'brown', 'but', 'came', 'did', 'do', 'eat', 'four', 'get', 'good', 'have', 'he', 'into', 'like', 'must', 'new', 'no', 'now', 'on', 'our', 'out', 'please', 'pretty', 'ran', 'ride', 'saw', 'say', 'she', 'so', 'soon', 'that', 'there', 'they', 'this', 'too', 'under', 'want', 'was', 'well', 'went', 'what', 'white', 'who', 'will', 'with', 'yes'],
-      'dolch-1': ['after', 'again', 'an', 'any', 'ask', 'as', 'by', 'could', 'every', 'fly', 'from', 'give', 'going', 'had', 'has', 'her', 'him', 'his', 'how', 'just', 'know', 'let', 'live', 'may', 'of', 'old', 'once', 'open', 'over', 'put', 'round', 'some', 'stop', 'take', 'thank', 'them', 'then', 'think', 'walk', 'were', 'when'],
-      'fry-100': ['the', 'of', 'and', 'a', 'to', 'in', 'is', 'you', 'that', 'it', 'he', 'was', 'for', 'on', 'are', 'as', 'with', 'his', 'they', 'I', 'at', 'be', 'this', 'have', 'from', 'or', 'one', 'had', 'by', 'word', 'but', 'not', 'what', 'all', 'were', 'we', 'when', 'your', 'can', 'said', 'there', 'use', 'an', 'each', 'which', 'she', 'do', 'how', 'their', 'if', 'will', 'up', 'other', 'about', 'out', 'many', 'then', 'them', 'these', 'so', 'some', 'her', 'would', 'make', 'like', 'him', 'into', 'time', 'has', 'look', 'two', 'more', 'write', 'go', 'see', 'number', 'no', 'way', 'could', 'people', 'my', 'than', 'first', 'water', 'been', 'call', 'who', 'oil', 'its', 'now', 'find', 'long', 'down', 'day', 'did', 'get', 'come', 'made', 'may', 'part']
+    // Sight words by level (from sight-words.json structure)
+    const sightWordsByLevel = {
+      'A1': ['a', 'i'],
+      'A2': ['the'],
+      'A3': ['is', 'to'],
+      'A4': ['and', 'it', 'in', 'on'],
+      'B1': ['my', 'see'],
+      'B2': ['he', 'she', 'we', 'be'],
+      'B3': ['you', 'are', 'was', 'for'],
+      'B4': ['said', 'have', 'they', 'come'],
+      'B5': ['there', 'what', 'from'],
+      'B6': [],
+      'B7': ['would', 'could', 'should', 'very'],
+      'B8': ['other', 'another', 'people'],
+      'B9': ['where', 'were', 'here', 'their'],
+      'C1': ['thought', 'through', 'eight', 'enough'],
+      'C2': ['once', 'dance', 'since'],
+      'C3': ['little', 'something', 'nothing'],
+      'C4': ['before', 'after', 'always'],
+      'C5': [],
+      'C6': [],
+      'C7': ['beautiful', 'special', 'important'],
+      'C8': ['impossible', 'disappear', 'discover']
+    };
+
+    // Cumulative words (all words up to and including this level)
+    function getCumulativeWords(level) {
+      const levelOrder = ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8'];
+      const idx = levelOrder.indexOf(level);
+      if (idx === -1) return [];
+
+      let words = [];
+      for (let i = 0; i <= idx; i++) {
+        words = words.concat(sightWordsByLevel[levelOrder[i]] || []);
+      }
+      return [...new Set(words)]; // Remove duplicates
+    }
+
+    // Level display names
+    const levelNames = {
+      'A1': 'Letter Recognition',
+      'A2': 'CV/VC Words',
+      'A3': 'Mixed Case Sentences',
+      'A4': 'Emergent Bridge',
+      'B1': 'CVC Short a, i',
+      'B2': 'CVC Short o, u, e',
+      'B3': 'Consonant Blends',
+      'B4': 'FLOSS + Endings',
+      'B5': 'Digraphs',
+      'B6': 'Silent E',
+      'B7': 'R-Controlled',
+      'B8': 'Vowel Teams',
+      'B9': 'Diphthongs',
+      'C1': 'Silent Letters',
+      'C2': 'Soft C and G',
+      'C3': 'Two-Syllable',
+      'C4': 'Open Syllables',
+      'C7': 'Derivational Suffixes',
+      'C8': 'Prefixes'
     };
 
     // Word status: 0 = new, 1-2 = learning, 3+ = mastered
     let wordStatus = {};
-    let currentList = 'dolch-pre';
+    let currentLevel = 'A4';
     let currentWord = null;
     let sessionWords = 0;
+    let sessionCorrect = 0;
+    let sessionStartTime = null;
     let queue = [];
+    let currentStudent = null;
 
     // Load from localStorage
     function loadProgress() {
-      const saved = localStorage.getItem('funbookies-sight-words');
+      const saved = localStorage.getItem('funbookies-sight-words-v2');
       if (saved) {
         wordStatus = JSON.parse(saved);
       }
     }
 
     function saveProgress() {
-      localStorage.setItem('funbookies-sight-words', JSON.stringify(wordStatus));
+      localStorage.setItem('funbookies-sight-words-v2', JSON.stringify(wordStatus));
     }
 
     function getStatus(word) {
@@ -282,21 +417,49 @@
       saveProgress();
     }
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
+    // Initialize with student picker
+    document.addEventListener('DOMContentLoaded', async () => {
       loadProgress();
-      setupListButtons();
+      setupLevelButtons();
+
+      // Show student picker
+      const picker = new StudentPicker({
+        title: 'Who is practicing sight words?',
+        allowSkip: true
+      });
+      currentStudent = await picker.show();
+
+      if (currentStudent) {
+        // Show student badge
+        const badge = document.getElementById('studentBadge');
+        badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+        badge.classList.remove('hidden');
+
+        // Auto-set level based on assessed level
+        const level = await window.FunBookiesDB.getCurrentLevel(currentStudent.id);
+        if (level && sightWordsByLevel[level]) {
+          currentLevel = level;
+          // Update active button
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+          const levelBtn = document.querySelector(`.chip[data-level="${level}"]`);
+          if (levelBtn) levelBtn.classList.add('active');
+        }
+      }
+
+      sessionStartTime = Date.now();
       buildQueue();
       showNextWord();
       updateDisplay();
     });
 
-    function setupListButtons() {
+    function setupLevelButtons() {
       document.querySelectorAll('.chip').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          currentList = btn.dataset.list;
+          currentLevel = btn.dataset.level;
+          sessionWords = 0;
+          document.getElementById('sessionCount').textContent = 0;
           buildQueue();
           showNextWord();
           updateDisplay();
@@ -305,7 +468,14 @@
     }
 
     function buildQueue() {
-      const list = wordLists[currentList];
+      // Use cumulative words for this level
+      const list = getCumulativeWords(currentLevel);
+
+      if (list.length === 0) {
+        queue = [];
+        return;
+      }
+
       // Prioritize: learning (1-2) > new (0) > mastered (3+)
       const learning = list.filter(w => getStatus(w) >= 1 && getStatus(w) < 3);
       const newWords = list.filter(w => getStatus(w) === 0);
@@ -321,6 +491,17 @@
     }
 
     function showNextWord() {
+      const list = getCumulativeWords(currentLevel);
+
+      if (list.length === 0) {
+        document.getElementById('flashcardArea').classList.add('hidden');
+        document.getElementById('emptyState').classList.remove('hidden');
+        document.getElementById('sessionComplete').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('emptyState').classList.add('hidden');
+
       if (queue.length === 0) {
         buildQueue();
       }
@@ -334,6 +515,9 @@
       document.getElementById('currentWord').textContent = currentWord;
       document.getElementById('flashcardArea').classList.remove('hidden');
       document.getElementById('sessionComplete').style.display = 'none';
+
+      // Auto-speak the word
+      setTimeout(() => speakWord(), 300);
     }
 
     function respond(known) {
@@ -341,6 +525,7 @@
 
       if (known) {
         setStatus(currentWord, Math.min(status + 1, 5));
+        sessionCorrect++;
       } else {
         setStatus(currentWord, Math.max(status - 1, 0));
         // Add back to queue for review
@@ -353,25 +538,48 @@
       showNextWord();
     }
 
-    function showSessionComplete() {
+    async function showSessionComplete() {
       document.getElementById('flashcardArea').classList.add('hidden');
       document.getElementById('sessionComplete').style.display = 'block';
       document.getElementById('sessionScore').textContent = sessionWords;
 
-      const mastered = wordLists[currentList].filter(w => getStatus(w) >= 3).length;
-      const total = wordLists[currentList].length;
+      const list = getCumulativeWords(currentLevel);
+      const mastered = list.filter(w => getStatus(w) >= 3).length;
+      const total = list.length;
 
-      if (mastered === total) {
-        document.getElementById('sessionMessage').textContent = 'Amazing! You mastered all words in this list!';
-      } else if (mastered > total * 0.7) {
+      if (total > 0 && mastered === total) {
+        document.getElementById('sessionMessage').textContent = 'Amazing! You mastered all words at this level!';
+      } else if (total > 0 && mastered > total * 0.7) {
         document.getElementById('sessionMessage').textContent = 'Great progress! Almost there!';
       } else {
         document.getElementById('sessionMessage').textContent = 'Keep practicing to master more words!';
+      }
+
+      // Save activity to IndexedDB if student selected
+      if (currentStudent && sessionWords > 0) {
+        try {
+          await window.FunBookiesDB.saveActivity({
+            studentId: currentStudent.id,
+            type: 'sight-words',
+            level: currentLevel,
+            score: sessionCorrect,
+            total: sessionWords,
+            duration: Math.round((Date.now() - sessionStartTime) / 1000),
+            details: {
+              masteredCount: mastered,
+              totalWords: total
+            }
+          });
+        } catch (e) {
+          console.error('Failed to save activity:', e);
+        }
       }
     }
 
     function startNewSession() {
       sessionWords = 0;
+      sessionCorrect = 0;
+      sessionStartTime = Date.now();
       document.getElementById('sessionCount').textContent = 0;
       buildQueue();
       document.getElementById('sessionComplete').style.display = 'none';
@@ -380,23 +588,24 @@
     }
 
     function updateDisplay() {
-      const list = wordLists[currentList];
+      const list = getCumulativeWords(currentLevel);
       const mastered = list.filter(w => getStatus(w) >= 3);
       const learning = list.filter(w => getStatus(w) >= 1 && getStatus(w) < 3);
 
       document.getElementById('masteredCount').textContent = mastered.length;
+      document.getElementById('levelName').textContent = `${currentLevel} - ${levelNames[currentLevel] || currentLevel}`;
 
-      const percent = Math.round((mastered.length / list.length) * 100);
+      const percent = list.length > 0 ? Math.round((mastered.length / list.length) * 100) : 0;
       document.getElementById('progressPercent').textContent = percent;
       document.getElementById('progressBar').style.width = percent + '%';
 
-      // Word status chips (show first 20)
-      const statusHtml = list.slice(0, 20).map(w => {
+      // Word status chips
+      const statusHtml = list.map(w => {
         const s = getStatus(w);
         const cls = s >= 3 ? 'mastered' : s >= 1 ? 'learning' : 'new';
-        return `<span class="word-chip ${cls}" onclick="speak('${w}')">${w}</span>`;
+        return `<span class="word-chip ${cls}" onclick="speakWordDirect('${w}')">${w}</span>`;
       }).join('');
-      document.getElementById('wordStatus').innerHTML = statusHtml + (list.length > 20 ? '<span class="word-chip new">...</span>' : '');
+      document.getElementById('wordStatus').innerHTML = statusHtml;
     }
 
     // Text-to-Speech
@@ -412,11 +621,13 @@
       window.speechSynthesis.speak(utterance);
     }
 
-    // Speak word when clicking flashcard
-    document.getElementById('currentWord').addEventListener('click', () => {
+    function speakWord() {
       speak(currentWord);
-    });
-    document.getElementById('currentWord').style.cursor = 'pointer';
+    }
+
+    function speakWordDirect(word) {
+      speak(word);
+    }
 
     // Load voices
     window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();

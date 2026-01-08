@@ -109,6 +109,41 @@
             object-fit: cover;
         }
 
+        .page-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--color-sage-light) 0%, #E8E4DD 100%);
+        }
+
+        .page-image-placeholder .scene-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+
+        .page-image-placeholder .scene-text {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            font-style: italic;
+            line-height: 1.5;
+            max-width: 80%;
+        }
+
+        .page-image-placeholder .coming-soon {
+            font-size: 0.75rem;
+            color: var(--color-sage);
+            margin-top: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         /* Text section takes bottom 20% */
         .page-text {
             position: absolute;
@@ -787,36 +822,37 @@
         const urlParams = new URLSearchParams(window.location.search);
         const bookId = urlParams.get('book');
 
-        // Book registry
-        const bookRegistry = {
-            'dog_pink': { jsonFile: 'dog_pink.json', imageFolder: 'images', imagePrefix: 'dog_pink_page' },
-            'pig_yellow': { jsonFile: 'pig_yellow.json', imageFolder: 'images', imagePrefix: 'pig_yellow_page' },
-            'volcano': { jsonFile: 'volcano.json', imageFolder: 'volcano_images', imagePrefix: 'page_' },
-            'castle': { jsonFile: 'castle.json', imageFolder: 'castle_images', imagePrefix: 'page_' },
-            'elephant_red': { jsonFile: 'elephant_red.json', imageFolder: 'images', imagePrefix: 'elephant_red_page' },
-            'fox_purple': { jsonFile: 'fox_purple.json', imageFolder: 'images', imagePrefix: 'fox_purple_page' },
-            'snail_blue': { jsonFile: 'snail_blue.json', imageFolder: 'images', imagePrefix: 'snail_blue_page' },
-            'owl_green': { jsonFile: 'owl_green.json', imageFolder: 'images', imagePrefix: 'owl_green_page' },
-            'mouse_gold': { jsonFile: 'mouse_gold.json', imageFolder: 'images', imagePrefix: 'mouse_gold_page' }
+        // Legacy book registry for old books with custom image paths
+        const legacyImagePaths = {
+            'dog_pink': { imageFolder: 'images', imagePrefix: 'dog_pink_page' },
+            'pig_yellow': { imageFolder: 'images', imagePrefix: 'pig_yellow_page' },
+            'volcano': { imageFolder: 'volcano_images', imagePrefix: 'page_' },
+            'castle': { imageFolder: 'castle_images', imagePrefix: 'page_' },
+            'elephant_red': { imageFolder: 'images', imagePrefix: 'elephant_red_page' },
+            'fox_purple': { imageFolder: 'images', imagePrefix: 'fox_purple_page' },
+            'snail_blue': { imageFolder: 'images', imagePrefix: 'snail_blue_page' },
+            'owl_green': { imageFolder: 'images', imagePrefix: 'owl_green_page' },
+            'mouse_gold': { imageFolder: 'images', imagePrefix: 'mouse_gold_page' },
+            'puppy_silver': { imageFolder: 'images', imagePrefix: 'puppy_silver_page' }
         };
 
         async function loadBook() {
-            if (!bookId || !bookRegistry[bookId]) {
+            if (!bookId) {
                 document.getElementById('bookPage').innerHTML = `
-                    <div class="loading">Book not found. <a href="/books/" style="color: var(--color-sage);">Browse books</a></div>
+                    <div class="loading">No book specified. <a href="/books/" style="color: var(--color-sage);">Browse books</a></div>
                 `;
                 return;
             }
 
             bookSlug = bookId;
-            const bookInfo = bookRegistry[bookId];
 
             try {
-                const res = await fetch(`/books/${bookInfo.jsonFile}`);
+                // Try to load the book JSON directly by ID
+                const res = await fetch(`/books/${bookId}.json`);
                 if (!res.ok) throw new Error('Failed to load book');
 
                 currentBook = await res.json();
-                currentBook._info = bookInfo;
+                currentBook._slug = bookId;
                 currentPage = 0;
 
                 document.getElementById('bookTitle').textContent = currentBook.title;
@@ -826,21 +862,28 @@
             } catch (e) {
                 console.error('Error loading book:', e);
                 document.getElementById('bookPage').innerHTML = `
-                    <div class="loading">Error loading book. <a href="/books/" style="color: var(--color-sage);">Try another</a></div>
+                    <div class="loading">Book not found. <a href="/books/" style="color: var(--color-sage);">Browse books</a></div>
                 `;
             }
         }
 
         function getImagePath(page) {
-            // Use explicit image path if available
+            // Use explicit image path if available in page data
             if (page.image) {
                 return `/books/${page.image}`;
             }
 
-            // Otherwise construct path
             const pageNum = String(page.page || currentPage + 1).padStart(2, '0');
-            const info = currentBook._info;
-            return `/books/${info.imageFolder}/${info.imagePrefix}${pageNum}.png`;
+            const slug = currentBook._slug || bookSlug;
+
+            // Check if this is a legacy book with custom image paths
+            if (legacyImagePaths[slug]) {
+                const info = legacyImagePaths[slug];
+                return `/books/${info.imageFolder}/${info.imagePrefix}${pageNum}.png`;
+            }
+
+            // Default path for new curriculum books: /books/images/{slug}_page{nn}.png
+            return `/books/images/${slug}_page${pageNum}.png`;
         }
 
         // Generate rich gold renaissance tapestry pattern
@@ -1213,6 +1256,8 @@
                     // Use title length as seed for consistent pattern per book
                     const patternSeed = (currentBook.title || '').length;
                     const patternSvg = generateCoverPattern(patternSeed);
+                    const coverScene = page.scene || currentBook.summary || '';
+                    const coverPlaceholderId = `cover-placeholder`;
                     bookPage.innerHTML = `
                         <div class="page-cover">
                             <div class="cover-corner-tab">
@@ -1222,7 +1267,11 @@
                                 </div>
                             </div>
                             <div class="cover-image">
-                                <img src="${coverImgPath}" alt="" onerror="this.style.display='none'">
+                                <img src="${coverImgPath}" alt="" onerror="document.getElementById('${coverPlaceholderId}').style.display='flex'; this.style.display='none';">
+                                <div id="${coverPlaceholderId}" class="page-image-placeholder" style="display: none;">
+                                    <div class="scene-icon">📚</div>
+                                    ${coverScene ? `<div class="scene-text">${coverScene}</div>` : ''}
+                                </div>
                             </div>
                             <div class="cover-pattern-banner">
                                 <div class="cover-pattern">${patternSvg}</div>
@@ -1237,9 +1286,16 @@
                 default:
                     // Regular story page with image and text
                     const storyImgPath = getImagePath(page);
+                    const sceneDesc = page.scene || '';
+                    const placeholderId = `placeholder-${currentPage}`;
                     bookPage.innerHTML = `
                         <div class="page-image">
-                            <img src="${storyImgPath}" alt="" onerror="this.style.display='none'">
+                            <img src="${storyImgPath}" alt="" onerror="document.getElementById('${placeholderId}').style.display='flex'; this.style.display='none';">
+                            <div id="${placeholderId}" class="page-image-placeholder" style="display: none;">
+                                <div class="scene-icon">🎨</div>
+                                ${sceneDesc ? `<div class="scene-text">${sceneDesc}</div>` : ''}
+                                <div class="coming-soon">Illustration coming soon</div>
+                            </div>
                         </div>
                         <div class="page-text">
                             <p>${page.text || ''}</p>

@@ -669,6 +669,25 @@
             document.getElementById('practiceScreen').style.display = 'none';
             document.getElementById('resultsScreen').style.display = 'block';
 
+            // Handle case where no words were tested
+            if (history.length === 0) {
+                document.getElementById('finalLevel').textContent = 'Not enough data';
+                document.getElementById('levelDesc').textContent = 'Try answering a few more words for accurate results';
+                document.getElementById('bookRecommendations').innerHTML = `
+                    <h3>📚 Start Reading!</h3>
+                    <p style="margin-bottom: var(--space-sm);">We recommend starting with our easiest books:</p>
+                    <a href="/reader.html?book=a0-look" class="book-card">
+                        <div class="book-info">
+                            <h4>LOOK!</h4>
+                            <p>A0 - Perfect for beginners</p>
+                        </div>
+                    </a>
+                `;
+                document.getElementById('skillsBreakdown').innerHTML = '<p>Complete the assessment to see skills breakdown.</p>';
+                document.getElementById('historyContent').innerHTML = '<p>No words tested yet.</p>';
+                return;
+            }
+
             // Calculate estimated level
             const levelCounts = {};
             history.forEach(h => {
@@ -677,18 +696,39 @@
                 if (h.result === 'correct') levelCounts[h.level].correct++;
             });
 
-            // Find highest level with 70%+ accuracy
+            // Find highest level with 70%+ accuracy (or 50% if only 1-2 words tested at that level)
             let estimatedLevel = 'B1';
+            let masteredLevels = [];
             for (const level of levelOrder) {
                 const data = levelCounts[level];
-                if (data && data.total >= 2 && data.correct / data.total >= 0.7) {
-                    estimatedLevel = level;
+                if (data) {
+                    const threshold = data.total >= 3 ? 0.7 : 0.5;
+                    if (data.correct / data.total >= threshold) {
+                        estimatedLevel = level;
+                        masteredLevels.push(level);
+                    }
+                }
+            }
+
+            // If they got some right but didn't reach threshold, still acknowledge what they CAN read
+            if (masteredLevels.length === 0 && stats.correct > 0) {
+                // Find the level where they got at least one correct
+                for (const level of levelOrder) {
+                    const data = levelCounts[level];
+                    if (data && data.correct > 0) {
+                        estimatedLevel = level;
+                        break;
+                    }
                 }
             }
 
             const levelInfo = getLevelInfo(estimatedLevel);
+            const canReadMessage = masteredLevels.length > 0
+                ? `Your child can read ${levelInfo.name} words!`
+                : `Starting point: ${levelInfo.name}`;
+
             document.getElementById('finalLevel').textContent = estimatedLevel;
-            document.getElementById('levelDesc').textContent = levelInfo.name;
+            document.getElementById('levelDesc').textContent = canReadMessage;
 
             document.getElementById('correctCount').textContent = stats.correct;
             document.getElementById('needsWorkCount').textContent = stats.needsWork;
@@ -746,21 +786,60 @@
         }
 
         async function loadBookRecommendations(level) {
-            // Map level to book recommendations
-            const levelIndex = levelOrder.indexOf(level);
-            const recommendLevels = [level];
-            if (levelIndex > 0) recommendLevels.unshift(levelOrder[levelIndex - 1]);
+            try {
+                // Fetch the books manifest
+                const res = await fetch('/books/manifest.json');
+                const books = await res.json();
 
-            // For now, show a simple message. In production, fetch from books index.
-            const booksHtml = `
-                <a href="/books/" class="book-card">
-                    <div class="book-info">
-                        <h4>Browse ${level} Books</h4>
-                        <p>Find stories at your level</p>
-                    </div>
-                </a>
-            `;
-            document.getElementById('booksList').innerHTML = booksHtml;
+                // Find books at the estimated level and one level below (for confidence building)
+                const levelIndex = levelOrder.indexOf(level);
+                const recommendLevels = [level];
+                if (levelIndex > 0) recommendLevels.push(levelOrder[levelIndex - 1]);
+
+                // Also include books from same band
+                const levelInfo = getLevelInfo(level);
+                const band = levelInfo.band || level.charAt(0);
+
+                // Filter books that match recommended levels or are in the same band
+                const matchingBooks = books.filter(book => {
+                    return recommendLevels.includes(book.level) ||
+                           (book.band === band && book.level <= level);
+                }).slice(0, 4); // Limit to 4 recommendations
+
+                if (matchingBooks.length === 0) {
+                    document.getElementById('booksList').innerHTML = `
+                        <a href="/books/" class="book-card">
+                            <div class="book-info">
+                                <h4>Browse All Books</h4>
+                                <p>Find stories to practice with</p>
+                            </div>
+                        </a>
+                    `;
+                    return;
+                }
+
+                const booksHtml = matchingBooks.map(book => `
+                    <a href="/reader.html?book=${book.slug}" class="book-card">
+                        <img src="${book.coverImg}" alt="${book.title}" onerror="this.style.display='none'">
+                        <div class="book-info">
+                            <h4>${book.title}</h4>
+                            <p>${book.level} - ${book.skill || 'Reading Practice'}</p>
+                        </div>
+                    </a>
+                `).join('');
+
+                document.getElementById('booksList').innerHTML = booksHtml;
+            } catch (e) {
+                console.error('Error loading book recommendations:', e);
+                document.getElementById('booksList').innerHTML = `
+                    <a href="/books/" class="book-card">
+                        <div class="book-info">
+                            <h4>Browse ${level} Books</h4>
+                            <p>Find stories at your level</p>
+                        </div>
+                    </a>
+                `;
+            }
         }
 
         function changeStudent() {

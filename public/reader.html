@@ -750,6 +750,54 @@
             font-size: 1.1rem;
         }
 
+        /* Page transitions */
+        .book-page {
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+
+        .book-page.slide-left {
+            transform: translateX(-30px);
+            opacity: 0;
+        }
+
+        .book-page.slide-right {
+            transform: translateX(30px);
+            opacity: 0;
+        }
+
+        .book-page.fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Page content transitions */
+        .page-image, .page-text, .page-wordlist, .page-copyright,
+        .page-parent-guide, .page-level-info, .page-wordsearch,
+        .page-series-info, .page-back-cover, .page-cover {
+            animation: pageContentFadeIn 0.25s ease-out;
+        }
+
+        @keyframes pageContentFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         /* Keyboard hint */
         .keyboard-hint {
             position: fixed;
@@ -1342,15 +1390,29 @@
 
         function prevPage() {
             if (currentPage > 0) {
-                currentPage--;
-                renderPage();
+                const bookPage = document.getElementById('bookPage');
+                bookPage.classList.add('slide-right');
+                setTimeout(() => {
+                    currentPage--;
+                    renderPage();
+                    bookPage.classList.remove('slide-right');
+                    bookPage.classList.add('fade-in');
+                    setTimeout(() => bookPage.classList.remove('fade-in'), 300);
+                }, 150);
             }
         }
 
         function nextPage() {
             if (currentBook && currentPage < currentBook.pages.length - 1) {
-                currentPage++;
-                renderPage();
+                const bookPage = document.getElementById('bookPage');
+                bookPage.classList.add('slide-left');
+                setTimeout(() => {
+                    currentPage++;
+                    renderPage();
+                    bookPage.classList.remove('slide-left');
+                    bookPage.classList.add('fade-in');
+                    setTimeout(() => bookPage.classList.remove('fade-in'), 300);
+                }, 150);
             }
         }
 

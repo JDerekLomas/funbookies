@@ -3,7 +3,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const UNUSED_IMAGES_FILE = path.join(__dirname, 'unused-images.json');
+// Get project root directory (2 levels up from scripts/image_utils)
+const PROJECT_ROOT = path.resolve(__dirname, '..', '..');
+const UNUSED_IMAGES_FILE = path.join(PROJECT_ROOT, 'unused-images.json');
 const DRY_RUN = !process.argv.includes('--confirm');
 
 // Helper function to check if a file is a responsive version or thumbnail
@@ -62,7 +64,7 @@ function main() {
     console.log(`   Original images to keep: ${skippedOriginals}`);
 
     responsiveFiles.forEach((file) => {
-      const filePath = path.join(__dirname, 'public', 'books', folder, file);
+      const filePath = path.join(PROJECT_ROOT, 'public', 'books', folder, file);
 
       if (!fs.existsSync(filePath)) {
         console.log(`   ⚠️  File not found: ${file}`);
@@ -132,7 +134,7 @@ function main() {
       failed_count: failedCount,
     };
 
-    const backupPath = path.join(__dirname, 'unused-images-deleted.json');
+    const backupPath = path.join(PROJECT_ROOT, 'unused-images-deleted.json');
     fs.writeFileSync(backupPath, JSON.stringify(processedData, null, 2));
     console.log(`\n📝 Deletion record saved to: unused-images-deleted.json`);
   }

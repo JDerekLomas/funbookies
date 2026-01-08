@@ -52,7 +52,9 @@ const bookRegistry = {
   },
 };
 
-const BOOKS_DIR = path.join(__dirname, 'public', 'books');
+// Get project root directory (2 levels up from scripts/image_utils)
+const PROJECT_ROOT = path.resolve(__dirname, '..', '..');
+const BOOKS_DIR = path.join(PROJECT_ROOT, 'public', 'books');
 const REQUIRED_VERSIONS = ['1x', '2x', '3x', '4x'];
 const FORMATS = ['webp', 'png'];
 

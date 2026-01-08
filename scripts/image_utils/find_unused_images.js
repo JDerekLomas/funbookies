@@ -3,8 +3,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const BOOKS_DIR = path.join(__dirname, 'public', 'books');
-const USED_IMAGES_FILE = path.join(__dirname, 'used-images-flat.json');
+// Get project root directory (2 levels up from scripts/image_utils)
+const PROJECT_ROOT = path.resolve(__dirname, '..', '..');
+const BOOKS_DIR = path.join(PROJECT_ROOT, 'public', 'books');
+const USED_IMAGES_FILE = path.join(PROJECT_ROOT, 'used-images-flat.json');
 
 // Image folders to check
 const IMAGE_FOLDERS = [
@@ -136,7 +138,7 @@ function main() {
             folders: unusedByFolder
         };
 
-        const outputPath = path.join(__dirname, 'unused-images.json');
+        const outputPath = path.join(PROJECT_ROOT, 'unused-images.json');
         fs.writeFileSync(outputPath, JSON.stringify(unusedList, null, 2));
         console.log(`\n✅ Unused images list saved to: ${outputPath}`);
 
@@ -148,7 +150,7 @@ function main() {
             });
         });
 
-        const textOutputPath = path.join(__dirname, 'unused-images-list.txt');
+        const textOutputPath = path.join(PROJECT_ROOT, 'unused-images-list.txt');
         fs.writeFileSync(textOutputPath, unusedPaths.join('\n'));
         console.log(`✅ Text list saved to: ${textOutputPath}`);
 

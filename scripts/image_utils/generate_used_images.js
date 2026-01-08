@@ -16,7 +16,9 @@ const bookRegistry = {
     'mouse_gold': { jsonFile: 'mouse_gold.json', imageFolder: 'images', imagePrefix: 'mouse_gold_page' }
 };
 
-const BOOKS_DIR = path.join(__dirname, 'public', 'books');
+// Get project root directory (2 levels up from scripts/image_utils)
+const PROJECT_ROOT = path.resolve(__dirname, '..', '..');
+const BOOKS_DIR = path.join(PROJECT_ROOT, 'public', 'books');
 const REQUIRED_VERSIONS = ['1x', '2x', '3x', '4x'];
 const FORMATS = ['webp', 'png'];
 
@@ -127,17 +129,17 @@ function main() {
     };
 
     // Save detailed version
-    const outputPath = path.join(__dirname, 'used-images.json');
+    const outputPath = path.join(PROJECT_ROOT, 'used-images.json');
     fs.writeFileSync(outputPath, JSON.stringify(result, null, 2));
     console.log(`\n✅ Detailed report saved to: ${outputPath}`);
 
     // Save flat version
-    const flatOutputPath = path.join(__dirname, 'used-images-flat.json');
+    const flatOutputPath = path.join(PROJECT_ROOT, 'used-images-flat.json');
     fs.writeFileSync(flatOutputPath, JSON.stringify(flatResult, null, 2));
     console.log(`✅ Flat list saved to: ${flatOutputPath}`);
 
     // Save simple text list for easy scripting
-    const textOutputPath = path.join(__dirname, 'used-images-list.txt');
+    const textOutputPath = path.join(PROJECT_ROOT, 'used-images-list.txt');
     fs.writeFileSync(textOutputPath, result.all_paths.join('\n'));
     console.log(`✅ Text list saved to: ${textOutputPath}`);
 

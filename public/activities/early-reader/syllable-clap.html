@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Syllable Clap - Early Reader - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .game-header h1 { font-size: 1.5rem; }
+
+    .score-badge {
+      background: var(--color-sage-light);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      color: var(--color-sage-dark);
+    }
+
+    .activity-area {
+      text-align: center;
+      padding: var(--space-md) 0;
+    }
+
+    .word-display {
+      margin-bottom: var(--space-lg);
+    }
+
+    .word-image {
+      font-size: 6rem;
+      margin-bottom: var(--space-sm);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .word-image:hover { transform: scale(1.1); }
+
+    .word-image.speaking {
+      animation: bounce 0.5s;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .word-text {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+    }
+
+    .prompt-text {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--color-charcoal);
+      margin-bottom: var(--space-lg);
+    }
+
+    .clap-area {
+      margin-bottom: var(--space-lg);
+    }
+
+    .clap-button {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #a8e063, #56ab2f);
+      border: none;
+      font-size: 3.5rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      margin-bottom: var(--space-md);
+    }
+
+    .clap-button:hover {
+      transform: scale(1.05);
+    }
+
+    .clap-button:active, .clap-button.clapping {
+      transform: scale(0.9);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .clap-count {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--color-sage-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .clap-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: var(--space-md);
+      min-height: 40px;
+    }
+
+    .clap-dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--color-sage);
+      animation: popIn 0.2s ease-out;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); }
+      70% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .syllable-choices {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .syllable-btn {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 3px solid var(--color-border);
+      background: white;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-charcoal);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .syllable-btn:hover {
+      border-color: var(--color-sage);
+      transform: scale(1.1);
+    }
+
+    .syllable-btn.correct {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+      color: var(--color-sage-dark);
+      animation: correctPop 0.5s;
+    }
+
+    .syllable-btn.incorrect {
+      border-color: var(--color-terracotta);
+      background: #fef3f2;
+      animation: shake 0.5s;
+    }
+
+    .syllable-btn:disabled {
+      cursor: default;
+      transform: none;
+    }
+
+    @keyframes correctPop {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .feedback {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      min-height: 2em;
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback.correct { color: var(--color-sage-dark); font-weight: 600; }
+    .feedback.incorrect { color: var(--color-terracotta); }
+    .feedback.waiting { color: var(--color-text-muted); }
+
+    .syllable-breakdown {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-charcoal);
+      margin-top: var(--space-sm);
+    }
+
+    .syllable-breakdown span {
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      padding: 4px 12px;
+      border-radius: 8px;
+      margin: 0 4px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-hear {
+      background: linear-gradient(135deg, #a8e063, #56ab2f);
+      color: white;
+    }
+
+    .btn-hear:hover {
+      background: linear-gradient(135deg, #96ce55, #4a9928);
+    }
+
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: var(--space-lg);
+    }
+
+    .progress-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--color-border);
+      transition: all 0.2s;
+    }
+
+    .progress-dot.done { background: var(--color-sage); }
+    .progress-dot.current { background: var(--color-terracotta); transform: scale(1.3); }
+
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      animation: celebrate 0.6s ease-out forwards;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes celebrate {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
+    .streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(135deg, #f39c12, #e74c3c);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .word-image { font-size: 4.5rem; }
+      .word-text { font-size: 2rem; }
+      .clap-button { width: 100px; height: 100px; font-size: 3rem; }
+      .syllable-btn { width: 55px; height: 55px; font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/early-reader/" class="back-link">&larr; Back to Early Reader</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Syllable Clap <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div>
+          <span class="score-badge">Score: <span id="score">0</span></span>
+          <span id="streakBadge" class="streak-badge hidden">🔥 <span id="streakCount">0</span></span>
+        </div>
+      </div>
+
+      <div class="activity-area">
+        <div class="word-display">
+          <div class="word-image" id="wordImage" onclick="playWord()">🐘</div>
+          <div class="word-text" id="wordText">ELEPHANT</div>
+        </div>
+
+        <div class="prompt-text" id="promptText">Clap for each syllable, then pick the number!</div>
+
+        <div class="clap-area">
+          <button class="clap-button" id="clapButton" onclick="handleClap()">👏</button>
+          <div class="clap-count">Claps: <span id="clapCount">0</span></div>
+          <div class="clap-dots" id="clapDots"></div>
+        </div>
+
+        <div class="syllable-choices" id="syllableChoices">
+          <button class="syllable-btn" onclick="checkAnswer(1)">1</button>
+          <button class="syllable-btn" onclick="checkAnswer(2)">2</button>
+          <button class="syllable-btn" onclick="checkAnswer(3)">3</button>
+          <button class="syllable-btn" onclick="checkAnswer(4)">4</button>
+        </div>
+
+        <div class="feedback waiting" id="feedback">Tap the picture to hear the word, then clap!</div>
+
+        <div class="syllable-breakdown hidden" id="syllableBreakdown"></div>
+
+        <div class="controls">
+          <button class="btn btn-hear" onclick="playWord()">🔊 Hear Word</button>
+          <button class="btn btn-secondary" onclick="resetClaps()">Reset Claps</button>
+          <button class="btn btn-primary" id="nextBtn" onclick="nextWord()" disabled>Next →</button>
+        </div>
+
+        <div class="progress" id="progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Words with syllable counts and breakdowns
+    const words = [
+      // 1 syllable
+      { word: 'cat', syllables: 1, breakdown: ['cat'], emoji: '🐱' },
+      { word: 'dog', syllables: 1, breakdown: ['dog'], emoji: '🐕' },
+      { word: 'sun', syllables: 1, breakdown: ['sun'], emoji: '☀️' },
+      { word: 'fish', syllables: 1, breakdown: ['fish'], emoji: '🐟' },
+      { word: 'tree', syllables: 1, breakdown: ['tree'], emoji: '🌳' },
+      { word: 'star', syllables: 1, breakdown: ['star'], emoji: '⭐' },
+      { word: 'book', syllables: 1, breakdown: ['book'], emoji: '📚' },
+      { word: 'moon', syllables: 1, breakdown: ['moon'], emoji: '🌙' },
+
+      // 2 syllables
+      { word: 'apple', syllables: 2, breakdown: ['ap', 'ple'], emoji: '🍎' },
+      { word: 'baby', syllables: 2, breakdown: ['ba', 'by'], emoji: '👶' },
+      { word: 'cookie', syllables: 2, breakdown: ['cook', 'ie'], emoji: '🍪' },
+      { word: 'flower', syllables: 2, breakdown: ['flow', 'er'], emoji: '🌸' },
+      { word: 'happy', syllables: 2, breakdown: ['hap', 'py'], emoji: '😊' },
+      { word: 'monkey', syllables: 2, breakdown: ['mon', 'key'], emoji: '🐵' },
+      { word: 'pizza', syllables: 2, breakdown: ['piz', 'za'], emoji: '🍕' },
+      { word: 'tiger', syllables: 2, breakdown: ['ti', 'ger'], emoji: '🐯' },
+      { word: 'rabbit', syllables: 2, breakdown: ['rab', 'bit'], emoji: '🐰' },
+      { word: 'water', syllables: 2, breakdown: ['wa', 'ter'], emoji: '💧' },
+
+      // 3 syllables
+      { word: 'elephant', syllables: 3, breakdown: ['el', 'e', 'phant'], emoji: '🐘' },
+      { word: 'banana', syllables: 3, breakdown: ['ba', 'na', 'na'], emoji: '🍌' },
+      { word: 'butterfly', syllables: 3, breakdown: ['but', 'ter', 'fly'], emoji: '🦋' },
+      { word: 'dinosaur', syllables: 3, breakdown: ['di', 'no', 'saur'], emoji: '🦕' },
+      { word: 'computer', syllables: 3, breakdown: ['com', 'pu', 'ter'], emoji: '💻' },
+      { word: 'kangaroo', syllables: 3, breakdown: ['kan', 'ga', 'roo'], emoji: '🦘' },
+      { word: 'umbrella', syllables: 3, breakdown: ['um', 'brel', 'la'], emoji: '☂️' },
+      { word: 'octopus', syllables: 3, breakdown: ['oc', 'to', 'pus'], emoji: '🐙' },
+
+      // 4 syllables
+      { word: 'caterpillar', syllables: 4, breakdown: ['cat', 'er', 'pil', 'lar'], emoji: '🐛' },
+      { word: 'alligator', syllables: 4, breakdown: ['al', 'li', 'ga', 'tor'], emoji: '🐊' },
+      { word: 'watermelon', syllables: 4, breakdown: ['wa', 'ter', 'mel', 'on'], emoji: '🍉' },
+      { word: 'calculator', syllables: 4, breakdown: ['cal', 'cu', 'la', 'tor'], emoji: '🔢' },
+    ];
+
+    // State
+    let currentWord = null;
+    let wordIndex = 0;
+    let roundWords = [];
+    let clapCount = 0;
+    let score = 0;
+    let streak = 0;
+    let answered = false;
+    let currentStudent = null;
+    let sessionStartTime = null;
+    const ROUND_SIZE = 10;
+
+    // Clap sound
+    const clapAudio = new Audio('data:audio/wav;base64,UklGRl9vT19NNjFCQ1QAAAABAAIARKwAABCxAgAEABAAZGF0YQ==');
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Show student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is playing?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+        }
+      }
+
+      sessionStartTime = Date.now();
+      startRound();
+    });
+
+    function startRound() {
+      wordIndex = 0;
+      roundWords = [...words].sort(() => Math.random() - 0.5).slice(0, ROUND_SIZE);
+      loadWord();
+      renderProgress();
+    }
+
+    function loadWord() {
+      currentWord = roundWords[wordIndex];
+      clapCount = 0;
+      answered = false;
+
+      // Update display
+      document.getElementById('wordImage').textContent = currentWord.emoji;
+      document.getElementById('wordImage').classList.remove('speaking');
+      document.getElementById('wordText').textContent = currentWord.word.toUpperCase();
+      document.getElementById('clapCount').textContent = '0';
+      document.getElementById('clapDots').innerHTML = '';
+      document.getElementById('feedback').textContent = 'Tap the picture to hear the word, then clap!';
+      document.getElementById('feedback').className = 'feedback waiting';
+      document.getElementById('syllableBreakdown').classList.add('hidden');
+      document.getElementById('nextBtn').disabled = true;
+      document.getElementById('clapButton').disabled = false;
+
+      // Reset buttons
+      const buttons = document.querySelectorAll('.syllable-btn');
+      buttons.forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('correct', 'incorrect');
+      });
+
+      renderProgress();
+
+      // Auto-play word
+      setTimeout(() => playWord(), 300);
+    }
+
+    function playWord() {
+      const imageEl = document.getElementById('wordImage');
+      imageEl.classList.add('speaking');
+
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(currentWord.word);
+        utterance.rate = 0.7;
+        utterance.onend = () => imageEl.classList.remove('speaking');
+        speechSynthesis.speak(utterance);
+      } else {
+        setTimeout(() => imageEl.classList.remove('speaking'), 500);
+      }
+    }
+
+    function handleClap() {
+      if (answered) return;
+
+      clapCount++;
+      document.getElementById('clapCount').textContent = clapCount;
+
+      // Add clap dot
+      const dotsContainer = document.getElementById('clapDots');
+      const dot = document.createElement('div');
+      dot.className = 'clap-dot';
+      dotsContainer.appendChild(dot);
+
+      // Visual feedback
+      const clapBtn = document.getElementById('clapButton');
+      clapBtn.classList.add('clapping');
+      setTimeout(() => clapBtn.classList.remove('clapping'), 150);
+
+      // Play clap sound (simple beep)
+      try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.frequency.value = 800;
+        oscillator.type = 'sine';
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.1);
+      } catch (e) {
+        // Audio not supported
+      }
+    }
+
+    function resetClaps() {
+      if (answered) return;
+      clapCount = 0;
+      document.getElementById('clapCount').textContent = '0';
+      document.getElementById('clapDots').innerHTML = '';
+    }
+
+    function checkAnswer(num) {
+      if (answered) return;
+      answered = true;
+
+      const isCorrect = num === currentWord.syllables;
+
+      const buttons = document.querySelectorAll('.syllable-btn');
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        const btnNum = parseInt(btn.textContent);
+        if (btnNum === currentWord.syllables) {
+          btn.classList.add('correct');
+        } else if (btnNum === num && !isCorrect) {
+          btn.classList.add('incorrect');
+        }
+      });
+
+      document.getElementById('clapButton').disabled = true;
+
+      // Show breakdown
+      const breakdown = document.getElementById('syllableBreakdown');
+      breakdown.innerHTML = currentWord.breakdown.map(s => `<span>${s}</span>`).join(' - ');
+      breakdown.classList.remove('hidden');
+
+      if (isCorrect) {
+        handleCorrect();
+      } else {
+        handleIncorrect();
+      }
+
+      // Play syllables
+      playSyllables();
+    }
+
+    function handleCorrect() {
+      score++;
+      streak++;
+      document.getElementById('score').textContent = score;
+
+      if (streak >= 3) {
+        document.getElementById('streakBadge').classList.remove('hidden');
+        document.getElementById('streakCount').textContent = streak;
+      }
+
+      document.getElementById('feedback').textContent =
+        `🎉 Yes! "${currentWord.word}" has ${currentWord.syllables} syllable${currentWord.syllables > 1 ? 's' : ''}!`;
+      document.getElementById('feedback').className = 'feedback correct';
+      document.getElementById('nextBtn').disabled = false;
+
+      showCelebration();
+    }
+
+    function handleIncorrect() {
+      streak = 0;
+      document.getElementById('streakBadge').classList.add('hidden');
+
+      document.getElementById('feedback').textContent =
+        `"${currentWord.word}" has ${currentWord.syllables} syllable${currentWord.syllables > 1 ? 's' : ''}: ${currentWord.breakdown.join('-')}`;
+      document.getElementById('feedback').className = 'feedback incorrect';
+      document.getElementById('nextBtn').disabled = false;
+    }
+
+    async function playSyllables() {
+      if (!('speechSynthesis' in window)) return;
+
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      for (let i = 0; i < currentWord.breakdown.length; i++) {
+        const syllable = currentWord.breakdown[i];
+        const utterance = new SpeechSynthesisUtterance(syllable);
+        utterance.rate = 0.6;
+
+        await new Promise(resolve => {
+          utterance.onend = resolve;
+          speechSynthesis.speak(utterance);
+        });
+
+        await new Promise(resolve => setTimeout(resolve, 300));
+      }
+    }
+
+    function showCelebration() {
+      const emojis = ['⭐', '🌟', '✨', '🎉', '👏', '🎊'];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      celebration.textContent = emoji;
+      document.body.appendChild(celebration);
+
+      setTimeout(() => celebration.remove(), 600);
+    }
+
+    function renderProgress() {
+      const container = document.getElementById('progress');
+      container.innerHTML = '';
+
+      for (let i = 0; i < ROUND_SIZE; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'progress-dot';
+        if (i < wordIndex) dot.classList.add('done');
+        if (i === wordIndex) dot.classList.add('current');
+        container.appendChild(dot);
+      }
+    }
+
+    async function nextWord() {
+      wordIndex++;
+
+      if (wordIndex >= ROUND_SIZE) {
+        // Round complete
+        document.getElementById('promptText').textContent = '🎉 Round Complete!';
+        document.getElementById('feedback').textContent =
+          `You got ${score} out of ${ROUND_SIZE}! Starting new round...`;
+        document.getElementById('feedback').className = 'feedback correct';
+        document.getElementById('syllableChoices').style.visibility = 'hidden';
+
+        // Save activity
+        if (currentStudent && window.FunBookiesDB) {
+          try {
+            await window.FunBookiesDB.saveActivity({
+              studentId: currentStudent.id,
+              type: 'syllable-clap',
+              level: 'A0',
+              score: score,
+              total: ROUND_SIZE,
+              duration: Math.round((Date.now() - sessionStartTime) / 1000),
+              details: { streak }
+            });
+          } catch (e) {
+            console.error('Failed to save:', e);
+          }
+        }
+
+        score = 0;
+        setTimeout(() => {
+          document.getElementById('syllableChoices').style.visibility = 'visible';
+          startRound();
+        }, 2500);
+      } else {
+        loadWord();
+      }
+    }
+  </script>
+</body>
+</html>

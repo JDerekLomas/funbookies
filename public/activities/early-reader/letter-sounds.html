@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Letter Sounds - Early Reader - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .game-header h1 { font-size: 1.5rem; }
+
+    .score-badge {
+      background: var(--color-sage-light);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      color: var(--color-sage-dark);
+    }
+
+    .mode-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: var(--space-md);
+      justify-content: center;
+    }
+
+    .mode-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 2px solid var(--color-border);
+      background: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mode-btn.active {
+      background: var(--color-sage);
+      border-color: var(--color-sage);
+      color: white;
+    }
+
+    .activity-area {
+      text-align: center;
+      padding: var(--space-lg) 0;
+    }
+
+    .letter-display {
+      margin-bottom: var(--space-lg);
+    }
+
+    .big-letter {
+      font-family: var(--font-display);
+      font-size: 12rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+      line-height: 1;
+      text-shadow: 4px 4px 0 var(--color-sage-light);
+      cursor: pointer;
+      transition: transform 0.2s;
+      user-select: none;
+    }
+
+    .big-letter:hover {
+      transform: scale(1.05);
+    }
+
+    .big-letter:active {
+      transform: scale(0.95);
+    }
+
+    .big-letter.speaking {
+      color: var(--color-sage);
+      animation: bounce 0.5s;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .letter-info {
+      margin-top: var(--space-md);
+    }
+
+    .letter-name {
+      font-size: 1.2rem;
+      color: var(--color-text-muted);
+      margin-bottom: 4px;
+    }
+
+    .letter-keyword {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+    }
+
+    .letter-keyword .emoji {
+      font-size: 2rem;
+      margin-right: 8px;
+    }
+
+    .prompt-text {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--color-sage-dark);
+      margin-bottom: var(--space-md);
+      min-height: 2em;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: var(--space-lg);
+    }
+
+    .btn-hear {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      font-size: 1.1rem;
+      padding: 14px 28px;
+    }
+
+    .btn-hear:hover {
+      background: linear-gradient(135deg, #5a6fd6, #6a4190);
+    }
+
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .progress-letter {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      transition: all 0.2s;
+    }
+
+    .progress-letter.done {
+      background: var(--color-sage);
+      color: white;
+    }
+
+    .progress-letter.current {
+      background: var(--color-terracotta);
+      color: white;
+      transform: scale(1.2);
+    }
+
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      animation: celebrate 0.6s ease-out forwards;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes celebrate {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
+    .streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(135deg, #f39c12, #e74c3c);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .sound-wave {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      margin-top: var(--space-sm);
+      height: 30px;
+      align-items: center;
+    }
+
+    .sound-bar {
+      width: 6px;
+      height: 10px;
+      background: var(--color-sage);
+      border-radius: 3px;
+      animation: soundWave 0.5s ease-in-out infinite;
+    }
+
+    .sound-bar:nth-child(1) { animation-delay: 0s; }
+    .sound-bar:nth-child(2) { animation-delay: 0.1s; }
+    .sound-bar:nth-child(3) { animation-delay: 0.2s; }
+    .sound-bar:nth-child(4) { animation-delay: 0.1s; }
+    .sound-bar:nth-child(5) { animation-delay: 0s; }
+
+    @keyframes soundWave {
+      0%, 100% { height: 10px; }
+      50% { height: 25px; }
+    }
+
+    .sound-wave.hidden { display: none; }
+
+    .lowercase-toggle {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+    }
+
+    .lowercase-toggle label {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .big-letter { font-size: 8rem; }
+      .progress-letter { width: 26px; height: 26px; font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/early-reader/" class="back-link">&larr; Back to Early Reader</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Letter Sounds <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div>
+          <span class="score-badge">Letters: <span id="score">0</span>/26</span>
+          <span id="streakBadge" class="streak-badge hidden">🔥 <span id="streakCount">0</span></span>
+        </div>
+      </div>
+
+      <div class="mode-toggle">
+        <button class="mode-btn active" data-mode="learn">Learn</button>
+        <button class="mode-btn" data-mode="practice">Practice</button>
+      </div>
+
+      <div class="activity-area">
+        <div class="letter-display">
+          <div class="big-letter" id="bigLetter" onclick="playCurrentSound()">A</div>
+          <div class="sound-wave hidden" id="soundWave">
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+          </div>
+        </div>
+
+        <div class="letter-info">
+          <div class="letter-name" id="letterName">Letter A</div>
+          <div class="letter-keyword" id="letterKeyword"><span class="emoji">🍎</span> Apple</div>
+        </div>
+
+        <div class="prompt-text" id="promptText">Tap the letter to hear its sound!</div>
+
+        <div class="controls">
+          <button class="btn btn-hear" id="hearBtn" onclick="playCurrentSound()">🔊 Hear Sound</button>
+          <button class="btn btn-primary" id="nextBtn" onclick="nextLetter()">Next Letter →</button>
+        </div>
+
+        <div class="lowercase-toggle">
+          <label>
+            <input type="checkbox" id="lowercaseToggle" onchange="toggleCase()">
+            Show lowercase
+          </label>
+        </div>
+
+        <div class="progress" id="progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Letter data with sounds and keywords
+    const letters = [
+      { letter: 'A', sound: 'ah', keyword: 'Apple', emoji: '🍎' },
+      { letter: 'B', sound: 'buh', keyword: 'Ball', emoji: '⚽' },
+      { letter: 'C', sound: 'cuh', keyword: 'Cat', emoji: '🐱' },
+      { letter: 'D', sound: 'duh', keyword: 'Dog', emoji: '🐕' },
+      { letter: 'E', sound: 'eh', keyword: 'Egg', emoji: '🥚' },
+      { letter: 'F', sound: 'fff', keyword: 'Fish', emoji: '🐟' },
+      { letter: 'G', sound: 'guh', keyword: 'Goat', emoji: '🐐' },
+      { letter: 'H', sound: 'huh', keyword: 'Hat', emoji: '🎩' },
+      { letter: 'I', sound: 'ih', keyword: 'Igloo', emoji: '🏠' },
+      { letter: 'J', sound: 'juh', keyword: 'Jam', emoji: '🫙' },
+      { letter: 'K', sound: 'kuh', keyword: 'Kite', emoji: '🪁' },
+      { letter: 'L', sound: 'lll', keyword: 'Lion', emoji: '🦁' },
+      { letter: 'M', sound: 'mmm', keyword: 'Moon', emoji: '🌙' },
+      { letter: 'N', sound: 'nnn', keyword: 'Nest', emoji: '🪺' },
+      { letter: 'O', sound: 'ah', keyword: 'Octopus', emoji: '🐙' },
+      { letter: 'P', sound: 'puh', keyword: 'Pig', emoji: '🐷' },
+      { letter: 'Q', sound: 'kwuh', keyword: 'Queen', emoji: '👑' },
+      { letter: 'R', sound: 'rrr', keyword: 'Rain', emoji: '🌧️' },
+      { letter: 'S', sound: 'sss', keyword: 'Sun', emoji: '☀️' },
+      { letter: 'T', sound: 'tuh', keyword: 'Tree', emoji: '🌳' },
+      { letter: 'U', sound: 'uh', keyword: 'Umbrella', emoji: '☂️' },
+      { letter: 'V', sound: 'vvv', keyword: 'Van', emoji: '🚐' },
+      { letter: 'W', sound: 'wuh', keyword: 'Water', emoji: '💧' },
+      { letter: 'X', sound: 'ks', keyword: 'Fox', emoji: '🦊' },
+      { letter: 'Y', sound: 'yuh', keyword: 'Yo-yo', emoji: '🪀' },
+      { letter: 'Z', sound: 'zzz', keyword: 'Zebra', emoji: '🦓' },
+    ];
+
+    // State
+    let currentIndex = 0;
+    let completedLetters = new Set();
+    let mode = 'learn'; // 'learn' or 'practice'
+    let showLowercase = false;
+    let streak = 0;
+    let currentStudent = null;
+    let sessionStartTime = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupModeButtons();
+      renderProgress();
+      loadLetter();
+
+      // Show student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is learning letters?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+        }
+      }
+
+      sessionStartTime = Date.now();
+
+      // Auto-play first sound after a moment
+      setTimeout(() => playCurrentSound(), 500);
+    });
+
+    function setupModeButtons() {
+      document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          mode = btn.dataset.mode;
+
+          if (mode === 'practice') {
+            // Shuffle for practice mode
+            shuffleLetters();
+          } else {
+            // Reset to alphabetical for learn mode
+            currentIndex = 0;
+          }
+          loadLetter();
+        });
+      });
+    }
+
+    function shuffleLetters() {
+      // Create array of indices and shuffle
+      const indices = Array.from({ length: 26 }, (_, i) => i);
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+      }
+      currentIndex = indices[0];
+    }
+
+    function loadLetter() {
+      const letterData = letters[currentIndex];
+      const displayLetter = showLowercase ? letterData.letter.toLowerCase() : letterData.letter;
+
+      document.getElementById('bigLetter').textContent = displayLetter;
+      document.getElementById('bigLetter').classList.remove('speaking');
+      document.getElementById('letterName').textContent = `Letter ${letterData.letter}`;
+      document.getElementById('letterKeyword').innerHTML =
+        `<span class="emoji">${letterData.emoji}</span> ${letterData.keyword}`;
+
+      if (mode === 'learn') {
+        document.getElementById('promptText').textContent = 'Tap the letter to hear its sound!';
+      } else {
+        document.getElementById('promptText').textContent = `What sound does ${letterData.letter} make?`;
+      }
+
+      document.getElementById('score').textContent = completedLetters.size;
+      renderProgress();
+    }
+
+    function playCurrentSound() {
+      const letterData = letters[currentIndex];
+      const letterEl = document.getElementById('bigLetter');
+      const soundWave = document.getElementById('soundWave');
+
+      // Visual feedback
+      letterEl.classList.add('speaking');
+      soundWave.classList.remove('hidden');
+
+      // Speak the sound
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+
+        // First say the letter name
+        const nameUtterance = new SpeechSynthesisUtterance(letterData.letter);
+        nameUtterance.rate = 0.7;
+
+        // Then say the sound
+        const soundUtterance = new SpeechSynthesisUtterance(letterData.sound);
+        soundUtterance.rate = 0.6;
+        soundUtterance.pitch = 1.1;
+
+        // Then say the keyword
+        const keywordUtterance = new SpeechSynthesisUtterance(`${letterData.sound} for ${letterData.keyword}`);
+        keywordUtterance.rate = 0.8;
+
+        keywordUtterance.onend = () => {
+          letterEl.classList.remove('speaking');
+          soundWave.classList.add('hidden');
+        };
+
+        speechSynthesis.speak(nameUtterance);
+        speechSynthesis.speak(soundUtterance);
+        speechSynthesis.speak(keywordUtterance);
+      }
+
+      // Mark as completed
+      if (!completedLetters.has(currentIndex)) {
+        completedLetters.add(currentIndex);
+        streak++;
+
+        if (streak >= 3) {
+          document.getElementById('streakBadge').classList.remove('hidden');
+          document.getElementById('streakCount').textContent = streak;
+        }
+
+        document.getElementById('score').textContent = completedLetters.size;
+        renderProgress();
+        showCelebration();
+      }
+    }
+
+    function nextLetter() {
+      if (mode === 'learn') {
+        // Sequential in learn mode
+        currentIndex = (currentIndex + 1) % 26;
+      } else {
+        // Random in practice mode
+        currentIndex = Math.floor(Math.random() * 26);
+      }
+
+      loadLetter();
+
+      // Auto-play in learn mode
+      if (mode === 'learn') {
+        setTimeout(() => playCurrentSound(), 300);
+      }
+    }
+
+    function toggleCase() {
+      showLowercase = document.getElementById('lowercaseToggle').checked;
+      loadLetter();
+    }
+
+    function renderProgress() {
+      const container = document.getElementById('progress');
+      container.innerHTML = '';
+
+      letters.forEach((letterData, idx) => {
+        const el = document.createElement('div');
+        el.className = 'progress-letter';
+        el.textContent = letterData.letter;
+
+        if (completedLetters.has(idx)) {
+          el.classList.add('done');
+        }
+        if (idx === currentIndex) {
+          el.classList.add('current');
+        }
+
+        el.addEventListener('click', () => {
+          currentIndex = idx;
+          loadLetter();
+          playCurrentSound();
+        });
+
+        container.appendChild(el);
+      });
+    }
+
+    function showCelebration() {
+      const emojis = ['⭐', '🌟', '✨', '🎉', '👏'];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      celebration.textContent = emoji;
+      document.body.appendChild(celebration);
+
+      setTimeout(() => celebration.remove(), 600);
+
+      // Check if all letters done
+      if (completedLetters.size === 26) {
+        setTimeout(() => {
+          document.getElementById('promptText').textContent = '🎉 Amazing! You learned all 26 letters!';
+          saveProgress();
+        }, 700);
+      }
+    }
+
+    async function saveProgress() {
+      if (currentStudent && window.FunBookiesDB) {
+        try {
+          await window.FunBookiesDB.saveActivity({
+            studentId: currentStudent.id,
+            type: 'letter-sounds',
+            level: 'A0',
+            score: completedLetters.size,
+            total: 26,
+            duration: Math.round((Date.now() - sessionStartTime) / 1000),
+            details: { mode, streak }
+          });
+        } catch (e) {
+          console.error('Failed to save:', e);
+        }
+      }
+    }
+
+    // Save progress when leaving
+    window.addEventListener('beforeunload', saveProgress);
+  </script>
+</body>
+</html>

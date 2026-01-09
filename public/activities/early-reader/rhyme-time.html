@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Rhyme Time - Early Reader - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .game-header h1 { font-size: 1.5rem; }
+
+    .score-badge {
+      background: var(--color-sage-light);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      color: var(--color-sage-dark);
+    }
+
+    .activity-area {
+      text-align: center;
+      padding: var(--space-md) 0;
+    }
+
+    .word-pair {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .word-card {
+      background: white;
+      border: 3px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-md);
+      min-width: 140px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .word-card:hover {
+      border-color: var(--color-sage);
+      transform: scale(1.05);
+    }
+
+    .word-card.speaking {
+      border-color: var(--color-sage);
+      animation: bounce 0.5s;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .word-card .emoji {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    .word-card .word {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+    }
+
+    .vs-badge {
+      font-size: 1.5rem;
+      color: var(--color-text-muted);
+      font-weight: 600;
+    }
+
+    .prompt-text {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--color-charcoal);
+      margin-bottom: var(--space-lg);
+    }
+
+    .rhyme-buttons {
+      display: flex;
+      gap: var(--space-md);
+      justify-content: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .rhyme-btn {
+      padding: 16px 40px;
+      border-radius: var(--border-radius-lg);
+      border: 3px solid;
+      font-size: 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rhyme-btn.yes {
+      background: var(--color-sage-light);
+      border-color: var(--color-sage);
+      color: var(--color-sage-dark);
+    }
+
+    .rhyme-btn.yes:hover {
+      background: var(--color-sage);
+      color: white;
+    }
+
+    .rhyme-btn.no {
+      background: #fef3f2;
+      border-color: var(--color-terracotta);
+      color: var(--color-terracotta-dark);
+    }
+
+    .rhyme-btn.no:hover {
+      background: var(--color-terracotta);
+      color: white;
+    }
+
+    .rhyme-btn.correct {
+      animation: correctPop 0.5s;
+    }
+
+    .rhyme-btn.incorrect {
+      animation: shake 0.5s;
+    }
+
+    .rhyme-btn:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    @keyframes correctPop {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .feedback {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      min-height: 2em;
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback.correct { color: var(--color-sage-dark); font-weight: 600; }
+    .feedback.incorrect { color: var(--color-terracotta); }
+    .feedback.waiting { color: var(--color-text-muted); }
+
+    .rhyme-highlight {
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-hear {
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: white;
+    }
+
+    .btn-hear:hover {
+      background: linear-gradient(135deg, #3d9be8, #00d4e8);
+    }
+
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: var(--space-lg);
+    }
+
+    .progress-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--color-border);
+      transition: all 0.2s;
+    }
+
+    .progress-dot.done { background: var(--color-sage); }
+    .progress-dot.current { background: var(--color-terracotta); transform: scale(1.3); }
+
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      animation: celebrate 0.6s ease-out forwards;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes celebrate {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
+    .streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(135deg, #f39c12, #e74c3c);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .word-card { min-width: 110px; padding: var(--space-sm); }
+      .word-card .emoji { font-size: 2.8rem; }
+      .word-card .word { font-size: 1.2rem; }
+      .rhyme-btn { padding: 12px 24px; font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/early-reader/" class="back-link">&larr; Back to Early Reader</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Rhyme Time <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div>
+          <span class="score-badge">Score: <span id="score">0</span></span>
+          <span id="streakBadge" class="streak-badge hidden">🔥 <span id="streakCount">0</span></span>
+        </div>
+      </div>
+
+      <div class="activity-area">
+        <div class="word-pair" id="wordPair">
+          <div class="word-card" id="word1Card" onclick="playWord(0)">
+            <span class="emoji">🐱</span>
+            <span class="word">CAT</span>
+          </div>
+          <span class="vs-badge">&</span>
+          <div class="word-card" id="word2Card" onclick="playWord(1)">
+            <span class="emoji">🎩</span>
+            <span class="word">HAT</span>
+          </div>
+        </div>
+
+        <div class="prompt-text" id="promptText">Do these words rhyme?</div>
+
+        <div class="rhyme-buttons" id="rhymeButtons">
+          <button class="rhyme-btn yes" onclick="checkAnswer(true)">👍 Yes!</button>
+          <button class="rhyme-btn no" onclick="checkAnswer(false)">👎 No</button>
+        </div>
+
+        <div class="feedback waiting" id="feedback">Tap the pictures to hear the words!</div>
+
+        <div class="controls">
+          <button class="btn btn-hear" onclick="playBothWords()">🔊 Hear Both</button>
+          <button class="btn btn-primary" id="nextBtn" onclick="nextPair()" disabled>Next →</button>
+        </div>
+
+        <div class="progress" id="progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Rhyming pairs (words that rhyme)
+    const rhymingPairs = [
+      { word1: { word: 'cat', emoji: '🐱' }, word2: { word: 'hat', emoji: '🎩' }, ending: 'at' },
+      { word1: { word: 'dog', emoji: '🐕' }, word2: { word: 'frog', emoji: '🐸' }, ending: 'og' },
+      { word1: { word: 'sun', emoji: '☀️' }, word2: { word: 'run', emoji: '🏃' }, ending: 'un' },
+      { word1: { word: 'bat', emoji: '🦇' }, word2: { word: 'mat', emoji: '🧹' }, ending: 'at' },
+      { word1: { word: 'bed', emoji: '🛏️' }, word2: { word: 'red', emoji: '🔴' }, ending: 'ed' },
+      { word1: { word: 'pig', emoji: '🐷' }, word2: { word: 'big', emoji: '🐘' }, ending: 'ig' },
+      { word1: { word: 'bug', emoji: '🐛' }, word2: { word: 'hug', emoji: '🤗' }, ending: 'ug' },
+      { word1: { word: 'pot', emoji: '🍲' }, word2: { word: 'hot', emoji: '🔥' }, ending: 'ot' },
+      { word1: { word: 'man', emoji: '👨' }, word2: { word: 'pan', emoji: '🍳' }, ending: 'an' },
+      { word1: { word: 'fan', emoji: '🪭' }, word2: { word: 'can', emoji: '🥫' }, ending: 'an' },
+      { word1: { word: 'hop', emoji: '🐰' }, word2: { word: 'mop', emoji: '🧹' }, ending: 'op' },
+      { word1: { word: 'sit', emoji: '🪑' }, word2: { word: 'hit', emoji: '👊' }, ending: 'it' },
+      { word1: { word: 'car', emoji: '🚗' }, word2: { word: 'star', emoji: '⭐' }, ending: 'ar' },
+      { word1: { word: 'bee', emoji: '🐝' }, word2: { word: 'tree', emoji: '🌳' }, ending: 'ee' },
+      { word1: { word: 'moon', emoji: '🌙' }, word2: { word: 'spoon', emoji: '🥄' }, ending: 'oon' },
+      { word1: { word: 'cake', emoji: '🎂' }, word2: { word: 'snake', emoji: '🐍' }, ending: 'ake' },
+      { word1: { word: 'fish', emoji: '🐟' }, word2: { word: 'dish', emoji: '🍽️' }, ending: 'ish' },
+      { word1: { word: 'king', emoji: '👑' }, word2: { word: 'ring', emoji: '💍' }, ending: 'ing' },
+    ];
+
+    // Non-rhyming pairs
+    const nonRhymingPairs = [
+      { word1: { word: 'cat', emoji: '🐱' }, word2: { word: 'dog', emoji: '🐕' } },
+      { word1: { word: 'sun', emoji: '☀️' }, word2: { word: 'hat', emoji: '🎩' } },
+      { word1: { word: 'fish', emoji: '🐟' }, word2: { word: 'bird', emoji: '🐦' } },
+      { word1: { word: 'tree', emoji: '🌳' }, word2: { word: 'car', emoji: '🚗' } },
+      { word1: { word: 'ball', emoji: '⚽' }, word2: { word: 'pig', emoji: '🐷' } },
+      { word1: { word: 'cup', emoji: '🥤' }, word2: { word: 'bed', emoji: '🛏️' } },
+      { word1: { word: 'moon', emoji: '🌙' }, word2: { word: 'frog', emoji: '🐸' } },
+      { word1: { word: 'book', emoji: '📚' }, word2: { word: 'star', emoji: '⭐' } },
+      { word1: { word: 'cake', emoji: '🎂' }, word2: { word: 'duck', emoji: '🦆' } },
+      { word1: { word: 'ring', emoji: '💍' }, word2: { word: 'boat', emoji: '⛵' } },
+      { word1: { word: 'hat', emoji: '🎩' }, word2: { word: 'pen', emoji: '🖊️' } },
+      { word1: { word: 'bug', emoji: '🐛' }, word2: { word: 'fox', emoji: '🦊' } },
+    ];
+
+    // State
+    let currentPair = null;
+    let isRhyming = true;
+    let pairIndex = 0;
+    let roundPairs = [];
+    let score = 0;
+    let streak = 0;
+    let answered = false;
+    let currentStudent = null;
+    let sessionStartTime = null;
+    const ROUND_SIZE = 10;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Show student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is playing?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+        }
+      }
+
+      sessionStartTime = Date.now();
+      startRound();
+    });
+
+    function startRound() {
+      pairIndex = 0;
+
+      // Mix rhyming and non-rhyming pairs (roughly 60% rhyming)
+      const shuffledRhyming = [...rhymingPairs].sort(() => Math.random() - 0.5);
+      const shuffledNonRhyming = [...nonRhymingPairs].sort(() => Math.random() - 0.5);
+
+      roundPairs = [];
+      for (let i = 0; i < ROUND_SIZE; i++) {
+        if (Math.random() < 0.6 && shuffledRhyming.length > 0) {
+          roundPairs.push({ ...shuffledRhyming.pop(), rhymes: true });
+        } else if (shuffledNonRhyming.length > 0) {
+          roundPairs.push({ ...shuffledNonRhyming.pop(), rhymes: false });
+        } else {
+          roundPairs.push({ ...shuffledRhyming.pop(), rhymes: true });
+        }
+      }
+
+      loadPair();
+      renderProgress();
+    }
+
+    function loadPair() {
+      currentPair = roundPairs[pairIndex];
+      isRhyming = currentPair.rhymes;
+      answered = false;
+
+      // Update display
+      const card1 = document.getElementById('word1Card');
+      const card2 = document.getElementById('word2Card');
+
+      card1.querySelector('.emoji').textContent = currentPair.word1.emoji;
+      card1.querySelector('.word').textContent = currentPair.word1.word.toUpperCase();
+      card1.classList.remove('speaking');
+
+      card2.querySelector('.emoji').textContent = currentPair.word2.emoji;
+      card2.querySelector('.word').textContent = currentPair.word2.word.toUpperCase();
+      card2.classList.remove('speaking');
+
+      document.getElementById('promptText').textContent = 'Do these words rhyme?';
+      document.getElementById('feedback').textContent = 'Tap the pictures to hear the words!';
+      document.getElementById('feedback').className = 'feedback waiting';
+      document.getElementById('nextBtn').disabled = true;
+
+      // Reset buttons
+      const buttons = document.querySelectorAll('.rhyme-btn');
+      buttons.forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('correct', 'incorrect');
+      });
+
+      renderProgress();
+
+      // Auto-play both words
+      setTimeout(() => playBothWords(), 300);
+    }
+
+    function playWord(index) {
+      const word = index === 0 ? currentPair.word1.word : currentPair.word2.word;
+      const cardId = index === 0 ? 'word1Card' : 'word2Card';
+      const card = document.getElementById(cardId);
+
+      card.classList.add('speaking');
+
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.rate = 0.8;
+        utterance.onend = () => card.classList.remove('speaking');
+        speechSynthesis.speak(utterance);
+      } else {
+        setTimeout(() => card.classList.remove('speaking'), 500);
+      }
+    }
+
+    async function playBothWords() {
+      playWord(0);
+      await new Promise(resolve => setTimeout(resolve, 800));
+      playWord(1);
+    }
+
+    function checkAnswer(userSaysRhymes) {
+      if (answered) return;
+      answered = true;
+
+      const isCorrect = userSaysRhymes === isRhyming;
+      const buttons = document.querySelectorAll('.rhyme-btn');
+
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        const btnIsYes = btn.classList.contains('yes');
+
+        if ((btnIsYes && userSaysRhymes) || (!btnIsYes && !userSaysRhymes)) {
+          btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+        }
+      });
+
+      if (isCorrect) {
+        handleCorrect();
+      } else {
+        handleIncorrect();
+      }
+    }
+
+    function handleCorrect() {
+      score++;
+      streak++;
+      document.getElementById('score').textContent = score;
+
+      if (streak >= 3) {
+        document.getElementById('streakBadge').classList.remove('hidden');
+        document.getElementById('streakCount').textContent = streak;
+      }
+
+      if (isRhyming) {
+        document.getElementById('feedback').innerHTML =
+          `🎉 Yes! "${currentPair.word1.word}" and "${currentPair.word2.word}" rhyme! ` +
+          `They both end in <span class="rhyme-highlight">-${currentPair.ending}</span>`;
+      } else {
+        document.getElementById('feedback').textContent =
+          `🎉 Correct! "${currentPair.word1.word}" and "${currentPair.word2.word}" don't rhyme!`;
+      }
+      document.getElementById('feedback').className = 'feedback correct';
+      document.getElementById('nextBtn').disabled = false;
+
+      showCelebration();
+    }
+
+    function handleIncorrect() {
+      streak = 0;
+      document.getElementById('streakBadge').classList.add('hidden');
+
+      if (isRhyming) {
+        document.getElementById('feedback').innerHTML =
+          `These words DO rhyme! "${currentPair.word1.word}" and "${currentPair.word2.word}" ` +
+          `both end in <span class="rhyme-highlight">-${currentPair.ending}</span>`;
+      } else {
+        document.getElementById('feedback').textContent =
+          `These words DON'T rhyme. "${currentPair.word1.word}" and "${currentPair.word2.word}" sound different.`;
+      }
+      document.getElementById('feedback').className = 'feedback incorrect';
+      document.getElementById('nextBtn').disabled = false;
+    }
+
+    function showCelebration() {
+      const emojis = ['⭐', '🌟', '✨', '🎉', '🎵', '🎶'];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      celebration.textContent = emoji;
+      document.body.appendChild(celebration);
+
+      setTimeout(() => celebration.remove(), 600);
+    }
+
+    function renderProgress() {
+      const container = document.getElementById('progress');
+      container.innerHTML = '';
+
+      for (let i = 0; i < ROUND_SIZE; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'progress-dot';
+        if (i < pairIndex) dot.classList.add('done');
+        if (i === pairIndex) dot.classList.add('current');
+        container.appendChild(dot);
+      }
+    }
+
+    async function nextPair() {
+      pairIndex++;
+
+      if (pairIndex >= ROUND_SIZE) {
+        // Round complete
+        document.getElementById('promptText').textContent = '🎉 Round Complete!';
+        document.getElementById('feedback').textContent =
+          `You got ${score} out of ${ROUND_SIZE}! Starting new round...`;
+        document.getElementById('feedback').className = 'feedback correct';
+        document.getElementById('rhymeButtons').style.visibility = 'hidden';
+
+        // Save activity
+        if (currentStudent && window.FunBookiesDB) {
+          try {
+            await window.FunBookiesDB.saveActivity({
+              studentId: currentStudent.id,
+              type: 'rhyme-time',
+              level: 'A0',
+              score: score,
+              total: ROUND_SIZE,
+              duration: Math.round((Date.now() - sessionStartTime) / 1000),
+              details: { streak }
+            });
+          } catch (e) {
+            console.error('Failed to save:', e);
+          }
+        }
+
+        score = 0;
+        setTimeout(() => {
+          document.getElementById('rhymeButtons').style.visibility = 'visible';
+          startRound();
+        }, 2500);
+      } else {
+        loadPair();
+      }
+    }
+  </script>
+</body>
+</html>

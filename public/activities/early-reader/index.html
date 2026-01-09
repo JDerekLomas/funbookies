@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Early Reader Pathway - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header {
+      padding-top: var(--space-md);
+      text-align: center;
+    }
+
+    .page-header .back-link {
+      display: block;
+      text-align: left;
+    }
+
+    .pathway-intro {
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-lg);
+      text-align: center;
+    }
+
+    .pathway-intro h1 {
+      font-size: 2rem;
+      margin-bottom: var(--space-sm);
+      color: var(--color-charcoal);
+    }
+
+    .pathway-intro p {
+      color: var(--color-text-muted);
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .pathway-mascot {
+      font-size: 4rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .stage-section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .stage-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: var(--space-md);
+    }
+
+    .stage-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--color-sage);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .stage-number.locked {
+      background: var(--color-border);
+      color: var(--color-text-muted);
+    }
+
+    .stage-info h2 {
+      font-size: 1.3rem;
+      margin: 0;
+      color: var(--color-charcoal);
+    }
+
+    .stage-info p {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin: 4px 0 0;
+    }
+
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .pathway-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+
+    .pathway-card:hover {
+      border-color: var(--color-sage);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .pathway-card.locked {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .pathway-card.locked:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .card-icon.letters { background: linear-gradient(135deg, #667eea, #764ba2); }
+    .card-icon.sounds { background: linear-gradient(135deg, #f093fb, #f5576c); }
+    .card-icon.rhyme { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+    .card-icon.syllables { background: linear-gradient(135deg, #a8e063, #56ab2f); }
+    .card-icon.blend { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+    .card-icon.words { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+    .card-icon.books { background: linear-gradient(135deg, #96e6a1, #d4fc79); }
+
+    .card-content h3 {
+      font-size: 1.1rem;
+      margin: 0 0 4px;
+      color: var(--color-charcoal);
+    }
+
+    .card-content p {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .card-badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    .card-badge.new {
+      background: var(--color-terracotta);
+      color: white;
+    }
+
+    .card-badge.coming {
+      background: var(--color-border);
+      color: var(--color-text-muted);
+    }
+
+    .progress-section {
+      background: var(--color-cream);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .progress-section h3 {
+      font-size: 1rem;
+      margin: 0 0 var(--space-sm);
+      color: var(--color-charcoal);
+    }
+
+    .progress-bar {
+      height: 12px;
+      background: var(--color-border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: var(--space-sm);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-sage), var(--color-sage-dark));
+      border-radius: 6px;
+      transition: width 0.5s;
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    .parent-tip {
+      background: #fff8e1;
+      border-left: 4px solid #ffc107;
+      padding: var(--space-md);
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      margin-top: var(--space-lg);
+    }
+
+    .parent-tip h4 {
+      font-size: 0.9rem;
+      margin: 0 0 var(--space-xs);
+      color: #f57c00;
+    }
+
+    .parent-tip p {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .student-badge {
+      font-size: 0.9rem;
+      background: var(--color-sage-light);
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      display: inline-block;
+      margin-top: var(--space-sm);
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
+
+    <div class="pathway-intro">
+      <div class="pathway-mascot">🐣</div>
+      <h1>Early Reader Pathway</h1>
+      <p>A step-by-step journey from letters to reading. Perfect for ages 3-6.</p>
+      <div id="studentBadge" class="student-badge hidden"></div>
+    </div>
+
+    <div id="progressSection" class="progress-section hidden">
+      <h3>Your Progress</h3>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+      <p class="progress-text" id="progressText">Starting your journey!</p>
+    </div>
+
+    <!-- Stage 1: Letter Knowledge -->
+    <div class="stage-section">
+      <div class="stage-header">
+        <div class="stage-number">1</div>
+        <div class="stage-info">
+          <h2>Letter Knowledge</h2>
+          <p>Learn letter names and the sounds they make</p>
+        </div>
+      </div>
+      <div class="activity-grid">
+        <a href="letter-sounds.html" class="pathway-card">
+          <div class="card-icon letters">🔤</div>
+          <div class="card-content">
+            <h3>Letter Sounds <span class="card-badge new">NEW</span></h3>
+            <p>See a letter, hear its sound. Tap to practice saying it!</p>
+          </div>
+        </a>
+        <a href="letter-match.html" class="pathway-card">
+          <div class="card-icon letters">🔠</div>
+          <div class="card-content">
+            <h3>Letter Match <span class="card-badge coming">SOON</span></h3>
+            <p>Match uppercase and lowercase letters</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Stage 2: Phonemic Awareness -->
+    <div class="stage-section">
+      <div class="stage-header">
+        <div class="stage-number">2</div>
+        <div class="stage-info">
+          <h2>Sound Awareness</h2>
+          <p>Train your ears to hear sounds in words (no reading required!)</p>
+        </div>
+      </div>
+      <div class="activity-grid">
+        <a href="first-sounds.html" class="pathway-card">
+          <div class="card-icon sounds">🎯</div>
+          <div class="card-content">
+            <h3>First Sounds <span class="card-badge new">NEW</span></h3>
+            <p>What sound does the word start with? Listen and choose!</p>
+          </div>
+        </a>
+        <a href="rhyme-time.html" class="pathway-card">
+          <div class="card-icon rhyme">🎵</div>
+          <div class="card-content">
+            <h3>Rhyme Time <span class="card-badge new">NEW</span></h3>
+            <p>Do these words rhyme? Cat and hat? Dog and log?</p>
+          </div>
+        </a>
+        <a href="syllable-clap.html" class="pathway-card">
+          <div class="card-icon syllables">👏</div>
+          <div class="card-content">
+            <h3>Syllable Clap <span class="card-badge new">NEW</span></h3>
+            <p>Clap out the beats in words. "El-e-phant" = 3 claps!</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Stage 3: Blending & Segmenting -->
+    <div class="stage-section">
+      <div class="stage-header">
+        <div class="stage-number">3</div>
+        <div class="stage-info">
+          <h2>Blending & Segmenting</h2>
+          <p>Put sounds together and take them apart</p>
+        </div>
+      </div>
+      <div class="activity-grid">
+        <a href="/activities/voice-blend.html" class="pathway-card">
+          <div class="card-icon blend">🔊</div>
+          <div class="card-content">
+            <h3>Blend It Out</h3>
+            <p>Hear /c/ /a/ /t/... what word is that? "Cat!"</p>
+          </div>
+        </a>
+        <a href="/activities/chop-it-up.html" class="pathway-card">
+          <div class="card-icon blend">✂️</div>
+          <div class="card-content">
+            <h3>Chop It Up</h3>
+            <p>Break words into sounds: "dog" = /d/ /o/ /g/</p>
+          </div>
+        </a>
+        <a href="/activities/say-the-sound.html" class="pathway-card">
+          <div class="card-icon sounds">💬</div>
+          <div class="card-content">
+            <h3>Say the Sound</h3>
+            <p>See the letter, say the sound it makes</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Stage 4: First Words -->
+    <div class="stage-section">
+      <div class="stage-header">
+        <div class="stage-number">4</div>
+        <div class="stage-info">
+          <h2>First Words</h2>
+          <p>Start reading simple words and sentences</p>
+        </div>
+      </div>
+      <div class="activity-grid">
+        <a href="/activities/word-builder.html" class="pathway-card">
+          <div class="card-icon words">🧱</div>
+          <div class="card-content">
+            <h3>Word Builder</h3>
+            <p>Build words letter by letter: c-a-t spells cat!</p>
+          </div>
+        </a>
+        <a href="/activities/word-families.html" class="pathway-card">
+          <div class="card-icon words">👨‍👩‍👧</div>
+          <div class="card-content">
+            <h3>Word Families</h3>
+            <p>Practice -at, -an, -ig word patterns</p>
+          </div>
+        </a>
+        <a href="/activities/sight-words.html" class="pathway-card">
+          <div class="card-icon words">👁️</div>
+          <div class="card-content">
+            <h3>Sight Words</h3>
+            <p>Learn common words: the, and, is, you...</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Stage 5: First Books -->
+    <div class="stage-section">
+      <div class="stage-header">
+        <div class="stage-number">5</div>
+        <div class="stage-info">
+          <h2>First Books</h2>
+          <p>Read your first decodable books!</p>
+        </div>
+      </div>
+      <div class="activity-grid">
+        <a href="/books/?level=A" class="pathway-card">
+          <div class="card-icon books">📚</div>
+          <div class="card-content">
+            <h3>A-Level Books</h3>
+            <p>Pattern books with repeated words and picture support</p>
+          </div>
+        </a>
+        <a href="/activities/read-aloud.html" class="pathway-card">
+          <div class="card-icon books">🎤</div>
+          <div class="card-content">
+            <h3>Read Aloud Practice</h3>
+            <p>Read sentences and track your fluency</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="parent-tip">
+      <h4>Tip for Parents</h4>
+      <p>Start with Stage 1 and 2 activities before expecting your child to read. Strong phonemic awareness (hearing sounds in words) is the foundation of reading success. Aim for 5-10 minutes of practice daily, and always keep it fun!</p>
+    </div>
+  </div>
+
+  <script>
+    let currentStudent = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Show student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is learning today?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+
+          // Show progress
+          loadProgress();
+        }
+      }
+    });
+
+    async function loadProgress() {
+      if (!currentStudent || !window.FunBookiesDB) return;
+
+      try {
+        const activities = await window.FunBookiesDB.getActivities(currentStudent.id);
+
+        // Count unique activity types completed
+        const completedTypes = new Set();
+        const targetTypes = [
+          'letter-sounds', 'first-sounds', 'rhyme-time', 'syllable-clap',
+          'voice-blend', 'chop-it-up', 'say-the-sound',
+          'word-builder', 'word-families', 'sight-words', 'read-aloud'
+        ];
+
+        activities.forEach(a => {
+          if (targetTypes.includes(a.type)) {
+            completedTypes.add(a.type);
+          }
+        });
+
+        const progress = Math.round((completedTypes.size / targetTypes.length) * 100);
+
+        document.getElementById('progressSection').classList.remove('hidden');
+        document.getElementById('progressFill').style.width = `${progress}%`;
+        document.getElementById('progressText').textContent =
+          progress === 0 ? 'Starting your journey!' :
+          progress < 50 ? `Great start! ${completedTypes.size} activities explored` :
+          progress < 100 ? `Amazing progress! Keep going!` :
+          'You did it! All activities completed!';
+
+      } catch (e) {
+        console.error('Failed to load progress:', e);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -100,7 +100,14 @@
             right: 0;
             height: 80%;
             overflow: hidden;
-            background: var(--color-sage-light);
+            background: linear-gradient(90deg, var(--color-sage-light) 25%, #d4e8d9 50%, var(--color-sage-light) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
         .page-image img {
@@ -478,7 +485,9 @@
         .back-cover-image {
             height: 45%;
             overflow: hidden;
-            background: var(--color-sage-light);
+            background: linear-gradient(90deg, var(--color-sage-light) 25%, #d4e8d9 50%, var(--color-sage-light) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
         }
 
         .back-cover-image img {
@@ -652,7 +661,9 @@
         .cover-image {
             flex: 1;
             overflow: hidden;
-            background: var(--color-sage-light);
+            background: linear-gradient(90deg, var(--color-sage-light) 25%, #d4e8d9 50%, var(--color-sage-light) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
             position: relative;
         }
 
@@ -764,7 +775,9 @@
         .long-form-image {
             flex: 1;
             overflow: hidden;
-            background: var(--color-sage-light);
+            background: linear-gradient(90deg, var(--color-sage-light) 25%, #d4e8d9 50%, var(--color-sage-light) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
         }
 
         .long-form-image img {
@@ -1757,7 +1770,7 @@
                     bookPage.innerHTML = `
                         <div class="page-back-cover">
                             <div class="back-cover-image">
-                                <img src="${backImgPath}" alt="" onerror="this.style.display='none'">
+                                <img src="${backImgPath}" alt="" decoding="async" onerror="this.style.display='none'">
                             </div>
                             <div class="back-cover-content">
                                 <div class="back-cover-row">
@@ -1805,7 +1818,7 @@
                                 </div>
                             </div>
                             <div class="cover-image">
-                                <img src="${coverImgPath}" alt="${coverTitle}" onerror="document.getElementById('${coverPlaceholderId}').style.display='flex'; this.style.display='none';">
+                                <img src="${coverImgPath}" alt="${coverTitle}" decoding="async" fetchpriority="high" onerror="document.getElementById('${coverPlaceholderId}').style.display='flex'; this.style.display='none';">
                                 <div id="${coverPlaceholderId}" class="page-image-placeholder" style="display: none;">
                                     <div class="scene-icon">📚</div>
                                     ${coverScene ? `<div class="scene-text">${coverScene}</div>` : ''}
@@ -1840,7 +1853,7 @@
                                     ${storyPageNum ? `<div class="page-number">Page ${storyPageNum}</div>` : ''}
                                 </div>
                                 <div class="long-form-image">
-                                    <img src="${storyImgPath}" alt="" onerror="document.getElementById('${placeholderId}').style.display='flex'; this.style.display='none';">
+                                    <img src="${storyImgPath}" alt="" decoding="async" fetchpriority="high" onerror="document.getElementById('${placeholderId}').style.display='flex'; this.style.display='none';">
                                     <div id="${placeholderId}" class="page-image-placeholder" style="display: none;">
                                         <div class="scene-icon">🎨</div>
                                         ${sceneDesc ? `<div class="scene-text">${sceneDesc}</div>` : ''}
@@ -1853,7 +1866,7 @@
                         bookPage.classList.remove('long-form');
                         bookPage.innerHTML = `
                             <div class="page-image">
-                                <img src="${storyImgPath}" alt="" onerror="document.getElementById('${placeholderId}').style.display='flex'; this.style.display='none';">
+                                <img src="${storyImgPath}" alt="" decoding="async" fetchpriority="high" onerror="document.getElementById('${placeholderId}').style.display='flex'; this.style.display='none';">
                                 <div id="${placeholderId}" class="page-image-placeholder" style="display: none;">
                                     <div class="scene-icon">🎨</div>
                                     ${sceneDesc ? `<div class="scene-text">${sceneDesc}</div>` : ''}
@@ -1874,6 +1887,9 @@
 
             // Update edit mode info
             updateEditInfo();
+
+            // Preload adjacent pages for faster navigation
+            preloadAdjacentPages();
         }
 
         function prevPage() {
@@ -1926,6 +1942,53 @@
                 else prevPage();
             }
         });
+
+        // Image preloading cache
+        const imageCache = new Map();
+
+        function preloadImage(src) {
+            if (!src || imageCache.has(src)) return;
+            const img = new Image();
+            img.src = src;
+            imageCache.set(src, img);
+        }
+
+        function preloadAdjacentPages() {
+            if (!currentBook) return;
+
+            // Preload next 2 and previous 1 pages
+            const pagesToPreload = [currentPage - 1, currentPage + 1, currentPage + 2];
+
+            for (const pageIdx of pagesToPreload) {
+                if (pageIdx >= 0 && pageIdx < currentBook.pages.length) {
+                    const page = currentBook.pages[pageIdx];
+                    const imgPath = getImagePathForPage(page, pageIdx);
+                    if (imgPath) preloadImage(imgPath);
+                }
+            }
+
+            // Also preload cover image
+            preloadImage(getCoverImagePath());
+        }
+
+        function getImagePathForPage(page, pageIdx) {
+            if (page.type === 'cover' || (pageIdx === 0 && !page.type)) {
+                return getCoverImagePath();
+            }
+            if (page.type && ['copyright', 'parent_guide', 'level_info', 'wordlist', 'wordsearch', 'series_info'].includes(page.type)) {
+                return null; // These pages don't have images
+            }
+            if (page.image) {
+                return `/books/${page.image}`;
+            }
+            const pageNum = String(page.page || pageIdx + 1).padStart(2, '0');
+            const slug = currentBook._slug || bookSlug;
+            if (legacyImagePaths[slug]) {
+                const info = legacyImagePaths[slug];
+                return `/books/${info.imageFolder}/${info.imagePrefix}${pageNum}.png`;
+            }
+            return `/books/images/${slug}_page${pageNum}.png`;
+        }
 
         // Feedback system
         let currentRating = null;

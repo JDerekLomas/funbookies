@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Read Aloud - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .game-header h1 { font-size: 1.5rem; }
+
+    .stats-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stat-badge {
+      background: var(--color-sage-light);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--color-sage-dark);
+    }
+
+    .stat-badge.wcpm {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .level-select {
+      display: flex;
+      gap: 8px;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .level-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .level-group-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+
+    .reading-area {
+      padding: var(--space-md) 0;
+    }
+
+    .sentence-card {
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sentence-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      line-height: 1.5;
+      text-align: center;
+      color: var(--color-charcoal);
+    }
+
+    .sentence-text .word {
+      display: inline-block;
+      padding: 2px 4px;
+      margin: 2px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .sentence-text .word.current {
+      background: var(--color-sage-light);
+      transform: scale(1.05);
+    }
+
+    .sentence-text .word.correct {
+      color: var(--color-sage-dark);
+    }
+
+    .sentence-text .word.incorrect {
+      color: var(--color-terracotta);
+      text-decoration: underline wavy var(--color-terracotta);
+    }
+
+    .sentence-text .word.pending {
+      color: var(--color-text-muted);
+    }
+
+    .controls-section {
+      text-align: center;
+    }
+
+    .mic-button {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--color-terracotta);
+      border: none;
+      color: white;
+      font-size: 3rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-md);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .mic-button:hover {
+      transform: scale(1.05);
+      background: var(--color-terracotta-dark);
+    }
+
+    .mic-button.recording {
+      background: #e74c3c;
+      animation: pulse-mic 1s infinite;
+    }
+
+    .mic-button.success {
+      background: var(--color-sage);
+    }
+
+    @keyframes pulse-mic {
+      0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 4px 25px rgba(231, 76, 60, 0.6); }
+    }
+
+    .mic-label {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback-card {
+      background: var(--color-cream);
+      border-radius: var(--border-radius);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--color-charcoal);
+    }
+
+    .feedback-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .feedback-stat {
+      text-align: center;
+    }
+
+    .feedback-stat .value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--color-sage-dark);
+    }
+
+    .feedback-stat .label {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+
+    .practice-words {
+      margin-top: 12px;
+    }
+
+    .practice-words-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-terracotta);
+      margin-bottom: 8px;
+    }
+
+    .practice-word {
+      display: inline-block;
+      background: white;
+      border: 1px solid var(--color-terracotta);
+      color: var(--color-terracotta);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .practice-word:hover {
+      background: var(--color-terracotta);
+      color: white;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-hear { background: var(--color-sage-light); color: var(--color-sage-dark); }
+    .btn-hear:hover { background: var(--color-sage); color: white; }
+
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: var(--space-md);
+    }
+
+    .progress-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-border);
+      transition: all 0.2s;
+    }
+
+    .progress-dot.done { background: var(--color-sage); }
+    .progress-dot.current { background: var(--color-terracotta); transform: scale(1.3); }
+
+    .speech-not-supported {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: var(--border-radius);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      color: #856404;
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .mic-button { width: 100px; height: 100px; font-size: 2.5rem; }
+      .feedback-stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .feedback-stat .value { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Read Aloud <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div class="stats-row">
+          <span class="stat-badge">Sentences: <span id="sentenceCount">0</span></span>
+          <span class="stat-badge wcpm" id="wcpmBadge" title="Words Correct Per Minute">WCPM: --</span>
+        </div>
+      </div>
+
+      <div id="speechWarning" class="speech-not-supported hidden">
+        Your browser doesn't support speech recognition. Try Chrome or Edge for the best experience.
+      </div>
+
+      <div class="level-select">
+        <div class="level-group">
+          <span class="level-group-label">A:</span>
+          <button class="chip" data-level="A3">A3</button>
+          <button class="chip active" data-level="A4">A4</button>
+        </div>
+        <div class="level-group">
+          <span class="level-group-label">B:</span>
+          <button class="chip" data-level="B1">B1</button>
+          <button class="chip" data-level="B2">B2</button>
+          <button class="chip" data-level="B3">B3</button>
+          <button class="chip" data-level="B5">B5</button>
+          <button class="chip" data-level="B6">B6</button>
+          <button class="chip" data-level="B7">B7</button>
+          <button class="chip" data-level="B8">B8</button>
+        </div>
+        <div class="level-group">
+          <span class="level-group-label">C:</span>
+          <button class="chip" data-level="C1">C1</button>
+          <button class="chip" data-level="C3">C3</button>
+        </div>
+      </div>
+
+      <div class="reading-area">
+        <div class="sentence-card">
+          <div class="sentence-text" id="sentenceText">
+            Loading...
+          </div>
+        </div>
+
+        <div class="controls-section">
+          <p class="mic-label" id="micLabel">Tap the microphone and read the sentence!</p>
+          <button class="mic-button" id="micButton">🎤</button>
+
+          <div class="feedback-card hidden" id="feedbackCard">
+            <div class="feedback-title">Great job! Here's how you did:</div>
+            <div class="feedback-stats">
+              <div class="feedback-stat">
+                <div class="value" id="wordsCorrect">0</div>
+                <div class="label">Words Correct</div>
+              </div>
+              <div class="feedback-stat">
+                <div class="value" id="wordsTotal">0</div>
+                <div class="label">Total Words</div>
+              </div>
+              <div class="feedback-stat">
+                <div class="value" id="accuracy">0%</div>
+                <div class="label">Accuracy</div>
+              </div>
+            </div>
+            <div class="practice-words hidden" id="practiceSection">
+              <div class="practice-words-title">Let's practice these words:</div>
+              <div id="practiceWordsList"></div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button class="btn btn-hear" onclick="hearSentence()">🔊 Hear It</button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextSentence()">Next →</button>
+            <button class="btn btn-secondary" onclick="skipSentence()">Skip</button>
+          </div>
+
+          <div class="progress" id="progress"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sentence banks aligned to levels - from actual book content
+    const sentenceBanks = {
+      'A3': [
+        // Mixed case sentences - from The Cat Is Here
+        "The cat is here.",
+        "I see the cat.",
+        "The cat sat.",
+        "Here is the cat.",
+        "The cat ran.",
+        "I see it.",
+        "It is here.",
+        "The cat is big.",
+      ],
+      'A4': [
+        // Simple CVC sentences - Emergent bridge
+        "The cat sat on the mat.",
+        "Sam has a red hat.",
+        "The dog ran to the man.",
+        "I can see the sun.",
+        "The pig is in the mud.",
+        "Mom got a big pot.",
+        "The bug sat on the rug.",
+        "Dad hit the ball.",
+      ],
+      'B1': [
+        // CVC Short a, i - from Sam and the Cat
+        "Sam has a cat.",
+        "The cat sat on the mat.",
+        "Sam put the cat in the hat.",
+        "The cat did not sit.",
+        "Sam ran with the cat.",
+        "The cat is big and tan.",
+        "Pat the cat on its back.",
+        "The cat naps in the pan.",
+      ],
+      'B2': [
+        // CVC Short o, u, e - from Pup in the Mud
+        "The pup got in the mud.",
+        "Mom is not mad at the pup.",
+        "The dog dug a big hole.",
+        "Run to the red bus.",
+        "The hot sun is up.",
+        "Tug the rug to the bed.",
+        "The pet hen got wet.",
+        "The bug hid under the cup.",
+      ],
+      'B3': [
+        // Consonant Blends - from Frog and Crab
+        "The frog sat on a flat rock.",
+        "Crab was stuck in the tree.",
+        "Frog swam in the pond.",
+        "Stop and clap your hands.",
+        "The flag is on the sled.",
+        "Grab the drum and play.",
+        "The trip was so much fun.",
+        "Snap the twig off the branch.",
+      ],
+      'B5': [
+        // Digraphs - from Ship in the Shell
+        "The ship is in the shell.",
+        "Fish swim in the pond.",
+        "Chat with me on the path.",
+        "I wish I had a ring.",
+        "The king sat on his throne.",
+        "Check the shop for a gift.",
+        "Math is fun to do.",
+        "The thin cloth is soft.",
+      ],
+      'B6': [
+        // Silent E - CVCe patterns
+        "I like to ride my bike.",
+        "Make a cake for the party.",
+        "The cute cat came home.",
+        "I hope we can take a hike.",
+        "Time to wake up and shine.",
+        "The rope is by the gate.",
+        "Write your name on the line.",
+        "We drove home at five.",
+      ],
+      'B7': [
+        // R-Controlled - from A Star at the Farm
+        "The star shines far away.",
+        "The bird sat on the barn.",
+        "The girl saw a turtle.",
+        "Turn left at the fork.",
+        "The horse ran to the farm.",
+        "Her fern is by the door.",
+        "The storm came from the north.",
+        "First, we water the corn.",
+      ],
+      'B8': [
+        // Vowel Teams - from The Rain and the Snow
+        "The rain falls on the boat.",
+        "We play in the snow each day.",
+        "The bee flew to the tree.",
+        "Read the book by the sea.",
+        "The goat ate the oats.",
+        "Wait for me by the train.",
+        "Grow a seed in the soil.",
+        "The team won the game today.",
+      ],
+      'C1': [
+        // Silent Letters - from Knight's Quest
+        "The knight knew the answer.",
+        "Write your name on the sign.",
+        "The gnome lives in the garden.",
+        "Wrap the gift with a bow.",
+        "The lamb walked on the path.",
+        "I know how to climb high.",
+        "The knight had a sharp sword.",
+        "My thumb got caught in the door.",
+      ],
+      'C3': [
+        // Two-Syllable - from Kitten Adventure
+        "The kitten hid in the basket.",
+        "A rabbit hopped through the window.",
+        "The button fell off my mitten.",
+        "Sudden thunder scared the puppy.",
+        "The hidden tunnel led to safety.",
+        "The kitten and rabbit became buddies.",
+        "Cotton candy melts in your mouth.",
+        "The puppet danced on the stage.",
+      ],
+    };
+
+    // State
+    let currentLevel = 'A4';
+    let currentSentence = null;
+    let sentenceIndex = 0;
+    let roundSentences = [];
+    let totalWordsCorrect = 0;
+    let totalWordsRead = 0;
+    let sessionStartTime = null;
+    let sentenceStartTime = null;
+    let recognition = null;
+    let currentStudent = null;
+    let missedWords = [];
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!SpeechRecognition) {
+        document.getElementById('speechWarning').classList.remove('hidden');
+        document.getElementById('micButton').disabled = true;
+      } else {
+        setupSpeechRecognition();
+      }
+
+      setupLevelButtons();
+
+      // Student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is reading today?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+
+          const level = await window.FunBookiesDB?.getCurrentLevel(currentStudent.id);
+          if (level && sentenceBanks[level]) {
+            currentLevel = level;
+            document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+            const levelBtn = document.querySelector(`.chip[data-level="${level}"]`);
+            if (levelBtn) levelBtn.classList.add('active');
+          }
+        }
+      }
+
+      sessionStartTime = Date.now();
+      startRound();
+    });
+
+    function setupSpeechRecognition() {
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        document.getElementById('micButton').classList.add('recording');
+        document.getElementById('micLabel').textContent = 'Listening... Read the sentence!';
+        sentenceStartTime = Date.now();
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[event.results.length - 1][0].transcript;
+        if (event.results[event.results.length - 1].isFinal) {
+          analyzeReading(transcript);
+        }
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech error:', event.error);
+        document.getElementById('micButton').classList.remove('recording');
+        if (event.error === 'no-speech') {
+          document.getElementById('micLabel').textContent = "I didn't hear anything. Try again!";
+        } else {
+          document.getElementById('micLabel').textContent = "Let's try again!";
+        }
+      };
+
+      recognition.onend = () => {
+        document.getElementById('micButton').classList.remove('recording');
+      };
+    }
+
+    function setupLevelButtons() {
+      document.querySelectorAll('.chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLevel = btn.dataset.level;
+          startRound();
+        });
+      });
+    }
+
+    function startRound() {
+      sentenceIndex = 0;
+      missedWords = [];
+      const bank = sentenceBanks[currentLevel] || sentenceBanks['A4'];
+      roundSentences = [...bank].sort(() => Math.random() - 0.5).slice(0, 5);
+      loadSentence();
+      renderProgress();
+    }
+
+    function loadSentence() {
+      currentSentence = roundSentences[sentenceIndex];
+      document.getElementById('feedbackCard').classList.add('hidden');
+      document.getElementById('micLabel').textContent = 'Tap the microphone and read the sentence!';
+      document.getElementById('micButton').classList.remove('success');
+
+      // Render sentence with word spans
+      const words = currentSentence.split(/\s+/);
+      const wordSpans = words.map((word, idx) =>
+        `<span class="word" data-idx="${idx}">${word}</span>`
+      ).join(' ');
+      document.getElementById('sentenceText').innerHTML = wordSpans;
+
+      renderProgress();
+    }
+
+    function renderProgress() {
+      const container = document.getElementById('progress');
+      container.innerHTML = '';
+
+      for (let i = 0; i < roundSentences.length; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'progress-dot';
+        if (i < sentenceIndex) dot.classList.add('done');
+        if (i === sentenceIndex) dot.classList.add('current');
+        container.appendChild(dot);
+      }
+    }
+
+    function startRecording() {
+      if (!recognition) return;
+      try {
+        recognition.start();
+      } catch (e) {
+        console.error('Recognition error:', e);
+      }
+    }
+
+    function analyzeReading(transcript) {
+      const targetWords = currentSentence.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/);
+      const spokenWords = transcript.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(w => w);
+
+      // Calculate reading time
+      const readingTime = (Date.now() - sentenceStartTime) / 1000 / 60; // in minutes
+
+      // Simple word matching
+      let correct = 0;
+      let incorrectWords = [];
+      const wordElements = document.querySelectorAll('.sentence-text .word');
+
+      targetWords.forEach((target, idx) => {
+        const wordEl = wordElements[idx];
+        // Check if the word appears in spoken words
+        const foundIdx = spokenWords.findIndex(spoken =>
+          spoken === target || levenshteinDistance(spoken, target) <= 1
+        );
+
+        if (foundIdx !== -1) {
+          correct++;
+          wordEl?.classList.add('correct');
+          spokenWords.splice(foundIdx, 1); // Remove matched word
+        } else {
+          wordEl?.classList.add('incorrect');
+          incorrectWords.push(target);
+        }
+      });
+
+      // Track stats
+      totalWordsCorrect += correct;
+      totalWordsRead += targetWords.length;
+      missedWords = [...new Set([...missedWords, ...incorrectWords])];
+
+      // Calculate WCPM
+      const wcpm = readingTime > 0 ? Math.round(correct / readingTime) : 0;
+
+      // Update UI
+      showFeedback(correct, targetWords.length, wcpm, incorrectWords);
+      updateStats();
+    }
+
+    function showFeedback(correct, total, wcpm, incorrectWords) {
+      const accuracy = Math.round((correct / total) * 100);
+
+      document.getElementById('wordsCorrect').textContent = correct;
+      document.getElementById('wordsTotal').textContent = total;
+      document.getElementById('accuracy').textContent = accuracy + '%';
+
+      // Show practice words if any were missed
+      if (incorrectWords.length > 0) {
+        document.getElementById('practiceSection').classList.remove('hidden');
+        document.getElementById('practiceWordsList').innerHTML = incorrectWords
+          .map(word => `<span class="practice-word" onclick="speakWord('${word}')">${word}</span>`)
+          .join('');
+      } else {
+        document.getElementById('practiceSection').classList.add('hidden');
+      }
+
+      document.getElementById('feedbackCard').classList.remove('hidden');
+      document.getElementById('micButton').classList.add('success');
+      document.getElementById('micLabel').textContent = accuracy >= 80 ? 'Great reading!' : 'Good try! Keep practicing!';
+    }
+
+    function updateStats() {
+      document.getElementById('sentenceCount').textContent = sentenceIndex + 1;
+
+      // Calculate session WCPM
+      const sessionTime = (Date.now() - sessionStartTime) / 1000 / 60;
+      if (sessionTime > 0 && totalWordsRead > 0) {
+        const wcpm = Math.round(totalWordsCorrect / sessionTime);
+        document.getElementById('wcpmBadge').textContent = `WCPM: ${wcpm}`;
+      }
+    }
+
+    function hearSentence() {
+      speakWord(currentSentence);
+    }
+
+    function speakWord(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.85;
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    function skipSentence() {
+      nextSentence();
+    }
+
+    async function nextSentence() {
+      sentenceIndex++;
+
+      if (sentenceIndex >= roundSentences.length) {
+        document.getElementById('micLabel').textContent = '🎉 Round complete!';
+
+        // Save activity
+        if (currentStudent && window.FunBookiesDB) {
+          try {
+            const sessionTime = Math.round((Date.now() - sessionStartTime) / 1000);
+            const wcpm = sessionTime > 0 ? Math.round(totalWordsCorrect / (sessionTime / 60)) : 0;
+
+            await window.FunBookiesDB.saveActivity({
+              studentId: currentStudent.id,
+              type: 'read-aloud',
+              level: currentLevel,
+              score: totalWordsCorrect,
+              total: totalWordsRead,
+              duration: sessionTime,
+              details: {
+                wcpm: wcpm,
+                accuracy: totalWordsRead > 0 ? Math.round((totalWordsCorrect / totalWordsRead) * 100) : 0,
+                missedWords: missedWords.slice(0, 10)
+              }
+            });
+          } catch (e) {
+            console.error('Failed to save:', e);
+          }
+        }
+
+        setTimeout(() => {
+          totalWordsCorrect = 0;
+          totalWordsRead = 0;
+          sessionStartTime = Date.now();
+          startRound();
+        }, 2000);
+      } else {
+        loadSentence();
+      }
+    }
+
+    function levenshteinDistance(a, b) {
+      const matrix = [];
+      for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+      for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+      for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+          if (b.charAt(i - 1) === a.charAt(j - 1)) {
+            matrix[i][j] = matrix[i - 1][j - 1];
+          } else {
+            matrix[i][j] = Math.min(
+              matrix[i - 1][j - 1] + 1,
+              matrix[i][j - 1] + 1,
+              matrix[i - 1][j] + 1
+            );
+          }
+        }
+      }
+      return matrix[b.length][a.length];
+    }
+
+    document.getElementById('micButton').addEventListener('click', startRecording);
+  </script>
+</body>
+</html>

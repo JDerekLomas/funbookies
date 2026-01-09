@@ -1011,6 +1011,149 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Feedback Panel Styles */
+        .feedback-panel {
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--color-cream);
+            border-radius: 8px;
+        }
+
+        .feedback-panel h4 {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: var(--color-charcoal);
+        }
+
+        .feedback-rating {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .feedback-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            background: var(--color-white);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+
+        .feedback-btn:hover {
+            border-color: var(--color-sage);
+        }
+
+        .feedback-btn.selected.thumbs-up {
+            background: #E8F5E9;
+            border-color: #4CAF50;
+        }
+
+        .feedback-btn.selected.thumbs-down {
+            background: #FFEBEE;
+            border-color: #F44336;
+        }
+
+        .feedback-btn span {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .feedback-comment {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            resize: vertical;
+            margin-bottom: 12px;
+        }
+
+        .feedback-comment:focus {
+            outline: none;
+            border-color: var(--color-sage);
+        }
+
+        .feedback-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .feedback-save {
+            padding: 8px 16px;
+            background: var(--color-sage);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .feedback-save:hover {
+            background: #7FB38A;
+        }
+
+        .feedback-export {
+            padding: 8px 16px;
+            background: var(--color-terracotta);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .feedback-export:hover {
+            background: #d98a6f;
+        }
+
+        .feedback-clear {
+            padding: 8px 12px;
+            background: transparent;
+            color: var(--color-text-muted);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .feedback-clear:hover {
+            border-color: #F44336;
+            color: #F44336;
+        }
+
+        .feedback-status {
+            font-size: 0.75rem;
+            color: var(--color-sage);
+            margin-top: 8px;
+            min-height: 18px;
+        }
+
+        .feedback-count {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin-top: 4px;
+        }
+
+        .feedback-indicator {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
@@ -1034,6 +1177,28 @@
                 <div style="margin-top: 8px;"><label>Level</label><span class="value" id="infoLevel">-</span></div>
                 <div style="margin-top: 8px;"><label>Current Page</label><span class="value" id="infoPage">-</span></div>
                 <div style="margin-top: 8px;"><label>Scene Description</label><span class="value" id="infoScene">-</span></div>
+            </div>
+
+            <div class="feedback-panel" id="feedbackPanel">
+                <h4>Page Feedback</h4>
+                <div class="feedback-rating">
+                    <button class="feedback-btn thumbs-up" id="thumbsUp" onclick="setRating('up')">
+                        <span id="thumbsUpIcon">👍</span>
+                        <span>Good</span>
+                    </button>
+                    <button class="feedback-btn thumbs-down" id="thumbsDown" onclick="setRating('down')">
+                        <span id="thumbsDownIcon">👎</span>
+                        <span>Needs Work</span>
+                    </button>
+                </div>
+                <textarea class="feedback-comment" id="feedbackComment" placeholder="Add comments about this page (image quality, text issues, suggestions...)"></textarea>
+                <div class="feedback-actions">
+                    <button class="feedback-save" onclick="saveFeedback()">Save</button>
+                    <button class="feedback-export" onclick="submitToGitHub()">Submit to GitHub</button>
+                    <button class="feedback-clear" onclick="clearAllFeedback()">Clear</button>
+                </div>
+                <div class="feedback-status" id="feedbackStatus"></div>
+                <div class="feedback-count" id="feedbackCount"></div>
             </div>
         </div>
 
@@ -1161,6 +1326,10 @@
             const page = currentBook.pages[currentPage];
             document.getElementById('infoPage').textContent = `${currentPage + 1} / ${currentBook.pages.length}`;
             document.getElementById('infoScene').textContent = page?.scene || page?.text || 'No description';
+
+            // Load feedback for current page
+            loadFeedback();
+            updateFeedbackCount();
         }
 
         function getImagePath(page) {
@@ -1763,6 +1932,190 @@
                 else prevPage();
             }
         });
+
+        // Feedback system
+        let currentRating = null;
+
+        function getFeedbackKey(bookSlug, pageNum) {
+            return `feedback_${bookSlug}_page${pageNum}`;
+        }
+
+        function getAllFeedbackKey() {
+            return 'funbookies_all_feedback';
+        }
+
+        function setRating(rating) {
+            const upBtn = document.getElementById('thumbsUp');
+            const downBtn = document.getElementById('thumbsDown');
+
+            if (currentRating === rating) {
+                // Toggle off if clicking same button
+                currentRating = null;
+                upBtn.classList.remove('selected');
+                downBtn.classList.remove('selected');
+            } else {
+                currentRating = rating;
+                upBtn.classList.toggle('selected', rating === 'up');
+                downBtn.classList.toggle('selected', rating === 'down');
+            }
+        }
+
+        function saveFeedback() {
+            if (!currentBook || !editMode) return;
+
+            const comment = document.getElementById('feedbackComment').value;
+            const pageNum = currentPage + 1;
+            const page = currentBook.pages[currentPage];
+
+            const feedback = {
+                bookSlug: bookSlug,
+                bookTitle: currentBook.title,
+                pageNumber: pageNum,
+                pageType: page.type || 'story',
+                pageText: page.text || '',
+                scene: page.scene || '',
+                rating: currentRating,
+                comment: comment,
+                timestamp: new Date().toISOString()
+            };
+
+            // Save individual page feedback
+            const key = getFeedbackKey(bookSlug, pageNum);
+            localStorage.setItem(key, JSON.stringify(feedback));
+
+            // Also update the master feedback list
+            let allFeedback = JSON.parse(localStorage.getItem(getAllFeedbackKey()) || '{}');
+            if (!allFeedback[bookSlug]) {
+                allFeedback[bookSlug] = {
+                    title: currentBook.title,
+                    level: currentBook.level,
+                    pages: {}
+                };
+            }
+            allFeedback[bookSlug].pages[pageNum] = feedback;
+            localStorage.setItem(getAllFeedbackKey(), JSON.stringify(allFeedback));
+
+            // Show status and update count
+            const status = document.getElementById('feedbackStatus');
+            status.textContent = `Saved! (${new Date().toLocaleTimeString()})`;
+            setTimeout(() => { status.textContent = ''; }, 3000);
+            updateFeedbackCount();
+        }
+
+        function loadFeedback() {
+            if (!currentBook || !editMode) return;
+
+            const pageNum = currentPage + 1;
+            const key = getFeedbackKey(bookSlug, pageNum);
+            const saved = localStorage.getItem(key);
+
+            const upBtn = document.getElementById('thumbsUp');
+            const downBtn = document.getElementById('thumbsDown');
+            const commentBox = document.getElementById('feedbackComment');
+
+            if (saved) {
+                const feedback = JSON.parse(saved);
+                currentRating = feedback.rating;
+                upBtn.classList.toggle('selected', feedback.rating === 'up');
+                downBtn.classList.toggle('selected', feedback.rating === 'down');
+                commentBox.value = feedback.comment || '';
+            } else {
+                currentRating = null;
+                upBtn.classList.remove('selected');
+                downBtn.classList.remove('selected');
+                commentBox.value = '';
+            }
+        }
+
+        function submitToGitHub() {
+            const allFeedback = JSON.parse(localStorage.getItem(getAllFeedbackKey()) || '{}');
+
+            if (Object.keys(allFeedback).length === 0) {
+                alert('No feedback saved yet! Rate some pages first.');
+                return;
+            }
+
+            // Build issue body
+            let body = `## Book Feedback\n\n`;
+            body += `Submitted: ${new Date().toLocaleString()}\n\n`;
+
+            for (const [slug, bookData] of Object.entries(allFeedback)) {
+                body += `### ${bookData.title || slug}\n`;
+                body += `**Level:** ${bookData.level || 'N/A'}\n\n`;
+
+                const pages = Object.entries(bookData.pages || {}).sort((a, b) => Number(a[0]) - Number(b[0]));
+
+                for (const [pageNum, feedback] of pages) {
+                    const rating = feedback.rating === 'up' ? '👍' : feedback.rating === 'down' ? '👎' : '—';
+                    body += `**Page ${pageNum}** ${rating}\n`;
+                    if (feedback.pageType && feedback.pageType !== 'story') {
+                        body += `- Type: ${feedback.pageType}\n`;
+                    }
+                    if (feedback.comment) {
+                        body += `- ${feedback.comment}\n`;
+                    }
+                    body += `\n`;
+                }
+            }
+
+            // Get list of book slugs for labels
+            const bookSlugs = Object.keys(allFeedback);
+            const labels = ['feedback', ...bookSlugs.map(s => `book:${s}`)].join(',');
+
+            // Build GitHub issue URL
+            const title = bookSlugs.length === 1
+                ? `[Feedback] ${allFeedback[bookSlugs[0]].title || bookSlugs[0]}`
+                : `[Feedback] ${bookSlugs.length} books`;
+
+            const issueUrl = `https://github.com/JDerekLomas/funbookies/issues/new?` +
+                `title=${encodeURIComponent(title)}&` +
+                `body=${encodeURIComponent(body)}&` +
+                `labels=${encodeURIComponent(labels)}`;
+
+            window.open(issueUrl, '_blank');
+
+            const status = document.getElementById('feedbackStatus');
+            status.textContent = 'Opened GitHub issue!';
+            setTimeout(() => { status.textContent = ''; }, 3000);
+        }
+
+        function clearAllFeedback() {
+            if (!confirm('Clear all saved feedback? This cannot be undone.')) return;
+
+            // Clear all feedback keys from localStorage
+            const allFeedback = JSON.parse(localStorage.getItem(getAllFeedbackKey()) || '{}');
+            for (const [slug, bookData] of Object.entries(allFeedback)) {
+                for (const pageNum of Object.keys(bookData.pages || {})) {
+                    localStorage.removeItem(getFeedbackKey(slug, pageNum));
+                }
+            }
+            localStorage.removeItem(getAllFeedbackKey());
+
+            // Reset UI
+            loadFeedback();
+            updateFeedbackCount();
+
+            const status = document.getElementById('feedbackStatus');
+            status.textContent = 'Feedback cleared';
+            setTimeout(() => { status.textContent = ''; }, 3000);
+        }
+
+        function updateFeedbackCount() {
+            if (!editMode) return;
+
+            const allFeedback = JSON.parse(localStorage.getItem(getAllFeedbackKey()) || '{}');
+            let totalPages = 0;
+            for (const bookData of Object.values(allFeedback)) {
+                totalPages += Object.keys(bookData.pages || {}).length;
+            }
+
+            const countEl = document.getElementById('feedbackCount');
+            if (totalPages > 0) {
+                countEl.textContent = `${totalPages} page${totalPages !== 1 ? 's' : ''} with feedback`;
+            } else {
+                countEl.textContent = '';
+            }
+        }
 
         // Load book on page load
         loadBook();

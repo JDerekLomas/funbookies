@@ -71,15 +71,47 @@ def get_reference_path(slug: str) -> Path:
         return None
 
 
-def get_style_description(band: str) -> str:
-    """Get style description based on reading band."""
-    styles = {
+def get_style_description(band: str, book: dict = None) -> str:
+    """Get style description based on reading band and book-specific details."""
+    base_styles = {
         "A": "Simple bold shapes, soft pastel watercolor, minimal detail, toddler-friendly",
         "B": "Playful watercolor, expressive characters, vibrant warm colors",
         "C": "Rich detailed watercolor, dynamic compositions, engaging scenes",
         "D": "Sophisticated illustration, atmospheric lighting, nuanced details"
     }
-    return styles.get(band, styles["B"])
+    return base_styles.get(band, base_styles["B"])
+
+
+# Book-specific style descriptions that match reference images
+BOOK_STYLE_DETAILS = {
+    "d1-the-lighthouse-keeper": """
+        - Maya: young girl with brown windblown hair, orange/red shirt
+        - Grandmother: elderly woman with gray hair, kind eyes, often in rocking chair
+        - Setting: coastal New England, white lighthouse on rocky cliffs
+        - Palette: muted blues, warm sunset oranges, weathered whites
+        - Mood: atmospheric, nostalgic, dramatic coastal weather
+    """,
+    "c3_kitten_adventure": """
+        - Mittens: fluffy orange tabby kitten with white patches
+        - Rabbit: brown cottontail rabbit
+        - Setting: cozy home interior, woven basket, sunny windows
+        - Palette: warm yellows, soft greens, cozy browns
+        - Mood: playful, warm, domestic comfort
+    """,
+    "b5-the-ship-in-the-shell": """
+        - Chuck: young boy with dark hair, blue shirt
+        - Beth: girl with brown braids, yellow dress
+        - Setting: sandy beach, ocean, pink conch shell
+        - Palette: beach pastels, sunset pinks and oranges, ocean blues
+        - Mood: magical, wonder, friendship
+    """,
+    "a1-i-sit": """
+        - Child: simple toddler figure, soft features
+        - Setting: minimal backgrounds, colorful mats
+        - Palette: soft pastels, primary colors
+        - Mood: gentle, simple, comforting
+    """,
+}
 
 
 def generate_page(slug: str, page_num: int, scene: str, ref_path: Path, band: str, config) -> bool:
@@ -94,12 +126,20 @@ def generate_page(slug: str, page_num: int, scene: str, ref_path: Path, band: st
         return True
 
     ref_uri = image_to_base64_uri(ref_path)
-    style = get_style_description(band)
+    base_style = get_style_description(band)
+    book_details = BOOK_STYLE_DETAILS.get(slug, "")
 
-    prompt = f"""Children's book illustration. {scene}
+    prompt = f"""Create ONE SINGLE children's book illustration (not a grid, not multiple panels).
 
-Style: {style}
-Match the style, colors, and character designs from the reference image exactly.
+Scene: {scene}
+
+Base style: {base_style}
+
+Character and setting details from reference:{book_details}
+
+The reference image shows a 9-panel style guide - use it ONLY to match the art style, colors, and character designs. Do NOT recreate the grid layout.
+
+OUTPUT: One single illustration filling the entire frame.
 
 IMPORTANT: Do NOT include any text, words, or letters. Pure illustration only."""
 

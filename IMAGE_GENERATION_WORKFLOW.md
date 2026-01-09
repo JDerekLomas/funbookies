@@ -178,28 +178,47 @@ public/
 
 | Step | Model | Type | Why |
 |------|-------|------|-----|
-| Reference Sheets | `wan2.6-t2i` | Text-to-Image | Creates style guide from scene descriptions |
+| Reference Sheets | `nano-banana-pro` or `gpt-image-1` | Text-to-Image | Highest quality for style guide |
 | Covers | `wan2.6-image` | Image-to-Image | Uses reference as style input |
 | Pages | `wan2.6-image` | Image-to-Image | Uses reference as style input |
 
 ### Model Selection Rationale
 
-**Text-to-Image (`wan2.6-t2i`)** for references:
-- No existing image to work from
-- Prompt describes 9-panel layout and style
-- Output establishes the visual language
+**High-Quality T2I for References** (`nano-banana-pro` or `gpt-image-1`):
+- Reference sheets are the foundation - quality matters most here
+- Better prompt adherence for complex 9-panel layouts
+- Cleaner character designs that propagate to all derived images
+- Worth the extra cost since each reference generates many covers/pages
 
 **Image-to-Image (`wan2.6-image`)** for covers/pages:
 - Reference sheet provides style consistency
 - Scene description provides content
 - Model transfers style from reference to new scene
+- Faster and cheaper for high-volume page generation
 
 ### API Endpoints
 
 ```
-Reference: /vendors/alibaba/v1/wan2.6-t2i/generation
-Covers:    /vendors/alibaba/v1/wan2.6-image/generation
-Pages:     /vendors/alibaba/v1/wan2.6-image/generation
+Reference (preferred): /vendors/google/v1/nano-banana-pro/generation
+Reference (alt):       OpenAI gpt-image-1 / DALL-E
+Covers:                /vendors/alibaba/v1/wan2.6-image/generation
+Pages:                 /vendors/alibaba/v1/wan2.6-image/generation
+```
+
+### Quality vs Speed Tradeoff
+
+```
+                    Quality
+                       ▲
+                       │
+   gpt-image-1  ●      │
+   nano-banana  ●      │      ← Use for REFERENCE SHEETS
+                       │        (1 per book, high impact)
+                       │
+      wan2.6    ●      │      ← Use for COVERS/PAGES
+                       │        (many per book, need speed)
+                       │
+                       └──────────────────────► Speed/Cost
 ```
 
 ## Generation Commands

@@ -38,14 +38,15 @@ An idealized abstraction of how book images are created.
 │                    ▼                                                        │
 │   ┌─────────────────────────────────┐                                       │
 │   │    9-Panel Reference Sheet      │  ← TEXT-TO-IMAGE                     │
+│   │    (1 image, 9 panels)          │    (nano-banana / gpt-image-1)       │
 │   │                                 │                                       │
 │   │  ┌───┬───┬───┐                  │    Prompt:                           │
 │   │  │ 1 │ 2 │ 3 │  Characters      │    - Style description               │
 │   │  ├───┼───┼───┤                  │    - 9 scene vignettes               │
 │   │  │ 4 │ 5 │ 6 │  Objects/Props   │    - "No title text"                 │
 │   │  ├───┼───┼───┤                  │                                       │
-│   │  │ 7 │ 8 │ 9 │  Settings        │                                       │
-│   │  └───┴───┴───┘                  │                                       │
+│   │  │ 7 │ 8 │ 9 │  Settings        │    Output: Single 1024x1024 image    │
+│   │  └───┴───┴───┘                  │    containing all 9 panels           │
 │   │                                 │                                       │
 │   │  Captures: palette, character   │                                       │
 │   │  design, mood, art style        │                                       │
@@ -189,6 +190,7 @@ public/
 - Better prompt adherence for complex 9-panel layouts
 - Cleaner character designs that propagate to all derived images
 - Worth the extra cost since each reference generates many covers/pages
+- **One image = 9 panels** (3x3 grid in single generation)
 
 **Image-to-Image (`wan2.6-image`)** for covers/pages:
 - Reference sheet provides style consistency

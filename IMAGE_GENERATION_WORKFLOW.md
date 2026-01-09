@@ -174,16 +174,44 @@ public/
         └── {slug}.png           # Cover illustrations
 ```
 
+## Models Used
+
+| Step | Model | Type | Why |
+|------|-------|------|-----|
+| Reference Sheets | `wan2.6-t2i` | Text-to-Image | Creates style guide from scene descriptions |
+| Covers | `wan2.6-image` | Image-to-Image | Uses reference as style input |
+| Pages | `wan2.6-image` | Image-to-Image | Uses reference as style input |
+
+### Model Selection Rationale
+
+**Text-to-Image (`wan2.6-t2i`)** for references:
+- No existing image to work from
+- Prompt describes 9-panel layout and style
+- Output establishes the visual language
+
+**Image-to-Image (`wan2.6-image`)** for covers/pages:
+- Reference sheet provides style consistency
+- Scene description provides content
+- Model transfers style from reference to new scene
+
+### API Endpoints
+
+```
+Reference: /vendors/alibaba/v1/wan2.6-t2i/generation
+Covers:    /vendors/alibaba/v1/wan2.6-image/generation
+Pages:     /vendors/alibaba/v1/wan2.6-image/generation
+```
+
 ## Generation Commands
 
 ```bash
-# Step 1: Generate reference sheets
+# Step 1: Generate reference sheets (Text-to-Image)
 uv run python scripts/generate_references.py
 
-# Step 2: Generate covers from references
+# Step 2: Generate covers from references (Image-to-Image)
 uv run python scripts/generate_covers.py
 
-# Step 3: (Future) Generate page images
+# Step 3: (Future) Generate page images (Image-to-Image)
 uv run python scripts/generate_pages.py
 ```
 

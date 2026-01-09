@@ -653,6 +653,7 @@
             flex: 1;
             overflow: hidden;
             background: var(--color-sage-light);
+            position: relative;
         }
 
         .cover-image img {
@@ -661,10 +662,41 @@
             object-fit: cover;
         }
 
+        /* Title overlay on cover image */
+        .cover-title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+
+        .cover-title-overlay h1 {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-weight: 600;
+            color: white;
+            margin: 0;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .cover-title-overlay .author {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 8px;
+        }
+
         .cover-pattern-banner {
-            height: 20%;
+            height: 15%;
+            min-height: 50px;
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .cover-pattern {
@@ -673,25 +705,87 @@
         }
 
         .cover-title-frame {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative;
+            z-index: 1;
             background: rgba(255, 255, 255, 0.95);
-            padding: 10px 24px;
+            padding: 8px 20px;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             text-align: center;
-            max-width: 85%;
+            max-width: 90%;
         }
 
         .cover-title-frame h1 {
             font-family: var(--font-display);
-            font-size: 2.2rem;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
             font-weight: 600;
             color: var(--color-soft-black);
             margin: 0;
             line-height: 1.1;
+        }
+
+        /* Long-form layout for C/D band books */
+        .book-page.long-form {
+            aspect-ratio: 4/3;
+        }
+
+        .page-long-form {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: row;
+            background: var(--color-cream);
+        }
+
+        .long-form-text {
+            flex: 1;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .long-form-text p {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--color-soft-black);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .long-form-text .page-number {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-top: auto;
+            padding-top: 16px;
+        }
+
+        .long-form-image {
+            flex: 1;
+            overflow: hidden;
+            background: var(--color-sage-light);
+        }
+
+        .long-form-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 600px) {
+            .page-long-form {
+                flex-direction: column-reverse;
+            }
+            .long-form-text {
+                flex: none;
+                height: 40%;
+                padding: 16px;
+            }
+            .long-form-image {
+                flex: none;
+                height: 60%;
+            }
         }
 
         /* Navigation */
@@ -1139,8 +1233,47 @@
             const color = colorRaw.toLowerCase();
             const colorDisplay = colorRaw.charAt(0).toUpperCase() + colorRaw.slice(1).toLowerCase();
 
+            // Determine page type - if first page has no type, treat as synthetic cover
+            let pageType = page.type;
+            if (currentPage === 0 && !pageType) {
+                pageType = 'synthetic_cover';
+            }
+
             // Handle different page types
-            switch (page.type) {
+            switch (pageType) {
+                case 'synthetic_cover':
+                    // Generate a cover for books that don't have one
+                    const synthPatternSeed = (currentBook.title || '').length;
+                    const synthPatternSvg = generateCoverPattern(synthPatternSeed);
+                    const synthTitle = currentBook.title || 'Untitled';
+                    const synthScene = page.scene || currentBook.summary || '';
+                    bookPage.innerHTML = `
+                        <div class="page-cover">
+                            <div class="cover-corner-tab">
+                                <div class="corner-ribbon">
+                                    <span class="brand-name">FunBookies</span>
+                                    <span class="level-text">${currentBook.level || ''} Level</span>
+                                </div>
+                            </div>
+                            <div class="cover-image">
+                                <div class="page-image-placeholder" style="display: flex;">
+                                    <div class="scene-icon">📖</div>
+                                    ${synthScene ? `<div class="scene-text">${synthScene}</div>` : ''}
+                                </div>
+                                <div class="cover-title-overlay">
+                                    <h1>${synthTitle}</h1>
+                                </div>
+                            </div>
+                            <div class="cover-pattern-banner">
+                                <div class="cover-pattern">${synthPatternSvg}</div>
+                                <div class="cover-title-frame">
+                                    <h1>${synthTitle}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
                 case 'copyright':
                     bookPage.innerHTML = `
                         <div class="page-copyright">
@@ -1337,6 +1470,7 @@
                     const patternSvg = generateCoverPattern(patternSeed);
                     const coverScene = page.scene || currentBook.summary || '';
                     const coverPlaceholderId = `cover-placeholder`;
+                    const coverTitle = page.text || currentBook.title || 'Untitled';
                     bookPage.innerHTML = `
                         <div class="page-cover">
                             <div class="cover-corner-tab">
@@ -1346,16 +1480,19 @@
                                 </div>
                             </div>
                             <div class="cover-image">
-                                <img src="${coverImgPath}" alt="" onerror="document.getElementById('${coverPlaceholderId}').style.display='flex'; this.style.display='none';">
+                                <img src="${coverImgPath}" alt="${coverTitle}" onerror="document.getElementById('${coverPlaceholderId}').style.display='flex'; this.style.display='none';">
                                 <div id="${coverPlaceholderId}" class="page-image-placeholder" style="display: none;">
                                     <div class="scene-icon">📚</div>
                                     ${coverScene ? `<div class="scene-text">${coverScene}</div>` : ''}
+                                </div>
+                                <div class="cover-title-overlay">
+                                    <h1>${coverTitle}</h1>
                                 </div>
                             </div>
                             <div class="cover-pattern-banner">
                                 <div class="cover-pattern">${patternSvg}</div>
                                 <div class="cover-title-frame">
-                                    <h1>${page.text || currentBook.title || 'Untitled'}</h1>
+                                    <h1>${coverTitle}</h1>
                                 </div>
                             </div>
                         </div>
@@ -1367,19 +1504,45 @@
                     const storyImgPath = getImagePath(page);
                     const sceneDesc = page.scene || '';
                     const placeholderId = `placeholder-${currentPage}`;
-                    bookPage.innerHTML = `
-                        <div class="page-image">
-                            <img src="${storyImgPath}" alt="" onerror="document.getElementById('${placeholderId}').style.display='flex'; this.style.display='none';">
-                            <div id="${placeholderId}" class="page-image-placeholder" style="display: none;">
-                                <div class="scene-icon">🎨</div>
-                                ${sceneDesc ? `<div class="scene-text">${sceneDesc}</div>` : ''}
-                                <div class="coming-soon">Illustration coming soon</div>
+                    const bookBand = currentBook.band || (currentBook.level ? currentBook.level.charAt(0) : 'A');
+                    const isLongForm = bookBand === 'C' || bookBand === 'D';
+                    const storyPageNum = page.story_page || '';
+
+                    if (isLongForm) {
+                        // Long-form layout for C/D band: text left, image right
+                        bookPage.classList.add('long-form');
+                        bookPage.innerHTML = `
+                            <div class="page-long-form">
+                                <div class="long-form-text">
+                                    <p>${page.text || ''}</p>
+                                    ${storyPageNum ? `<div class="page-number">Page ${storyPageNum}</div>` : ''}
+                                </div>
+                                <div class="long-form-image">
+                                    <img src="${storyImgPath}" alt="" onerror="document.getElementById('${placeholderId}').style.display='flex'; this.style.display='none';">
+                                    <div id="${placeholderId}" class="page-image-placeholder" style="display: none;">
+                                        <div class="scene-icon">🎨</div>
+                                        ${sceneDesc ? `<div class="scene-text">${sceneDesc}</div>` : ''}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="page-text">
-                            <p>${page.text || ''}</p>
-                        </div>
-                    `;
+                        `;
+                    } else {
+                        // Standard layout for A/B band: image top, text bottom
+                        bookPage.classList.remove('long-form');
+                        bookPage.innerHTML = `
+                            <div class="page-image">
+                                <img src="${storyImgPath}" alt="" onerror="document.getElementById('${placeholderId}').style.display='flex'; this.style.display='none';">
+                                <div id="${placeholderId}" class="page-image-placeholder" style="display: none;">
+                                    <div class="scene-icon">🎨</div>
+                                    ${sceneDesc ? `<div class="scene-text">${sceneDesc}</div>` : ''}
+                                    <div class="coming-soon">Illustration coming soon</div>
+                                </div>
+                            </div>
+                            <div class="page-text">
+                                <p>${page.text || ''}</p>
+                            </div>
+                        `;
+                    }
             }
 
             // Update navigation

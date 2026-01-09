@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Letter Match - Early Reader - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .game-header h1 { font-size: 1.5rem; }
+
+    .score-badge {
+      background: var(--color-sage-light);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      color: var(--color-sage-dark);
+    }
+
+    .mode-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: var(--space-md);
+      justify-content: center;
+    }
+
+    .mode-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 2px solid var(--color-border);
+      background: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .mode-btn.active {
+      background: var(--color-sage);
+      border-color: var(--color-sage);
+      color: white;
+    }
+
+    .activity-area {
+      text-align: center;
+      padding: var(--space-md) 0;
+    }
+
+    .prompt-text {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--color-charcoal);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* Single Match Mode */
+    .match-single {
+      margin-bottom: var(--space-lg);
+    }
+
+    .target-letter {
+      font-family: var(--font-display);
+      font-size: 10rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+      line-height: 1;
+      text-shadow: 4px 4px 0 var(--color-sage-light);
+      margin-bottom: var(--space-md);
+      cursor: pointer;
+      transition: transform 0.2s;
+      user-select: none;
+    }
+
+    .target-letter:hover { transform: scale(1.05); }
+    .target-letter:active { transform: scale(0.95); }
+
+    .target-letter.speaking {
+      color: var(--color-sage);
+      animation: bounce 0.5s;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .choices-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+      max-width: 320px;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .choice-btn {
+      padding: var(--space-lg);
+      border-radius: var(--border-radius-lg);
+      border: 3px solid var(--color-border);
+      background: white;
+      font-size: 4rem;
+      font-family: var(--font-display);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .choice-btn:hover {
+      border-color: var(--color-sage);
+      transform: scale(1.05);
+    }
+
+    .choice-btn.correct {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+      animation: correctPop 0.5s;
+    }
+
+    .choice-btn.incorrect {
+      border-color: var(--color-terracotta);
+      background: #fef3f2;
+      animation: shake 0.5s;
+    }
+
+    .choice-btn:disabled {
+      cursor: default;
+      transform: none;
+    }
+
+    @keyframes correctPop {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* Memory Match Mode */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 400px;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .memory-card {
+      aspect-ratio: 1;
+      border-radius: var(--border-radius);
+      border: 3px solid var(--color-border);
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      font-size: 2rem;
+      font-family: var(--font-display);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .memory-card:hover:not(.flipped):not(.matched) {
+      transform: scale(1.05);
+      border-color: var(--color-sage);
+    }
+
+    .memory-card.flipped {
+      background: white;
+      color: var(--color-charcoal);
+      border-color: var(--color-sage);
+    }
+
+    .memory-card.matched {
+      background: var(--color-sage-light);
+      color: var(--color-sage-dark);
+      border-color: var(--color-sage);
+      cursor: default;
+    }
+
+    .memory-card.wrong {
+      animation: shake 0.5s;
+      border-color: var(--color-terracotta);
+    }
+
+    .memory-card .card-back {
+      font-size: 1.5rem;
+    }
+
+    /* Feedback */
+    .feedback {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      min-height: 2em;
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback.correct { color: var(--color-sage-dark); font-weight: 600; }
+    .feedback.incorrect { color: var(--color-terracotta); }
+    .feedback.waiting { color: var(--color-text-muted); }
+
+    .letter-pair {
+      font-size: 1.5rem;
+      margin-top: var(--space-sm);
+    }
+
+    .letter-pair .upper {
+      color: var(--color-sage-dark);
+      font-weight: 600;
+    }
+
+    .letter-pair .lower {
+      color: var(--color-terracotta);
+      font-weight: 600;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-hear {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .btn-hear:hover {
+      background: linear-gradient(135deg, #5a6fd6, #6a4190);
+    }
+
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .progress-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      transition: all 0.2s;
+    }
+
+    .progress-letter.done {
+      background: var(--color-sage);
+      color: white;
+    }
+
+    .progress-letter.current {
+      background: var(--color-terracotta);
+      color: white;
+      transform: scale(1.2);
+    }
+
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      animation: celebrate 0.6s ease-out forwards;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes celebrate {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
+    .streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(135deg, #f39c12, #e74c3c);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .moves-counter {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-sm);
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .target-letter { font-size: 7rem; }
+      .choice-btn { font-size: 3rem; padding: var(--space-md); }
+      .choices-grid { max-width: 280px; gap: var(--space-sm); }
+      .memory-grid { max-width: 320px; }
+      .memory-card { font-size: 1.5rem; }
+      .progress-letter { width: 24px; height: 24px; font-size: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/early-reader/" class="back-link">&larr; Back to Early Reader</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Letter Match <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div>
+          <span class="score-badge">Score: <span id="score">0</span></span>
+          <span id="streakBadge" class="streak-badge hidden">🔥 <span id="streakCount">0</span></span>
+        </div>
+      </div>
+
+      <div class="mode-toggle">
+        <button class="mode-btn active" data-mode="upper-to-lower">A → a</button>
+        <button class="mode-btn" data-mode="lower-to-upper">a → A</button>
+        <button class="mode-btn" data-mode="memory">Memory</button>
+      </div>
+
+      <div class="activity-area">
+        <!-- Single Match Mode -->
+        <div id="singleMode">
+          <div class="prompt-text" id="promptText">Find the matching lowercase letter!</div>
+
+          <div class="match-single">
+            <div class="target-letter" id="targetLetter" onclick="playLetter()">A</div>
+          </div>
+
+          <div class="choices-grid" id="choicesGrid">
+            <button class="choice-btn" onclick="checkAnswer('a')">a</button>
+            <button class="choice-btn" onclick="checkAnswer('b')">b</button>
+            <button class="choice-btn" onclick="checkAnswer('c')">c</button>
+            <button class="choice-btn" onclick="checkAnswer('d')">d</button>
+          </div>
+
+          <div class="feedback waiting" id="feedback">Tap the big letter to hear it!</div>
+
+          <div class="controls">
+            <button class="btn btn-hear" onclick="playLetter()">🔊 Hear Letter</button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextLetter()" disabled>Next →</button>
+          </div>
+
+          <div class="progress" id="progress"></div>
+        </div>
+
+        <!-- Memory Match Mode -->
+        <div id="memoryMode" class="hidden">
+          <div class="prompt-text">Match uppercase and lowercase pairs!</div>
+          <div class="moves-counter">Moves: <span id="movesCount">0</span> | Pairs: <span id="pairsFound">0</span>/6</div>
+          <div class="memory-grid" id="memoryGrid"></div>
+          <div class="feedback waiting" id="memoryFeedback">Flip two cards to find a match!</div>
+          <div class="controls">
+            <button class="btn btn-secondary" onclick="resetMemory()">New Game</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+    // State
+    let mode = 'upper-to-lower'; // 'upper-to-lower', 'lower-to-upper', 'memory'
+    let currentIndex = 0;
+    let completedLetters = new Set();
+    let score = 0;
+    let streak = 0;
+    let answered = false;
+    let currentStudent = null;
+    let sessionStartTime = null;
+
+    // Memory game state
+    let memoryCards = [];
+    let flippedCards = [];
+    let matchedPairs = 0;
+    let moves = 0;
+    let canFlip = true;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupModeButtons();
+
+      // Show student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is learning letters?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+        }
+      }
+
+      sessionStartTime = Date.now();
+      loadLetter();
+      renderProgress();
+
+      // Auto-play first letter
+      setTimeout(() => playLetter(), 500);
+    });
+
+    function setupModeButtons() {
+      document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          mode = btn.dataset.mode;
+
+          if (mode === 'memory') {
+            document.getElementById('singleMode').classList.add('hidden');
+            document.getElementById('memoryMode').classList.remove('hidden');
+            initMemoryGame();
+          } else {
+            document.getElementById('singleMode').classList.remove('hidden');
+            document.getElementById('memoryMode').classList.add('hidden');
+            updatePrompt();
+            loadLetter();
+          }
+        });
+      });
+    }
+
+    function updatePrompt() {
+      const promptEl = document.getElementById('promptText');
+      if (mode === 'upper-to-lower') {
+        promptEl.textContent = 'Find the matching lowercase letter!';
+      } else {
+        promptEl.textContent = 'Find the matching UPPERCASE letter!';
+      }
+    }
+
+    function loadLetter() {
+      answered = false;
+      const letter = alphabet[currentIndex];
+
+      // Update target letter display
+      const targetEl = document.getElementById('targetLetter');
+      if (mode === 'upper-to-lower') {
+        targetEl.textContent = letter;
+      } else {
+        targetEl.textContent = letter.toLowerCase();
+      }
+      targetEl.classList.remove('speaking');
+
+      // Reset UI
+      document.getElementById('feedback').textContent = 'Tap the big letter to hear it!';
+      document.getElementById('feedback').className = 'feedback waiting';
+      document.getElementById('nextBtn').disabled = true;
+
+      // Generate choices
+      generateChoices(letter);
+      renderProgress();
+    }
+
+    function generateChoices(correctLetter) {
+      const container = document.getElementById('choicesGrid');
+      container.innerHTML = '';
+
+      // Get correct answer
+      const correct = mode === 'upper-to-lower'
+        ? correctLetter.toLowerCase()
+        : correctLetter.toUpperCase();
+
+      // Get distractors (visually similar letters when possible)
+      const similarLetters = getSimilarLetters(correctLetter);
+      const distractors = similarLetters
+        .filter(l => l !== correctLetter)
+        .slice(0, 3);
+
+      // Format distractors based on mode
+      const formattedDistractors = distractors.map(l =>
+        mode === 'upper-to-lower' ? l.toLowerCase() : l.toUpperCase()
+      );
+
+      const options = [correct, ...formattedDistractors].sort(() => Math.random() - 0.5);
+
+      options.forEach(letter => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.textContent = letter;
+        btn.onclick = () => checkAnswer(letter);
+        container.appendChild(btn);
+      });
+    }
+
+    function getSimilarLetters(letter) {
+      // Group visually similar letters
+      const similarGroups = {
+        'A': ['A', 'H', 'N', 'M'],
+        'B': ['B', 'D', 'P', 'R'],
+        'C': ['C', 'G', 'O', 'Q'],
+        'D': ['D', 'B', 'P', 'O'],
+        'E': ['E', 'F', 'L', 'T'],
+        'F': ['F', 'E', 'T', 'L'],
+        'G': ['G', 'C', 'O', 'Q'],
+        'H': ['H', 'N', 'M', 'A'],
+        'I': ['I', 'L', 'T', 'J'],
+        'J': ['J', 'I', 'L', 'U'],
+        'K': ['K', 'X', 'Y', 'R'],
+        'L': ['L', 'I', 'T', 'E'],
+        'M': ['M', 'N', 'W', 'H'],
+        'N': ['N', 'M', 'H', 'Z'],
+        'O': ['O', 'Q', 'C', 'D'],
+        'P': ['P', 'B', 'D', 'R'],
+        'Q': ['Q', 'O', 'G', 'C'],
+        'R': ['R', 'P', 'B', 'K'],
+        'S': ['S', 'Z', 'C', 'G'],
+        'T': ['T', 'L', 'I', 'F'],
+        'U': ['U', 'V', 'W', 'J'],
+        'V': ['V', 'U', 'W', 'Y'],
+        'W': ['W', 'M', 'V', 'U'],
+        'X': ['X', 'K', 'Y', 'Z'],
+        'Y': ['Y', 'V', 'X', 'T'],
+        'Z': ['Z', 'N', 'S', 'X'],
+      };
+
+      return similarGroups[letter.toUpperCase()] || [letter, ...alphabet.filter(l => l !== letter).slice(0, 3)];
+    }
+
+    function playLetter() {
+      const targetEl = document.getElementById('targetLetter');
+      const letter = alphabet[currentIndex];
+
+      targetEl.classList.add('speaking');
+
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(letter);
+        utterance.rate = 0.7;
+        utterance.onend = () => targetEl.classList.remove('speaking');
+        speechSynthesis.speak(utterance);
+      } else {
+        setTimeout(() => targetEl.classList.remove('speaking'), 500);
+      }
+    }
+
+    function checkAnswer(selected) {
+      if (answered) return;
+      answered = true;
+
+      const letter = alphabet[currentIndex];
+      const correct = mode === 'upper-to-lower'
+        ? letter.toLowerCase()
+        : letter.toUpperCase();
+
+      const isCorrect = selected === correct;
+
+      const buttons = document.querySelectorAll('.choice-btn');
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === correct) {
+          btn.classList.add('correct');
+        } else if (btn.textContent === selected && !isCorrect) {
+          btn.classList.add('incorrect');
+        }
+      });
+
+      if (isCorrect) {
+        handleCorrect(letter);
+      } else {
+        handleIncorrect(letter);
+      }
+    }
+
+    function handleCorrect(letter) {
+      score++;
+      streak++;
+
+      if (!completedLetters.has(currentIndex)) {
+        completedLetters.add(currentIndex);
+      }
+
+      document.getElementById('score').textContent = score;
+
+      if (streak >= 3) {
+        document.getElementById('streakBadge').classList.remove('hidden');
+        document.getElementById('streakCount').textContent = streak;
+      }
+
+      document.getElementById('feedback').innerHTML =
+        `🎉 Correct! <span class="letter-pair"><span class="upper">${letter}</span> = <span class="lower">${letter.toLowerCase()}</span></span>`;
+      document.getElementById('feedback').className = 'feedback correct';
+      document.getElementById('nextBtn').disabled = false;
+
+      renderProgress();
+      showCelebration();
+
+      // Say both forms
+      if ('speechSynthesis' in window) {
+        setTimeout(() => {
+          const utterance = new SpeechSynthesisUtterance(
+            `${letter}... uppercase ${letter}, lowercase ${letter.toLowerCase()}`
+          );
+          utterance.rate = 0.8;
+          speechSynthesis.speak(utterance);
+        }, 500);
+      }
+    }
+
+    function handleIncorrect(letter) {
+      streak = 0;
+      document.getElementById('streakBadge').classList.add('hidden');
+
+      document.getElementById('feedback').innerHTML =
+        `Not quite! <span class="letter-pair"><span class="upper">${letter}</span> matches <span class="lower">${letter.toLowerCase()}</span></span>`;
+      document.getElementById('feedback').className = 'feedback incorrect';
+      document.getElementById('nextBtn').disabled = false;
+    }
+
+    function nextLetter() {
+      currentIndex = (currentIndex + 1) % 26;
+      loadLetter();
+
+      // Auto-play
+      setTimeout(() => playLetter(), 300);
+    }
+
+    function renderProgress() {
+      const container = document.getElementById('progress');
+      container.innerHTML = '';
+
+      alphabet.forEach((letter, idx) => {
+        const el = document.createElement('div');
+        el.className = 'progress-letter';
+        el.textContent = letter;
+
+        if (completedLetters.has(idx)) {
+          el.classList.add('done');
+        }
+        if (idx === currentIndex) {
+          el.classList.add('current');
+        }
+
+        el.addEventListener('click', () => {
+          currentIndex = idx;
+          loadLetter();
+          playLetter();
+        });
+
+        container.appendChild(el);
+      });
+    }
+
+    // Memory Game Functions
+    function initMemoryGame() {
+      // Pick 6 random letters for 12 cards (6 pairs)
+      const selectedLetters = [...alphabet]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 6);
+
+      // Create pairs (uppercase and lowercase)
+      memoryCards = [];
+      selectedLetters.forEach(letter => {
+        memoryCards.push({ letter: letter, isUpper: true, matched: false });
+        memoryCards.push({ letter: letter.toLowerCase(), isUpper: false, matched: false });
+      });
+
+      // Shuffle
+      memoryCards = memoryCards.sort(() => Math.random() - 0.5);
+
+      // Reset state
+      flippedCards = [];
+      matchedPairs = 0;
+      moves = 0;
+      canFlip = true;
+
+      document.getElementById('movesCount').textContent = '0';
+      document.getElementById('pairsFound').textContent = '0';
+      document.getElementById('memoryFeedback').textContent = 'Flip two cards to find a match!';
+      document.getElementById('memoryFeedback').className = 'feedback waiting';
+
+      renderMemoryGrid();
+    }
+
+    function renderMemoryGrid() {
+      const grid = document.getElementById('memoryGrid');
+      grid.innerHTML = '';
+
+      memoryCards.forEach((card, idx) => {
+        const cardEl = document.createElement('div');
+        cardEl.className = 'memory-card';
+        cardEl.dataset.index = idx;
+        cardEl.innerHTML = '<span class="card-back">?</span>';
+
+        if (card.matched) {
+          cardEl.classList.add('matched');
+          cardEl.textContent = card.letter;
+        }
+
+        cardEl.addEventListener('click', () => flipCard(idx));
+        grid.appendChild(cardEl);
+      });
+    }
+
+    function flipCard(index) {
+      if (!canFlip) return;
+      if (memoryCards[index].matched) return;
+      if (flippedCards.includes(index)) return;
+      if (flippedCards.length >= 2) return;
+
+      // Flip the card
+      const cardEl = document.querySelector(`.memory-card[data-index="${index}"]`);
+      cardEl.classList.add('flipped');
+      cardEl.textContent = memoryCards[index].letter;
+      flippedCards.push(index);
+
+      // Play letter sound
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(memoryCards[index].letter.toUpperCase());
+        utterance.rate = 0.8;
+        speechSynthesis.speak(utterance);
+      }
+
+      // Check for match if two cards flipped
+      if (flippedCards.length === 2) {
+        moves++;
+        document.getElementById('movesCount').textContent = moves;
+        checkMemoryMatch();
+      }
+    }
+
+    function checkMemoryMatch() {
+      canFlip = false;
+      const [idx1, idx2] = flippedCards;
+      const card1 = memoryCards[idx1];
+      const card2 = memoryCards[idx2];
+
+      // Check if they're the same letter (one upper, one lower)
+      const isMatch = card1.letter.toUpperCase() === card2.letter.toUpperCase() &&
+                      card1.isUpper !== card2.isUpper;
+
+      setTimeout(() => {
+        const cardEl1 = document.querySelector(`.memory-card[data-index="${idx1}"]`);
+        const cardEl2 = document.querySelector(`.memory-card[data-index="${idx2}"]`);
+
+        if (isMatch) {
+          // Match found
+          memoryCards[idx1].matched = true;
+          memoryCards[idx2].matched = true;
+          cardEl1.classList.add('matched');
+          cardEl2.classList.add('matched');
+          matchedPairs++;
+
+          document.getElementById('pairsFound').textContent = matchedPairs;
+          document.getElementById('memoryFeedback').textContent =
+            `🎉 Match! ${card1.letter.toUpperCase()} and ${card1.letter.toLowerCase()}`;
+          document.getElementById('memoryFeedback').className = 'feedback correct';
+
+          score++;
+          streak++;
+          document.getElementById('score').textContent = score;
+
+          if (streak >= 3) {
+            document.getElementById('streakBadge').classList.remove('hidden');
+            document.getElementById('streakCount').textContent = streak;
+          }
+
+          showCelebration();
+
+          // Check if game complete
+          if (matchedPairs === 6) {
+            setTimeout(() => {
+              document.getElementById('memoryFeedback').textContent =
+                `🎉 Amazing! You found all pairs in ${moves} moves!`;
+              saveProgress();
+            }, 500);
+          }
+        } else {
+          // No match
+          cardEl1.classList.add('wrong');
+          cardEl2.classList.add('wrong');
+          streak = 0;
+          document.getElementById('streakBadge').classList.add('hidden');
+
+          document.getElementById('memoryFeedback').textContent = 'Not a match. Try again!';
+          document.getElementById('memoryFeedback').className = 'feedback incorrect';
+
+          setTimeout(() => {
+            cardEl1.classList.remove('flipped', 'wrong');
+            cardEl2.classList.remove('flipped', 'wrong');
+            cardEl1.innerHTML = '<span class="card-back">?</span>';
+            cardEl2.innerHTML = '<span class="card-back">?</span>';
+          }, 800);
+        }
+
+        flippedCards = [];
+        canFlip = true;
+      }, 600);
+    }
+
+    function resetMemory() {
+      initMemoryGame();
+    }
+
+    function showCelebration() {
+      const emojis = ['⭐', '🌟', '✨', '🎉', '👏', '🔠'];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      celebration.textContent = emoji;
+      document.body.appendChild(celebration);
+
+      setTimeout(() => celebration.remove(), 600);
+    }
+
+    async function saveProgress() {
+      if (currentStudent && window.FunBookiesDB) {
+        try {
+          await window.FunBookiesDB.saveActivity({
+            studentId: currentStudent.id,
+            type: 'letter-match',
+            level: 'A0',
+            score: score,
+            total: mode === 'memory' ? 6 : completedLetters.size,
+            duration: Math.round((Date.now() - sessionStartTime) / 1000),
+            details: { mode, streak, moves: mode === 'memory' ? moves : undefined }
+          });
+        } catch (e) {
+          console.error('Failed to save:', e);
+        }
+      }
+    }
+
+    // Save progress when leaving
+    window.addEventListener('beforeunload', saveProgress);
+  </script>
+</body>
+</html>

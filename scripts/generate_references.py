@@ -101,14 +101,16 @@ def build_reference_prompt(slug: str, book_info: dict) -> str:
     while len(panel_descriptions) < 9:
         panel_descriptions.append(f"Panel {len(panel_descriptions)+1}: Character or setting detail from {book_info['title']}")
 
-    prompt = f"""A 9-panel reference sheet for children's book "{book_info['title']}".
+    prompt = f"""A 9-panel reference sheet for children's book illustration style.
 Style: {book_style}
 Mood: {style_template['mood']}
 
 The 9 panels arranged in a 3x3 grid showing:
 {chr(10).join(panel_descriptions[:9])}
 
-Consistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character."""
+Consistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.
+
+IMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."""
 
     return prompt
 

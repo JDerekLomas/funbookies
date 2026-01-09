@@ -922,18 +922,119 @@
                 display: none;
             }
         }
+
+        /* Edit Mode Styles */
+        body.edit-mode {
+            background: var(--color-charcoal);
+        }
+
+        body.edit-mode .reader-container {
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        body.edit-mode .book-page {
+            max-width: 100%;
+        }
+
+        .reference-panel {
+            display: none;
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: 16px;
+            height: fit-content;
+        }
+
+        body.edit-mode .reference-panel {
+            display: block;
+        }
+
+        .reference-panel h3 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: var(--color-charcoal);
+        }
+
+        .reference-panel img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+        }
+
+        .reference-panel .no-reference {
+            padding: 40px;
+            text-align: center;
+            color: var(--color-text-muted);
+            background: var(--color-cream);
+            border-radius: 8px;
+        }
+
+        .edit-info {
+            margin-top: 16px;
+            padding: 12px;
+            background: var(--color-cream);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .edit-info label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--color-text-muted);
+        }
+
+        .edit-info .value {
+            color: var(--color-charcoal);
+            word-break: break-all;
+        }
+
+        .mode-toggle {
+            background: var(--color-sage);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .mode-toggle:hover {
+            background: var(--color-sage-dark);
+            opacity: 1;
+        }
+
+        @media (max-width: 900px) {
+            body.edit-mode .reader-container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <header class="reader-header">
-        <a href="/books/">← Back to Books</a>
+        <a href="/">← Back to Books</a>
         <span class="book-title" id="bookTitle">Loading...</span>
-        <a href="/editor/">Edit</a>
+        <a href="#" id="modeToggle" class="mode-toggle">Edit</a>
     </header>
 
     <div class="reader-container">
         <div class="book-page" id="bookPage">
             <div class="loading">Loading book...</div>
+        </div>
+
+        <div class="reference-panel" id="referencePanel">
+            <h3>Reference Image</h3>
+            <img id="referenceImage" src="" alt="Reference" onerror="this.style.display='none'; document.getElementById('noReference').style.display='block';">
+            <div id="noReference" class="no-reference" style="display: none;">No reference image available</div>
+            <div class="edit-info" id="editInfo">
+                <div><label>Book Slug</label><span class="value" id="infoSlug">-</span></div>
+                <div style="margin-top: 8px;"><label>Level</label><span class="value" id="infoLevel">-</span></div>
+                <div style="margin-top: 8px;"><label>Current Page</label><span class="value" id="infoPage">-</span></div>
+                <div style="margin-top: 8px;"><label>Scene Description</label><span class="value" id="infoScene">-</span></div>
+            </div>
         </div>
 
         <nav class="reader-nav">
@@ -960,9 +1061,15 @@
         let currentPage = 0;
         let bookSlug = '';
 
-        // Get book ID from URL params
+        // Get book ID and mode from URL params
         const urlParams = new URLSearchParams(window.location.search);
         const bookId = urlParams.get('book');
+        const editMode = urlParams.get('mode') === 'edit';
+
+        // Apply edit mode class to body
+        if (editMode) {
+            document.body.classList.add('edit-mode');
+        }
 
         // Legacy book registry for old books with custom image paths
         const legacyImagePaths = {
@@ -998,7 +1105,10 @@
                 currentPage = 0;
 
                 document.getElementById('bookTitle').textContent = currentBook.title;
-                document.title = `${currentBook.title} - FunBookies`;
+                document.title = `${currentBook.title} - FunBookies${editMode ? ' (Edit)' : ''}`;
+
+                // Initialize edit mode UI
+                initEditMode();
 
                 renderPage();
             } catch (e) {
@@ -1009,7 +1119,56 @@
             }
         }
 
+        function getCoverImagePath() {
+            const slug = currentBook._slug || bookSlug;
+            return `/images/covers/${slug}.png`;
+        }
+
+        function getReferenceImagePath() {
+            const slug = currentBook._slug || bookSlug;
+            return `/books/references/${slug}_reference.png`;
+        }
+
+        function initEditMode() {
+            const slug = currentBook._slug || bookSlug;
+
+            // Set up mode toggle link
+            const modeToggle = document.getElementById('modeToggle');
+            if (editMode) {
+                modeToggle.textContent = 'Read';
+                modeToggle.href = `/reader.html?book=${slug}`;
+            } else {
+                modeToggle.textContent = 'Edit';
+                modeToggle.href = `/reader.html?book=${slug}&mode=edit`;
+            }
+
+            // Load reference image
+            if (editMode) {
+                const refImg = document.getElementById('referenceImage');
+                refImg.src = getReferenceImagePath();
+                refImg.style.display = 'block';
+                document.getElementById('noReference').style.display = 'none';
+
+                // Set initial edit info
+                document.getElementById('infoSlug').textContent = slug;
+                document.getElementById('infoLevel').textContent = currentBook.level || 'N/A';
+            }
+        }
+
+        function updateEditInfo() {
+            if (!editMode || !currentBook) return;
+
+            const page = currentBook.pages[currentPage];
+            document.getElementById('infoPage').textContent = `${currentPage + 1} / ${currentBook.pages.length}`;
+            document.getElementById('infoScene').textContent = page?.scene || page?.text || 'No description';
+        }
+
         function getImagePath(page) {
+            // For cover pages, use the cover image
+            if (page.type === 'cover' || (page.page === 1 && !page.type)) {
+                return getCoverImagePath();
+            }
+
             // Use explicit image path if available in page data
             if (page.image) {
                 return `/books/${page.image}`;
@@ -1549,6 +1708,9 @@
             document.getElementById('pageIndicator').textContent = `${currentPage + 1} / ${currentBook.pages.length}`;
             document.getElementById('prevBtn').disabled = currentPage === 0;
             document.getElementById('nextBtn').disabled = currentPage >= currentBook.pages.length - 1;
+
+            // Update edit mode info
+            updateEditInfo();
         }
 
         function prevPage() {

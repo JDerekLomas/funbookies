@@ -491,3 +491,71 @@ from the reference sheet. Square format, character-focused composition.
 - Maintain the muted earthy palette across all generations
 - Keep character proportions consistent (reference the character panels)
 - Match lighting warmth to the reference sheet's overall tone
+
+---
+
+## Automated Image Generation
+
+### Scripts
+
+Three Python scripts automate the image generation workflow:
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/generate_references.py` | Generate 9-panel reference sheets for UFLI curriculum books |
+| `scripts/generate_legacy_refs.py` | Generate reference sheets for legacy books with custom styles |
+| `scripts/generate_covers.py` | Generate covers from reference images using image-to-image |
+
+### Running the Scripts
+
+```bash
+# From the mulerouter skill directory
+cd /path/to/mulerouter-skills
+
+# Generate reference images
+uv run python /path/to/lilbookies/scripts/generate_references.py
+
+# Generate covers from references
+uv run python /path/to/lilbookies/scripts/generate_covers.py
+```
+
+### No-Text Policy for Covers
+
+**IMPORTANT:** Cover images should NOT contain any text, titles, or words.
+
+The prompts explicitly instruct:
+```
+IMPORTANT: Do NOT include any text, titles, words, or letters in the image.
+Pure illustration only.
+```
+
+Text overlays (book titles) are added dynamically by the reader UI, not baked into images. This allows:
+- Consistent typography across all books
+- Easy title updates without regenerating images
+- Cleaner illustrations
+
+### Image Paths
+
+| Type | Path | Example |
+|------|------|---------|
+| Reference | `/books/references/{slug}_reference.png` | `/books/references/a0-look_reference.png` |
+| Cover | `/images/covers/{slug}.png` | `/images/covers/a0-look.png` |
+| Page | `/books/images/{slug}_page{NN}.png` | `/books/images/a0-look_page02.png` |
+
+---
+
+## Reader/Editor URLs
+
+Books can be viewed in two modes:
+
+| Mode | URL | Description |
+|------|-----|-------------|
+| Read | `/reader.html?book={slug}` | Full-screen reading experience |
+| Edit | `/reader.html?book={slug}&mode=edit` | Side-by-side with reference image |
+
+### Edit Mode Features
+
+- Shows 9-panel reference image alongside book page
+- Displays current page scene description
+- Shows book metadata (slug, level)
+- Toggle button to switch between modes

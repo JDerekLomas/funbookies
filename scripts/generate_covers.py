@@ -43,20 +43,30 @@ def download_image(url: str, output_path: Path) -> bool:
 
 
 def get_cover_prompt(book_path: Path) -> str:
-    """Extract cover scene description from book JSON."""
+    """Extract cover scene description from book JSON.
+
+    IMPORTANT: Prompts explicitly exclude text/titles - covers should be
+    pure illustrations. Text overlays are added by the reader UI.
+    """
     with open(book_path) as f:
         book = json.load(f)
 
-    title = book.get("title", "Book")
-
-    # Find cover page
+    # Find cover page scene description
+    scene = ""
     for page in book.get("pages", []):
         if page.get("type") == "cover" or page.get("page") == 1:
             scene = page.get("scene", "")
-            if scene:
-                return f"Children's book cover illustration for '{title}'. {scene} Soft watercolor illustration style, warm colors, cute whimsical style for young children aged 4-7."
+            break
 
-    return f"Children's book cover illustration for '{title}'. Soft watercolor illustration style, warm colors, cute whimsical style for young children aged 4-7."
+    if not scene:
+        scene = book.get("summary", "A charming scene")
+
+    # Build prompt WITHOUT any text/title instructions
+    return f"""Children's book cover illustration. {scene}
+
+Style: Soft watercolor illustration, warm colors, cute whimsical style for young children aged 4-7.
+
+IMPORTANT: Do NOT include any text, titles, words, or letters in the image. Pure illustration only."""
 
 
 def generate_cover(slug: str, config) -> bool:

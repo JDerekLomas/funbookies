@@ -139,13 +139,15 @@ def generate_reference(slug: str, config) -> bool:
 
     panel_text = "\n".join([f"Panel {i+1}: {p}" for i, p in enumerate(book_info["panels"])])
 
-    prompt = f"""A 9-panel reference sheet for children's book "{book_info['title']}".
+    prompt = f"""A 9-panel reference sheet for children's book illustration style.
 Style: {book_info['style']}
 
 The 9 panels arranged in a 3x3 grid showing:
 {panel_text}
 
-Consistent art style across all panels, suitable for children's picture book illustration. Warm, friendly, watercolor style."""
+Consistent art style across all panels, suitable for children's picture book illustration. Warm, friendly, watercolor style.
+
+IMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."""
 
     print(f"  Title: {book_info['title']}")
     print(f"  Style: {book_info['style']}")

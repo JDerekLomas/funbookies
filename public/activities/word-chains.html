@@ -313,6 +313,7 @@
 <body>
   <script src="/js/data-service.js"></script>
   <script src="/js/student-picker.js"></script>
+  <script src="/js/audio-utils.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -413,6 +414,9 @@
     document.addEventListener('DOMContentLoaded', async () => {
       setupLevelButtons();
 
+      // Preload letter sounds
+      AudioUtils.preloadLetters('sounds').catch(() => {});
+
       // Student picker
       if (window.StudentPicker) {
         const picker = new StudentPicker({
@@ -430,6 +434,16 @@
 
       sessionStartTime = Date.now();
       startNewChain();
+
+      // Play audio intro on first visit
+      const lastIntro = localStorage.getItem('word-chains-intro');
+      const oneDay = 24 * 60 * 60 * 1000;
+      if (!lastIntro || Date.now() - parseInt(lastIntro) > oneDay) {
+        setTimeout(() => {
+          AudioUtils.playInstruction('word-chains-intro', 'Change one letter to make a new word!');
+          localStorage.setItem('word-chains-intro', Date.now().toString());
+        }, 800);
+      }
     });
 
     function setupLevelButtons() {

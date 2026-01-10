@@ -180,6 +180,7 @@
 <body>
   <script src="/js/data-service.js"></script>
   <script src="/js/student-picker.js"></script>
+  <script src="/js/audio-utils.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -361,6 +362,9 @@
     document.addEventListener('DOMContentLoaded', async () => {
       setupLevelButtons();
 
+      // Preload letter sounds
+      AudioUtils.preloadLetters('sounds').catch(() => {});
+
       // Show student picker
       const picker = new StudentPicker({
         title: 'Who is blending words?',
@@ -386,6 +390,16 @@
 
       sessionStartTime = Date.now();
       startRound();
+
+      // Play audio intro on first visit
+      const lastIntro = localStorage.getItem('blend-it-intro');
+      const oneDay = 24 * 60 * 60 * 1000;
+      if (!lastIntro || Date.now() - parseInt(lastIntro) > oneDay) {
+        setTimeout(() => {
+          AudioUtils.playInstruction('blend-it-intro', 'Tap each box to hear the sounds. Then blend them together!');
+          localStorage.setItem('blend-it-intro', Date.now().toString());
+        }, 800);
+      }
     });
 
     function setupLevelButtons() {

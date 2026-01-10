@@ -310,16 +310,18 @@
     }
 
     .case-toggle {
-      font-size: 0.75rem;
-      padding: 4px 8px;
+      font-size: 0.9rem;
+      padding: 10px 20px;
       background: var(--color-cream);
-      border: 1px solid var(--color-border);
-      border-radius: 4px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius);
       cursor: pointer;
+      min-height: 44px;
     }
 
     .case-toggle:hover {
       background: var(--color-sage-light);
+      border-color: var(--color-sage);
     }
 
     @media (max-width: 480px) {
@@ -332,6 +334,7 @@
 <body>
   <script src="/js/data-service.js"></script>
   <script src="/js/student-picker.js"></script>
+  <script src="/js/audio-utils.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -368,8 +371,8 @@
         </div>
         <div class="setup-row">
           <span class="setup-label">Auto:</span>
-          <button class="chip" data-auto="off">Off</button>
-          <button class="chip active" data-auto="on">On</button>
+          <button class="chip active" data-auto="off">Off</button>
+          <button class="chip" data-auto="on">On</button>
         </div>
       </div>
 
@@ -457,7 +460,7 @@
     let currentMode = 'sounds';
     let currentSet = '1';
     let currentSpeed = 'medium';
-    let autoAdvance = true;
+    let autoAdvance = false; // Default OFF for young learners
     let showUppercase = true;
 
     let letters = [];
@@ -473,6 +476,10 @@
     document.addEventListener('DOMContentLoaded', async () => {
       setupButtons();
 
+      // Preload letter sounds in background
+      AudioUtils.preloadLetters('sounds').catch(() => {});
+      AudioUtils.preloadLetters('names').catch(() => {});
+
       // Student picker
       if (window.StudentPicker) {
         const picker = new StudentPicker({
@@ -486,6 +493,16 @@
           badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
           badge.classList.remove('hidden');
         }
+      }
+
+      // Play audio intro on first visit
+      const lastIntro = localStorage.getItem('letter-drill-intro');
+      const oneDay = 24 * 60 * 60 * 1000;
+      if (!lastIntro || Date.now() - parseInt(lastIntro) > oneDay) {
+        setTimeout(() => {
+          AudioUtils.playInstruction('letter-drill-intro', 'Look at the letter. Say its sound out loud!');
+          localStorage.setItem('letter-drill-intro', Date.now().toString());
+        }, 500);
       }
     });
 
@@ -607,20 +624,16 @@
       const letter = letters[currentIndex];
       const card = document.getElementById('letterCard');
 
-      // Stop previous audio
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-      }
-
       card.classList.add('playing');
 
-      const type = currentMode === 'sounds' ? 'sounds' : 'names';
-      currentAudio = new Audio(`/activities/letter-sounds/openai-us/${type}/${letter}.mp3`);
-      currentAudio.play().catch(e => console.error('Audio error:', e));
-      currentAudio.onended = () => {
-        card.classList.remove('playing');
-      };
+      const type = currentMode === 'sounds' ? 'sound' : 'name';
+      AudioUtils.playLetterSound(letter, type)
+        .then(() => {
+          card.classList.remove('playing');
+        })
+        .catch(() => {
+          card.classList.remove('playing');
+        });
     }
 
     function markCorrect() {

@@ -263,6 +263,7 @@
 <body>
   <script src="/js/data-service.js"></script>
   <script src="/js/student-picker.js"></script>
+  <script src="/js/audio-utils.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -403,24 +404,17 @@
       window.speechSynthesis.speak(utterance);
     }
 
-    // Use pre-recorded audio files for letter sounds
+    // Use pre-recorded audio files for letter sounds (via AudioUtils for caching)
     let voiceMode = 'names'; // 'names' or 'sounds'
-    let letterAudio = null;
 
     function speakLetter(letter) {
-      if (letterAudio) {
-        letterAudio.pause();
-        letterAudio.currentTime = 0;
-      }
-      const type = voiceMode === 'sounds' ? 'sounds' : 'names';
-      letterAudio = new Audio(`/activities/letter-sounds/openai-us/${type}/${letter.toLowerCase()}.mp3`);
-      letterAudio.play().catch(() => {
-        // Fallback to Web Speech API if audio fails
-        const fallbackNames = {a:'A',b:'B',c:'C',d:'D',e:'E',f:'F',g:'G',h:'H',i:'I',j:'J',k:'K',l:'L',m:'M',n:'N',o:'O',p:'P',q:'Q',r:'R',s:'S',t:'T',u:'U',v:'V',w:'W',x:'X',y:'Y',z:'Z'};
-        speak(fallbackNames[letter.toLowerCase()] || letter, 0.8);
-      });
+      const type = voiceMode === 'sounds' ? 'sound' : 'name';
+      AudioUtils.playLetterSound(letter, type).catch(() => {});
     }
-    function speakWord(word) { speak(word, 0.75); }
+
+    function speakWord(word) {
+      AudioUtils.playWord(word).catch(() => {});
+    }
 
     // Helper to get icon image tag
     function getWordIcon(word) {
@@ -666,6 +660,10 @@
     document.addEventListener('DOMContentLoaded', async () => {
       setupLevelButtons();
 
+      // Preload letter sounds in background
+      AudioUtils.preloadLetters('sounds').catch(() => {});
+      AudioUtils.preloadLetters('names').catch(() => {});
+
       // Show student picker
       const picker = new StudentPicker({
         title: 'Who is building words?',
@@ -691,6 +689,16 @@
 
       sessionStartTime = Date.now();
       newWord();
+
+      // Play audio intro on first visit (or after 24 hours)
+      const lastIntro = localStorage.getItem('word-builder-intro');
+      const oneDay = 24 * 60 * 60 * 1000;
+      if (!lastIntro || Date.now() - parseInt(lastIntro) > oneDay) {
+        setTimeout(() => {
+          AudioUtils.playInstruction('word-builder-intro', 'Look at the picture. Tap the letters to spell the word!');
+          localStorage.setItem('word-builder-intro', Date.now().toString());
+        }, 500);
+      }
     });
 
     function setupLevelButtons() {

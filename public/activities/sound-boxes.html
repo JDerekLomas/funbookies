@@ -305,6 +305,7 @@
 <body>
   <script src="/js/data-service.js"></script>
   <script src="/js/student-picker.js"></script>
+  <script src="/js/audio-utils.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -431,6 +432,9 @@
       setupLevelButtons();
       setupDragAndDrop();
 
+      // Preload letter sounds
+      AudioUtils.preloadLetters('sounds').catch(() => {});
+
       // Student picker
       if (window.StudentPicker) {
         const picker = new StudentPicker({
@@ -448,6 +452,16 @@
 
       sessionStartTime = Date.now();
       startRound();
+
+      // Play audio intro on first visit
+      const lastIntro = localStorage.getItem('sound-boxes-intro');
+      const oneDay = 24 * 60 * 60 * 1000;
+      if (!lastIntro || Date.now() - parseInt(lastIntro) > oneDay) {
+        setTimeout(() => {
+          AudioUtils.playInstruction('sound-boxes-intro', 'Listen to the word. Drag each sound into a box!');
+          localStorage.setItem('sound-boxes-intro', Date.now().toString());
+        }, 800);
+      }
     });
 
     function setupLevelButtons() {

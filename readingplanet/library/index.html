@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library - ReadingPlanet</title>
+    <link rel="icon" type="image/svg+xml" href="/readingplanet/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/readingplanet/styles/shared.css">
+    <style>
+        .page-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-lg) 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .back-link:hover {
+            color: var(--color-text);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .filters {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-lg) 0;
+            border-bottom: 1px solid var(--color-border);
+            overflow-x: auto;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .filter-btn {
+            padding: var(--space-sm) var(--space-md);
+            background: var(--color-bg-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-btn:hover {
+            background: var(--color-border);
+        }
+
+        .filter-btn.active {
+            background: var(--color-navy);
+            border-color: var(--color-navy);
+            color: white;
+        }
+
+        .library-content {
+            padding: var(--space-xl) 0;
+        }
+
+        .text-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .text-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all var(--transition-base);
+            cursor: pointer;
+        }
+
+        .text-card:hover {
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .text-cover {
+            height: 160px;
+            background: linear-gradient(135deg, var(--color-bg-alt), var(--color-border));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .text-info {
+            padding: var(--space-md);
+        }
+
+        .text-genre {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-accent);
+            margin-bottom: var(--space-xs);
+        }
+
+        .text-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+            color: var(--color-text);
+        }
+
+        .text-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+        }
+
+        .coming-soon {
+            text-align: center;
+            padding: var(--space-3xl);
+        }
+
+        .coming-soon-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .coming-soon h2 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .coming-soon p {
+            color: var(--color-text-muted);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <script src="/readingplanet/js/data-service.js"></script>
+    <script src="/readingplanet/js/student-picker.js"></script>
+
+    <header class="page-header">
+        <div class="container">
+            <a href="/readingplanet/" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+                Back to Home
+            </a>
+            <div class="header-content">
+                <h1 class="page-title">Library</h1>
+                <div class="form-group" style="margin: 0; width: 250px;">
+                    <input type="search" class="form-input" placeholder="Search texts...">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="filters">
+            <div class="filter-group">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">Articles</button>
+                <button class="filter-btn">Stories</button>
+                <button class="filter-btn">Novels</button>
+            </div>
+            <div class="filter-group">
+                <button class="filter-btn">Grade 4-5</button>
+                <button class="filter-btn">Grade 6-7</button>
+                <button class="filter-btn">Grade 8+</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="library-content">
+        <div class="container">
+            <!-- Placeholder for Phase 1 -->
+            <div class="coming-soon">
+                <div class="coming-soon-icon">📚</div>
+                <h2>Library Coming Soon</h2>
+                <p>We're building a collection of high-interest texts for older readers. Check back soon!</p>
+            </div>
+
+            <!-- Example of what text cards will look like -->
+            <!--
+            <div class="text-grid">
+                <div class="text-card">
+                    <div class="text-cover">🏀</div>
+                    <div class="text-info">
+                        <div class="text-genre">Sports</div>
+                        <h3 class="text-title">The Science of the Perfect Free Throw</h3>
+                        <div class="text-meta">
+                            <span>Article</span>
+                            <span>•</span>
+                            <span>720L</span>
+                            <span>•</span>
+                            <span>5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+        </div>
+    </main>
+
+    <script>
+        // Filter button toggle
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // For now, just toggle active state within group
+                const group = btn.closest('.filter-group');
+                group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

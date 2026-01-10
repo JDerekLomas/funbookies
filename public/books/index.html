@@ -27,15 +27,15 @@
         }
 
         .logo-icon {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             object-fit: contain;
         }
 
         .logo-text {
             font-family: var(--font-display);
-            font-size: 1.75rem;
-            font-weight: 500;
+            font-size: 2rem;
+            font-weight: 600;
             color: var(--color-soft-black);
         }
 
@@ -67,71 +67,83 @@
 
         .books-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: var(--space-md);
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: var(--space-sm);
+        }
+
+        @media (min-width: 600px) {
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: var(--space-md);
+            }
         }
 
         .book-card {
-            background: var(--color-white);
+            position: relative;
+            aspect-ratio: 1;
             border-radius: var(--border-radius-lg);
             overflow: hidden;
             text-decoration: none;
             transition: all 0.3s ease;
             cursor: pointer;
+            background: var(--color-sage-light);
         }
 
         .book-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
 
-        .book-cover {
-            aspect-ratio: 3/4;
-            overflow: hidden;
-            background: var(--color-sage-light);
-        }
-
-        .book-cover img {
+        .book-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
         }
 
-        .book-card:hover .book-cover img {
-            transform: scale(1.03);
+        .book-card:hover img {
+            transform: scale(1.05);
         }
 
-        .book-info {
-            padding: var(--space-sm) var(--space-md);
+        .book-title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px;
+            text-align: center;
         }
 
         .book-title {
-            font-family: var(--font-body);
+            font-family: var(--font-display);
             font-size: 1rem;
             font-weight: 600;
-            color: var(--color-soft-black);
-            margin-bottom: 6px;
+            color: white;
+            text-shadow:
+                2px 2px 0 #000,
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                0 2px 4px rgba(0,0,0,0.5);
+            line-height: 1.2;
         }
 
-        .book-meta {
-            display: flex;
-            align-items: center;
-            gap: var(--space-xs);
-            flex-wrap: wrap;
-        }
-
-        .book-level {
-            font-size: 0.8rem;
-            padding: 2px 10px;
+        .book-level-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-size: 0.7rem;
+            padding: 3px 8px;
             border-radius: 4px;
-            font-weight: 500;
+            font-weight: 700;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
-        .book-skill {
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-        }
+        .book-level-badge.band-a { background: var(--color-sage); }
+        .book-level-badge.band-b { background: var(--color-dusty-blue); }
+        .book-level-badge.band-c { background: var(--color-terracotta); }
+        .book-level-badge.band-d { background: var(--color-charcoal); }
 
         /* Band sections */
         .band-section {
@@ -175,18 +187,6 @@
             color: var(--color-text-muted);
             margin-left: auto;
         }
-
-        .level-badge {
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-
-        .level-badge.band-a { background: rgba(var(--color-sage-rgb), 0.15); color: var(--color-sage-dark); }
-        .level-badge.band-b { background: rgba(var(--color-dusty-blue-rgb), 0.15); color: var(--color-dusty-blue); }
-        .level-badge.band-c { background: rgba(var(--color-terracotta-rgb), 0.15); color: var(--color-terracotta-dark); }
-        .level-badge.band-d { background: rgba(var(--color-charcoal-rgb), 0.15); color: var(--color-charcoal); }
 
         .empty-band {
             text-align: center;
@@ -548,10 +548,6 @@
             </nav>
         </header>
 
-        <div class="page-header">
-            <h1 class="page-title">Book Library</h1>
-            <p class="page-subtitle">Decodable books organized by reading level</p>
-        </div>
 
         <!-- Continue Reading Section (shown if student has in-progress books) -->
         <section class="continue-section" id="continueSection" style="display: none;">
@@ -823,21 +819,15 @@
             }
 
             grid.innerHTML = books.map(book => {
-                const levelName = levelNames[book.level] || book.skill || book.level;
                 const coverImg = book.coverImg || `/images/covers/${book.slug}.png`;
 
                 return `
                     <a class="book-card" href="/reader.html?book=${book.slug}">
-                        <div class="book-cover">
-                            <img src="${coverImg}" alt="${book.title}" loading="lazy"
-                                 onerror="this.parentElement.style.background='var(--color-sage-light)'">
-                        </div>
-                        <div class="book-info">
+                        <img src="${coverImg}" alt="${book.title}" loading="lazy"
+                             onerror="this.style.display='none'">
+                        <span class="book-level-badge band-${band.toLowerCase()}">${book.level}</span>
+                        <div class="book-title-overlay">
                             <div class="book-title">${book.title}</div>
-                            <div class="book-meta">
-                                <span class="level-badge band-${band.toLowerCase()}">${book.level}</span>
-                                <span class="book-skill">${levelName}</span>
-                            </div>
                         </div>
                     </a>
                 `;

@@ -1659,14 +1659,8 @@
                 modeToggle.href = `/reader.html?book=${slug}&mode=edit`;
             }
 
-            // Load reference image
+            // Set initial edit info
             if (editMode) {
-                const refImg = document.getElementById('referenceImage');
-                refImg.src = getReferenceImagePath();
-                refImg.style.display = 'block';
-                document.getElementById('noReference').style.display = 'none';
-
-                // Set initial edit info
                 document.getElementById('infoSlug').textContent = slug;
                 document.getElementById('infoLevel').textContent = currentBook.level || 'N/A';
             }

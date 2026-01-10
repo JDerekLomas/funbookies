@@ -90,36 +90,108 @@
       "text": "Whether you call it a sport or not, one thing is clear: competitive gaming is here to stay. The next generation of superstars might not throw footballs or shoot baskets. They might clutch keyboards and click mice instead."
     }
   ],
-  "comprehension": [
+  "checkpoints": [
     {
-      "question": "How much money did Kyle Giersdorf win at the Fortnite World Cup?",
-      "type": "multiple-choice",
+      "afterParagraph": 5,
+      "questions": [
+        {
+          "id": "es-1",
+          "type": "literal",
+          "question": "How much money did Kyle Giersdorf win at the Fortnite World Cup?",
+          "format": "multiple-choice",
+          "options": [
+            "$1 million",
+            "$2 million",
+            "$3 million",
+            "$5 million"
+          ],
+          "correctIndex": 2,
+          "hint": "This information is in the first paragraph.",
+          "explanation": "Kyle Giersdorf won $3 million at the Fortnite World Cup in 2019."
+        },
+        {
+          "id": "es-2",
+          "type": "inferential",
+          "question": "Why did competitive gaming grow faster after the internet became widely available?",
+          "format": "multiple-choice",
+          "options": [
+            "Games became cheaper to buy",
+            "Players could compete against anyone in the world",
+            "Television started showing gaming tournaments",
+            "Parents stopped limiting screen time"
+          ],
+          "correctIndex": 1,
+          "hint": "Think about what the internet allowed players to do that they couldn't before.",
+          "explanation": "The internet allowed players to compete against anyone in the world, not just people in their local area."
+        }
+      ]
+    },
+    {
+      "afterParagraph": 8,
+      "questions": [
+        {
+          "id": "es-3",
+          "type": "literal",
+          "question": "How many actions per minute do StarCraft II players make during intense matches?",
+          "format": "multiple-choice",
+          "options": [
+            "100 actions",
+            "200 actions",
+            "300 actions",
+            "500 actions"
+          ],
+          "correctIndex": 2,
+          "hint": "Look for the research study mentioned in the 'Athletes or Just Gamers?' section.",
+          "explanation": "A study found that StarCraft II players make an average of 300 actions per minute during intense matches."
+        },
+        {
+          "id": "es-4",
+          "type": "vocabulary",
+          "question": "In this article, what does 'skeptics' mean?",
+          "format": "multiple-choice",
+          "options": [
+            "People who strongly support something",
+            "People who doubt or question something",
+            "People who don't understand technology",
+            "People who play video games"
+          ],
+          "correctIndex": 1,
+          "hint": "The article says 'Skeptics question whether esports should be called a sport.'",
+          "explanation": "'Skeptics' are people who doubt or question something. In this case, they question whether gaming is really a sport."
+        }
+      ]
+    }
+  ],
+  "endQuestions": [
+    {
+      "id": "es-5",
+      "type": "main-idea",
+      "question": "What is the main idea of this article?",
+      "format": "multiple-choice",
       "options": [
-        "$1 million",
-        "$2 million",
-        "$3 million",
-        "$5 million"
+        "Video games are bad for young people",
+        "Esports has grown from a small hobby into a major global industry",
+        "Traditional sports are better than esports",
+        "Everyone should try to become a professional gamer"
       ],
-      "correctIndex": 2
+      "correctIndex": 1,
+      "hint": "Think about what the whole article is trying to explain.",
+      "explanation": "The article traces how esports grew from small arcade competitions to a billion-dollar global industry with professional players and major tournaments."
     },
     {
-      "question": "According to the article, how many actions per minute do StarCraft II players make during intense matches?",
-      "type": "multiple-choice",
+      "id": "es-6",
+      "type": "inferential",
+      "question": "Based on the article, why do esports supporters compare pro gamers to traditional athletes?",
+      "format": "multiple-choice",
       "options": [
-        "100",
-        "200",
-        "300",
-        "500"
+        "Both groups make a lot of money",
+        "Both require intense training, skill, and mental focus",
+        "Both appear on television",
+        "Both are popular with young fans"
       ],
-      "correctIndex": 2
-    },
-    {
-      "question": "What evidence does the article give to support the idea that esports require real skill?",
-      "type": "short-answer"
-    },
-    {
-      "question": "Do you think esports should be considered a real sport? Why or why not?",
-      "type": "discussion"
+      "correctIndex": 1,
+      "hint": "Look at what the article says about how pro gamers train.",
+      "explanation": "Supporters argue that pro gamers train 10-14 hours daily, work with coaches and psychologists, and need incredible reaction times and mental focus - just like traditional athletes."
     }
   ]
 }

@@ -718,6 +718,439 @@
         </div>
     </div>
 
+    <!-- Comprehension Check Modal -->
+    <div class="comp-overlay" id="compOverlay">
+        <div class="comp-modal">
+            <div class="comp-header">
+                <div class="comp-progress">
+                    <span id="compQuestionNum">Question 1</span>
+                    <span class="comp-progress-dots" id="compProgressDots"></span>
+                </div>
+                <div class="comp-type" id="compType">Comprehension Check</div>
+            </div>
+            <div class="comp-body">
+                <div class="comp-question" id="compQuestion">Loading question...</div>
+                <div class="comp-options" id="compOptions">
+                    <!-- Options rendered here -->
+                </div>
+                <div class="comp-feedback hidden" id="compFeedback">
+                    <div class="comp-feedback-icon" id="compFeedbackIcon"></div>
+                    <div class="comp-feedback-text" id="compFeedbackText"></div>
+                </div>
+                <div class="comp-hint hidden" id="compHint">
+                    <strong>Hint:</strong> <span id="compHintText"></span>
+                </div>
+            </div>
+            <div class="comp-footer">
+                <button class="btn btn-outline" id="compHintBtn">Show Hint</button>
+                <button class="btn btn-primary" id="compSubmitBtn" disabled>Check Answer</button>
+                <button class="btn btn-primary hidden" id="compNextBtn">Next Question</button>
+                <button class="btn btn-primary hidden" id="compContinueBtn">Continue Reading</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of Text Summary -->
+    <div class="comp-summary hidden" id="compSummary">
+        <div class="comp-summary-inner">
+            <div class="comp-summary-header">
+                <div class="comp-summary-emoji" id="summaryEmoji"></div>
+                <h2 class="comp-summary-title" id="summaryTitle">Great Job!</h2>
+                <p class="comp-summary-subtitle" id="summarySubtitle">You finished the article</p>
+            </div>
+            <div class="comp-summary-stats">
+                <div class="comp-summary-stat">
+                    <div class="comp-summary-stat-value" id="summaryScore">0%</div>
+                    <div class="comp-summary-stat-label">Comprehension</div>
+                </div>
+                <div class="comp-summary-stat">
+                    <div class="comp-summary-stat-value" id="summaryCorrect">0/0</div>
+                    <div class="comp-summary-stat-label">Questions</div>
+                </div>
+                <div class="comp-summary-stat">
+                    <div class="comp-summary-stat-value" id="summaryTime">0 min</div>
+                    <div class="comp-summary-stat-label">Time</div>
+                </div>
+            </div>
+            <div class="comp-summary-breakdown" id="summaryBreakdown">
+                <!-- Skill breakdown -->
+            </div>
+            <div class="comp-summary-actions">
+                <a href="/readingplanet/library/" class="btn btn-outline">Back to Library</a>
+                <button class="btn btn-primary" id="summaryDoneBtn">Finish</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Comprehension Check Styles */
+        .comp-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-lg);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .comp-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .comp-modal {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 560px;
+            max-height: 90vh;
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: transform 0.2s ease;
+        }
+
+        .comp-overlay.open .comp-modal {
+            transform: translateY(0);
+        }
+
+        .comp-header {
+            padding: var(--space-lg);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .comp-progress {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .comp-progress-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .comp-progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-border);
+        }
+
+        .comp-progress-dot.correct {
+            background: #22c55e;
+        }
+
+        .comp-progress-dot.incorrect {
+            background: #ef4444;
+        }
+
+        .comp-progress-dot.current {
+            background: var(--color-accent);
+        }
+
+        .comp-type {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-muted);
+            background: var(--color-bg-alt);
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+        }
+
+        .comp-body {
+            padding: var(--space-xl);
+        }
+
+        .comp-question {
+            font-size: 1.125rem;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: var(--space-lg);
+            color: var(--color-text);
+        }
+
+        .comp-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .comp-option {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--color-bg-alt);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: left;
+            font-size: 0.9375rem;
+            line-height: 1.5;
+        }
+
+        .comp-option:hover {
+            border-color: var(--color-accent);
+            background: var(--color-white);
+        }
+
+        .comp-option.selected {
+            border-color: var(--color-accent);
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        .comp-option.correct {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .comp-option.incorrect {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .comp-option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .comp-option-letter {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.8125rem;
+            flex-shrink: 0;
+        }
+
+        .comp-option.selected .comp-option-letter {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: white;
+        }
+
+        .comp-option.correct .comp-option-letter {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: white;
+        }
+
+        .comp-option.incorrect .comp-option-letter {
+            background: #ef4444;
+            border-color: #ef4444;
+            color: white;
+        }
+
+        .comp-feedback {
+            margin-top: var(--space-lg);
+            padding: var(--space-md);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+        }
+
+        .comp-feedback.correct {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .comp-feedback.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .comp-feedback-icon {
+            font-size: 1.5rem;
+        }
+
+        .comp-feedback-text {
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            color: var(--color-text);
+        }
+
+        .comp-hint {
+            margin-top: var(--space-md);
+            padding: var(--space-md);
+            background: #fef3c7;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            color: #92400e;
+        }
+
+        .comp-footer {
+            padding: var(--space-lg);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-md);
+        }
+
+        /* Summary Styles */
+        .comp-summary {
+            position: fixed;
+            inset: 0;
+            background: var(--color-bg);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .comp-summary-inner {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: var(--space-3xl) var(--space-lg);
+            text-align: center;
+        }
+
+        .comp-summary-header {
+            margin-bottom: var(--space-xl);
+        }
+
+        .comp-summary-emoji {
+            font-size: 4rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .comp-summary-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+
+        .comp-summary-subtitle {
+            color: var(--color-text-muted);
+        }
+
+        .comp-summary-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .comp-summary-stat {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .comp-summary-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-navy);
+        }
+
+        .comp-summary-stat-label {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comp-summary-breakdown {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            text-align: left;
+        }
+
+        .comp-summary-breakdown h3 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+
+        .comp-breakdown-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .comp-breakdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .comp-breakdown-label {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+
+        .comp-breakdown-value {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .comp-breakdown-value.good { color: #22c55e; }
+        .comp-breakdown-value.okay { color: #f59e0b; }
+        .comp-breakdown-value.needs-work { color: #ef4444; }
+
+        .comp-summary-actions {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+        }
+
+        /* Checkpoint marker in text */
+        .checkpoint-marker {
+            display: block;
+            margin: var(--space-xl) 0;
+            padding: var(--space-md);
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .checkpoint-marker-inner {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--color-white);
+            border: 1px solid var(--color-accent);
+            border-radius: var(--radius-full);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--color-accent);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .checkpoint-marker-inner:hover {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        .checkpoint-marker.completed .checkpoint-marker-inner {
+            background: #dcfce7;
+            border-color: #22c55e;
+            color: #16a34a;
+        }
+    </style>
+
     <script>
         // State
         let currentText = null;
@@ -869,9 +1302,12 @@
                 document.getElementById('textAuthor').textContent = `By ${text.author}`;
             }
 
-            // Render content with word wrapping for interactions
+            // Setup comprehension checkpoints first
+            setupComprehensionCheckpoints();
+
+            // Render content with word wrapping and checkpoint markers
             const content = document.getElementById('readingContent');
-            content.innerHTML = renderContentWithWords(text.content);
+            content.innerHTML = renderContentWithCheckpoints(text.content);
 
             // Collect all words for TTS
             words = Array.from(content.querySelectorAll('.word'));
@@ -1281,6 +1717,396 @@
                 <p>${message}</p>
                 <a href="/readingplanet/library/" class="btn btn-primary" style="margin-top: var(--space-md);">Back to Library</a>
             `;
+        }
+
+        // ============================================
+        // COMPREHENSION CHECK SYSTEM
+        // ============================================
+
+        // Comprehension state
+        let compState = {
+            checkpoints: [],
+            endQuestions: [],
+            completedCheckpoints: new Set(),
+            currentCheckpoint: null,
+            currentQuestions: [],
+            currentQuestionIndex: 0,
+            selectedAnswer: null,
+            attempts: 0,
+            results: [],
+            totalCorrect: 0,
+            totalQuestions: 0
+        };
+
+        const QUESTION_TYPE_LABELS = {
+            'literal': 'Literal Comprehension',
+            'inferential': 'Inferential',
+            'vocabulary': 'Vocabulary',
+            'main-idea': 'Main Idea'
+        };
+
+        function setupComprehensionCheckpoints() {
+            if (!currentText) return;
+
+            compState.checkpoints = currentText.checkpoints || [];
+            compState.endQuestions = currentText.endQuestions || [];
+            compState.completedCheckpoints = new Set();
+            compState.results = [];
+            compState.totalCorrect = 0;
+            compState.totalQuestions = 0;
+
+            // Setup event listeners for comprehension UI
+            document.getElementById('compHintBtn').addEventListener('click', showCompHint);
+            document.getElementById('compSubmitBtn').addEventListener('click', submitCompAnswer);
+            document.getElementById('compNextBtn').addEventListener('click', nextCompQuestion);
+            document.getElementById('compContinueBtn').addEventListener('click', closeCompCheck);
+            document.getElementById('summaryDoneBtn').addEventListener('click', finishReading);
+        }
+
+        function renderContentWithCheckpoints(content) {
+            if (!Array.isArray(content)) return renderContentWithWords(content);
+
+            let paragraphIndex = 0;
+            let html = '';
+
+            content.forEach((block, index) => {
+                // Render the block
+                switch (block.type) {
+                    case 'heading':
+                        html += `<h2>${wrapWords(block.text)}</h2>`;
+                        break;
+                    case 'paragraph':
+                        html += `<p data-paragraph="${paragraphIndex}">${wrapWords(block.text)}</p>`;
+                        paragraphIndex++;
+                        break;
+                    case 'quote':
+                        html += `<blockquote>${wrapWords(block.text)}</blockquote>`;
+                        paragraphIndex++;
+                        break;
+                    case 'list':
+                        html += `<ul>${block.items.map(item => `<li>${wrapWords(item)}</li>`).join('')}</ul>`;
+                        paragraphIndex++;
+                        break;
+                    default:
+                        html += `<p>${wrapWords(block.text || '')}</p>`;
+                        paragraphIndex++;
+                }
+
+                // Check if there's a checkpoint after this paragraph
+                const checkpoint = compState.checkpoints.find(cp => cp.afterParagraph === paragraphIndex);
+                if (checkpoint) {
+                    html += `
+                        <div class="checkpoint-marker" data-checkpoint="${paragraphIndex}" id="checkpoint-${paragraphIndex}">
+                            <button class="checkpoint-marker-inner" onclick="openCheckpoint(${paragraphIndex})">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 16v-4M12 8h.01"/>
+                                </svg>
+                                Comprehension Check
+                            </button>
+                        </div>
+                    `;
+                }
+            });
+
+            // Add end-of-text checkpoint if there are end questions
+            if (compState.endQuestions && compState.endQuestions.length > 0) {
+                html += `
+                    <div class="checkpoint-marker" data-checkpoint="end" id="checkpoint-end">
+                        <button class="checkpoint-marker-inner" onclick="openEndQuestions()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            Final Questions
+                        </button>
+                    </div>
+                `;
+            }
+
+            return html;
+        }
+
+        function openCheckpoint(paragraphIndex) {
+            const checkpoint = compState.checkpoints.find(cp => cp.afterParagraph === paragraphIndex);
+            if (!checkpoint) return;
+
+            compState.currentCheckpoint = paragraphIndex;
+            compState.currentQuestions = checkpoint.questions;
+            compState.currentQuestionIndex = 0;
+            compState.selectedAnswer = null;
+            compState.attempts = 0;
+
+            showCompQuestion();
+            document.getElementById('compOverlay').classList.add('open');
+        }
+
+        function openEndQuestions() {
+            if (!compState.endQuestions || compState.endQuestions.length === 0) return;
+
+            compState.currentCheckpoint = 'end';
+            compState.currentQuestions = compState.endQuestions;
+            compState.currentQuestionIndex = 0;
+            compState.selectedAnswer = null;
+            compState.attempts = 0;
+
+            showCompQuestion();
+            document.getElementById('compOverlay').classList.add('open');
+        }
+
+        function showCompQuestion() {
+            const question = compState.currentQuestions[compState.currentQuestionIndex];
+            if (!question) return;
+
+            // Reset UI state
+            compState.selectedAnswer = null;
+            compState.attempts = 0;
+
+            // Update header
+            document.getElementById('compQuestionNum').textContent =
+                `Question ${compState.currentQuestionIndex + 1} of ${compState.currentQuestions.length}`;
+            document.getElementById('compType').textContent =
+                QUESTION_TYPE_LABELS[question.type] || 'Comprehension';
+
+            // Update progress dots
+            const dotsHtml = compState.currentQuestions.map((q, i) => {
+                const result = compState.results.find(r => r.questionId === q.id);
+                let dotClass = '';
+                if (result) {
+                    dotClass = result.correct ? 'correct' : 'incorrect';
+                } else if (i === compState.currentQuestionIndex) {
+                    dotClass = 'current';
+                }
+                return `<span class="comp-progress-dot ${dotClass}"></span>`;
+            }).join('');
+            document.getElementById('compProgressDots').innerHTML = dotsHtml;
+
+            // Show question
+            document.getElementById('compQuestion').textContent = question.question;
+
+            // Show options
+            const optionsHtml = question.options.map((option, i) => `
+                <button class="comp-option" data-index="${i}" onclick="selectCompOption(${i})">
+                    <span class="comp-option-letter">${String.fromCharCode(65 + i)}</span>
+                    <span>${option}</span>
+                </button>
+            `).join('');
+            document.getElementById('compOptions').innerHTML = optionsHtml;
+
+            // Hide feedback and hint
+            document.getElementById('compFeedback').classList.add('hidden');
+            document.getElementById('compFeedback').classList.remove('correct', 'incorrect');
+            document.getElementById('compHint').classList.add('hidden');
+
+            // Reset buttons
+            document.getElementById('compHintBtn').classList.remove('hidden');
+            document.getElementById('compSubmitBtn').classList.remove('hidden');
+            document.getElementById('compSubmitBtn').disabled = true;
+            document.getElementById('compNextBtn').classList.add('hidden');
+            document.getElementById('compContinueBtn').classList.add('hidden');
+        }
+
+        function selectCompOption(index) {
+            // Don't allow selection after answer is submitted
+            if (document.querySelector('.comp-option.correct, .comp-option.incorrect')) return;
+
+            compState.selectedAnswer = index;
+
+            // Update UI
+            document.querySelectorAll('.comp-option').forEach((opt, i) => {
+                opt.classList.toggle('selected', i === index);
+            });
+
+            document.getElementById('compSubmitBtn').disabled = false;
+        }
+
+        function submitCompAnswer() {
+            const question = compState.currentQuestions[compState.currentQuestionIndex];
+            if (compState.selectedAnswer === null || !question) return;
+
+            compState.attempts++;
+            const isCorrect = compState.selectedAnswer === question.correctIndex;
+
+            // Update options to show correct/incorrect
+            document.querySelectorAll('.comp-option').forEach((opt, i) => {
+                if (i === question.correctIndex) {
+                    opt.classList.add('correct');
+                } else if (i === compState.selectedAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.classList.add('disabled');
+            });
+
+            // Show feedback
+            const feedback = document.getElementById('compFeedback');
+            feedback.classList.remove('hidden', 'correct', 'incorrect');
+            feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
+
+            document.getElementById('compFeedbackIcon').textContent = isCorrect ? '✓' : '✗';
+            document.getElementById('compFeedbackText').textContent = isCorrect
+                ? question.explanation
+                : (compState.attempts >= 2 ? question.explanation : 'That\'s not quite right. Try again!');
+
+            // If incorrect and first attempt, allow retry
+            if (!isCorrect && compState.attempts < 2) {
+                // Reset for retry
+                setTimeout(() => {
+                    document.querySelectorAll('.comp-option').forEach(opt => {
+                        opt.classList.remove('correct', 'incorrect', 'disabled', 'selected');
+                    });
+                    feedback.classList.add('hidden');
+                    compState.selectedAnswer = null;
+                    document.getElementById('compSubmitBtn').disabled = true;
+                }, 2000);
+                return;
+            }
+
+            // Record result
+            compState.results.push({
+                questionId: question.id,
+                type: question.type,
+                correct: isCorrect,
+                attempts: compState.attempts
+            });
+
+            if (isCorrect) compState.totalCorrect++;
+            compState.totalQuestions++;
+
+            // Save to database
+            if (currentStudent && window.ReadingPlanetDB) {
+                window.ReadingPlanetDB.saveComprehensionCheck({
+                    studentId: currentStudent.id,
+                    textId: currentText.id,
+                    questionId: question.id,
+                    questionType: question.type,
+                    correct: isCorrect,
+                    response: compState.selectedAnswer
+                });
+            }
+
+            // Update buttons
+            document.getElementById('compHintBtn').classList.add('hidden');
+            document.getElementById('compSubmitBtn').classList.add('hidden');
+
+            if (compState.currentQuestionIndex < compState.currentQuestions.length - 1) {
+                document.getElementById('compNextBtn').classList.remove('hidden');
+            } else {
+                document.getElementById('compContinueBtn').classList.remove('hidden');
+            }
+        }
+
+        function nextCompQuestion() {
+            compState.currentQuestionIndex++;
+            showCompQuestion();
+        }
+
+        function showCompHint() {
+            const question = compState.currentQuestions[compState.currentQuestionIndex];
+            if (!question || !question.hint) return;
+
+            document.getElementById('compHintText').textContent = question.hint;
+            document.getElementById('compHint').classList.remove('hidden');
+            document.getElementById('compHintBtn').classList.add('hidden');
+        }
+
+        function closeCompCheck() {
+            document.getElementById('compOverlay').classList.remove('open');
+
+            // Mark checkpoint as completed
+            if (compState.currentCheckpoint !== null) {
+                const marker = document.getElementById(`checkpoint-${compState.currentCheckpoint}`);
+                if (marker) {
+                    marker.classList.add('completed');
+                }
+                compState.completedCheckpoints.add(compState.currentCheckpoint);
+            }
+
+            // If this was the end questions, show summary
+            if (compState.currentCheckpoint === 'end') {
+                showCompSummary();
+            }
+        }
+
+        function showCompSummary() {
+            const score = compState.totalQuestions > 0
+                ? Math.round((compState.totalCorrect / compState.totalQuestions) * 100)
+                : 0;
+
+            // Determine emoji and message
+            let emoji, title, subtitle;
+            if (score >= 80) {
+                emoji = '🌟';
+                title = 'Excellent!';
+                subtitle = 'You have a great understanding of this text.';
+            } else if (score >= 60) {
+                emoji = '👍';
+                title = 'Good Job!';
+                subtitle = 'You understood most of the key ideas.';
+            } else {
+                emoji = '💪';
+                title = 'Keep Practicing!';
+                subtitle = 'Try reading the text again to improve comprehension.';
+            }
+
+            document.getElementById('summaryEmoji').textContent = emoji;
+            document.getElementById('summaryTitle').textContent = title;
+            document.getElementById('summarySubtitle').textContent = subtitle;
+
+            document.getElementById('summaryScore').textContent = `${score}%`;
+            document.getElementById('summaryCorrect').textContent =
+                `${compState.totalCorrect}/${compState.totalQuestions}`;
+            document.getElementById('summaryTime').textContent =
+                `${Math.round(timeSpent / 60)} min`;
+
+            // Breakdown by type
+            const typeResults = {};
+            compState.results.forEach(r => {
+                if (!typeResults[r.type]) {
+                    typeResults[r.type] = { correct: 0, total: 0 };
+                }
+                typeResults[r.type].total++;
+                if (r.correct) typeResults[r.type].correct++;
+            });
+
+            const breakdownHtml = Object.entries(typeResults).map(([type, data]) => {
+                const pct = Math.round((data.correct / data.total) * 100);
+                let valueClass = 'good';
+                if (pct < 50) valueClass = 'needs-work';
+                else if (pct < 75) valueClass = 'okay';
+
+                return `
+                    <div class="comp-breakdown-item">
+                        <span class="comp-breakdown-label">${QUESTION_TYPE_LABELS[type] || type}</span>
+                        <span class="comp-breakdown-value ${valueClass}">${data.correct}/${data.total} (${pct}%)</span>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('summaryBreakdown').innerHTML = `
+                <h3>Skill Breakdown</h3>
+                ${breakdownHtml}
+            `;
+
+            document.getElementById('compSummary').classList.remove('hidden');
+        }
+
+        function finishReading() {
+            document.getElementById('compSummary').classList.add('hidden');
+
+            // Save final progress and mark complete
+            if (currentSession && window.ReadingPlanetDB) {
+                window.ReadingPlanetDB.completeReadingSession(currentSession.id, {
+                    progress: 1,
+                    timeSpentSeconds: timeSpent,
+                    wordsRead: currentText?.wordCount || 0,
+                    comprehensionScore: compState.totalQuestions > 0
+                        ? Math.round((compState.totalCorrect / compState.totalQuestions) * 100)
+                        : null
+                });
+            }
+
+            // Redirect to library
+            window.location.href = '/readingplanet/library/';
         }
     </script>
 </body>

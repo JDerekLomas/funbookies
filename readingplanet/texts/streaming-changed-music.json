@@ -85,36 +85,108 @@
       "text": "Music will keep evolving. But one thing is certain: we'll never go back to the CD era. The way we discover and listen to music has changed forever."
     }
   ],
-  "comprehension": [
+  "checkpoints": [
     {
-      "question": "According to the article, what percentage of music industry revenue comes from streaming today?",
-      "type": "multiple-choice",
+      "afterParagraph": 3,
+      "questions": [
+        {
+          "id": "sm-1",
+          "type": "literal",
+          "question": "How many CDs did Americans buy in 1999?",
+          "format": "multiple-choice",
+          "options": [
+            "140 million",
+            "500 million",
+            "940 million",
+            "1 billion"
+          ],
+          "correctIndex": 2,
+          "hint": "Look in 'The CD Crash' section.",
+          "explanation": "In 1999, Americans bought 940 million CDs - the peak of CD sales."
+        },
+        {
+          "id": "sm-2",
+          "type": "inferential",
+          "question": "Why did CD sales crash after services like Napster appeared?",
+          "format": "multiple-choice",
+          "options": [
+            "CDs became too expensive",
+            "People could download music for free instead",
+            "Radio became more popular",
+            "Music quality got worse"
+          ],
+          "correctIndex": 1,
+          "hint": "What did Napster allow people to do?",
+          "explanation": "When people could download music for free (even though it was illegal), they stopped buying CDs."
+        }
+      ]
+    },
+    {
+      "afterParagraph": 8,
+      "questions": [
+        {
+          "id": "sm-3",
+          "type": "literal",
+          "question": "What percentage of music industry revenue comes from streaming today?",
+          "format": "multiple-choice",
+          "options": [
+            "50%",
+            "65%",
+            "84%",
+            "95%"
+          ],
+          "correctIndex": 2,
+          "hint": "This is mentioned in the 'Streaming Saves the Day' section.",
+          "explanation": "Today, streaming makes up 84% of music industry revenue."
+        },
+        {
+          "id": "sm-4",
+          "type": "vocabulary",
+          "question": "In this article, what does 'revenue' mean?",
+          "format": "multiple-choice",
+          "options": [
+            "The number of songs created",
+            "Money earned from selling products or services",
+            "The number of fans an artist has",
+            "How popular a song becomes"
+          ],
+          "correctIndex": 1,
+          "hint": "The article talks about the music industry losing and gaining money.",
+          "explanation": "'Revenue' means money earned from selling products or services. The music industry earns revenue from CD sales, streaming subscriptions, and other sources."
+        }
+      ]
+    }
+  ],
+  "endQuestions": [
+    {
+      "id": "sm-5",
+      "type": "main-idea",
+      "question": "What is the main idea of this article?",
+      "format": "multiple-choice",
       "options": [
-        "50%",
-        "65%",
-        "84%",
-        "95%"
+        "CDs are better than streaming",
+        "Streaming has completely changed how we listen to music and how the music industry works",
+        "TikTok is the most important music platform",
+        "Artists make more money now than ever before"
       ],
-      "correctIndex": 2
+      "correctIndex": 1,
+      "hint": "Think about what the entire article is explaining.",
+      "explanation": "The article traces how music went from CDs to illegal downloads to streaming, and how this changed the industry, artists, and even how songs are made."
     },
     {
-      "question": "How much does Spotify pay per stream?",
-      "type": "multiple-choice",
+      "id": "sm-6",
+      "type": "inferential",
+      "question": "Based on the article, why are songs getting shorter?",
+      "format": "multiple-choice",
       "options": [
-        "$0.01",
-        "$0.003",
-        "$0.10",
-        "$0.001"
+        "Musicians have less to say",
+        "Recording studios charge by the minute",
+        "Listeners can easily skip songs, so artists try to hook them quickly",
+        "Short songs are easier to make"
       ],
-      "correctIndex": 1
-    },
-    {
-      "question": "How has streaming changed the way songs are made?",
-      "type": "short-answer"
-    },
-    {
-      "question": "Do you think streaming is fair to artists? Explain your thinking.",
-      "type": "discussion"
+      "correctIndex": 2,
+      "hint": "Think about what the article says about how streaming changed songwriting.",
+      "explanation": "Artists know listeners can skip at any time, so they make songs shorter with hooks that come faster to grab attention before people skip."
     }
   ]
 }

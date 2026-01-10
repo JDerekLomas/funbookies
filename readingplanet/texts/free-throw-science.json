@@ -86,36 +86,108 @@
       "text": "So the next time you're at the free throw line, remember: high arc, soft backspin, and aim for the back of the rim. Take a breath, follow your routine, and trust your practice. The science is on your side."
     }
   ],
-  "comprehension": [
+  "checkpoints": [
     {
-      "question": "According to the article, what is the optimal release angle for a free throw?",
-      "type": "multiple-choice",
+      "afterParagraph": 5,
+      "questions": [
+        {
+          "id": "ft-1",
+          "type": "literal",
+          "question": "What is the optimal release angle for a free throw?",
+          "format": "multiple-choice",
+          "options": [
+            "About 45 degrees",
+            "About 52 degrees",
+            "About 60 degrees",
+            "About 30 degrees"
+          ],
+          "correctIndex": 1,
+          "hint": "Look at the paragraph about arc and the research findings.",
+          "explanation": "Research shows the optimal release angle is about 52 degrees, which gives the ball the best angle to fall through the hoop."
+        },
+        {
+          "id": "ft-2",
+          "type": "vocabulary",
+          "question": "In this article, what does 'optimal' mean?",
+          "format": "multiple-choice",
+          "options": [
+            "Average or normal",
+            "The worst possible",
+            "The best or most effective",
+            "Difficult to achieve"
+          ],
+          "correctIndex": 2,
+          "hint": "Think about what kind of angle would help the ball go in.",
+          "explanation": "'Optimal' means the best or most effective. The optimal angle is the one that works best."
+        }
+      ]
+    },
+    {
+      "afterParagraph": 8,
+      "questions": [
+        {
+          "id": "ft-3",
+          "type": "inferential",
+          "question": "Why do professional players' free throw percentages drop during games compared to practice?",
+          "format": "multiple-choice",
+          "options": [
+            "They are too tired from playing",
+            "The pressure and distractions affect them mentally",
+            "The hoops are different sizes",
+            "They don't care as much during practice"
+          ],
+          "correctIndex": 1,
+          "hint": "The article mentions what happens 'with fans screaming and the pressure on.'",
+          "explanation": "The mental game matters - pressure and distractions from the crowd affect players' focus and performance."
+        },
+        {
+          "id": "ft-4",
+          "type": "literal",
+          "question": "What does Stephen Curry do before every free throw?",
+          "format": "multiple-choice",
+          "options": [
+            "Spins the ball in his hands",
+            "Takes three deep breaths",
+            "Bounces the ball three times",
+            "Talks to himself"
+          ],
+          "correctIndex": 2,
+          "hint": "This was mentioned at the beginning and again in the psychology section.",
+          "explanation": "Curry bounces the ball three times before every free throw as part of his consistent routine."
+        }
+      ]
+    }
+  ],
+  "endQuestions": [
+    {
+      "id": "ft-5",
+      "type": "main-idea",
+      "question": "What is the main idea of this article?",
+      "format": "multiple-choice",
       "options": [
-        "About 45 degrees",
-        "About 52 degrees",
-        "About 60 degrees",
-        "About 30 degrees"
+        "Stephen Curry is the best free throw shooter ever",
+        "Free throws are impossible to master",
+        "Both physics and mental preparation contribute to making free throws",
+        "Basketball players should skip free throw practice"
       ],
-      "correctIndex": 1
+      "correctIndex": 2,
+      "hint": "Think about the two main sections of the article.",
+      "explanation": "The article explains that successful free throws require understanding both the physics (arc, backspin, aim) and psychology (routines, focus)."
     },
     {
-      "question": "Why do players develop pre-shot rituals?",
-      "type": "multiple-choice",
+      "id": "ft-6",
+      "type": "inferential",
+      "question": "Based on the article, which advice would most help a player who misses free throws during games but makes them in practice?",
+      "format": "multiple-choice",
       "options": [
-        "To show off for the crowd",
-        "To waste time",
-        "To help block out distractions",
-        "Because the rules require it"
+        "Shoot the ball harder",
+        "Develop a consistent pre-shot routine",
+        "Aim for the front of the rim",
+        "Practice less often"
       ],
-      "correctIndex": 2
-    },
-    {
-      "question": "Why do coaches teach players to aim for the back of the rim?",
-      "type": "short-answer"
-    },
-    {
-      "question": "Think about a skill you've practiced a lot. How did developing a routine help you improve?",
-      "type": "discussion"
+      "correctIndex": 1,
+      "hint": "This player's problem is mental, not physical.",
+      "explanation": "Since the player can make shots in practice, the issue is mental. A consistent routine helps block out game-time distractions."
     }
   ]
 }

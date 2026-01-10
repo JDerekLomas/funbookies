@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary - ReadingPlanet</title>
+    <link rel="icon" type="image/svg+xml" href="/readingplanet/images/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/readingplanet/styles/shared.css">
+
+    <style>
+        .page-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-lg) 0;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            color: var(--color-text-secondary);
+            transition: all var(--transition-fast);
+        }
+
+        .back-btn:hover {
+            background: var(--color-bg-alt);
+            color: var(--color-text);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
+            flex: 1;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: var(--space-xs);
+            background: var(--color-bg-alt);
+            padding: 4px;
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .tab {
+            flex: 1;
+            padding: var(--space-sm) var(--space-md);
+            border: none;
+            background: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .tab:hover {
+            color: var(--color-text);
+        }
+
+        .tab.active {
+            background: var(--color-white);
+            color: var(--color-text);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .stat-box {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+        }
+
+        .stat-box-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
+        .stat-box-label {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin-top: 4px;
+        }
+
+        /* Word bank */
+        .word-bank-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .filter-btn {
+            padding: var(--space-xs) var(--space-md);
+            border: 1px solid var(--color-border);
+            background: var(--color-white);
+            border-radius: var(--radius-full);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        .filter-btn.active {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: white;
+        }
+
+        .word-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .word-card {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .word-card:hover {
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .word-card-word {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--color-text);
+            min-width: 120px;
+        }
+
+        .word-card-def {
+            flex: 1;
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+
+        .word-card-mastery {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .mastery-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .mastery-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-border);
+        }
+
+        .mastery-dot.filled {
+            background: var(--color-teal);
+        }
+
+        .word-card-actions {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .word-action-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--color-border);
+            background: var(--color-white);
+            border-radius: var(--radius-md);
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .word-action-btn:hover {
+            background: var(--color-bg-alt);
+            color: var(--color-text);
+        }
+
+        /* Practice modes */
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .practice-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .practice-card:hover {
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .practice-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-md);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+        }
+
+        .practice-icon.flashcards { background: #dbeafe; }
+        .practice-icon.matching { background: #dcfce7; }
+        .practice-icon.context { background: #fef3c7; }
+        .practice-icon.review { background: #fce7f3; }
+
+        .practice-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--space-xs);
+        }
+
+        .practice-desc {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-md);
+        }
+
+        .practice-meta {
+            font-size: 0.75rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* Flashcard mode */
+        .flashcard-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--space-xl) 0;
+        }
+
+        .flashcard-container.active {
+            display: flex;
+        }
+
+        .flashcard-progress {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-lg);
+        }
+
+        .flashcard {
+            width: 100%;
+            max-width: 400px;
+            min-height: 280px;
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            perspective: 1000px;
+            position: relative;
+        }
+
+        .flashcard:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flashcard-back {
+            display: none;
+        }
+
+        .flashcard.flipped .flashcard-front {
+            display: none;
+        }
+
+        .flashcard.flipped .flashcard-back {
+            display: flex;
+        }
+
+        .flashcard-word {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: var(--space-md);
+        }
+
+        .flashcard-hint {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .flashcard-def {
+            font-size: 1.25rem;
+            color: var(--color-text);
+            margin-bottom: var(--space-md);
+            line-height: 1.5;
+        }
+
+        .flashcard-example {
+            font-size: 0.9375rem;
+            color: var(--color-text-secondary);
+            font-style: italic;
+        }
+
+        .flashcard-buttons {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+        }
+
+        .flash-btn {
+            padding: var(--space-md) var(--space-xl);
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .flash-btn.wrong {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .flash-btn.wrong:hover {
+            background: #fecaca;
+        }
+
+        .flash-btn.right {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .flash-btn.right:hover {
+            background: #bbf7d0;
+        }
+
+        /* Matching game */
+        .matching-container {
+            display: none;
+        }
+
+        .matching-container.active {
+            display: block;
+        }
+
+        .matching-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+
+        .matching-score {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .matching-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+        }
+
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .matching-item {
+            padding: var(--space-md) var(--space-lg);
+            background: var(--color-white);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .matching-item:hover {
+            border-color: var(--color-accent);
+        }
+
+        .matching-item.selected {
+            border-color: var(--color-accent);
+            background: #eff6ff;
+        }
+
+        .matching-item.correct {
+            border-color: #22c55e;
+            background: #dcfce7;
+            pointer-events: none;
+        }
+
+        .matching-item.wrong {
+            border-color: #ef4444;
+            background: #fef2f2;
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        .matching-word {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .matching-def {
+            color: var(--color-text-secondary);
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-3xl);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-md);
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--space-sm);
+        }
+
+        .empty-text {
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* Word detail modal */
+        .word-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-lg);
+        }
+
+        .word-modal-overlay.active {
+            display: flex;
+        }
+
+        .word-modal {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 480px;
+            padding: var(--space-xl);
+        }
+
+        .word-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+
+        .word-modal-word {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .word-modal-close {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+            color: var(--color-text-muted);
+            cursor: pointer;
+        }
+
+        .word-modal-close:hover {
+            background: var(--color-border);
+            color: var(--color-text);
+        }
+
+        .word-modal-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .word-modal-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-xs);
+        }
+
+        .word-modal-content {
+            font-size: 1rem;
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .word-modal-example {
+            font-style: italic;
+            color: var(--color-text-secondary);
+        }
+
+        .word-modal-mastery {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+        }
+
+        .word-modal-mastery-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--color-border);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .word-modal-mastery-fill {
+            height: 100%;
+            background: var(--color-teal);
+            border-radius: var(--radius-full);
+        }
+
+        .word-modal-mastery-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text);
+            min-width: 60px;
+        }
+
+        .word-modal-actions {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-lg);
+        }
+
+        @media (max-width: 768px) {
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .matching-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="/readingplanet/js/data-service.js"></script>
+    <script src="/readingplanet/js/student-picker.js"></script>
+
+    <!-- Header -->
+    <header class="page-header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="/readingplanet/" class="back-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </a>
+                <h1 class="page-title">Vocabulary</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="container" style="padding: var(--space-xl) 0;">
+        <!-- Stats -->
+        <div class="stats-bar">
+            <div class="stat-box">
+                <div class="stat-box-value" id="statTotal">0</div>
+                <div class="stat-box-label">Total Words</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-value" id="statLearning">0</div>
+                <div class="stat-box-label">Learning</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-value" id="statMastered">0</div>
+                <div class="stat-box-label">Mastered</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-value" id="statReview">0</div>
+                <div class="stat-box-label">Due for Review</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="words">My Words</button>
+            <button class="tab" data-tab="practice">Practice</button>
+        </div>
+
+        <!-- My Words Tab -->
+        <div class="tab-content active" id="tab-words">
+            <div class="word-bank-header">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="learning">Learning</button>
+                    <button class="filter-btn" data-filter="mastered">Mastered</button>
+                    <button class="filter-btn" data-filter="review">Due for Review</button>
+                </div>
+            </div>
+
+            <div class="word-list" id="wordList">
+                <div class="empty-state">
+                    <div class="empty-icon">📝</div>
+                    <div class="empty-title">No words saved yet</div>
+                    <div class="empty-text">Tap on words while reading to save them to your vocabulary bank.</div>
+                    <a href="/readingplanet/library/" class="btn btn-primary">Start Reading</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Tab -->
+        <div class="tab-content" id="tab-practice">
+            <!-- Practice selection -->
+            <div class="practice-grid" id="practiceGrid">
+                <div class="practice-card" data-mode="flashcards">
+                    <div class="practice-icon flashcards">🎴</div>
+                    <div class="practice-title">Flashcards</div>
+                    <div class="practice-desc">Review words and definitions</div>
+                    <div class="practice-meta" id="flashcardMeta">0 words to practice</div>
+                </div>
+                <div class="practice-card" data-mode="matching">
+                    <div class="practice-icon matching">🔗</div>
+                    <div class="practice-title">Match It</div>
+                    <div class="practice-desc">Match words to definitions</div>
+                    <div class="practice-meta" id="matchingMeta">Quick matching game</div>
+                </div>
+                <div class="practice-card" data-mode="context">
+                    <div class="practice-icon context">📖</div>
+                    <div class="practice-title">In Context</div>
+                    <div class="practice-desc">Fill in the blank</div>
+                    <div class="practice-meta">Coming soon</div>
+                </div>
+                <div class="practice-card" data-mode="review">
+                    <div class="practice-icon review">🔄</div>
+                    <div class="practice-title">Review Queue</div>
+                    <div class="practice-desc">Words due for review</div>
+                    <div class="practice-meta" id="reviewMeta">0 words due</div>
+                </div>
+            </div>
+
+            <!-- Flashcard mode -->
+            <div class="flashcard-container" id="flashcardMode">
+                <div class="flashcard-progress" id="flashcardProgress">Card 1 of 10</div>
+                <div class="flashcard" id="flashcard">
+                    <div class="flashcard-front">
+                        <div class="flashcard-word" id="flashcardWord">Word</div>
+                        <div class="flashcard-hint">Tap to reveal definition</div>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="flashcard-def" id="flashcardDef">Definition</div>
+                        <div class="flashcard-example" id="flashcardExample">"Example sentence."</div>
+                    </div>
+                </div>
+                <div class="flashcard-buttons" id="flashcardButtons" style="display: none;">
+                    <button class="flash-btn wrong" id="flashWrong">Still Learning</button>
+                    <button class="flash-btn right" id="flashRight">Got It!</button>
+                </div>
+                <button class="btn btn-outline" id="exitFlashcards" style="margin-top: var(--space-xl);">Exit</button>
+            </div>
+
+            <!-- Matching mode -->
+            <div class="matching-container" id="matchingMode">
+                <div class="matching-header">
+                    <button class="btn btn-ghost" id="exitMatching">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6"/>
+                        </svg>
+                        Back
+                    </button>
+                    <div class="matching-score">Matched: <span id="matchScore">0</span> / <span id="matchTotal">5</span></div>
+                </div>
+                <div class="matching-grid">
+                    <div class="matching-column" id="matchWords">
+                        <!-- Words -->
+                    </div>
+                    <div class="matching-column" id="matchDefs">
+                        <!-- Definitions -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Word Detail Modal -->
+    <div class="word-modal-overlay" id="wordModal">
+        <div class="word-modal">
+            <div class="word-modal-header">
+                <span class="word-modal-word" id="modalWord">Word</span>
+                <button class="word-modal-close" id="closeModal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="word-modal-section">
+                <div class="word-modal-label">Definition</div>
+                <div class="word-modal-content" id="modalDef">Definition here</div>
+            </div>
+
+            <div class="word-modal-section">
+                <div class="word-modal-label">Example</div>
+                <div class="word-modal-content word-modal-example" id="modalExample">"Example sentence."</div>
+            </div>
+
+            <div class="word-modal-section">
+                <div class="word-modal-label">Mastery</div>
+                <div class="word-modal-mastery">
+                    <div class="word-modal-mastery-bar">
+                        <div class="word-modal-mastery-fill" id="modalMasteryBar" style="width: 0%"></div>
+                    </div>
+                    <div class="word-modal-mastery-label" id="modalMasteryLabel">0%</div>
+                </div>
+            </div>
+
+            <div class="word-modal-actions">
+                <button class="btn btn-outline" id="modalSpeak">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                    Pronounce
+                </button>
+                <button class="btn btn-outline" id="modalDelete" style="color: #dc2626; border-color: #fecaca;">
+                    Remove Word
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStudent = null;
+        let allWords = [];
+        let currentFilter = 'all';
+        let flashcardWords = [];
+        let flashcardIndex = 0;
+        let matchingWords = [];
+        let selectedWord = null;
+        let selectedDef = null;
+        let matchedCount = 0;
+        let currentWordId = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.ReadingPlanetDB) {
+                await window.ReadingPlanetDB.ready;
+            }
+
+            const picker = new StudentPicker({
+                title: 'Your Vocabulary',
+                allowCreate: true,
+                allowSkip: false,
+            });
+
+            currentStudent = await picker.show();
+
+            if (currentStudent) {
+                loadVocabulary();
+            }
+
+            // Tab switching
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+
+                    // Reset practice modes
+                    document.getElementById('practiceGrid').style.display = 'grid';
+                    document.getElementById('flashcardMode').classList.remove('active');
+                    document.getElementById('matchingMode').classList.remove('active');
+                });
+            });
+
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.filter;
+                    renderWordList();
+                });
+            });
+
+            // Practice cards
+            document.querySelectorAll('.practice-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const mode = card.dataset.mode;
+                    if (mode === 'flashcards') startFlashcards();
+                    else if (mode === 'matching') startMatching();
+                    else if (mode === 'review') startReview();
+                });
+            });
+
+            // Flashcard interactions
+            document.getElementById('flashcard').addEventListener('click', () => {
+                document.getElementById('flashcard').classList.toggle('flipped');
+                document.getElementById('flashcardButtons').style.display =
+                    document.getElementById('flashcard').classList.contains('flipped') ? 'flex' : 'none';
+            });
+
+            document.getElementById('flashWrong').addEventListener('click', () => handleFlashcardResponse(false));
+            document.getElementById('flashRight').addEventListener('click', () => handleFlashcardResponse(true));
+            document.getElementById('exitFlashcards').addEventListener('click', exitFlashcards);
+            document.getElementById('exitMatching').addEventListener('click', exitMatching);
+
+            // Modal
+            document.getElementById('closeModal').addEventListener('click', closeWordModal);
+            document.getElementById('wordModal').addEventListener('click', (e) => {
+                if (e.target.id === 'wordModal') closeWordModal();
+            });
+            document.getElementById('modalSpeak').addEventListener('click', speakCurrentWord);
+            document.getElementById('modalDelete').addEventListener('click', deleteCurrentWord);
+        });
+
+        async function loadVocabulary() {
+            if (!window.ReadingPlanetDB || !currentStudent) return;
+
+            try {
+                allWords = await window.ReadingPlanetDB.getVocabulary(currentStudent.id);
+
+                // Update stats
+                const learning = allWords.filter(w => w.mastery < 80);
+                const mastered = allWords.filter(w => w.mastery >= 80);
+                const dueForReview = allWords.filter(w => w.nextReview <= new Date().toISOString());
+
+                document.getElementById('statTotal').textContent = allWords.length;
+                document.getElementById('statLearning').textContent = learning.length;
+                document.getElementById('statMastered').textContent = mastered.length;
+                document.getElementById('statReview').textContent = dueForReview.length;
+
+                // Update practice metas
+                document.getElementById('flashcardMeta').textContent = `${allWords.length} words to practice`;
+                document.getElementById('reviewMeta').textContent = `${dueForReview.length} words due`;
+
+                renderWordList();
+            } catch (e) {
+                console.error('Failed to load vocabulary:', e);
+            }
+        }
+
+        function renderWordList() {
+            const wordList = document.getElementById('wordList');
+            let words = [...allWords];
+
+            // Apply filter
+            if (currentFilter === 'learning') {
+                words = words.filter(w => w.mastery < 80);
+            } else if (currentFilter === 'mastered') {
+                words = words.filter(w => w.mastery >= 80);
+            } else if (currentFilter === 'review') {
+                words = words.filter(w => w.nextReview <= new Date().toISOString());
+            }
+
+            if (words.length === 0) {
+                wordList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📝</div>
+                        <div class="empty-title">${currentFilter === 'all' ? 'No words saved yet' : 'No words in this category'}</div>
+                        <div class="empty-text">${currentFilter === 'all' ? 'Tap on words while reading to save them to your vocabulary bank.' : 'Keep practicing to move words between categories!'}</div>
+                        ${currentFilter === 'all' ? '<a href="/readingplanet/library/" class="btn btn-primary">Start Reading</a>' : ''}
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort by most recent
+            words.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
+
+            wordList.innerHTML = words.map(word => {
+                const masteryLevel = Math.floor(word.mastery / 20); // 0-5 dots
+                const dots = Array(5).fill(0).map((_, i) =>
+                    `<div class="mastery-dot ${i < masteryLevel ? 'filled' : ''}"></div>`
+                ).join('');
+
+                return `
+                    <div class="word-card" data-id="${word.id}">
+                        <div class="word-card-word">${word.word}</div>
+                        <div class="word-card-def">${word.definition}</div>
+                        <div class="word-card-mastery">
+                            <div class="mastery-dots">${dots}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Add click handlers
+            wordList.querySelectorAll('.word-card').forEach(card => {
+                card.addEventListener('click', () => openWordModal(card.dataset.id));
+            });
+        }
+
+        function openWordModal(wordId) {
+            const word = allWords.find(w => w.id === wordId);
+            if (!word) return;
+
+            currentWordId = wordId;
+
+            document.getElementById('modalWord').textContent = word.word;
+            document.getElementById('modalDef').textContent = word.definition;
+            document.getElementById('modalExample').textContent = word.exampleSentence ? `"${word.exampleSentence}"` : 'No example available';
+            document.getElementById('modalMasteryBar').style.width = `${word.mastery}%`;
+            document.getElementById('modalMasteryLabel').textContent = `${word.mastery}%`;
+
+            document.getElementById('wordModal').classList.add('active');
+        }
+
+        function closeWordModal() {
+            document.getElementById('wordModal').classList.remove('active');
+            currentWordId = null;
+        }
+
+        function speakCurrentWord() {
+            const word = allWords.find(w => w.id === currentWordId);
+            if (word && 'speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(word.word);
+                utterance.rate = 0.8;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        async function deleteCurrentWord() {
+            if (!currentWordId || !window.ReadingPlanetDB) return;
+
+            try {
+                // Delete from DB (we'd need to add this method)
+                allWords = allWords.filter(w => w.id !== currentWordId);
+                closeWordModal();
+                loadVocabulary();
+            } catch (e) {
+                console.error('Failed to delete word:', e);
+            }
+        }
+
+        // Flashcard mode
+        function startFlashcards() {
+            if (allWords.length === 0) {
+                alert('Add some words first by reading texts!');
+                return;
+            }
+
+            flashcardWords = shuffleArray([...allWords]).slice(0, 10);
+            flashcardIndex = 0;
+
+            document.getElementById('practiceGrid').style.display = 'none';
+            document.getElementById('flashcardMode').classList.add('active');
+
+            showFlashcard();
+        }
+
+        function showFlashcard() {
+            if (flashcardIndex >= flashcardWords.length) {
+                // Done!
+                exitFlashcards();
+                return;
+            }
+
+            const word = flashcardWords[flashcardIndex];
+            document.getElementById('flashcardProgress').textContent =
+                `Card ${flashcardIndex + 1} of ${flashcardWords.length}`;
+            document.getElementById('flashcardWord').textContent = word.word;
+            document.getElementById('flashcardDef').textContent = word.definition;
+            document.getElementById('flashcardExample').textContent =
+                word.exampleSentence ? `"${word.exampleSentence}"` : '';
+
+            // Reset card state
+            document.getElementById('flashcard').classList.remove('flipped');
+            document.getElementById('flashcardButtons').style.display = 'none';
+        }
+
+        async function handleFlashcardResponse(correct) {
+            const word = flashcardWords[flashcardIndex];
+
+            // Update mastery in DB
+            if (window.ReadingPlanetDB) {
+                await window.ReadingPlanetDB.updateVocabularyWord(word.id, correct);
+            }
+
+            flashcardIndex++;
+            showFlashcard();
+        }
+
+        function exitFlashcards() {
+            document.getElementById('flashcardMode').classList.remove('active');
+            document.getElementById('practiceGrid').style.display = 'grid';
+            loadVocabulary(); // Refresh stats
+        }
+
+        // Matching mode
+        function startMatching() {
+            if (allWords.length < 5) {
+                alert('You need at least 5 words to play matching!');
+                return;
+            }
+
+            matchingWords = shuffleArray([...allWords]).slice(0, 5);
+            matchedCount = 0;
+            selectedWord = null;
+            selectedDef = null;
+
+            document.getElementById('practiceGrid').style.display = 'none';
+            document.getElementById('matchingMode').classList.add('active');
+            document.getElementById('matchScore').textContent = '0';
+            document.getElementById('matchTotal').textContent = matchingWords.length;
+
+            renderMatchingGame();
+        }
+
+        function renderMatchingGame() {
+            const wordCol = document.getElementById('matchWords');
+            const defCol = document.getElementById('matchDefs');
+
+            // Shuffle words and definitions separately
+            const shuffledWords = shuffleArray([...matchingWords]);
+            const shuffledDefs = shuffleArray([...matchingWords]);
+
+            wordCol.innerHTML = shuffledWords.map(w => `
+                <div class="matching-item matching-word" data-id="${w.id}">${w.word}</div>
+            `).join('');
+
+            defCol.innerHTML = shuffledDefs.map(w => `
+                <div class="matching-item matching-def" data-id="${w.id}">${w.definition}</div>
+            `).join('');
+
+            // Add click handlers
+            wordCol.querySelectorAll('.matching-item').forEach(item => {
+                item.addEventListener('click', () => selectMatchingItem(item, 'word'));
+            });
+
+            defCol.querySelectorAll('.matching-item').forEach(item => {
+                item.addEventListener('click', () => selectMatchingItem(item, 'def'));
+            });
+        }
+
+        function selectMatchingItem(item, type) {
+            if (item.classList.contains('correct')) return;
+
+            // Remove wrong state
+            document.querySelectorAll('.matching-item.wrong').forEach(i => i.classList.remove('wrong'));
+
+            if (type === 'word') {
+                document.querySelectorAll('.matching-word').forEach(i => i.classList.remove('selected'));
+                item.classList.add('selected');
+                selectedWord = item;
+            } else {
+                document.querySelectorAll('.matching-def').forEach(i => i.classList.remove('selected'));
+                item.classList.add('selected');
+                selectedDef = item;
+            }
+
+            // Check for match
+            if (selectedWord && selectedDef) {
+                checkMatch();
+            }
+        }
+
+        async function checkMatch() {
+            if (selectedWord.dataset.id === selectedDef.dataset.id) {
+                // Correct!
+                selectedWord.classList.remove('selected');
+                selectedWord.classList.add('correct');
+                selectedDef.classList.remove('selected');
+                selectedDef.classList.add('correct');
+
+                matchedCount++;
+                document.getElementById('matchScore').textContent = matchedCount;
+
+                // Update mastery
+                if (window.ReadingPlanetDB) {
+                    await window.ReadingPlanetDB.updateVocabularyWord(selectedWord.dataset.id, true);
+                }
+
+                if (matchedCount >= matchingWords.length) {
+                    setTimeout(() => {
+                        alert('Great job! You matched all the words!');
+                        exitMatching();
+                    }, 500);
+                }
+            } else {
+                // Wrong
+                selectedWord.classList.add('wrong');
+                selectedDef.classList.add('wrong');
+
+                setTimeout(() => {
+                    selectedWord.classList.remove('selected', 'wrong');
+                    selectedDef.classList.remove('selected', 'wrong');
+                }, 500);
+            }
+
+            selectedWord = null;
+            selectedDef = null;
+        }
+
+        function exitMatching() {
+            document.getElementById('matchingMode').classList.remove('active');
+            document.getElementById('practiceGrid').style.display = 'grid';
+            loadVocabulary();
+        }
+
+        function startReview() {
+            const dueWords = allWords.filter(w => w.nextReview <= new Date().toISOString());
+            if (dueWords.length === 0) {
+                alert('No words due for review! Check back later.');
+                return;
+            }
+
+            flashcardWords = shuffleArray(dueWords).slice(0, 10);
+            flashcardIndex = 0;
+
+            document.getElementById('practiceGrid').style.display = 'none';
+            document.getElementById('flashcardMode').classList.add('active');
+
+            showFlashcard();
+        }
+
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+    </script>
+</body>
+</html>

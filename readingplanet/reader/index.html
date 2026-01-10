@@ -718,6 +718,22 @@
         </div>
     </div>
 
+    <!-- Vocabulary Preview Modal -->
+    <div class="vocab-preview-overlay" id="vocabPreviewOverlay">
+        <div class="vocab-preview-modal">
+            <div class="vocab-preview-header">
+                <h2>Key Words in This Text</h2>
+                <p class="vocab-preview-subtitle">Review these words before reading</p>
+            </div>
+            <div class="vocab-preview-list" id="vocabPreviewList">
+                <!-- Vocabulary cards here -->
+            </div>
+            <div class="vocab-preview-footer">
+                <button class="btn btn-primary" id="vocabPreviewStart">Start Reading</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Comprehension Check Modal -->
     <div class="comp-overlay" id="compOverlay">
         <div class="comp-modal">
@@ -1149,6 +1165,193 @@
             border-color: #22c55e;
             color: #16a34a;
         }
+
+        /* Vocabulary Preview Modal */
+        .vocab-preview-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-lg);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .vocab-preview-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .vocab-preview-modal {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 520px;
+            max-height: 85vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(20px);
+            transition: transform 0.2s ease;
+        }
+
+        .vocab-preview-overlay.open .vocab-preview-modal {
+            transform: translateY(0);
+        }
+
+        .vocab-preview-header {
+            padding: var(--space-xl);
+            text-align: center;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .vocab-preview-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .vocab-preview-subtitle {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .vocab-preview-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .vocab-card {
+            padding: var(--space-md);
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+        }
+
+        .vocab-card-word {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .vocab-card-term {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .vocab-card-speak {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            color: var(--color-text-muted);
+            cursor: pointer;
+        }
+
+        .vocab-card-speak:hover {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: white;
+        }
+
+        .vocab-card-def {
+            font-size: 0.9375rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .vocab-card-example {
+            font-size: 0.8125rem;
+            font-style: italic;
+            color: var(--color-text-muted);
+            padding-left: var(--space-md);
+            border-left: 2px solid var(--color-border);
+        }
+
+        .vocab-card-actions {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+
+        .vocab-card-btn {
+            flex: 1;
+            padding: var(--space-sm);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            border: 1px solid var(--color-border);
+            background: var(--color-white);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .vocab-card-btn:hover {
+            background: var(--color-bg-alt);
+        }
+
+        .vocab-card-btn.know {
+            border-color: #22c55e;
+            color: #16a34a;
+        }
+
+        .vocab-card-btn.know:hover {
+            background: #dcfce7;
+        }
+
+        .vocab-card-btn.save {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        .vocab-card-btn.save:hover {
+            background: #eff6ff;
+        }
+
+        .vocab-card-btn.selected {
+            color: white;
+        }
+
+        .vocab-card-btn.know.selected {
+            background: #22c55e;
+            border-color: #22c55e;
+        }
+
+        .vocab-card-btn.save.selected {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .vocab-preview-footer {
+            padding: var(--space-lg);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Vocabulary word highlighting in text */
+        .word.vocab-word {
+            background: #fef3c7;
+            border-bottom: 2px dotted #f59e0b;
+        }
+
+        .word.vocab-word:hover {
+            background: #fde68a;
+        }
     </style>
 
     <script>
@@ -1177,6 +1380,10 @@
         let startTime = null;
         let timeSpent = 0;
         let timeInterval = null;
+
+        // Vocabulary state
+        let vocabWords = [];
+        let wordsToSave = [];
 
         document.addEventListener('DOMContentLoaded', async () => {
             // Load settings from localStorage
@@ -1274,12 +1481,16 @@
                     );
                 }
 
-                // Render text
-                renderText(currentText);
-
-                // Hide loading, show content
-                document.getElementById('loadingState').classList.add('hidden');
-                document.getElementById('textArticle').classList.remove('hidden');
+                // Check if text has vocabulary to preview
+                if (currentText.vocabulary && currentText.vocabulary.length > 0) {
+                    vocabWords = currentText.vocabulary;
+                    showVocabPreview();
+                } else {
+                    // Render text immediately
+                    renderText(currentText);
+                    document.getElementById('loadingState').classList.add('hidden');
+                    document.getElementById('textArticle').classList.remove('hidden');
+                }
 
             } catch (e) {
                 console.error('Failed to load text:', e);
@@ -1436,6 +1647,9 @@
                     popup.classList.remove('open');
                 }
             });
+
+            // Vocabulary preview start button
+            document.getElementById('vocabPreviewStart').addEventListener('click', startReadingAfterVocab);
 
             // Scroll handler for progress and header
             window.addEventListener('scroll', handleScroll);
@@ -1655,6 +1869,110 @@
             } catch (e) {
                 console.error('Failed to save word:', e);
             }
+        }
+
+        // Vocabulary Preview Functions
+        function showVocabPreview() {
+            const list = document.getElementById('vocabPreviewList');
+            wordsToSave = [];
+
+            list.innerHTML = vocabWords.map((v, i) => `
+                <div class="vocab-card" data-index="${i}">
+                    <div class="vocab-card-word">
+                        <span class="vocab-card-term">${v.word}</span>
+                        <button class="vocab-card-speak" onclick="speakWord('${v.word}')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="vocab-card-def">${v.definition}</div>
+                    ${v.sentence ? `<div class="vocab-card-example">"${v.sentence}"</div>` : ''}
+                    <div class="vocab-card-actions">
+                        <button class="vocab-card-btn know" data-word="${v.word}" data-action="know">
+                            I know this
+                        </button>
+                        <button class="vocab-card-btn save" data-word="${v.word}" data-action="save" data-def="${v.definition}" data-example="${v.sentence || ''}">
+                            Save to learn
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add click handlers for buttons
+            list.querySelectorAll('.vocab-card-btn').forEach(btn => {
+                btn.addEventListener('click', () => handleVocabAction(btn));
+            });
+
+            document.getElementById('vocabPreviewOverlay').classList.add('open');
+        }
+
+        function handleVocabAction(btn) {
+            const card = btn.closest('.vocab-card');
+            const allBtns = card.querySelectorAll('.vocab-card-btn');
+            const action = btn.dataset.action;
+            const word = btn.dataset.word;
+
+            // Remove selected from all buttons in this card
+            allBtns.forEach(b => b.classList.remove('selected'));
+
+            // Add selected to clicked button
+            btn.classList.add('selected');
+
+            // Update wordsToSave
+            if (action === 'save') {
+                const exists = wordsToSave.find(w => w.word === word);
+                if (!exists) {
+                    wordsToSave.push({
+                        word: word,
+                        definition: btn.dataset.def,
+                        exampleSentence: btn.dataset.example
+                    });
+                }
+            } else {
+                wordsToSave = wordsToSave.filter(w => w.word !== word);
+            }
+        }
+
+        async function startReadingAfterVocab() {
+            // Save words to vocabulary
+            if (wordsToSave.length > 0 && currentStudent && window.ReadingPlanetDB) {
+                for (const wordData of wordsToSave) {
+                    try {
+                        await window.ReadingPlanetDB.addVocabularyWord(currentStudent.id, {
+                            ...wordData,
+                            sourceTextId: currentText?.id
+                        });
+                    } catch (e) {
+                        console.error('Failed to save word:', e);
+                    }
+                }
+            }
+
+            // Close preview
+            document.getElementById('vocabPreviewOverlay').classList.remove('open');
+
+            // Render text
+            renderText(currentText);
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('textArticle').classList.remove('hidden');
+
+            // Highlight vocabulary words in text
+            highlightVocabWords();
+        }
+
+        function highlightVocabWords() {
+            if (!vocabWords || vocabWords.length === 0) return;
+
+            const vocabTerms = vocabWords.map(v => v.word.toLowerCase());
+
+            document.querySelectorAll('.word').forEach(wordEl => {
+                const word = wordEl.dataset.word;
+                if (vocabTerms.includes(word)) {
+                    wordEl.classList.add('vocab-word');
+                }
+            });
         }
 
         function handleScroll() {

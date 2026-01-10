@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-01-10",
+  "texts": [
+    {
+      "id": "free-throw-science",
+      "title": "The Science of the Perfect Free Throw",
+      "author": "ReadingPlanet Staff",
+      "type": "article",
+      "genre": "sports",
+      "lexile": 720,
+      "wordCount": 485,
+      "readingTime": 4,
+      "coverEmoji": "🏀",
+      "coverColor": "#ea580c",
+      "summary": "Discover what physics and psychology reveal about making more free throws."
+    },
+    {
+      "id": "rise-of-esports",
+      "title": "The Rise of Esports: From Basement to Big Stage",
+      "author": "ReadingPlanet Staff",
+      "type": "article",
+      "genre": "gaming",
+      "lexile": 850,
+      "wordCount": 520,
+      "readingTime": 5,
+      "coverEmoji": "🎮",
+      "coverColor": "#7c3aed",
+      "summary": "How competitive gaming became a billion-dollar industry with millions of fans."
+    },
+    {
+      "id": "streaming-changed-music",
+      "title": "How Streaming Changed Music Forever",
+      "author": "ReadingPlanet Staff",
+      "type": "article",
+      "genre": "music",
+      "lexile": 640,
+      "wordCount": 410,
+      "readingTime": 3,
+      "coverEmoji": "🎵",
+      "coverColor": "#059669",
+      "summary": "From CDs to Spotify: how we listen to music has completely transformed."
+    }
+  ]
+}

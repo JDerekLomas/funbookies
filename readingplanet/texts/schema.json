@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ReadingPlanet Text",
+  "description": "Schema for texts in the ReadingPlanet library",
+  "type": "object",
+  "required": ["id", "title", "author", "type", "genre", "lexile", "wordCount", "content"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the text"
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title"
+    },
+    "author": {
+      "type": "string",
+      "description": "Author name or 'Staff' for original content"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["article", "story", "novel-excerpt", "poem"],
+      "description": "Type of text"
+    },
+    "genre": {
+      "type": "string",
+      "enum": ["sports", "science", "technology", "music", "gaming", "history", "biography", "fiction", "mystery", "adventure", "fantasy", "realistic-fiction"],
+      "description": "Genre/topic category"
+    },
+    "lexile": {
+      "type": "integer",
+      "minimum": 200,
+      "maximum": 1400,
+      "description": "Lexile measure"
+    },
+    "wordCount": {
+      "type": "integer",
+      "description": "Total word count"
+    },
+    "readingTime": {
+      "type": "integer",
+      "description": "Estimated reading time in minutes"
+    },
+    "coverEmoji": {
+      "type": "string",
+      "description": "Emoji to display as cover image"
+    },
+    "coverColor": {
+      "type": "string",
+      "description": "Background color for cover (CSS color)"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Brief summary for library display"
+    },
+    "vocabulary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "word": { "type": "string" },
+          "definition": { "type": "string" },
+          "sentence": { "type": "string" }
+        }
+      },
+      "description": "Key vocabulary words to highlight"
+    },
+    "content": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["heading", "paragraph", "quote", "list"]
+          },
+          "text": { "type": "string" },
+          "items": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "description": "Content blocks"
+    },
+    "comprehension": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["multiple-choice", "short-answer", "discussion"]
+          },
+          "options": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "correctIndex": { "type": "integer" }
+        }
+      },
+      "description": "Comprehension questions"
+    }
+  }
+}

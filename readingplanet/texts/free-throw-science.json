@@ -1,0 +1,121 @@
+{
+  "id": "free-throw-science",
+  "title": "The Science of the Perfect Free Throw",
+  "author": "ReadingPlanet Staff",
+  "type": "article",
+  "genre": "sports",
+  "lexile": 720,
+  "wordCount": 485,
+  "readingTime": 4,
+  "coverEmoji": "🏀",
+  "coverColor": "#ea580c",
+  "summary": "Discover what physics and psychology reveal about making more free throws.",
+  "vocabulary": [
+    {
+      "word": "arc",
+      "definition": "A curved path through the air",
+      "sentence": "The ball traveled in a high arc toward the basket."
+    },
+    {
+      "word": "trajectory",
+      "definition": "The path an object follows when moving through space",
+      "sentence": "Scientists studied the trajectory of thousands of shots."
+    },
+    {
+      "word": "optimal",
+      "definition": "The best or most effective",
+      "sentence": "The optimal release angle is about 52 degrees."
+    },
+    {
+      "word": "ritual",
+      "definition": "A set of actions performed regularly",
+      "sentence": "Many players have a pre-shot ritual to help them focus."
+    }
+  ],
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Stephen Curry steps to the free throw line. The crowd goes silent. He bounces the ball three times, takes a breath, and shoots. The ball swishes through the net. Curry makes about 91% of his free throws. But many players struggle at the line. What makes the difference?"
+    },
+    {
+      "type": "heading",
+      "text": "The Physics of Shooting"
+    },
+    {
+      "type": "paragraph",
+      "text": "Scientists have studied free throws for decades. They've discovered that the perfect shot has three key parts: arc, backspin, and aim."
+    },
+    {
+      "type": "paragraph",
+      "text": "First, let's talk about arc. A flat shot has little chance of going in. The ball needs to come down at a steep angle. Research shows that the optimal release angle is about 52 degrees. This gives the ball the best chance of falling through the 18-inch hoop."
+    },
+    {
+      "type": "paragraph",
+      "text": "Backspin is the second key. When a ball with backspin hits the rim, it slows down. This \"soft\" bounce gives the ball a better chance of dropping in. Players should aim for about three rotations during the ball's flight."
+    },
+    {
+      "type": "paragraph",
+      "text": "The third factor is aim. Most coaches teach players to aim for the back of the rim. This makes sense because shots that are slightly short will still have a chance. Shots that are too long will bounce back toward the hoop."
+    },
+    {
+      "type": "heading",
+      "text": "The Psychology of Free Throws"
+    },
+    {
+      "type": "paragraph",
+      "text": "But free throws aren't just about physics. The mental game matters too. Think about it: professional players practice thousands of shots. In an empty gym, most can make 90% or more. But in a game, with fans screaming and the pressure on, percentages drop."
+    },
+    {
+      "type": "paragraph",
+      "text": "Sports psychologists say routines help. Watch any great free throw shooter. They do the exact same thing before every shot. Curry bounces the ball three times. Other players spin the ball, take deep breaths, or talk to themselves. These rituals help block out distractions."
+    },
+    {
+      "type": "paragraph",
+      "text": "Another trick is to focus on the process, not the outcome. Instead of thinking \"I need to make this shot,\" players should think about their form. Bend the knees. Follow through. Let the muscle memory take over."
+    },
+    {
+      "type": "heading",
+      "text": "Practice Makes Permanent"
+    },
+    {
+      "type": "paragraph",
+      "text": "The best shooters combine science with practice. They understand the physics of a good shot. They develop consistent routines. And they practice thousands of times until the motion becomes automatic."
+    },
+    {
+      "type": "paragraph",
+      "text": "So the next time you're at the free throw line, remember: high arc, soft backspin, and aim for the back of the rim. Take a breath, follow your routine, and trust your practice. The science is on your side."
+    }
+  ],
+  "comprehension": [
+    {
+      "question": "According to the article, what is the optimal release angle for a free throw?",
+      "type": "multiple-choice",
+      "options": [
+        "About 45 degrees",
+        "About 52 degrees",
+        "About 60 degrees",
+        "About 30 degrees"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "Why do players develop pre-shot rituals?",
+      "type": "multiple-choice",
+      "options": [
+        "To show off for the crowd",
+        "To waste time",
+        "To help block out distractions",
+        "Because the rules require it"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "question": "Why do coaches teach players to aim for the back of the rim?",
+      "type": "short-answer"
+    },
+    {
+      "question": "Think about a skill you've practiced a lot. How did developing a routine help you improve?",
+      "type": "discussion"
+    }
+  ]
+}

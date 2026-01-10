@@ -1,0 +1,125 @@
+{
+  "id": "rise-of-esports",
+  "title": "The Rise of Esports: From Basement to Big Stage",
+  "author": "ReadingPlanet Staff",
+  "type": "article",
+  "genre": "gaming",
+  "lexile": 850,
+  "wordCount": 520,
+  "readingTime": 5,
+  "coverEmoji": "🎮",
+  "coverColor": "#7c3aed",
+  "summary": "How competitive gaming became a billion-dollar industry with millions of fans.",
+  "vocabulary": [
+    {
+      "word": "phenomenon",
+      "definition": "Something remarkable that is observed or happens",
+      "sentence": "Esports has become a global phenomenon."
+    },
+    {
+      "word": "lucrative",
+      "definition": "Producing a lot of money; profitable",
+      "sentence": "Professional gaming has become a lucrative career."
+    },
+    {
+      "word": "skeptics",
+      "definition": "People who doubt or question something",
+      "sentence": "Skeptics once laughed at the idea of gaming as a sport."
+    },
+    {
+      "word": "prestigious",
+      "definition": "Respected and admired; having high status",
+      "sentence": "Winning a major tournament is prestigious."
+    }
+  ],
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "In 2019, a 16-year-old named Kyle Giersdorf sat in front of a computer screen inside a packed stadium. Twenty thousand fans watched in person. Millions more streamed the event online. When Kyle won the Fortnite World Cup, he took home $3 million. Not bad for playing a video game."
+    },
+    {
+      "type": "paragraph",
+      "text": "Kyle's story represents a massive shift in how we think about gaming. What was once a hobby for kids in basements has become a global phenomenon worth billions of dollars."
+    },
+    {
+      "type": "heading",
+      "text": "From Arcades to Arenas"
+    },
+    {
+      "type": "paragraph",
+      "text": "Competitive gaming isn't new. In 1972, Stanford University hosted a \"Intergalactic Spacewar Olympics.\" The prize? A year's subscription to Rolling Stone magazine. Throughout the 1980s and 1990s, players competed in arcades and at small tournaments."
+    },
+    {
+      "type": "paragraph",
+      "text": "But the internet changed everything. Suddenly, players could compete against anyone in the world. Games like StarCraft became massively popular in South Korea, where professional leagues formed in the early 2000s. Players became celebrities. Companies paid them salaries and sponsorships."
+    },
+    {
+      "type": "paragraph",
+      "text": "The rest of the world caught up. By 2023, the global esports market was worth over $1.8 billion. Major tournaments fill stadiums that usually host NBA games or rock concerts. Universities now offer esports scholarships. Some high schools have varsity gaming teams."
+    },
+    {
+      "type": "heading",
+      "text": "Athletes or Just Gamers?"
+    },
+    {
+      "type": "paragraph",
+      "text": "Skeptics question whether esports should be called a sport at all. Players sit in chairs. They don't run or jump or sweat. How is that athletic?"
+    },
+    {
+      "type": "paragraph",
+      "text": "But supporters point out that professional gamers train just as hard as traditional athletes. Top players practice 10 to 14 hours a day. They work with coaches, nutritionists, and sports psychologists. Their reaction times are measured in milliseconds. The mental demands are intense."
+    },
+    {
+      "type": "paragraph",
+      "text": "Research shows that esports require real skill. A study found that StarCraft II players make an average of 300 actions per minute during intense matches. That's five decisions every second, each requiring precise hand movements."
+    },
+    {
+      "type": "heading",
+      "text": "The Future of Competition"
+    },
+    {
+      "type": "paragraph",
+      "text": "Esports continues to grow. The industry attracts major investors, including traditional sports team owners. Games like League of Legends, Valorant, and Call of Duty have professional leagues with city-based franchises, just like the NFL or NBA."
+    },
+    {
+      "type": "paragraph",
+      "text": "Some people believe esports could eventually appear in the Olympics. The International Olympic Committee has discussed adding gaming events. For now, esports has its own prestigious tournaments and devoted fans."
+    },
+    {
+      "type": "paragraph",
+      "text": "Whether you call it a sport or not, one thing is clear: competitive gaming is here to stay. The next generation of superstars might not throw footballs or shoot baskets. They might clutch keyboards and click mice instead."
+    }
+  ],
+  "comprehension": [
+    {
+      "question": "How much money did Kyle Giersdorf win at the Fortnite World Cup?",
+      "type": "multiple-choice",
+      "options": [
+        "$1 million",
+        "$2 million",
+        "$3 million",
+        "$5 million"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "question": "According to the article, how many actions per minute do StarCraft II players make during intense matches?",
+      "type": "multiple-choice",
+      "options": [
+        "100",
+        "200",
+        "300",
+        "500"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "question": "What evidence does the article give to support the idea that esports require real skill?",
+      "type": "short-answer"
+    },
+    {
+      "question": "Do you think esports should be considered a real sport? Why or why not?",
+      "type": "discussion"
+    }
+  ]
+}

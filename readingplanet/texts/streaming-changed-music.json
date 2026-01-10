@@ -1,0 +1,120 @@
+{
+  "id": "streaming-changed-music",
+  "title": "How Streaming Changed Music Forever",
+  "author": "ReadingPlanet Staff",
+  "type": "article",
+  "genre": "music",
+  "lexile": 640,
+  "wordCount": 410,
+  "readingTime": 3,
+  "coverEmoji": "🎵",
+  "coverColor": "#059669",
+  "summary": "From CDs to Spotify: how we listen to music has completely transformed.",
+  "vocabulary": [
+    {
+      "word": "streaming",
+      "definition": "Playing music or video directly from the internet without downloading",
+      "sentence": "Streaming made it easy to listen to any song instantly."
+    },
+    {
+      "word": "revenue",
+      "definition": "Money earned from selling products or services",
+      "sentence": "The music industry lost billions in revenue when people stopped buying CDs."
+    },
+    {
+      "word": "viral",
+      "definition": "Spreading quickly and widely online",
+      "sentence": "A song can go viral on TikTok overnight."
+    }
+  ],
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "In 1999, if you wanted to hear a new song, you had options. You could buy the whole CD for $15 to $20. You could wait and hope it played on the radio. Or you could download it illegally. Most songs cost $0.99 on iTunes. Today, you can listen to almost any song ever made for about $10 a month. What happened?"
+    },
+    {
+      "type": "heading",
+      "text": "The CD Crash"
+    },
+    {
+      "type": "paragraph",
+      "text": "The music industry used to make most of its money from selling CDs. In 1999, Americans bought 940 million CDs. Artists and record labels were rich."
+    },
+    {
+      "type": "paragraph",
+      "text": "Then came file sharing. Services like Napster let people download music for free. It was illegal, but millions did it anyway. CD sales crashed. By 2014, Americans bought only 140 million CDs. The industry lost billions in revenue."
+    },
+    {
+      "type": "heading",
+      "text": "Streaming Saves the Day"
+    },
+    {
+      "type": "paragraph",
+      "text": "Streaming services offered a new deal. Pay a small monthly fee and get access to millions of songs. No downloading. No owning. Just listening."
+    },
+    {
+      "type": "paragraph",
+      "text": "Spotify launched in 2008. Apple Music followed in 2015. Today, streaming makes up 84% of music industry revenue. More money flows to music than ever before."
+    },
+    {
+      "type": "heading",
+      "text": "Winners and Losers"
+    },
+    {
+      "type": "paragraph",
+      "text": "Streaming is great for fans. You can explore any genre. Discover new artists. Make playlists. All for less than the cost of one CD per month."
+    },
+    {
+      "type": "paragraph",
+      "text": "But many artists struggle. Spotify pays about $0.003 per stream. An artist needs about 350,000 streams to earn minimum wage for a month. Big stars do fine. Smaller artists often can't survive on streaming alone."
+    },
+    {
+      "type": "paragraph",
+      "text": "Streaming also changed how songs are made. Artists know that listeners can skip any time. So songs get shorter. Intros got cut. Hooks come faster. A song that might have been five minutes in 1995 is now under three."
+    },
+    {
+      "type": "heading",
+      "text": "The TikTok Effect"
+    },
+    {
+      "type": "paragraph",
+      "text": "Social media added another twist. A 15-second clip on TikTok can make a song go viral overnight. Old songs suddenly become hits again. Unknown artists can blow up from one video. The path to success has completely changed."
+    },
+    {
+      "type": "paragraph",
+      "text": "Music will keep evolving. But one thing is certain: we'll never go back to the CD era. The way we discover and listen to music has changed forever."
+    }
+  ],
+  "comprehension": [
+    {
+      "question": "According to the article, what percentage of music industry revenue comes from streaming today?",
+      "type": "multiple-choice",
+      "options": [
+        "50%",
+        "65%",
+        "84%",
+        "95%"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "question": "How much does Spotify pay per stream?",
+      "type": "multiple-choice",
+      "options": [
+        "$0.01",
+        "$0.003",
+        "$0.10",
+        "$0.001"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "How has streaming changed the way songs are made?",
+      "type": "short-answer"
+    },
+    {
+      "question": "Do you think streaming is fair to artists? Explain your thinking.",
+      "type": "discussion"
+    }
+  ]
+}

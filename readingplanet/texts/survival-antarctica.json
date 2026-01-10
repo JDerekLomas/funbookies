@@ -1,0 +1,141 @@
+{
+  "id": "survival-antarctica",
+  "title": "Survival in Antarctica: Shackleton's Incredible Journey",
+  "author": "ReadingPlanet Staff",
+  "type": "article",
+  "genre": "adventure",
+  "lexile": 800,
+  "wordCount": 480,
+  "readingTime": 5,
+  "coverEmoji": "🧊",
+  "coverColor": "#0ea5e9",
+  "summary": "The true story of how Ernest Shackleton and his crew survived two years stranded in Antarctica.",
+  "vocabulary": [
+    {
+      "word": "expedition",
+      "definition": "a journey undertaken by a group of people for a specific purpose, such as exploration",
+      "sentence": "Shackleton's expedition to Antarctica became a legendary tale of survival."
+    },
+    {
+      "word": "endurance",
+      "definition": "the ability to withstand hardship or stress over a long period",
+      "sentence": "The crew showed remarkable endurance during their ordeal."
+    },
+    {
+      "word": "treacherous",
+      "definition": "dangerous and unpredictable",
+      "sentence": "The treacherous ice threatened to crush their ship."
+    }
+  ],
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "In 1914, explorer Ernest Shackleton set sail for Antarctica with a dream: to be the first to cross the frozen continent on foot. His ship was called Endurance. What happened next became one of the greatest survival stories ever told."
+    },
+    {
+      "type": "heading",
+      "text": "Trapped in Ice"
+    },
+    {
+      "type": "paragraph",
+      "text": "Endurance never reached Antarctica's shore. In January 1915, thick pack ice trapped the ship. For months, the crew waited, hoping the ice would release them. Instead, the ice slowly crushed the wooden hull. By November, Endurance sank beneath the frozen sea."
+    },
+    {
+      "type": "paragraph",
+      "text": "Now Shackleton and his 27 men were stranded on the ice with only three small lifeboats and whatever supplies they had salvaged. The nearest help was over 800 miles away. No one knew where they were. No rescue would come."
+    },
+    {
+      "type": "heading",
+      "text": "The Journey Begins"
+    },
+    {
+      "type": "paragraph",
+      "text": "For five months, the men camped on the drifting ice, surviving on seal and penguin meat. When the ice began breaking apart, they launched their boats into the freezing ocean. After seven terrifying days battling waves and ice, they reached a tiny, uninhabited island called Elephant Island."
+    },
+    {
+      "type": "paragraph",
+      "text": "They were alive, but their situation remained desperate. The island had no food sources, and winter was approaching. Shackleton made a bold decision. He would take five men and sail one small boat 800 miles across the most dangerous ocean on Earth to find help."
+    },
+    {
+      "type": "heading",
+      "text": "Against All Odds"
+    },
+    {
+      "type": "paragraph",
+      "text": "The journey to South Georgia Island took 16 days through massive waves, hurricane winds, and freezing temperatures. The men had no GPS or radio. They navigated by stars when they could see them, which was rare. Somehow, they found the tiny island."
+    },
+    {
+      "type": "paragraph",
+      "text": "But their ordeal was not over. They had landed on the wrong side of the island. Shackleton and two others had to cross 26 miles of mountains and glaciers that no one had ever traversed. After 36 hours of non-stop hiking, they reached a whaling station and help."
+    },
+    {
+      "type": "heading",
+      "text": "The Rescue"
+    },
+    {
+      "type": "paragraph",
+      "text": "It took three months and four attempts before Shackleton could rescue the men still waiting on Elephant Island. When he finally reached them in August 1916, every single crew member was still alive. Against impossible odds, Shackleton had not lost a single man."
+    },
+    {
+      "type": "paragraph",
+      "text": "The Endurance expedition failed to cross Antarctica, but it succeeded in something greater. It showed what humans can accomplish through courage, leadership, and never giving up hope."
+    }
+  ],
+  "comprehension": [
+    {
+      "question": "What was Shackleton's original goal for the expedition?",
+      "type": "multiple-choice",
+      "options": [
+        "To be the first to cross Antarctica on foot",
+        "To discover new species of penguins",
+        "To set a speed record sailing around the world",
+        "To build a research station"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "question": "What happened to the ship Endurance?",
+      "type": "multiple-choice",
+      "options": [
+        "It crashed into an iceberg",
+        "It was crushed by ice and sank",
+        "It caught fire",
+        "It reached Antarctica safely"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "Why did Shackleton decide to sail to South Georgia Island?",
+      "type": "multiple-choice",
+      "options": [
+        "It was the closest place with people who could help",
+        "He wanted to continue exploring",
+        "The crew voted to go there",
+        "He had family there"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "question": "What makes Shackleton's journey remarkable?",
+      "type": "multiple-choice",
+      "options": [
+        "He discovered a new continent",
+        "He kept all 27 of his men alive despite impossible conditions",
+        "He was the fastest to reach Antarctica",
+        "He found buried treasure"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "What is the main theme of this passage?",
+      "type": "multiple-choice",
+      "options": [
+        "Antarctica is a beautiful place to visit",
+        "Ships should not sail in winter",
+        "Leadership and perseverance can overcome extreme challenges",
+        "Penguins are an important food source"
+      ],
+      "correctIndex": 2
+    }
+  ]
+}

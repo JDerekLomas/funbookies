@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Editor - ReadingPlanet</title>
+    <link rel="icon" type="image/svg+xml" href="/readingplanet/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/readingplanet/styles/shared.css">
+    <style>
+        :root {
+            --sidebar-width: 280px;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background: var(--color-bg);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--color-navy);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: var(--space-lg);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: var(--space-md);
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .nav-section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: var(--space-sm);
+            padding: 0 var(--space-sm);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-lg) var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .page-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .page-body {
+            padding: var(--space-xl);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .stat-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            border: 1px solid var(--color-border);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-navy);
+        }
+
+        .stat-label {
+            color: var(--color-text-muted);
+            font-size: 0.875rem;
+            margin-top: var(--space-xs);
+        }
+
+        /* Content List */
+        .content-list {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+        }
+
+        .list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-bg-alt);
+        }
+
+        .list-title {
+            font-weight: 600;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--color-border);
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+
+        .list-item:hover {
+            background: var(--color-bg-alt);
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-emoji {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-md);
+            background: var(--color-bg-alt);
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-title {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .item-meta {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .item-actions {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            background: var(--color-white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-muted);
+            transition: all var(--transition-fast);
+        }
+
+        .icon-btn:hover {
+            background: var(--color-bg-alt);
+            color: var(--color-text);
+        }
+
+        .icon-btn.danger:hover {
+            background: #fef2f2;
+            color: #dc2626;
+            border-color: #fecaca;
+        }
+
+        /* Editor Panel */
+        .editor-panel {
+            display: none;
+        }
+
+        .editor-panel.active {
+            display: block;
+        }
+
+        .editor-tabs {
+            display: flex;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-lg);
+        }
+
+        .editor-tab {
+            padding: var(--space-sm) var(--space-md);
+            background: transparent;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            transition: all var(--transition-fast);
+        }
+
+        .editor-tab:hover {
+            background: var(--color-bg-alt);
+        }
+
+        .editor-tab.active {
+            background: var(--color-navy);
+            color: white;
+            border-color: var(--color-navy);
+        }
+
+        .editor-section {
+            display: none;
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            padding: var(--space-xl);
+        }
+
+        .editor-section.active {
+            display: block;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .form-input {
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: 0.9375rem;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        select.form-input {
+            background: var(--color-white);
+            cursor: pointer;
+        }
+
+        textarea.form-input {
+            min-height: 200px;
+            resize: vertical;
+            font-family: 'Literata', Georgia, serif;
+        }
+
+        /* Content Blocks Editor */
+        .content-blocks {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .content-block {
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            position: relative;
+        }
+
+        .block-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .block-type-badge {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            background: var(--color-navy);
+            color: white;
+            border-radius: var(--radius-sm);
+            text-transform: uppercase;
+        }
+
+        .block-actions {
+            margin-left: auto;
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .block-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: var(--space-sm);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-family: 'Literata', Georgia, serif;
+            font-size: 0.9375rem;
+            resize: vertical;
+        }
+
+        .add-block-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: var(--space-md);
+            border: 2px dashed var(--color-border);
+            border-radius: var(--radius-md);
+            background: transparent;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .add-block-btn:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        /* Questions Editor */
+        .question-card {
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+
+        .question-header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .question-number {
+            width: 32px;
+            height: 32px;
+            background: var(--color-navy);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .question-text-input {
+            flex: 1;
+            padding: var(--space-sm);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: 0.9375rem;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin-left: 48px;
+        }
+
+        .option-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .option-radio {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .option-input {
+            flex: 1;
+            padding: var(--space-xs) var(--space-sm);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+        }
+
+        /* Vocabulary Editor */
+        .vocab-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .vocab-card {
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+        }
+
+        .vocab-word {
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .vocab-inputs {
+            display: grid;
+            gap: var(--space-sm);
+        }
+
+        /* AI Tools Section */
+        .ai-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .ai-tool-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .ai-tool-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-teal));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .ai-tool-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        .ai-tool-title {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .ai-tool-desc {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        /* Analysis Results */
+        .analysis-result {
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-top: var(--space-md);
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        .analysis-metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-navy);
+        }
+
+        .metric-label {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: var(--space-lg);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .modal-body {
+            padding: var(--space-lg);
+        }
+
+        .modal-footer {
+            padding: var(--space-lg);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: flex-end;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 60px;
+            }
+
+            .sidebar-header span,
+            .nav-section-title,
+            .nav-item span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="/readingplanet/" class="sidebar-logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M2 12h20"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                <span>Content Editor</span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Content</div>
+                <div class="nav-item active" data-view="library">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                    <span>Library Texts</span>
+                </div>
+                <div class="nav-item" data-view="fluency">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                    </svg>
+                    <span>Fluency Passages</span>
+                </div>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Tools</div>
+                <div class="nav-item" data-view="ai-tools">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+                        <circle cx="8" cy="14" r="2"/>
+                        <circle cx="16" cy="14" r="2"/>
+                    </svg>
+                    <span>AI Tools</span>
+                </div>
+                <div class="nav-item" data-view="import">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                    <span>Import Content</span>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <!-- Library View -->
+        <div id="libraryView" class="view active">
+            <header class="page-header">
+                <h1 class="page-title">Library Texts</h1>
+                <div class="page-actions">
+                    <button class="btn btn-primary" onclick="createNewText()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        New Text
+                    </button>
+                </div>
+            </header>
+            <div class="page-body">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalTexts">0</div>
+                        <div class="stat-label">Total Texts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalWords">0</div>
+                        <div class="stat-label">Total Words</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgLexile">0</div>
+                        <div class="stat-label">Avg Lexile</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="genreCount">0</div>
+                        <div class="stat-label">Genres</div>
+                    </div>
+                </div>
+
+                <div class="content-list">
+                    <div class="list-header">
+                        <span class="list-title">All Texts</span>
+                        <div class="search-box" style="width:200px;">
+                            <input type="search" placeholder="Search texts..." id="textSearch">
+                        </div>
+                    </div>
+                    <div id="textList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editor View -->
+        <div id="editorView" class="view">
+            <header class="page-header">
+                <div style="display:flex; align-items:center; gap:var(--space-md);">
+                    <button class="icon-btn" onclick="showView('library')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6"/>
+                        </svg>
+                    </button>
+                    <h1 class="page-title" id="editorTitle">Edit Text</h1>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-secondary" onclick="previewText()">Preview</button>
+                    <button class="btn btn-primary" onclick="saveText()">Save Text</button>
+                </div>
+            </header>
+            <div class="page-body">
+                <div class="editor-tabs">
+                    <button class="editor-tab active" data-tab="metadata">Metadata</button>
+                    <button class="editor-tab" data-tab="content">Content</button>
+                    <button class="editor-tab" data-tab="vocabulary">Vocabulary</button>
+                    <button class="editor-tab" data-tab="questions">Questions</button>
+                </div>
+
+                <!-- Metadata Section -->
+                <div id="metadataSection" class="editor-section active">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-input" id="textTitle" placeholder="Enter title...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Author</label>
+                            <input type="text" class="form-input" id="textAuthor" value="ReadingPlanet Staff">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Type</label>
+                            <select class="form-input" id="textType">
+                                <option value="article">Article</option>
+                                <option value="story">Story</option>
+                                <option value="novel-excerpt">Novel Excerpt</option>
+                                <option value="poem">Poem</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Genre</label>
+                            <select class="form-input" id="textGenre">
+                                <option value="sports">Sports</option>
+                                <option value="science">Science</option>
+                                <option value="technology">Technology</option>
+                                <option value="music">Music</option>
+                                <option value="gaming">Gaming</option>
+                                <option value="history">History</option>
+                                <option value="biography">Biography</option>
+                                <option value="fiction">Fiction</option>
+                                <option value="mystery">Mystery</option>
+                                <option value="adventure">Adventure</option>
+                                <option value="fantasy">Fantasy</option>
+                                <option value="realistic-fiction">Realistic Fiction</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Lexile Level</label>
+                            <input type="number" class="form-input" id="textLexile" min="200" max="1400" placeholder="e.g., 720">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Reading Time (minutes)</label>
+                            <input type="number" class="form-input" id="textReadingTime" min="1" max="30" placeholder="e.g., 5">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Cover Emoji</label>
+                            <input type="text" class="form-input" id="textEmoji" placeholder="e.g., 📚">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Cover Color</label>
+                            <input type="color" class="form-input" id="textColor" value="#6366f1" style="height:42px;">
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Summary</label>
+                            <textarea class="form-input" id="textSummary" rows="2" placeholder="Brief summary for library display..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Section -->
+                <div id="contentSection" class="editor-section">
+                    <p style="color:var(--color-text-secondary); margin-bottom:var(--space-md);">
+                        Build your text using content blocks. Each block can be a heading, paragraph, quote, or list.
+                    </p>
+                    <div class="content-blocks" id="contentBlocks">
+                        <!-- Populated by JS -->
+                    </div>
+                    <button class="add-block-btn" onclick="addContentBlock()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Block
+                    </button>
+                </div>
+
+                <!-- Vocabulary Section -->
+                <div id="vocabularySection" class="editor-section">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-lg);">
+                        <p style="color:var(--color-text-secondary);">
+                            Add key vocabulary words that students will preview before reading.
+                        </p>
+                        <button class="btn btn-secondary" onclick="autoDetectVocab()">Auto-Detect</button>
+                    </div>
+                    <div class="vocab-list" id="vocabList">
+                        <!-- Populated by JS -->
+                    </div>
+                    <button class="add-block-btn" onclick="addVocabWord()" style="margin-top:var(--space-md);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Word
+                    </button>
+                </div>
+
+                <!-- Questions Section -->
+                <div id="questionsSection" class="editor-section">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-lg);">
+                        <p style="color:var(--color-text-secondary);">
+                            Create comprehension questions to check understanding after reading.
+                        </p>
+                        <button class="btn btn-secondary" onclick="generateQuestions()">AI Generate</button>
+                    </div>
+                    <div id="questionsList">
+                        <!-- Populated by JS -->
+                    </div>
+                    <button class="add-block-btn" onclick="addQuestion()" style="margin-top:var(--space-md);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Question
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fluency View -->
+        <div id="fluencyView" class="view">
+            <header class="page-header">
+                <h1 class="page-title">Fluency Passages</h1>
+                <div class="page-actions">
+                    <button class="btn btn-primary" onclick="createNewPassage()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        New Passage
+                    </button>
+                </div>
+            </header>
+            <div class="page-body">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalPassages">0</div>
+                        <div class="stat-label">Total Passages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="grades34Count">0</div>
+                        <div class="stat-label">Grades 3-4</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="grades56Count">0</div>
+                        <div class="stat-label">Grades 5-6</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="grades78Count">0</div>
+                        <div class="stat-label">Grades 7-8</div>
+                    </div>
+                </div>
+
+                <div class="content-list">
+                    <div class="list-header">
+                        <span class="list-title">All Passages</span>
+                    </div>
+                    <div id="passageList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Tools View -->
+        <div id="ai-toolsView" class="view">
+            <header class="page-header">
+                <h1 class="page-title">AI Tools</h1>
+            </header>
+            <div class="page-body">
+                <div class="ai-tools">
+                    <div class="ai-tool-card">
+                        <div class="ai-tool-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="ai-tool-title">Lexile Analyzer</h3>
+                        <p class="ai-tool-desc">Estimate the Lexile reading level of any text based on sentence length, word frequency, and complexity.</p>
+                        <button class="btn btn-primary" onclick="openLexileAnalyzer()">Analyze Text</button>
+                    </div>
+
+                    <div class="ai-tool-card">
+                        <div class="ai-tool-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="ai-tool-title">Question Generator</h3>
+                        <p class="ai-tool-desc">Generate comprehension questions automatically based on the text content using AI.</p>
+                        <button class="btn btn-primary" onclick="openQuestionGenerator()">Generate Questions</button>
+                    </div>
+
+                    <div class="ai-tool-card">
+                        <div class="ai-tool-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <h3 class="ai-tool-title">Vocabulary Extractor</h3>
+                        <p class="ai-tool-desc">Identify challenging vocabulary words and generate definitions for pre-reading support.</p>
+                        <button class="btn btn-primary" onclick="openVocabExtractor()">Extract Vocabulary</button>
+                    </div>
+
+                    <div class="ai-tool-card">
+                        <div class="ai-tool-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="ai-tool-title">Text Simplifier</h3>
+                        <p class="ai-tool-desc">Adapt text to a lower reading level while preserving key ideas and content.</p>
+                        <button class="btn btn-primary" onclick="openTextSimplifier()">Simplify Text</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Import View -->
+        <div id="importView" class="view">
+            <header class="page-header">
+                <h1 class="page-title">Import Content</h1>
+            </header>
+            <div class="page-body">
+                <div class="content-list">
+                    <div class="list-header">
+                        <span class="list-title">Import Options</span>
+                    </div>
+                    <div style="padding:var(--space-xl);">
+                        <div class="form-group" style="max-width:600px;">
+                            <label class="form-label">Paste Text</label>
+                            <textarea class="form-input" id="importTextarea" rows="10" placeholder="Paste your text content here..."></textarea>
+                        </div>
+                        <div style="margin-top:var(--space-md);">
+                            <button class="btn btn-primary" onclick="importText()">Import & Analyze</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lexile Analyzer Modal -->
+    <div class="modal-overlay" id="lexileModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Lexile Analyzer</h2>
+                <button class="icon-btn" onclick="closeModal('lexileModal')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Text to Analyze</label>
+                    <textarea class="form-input" id="lexileInput" rows="6" placeholder="Paste text to analyze..."></textarea>
+                </div>
+                <div class="analysis-result" id="lexileResult" style="display:none;">
+                    <div class="analysis-grid">
+                        <div class="analysis-metric">
+                            <div class="metric-value" id="estimatedLexile">-</div>
+                            <div class="metric-label">Est. Lexile</div>
+                        </div>
+                        <div class="analysis-metric">
+                            <div class="metric-value" id="avgSentenceLength">-</div>
+                            <div class="metric-label">Avg Sentence</div>
+                        </div>
+                        <div class="analysis-metric">
+                            <div class="metric-value" id="avgWordLength">-</div>
+                            <div class="metric-label">Avg Word</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('lexileModal')">Close</button>
+                <button class="btn btn-primary" onclick="analyzeLexile()">Analyze</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question Generator Modal -->
+    <div class="modal-overlay" id="questionModal">
+        <div class="modal" style="max-width:700px;">
+            <div class="modal-header">
+                <h2 class="modal-title">AI Question Generator</h2>
+                <button class="icon-btn" onclick="closeModal('questionModal')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Source Text</label>
+                    <textarea class="form-input" id="questionSourceText" rows="4" placeholder="Paste text to generate questions from..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Number of Questions</label>
+                    <select class="form-input" id="questionCount">
+                        <option value="3">3 Questions</option>
+                        <option value="5" selected>5 Questions</option>
+                        <option value="8">8 Questions</option>
+                        <option value="10">10 Questions</option>
+                    </select>
+                </div>
+                <div id="generatedQuestions" style="margin-top:var(--space-lg);"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('questionModal')">Close</button>
+                <button class="btn btn-primary" onclick="runQuestionGenerator()">Generate</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let texts = [];
+        let passages = [];
+        let currentText = null;
+        let contentBlocks = [];
+        let vocabulary = [];
+        let questions = [];
+
+        // Initialize
+        async function init() {
+            await loadTexts();
+            await loadPassages();
+            setupEventListeners();
+        }
+
+        // Load texts from manifest
+        async function loadTexts() {
+            try {
+                const response = await fetch('/readingplanet/texts/manifest.json');
+                const manifest = await response.json();
+                texts = manifest.texts || [];
+                renderTextList();
+                updateTextStats();
+            } catch (e) {
+                console.error('Failed to load texts:', e);
+            }
+        }
+
+        // Load fluency passages
+        async function loadPassages() {
+            try {
+                const response = await fetch('/readingplanet/fluency/passages.json');
+                const data = await response.json();
+                passages = data.passages || [];
+                renderPassageList();
+                updatePassageStats();
+            } catch (e) {
+                console.error('Failed to load passages:', e);
+            }
+        }
+
+        // Render text list
+        function renderTextList() {
+            const list = document.getElementById('textList');
+            if (texts.length === 0) {
+                list.innerHTML = '<div style="padding:var(--space-xl);text-align:center;color:var(--color-text-muted);">No texts yet. Click "New Text" to create one.</div>';
+                return;
+            }
+
+            list.innerHTML = texts.map(text => `
+                <div class="list-item" onclick="editText('${text.id}')">
+                    <div class="item-emoji">${text.coverEmoji || '📖'}</div>
+                    <div class="item-info">
+                        <div class="item-title">${text.title}</div>
+                        <div class="item-meta">
+                            <span>${capitalize(text.type)}</span>
+                            <span>•</span>
+                            <span>${text.lexile}L</span>
+                            <span>•</span>
+                            <span>${text.wordCount} words</span>
+                            <span>•</span>
+                            <span>${text.genre}</span>
+                        </div>
+                    </div>
+                    <div class="item-actions">
+                        <button class="icon-btn" onclick="event.stopPropagation(); previewTextById('${text.id}')" title="Preview">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                        <button class="icon-btn danger" onclick="event.stopPropagation(); deleteText('${text.id}')" title="Delete">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"/>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render passage list
+        function renderPassageList() {
+            const list = document.getElementById('passageList');
+            if (passages.length === 0) {
+                list.innerHTML = '<div style="padding:var(--space-xl);text-align:center;color:var(--color-text-muted);">No passages yet.</div>';
+                return;
+            }
+
+            list.innerHTML = passages.map(p => `
+                <div class="list-item">
+                    <div class="item-emoji">${p.emoji || '📝'}</div>
+                    <div class="item-info">
+                        <div class="item-title">${p.title}</div>
+                        <div class="item-meta">
+                            <span>${p.level}</span>
+                            <span>•</span>
+                            <span>${p.wordCount} words</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update stats
+        function updateTextStats() {
+            document.getElementById('totalTexts').textContent = texts.length;
+            document.getElementById('totalWords').textContent = texts.reduce((sum, t) => sum + (t.wordCount || 0), 0).toLocaleString();
+            document.getElementById('avgLexile').textContent = texts.length > 0
+                ? Math.round(texts.reduce((sum, t) => sum + (t.lexile || 0), 0) / texts.length)
+                : 0;
+            document.getElementById('genreCount').textContent = new Set(texts.map(t => t.genre)).size;
+        }
+
+        function updatePassageStats() {
+            document.getElementById('totalPassages').textContent = passages.length;
+            document.getElementById('grades34Count').textContent = passages.filter(p => p.level === 'grades-3-4').length;
+            document.getElementById('grades56Count').textContent = passages.filter(p => p.level === 'grades-5-6').length;
+            document.getElementById('grades78Count').textContent = passages.filter(p => p.level === 'grades-7-8').length;
+        }
+
+        // Navigation
+        function showView(viewName) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+            const view = document.getElementById(viewName + 'View');
+            if (view) view.classList.add('active');
+
+            const navItem = document.querySelector(`.nav-item[data-view="${viewName}"]`);
+            if (navItem) navItem.classList.add('active');
+        }
+
+        function setupEventListeners() {
+            // Nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    showView(item.dataset.view);
+                });
+            });
+
+            // Editor tabs
+            document.querySelectorAll('.editor-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.editor-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.editor-section').forEach(s => s.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab + 'Section').classList.add('active');
+                });
+            });
+        }
+
+        // Create new text
+        function createNewText() {
+            currentText = {
+                id: 'new-' + Date.now(),
+                title: '',
+                author: 'ReadingPlanet Staff',
+                type: 'article',
+                genre: 'science',
+                lexile: 700,
+                wordCount: 0,
+                readingTime: 5,
+                coverEmoji: '📚',
+                coverColor: '#6366f1',
+                summary: '',
+                vocabulary: [],
+                content: [],
+                comprehension: []
+            };
+            contentBlocks = [];
+            vocabulary = [];
+            questions = [];
+
+            document.getElementById('editorTitle').textContent = 'New Text';
+            populateEditor();
+            showView('editor');
+        }
+
+        // Edit existing text
+        async function editText(textId) {
+            try {
+                const response = await fetch(`/readingplanet/texts/${textId}.json`);
+                currentText = await response.json();
+                contentBlocks = currentText.content || [];
+                vocabulary = currentText.vocabulary || [];
+                questions = currentText.comprehension || [];
+
+                document.getElementById('editorTitle').textContent = 'Edit: ' + currentText.title;
+                populateEditor();
+                showView('editor');
+            } catch (e) {
+                alert('Failed to load text: ' + e.message);
+            }
+        }
+
+        // Populate editor fields
+        function populateEditor() {
+            document.getElementById('textTitle').value = currentText.title || '';
+            document.getElementById('textAuthor').value = currentText.author || 'ReadingPlanet Staff';
+            document.getElementById('textType').value = currentText.type || 'article';
+            document.getElementById('textGenre').value = currentText.genre || 'science';
+            document.getElementById('textLexile').value = currentText.lexile || 700;
+            document.getElementById('textReadingTime').value = currentText.readingTime || 5;
+            document.getElementById('textEmoji').value = currentText.coverEmoji || '📚';
+            document.getElementById('textColor').value = currentText.coverColor || '#6366f1';
+            document.getElementById('textSummary').value = currentText.summary || '';
+
+            renderContentBlocks();
+            renderVocabulary();
+            renderQuestions();
+        }
+
+        // Content blocks
+        function renderContentBlocks() {
+            const container = document.getElementById('contentBlocks');
+            if (contentBlocks.length === 0) {
+                container.innerHTML = '<p style="color:var(--color-text-muted);text-align:center;padding:var(--space-lg);">No content blocks yet. Add a block to start writing.</p>';
+                return;
+            }
+
+            container.innerHTML = contentBlocks.map((block, i) => `
+                <div class="content-block">
+                    <div class="block-header">
+                        <span class="block-type-badge">${block.type}</span>
+                        <div class="block-actions">
+                            <select onchange="changeBlockType(${i}, this.value)" style="padding:4px;border-radius:4px;border:1px solid var(--color-border);">
+                                <option value="paragraph" ${block.type === 'paragraph' ? 'selected' : ''}>Paragraph</option>
+                                <option value="heading" ${block.type === 'heading' ? 'selected' : ''}>Heading</option>
+                                <option value="quote" ${block.type === 'quote' ? 'selected' : ''}>Quote</option>
+                            </select>
+                            <button class="icon-btn danger" onclick="removeBlock(${i})">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/>
+                                    <line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <textarea class="block-textarea" onchange="updateBlock(${i}, this.value)">${block.text || ''}</textarea>
+                </div>
+            `).join('');
+        }
+
+        function addContentBlock() {
+            contentBlocks.push({ type: 'paragraph', text: '' });
+            renderContentBlocks();
+        }
+
+        function removeBlock(index) {
+            contentBlocks.splice(index, 1);
+            renderContentBlocks();
+        }
+
+        function updateBlock(index, text) {
+            contentBlocks[index].text = text;
+        }
+
+        function changeBlockType(index, type) {
+            contentBlocks[index].type = type;
+            renderContentBlocks();
+        }
+
+        // Vocabulary
+        function renderVocabulary() {
+            const container = document.getElementById('vocabList');
+            if (vocabulary.length === 0) {
+                container.innerHTML = '<p style="color:var(--color-text-muted);text-align:center;padding:var(--space-lg);">No vocabulary words yet.</p>';
+                return;
+            }
+
+            container.innerHTML = vocabulary.map((v, i) => `
+                <div class="vocab-card">
+                    <div class="vocab-inputs">
+                        <input type="text" class="form-input" value="${v.word || ''}" placeholder="Word" onchange="updateVocab(${i}, 'word', this.value)">
+                        <input type="text" class="form-input" value="${v.definition || ''}" placeholder="Definition" onchange="updateVocab(${i}, 'definition', this.value)">
+                        <input type="text" class="form-input" value="${v.sentence || ''}" placeholder="Example sentence" onchange="updateVocab(${i}, 'sentence', this.value)">
+                    </div>
+                    <button class="icon-btn danger" style="margin-top:var(--space-sm);" onclick="removeVocab(${i})">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addVocabWord() {
+            vocabulary.push({ word: '', definition: '', sentence: '' });
+            renderVocabulary();
+        }
+
+        function removeVocab(index) {
+            vocabulary.splice(index, 1);
+            renderVocabulary();
+        }
+
+        function updateVocab(index, field, value) {
+            vocabulary[index][field] = value;
+        }
+
+        // Questions
+        function renderQuestions() {
+            const container = document.getElementById('questionsList');
+            if (questions.length === 0) {
+                container.innerHTML = '<p style="color:var(--color-text-muted);text-align:center;padding:var(--space-lg);">No questions yet. Add questions or use AI to generate them.</p>';
+                return;
+            }
+
+            container.innerHTML = questions.map((q, i) => `
+                <div class="question-card">
+                    <div class="question-header">
+                        <div class="question-number">${i + 1}</div>
+                        <input type="text" class="question-text-input" value="${q.question || ''}" placeholder="Enter question..." onchange="updateQuestion(${i}, 'question', this.value)">
+                        <button class="icon-btn danger" onclick="removeQuestion(${i})">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="options-list">
+                        ${(q.options || ['', '', '', '']).map((opt, j) => `
+                            <div class="option-row">
+                                <input type="radio" name="correct${i}" class="option-radio" ${q.correctIndex === j ? 'checked' : ''} onchange="updateQuestion(${i}, 'correctIndex', ${j})">
+                                <input type="text" class="option-input" value="${opt}" placeholder="Option ${j + 1}" onchange="updateQuestionOption(${i}, ${j}, this.value)">
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addQuestion() {
+            questions.push({
+                question: '',
+                type: 'multiple-choice',
+                options: ['', '', '', ''],
+                correctIndex: 0
+            });
+            renderQuestions();
+        }
+
+        function removeQuestion(index) {
+            questions.splice(index, 1);
+            renderQuestions();
+        }
+
+        function updateQuestion(index, field, value) {
+            questions[index][field] = value;
+        }
+
+        function updateQuestionOption(qIndex, optIndex, value) {
+            questions[qIndex].options[optIndex] = value;
+        }
+
+        // Save text
+        function saveText() {
+            // Gather all data
+            const textData = {
+                id: document.getElementById('textTitle').value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, ''),
+                title: document.getElementById('textTitle').value,
+                author: document.getElementById('textAuthor').value,
+                type: document.getElementById('textType').value,
+                genre: document.getElementById('textGenre').value,
+                lexile: parseInt(document.getElementById('textLexile').value) || 700,
+                wordCount: countWords(),
+                readingTime: parseInt(document.getElementById('textReadingTime').value) || 5,
+                coverEmoji: document.getElementById('textEmoji').value,
+                coverColor: document.getElementById('textColor').value,
+                summary: document.getElementById('textSummary').value,
+                vocabulary: vocabulary,
+                content: contentBlocks,
+                comprehension: questions
+            };
+
+            // Show JSON for manual saving (in a real app, this would POST to a server)
+            const json = JSON.stringify(textData, null, 2);
+
+            // Create downloadable file
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = textData.id + '.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            alert(`Text saved! Place the downloaded file in /readingplanet/texts/ and update manifest.json to include it.`);
+        }
+
+        function countWords() {
+            return contentBlocks.reduce((sum, block) => {
+                return sum + (block.text || '').split(/\s+/).filter(w => w.length > 0).length;
+            }, 0);
+        }
+
+        // Lexile analyzer
+        function openLexileAnalyzer() {
+            document.getElementById('lexileModal').classList.add('active');
+        }
+
+        function analyzeLexile() {
+            const text = document.getElementById('lexileInput').value;
+            if (!text.trim()) return;
+
+            // Simple Lexile estimation algorithm
+            const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+            const words = text.split(/\s+/).filter(w => w.length > 0);
+
+            const avgSentenceLength = words.length / sentences.length;
+            const avgWordLength = words.reduce((sum, w) => sum + w.length, 0) / words.length;
+
+            // Rough Lexile estimation (simplified formula)
+            // Real Lexile uses log mean sentence length and log word frequency
+            let lexile = 400 + (avgSentenceLength * 30) + (avgWordLength * 50);
+            lexile = Math.round(Math.min(1400, Math.max(200, lexile)));
+
+            document.getElementById('estimatedLexile').textContent = lexile + 'L';
+            document.getElementById('avgSentenceLength').textContent = avgSentenceLength.toFixed(1);
+            document.getElementById('avgWordLength').textContent = avgWordLength.toFixed(1);
+            document.getElementById('lexileResult').style.display = 'block';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // Question generator
+        function openQuestionGenerator() {
+            document.getElementById('questionModal').classList.add('active');
+        }
+
+        function runQuestionGenerator() {
+            const text = document.getElementById('questionSourceText').value;
+            const count = parseInt(document.getElementById('questionCount').value);
+
+            if (!text.trim()) {
+                alert('Please enter some text to generate questions from.');
+                return;
+            }
+
+            // Simulate AI-generated questions (in production, this would call Claude API)
+            const generatedQs = generateSimpleQuestions(text, count);
+
+            const container = document.getElementById('generatedQuestions');
+            container.innerHTML = `
+                <h4 style="margin-bottom:var(--space-md);">Generated Questions</h4>
+                ${generatedQs.map((q, i) => `
+                    <div style="margin-bottom:var(--space-md);padding:var(--space-md);background:var(--color-bg-alt);border-radius:var(--radius-md);">
+                        <strong>Q${i + 1}:</strong> ${q.question}
+                        <div style="margin-top:var(--space-sm);font-size:0.875rem;">
+                            ${q.options.map((opt, j) => `
+                                <div style="margin-left:var(--space-md);${j === q.correctIndex ? 'color:var(--color-teal);font-weight:500;' : ''}">
+                                    ${String.fromCharCode(65 + j)}) ${opt} ${j === q.correctIndex ? '✓' : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('')}
+                <button class="btn btn-primary" onclick="useGeneratedQuestions()">Add to Text</button>
+            `;
+
+            window.generatedQuestions = generatedQs;
+        }
+
+        function generateSimpleQuestions(text, count) {
+            // Simple rule-based question generation (placeholder for Claude API)
+            const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 10);
+            const questions = [];
+
+            // Main idea question
+            questions.push({
+                question: 'What is the main idea of this passage?',
+                type: 'multiple-choice',
+                options: [
+                    'To explain an important concept',
+                    'To tell an entertaining story',
+                    'To persuade readers to take action',
+                    'To describe a personal experience'
+                ],
+                correctIndex: 0
+            });
+
+            // Extract potential topics from text
+            const words = text.toLowerCase().split(/\s+/);
+            const commonWords = new Set(['the', 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'must', 'and', 'or', 'but', 'if', 'then', 'than', 'so', 'as', 'of', 'in', 'on', 'at', 'to', 'for', 'with', 'by', 'from', 'that', 'this', 'these', 'those', 'it', 'its', 'they', 'their', 'them', 'we', 'our', 'us', 'you', 'your', 'he', 'she', 'his', 'her', 'him']);
+
+            const topicWords = words.filter(w => w.length > 4 && !commonWords.has(w));
+            const wordFreq = {};
+            topicWords.forEach(w => wordFreq[w] = (wordFreq[w] || 0) + 1);
+            const sortedWords = Object.entries(wordFreq).sort((a, b) => b[1] - a[1]);
+
+            if (sortedWords.length > 0) {
+                const topic = sortedWords[0][0];
+                questions.push({
+                    question: `According to the passage, what is important about "${topic}"?`,
+                    type: 'multiple-choice',
+                    options: [
+                        'It plays a central role in the topic discussed',
+                        'It is mentioned briefly as background information',
+                        'It represents a problem that needs solving',
+                        'It is an example used to illustrate a point'
+                    ],
+                    correctIndex: 0
+                });
+            }
+
+            // Vocabulary in context
+            if (sortedWords.length > 1) {
+                const word = sortedWords[1][0];
+                questions.push({
+                    question: `Based on how it is used in the passage, what does "${word}" most likely mean?`,
+                    type: 'multiple-choice',
+                    options: [
+                        'Something related to the main topic',
+                        'A technical term with specific meaning',
+                        'A common word used figuratively',
+                        'An unfamiliar concept being introduced'
+                    ],
+                    correctIndex: 0
+                });
+            }
+
+            // Inference question
+            questions.push({
+                question: 'What can you infer from this passage?',
+                type: 'multiple-choice',
+                options: [
+                    'The topic has significant implications',
+                    'The author has personal experience with this',
+                    'This information is widely disputed',
+                    'The subject matter is very recent'
+                ],
+                correctIndex: 0
+            });
+
+            // Author purpose
+            questions.push({
+                question: "What is the author's primary purpose in writing this passage?",
+                type: 'multiple-choice',
+                options: [
+                    'To inform readers about a topic',
+                    'To entertain with an interesting narrative',
+                    'To argue for a particular viewpoint',
+                    'To compare and contrast different ideas'
+                ],
+                correctIndex: 0
+            });
+
+            return questions.slice(0, count);
+        }
+
+        function useGeneratedQuestions() {
+            if (window.generatedQuestions) {
+                questions = [...questions, ...window.generatedQuestions];
+                renderQuestions();
+                closeModal('questionModal');
+            }
+        }
+
+        function generateQuestions() {
+            // Get text from content blocks
+            const text = contentBlocks.map(b => b.text).join(' ');
+            document.getElementById('questionSourceText').value = text;
+            openQuestionGenerator();
+        }
+
+        // Auto-detect vocabulary
+        function autoDetectVocab() {
+            const text = contentBlocks.map(b => b.text).join(' ');
+            const words = text.split(/\s+/).filter(w => w.length > 6);
+
+            // Find unique long words
+            const uniqueWords = [...new Set(words.map(w => w.toLowerCase().replace(/[^a-z]/g, '')))];
+
+            // Add first 5 unique long words as vocabulary
+            uniqueWords.slice(0, 5).forEach(word => {
+                if (!vocabulary.find(v => v.word.toLowerCase() === word)) {
+                    vocabulary.push({ word, definition: '', sentence: '' });
+                }
+            });
+
+            renderVocabulary();
+        }
+
+        // Other tools
+        function openVocabExtractor() {
+            alert('Vocabulary Extractor: In production, this would use AI to identify challenging vocabulary and generate definitions automatically.');
+        }
+
+        function openTextSimplifier() {
+            alert('Text Simplifier: In production, this would use AI to rewrite text at a lower reading level while preserving meaning.');
+        }
+
+        // Import
+        function importText() {
+            const text = document.getElementById('importTextarea').value;
+            if (!text.trim()) return;
+
+            // Parse into paragraphs
+            const paragraphs = text.split(/\n\n+/).filter(p => p.trim());
+
+            currentText = {
+                id: 'imported-' + Date.now(),
+                title: 'Imported Text',
+                author: 'ReadingPlanet Staff',
+                type: 'article',
+                genre: 'science',
+                lexile: 700,
+                wordCount: text.split(/\s+/).length,
+                readingTime: Math.ceil(text.split(/\s+/).length / 200),
+                coverEmoji: '📖',
+                coverColor: '#6366f1',
+                summary: '',
+                vocabulary: [],
+                content: paragraphs.map(p => ({ type: 'paragraph', text: p.trim() })),
+                comprehension: []
+            };
+
+            contentBlocks = currentText.content;
+            vocabulary = [];
+            questions = [];
+
+            document.getElementById('editorTitle').textContent = 'Edit: Imported Text';
+            populateEditor();
+            showView('editor');
+        }
+
+        // Utilities
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function previewTextById(id) {
+            window.open(`/readingplanet/reader/?text=${id}`, '_blank');
+        }
+
+        function previewText() {
+            alert('Preview: Save the text first, then use the preview button from the library view.');
+        }
+
+        function deleteText(id) {
+            if (confirm('Are you sure you want to delete this text? You will need to manually remove the JSON file.')) {
+                alert(`To delete, remove the file /readingplanet/texts/${id}.json and update manifest.json`);
+            }
+        }
+
+        function createNewPassage() {
+            alert('Fluency Passage Editor: Create passages directly in passages.json with the same structure as existing entries.');
+        }
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>

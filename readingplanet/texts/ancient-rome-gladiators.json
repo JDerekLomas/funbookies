@@ -1,0 +1,129 @@
+{
+  "id": "ancient-rome-gladiators",
+  "title": "Gladiators: Warriors of Ancient Rome",
+  "author": "ReadingPlanet Staff",
+  "type": "article",
+  "genre": "history",
+  "lexile": 780,
+  "wordCount": 445,
+  "readingTime": 4,
+  "coverEmoji": "🗡️",
+  "coverColor": "#b91c1c",
+  "summary": "Discover the brutal world of Roman gladiators and the massive arenas where they fought.",
+  "vocabulary": [
+    {
+      "word": "gladiator",
+      "definition": "a person trained to fight with weapons against other people or animals in an arena",
+      "sentence": "The gladiator raised his sword to salute the emperor before the battle began."
+    },
+    {
+      "word": "arena",
+      "definition": "a large, usually roofless building with seats arranged around a central area for sporting events",
+      "sentence": "The Colosseum was the largest arena in the Roman Empire."
+    },
+    {
+      "word": "spectacle",
+      "definition": "a visually striking performance or display",
+      "sentence": "Gladiator fights were considered the greatest spectacle of Roman entertainment."
+    }
+  ],
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "In ancient Rome, gladiators were more than just fighters. They were celebrities, athletes, and symbols of Roman power. Thousands of people packed into massive arenas to watch these warriors battle for their lives. The roar of the crowd could be heard throughout the city."
+    },
+    {
+      "type": "heading",
+      "text": "Who Were the Gladiators?"
+    },
+    {
+      "type": "paragraph",
+      "text": "Most gladiators were slaves, prisoners of war, or criminals who had been condemned to fight. Some were volunteers who hoped to win fame and fortune. They trained at special schools called ludus, where they learned different fighting styles and weapons. Training was intense and dangerous."
+    },
+    {
+      "type": "paragraph",
+      "text": "There were several types of gladiators. The murmillo fought with a sword and large shield, wearing a helmet decorated with a fish. The retiarius used a net and trident, trying to trap opponents before striking. The thraex carried a curved sword and small shield. Each type had strengths and weaknesses."
+    },
+    {
+      "type": "heading",
+      "text": "The Colosseum"
+    },
+    {
+      "type": "paragraph",
+      "text": "The most famous arena was the Colosseum in Rome. This massive structure could hold 50,000 spectators. It had a complex system of tunnels and elevators beneath the floor. Wild animals and gladiators would rise up through trapdoors, surprising the audience. The building even had a retractable roof to provide shade."
+    },
+    {
+      "type": "paragraph",
+      "text": "Games at the Colosseum were elaborate productions. They included animal hunts in the morning, executions at midday, and gladiator battles in the afternoon. Emperors used these events to gain popularity with the people. Free food was often distributed to the crowd."
+    },
+    {
+      "type": "heading",
+      "text": "Life and Death"
+    },
+    {
+      "type": "paragraph",
+      "text": "Not every gladiator fight ended in death. Skilled fighters were valuable, and their owners wanted them to survive. When a gladiator was defeated, the crowd would signal whether he should live or die. Thumbs up meant mercy. Thumbs down meant death. The final decision belonged to the emperor or whoever sponsored the games."
+    },
+    {
+      "type": "paragraph",
+      "text": "Successful gladiators could win their freedom after many victories. Some became trainers at gladiator schools. A few became wealthy celebrities whose names were known throughout the empire. But for most, life in the arena was short and brutal."
+    }
+  ],
+  "comprehension": [
+    {
+      "question": "What was the main purpose of gladiator games in ancient Rome?",
+      "type": "multiple-choice",
+      "options": [
+        "Entertainment for the public and political tool for emperors",
+        "Training soldiers for the Roman army",
+        "Religious ceremonies to honor the gods",
+        "Educational demonstrations for schools"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "question": "Based on the passage, what can you infer about the value of skilled gladiators?",
+      "type": "multiple-choice",
+      "options": [
+        "They were considered expendable and easily replaced",
+        "They were valuable investments that owners wanted to protect",
+        "They were treated the same as regular slaves",
+        "They had no special status in Roman society"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "What made the retiarius type of gladiator different from others?",
+      "type": "multiple-choice",
+      "options": [
+        "He used a net and trident instead of a sword and shield",
+        "He fought only against wild animals",
+        "He wore the heaviest armor of all gladiators",
+        "He was always a volunteer, never a slave"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "question": "What does the word 'spectacle' most likely mean in this passage?",
+      "type": "multiple-choice",
+      "options": [
+        "A pair of eyeglasses",
+        "A visually striking performance or display",
+        "A written document",
+        "A type of weapon"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "What is the author's tone when describing gladiator life?",
+      "type": "multiple-choice",
+      "options": [
+        "Humorous and lighthearted",
+        "Informative and somewhat serious",
+        "Angry and judgmental",
+        "Confused and uncertain"
+      ],
+      "correctIndex": 1
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "id": "black-holes-mystery",
+  "title": "Black Holes: The Universe's Dark Mystery",
+  "author": "ReadingPlanet Staff",
+  "type": "article",
+  "genre": "science",
+  "lexile": 820,
+  "wordCount": 470,
+  "readingTime": 4,
+  "coverEmoji": "🕳️",
+  "coverColor": "#1e1b4b",
+  "summary": "Explore the fascinating science of black holes and what happens when stars die.",
+  "vocabulary": [
+    {
+      "word": "gravity",
+      "definition": "the force that attracts objects toward each other, especially the force that makes things fall to the ground",
+      "sentence": "Black holes have such strong gravity that nothing can escape, not even light."
+    },
+    {
+      "word": "supernova",
+      "definition": "an explosion of a star that briefly outshines an entire galaxy",
+      "sentence": "When a massive star dies in a supernova, it can leave behind a black hole."
+    },
+    {
+      "word": "horizon",
+      "definition": "in black hole science, the boundary beyond which nothing can escape",
+      "sentence": "Once something crosses the event horizon of a black hole, it can never return."
+    }
+  ],
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Imagine something so powerful that even light cannot escape from it. That is a black hole. These mysterious objects are some of the most fascinating phenomena in the universe. Scientists have studied them for decades, and we are still learning new things about them."
+    },
+    {
+      "type": "heading",
+      "text": "How Black Holes Form"
+    },
+    {
+      "type": "paragraph",
+      "text": "Most black holes form when massive stars die. Stars are powered by nuclear fusion in their cores, which pushes outward against gravity. When a star runs out of fuel, gravity wins. The star collapses inward with tremendous force. If the star is massive enough, it keeps collapsing until it becomes a black hole."
+    },
+    {
+      "type": "paragraph",
+      "text": "This collapse happens in a violent explosion called a supernova. The outer layers of the star blast outward into space. Meanwhile, the core crushes down into an incredibly small, dense point. A black hole the mass of our sun would be only about four miles across."
+    },
+    {
+      "type": "heading",
+      "text": "The Event Horizon"
+    },
+    {
+      "type": "paragraph",
+      "text": "Every black hole has an invisible boundary called the event horizon. This is the point of no return. Anything that crosses the event horizon is trapped forever. Light, matter, information - nothing escapes. From outside, you cannot see what is inside a black hole."
+    },
+    {
+      "type": "paragraph",
+      "text": "The gravity at the event horizon is unimaginably strong. If you fell toward a black hole feet first, gravity would pull harder on your feet than your head. You would be stretched like spaghetti. Scientists actually call this process spaghettification."
+    },
+    {
+      "type": "heading",
+      "text": "Finding Black Holes"
+    },
+    {
+      "type": "paragraph",
+      "text": "Since black holes are invisible, how do scientists find them? They look for their effects on nearby matter. Gas and dust falling into a black hole heat up and glow brightly. Stars orbiting close to black holes move in unusual ways. By studying these clues, astronomers can locate black holes."
+    },
+    {
+      "type": "paragraph",
+      "text": "In 2019, scientists captured the first image of a black hole. It showed the shadow of a supermassive black hole at the center of a distant galaxy. This black hole is 6.5 billion times more massive than our sun. The image was created by linking telescopes around the world."
+    },
+    {
+      "type": "paragraph",
+      "text": "Scientists believe there is a supermassive black hole at the center of our own Milky Way galaxy. It is called Sagittarius A* and is about four million times the mass of our sun. Thankfully, it is 26,000 light-years away - far too distant to pose any danger to Earth."
+    }
+  ],
+  "comprehension": [
+    {
+      "question": "What causes most black holes to form?",
+      "type": "multiple-choice",
+      "options": [
+        "The death and collapse of massive stars",
+        "Collisions between galaxies",
+        "Explosions in empty space",
+        "The cooling of hot gas clouds"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "question": "Why is the event horizon called 'the point of no return'?",
+      "type": "multiple-choice",
+      "options": [
+        "Because time moves backward there",
+        "Because nothing that crosses it can escape",
+        "Because it is visible from Earth",
+        "Because it marks the center of the black hole"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "What is 'spaghettification'?",
+      "type": "multiple-choice",
+      "options": [
+        "A type of Italian food served in space",
+        "The stretching effect caused by extreme gravity",
+        "How black holes spin",
+        "The color of black holes"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "How did scientists create the first image of a black hole?",
+      "type": "multiple-choice",
+      "options": [
+        "By sending a spacecraft to photograph it",
+        "By linking telescopes around the world",
+        "By using a satellite in orbit",
+        "By studying old photographs"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "What can you infer about scientists' understanding of black holes?",
+      "type": "multiple-choice",
+      "options": [
+        "Scientists know everything about black holes",
+        "Scientists have stopped studying black holes",
+        "Scientists are still learning new things about them",
+        "Scientists think black holes are not real"
+      ],
+      "correctIndex": 2
+    }
+  ]
+}

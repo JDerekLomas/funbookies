@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "lastUpdated": "2026-01-10",
   "texts": [
     {
@@ -40,6 +40,97 @@
       "coverEmoji": "🎵",
       "coverColor": "#059669",
       "summary": "From CDs to Spotify: how we listen to music has completely transformed."
+    },
+    {
+      "id": "ancient-rome-gladiators",
+      "title": "Gladiators: Warriors of Ancient Rome",
+      "author": "ReadingPlanet Staff",
+      "type": "article",
+      "genre": "history",
+      "lexile": 780,
+      "wordCount": 445,
+      "readingTime": 4,
+      "coverEmoji": "🗡️",
+      "coverColor": "#b91c1c",
+      "summary": "Discover the brutal world of Roman gladiators and the massive arenas where they fought."
+    },
+    {
+      "id": "black-holes-mystery",
+      "title": "Black Holes: The Universe's Dark Mystery",
+      "author": "ReadingPlanet Staff",
+      "type": "article",
+      "genre": "science",
+      "lexile": 820,
+      "wordCount": 470,
+      "readingTime": 4,
+      "coverEmoji": "🕳️",
+      "coverColor": "#1e1b4b",
+      "summary": "Explore the fascinating science of black holes and what happens when stars die."
+    },
+    {
+      "id": "marie-curie-pioneer",
+      "title": "Marie Curie: Pioneer of Science",
+      "author": "ReadingPlanet Staff",
+      "type": "article",
+      "genre": "biography",
+      "lexile": 750,
+      "wordCount": 430,
+      "readingTime": 4,
+      "coverEmoji": "🔬",
+      "coverColor": "#7c3aed",
+      "summary": "The inspiring story of Marie Curie, the first woman to win a Nobel Prize."
+    },
+    {
+      "id": "survival-antarctica",
+      "title": "Survival in Antarctica: Shackleton's Incredible Journey",
+      "author": "ReadingPlanet Staff",
+      "type": "article",
+      "genre": "adventure",
+      "lexile": 800,
+      "wordCount": 480,
+      "readingTime": 5,
+      "coverEmoji": "🧊",
+      "coverColor": "#0ea5e9",
+      "summary": "The true story of how Ernest Shackleton and his crew survived two years stranded in Antarctica."
+    },
+    {
+      "id": "last-day-of-summer",
+      "title": "The Last Day of Summer",
+      "author": "ReadingPlanet Staff",
+      "type": "story",
+      "genre": "realistic-fiction",
+      "lexile": 680,
+      "wordCount": 520,
+      "readingTime": 5,
+      "coverEmoji": "🌅",
+      "coverColor": "#f97316",
+      "summary": "Marcus faces the end of summer and must say goodbye to his best friend who is moving away."
+    },
+    {
+      "id": "missing-trophy-mystery",
+      "title": "The Case of the Missing Trophy",
+      "author": "ReadingPlanet Staff",
+      "type": "story",
+      "genre": "mystery",
+      "lexile": 710,
+      "wordCount": 540,
+      "readingTime": 5,
+      "coverEmoji": "🔍",
+      "coverColor": "#0d9488",
+      "summary": "When the championship trophy disappears from the school display case, seventh-grader Mia Chen takes on the case."
+    },
+    {
+      "id": "road-not-taken",
+      "title": "The Road Not Taken",
+      "author": "Robert Frost",
+      "type": "poem",
+      "genre": "fiction",
+      "lexile": 870,
+      "wordCount": 250,
+      "readingTime": 3,
+      "coverEmoji": "🍂",
+      "coverColor": "#ca8a04",
+      "summary": "Robert Frost's famous poem about choices, independence, and the paths we take in life."
     }
   ]
 }

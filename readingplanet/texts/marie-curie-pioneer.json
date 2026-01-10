@@ -1,0 +1,129 @@
+{
+  "id": "marie-curie-pioneer",
+  "title": "Marie Curie: Pioneer of Science",
+  "author": "ReadingPlanet Staff",
+  "type": "article",
+  "genre": "biography",
+  "lexile": 750,
+  "wordCount": 430,
+  "readingTime": 4,
+  "coverEmoji": "🔬",
+  "coverColor": "#7c3aed",
+  "summary": "The inspiring story of Marie Curie, the first woman to win a Nobel Prize and the only person to win Nobel Prizes in two different sciences.",
+  "vocabulary": [
+    {
+      "word": "radioactivity",
+      "definition": "the emission of energy as particles or rays by the breaking apart of atoms",
+      "sentence": "Marie Curie's research on radioactivity changed science forever."
+    },
+    {
+      "word": "pioneer",
+      "definition": "a person who is among the first to explore or develop a new area of knowledge",
+      "sentence": "Marie Curie was a pioneer in the field of nuclear physics."
+    },
+    {
+      "word": "perseverance",
+      "definition": "continued effort and determination despite difficulties",
+      "sentence": "Her perseverance helped her overcome many obstacles in her career."
+    }
+  ],
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Marie Curie was one of the most remarkable scientists in history. She discovered two elements, pioneered research on radioactivity, and became the first woman to win a Nobel Prize. Her determination to succeed in a field dominated by men inspired generations of scientists."
+    },
+    {
+      "type": "heading",
+      "text": "Early Life and Struggles"
+    },
+    {
+      "type": "paragraph",
+      "text": "Born Maria Sklodowska in Warsaw, Poland, in 1867, Marie grew up during a time when women had few opportunities for education. Poland was under Russian control, and teaching Polish history and language was forbidden. Marie's family valued learning, but they had little money."
+    },
+    {
+      "type": "paragraph",
+      "text": "Marie worked as a governess to save money for university. She finally moved to Paris in 1891 to study at the Sorbonne. She changed her name to the French Marie and lived in a tiny apartment, often too poor to buy food. Despite these hardships, she graduated at the top of her class."
+    },
+    {
+      "type": "heading",
+      "text": "Groundbreaking Discoveries"
+    },
+    {
+      "type": "paragraph",
+      "text": "Marie married fellow scientist Pierre Curie in 1895. Together, they studied mysterious rays given off by uranium. Marie named this phenomenon radioactivity. She discovered that the element thorium was also radioactive. Then she found two entirely new elements, which she named polonium (after Poland) and radium."
+    },
+    {
+      "type": "paragraph",
+      "text": "In 1903, Marie and Pierre shared the Nobel Prize in Physics. Marie became the first woman ever to win a Nobel Prize. After Pierre died in a tragic accident in 1906, Marie continued their work alone. In 1911, she won a second Nobel Prize, this time in Chemistry. She remains the only person to win Nobel Prizes in two different sciences."
+    },
+    {
+      "type": "heading",
+      "text": "Legacy"
+    },
+    {
+      "type": "paragraph",
+      "text": "Marie Curie's discoveries led to major advances in medicine and science. During World War I, she developed mobile X-ray units to help doctors treat wounded soldiers. Her research on radioactivity laid the foundation for cancer treatments still used today."
+    },
+    {
+      "type": "paragraph",
+      "text": "Sadly, Marie died in 1934 from illness caused by years of radiation exposure. Scientists did not yet understand the dangers. Her laboratory notebooks are still radioactive today. But her legacy lives on in every scientist who pushes boundaries, especially women who follow in her pioneering footsteps."
+    }
+  ],
+  "comprehension": [
+    {
+      "question": "What made Marie Curie's Nobel Prize win historic?",
+      "type": "multiple-choice",
+      "options": [
+        "She was the first woman to win a Nobel Prize",
+        "She won the most money ever",
+        "She was the youngest winner",
+        "She refused to accept it"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "question": "What obstacles did Marie Curie face early in her life?",
+      "type": "multiple-choice",
+      "options": [
+        "Limited education opportunities for women and poverty",
+        "Being too young to attend school",
+        "Not being interested in science",
+        "Having too many siblings"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "question": "Why did Marie name one of her discovered elements polonium?",
+      "type": "multiple-choice",
+      "options": [
+        "It was her favorite word",
+        "After her home country of Poland",
+        "After her husband Pierre",
+        "It was a random choice"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "What can you infer about Marie Curie's character from this passage?",
+      "type": "multiple-choice",
+      "options": [
+        "She gave up easily when things got hard",
+        "She was determined and hardworking",
+        "She preferred working alone always",
+        "She did not care about helping others"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "What is the author's main purpose in writing this passage?",
+      "type": "multiple-choice",
+      "options": [
+        "To criticize Marie Curie's methods",
+        "To explain how radioactivity works",
+        "To inform and inspire readers about Marie Curie's achievements",
+        "To argue that women should not be scientists"
+      ],
+      "correctIndex": 2
+    }
+  ]
+}

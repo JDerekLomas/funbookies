@@ -266,6 +266,14 @@
                 <button class="filter-btn active" data-type="all">All</button>
                 <button class="filter-btn" data-type="article">Articles</button>
                 <button class="filter-btn" data-type="story">Stories</button>
+                <button class="filter-btn" data-type="poem">Poetry</button>
+            </div>
+            <div class="filter-group" id="genreFilters">
+                <button class="filter-btn" data-genre="science">Science</button>
+                <button class="filter-btn" data-genre="history">History</button>
+                <button class="filter-btn" data-genre="biography">Biography</button>
+                <button class="filter-btn" data-genre="mystery">Mystery</button>
+                <button class="filter-btn" data-genre="adventure">Adventure</button>
             </div>
             <div class="filter-group" id="levelFilters">
                 <button class="filter-btn" data-level="easy">Easier (600-700L)</button>
@@ -289,6 +297,7 @@
         let allTexts = [];
         let filteredTexts = [];
         let currentTypeFilter = 'all';
+        let currentGenreFilter = null;
         let currentLevelFilter = null;
         let searchQuery = '';
 
@@ -324,6 +333,11 @@
             filteredTexts = allTexts.filter(text => {
                 // Type filter
                 if (currentTypeFilter !== 'all' && text.type !== currentTypeFilter) {
+                    return false;
+                }
+
+                // Genre filter
+                if (currentGenreFilter && text.genre !== currentGenreFilter) {
                     return false;
                 }
 
@@ -416,6 +430,22 @@
             document.querySelectorAll('#typeFilters .filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentTypeFilter = btn.dataset.type;
+            applyFilters();
+        });
+
+        document.getElementById('genreFilters').addEventListener('click', (e) => {
+            const btn = e.target.closest('.filter-btn');
+            if (!btn) return;
+
+            const wasActive = btn.classList.contains('active');
+            document.querySelectorAll('#genreFilters .filter-btn').forEach(b => b.classList.remove('active'));
+
+            if (!wasActive) {
+                btn.classList.add('active');
+                currentGenreFilter = btn.dataset.genre;
+            } else {
+                currentGenreFilter = null;
+            }
             applyFilters();
         });
 

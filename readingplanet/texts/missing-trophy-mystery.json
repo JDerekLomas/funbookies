@@ -1,0 +1,149 @@
+{
+  "id": "missing-trophy-mystery",
+  "title": "The Case of the Missing Trophy",
+  "author": "ReadingPlanet Staff",
+  "type": "story",
+  "genre": "mystery",
+  "lexile": 710,
+  "wordCount": 540,
+  "readingTime": 5,
+  "coverEmoji": "🔍",
+  "coverColor": "#0d9488",
+  "summary": "When the championship trophy disappears from the school display case, seventh-grader Mia Chen takes on the case.",
+  "vocabulary": [
+    {
+      "word": "culprit",
+      "definition": "a person who is responsible for a crime or wrongdoing",
+      "sentence": "Mia was determined to find the culprit who took the trophy."
+    },
+    {
+      "word": "alibi",
+      "definition": "evidence that someone was somewhere else when a crime took place",
+      "sentence": "The suspect had a strong alibi for the time of the theft."
+    },
+    {
+      "word": "evidence",
+      "definition": "facts or objects that help prove whether something is true",
+      "sentence": "The detective carefully collected all the evidence from the scene."
+    }
+  ],
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Mia Chen stared at the empty spot in the trophy case. Yesterday, the championship basketball trophy had been there, gleaming under the lights. Today, nothing but dust where it used to sit. Principal Torres had called an emergency assembly, but Mia had slipped away to investigate."
+    },
+    {
+      "type": "paragraph",
+      "text": "\"Looking for clues?\" asked a voice behind her."
+    },
+    {
+      "type": "paragraph",
+      "text": "Mia turned to find her friend Omar watching with an amused expression. \"Someone has to,\" she said. \"The basketball team spent all year winning that trophy. They deserve to have it back.\""
+    },
+    {
+      "type": "paragraph",
+      "text": "\"Coach Davis thinks it was someone from Westfield,\" Omar said. \"Their team was pretty upset about losing the championship.\""
+    },
+    {
+      "type": "paragraph",
+      "text": "Mia crouched down to examine the display case lock. \"But how would someone from another school get in here?\" She pointed at the lock. \"See these scratches? Someone picked this. And look.\" She held up a small, round object. \"A button. Blue with a gold anchor.\""
+    },
+    {
+      "type": "paragraph",
+      "text": "Omar's eyes widened. \"That's from a sailing club jacket. My cousin has one just like—\" He stopped. \"Wait. You don't think...\""
+    },
+    {
+      "type": "paragraph",
+      "text": "\"I'm not accusing anyone yet,\" Mia said carefully. \"But who do we know that's in sailing club and might have a reason to want the trophy gone?\""
+    },
+    {
+      "type": "paragraph",
+      "text": "They exchanged a look. Derek Mason. Star of the basketball team until he was benched for failing grades last month. He had missed the championship game entirely and blamed Coach Davis publicly for being unfair."
+    },
+    {
+      "type": "paragraph",
+      "text": "\"Derek has an alibi,\" Omar said. \"He was at sailing practice all afternoon. I saw him there.\""
+    },
+    {
+      "type": "paragraph",
+      "text": "\"But sailing practice ended at four. The trophy was still here at four thirty when I passed by. It was gone by five when janitor Mike locked up.\" Mia pulled out her phone and began typing notes. \"That gives Derek a thirty-minute window.\""
+    },
+    {
+      "type": "paragraph",
+      "text": "\"We should talk to him,\" Omar suggested."
+    },
+    {
+      "type": "paragraph",
+      "text": "\"Not yet. First, I want to check the security cameras and talk to Mike. Real detectives gather evidence before confronting suspects.\" Mia pocketed the button carefully. \"Plus, we might be wrong. This could belong to anyone in sailing club.\""
+    },
+    {
+      "type": "paragraph",
+      "text": "Omar nodded slowly. \"Okay, Detective Chen. What's our next move?\""
+    },
+    {
+      "type": "paragraph",
+      "text": "Mia smiled. \"We find out who else was in this hallway between four and five o'clock yesterday. Someone saw something. They just might not know it yet.\""
+    },
+    {
+      "type": "paragraph",
+      "text": "As they headed toward the security office, Mia's mind raced through possibilities. The trophy thief thought they were clever. But Mia had solved every mystery that came her way since fourth grade. She wasn't about to let this one go unsolved."
+    }
+  ],
+  "comprehension": [
+    {
+      "question": "What is the main problem in this story?",
+      "type": "multiple-choice",
+      "options": [
+        "The championship basketball trophy has been stolen",
+        "The basketball team lost their game",
+        "Mia cannot find her friend Omar",
+        "The school is closing down"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "question": "What clue does Mia find at the scene?",
+      "type": "multiple-choice",
+      "options": [
+        "A fingerprint on the glass",
+        "A blue button with a gold anchor",
+        "A written note from the thief",
+        "A piece of torn clothing"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "Why might Derek Mason be a suspect?",
+      "type": "multiple-choice",
+      "options": [
+        "He was seen taking the trophy",
+        "He was benched from the team and blamed the coach",
+        "He has a history of stealing",
+        "He doesn't go to this school"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "What does Mia mean when she says 'Real detectives gather evidence before confronting suspects'?",
+      "type": "multiple-choice",
+      "options": [
+        "Detectives should never talk to suspects",
+        "It's important to have facts before making accusations",
+        "Evidence is not important in solving crimes",
+        "Suspects should gather their own evidence"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "Based on the story, what kind of person is Mia?",
+      "type": "multiple-choice",
+      "options": [
+        "Impulsive and careless",
+        "Observant and methodical",
+        "Shy and timid",
+        "Lazy and uninterested"
+      ],
+      "correctIndex": 1
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "passages": [
     {
       "id": "soccer-1",
@@ -42,6 +42,22 @@
       "text": "The ocean is home to millions of creatures. Some are tiny, and some are huge. Colorful fish swim through coral reefs. They hide in the coral when danger comes. Dolphins are smart animals that live in the sea. They play together and talk using clicks and whistles. Whales are the biggest animals on Earth. A blue whale can be as long as three school buses. Octopuses have eight arms and can change colors. Jellyfish float through the water and glow in the dark. Sharks have been swimming in the oceans for millions of years. The deep ocean is dark and cold. Strange creatures live there that we are still discovering."
     },
     {
+      "id": "dinosaurs-1",
+      "title": "When Dinosaurs Ruled",
+      "level": "grades-3-4",
+      "wordCount": 118,
+      "emoji": "🦕",
+      "text": "Dinosaurs lived on Earth millions of years ago. They ruled the planet for over 160 million years. Some dinosaurs were as tall as buildings. Others were as small as chickens. The T-Rex was one of the most famous dinosaurs. It had sharp teeth and tiny arms. Plant-eating dinosaurs like Brachiosaurus had long necks to reach leaves in tall trees. Scientists find dinosaur bones buried in rocks. These bones are called fossils. By studying fossils, we learn how dinosaurs lived and what they ate. About 65 million years ago, all dinosaurs disappeared. Many scientists think a giant asteroid hit Earth. This changed the climate and dinosaurs could not survive."
+    },
+    {
+      "id": "bikes-1",
+      "title": "Learning to Ride",
+      "level": "grades-3-4",
+      "wordCount": 109,
+      "emoji": "🚲",
+      "text": "Learning to ride a bike is exciting. At first, it can be scary. You might fall down a few times. That is okay. Everyone falls when they are learning. Start with training wheels to help you balance. Once you feel steady, take them off. Have someone hold the back of your seat. Pedal slowly and keep looking forward. Soon you will be riding on your own. Remember to always wear a helmet. It keeps your head safe if you fall. Now you can ride to school, to the park, or around the neighborhood. Riding a bike is freedom."
+    },
+    {
       "id": "video-games-1",
       "title": "The History of Video Games",
       "level": "grades-5-6",
@@ -80,6 +96,22 @@
       "wordCount": 158,
       "emoji": "🤖",
       "text": "Robots are no longer just science fiction. They are becoming part of our daily lives. Factory robots build cars and electronics with incredible precision. They can work around the clock without getting tired. Surgical robots help doctors perform delicate operations. Their steady movements are more precise than human hands. Delivery robots are starting to bring packages to homes in some cities. Robot vacuums clean floors while their owners are away at work. Self-driving cars use robot technology to navigate roads safely. Scientists are developing robots that can walk, run, and even dance. Some robots can hold conversations and recognize faces. In the future, robots may help care for elderly people and perform dangerous jobs. But robots also raise important questions. Will they take jobs from human workers? How should we treat machines that seem intelligent? As technology advances, we will need to answer these questions together."
+    },
+    {
+      "id": "skateboarding-1",
+      "title": "The Evolution of Skateboarding",
+      "level": "grades-5-6",
+      "wordCount": 155,
+      "emoji": "🛹",
+      "text": "Skateboarding started in California in the 1950s. Surfers wanted something to do when the waves were flat. They attached roller skate wheels to wooden boards and rode on sidewalks. These early skateboards were simple and dangerous. In the 1970s, urethane wheels made skateboarding safer and more popular. Skaters began building ramps and empty pools to practice tricks. Tony Hawk became the most famous skateboarder in the world. He landed the first 900, spinning two and a half times in the air. His video games introduced skateboarding to millions of kids. Today, skateboarding is an Olympic sport. Athletes compete in events like street and park. Street skating uses stairs, rails, and benches found in cities. Park skating happens in specially designed bowls and ramps. Skateboarding culture has influenced fashion, music, and art. What started as surfers killing time has become a global phenomenon with professional athletes and massive competitions."
+    },
+    {
+      "id": "ancient-egypt-1",
+      "title": "Secrets of Ancient Egypt",
+      "level": "grades-5-6",
+      "wordCount": 162,
+      "emoji": "🏺",
+      "text": "Ancient Egypt was one of the greatest civilizations in history. It lasted for over 3,000 years along the banks of the Nile River. The Egyptians built massive pyramids as tombs for their pharaohs. The Great Pyramid at Giza is one of the Seven Wonders of the Ancient World. It took thousands of workers decades to build using millions of stone blocks. Each block weighs as much as a car. Scientists still debate exactly how the Egyptians moved such heavy stones. The Egyptians developed one of the first writing systems called hieroglyphics. They used pictures and symbols to record their history and beliefs. They also made advances in medicine, astronomy, and architecture. The Egyptians believed in life after death. They preserved bodies as mummies and buried them with food, clothing, and treasure. When archaeologists discovered King Tut's tomb in 1922, they found incredible golden artifacts. Ancient Egypt continues to fascinate people around the world."
     },
     {
       "id": "social-media-1",
@@ -122,6 +154,22 @@
       "text": "Mental health is just as important as physical health, yet it often receives less attention. Anxiety and depression affect millions of young people worldwide. These conditions are medical issues, not signs of weakness or character flaws. Stress from school, relationships, and social media can contribute to mental health challenges. Recognizing the signs of mental health problems is the first step toward getting help. Persistent sadness, excessive worry, changes in sleep or appetite, and withdrawal from activities once enjoyed may indicate a need for support. Many effective treatments exist for mental health conditions. Therapy helps people understand their thoughts and develop coping strategies. Some conditions respond well to medication prescribed by doctors. Regular exercise has been shown to improve mood and reduce anxiety. Talking to trusted friends, family members, or counselors can provide relief and perspective. Schools are increasingly offering mental health resources and education. Reducing stigma around mental health encourages more people to seek help. Taking care of mental health includes daily habits like getting enough sleep, spending time outdoors, and practicing mindfulness. Everyone deserves support during difficult times."
     },
     {
+      "id": "cryptocurrency-1",
+      "title": "Understanding Cryptocurrency",
+      "level": "grades-7-8",
+      "wordCount": 175,
+      "emoji": "💰",
+      "text": "Cryptocurrency is digital money that exists only on computers. Unlike dollars or euros, no government or bank controls it. Bitcoin was the first cryptocurrency, created in 2009 by someone using the name Satoshi Nakamoto. Today, thousands of different cryptocurrencies exist. They use technology called blockchain to record every transaction. A blockchain is like a giant spreadsheet shared across thousands of computers. When someone sends cryptocurrency, the transaction is verified by many computers at once. This makes it very difficult to cheat the system. People buy cryptocurrency hoping its value will increase. Bitcoin's price has risen from nearly zero to tens of thousands of dollars, making some early buyers wealthy. However, prices can also crash dramatically. Critics say cryptocurrency uses enormous amounts of electricity and enables illegal activities. Supporters believe it could make financial services available to billions of people without bank accounts. Governments are still figuring out how to regulate cryptocurrency. Some countries have banned it entirely. Others are creating their own digital currencies. Understanding cryptocurrency is becoming increasingly important as technology changes how money works."
+    },
+    {
+      "id": "sports-psychology-1",
+      "title": "The Mental Game of Sports",
+      "level": "grades-7-8",
+      "wordCount": 180,
+      "emoji": "🎯",
+      "text": "Elite athletes know that success depends on more than physical ability. Mental strength often separates champions from everyone else. Sports psychologists help athletes develop the mental skills needed to perform under pressure. Visualization is one common technique. Athletes imagine themselves executing perfect performances before competitions. Research shows that visualizing success can improve actual performance. The brain activates similar pathways whether you perform a movement or just imagine it. Managing anxiety is another crucial skill. Some nervousness before competition is normal and can even boost performance. However, too much anxiety causes muscles to tense and thoughts to race. Athletes learn breathing techniques and mental cues to calm themselves. Focus and concentration distinguish great athletes. During critical moments, they block out crowd noise and negative thoughts. They stay present rather than worrying about past mistakes or future outcomes. Building confidence requires intentional practice. Athletes set achievable goals and track progress. They develop routines that help them feel prepared and in control. Many professional teams now employ full-time sports psychologists. Mental training has become as important as physical conditioning."
+    },
+    {
       "id": "ai-future-1",
       "title": "Artificial Intelligence and the Future",
       "level": "grades-9-10",
@@ -160,6 +208,22 @@
       "wordCount": 218,
       "emoji": "🌐",
       "text": "Global challenges require global cooperation, making awareness of international issues increasingly important for young people. Problems like climate change, pandemic diseases, and economic inequality transcend national borders. Understanding different cultures and perspectives prepares citizens to participate in addressing these shared challenges. Globalization has connected economies and societies in unprecedented ways. Products we use daily often contain components manufactured in multiple countries. Cultural exchange through music, film, and social media has accelerated. Immigration has made communities more diverse, bringing both opportunities and tensions. International organizations like the United Nations attempt to coordinate responses to global problems. While imperfect, these institutions provide forums for dialogue and cooperation. Trade agreements and diplomatic relationships shape economic conditions worldwide. Geopolitical tensions affect stability and security across regions. Young people can engage with global issues in meaningful ways. Learning about different cultures and languages builds understanding across boundaries. Following international news develops awareness of how events around the world affect one another. Supporting organizations addressing global challenges provides direct impact. Eventually, career opportunities in international development, diplomacy, and global business await those with cross-cultural skills. Technology has made connecting with people worldwide easier than ever before. Developing a global perspective enriches personal understanding while preparing for citizenship in an interconnected world."
+    },
+    {
+      "id": "space-exploration-1",
+      "title": "The New Age of Space Exploration",
+      "level": "grades-9-10",
+      "wordCount": 205,
+      "emoji": "🚀",
+      "text": "Space exploration is entering a new era driven by both government agencies and private companies. For decades, only nations could afford to send rockets into space. Now, companies like SpaceX, Blue Origin, and others are revolutionizing the industry. SpaceX's reusable rockets have dramatically reduced launch costs. Instead of throwing away expensive rockets after one use, they land them and fly them again. This breakthrough makes space more accessible than ever before. Private companies are also developing space tourism. Several billionaires have already flown to the edge of space as paying passengers. More ambitious plans include hotels in orbit and trips around the moon. NASA and other space agencies are planning human missions to Mars. The journey would take months, requiring new technologies for life support and radiation protection. Astronauts would face unprecedented psychological challenges living in confined spaces far from Earth. Scientists are also searching for life beyond our planet. Mars rovers look for evidence of ancient microbial life. Telescopes scan distant exoplanets for signs of habitability. The discovery of life elsewhere would transform our understanding of the universe. Space exploration inspires innovation, advances technology, and reminds us of our place in the cosmos. The next decades may bring discoveries that change humanity forever."
+    },
+    {
+      "id": "genetic-engineering-1",
+      "title": "The Promise and Peril of Gene Editing",
+      "level": "grades-9-10",
+      "wordCount": 210,
+      "emoji": "🧪",
+      "text": "Gene editing technology called CRISPR has given scientists unprecedented ability to modify DNA. This powerful tool works like molecular scissors, cutting genetic code at precise locations. Scientists can delete harmful genes, correct mutations, or insert new genetic material. The potential medical applications are revolutionary. CRISPR could cure genetic diseases that have no current treatment. Researchers are developing therapies for sickle cell disease, muscular dystrophy, and certain cancers. Some scientists dream of eliminating inherited conditions entirely by editing genes in embryos. However, this possibility raises profound ethical questions. Should we alter genes that will be passed to future generations? Who decides which traits are diseases to be cured versus differences to be preserved? These questions become more urgent as technology advances faster than ethical frameworks. In agriculture, gene editing could create crops resistant to disease and climate change. This might help feed a growing global population. Critics worry about unintended consequences and corporate control of food supply. The first genetically edited babies were born in China in 2018, sparking international outrage over safety and ethics. Most scientists believe human germline editing is premature and dangerous. Establishing global guidelines for genetic technology requires international cooperation and public engagement."
     }
   ]
 }

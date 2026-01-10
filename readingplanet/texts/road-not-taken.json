@@ -1,0 +1,117 @@
+{
+  "id": "road-not-taken",
+  "title": "The Road Not Taken",
+  "author": "Robert Frost",
+  "type": "poem",
+  "genre": "fiction",
+  "lexile": 870,
+  "wordCount": 250,
+  "readingTime": 3,
+  "coverEmoji": "🍂",
+  "coverColor": "#ca8a04",
+  "summary": "Robert Frost's famous poem about choices, independence, and the paths we take in life.",
+  "vocabulary": [
+    {
+      "word": "diverge",
+      "definition": "to separate and go in different directions",
+      "sentence": "The two roads diverged in the yellow wood."
+    },
+    {
+      "word": "undergrowth",
+      "definition": "shrubs, bushes, and plants growing beneath the trees in a forest",
+      "sentence": "The path disappeared into the dense undergrowth."
+    },
+    {
+      "word": "trodden",
+      "definition": "having been walked on",
+      "sentence": "The path was less trodden because fewer people had walked on it."
+    }
+  ],
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "Two roads diverged in a yellow wood,\nAnd sorry I could not travel both\nAnd be one traveler, long I stood\nAnd looked down one as far as I could\nTo where it bent in the undergrowth;"
+    },
+    {
+      "type": "paragraph",
+      "text": "Then took the other, as just as fair,\nAnd having perhaps the better claim,\nBecause it was grassy and wanted wear;\nThough as for that the passing there\nHad worn them really about the same,"
+    },
+    {
+      "type": "paragraph",
+      "text": "And both that morning equally lay\nIn leaves no step had trodden black.\nOh, I kept the first for another day!\nYet knowing how way leads on to way,\nI doubted if I should ever come back."
+    },
+    {
+      "type": "paragraph",
+      "text": "I shall be telling this with a sigh\nSomewhere ages and ages hence:\nTwo roads diverged in a wood, and I—\nI took the one less traveled by,\nAnd that has made all the difference."
+    },
+    {
+      "type": "heading",
+      "text": "About This Poem"
+    },
+    {
+      "type": "paragraph",
+      "text": "Robert Frost wrote 'The Road Not Taken' in 1916. It has become one of the most famous American poems. Many people interpret it as celebrating individuality and the importance of making your own choices in life. The speaker in the poem faces two paths in the woods and must choose one. Later in life, he reflects on that choice."
+    },
+    {
+      "type": "paragraph",
+      "text": "However, scholars note that Frost may have intended some irony. The speaker admits the paths were 'really about the same' yet later claims he took 'the one less traveled by.' This suggests we sometimes create meaningful stories about our choices after the fact. Either way, the poem invites readers to think about how our decisions shape who we become."
+    }
+  ],
+  "comprehension": [
+    {
+      "question": "What situation does the speaker face at the beginning of the poem?",
+      "type": "multiple-choice",
+      "options": [
+        "He must choose between two paths in the woods",
+        "He is lost in a dangerous forest",
+        "He is waiting for a friend",
+        "He is running from something"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "question": "What does the speaker mean by 'wanted wear'?",
+      "type": "multiple-choice",
+      "options": [
+        "The path needed to be repaired",
+        "The path had not been walked on as much",
+        "The path was too expensive",
+        "The path was wearing out"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "Why does the speaker doubt he will 'ever come back'?",
+      "type": "multiple-choice",
+      "options": [
+        "The forest is too dangerous",
+        "Life choices lead to other choices, making it hard to return",
+        "He doesn't like the woods",
+        "Someone told him not to return"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "What does the last line 'And that has made all the difference' suggest?",
+      "type": "multiple-choice",
+      "options": [
+        "The speaker regrets his choice",
+        "The choice had a significant impact on his life",
+        "Both paths were exactly the same",
+        "The speaker is angry about his decision"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "What is one possible theme of this poem?",
+      "type": "multiple-choice",
+      "options": [
+        "Nature is always dangerous",
+        "Our choices shape who we become",
+        "Walking is good exercise",
+        "Roads should be better maintained"
+      ],
+      "correctIndex": 1
+    }
+  ]
+}

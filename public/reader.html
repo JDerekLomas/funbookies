@@ -950,11 +950,31 @@
             max-width: 1200px;
             display: grid;
             grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr;
             gap: 24px;
         }
 
         body.edit-mode .book-page {
             max-width: 100%;
+        }
+
+        /* Edit mode nav at top */
+        .edit-nav {
+            display: none;
+            grid-column: 1 / -1;
+            position: static;
+            background: var(--color-soft-black);
+            border-radius: 12px;
+            padding: 12px 24px;
+        }
+
+        body.edit-mode .edit-nav {
+            display: flex;
+        }
+
+        /* Hide bottom nav in edit mode */
+        body.edit-mode .bottom-nav {
+            display: none;
         }
 
         .reference-panel {
@@ -1435,14 +1455,26 @@
     </header>
 
     <div class="reader-container">
+        <nav class="reader-nav edit-nav" id="editNav">
+            <button class="nav-btn" id="prevBtn" onclick="prevPage()" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <span class="page-indicator" id="pageIndicator">1 / 1</span>
+            <button class="nav-btn" id="nextBtn" onclick="nextPage()" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </nav>
+
         <div class="book-page" id="bookPage">
             <div class="loading">Loading book...</div>
         </div>
 
         <div class="reference-panel" id="referencePanel">
-            <h3>Reference Image</h3>
-            <img id="referenceImage" src="" alt="Reference" onerror="this.style.display='none'; document.getElementById('noReference').style.display='block';">
-            <div id="noReference" class="no-reference" style="display: none;">No reference image available</div>
+            <h3>Page Info & Feedback</h3>
             <div class="edit-info" id="editInfo">
                 <div><label>Book Slug</label><span class="value" id="infoSlug">-</span></div>
                 <div style="margin-top: 8px;"><label>Level</label><span class="value" id="infoLevel">-</span></div>
@@ -1488,14 +1520,15 @@
             </div>
         </div>
 
-        <nav class="reader-nav">
-            <button class="nav-btn" id="prevBtn" onclick="prevPage()" disabled>
+        <!-- Bottom nav for normal reading mode -->
+        <nav class="reader-nav bottom-nav" id="bottomNav">
+            <button class="nav-btn" onclick="prevPage()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="15 18 9 12 15 6"></polyline>
                 </svg>
             </button>
-            <span class="page-indicator" id="pageIndicator">1 / 1</span>
-            <button class="nav-btn" id="nextBtn" onclick="nextPage()" disabled>
+            <span class="page-indicator bottom-page-indicator" id="bottomPageIndicator">1 / 1</span>
+            <button class="nav-btn" onclick="nextPage()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="9 18 15 12 9 6"></polyline>
                 </svg>
@@ -2260,12 +2293,16 @@
             document.getElementById('prevBtn').disabled = currentPage <= minPage;
             document.getElementById('nextBtn').disabled = !currentBook || currentPage >= currentBook.pages.length - 1;
 
-            // Update page indicator
+            // Update page indicators (both top and bottom)
+            let pageText;
             if (currentPage === -1) {
-                document.getElementById('pageIndicator').textContent = `Ref / ${currentBook?.pages.length || 0}`;
+                pageText = `Ref / ${currentBook?.pages.length || 0}`;
             } else {
-                document.getElementById('pageIndicator').textContent = `${currentPage + 1} / ${currentBook?.pages.length || 0}`;
+                pageText = `${currentPage + 1} / ${currentBook?.pages.length || 0}`;
             }
+            document.getElementById('pageIndicator').textContent = pageText;
+            const bottomIndicator = document.getElementById('bottomPageIndicator');
+            if (bottomIndicator) bottomIndicator.textContent = pageText;
         }
 
         // Keyboard navigation

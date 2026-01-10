@@ -1050,6 +1050,187 @@
             }
         }
 
+        /* Image Editor Panel Styles */
+        .image-editor-panel {
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--color-cream);
+            border-radius: 8px;
+        }
+
+        .image-editor-panel h4 {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: var(--color-charcoal);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-editor {
+            width: 100%;
+            min-height: 120px;
+            padding: 10px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            resize: vertical;
+            margin-bottom: 12px;
+        }
+
+        .prompt-editor:focus {
+            outline: none;
+            border-color: var(--color-sage);
+        }
+
+        .editor-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .editor-select {
+            padding: 8px 12px;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .editor-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .editor-btn.primary {
+            background: var(--color-sage);
+            color: white;
+        }
+
+        .editor-btn.primary:hover {
+            background: #6a9a75;
+        }
+
+        .editor-btn.primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .editor-btn.secondary {
+            background: var(--color-dusty-blue);
+            color: white;
+        }
+
+        .editor-btn.secondary:hover {
+            background: #5a7c9e;
+        }
+
+        .reference-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .reference-section label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            color: var(--color-text-muted);
+        }
+
+        .reference-versions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .reference-version {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--color-border);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .reference-version img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .reference-version.active {
+            border-color: var(--color-sage);
+            box-shadow: 0 0 0 2px rgba(127, 176, 138, 0.3);
+        }
+
+        .reference-version .version-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            font-size: 0.65rem;
+            text-align: center;
+            padding: 2px;
+        }
+
+        .upload-reference {
+            width: 60px;
+            height: 60px;
+            border: 2px dashed var(--color-border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--color-text-muted);
+            font-size: 1.5rem;
+        }
+
+        .upload-reference:hover {
+            border-color: var(--color-sage);
+            color: var(--color-sage);
+        }
+
+        .generation-status {
+            margin-top: 12px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        .generation-status.loading {
+            display: block;
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        .generation-status.success {
+            display: block;
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .generation-status.error {
+            display: block;
+            background: #FFEBEE;
+            color: #C62828;
+        }
+
         /* Feedback Panel Styles */
         .feedback-panel {
             margin-top: 16px;
@@ -1479,7 +1660,37 @@
                 <div><label>Book Slug</label><span class="value" id="infoSlug">-</span></div>
                 <div style="margin-top: 8px;"><label>Level</label><span class="value" id="infoLevel">-</span></div>
                 <div style="margin-top: 8px;"><label>Current Page</label><span class="value" id="infoPage">-</span></div>
-                <div style="margin-top: 8px;"><label>Image Prompt</label><div class="value prompt-value" id="infoScene">-</div></div>
+            </div>
+
+            <div class="image-editor-panel" id="imageEditorPanel">
+                <h4>Image Editor <span style="font-weight: normal; font-size: 0.75rem; color: var(--color-text-muted);">Edit & Regenerate</span></h4>
+
+                <label style="font-weight: 600; font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 4px; display: block;">Prompt</label>
+                <textarea class="prompt-editor" id="promptEditor" placeholder="Image generation prompt..."></textarea>
+
+                <div class="editor-controls">
+                    <select class="editor-select" id="modelSelect">
+                        <option value="wan2.6-image">wan2.6-image (style transfer)</option>
+                        <option value="wan2.6-t2i">wan2.6-t2i (text only)</option>
+                        <option value="nano-banana-pro">nano-banana-pro (reference sheet)</option>
+                    </select>
+                    <button class="editor-btn primary" id="regenerateBtn" onclick="regenerateImage()">
+                        Regenerate
+                    </button>
+                    <button class="editor-btn secondary" onclick="savePromptToBook()">
+                        Save Prompt
+                    </button>
+                </div>
+
+                <div class="reference-section">
+                    <label>Reference Image (for style transfer)</label>
+                    <div class="reference-versions" id="referenceVersions">
+                        <!-- Dynamically populated -->
+                    </div>
+                    <input type="file" id="uploadReferenceInput" accept="image/*" style="display: none;" onchange="handleReferenceUpload(event)">
+                </div>
+
+                <div class="generation-status" id="generationStatus"></div>
             </div>
 
             <div class="feedback-panel" id="feedbackPanel">
@@ -1669,21 +1880,225 @@
         function updateEditInfo() {
             if (!editMode || !currentBook) return;
 
+            let currentPrompt = '';
+
             // Handle reference page (page -1)
             if (currentPage === -1) {
                 document.getElementById('infoPage').textContent = `Reference / ${currentBook.pages.length}`;
-                document.getElementById('infoScene').textContent = currentBook.reference_prompt || 'No reference prompt available';
+                currentPrompt = currentBook.reference_prompt || 'No reference prompt available';
             } else {
                 const page = currentBook.pages[currentPage];
                 document.getElementById('infoPage').textContent = `${currentPage + 1} / ${currentBook.pages.length}`;
                 // Show image_prompt first, fall back to scene, then text
-                const prompt = page?.image_prompt || page?.scene || page?.text || 'No prompt available';
-                document.getElementById('infoScene').textContent = prompt;
+                currentPrompt = page?.image_prompt || page?.scene || page?.text || 'No prompt available';
             }
+
+            // Update prompt editor
+            const promptEditor = document.getElementById('promptEditor');
+            if (promptEditor) {
+                promptEditor.value = currentPrompt;
+            }
+
+            // Load reference versions
+            loadReferenceVersions();
 
             // Load feedback for current page
             loadFeedback();
             updateFeedbackCount();
+        }
+
+        // Image Editor Functions
+        let selectedReference = null;
+        let uploadedReferenceData = null;
+
+        function loadReferenceVersions() {
+            const container = document.getElementById('referenceVersions');
+            if (!container || !currentBook) return;
+
+            const slug = currentBook._slug || bookSlug;
+
+            // Build list of possible reference versions
+            const versions = [
+                { path: `/books/references/${slug}_reference.png`, label: 'v1', version: 1 },
+                { path: `/books/references/${slug}_reference_v2.png`, label: 'v2', version: 2 },
+                { path: `/books/references/${slug}_reference_v3.png`, label: 'v3', version: 3 },
+            ];
+
+            // Determine active version from book metadata or default to v1
+            const activeVersion = currentBook.active_reference_version || 1;
+
+            container.innerHTML = '';
+
+            versions.forEach(v => {
+                const div = document.createElement('div');
+                div.className = `reference-version ${v.version === activeVersion ? 'active' : ''}`;
+                div.innerHTML = `
+                    <img src="${v.path}" alt="Reference ${v.label}" onerror="this.parentElement.style.display='none'">
+                    <span class="version-label">${v.label}${v.version === activeVersion ? ' ✓' : ''}</span>
+                `;
+                div.onclick = () => selectReference(v.path, v.version, div);
+                container.appendChild(div);
+            });
+
+            // Add upload button
+            const uploadBtn = document.createElement('div');
+            uploadBtn.className = 'upload-reference';
+            uploadBtn.innerHTML = '+';
+            uploadBtn.title = 'Upload custom reference';
+            uploadBtn.onclick = () => document.getElementById('uploadReferenceInput').click();
+            container.appendChild(uploadBtn);
+
+            // Set initial selection
+            selectedReference = versions.find(v => v.version === activeVersion)?.path || versions[0].path;
+        }
+
+        function selectReference(path, version, element) {
+            selectedReference = path;
+            uploadedReferenceData = null;
+
+            // Update UI
+            document.querySelectorAll('.reference-version').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        async function handleReferenceUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                uploadedReferenceData = e.target.result;
+
+                // Add to versions display
+                const container = document.getElementById('referenceVersions');
+                const uploadBtn = container.querySelector('.upload-reference');
+
+                // Remove any existing custom upload
+                const existingCustom = container.querySelector('.reference-version.custom');
+                if (existingCustom) existingCustom.remove();
+
+                const div = document.createElement('div');
+                div.className = 'reference-version custom active';
+                div.innerHTML = `
+                    <img src="${uploadedReferenceData}" alt="Custom reference">
+                    <span class="version-label">custom</span>
+                `;
+                div.onclick = () => selectReference(null, 'custom', div);
+                container.insertBefore(div, uploadBtn);
+
+                // Select this one
+                document.querySelectorAll('.reference-version').forEach(el => el.classList.remove('active'));
+                div.classList.add('active');
+                selectedReference = null; // null means use uploaded data
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function regenerateImage() {
+            const status = document.getElementById('generationStatus');
+            const btn = document.getElementById('regenerateBtn');
+
+            const prompt = document.getElementById('promptEditor').value;
+            const model = document.getElementById('modelSelect').value;
+
+            if (!prompt) {
+                status.className = 'generation-status error';
+                status.textContent = 'Please enter a prompt';
+                return;
+            }
+
+            // Show loading
+            status.className = 'generation-status loading';
+            status.textContent = 'Generating image... This may take 30-60 seconds.';
+            btn.disabled = true;
+
+            try {
+                const slug = currentBook._slug || bookSlug;
+                const pageNum = currentPage === -1 ? 'reference' : currentPage;
+
+                // Prepare reference image data
+                let referenceData = null;
+                if (model === 'wan2.6-image') {
+                    if (uploadedReferenceData) {
+                        referenceData = uploadedReferenceData;
+                    } else if (selectedReference) {
+                        // Fetch the reference image and convert to base64
+                        const refResponse = await fetch(selectedReference);
+                        const refBlob = await refResponse.blob();
+                        referenceData = await blobToBase64(refBlob);
+                    }
+                }
+
+                // Call API
+                const response = await fetch('/api/generate-image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        prompt,
+                        model,
+                        slug,
+                        page: pageNum,
+                        reference: referenceData
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success && result.url) {
+                    status.className = 'generation-status success';
+                    status.innerHTML = `
+                        Image generated!<br>
+                        <a href="${result.url}" target="_blank" style="color: inherit; text-decoration: underline;">View full size</a> |
+                        <a href="${result.url}" download="${result.path}" style="color: inherit; text-decoration: underline;">Download</a>
+                        <div style="margin-top: 8px;">
+                            <img src="${result.url}" style="max-width: 200px; border-radius: 4px; cursor: pointer;" onclick="window.open('${result.url}', '_blank')">
+                        </div>
+                    `;
+                } else {
+                    throw new Error(result.error || 'Generation failed');
+                }
+            } catch (error) {
+                status.className = 'generation-status error';
+                status.textContent = `Error: ${error.message}`;
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        function blobToBase64(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        async function savePromptToBook() {
+            const prompt = document.getElementById('promptEditor').value;
+            const status = document.getElementById('generationStatus');
+
+            if (!prompt) {
+                status.className = 'generation-status error';
+                status.textContent = 'No prompt to save';
+                return;
+            }
+
+            // For now, just show instructions since we can't write to files from browser
+            const slug = currentBook._slug || bookSlug;
+            const pageNum = currentPage;
+
+            status.className = 'generation-status success';
+            if (pageNum === -1) {
+                status.textContent = `To save reference prompt, update "${slug}.json" reference_prompt field.`;
+            } else {
+                status.textContent = `To save, update page ${pageNum + 1} image_prompt in "${slug}.json".`;
+            }
+
+            // Copy to clipboard for convenience
+            navigator.clipboard.writeText(prompt).then(() => {
+                status.textContent += ' (Copied to clipboard!)';
+            });
         }
 
         function getImagePath(page) {

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Icon Review</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      padding: 20px;
+    }
+    h1 { text-align: center; margin-bottom: 10px; }
+    .stats {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #aaa;
+    }
+    .stats span {
+      display: inline-block;
+      margin: 0 15px;
+      padding: 5px 15px;
+      background: #2a2a4a;
+      border-radius: 20px;
+    }
+    .stats .rejected { background: #4a2a2a; color: #f88; }
+    .controls {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .controls button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .controls .export { background: #4a9; color: white; }
+    .controls .clear { background: #666; color: white; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #2a2a4a;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      transition: all 0.2s;
+      cursor: pointer;
+      position: relative;
+    }
+    .card:hover { background: #3a3a5a; transform: scale(1.02); }
+    .card.rejected {
+      background: #4a2a2a;
+      opacity: 0.6;
+    }
+    .card.rejected::after {
+      content: '👎';
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 20px;
+    }
+    .card img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 8px;
+    }
+    .card .word {
+      margin-top: 8px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .card .hint {
+      font-size: 11px;
+      color: #888;
+      margin-top: 2px;
+    }
+    .export-box {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #2a2a4a;
+      padding: 30px;
+      border-radius: 12px;
+      z-index: 100;
+      max-width: 500px;
+      width: 90%;
+    }
+    .export-box.show { display: block; }
+    .export-box textarea {
+      width: 100%;
+      height: 200px;
+      background: #1a1a2e;
+      color: #eee;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 10px;
+      font-family: monospace;
+      margin-top: 10px;
+    }
+    .export-box button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #666;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 99;
+    }
+    .overlay.show { display: block; }
+    .filter-buttons {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .filter-buttons button {
+      padding: 8px 16px;
+      margin: 0 5px;
+      border: 2px solid #555;
+      background: transparent;
+      color: #aaa;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .filter-buttons button.active {
+      border-color: #4a9;
+      color: #4a9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Word Icon Review</h1>
+  <div class="stats">
+    <span>Total: <strong id="total">0</strong></span>
+    <span>Approved: <strong id="approved">0</strong></span>
+    <span class="rejected">Rejected: <strong id="rejectedCount">0</strong></span>
+  </div>
+
+  <div class="filter-buttons">
+    <button class="active" data-filter="all">All</button>
+    <button data-filter="approved">Approved</button>
+    <button data-filter="rejected">Rejected</button>
+  </div>
+
+  <div class="controls">
+    <button class="export" onclick="showExport()">Export Rejected List</button>
+    <button class="clear" onclick="clearAll()">Clear All Rejections</button>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="overlay" id="overlay" onclick="hideExport()"></div>
+  <div class="export-box" id="exportBox">
+    <h3>Rejected Icons</h3>
+    <p style="color:#888;font-size:13px;">Copy this list to regenerate these icons:</p>
+    <textarea id="exportText" readonly></textarea>
+    <button onclick="hideExport()">Close</button>
+    <button onclick="copyToClipboard()" style="background:#4a9;margin-left:10px;">Copy</button>
+  </div>
+
+  <script>
+    // Word list from word-builder
+    const words = [
+      {word:'cat',hint:'furry pet'},{word:'dog',hint:'barks'},{word:'sun',hint:'bright sky'},
+      {word:'hat',hint:'wear on head'},{word:'pig',hint:'pink farm animal'},{word:'cup',hint:'drink from'},
+      {word:'bed',hint:'sleep on'},{word:'fox',hint:'orange wild'},{word:'map',hint:'shows places'},
+      {word:'pen',hint:'write with'},{word:'bus',hint:'big vehicle'},{word:'bat',hint:'flies at night'},
+      {word:'net',hint:'catch fish'},{word:'pot',hint:'cook in'},{word:'fan',hint:'keeps cool'},
+      {word:'rat',hint:'small rodent'},{word:'log',hint:'wood piece'},{word:'rug',hint:'floor cover'},
+      {word:'mat',hint:'doorway'},{word:'sat',hint:'on chair'},{word:'can',hint:'metal container'},
+      {word:'man',hint:'adult male'},{word:'pan',hint:'frying'},{word:'ran',hint:'moved fast'},
+      {word:'van',hint:'delivery vehicle'},{word:'sit',hint:'on seat'},{word:'bit',hint:'small piece'},
+      {word:'hit',hint:'strike'},{word:'pit',hint:'hole'},{word:'big',hint:'large'},
+      {word:'dig',hint:'in dirt'},{word:'wig',hint:'fake hair'},{word:'hot',hint:'high temp'},
+      {word:'dot',hint:'small circle'},{word:'cot',hint:'small bed'},{word:'got',hint:'received'},
+      {word:'hop',hint:'jump'},{word:'mop',hint:'clean floors'},{word:'top',hint:'highest'},
+      {word:'bug',hint:'small insect'},{word:'hug',hint:'embrace'},{word:'mug',hint:'coffee cup'},
+      {word:'tub',hint:'bath'},{word:'run',hint:'fast move'},{word:'fun',hint:'enjoyment'},
+      {word:'red',hint:'color'},{word:'hen',hint:'female chicken'},{word:'frog',hint:'green jumper'},
+      {word:'crab',hint:'beach animal'},{word:'flag',hint:'on pole'},{word:'drum',hint:'beat it'},
+      {word:'swim',hint:'in water'},{word:'stop',hint:'red sign'},{word:'trip',hint:'journey'},
+      {word:'clap',hint:'hands'},{word:'snap',hint:'fingers'},{word:'grin',hint:'big smile'},
+      {word:'slip',hint:'fall'},{word:'drop',hint:'let fall'},{word:'step',hint:'stair'},
+      {word:'spin',hint:'rotate'},{word:'skip',hint:'hop walk'},{word:'plum',hint:'purple fruit'},
+      {word:'crib',hint:'baby bed'},{word:'sled',hint:'snow ride'},{word:'ball',hint:'round toy'},
+      {word:'call',hint:'phone'},{word:'fall',hint:'autumn'},{word:'tall',hint:'high'},
+      {word:'wall',hint:'room side'},{word:'bell',hint:'rings'},{word:'fell',hint:'dropped'},
+      {word:'tell',hint:'speak'},{word:'well',hint:'water hole'},{word:'sell',hint:'for money'},
+      {word:'hill',hint:'small mountain'},{word:'fill',hint:'make full'},{word:'will',hint:'future'},
+      {word:'doll',hint:'toy figure'},{word:'pull',hint:'tug'},{word:'full',hint:'not empty'},
+      {word:'miss',hint:'fail to hit'},{word:'kiss',hint:'lips'},{word:'ship',hint:'sails'},
+      {word:'fish',hint:'swims'},{word:'dish',hint:'plate'},{word:'wish',hint:'hope for'},
+      {word:'shop',hint:'store'},{word:'shut',hint:'close'},{word:'chat',hint:'talk'},
+      {word:'chin',hint:'face part'},{word:'chop',hint:'cut'},{word:'chip',hint:'snack'},
+      {word:'thin',hint:'not thick'},{word:'this',hint:'here'},{word:'that',hint:'there'},
+      {word:'them',hint:'those people'},{word:'then',hint:'next'},{word:'with',hint:'together'},
+      {word:'path',hint:'trail'},{word:'math',hint:'numbers'},{word:'bath',hint:'wash'},
+      {word:'ring',hint:'finger'},{word:'king',hint:'royal'},{word:'sing',hint:'voice'},
+      {word:'wing',hint:'bird part'},{word:'cake',hint:'birthday'},{word:'make',hint:'create'},
+      {word:'bake',hint:'oven'},{word:'lake',hint:'water body'},{word:'name',hint:'called'},
+      {word:'game',hint:'play'},{word:'came',hint:'arrived'},{word:'bike',hint:'two wheels'},
+      {word:'like',hint:'enjoy'},{word:'hike',hint:'walk nature'},{word:'time',hint:'clock'},
+      {word:'dime',hint:'10 cents'},{word:'home',hint:'house'},{word:'bone',hint:'skeleton'},
+      {word:'cone',hint:'ice cream'},{word:'hope',hint:'wish'},{word:'rope',hint:'tie'},
+      {word:'cute',hint:'adorable'},{word:'mule',hint:'donkey horse'},{word:'cube',hint:'3d square'},
+      {word:'car',hint:'drive'},{word:'far',hint:'distant'},{word:'star',hint:'twinkle'},
+      {word:'jar',hint:'glass container'},{word:'barn',hint:'farm building'},{word:'card',hint:'greeting'},
+      {word:'park',hint:'playground'},{word:'dark',hint:'no light'},{word:'for',hint:'purpose'},
+      {word:'corn',hint:'yellow veggie'},{word:'horn',hint:'honk'},{word:'fork',hint:'eat with'},
+      {word:'her',hint:'female'},{word:'fern',hint:'plant'},{word:'bird',hint:'flies'},
+      {word:'girl',hint:'young female'},{word:'turn',hint:'rotate'},{word:'burn',hint:'fire'},
+      {word:'hurt',hint:'pain'},{word:'rain',hint:'wet weather'},{word:'tail',hint:'animal back'},
+      {word:'mail',hint:'letters'},{word:'sail',hint:'boat'},{word:'day',hint:'daytime'},
+      {word:'say',hint:'speak'},{word:'play',hint:'have fun'},{word:'stay',hint:'remain'},
+      {word:'tree',hint:'leaves'},{word:'bee',hint:'buzzes'},{word:'see',hint:'eyes'},
+      {word:'feet',hint:'walk on'},{word:'read',hint:'book'},{word:'meat',hint:'protein'},
+      {word:'seat',hint:'sit on'},{word:'boat',hint:'water'},{word:'coat',hint:'wear'},
+      {word:'goat',hint:'farm animal'},{word:'road',hint:'drive on'},{word:'snow',hint:'white cold'},
+      {word:'grow',hint:'get bigger'},{word:'show',hint:'display'},{word:'boy',hint:'young male'},
+      {word:'toy',hint:'play with'},{word:'joy',hint:'happiness'},{word:'coin',hint:'money'},
+      {word:'join',hint:'connect'},{word:'out',hint:'outside'},{word:'loud',hint:'noisy'},
+      {word:'cloud',hint:'sky'},{word:'house',hint:'home'},{word:'mouse',hint:'small rodent'},
+      {word:'down',hint:'below'},{word:'town',hint:'small city'},{word:'brown',hint:'color'},
+      {word:'moon',hint:'night sky'},{word:'soon',hint:'shortly'},{word:'food',hint:'eat'},
+      {word:'book',hint:'read'},{word:'look',hint:'see'},{word:'cook',hint:'make food'},
+      {word:'good',hint:'positive'},{word:'wood',hint:'tree material'},{word:'foot',hint:'walk on'}
+    ];
+
+    let rejected = JSON.parse(localStorage.getItem('rejectedIcons') || '[]');
+    let currentFilter = 'all';
+
+    function render() {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+
+      let filteredWords = words;
+      if (currentFilter === 'approved') {
+        filteredWords = words.filter(w => !rejected.includes(w.word));
+      } else if (currentFilter === 'rejected') {
+        filteredWords = words.filter(w => rejected.includes(w.word));
+      }
+
+      filteredWords.forEach(w => {
+        const card = document.createElement('div');
+        card.className = 'card' + (rejected.includes(w.word) ? ' rejected' : '');
+        card.innerHTML = `
+          <img src="${w.word}.png" alt="${w.word}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><rect fill=%22%23333%22 width=%22120%22 height=%22120%22/><text x=%2260%22 y=%2265%22 text-anchor=%22middle%22 fill=%22%23666%22>?</text></svg>'">
+          <div class="word">${w.word}</div>
+          <div class="hint">${w.hint}</div>
+        `;
+        card.onclick = () => toggleReject(w.word);
+        grid.appendChild(card);
+      });
+
+      updateStats();
+    }
+
+    function toggleReject(word) {
+      if (rejected.includes(word)) {
+        rejected = rejected.filter(w => w !== word);
+      } else {
+        rejected.push(word);
+      }
+      localStorage.setItem('rejectedIcons', JSON.stringify(rejected));
+      render();
+    }
+
+    function updateStats() {
+      document.getElementById('total').textContent = words.length;
+      document.getElementById('rejectedCount').textContent = rejected.length;
+      document.getElementById('approved').textContent = words.length - rejected.length;
+    }
+
+    function showExport() {
+      document.getElementById('exportText').value = rejected.join('\n');
+      document.getElementById('exportBox').classList.add('show');
+      document.getElementById('overlay').classList.add('show');
+    }
+
+    function hideExport() {
+      document.getElementById('exportBox').classList.remove('show');
+      document.getElementById('overlay').classList.remove('show');
+    }
+
+    function copyToClipboard() {
+      const text = document.getElementById('exportText');
+      text.select();
+      document.execCommand('copy');
+      alert('Copied ' + rejected.length + ' words to clipboard!');
+    }
+
+    function clearAll() {
+      if (confirm('Clear all rejections?')) {
+        rejected = [];
+        localStorage.setItem('rejectedIcons', '[]');
+        render();
+      }
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filter-buttons button').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.filter-buttons button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        render();
+      };
+    });
+
+    render();
+  </script>
+</body>
+</html>

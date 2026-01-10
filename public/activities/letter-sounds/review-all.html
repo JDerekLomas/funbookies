@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Letter Sounds Review - All Sets</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    h1 { text-align: center; color: #333; margin-bottom: 10px; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 20px; }
+
+    .set-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+    }
+    .set-btn {
+      padding: 10px 16px;
+      font-size: 14px;
+      border: 2px solid #ddd;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .set-btn:hover { border-color: #9FC7AA; }
+    .set-btn.active {
+      background: #9FC7AA;
+      border-color: #9FC7AA;
+      color: white;
+    }
+    .set-btn.us { border-left: 4px solid #3498db; }
+    .set-btn.uk { border-left: 4px solid #e74c3c; }
+
+    .current-set {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .current-set .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-left: 10px;
+    }
+    .current-set .tag.us { background: #3498db; color: white; }
+    .current-set .tag.uk { background: #e74c3c; color: white; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .letter-card {
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .letter-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .letter-card.playing {
+      border-color: #9FC7AA;
+      background: #eaf5ed;
+    }
+    .letter-card.rejected {
+      border-color: #e74c3c;
+      background: #fdeaea;
+    }
+    .letter-card.approved {
+      border-color: #27ae60;
+      background: #eafaf1;
+    }
+    .letter {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #333;
+    }
+    .actions {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      margin-top: 6px;
+    }
+    .actions button {
+      padding: 2px 6px;
+      font-size: 11px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-ok { background: #27ae60; color: white; }
+    .btn-bad { background: #e74c3c; color: white; }
+
+    .summary {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+    .summary h3 { margin: 0 0 10px 0; }
+    .rejected-list {
+      font-family: monospace;
+      font-size: 13px;
+      background: #f5f5f5;
+      padding: 10px;
+      border-radius: 4px;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    .type-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .type-toggle button {
+      padding: 8px 20px;
+      font-size: 14px;
+      border: 2px solid #9FC7AA;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .type-toggle button.active {
+      background: #9FC7AA;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Letter Sounds Review</h1>
+  <p class="subtitle">Click letters to hear, mark as OK or Bad</p>
+
+  <div class="set-selector">
+    <button class="set-btn us active" data-set="openai-us">OpenAI Nova (US)</button>
+    <button class="set-btn uk" data-set="openai-uk">OpenAI Nova (UK)</button>
+    <button class="set-btn uk" data-set="elevenlabs-uk">ElevenLabs Alice (UK)</button>
+  </div>
+
+  <div class="type-toggle">
+    <button class="active" data-type="names">Letter Names</button>
+    <button data-type="sounds">Letter Sounds</button>
+  </div>
+
+  <div class="current-set" id="currentSet"></div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="summary">
+    <h3>Rejected in Current Set</h3>
+    <div class="rejected-list" id="rejectedList">None</div>
+
+    <h3 style="margin-top:20px">All Rejected (copy this)</h3>
+    <textarea id="exportArea" readonly style="width:100%;height:120px;font-family:monospace;font-size:12px;padding:10px;border-radius:4px;border:1px solid #ddd;"></textarea>
+    <button onclick="copyExport()" style="margin-top:10px;padding:8px 16px;background:#9FC7AA;border:none;border-radius:4px;cursor:pointer;">Copy to Clipboard</button>
+  </div>
+
+  <script>
+    const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+    let currentSet = 'openai-us';
+    let currentType = 'names';
+    let rejected = JSON.parse(localStorage.getItem('letterSoundsReview') || '{}');
+    let currentAudio = null;
+
+    function getKey(letter) {
+      return `${currentSet}/${currentType}/${letter}`;
+    }
+
+    function playAudio(letter, card) {
+      if (currentAudio) {
+        currentAudio.pause();
+        document.querySelectorAll('.letter-card').forEach(c => c.classList.remove('playing'));
+      }
+      const path = `/activities/letter-sounds/${currentSet}/${currentType}/${letter}.mp3`;
+      currentAudio = new Audio(path);
+      card.classList.add('playing');
+      currentAudio.play();
+      currentAudio.onended = () => card.classList.remove('playing');
+    }
+
+    function markOk(letter, e) {
+      e.stopPropagation();
+      delete rejected[getKey(letter)];
+      save();
+      render();
+    }
+
+    function markBad(letter, e) {
+      e.stopPropagation();
+      rejected[getKey(letter)] = true;
+      save();
+      render();
+    }
+
+    function save() {
+      localStorage.setItem('letterSoundsReview', JSON.stringify(rejected));
+    }
+
+    function render() {
+      // Update header
+      const isUS = currentSet.includes('us');
+      const engine = currentSet.includes('openai') ? 'OpenAI Nova' : 'ElevenLabs Alice';
+      const locale = isUS ? 'US' : 'UK';
+      document.getElementById('currentSet').innerHTML =
+        `${engine} - ${currentType === 'names' ? 'Letter Names' : 'Letter Sounds'} <span class="tag ${isUS ? 'us' : 'uk'}">${locale}</span>`;
+
+      // Render grid
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+
+      letters.forEach(letter => {
+        const key = getKey(letter);
+        const isRejected = rejected[key];
+        const card = document.createElement('div');
+        card.className = `letter-card ${isRejected ? 'rejected' : ''}`;
+        card.innerHTML = `
+          <div class="letter">${letter.toUpperCase()}</div>
+          <div class="actions">
+            <button class="btn-ok" onclick="markOk('${letter}', event)">OK</button>
+            <button class="btn-bad" onclick="markBad('${letter}', event)">Bad</button>
+          </div>
+        `;
+        card.onclick = () => playAudio(letter, card);
+        grid.appendChild(card);
+      });
+
+      // Update summary
+      const currentRejected = Object.keys(rejected).filter(k =>
+        k.startsWith(`${currentSet}/${currentType}/`) && rejected[k]
+      );
+      document.getElementById('rejectedList').textContent =
+        currentRejected.length ? currentRejected.map(k => k.split('/').pop()).join(', ') : 'None - all approved!';
+
+      // Update export area with all rejected grouped by set/type
+      updateExport();
+    }
+
+    function updateExport() {
+      const allRejected = Object.keys(rejected).filter(k => rejected[k]);
+      if (allRejected.length === 0) {
+        document.getElementById('exportArea').value = 'All approved! Nothing to regenerate.';
+        return;
+      }
+
+      // Group by set and type
+      const grouped = {};
+      allRejected.forEach(key => {
+        const [set, type, letter] = key.split('/');
+        const groupKey = `${set}/${type}`;
+        if (!grouped[groupKey]) grouped[groupKey] = [];
+        grouped[groupKey].push(letter);
+      });
+
+      // Format output
+      let output = 'REJECTED LETTERS TO REGENERATE:\n\n';
+      for (const [groupKey, letters] of Object.entries(grouped)) {
+        const [set, type] = groupKey.split('/');
+        const engine = set.includes('openai') ? 'OpenAI' : 'ElevenLabs';
+        const locale = set.includes('us') ? 'US' : 'UK';
+        output += `${engine} ${locale} ${type}: ${letters.join(', ')}\n`;
+      }
+
+      document.getElementById('exportArea').value = output;
+    }
+
+    function copyExport() {
+      const textarea = document.getElementById('exportArea');
+      textarea.select();
+      document.execCommand('copy');
+      alert('Copied to clipboard!');
+    }
+
+    // Set selector
+    document.querySelectorAll('.set-btn').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.set-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentSet = btn.dataset.set;
+        render();
+      };
+    });
+
+    // Type toggle
+    document.querySelectorAll('.type-toggle button').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.type-toggle button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentType = btn.dataset.type;
+        render();
+      };
+    });
+
+    render();
+  </script>
+</body>
+</html>

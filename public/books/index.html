@@ -7,228 +7,121 @@
     <title>Books - FunBookies</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/shared.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
     <style>
-        /* Site Header */
+        :root {
+            --color-cream: #FAF8F5;
+            --color-white: #FFFFFF;
+            --color-charcoal: #2C2D26;
+            --color-soft-black: #1A1A1A;
+            --color-sage: #7FB08A;
+            --color-sage-light: #E8F2EB;
+            --color-dusty-blue: #6B8CAE;
+            --color-terracotta: #D4856A;
+            --color-text-muted: #6B6B63;
+            --font-display: 'Fraunces', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, sans-serif;
+            --radius: 16px;
+            --radius-sm: 8px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-cream);
+            min-height: 100vh;
+            color: var(--color-soft-black);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
         .site-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: var(--space-sm) 0;
-            margin-bottom: var(--space-sm);
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            margin-bottom: 32px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 14px;
             text-decoration: none;
         }
 
         .logo-icon {
-            width: 56px;
-            height: 56px;
+            width: 52px;
+            height: 52px;
             object-fit: contain;
         }
 
         .logo-text {
             font-family: var(--font-display);
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 600;
             color: var(--color-soft-black);
+            letter-spacing: -0.02em;
         }
 
         .header-nav {
             display: flex;
-            gap: var(--space-md);
+            gap: 32px;
         }
 
         .header-nav a {
             font-weight: 500;
+            font-size: 0.95rem;
             text-decoration: none;
-            color: var(--color-charcoal);
+            color: var(--color-text-muted);
+            transition: color 0.2s;
         }
 
         .header-nav a:hover {
-            color: var(--color-terracotta);
-        }
-
-        @media (max-width: 500px) {
-            .logo-text { font-size: 1.4rem; }
-            .logo-icon { width: 40px; height: 40px; }
-            .header-nav { gap: var(--space-sm); font-size: 0.9rem; }
-        }
-
-        .page-header {
-            padding-top: var(--space-xs);
-            padding-bottom: var(--space-md);
-        }
-
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: var(--space-sm);
-        }
-
-        @media (min-width: 600px) {
-            .books-grid {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-                gap: var(--space-md);
-            }
-        }
-
-        .book-card {
-            position: relative;
-            aspect-ratio: 1;
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            background: var(--color-sage-light);
-        }
-
-        .book-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-        }
-
-        .book-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .book-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .book-title-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 12px;
-            text-align: center;
-        }
-
-        .book-title {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            font-weight: 600;
-            color: white;
-            text-shadow:
-                2px 2px 0 #000,
-                -1px -1px 0 #000,
-                1px -1px 0 #000,
-                -1px 1px 0 #000,
-                0 2px 4px rgba(0,0,0,0.5);
-            line-height: 1.2;
-        }
-
-        .book-level-badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            font-size: 0.7rem;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-weight: 700;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .book-level-badge.band-a { background: var(--color-sage); }
-        .book-level-badge.band-b { background: var(--color-dusty-blue); }
-        .book-level-badge.band-c { background: var(--color-terracotta); }
-        .book-level-badge.band-d { background: var(--color-charcoal); }
-
-        /* Band sections */
-        .band-section {
-            margin-bottom: var(--space-xl);
-        }
-
-        .band-header {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-md);
-            padding-bottom: var(--space-xs);
-            border-bottom: 2px solid var(--color-sage-light);
-        }
-
-        .band-badge {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: white;
-        }
-
-        .band-badge.band-a { background: var(--color-sage); }
-        .band-badge.band-b { background: var(--color-dusty-blue); }
-        .band-badge.band-c { background: var(--color-terracotta); }
-        .band-badge.band-d { background: var(--color-charcoal); }
-
-        .band-title {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
             color: var(--color-soft-black);
-        }
-
-        .band-subtitle {
-            font-size: 0.9rem;
-            color: var(--color-text-muted);
-            margin-left: auto;
-        }
-
-        .empty-band {
-            text-align: center;
-            padding: var(--space-lg);
-            color: var(--color-text-muted);
-            background: var(--color-cream);
-            border-radius: var(--border-radius);
         }
 
         /* Band Tabs */
         .band-tabs {
             display: flex;
-            gap: var(--space-xs);
-            margin-bottom: var(--space-md);
-            padding: 4px;
-            background: var(--color-sage-light);
-            border-radius: var(--border-radius-lg);
-            overflow-x: auto;
+            gap: 8px;
+            margin-bottom: 32px;
         }
 
         .band-tab {
-            flex: 1;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 16px;
+            gap: 10px;
+            padding: 12px 20px;
             border: none;
-            background: transparent;
-            border-radius: var(--border-radius);
+            background: var(--color-white);
+            border-radius: 100px;
             cursor: pointer;
             transition: all 0.2s ease;
-            min-width: 100px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
 
         .band-tab:hover {
-            background: rgba(255,255,255,0.5);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .band-tab.active {
-            background: var(--color-white);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            background: var(--color-soft-black);
+        }
+
+        .band-tab.active .tab-label {
+            color: white;
+        }
+
+        .band-tab.active .tab-badge {
+            background: rgba(255,255,255,0.2);
         }
 
         .tab-badge {
@@ -239,304 +132,124 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: white;
         }
+
+        .tab-badge.band-a { background: var(--color-sage); }
+        .tab-badge.band-b { background: var(--color-dusty-blue); }
+        .tab-badge.band-c { background: var(--color-terracotta); }
+        .tab-badge.band-d { background: var(--color-charcoal); }
 
         .tab-label {
             font-weight: 600;
             font-size: 0.9rem;
-            color: var(--color-charcoal);
-        }
-
-        @media (max-width: 500px) {
-            .tab-label { display: none; }
-            .band-tab { min-width: 60px; padding: 10px; }
-        }
-
-        /* Band Panels */
-        .band-panel {
-            display: none;
-        }
-
-        .band-panel.active {
-            display: block;
-        }
-
-        .band-info {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-md);
-            padding-bottom: var(--space-sm);
-            border-bottom: 1px solid var(--color-sage-light);
-        }
-
-        .band-levels {
-            font-weight: 600;
             color: var(--color-soft-black);
         }
 
-        .band-description {
+        /* Band Panels */
+        .band-panel { display: none; }
+        .band-panel.active { display: block; }
+
+        .band-info {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 24px;
             color: var(--color-text-muted);
             font-size: 0.9rem;
         }
 
-        @media (max-width: 600px) {
-            .band-info { flex-direction: column; align-items: flex-start; gap: 4px; }
-        }
-
-        /* Continue Reading Section */
-        .continue-section {
-            margin-bottom: var(--space-lg);
-            padding: var(--space-md);
-            background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-cream) 100%);
-            border-radius: var(--border-radius-lg);
-        }
-
-        .section-header {
-            margin-bottom: var(--space-sm);
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
+        .band-info strong {
             color: var(--color-soft-black);
-            margin: 0;
         }
 
-        .continue-grid {
-            display: flex;
-            gap: var(--space-sm);
-            overflow-x: auto;
-            padding-bottom: var(--space-xs);
+        /* Books Grid */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 24px;
         }
 
-        .continue-card {
-            flex: 0 0 160px;
-            background: var(--color-white);
-            border-radius: var(--border-radius);
+        .book-card {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: var(--radius);
             overflow: hidden;
             text-decoration: none;
-            transition: transform 0.2s ease;
+            cursor: pointer;
+            background: #ddd;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .continue-card:hover {
-            transform: translateY(-2px);
+        .book-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
-        .continue-cover {
-            aspect-ratio: 3/4;
-            overflow: hidden;
-        }
-
-        .continue-cover img {
+        .book-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .continue-info {
-            padding: 8px 10px;
-        }
-
-        .continue-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--color-soft-black);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .continue-progress {
-            margin-top: 4px;
-            height: 4px;
-            background: var(--color-sage-light);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .continue-progress-bar {
-            height: 100%;
-            background: var(--color-sage);
-            border-radius: 2px;
-        }
-
-        /* Reader Modal */
-        .reader-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 2000;
-            padding: var(--space-md);
-        }
-
-        .reader-modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .reader-container {
-            max-width: 500px;
-            width: 100%;
-            position: relative;
-        }
-
-        .reader-page {
-            aspect-ratio: 1;
-            background: var(--color-cream);
-            border-radius: var(--border-radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            text-align: center;
-            padding: var(--space-lg);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .reader-page img {
+        /* Title overlay - matches reader title page style */
+        .book-title-overlay {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px;
+            background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
         }
 
-        .reader-page .text-overlay {
-            position: absolute;
-            bottom: 8%;
-            left: 5%; right: 5%;
-            padding: 15px 20px;
+        .book-title {
+            font-family: var(--font-display);
             font-size: 1.1rem;
+            font-weight: 600;
             color: white;
             text-shadow:
-                2px 2px 0 #000,
-                -1px -1px 0 #000,
-                1px -1px 0 #000,
-                -1px 1px 0 #000,
-                0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .reader-page .text-overlay.center {
-            bottom: auto;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .reader-controls {
-            display: flex;
-            justify-content: center;
-            gap: var(--space-sm);
-            margin-top: var(--space-sm);
-        }
-
-        .reader-controls button {
-            background: var(--color-white);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-charcoal);
-        }
-
-        .reader-controls button:hover {
-            transform: scale(1.1);
-            background: var(--color-sage-light);
-        }
-
-        .reader-controls button:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .page-indicator {
-            color: var(--color-white);
+                1px 1px 0 rgba(0,0,0,0.8),
+                2px 2px 4px rgba(0,0,0,0.4);
+            line-height: 1.25;
             text-align: center;
-            margin-top: var(--space-sm);
-            font-size: 0.9rem;
         }
 
-        .close-reader {
-            position: fixed;
-            top: var(--space-sm);
-            right: var(--space-sm);
+        /* Empty state */
+        .empty-band {
+            text-align: center;
+            padding: 60px 24px;
+            color: var(--color-text-muted);
             background: var(--color-white);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 2001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-charcoal);
-            transition: all 0.2s;
+            border-radius: var(--radius);
         }
 
-        .close-reader:hover {
-            transform: scale(1.1);
+        /* Responsive */
+        @media (max-width: 768px) {
+            .site-header { padding: 16px 0; margin-bottom: 24px; }
+            .logo-icon { width: 44px; height: 44px; }
+            .logo-text { font-size: 1.5rem; }
+            .header-nav { gap: 20px; }
+            .header-nav a { font-size: 0.9rem; }
+            .band-tabs { overflow-x: auto; padding-bottom: 8px; }
+            .band-tab { padding: 10px 16px; }
+            .tab-label { display: none; }
+            .books-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+            .book-title { font-size: 0.95rem; }
         }
 
-        .wordlist-content {
-            position: absolute;
-            top: 10%; bottom: 10%;
-            left: 8%; right: 8%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: var(--space-sm);
-            text-align: left;
-        }
-
-        .wordlist-section {
-            background: var(--color-white);
-            padding: 12px 16px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .wordlist-section h4 {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .wordlist-section.phonetic h4 { color: var(--color-dusty-blue); }
-        .wordlist-section.sight h4 { color: var(--color-sage-dark); }
-        .wordlist-section.special h4 { color: var(--color-terracotta-dark); }
-        .wordlist-section .words {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .word-box {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--color-charcoal);
-            background: var(--color-sage-light);
-            padding: 4px 10px;
-            border-radius: 6px;
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; }
+            .books-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .book-card { border-radius: 12px; }
+            .book-title-overlay { padding: 12px; }
+            .book-title { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <header class="site-header">
             <a href="/" class="logo">
                 <img src="/images/funbookies_icon.png" alt="" class="logo-icon">
@@ -547,15 +260,6 @@
                 <a href="/progress/">Progress</a>
             </nav>
         </header>
-
-
-        <!-- Continue Reading Section (shown if student has in-progress books) -->
-        <section class="continue-section" id="continueSection" style="display: none;">
-            <div class="section-header">
-                <h2 class="section-title">Continue Reading</h2>
-            </div>
-            <div class="continue-grid" id="continueGrid"></div>
-        </section>
 
         <!-- Band Tabs -->
         <div class="band-tabs" id="bandTabs">
@@ -581,69 +285,46 @@
         <div id="booksContainer">
             <section class="band-panel active" id="panelA">
                 <div class="band-info">
-                    <span class="band-levels">Levels A0-A4</span>
-                    <span class="band-description">Concept of print, letter recognition, simple patterns</span>
+                    <strong>Levels A0–A4</strong>
+                    <span>Concept of print, letter recognition, simple patterns</span>
                 </div>
                 <div class="books-grid" id="booksA"></div>
             </section>
 
             <section class="band-panel" id="panelB">
                 <div class="band-info">
-                    <span class="band-levels">Levels B1-B9</span>
-                    <span class="band-description">CVC words, blends, digraphs, vowel patterns</span>
+                    <strong>Levels B1–B9</strong>
+                    <span>CVC words, blends, digraphs, vowel patterns</span>
                 </div>
                 <div class="books-grid" id="booksB"></div>
             </section>
 
             <section class="band-panel" id="panelC">
                 <div class="band-info">
-                    <span class="band-levels">Levels C1-C8</span>
-                    <span class="band-description">Multi-syllable words, suffixes, prefixes</span>
+                    <strong>Levels C1–C8</strong>
+                    <span>Multi-syllable words, suffixes, prefixes</span>
                 </div>
                 <div class="books-grid" id="booksC"></div>
             </section>
 
             <section class="band-panel" id="panelD">
                 <div class="band-info">
-                    <span class="band-levels">Levels D1-D6</span>
-                    <span class="band-description">Complex texts, literary analysis, independent reading</span>
+                    <strong>Levels D1–D6</strong>
+                    <span>Complex texts, literary analysis, independent reading</span>
                 </div>
                 <div class="books-grid" id="booksD"></div>
             </section>
         </div>
 
-        <div style="height: var(--space-xl);"></div>
+        <div style="height: 60px;"></div>
     </div>
 
-    <!-- Reader Modal -->
-    <div class="reader-modal" id="readerModal">
-        <button class="close-reader" onclick="closeReader()">
-            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-        </button>
-        <div class="reader-container">
-            <div class="reader-page" id="readerPage"></div>
-            <div class="reader-controls">
-                <button onclick="prevPage()" id="prevBtn">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                </button>
-                <button onclick="nextPage()" id="nextBtn">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </button>
-            </div>
-            <div class="page-indicator" id="pageIndicator">Page 1 of 24</div>
-        </div>
-    </div>
-
-    <script src="/js/data-service.js"></script>
     <script>
-        // Level order for sorting (A0=0, A1=1, ..., D6=27)
+        // Global state
+        let allBooks = [];
+        let booksByBand = { A: [], B: [], C: [], D: [] };
+
+        // Level order for sorting
         const levelOrder = {
             'A0': 0, 'A1': 1, 'A2': 2, 'A3': 3, 'A4': 4,
             'B1': 5, 'B2': 6, 'B3': 7, 'B4': 8, 'B5': 9, 'B6': 10, 'B7': 11, 'B8': 12, 'B9': 13,
@@ -651,26 +332,7 @@
             'D1': 22, 'D2': 23, 'D3': 24, 'D4': 25, 'D5': 26, 'D6': 27
         };
 
-        // Level descriptions (short names for display)
-        const levelNames = {
-            'A0': 'Concept of Print', 'A1': 'Letter Recognition', 'A2': 'CV/VC Patterns',
-            'A3': 'Mixed Case', 'A4': 'Emergent Bridge',
-            'B1': 'CVC Short a/i', 'B2': 'CVC All Vowels', 'B3': 'Final Blends',
-            'B4': 'Initial Blends', 'B5': 'Digraphs', 'B6': 'Silent E',
-            'B7': 'Vowel Teams', 'B8': 'Diphthongs', 'B9': 'R-Controlled',
-            'C1': 'Silent Letters', 'C2': 'Soft C/G', 'C3': 'Two-Syllable Closed',
-            'C4': 'Two-Syllable Open', 'C5': 'Contractions', 'C6': 'Inflections',
-            'C7': 'Suffixes', 'C8': 'Prefixes',
-            'D1': 'Chapter Books', 'D2': 'Inference', 'D3': 'Latin Roots',
-            'D4': 'Greek Roots', 'D5': 'Figurative Language', 'D6': 'Grade-Level'
-        };
-
-        // Global state
-        let allBooks = [];
-        let booksByBand = { A: [], B: [], C: [], D: [] };
-        let currentBand = 'A';
-
-        // Load books from manifest (single fetch instead of 38!)
+        // Load books from manifest
         async function loadBooks() {
             try {
                 const res = await fetch('/books/manifest.json');
@@ -692,118 +354,22 @@
                     );
                 }
 
-                // Render all bands (only active one visible)
+                // Render all bands
                 renderBand('A', booksByBand.A);
                 renderBand('B', booksByBand.B);
                 renderBand('C', booksByBand.C);
                 renderBand('D', booksByBand.D);
-
-                // Try to load continue reading and set default band
-                await loadStudentContext();
 
             } catch (e) {
                 console.error('Failed to load manifest:', e);
             }
         }
 
-        // Load student context (continue reading + default band)
-        async function loadStudentContext() {
-            try {
-                // Wait for data service to be ready
-                if (!window.FunBookiesDB) return;
-                await window.FunBookiesDB.ready;
-
-                // Get active student from settings
-                const activeStudentId = await window.FunBookiesDB.getSetting('activeStudent');
-                if (!activeStudentId) return;
-
-                // Get student's current level to determine default band
-                const currentLevel = await window.FunBookiesDB.getCurrentLevel(activeStudentId);
-                if (currentLevel) {
-                    const studentBand = currentLevel.charAt(0);
-                    if (['A', 'B', 'C', 'D'].includes(studentBand)) {
-                        switchToBand(studentBand);
-                    }
-                }
-
-                // Load recent book activity for "Continue Reading"
-                const activities = await window.FunBookiesDB.getActivities(activeStudentId, {
-                    type: 'book-reading',
-                    limit: 10
-                });
-
-                // Get unique books with progress
-                const recentBooks = new Map();
-                activities.forEach(activity => {
-                    if (activity.details?.bookSlug && !recentBooks.has(activity.details.bookSlug)) {
-                        recentBooks.set(activity.details.bookSlug, {
-                            slug: activity.details.bookSlug,
-                            lastPage: activity.details.lastPage || 1,
-                            totalPages: activity.details.totalPages || 10,
-                            date: activity.date
-                        });
-                    }
-                });
-
-                // Show continue reading section if there are recent books
-                if (recentBooks.size > 0) {
-                    renderContinueReading(Array.from(recentBooks.values()));
-                }
-
-            } catch (e) {
-                // Data service not available or no student - that's fine
-                console.log('No student context available');
-            }
-        }
-
-        // Render continue reading section
-        function renderContinueReading(recentBooks) {
-            const section = document.getElementById('continueSection');
-            const grid = document.getElementById('continueGrid');
-
-            // Match recent books with manifest data
-            const booksToShow = recentBooks
-                .map(recent => {
-                    const bookData = allBooks.find(b => b.slug === recent.slug);
-                    if (!bookData) return null;
-                    return { ...bookData, ...recent };
-                })
-                .filter(Boolean)
-                .slice(0, 5);
-
-            if (booksToShow.length === 0) return;
-
-            grid.innerHTML = booksToShow.map(book => {
-                const progress = Math.round((book.lastPage / book.totalPages) * 100);
-                return `
-                    <a class="continue-card" href="/reader.html?book=${book.slug}&page=${book.lastPage}">
-                        <div class="continue-cover">
-                            <img src="${book.coverImg}" alt="${book.title}" loading="lazy"
-                                 onerror="this.parentElement.style.background='var(--color-sage-light)'">
-                        </div>
-                        <div class="continue-info">
-                            <div class="continue-title">${book.title}</div>
-                            <div class="continue-progress">
-                                <div class="continue-progress-bar" style="width: ${progress}%"></div>
-                            </div>
-                        </div>
-                    </a>
-                `;
-            }).join('');
-
-            section.style.display = 'block';
-        }
-
         // Switch active band
         function switchToBand(band) {
-            currentBand = band;
-
-            // Update tab states
             document.querySelectorAll('.band-tab').forEach(tab => {
                 tab.classList.toggle('active', tab.dataset.band === band);
             });
-
-            // Update panel states
             document.querySelectorAll('.band-panel').forEach(panel => {
                 panel.classList.toggle('active', panel.id === `panel${band}`);
             });
@@ -820,12 +386,9 @@
 
             grid.innerHTML = books.map(book => {
                 const coverImg = book.coverImg || `/images/covers/${book.slug}.png`;
-
                 return `
                     <a class="book-card" href="/reader.html?book=${book.slug}">
-                        <img src="${coverImg}" alt="${book.title}" loading="lazy"
-                             onerror="this.style.display='none'">
-                        <span class="book-level-badge band-${band.toLowerCase()}">${book.level}</span>
+                        <img src="${coverImg}" alt="${book.title}" loading="lazy">
                         <div class="book-title-overlay">
                             <div class="book-title">${book.title}</div>
                         </div>
@@ -834,104 +397,13 @@
             }).join('');
         }
 
-        // Set up tab click handlers
+        // Tab click handlers
         document.querySelectorAll('.band-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                switchToBand(tab.dataset.band);
-            });
+            tab.addEventListener('click', () => switchToBand(tab.dataset.band));
         });
 
-        // Initialize on page load
+        // Initialize
         loadBooks();
-
-        let currentBook = null;
-        let currentPage = 0;
-
-        async function openBook(book) {
-            if (book.previewPage) {
-                window.location.href = `/books/${book.previewPage}`;
-                return;
-            }
-
-            try {
-                const res = await fetch(`/books/${book.jsonFile}`);
-                if (!res.ok) throw new Error('Book not found');
-                const data = await res.json();
-                currentBook = { ...data, slug: book.slug };
-                currentPage = 0;
-                document.getElementById('readerModal').classList.add('active');
-                document.body.style.overflow = 'hidden';
-                renderReaderPage();
-            } catch (e) {
-                alert('This book is coming soon!');
-            }
-        }
-
-        function closeReader() {
-            document.getElementById('readerModal').classList.remove('active');
-            document.body.style.overflow = '';
-            currentBook = null;
-        }
-
-        function renderReaderPage() {
-            if (!currentBook || !currentBook.pages) return;
-
-            const page = currentBook.pages[currentPage];
-            const pageDiv = document.getElementById('readerPage');
-            const slug = currentBook.slug || 'book';
-
-            const bgColors = {
-                cover: '#FDF4F0', wordlist: '#E8F2EB', story: '#FAF8F5',
-                fun_fact: '#E8F0F8', back_cover: '#FDF4F0', end: '#FAF8F5'
-            };
-
-            pageDiv.style.background = bgColors[page.type] || '#FAF8F5';
-
-            // Use explicit image path if available, otherwise construct from slug
-            let imgPath;
-            if (page.image) {
-                imgPath = `/books/${page.image}`;
-            } else {
-                const pageNum = String(page.page || currentPage + 1).padStart(2, '0');
-                imgPath = `/books/images/${slug}_page${pageNum}.png`;
-            }
-
-            if (page.type === 'wordlist' && currentBook.word_list) {
-                const wl = currentBook.word_list;
-                const soundOut = wl.sound_out || [];
-                const sight = wl.sight || [];
-                const newWords = wl.new || [];
-                pageDiv.innerHTML = `
-                    <div class="wordlist-content">
-                        <h3 style="text-align:center; margin-bottom:12px; color:var(--color-soft-black); font-family: var(--font-display);">Words to Know</h3>
-                        ${soundOut.length ? `<div class="wordlist-section phonetic"><h4>Sound-out</h4><div class="words">${soundOut.map(w => `<span class="word-box">${w}</span>`).join('')}</div></div>` : ''}
-                        ${sight.length ? `<div class="wordlist-section sight"><h4>Sight words</h4><div class="words">${sight.map(w => `<span class="word-box">${w}</span>`).join('')}</div></div>` : ''}
-                        ${newWords.length ? `<div class="wordlist-section special"><h4>New words</h4><div class="words">${newWords.map(w => `<span class="word-box">${w}</span>`).join('')}</div></div>` : ''}
-                    </div>
-                `;
-            } else {
-                const textStyle = page.type === 'cover' ? 'font-size: 1.8rem; font-weight: 700; color: var(--color-terracotta-dark);' : '';
-                const textClass = page.type === 'cover' ? 'center' : '';
-                pageDiv.innerHTML = `
-                    <img src="${imgPath}" onerror="this.style.display='none'" alt="">
-                    <div class="text-overlay ${textClass}" style="${textStyle}">${(page.text || '').replace(/\\n/g, '<br>')}</div>
-                `;
-            }
-
-            document.getElementById('pageIndicator').textContent = `Page ${currentPage + 1} of ${currentBook.pages.length}`;
-            document.getElementById('prevBtn').disabled = currentPage === 0;
-            document.getElementById('nextBtn').disabled = currentPage === currentBook.pages.length - 1;
-        }
-
-        function prevPage() { if (currentPage > 0) { currentPage--; renderReaderPage(); } }
-        function nextPage() { if (currentBook && currentPage < currentBook.pages.length - 1) { currentPage++; renderReaderPage(); } }
-
-        document.addEventListener('keydown', (e) => {
-            if (!currentBook) return;
-            if (e.key === 'ArrowLeft') prevPage();
-            if (e.key === 'ArrowRight') nextPage();
-            if (e.key === 'Escape') closeReader();
-        });
     </script>
 </body>
 </html>

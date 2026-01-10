@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress - ReadingPlanet</title>
+    <link rel="icon" type="image/svg+xml" href="/readingplanet/images/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/readingplanet/styles/shared.css">
+
+    <style>
+        .page-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-lg) 0;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            color: var(--color-text-secondary);
+            transition: all var(--transition-fast);
+        }
+
+        .back-btn:hover {
+            background: var(--color-bg-alt);
+            color: var(--color-text);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .progress-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-lg);
+            padding: var(--space-xl) 0;
+        }
+
+        @media (min-width: 900px) {
+            .progress-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .progress-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .progress-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .card-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            background: var(--color-bg-alt);
+            color: var(--color-text-secondary);
+        }
+
+        .card-badge.positive {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .card-badge.negative {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        /* Big stat display */
+        .big-stat {
+            text-align: center;
+            padding: var(--space-lg) 0;
+        }
+
+        .big-stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            line-height: 1;
+        }
+
+        .big-stat-label {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        .big-stat-sub {
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+            margin-top: var(--space-sm);
+        }
+
+        /* Chart container */
+        .chart-container {
+            position: relative;
+            height: 200px;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .chart-line {
+            fill: none;
+            stroke: var(--color-accent);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .chart-area {
+            fill: url(#chartGradient);
+        }
+
+        .chart-dot {
+            fill: var(--color-accent);
+        }
+
+        .chart-grid-line {
+            stroke: var(--color-border);
+            stroke-dasharray: 4,4;
+        }
+
+        .chart-label {
+            font-size: 0.6875rem;
+            fill: var(--color-text-muted);
+        }
+
+        .chart-target-line {
+            stroke: var(--color-teal);
+            stroke-width: 2;
+            stroke-dasharray: 6,4;
+        }
+
+        .chart-target-label {
+            font-size: 0.625rem;
+            fill: var(--color-teal);
+        }
+
+        /* Stats row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--color-border);
+            margin-top: var(--space-lg);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .stat-item-label {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Skill bars */
+        .skill-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .skill-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .skill-percent {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            border-radius: var(--radius-full);
+            transition: width 0.5s ease;
+        }
+
+        .skill-fill.literal { background: #3b82f6; }
+        .skill-fill.inferential { background: #8b5cf6; }
+        .skill-fill.vocabulary { background: #f59e0b; }
+        .skill-fill.main-idea { background: #22c55e; }
+
+        /* Activity timeline */
+        .activity-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .activity-day {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-sm) 0;
+        }
+
+        .activity-date {
+            width: 60px;
+            flex-shrink: 0;
+        }
+
+        .activity-date-day {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .activity-date-full {
+            font-size: 0.6875rem;
+            color: var(--color-text-muted);
+        }
+
+        .activity-items {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .activity-entry {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+        }
+
+        .activity-icon {
+            font-size: 1rem;
+        }
+
+        .activity-text {
+            flex: 1;
+            font-size: 0.875rem;
+            color: var(--color-text);
+        }
+
+        .activity-xp {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-teal);
+        }
+
+        /* Streak calendar */
+        .streak-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .streak-day-header {
+            font-size: 0.625rem;
+            text-align: center;
+            color: var(--color-text-muted);
+            padding-bottom: var(--space-xs);
+        }
+
+        .streak-day {
+            aspect-ratio: 1;
+            border-radius: var(--radius-sm);
+            background: var(--color-bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6875rem;
+            color: var(--color-text-muted);
+        }
+
+        .streak-day.active {
+            background: var(--color-teal);
+            color: white;
+        }
+
+        .streak-day.today {
+            border: 2px solid var(--color-accent);
+        }
+
+        .streak-day.future {
+            background: transparent;
+            border: 1px dashed var(--color-border);
+        }
+
+        /* Level progress */
+        .level-display {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .level-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--color-accent) 0%, #2563eb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .level-badge-num {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .level-info {
+            flex: 1;
+        }
+
+        .level-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--space-xs);
+        }
+
+        .level-progress-text {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .level-bar {
+            height: 10px;
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .level-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent) 0%, #2563eb 100%);
+            border-radius: var(--radius-full);
+            transition: width 0.5s ease;
+        }
+
+        /* Empty state */
+        .empty-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: var(--color-text-muted);
+        }
+
+        .empty-chart-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-sm);
+            opacity: 0.5;
+        }
+
+        .empty-chart-text {
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <script src="/readingplanet/js/data-service.js"></script>
+    <script src="/readingplanet/js/student-picker.js"></script>
+
+    <!-- Header -->
+    <header class="page-header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="/readingplanet/" class="back-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </a>
+                <h1 class="page-title">Your Progress</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="container">
+        <div class="progress-grid">
+            <!-- Streak Card -->
+            <div class="progress-card">
+                <div class="card-header">
+                    <h2 class="card-title">Reading Streak</h2>
+                    <span class="card-badge" id="streakBadge">0 days</span>
+                </div>
+                <div class="big-stat">
+                    <div class="big-stat-value" id="streakValue">0</div>
+                    <div class="big-stat-label">Day Streak</div>
+                    <div class="big-stat-sub" id="streakSub">Read today to start your streak!</div>
+                </div>
+                <div class="streak-calendar" id="streakCalendar">
+                    <!-- Generated by JS -->
+                </div>
+            </div>
+
+            <!-- Level Card -->
+            <div class="progress-card">
+                <div class="card-header">
+                    <h2 class="card-title">Your Level</h2>
+                    <span class="card-badge" id="xpBadge">0 XP</span>
+                </div>
+                <div class="level-display">
+                    <div class="level-badge">
+                        <span class="level-badge-num" id="levelNum">1</span>
+                    </div>
+                    <div class="level-info">
+                        <div class="level-title" id="levelTitle">Emerging Reader</div>
+                        <div class="level-progress-text" id="levelProgressText">0 / 500 XP to next level</div>
+                        <div class="level-bar">
+                            <div class="level-fill" id="levelFill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-item-value" id="statTexts">0</div>
+                        <div class="stat-item-label">Texts Read</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value" id="statWords">0</div>
+                        <div class="stat-item-label">Words Read</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value" id="statTime">0</div>
+                        <div class="stat-item-label">Minutes</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fluency Chart -->
+            <div class="progress-card">
+                <div class="card-header">
+                    <h2 class="card-title">Fluency (WCPM)</h2>
+                    <span class="card-badge" id="wcpmBadge">-- WCPM</span>
+                </div>
+                <div class="chart-container" id="fluencyChart">
+                    <div class="empty-chart">
+                        <div class="empty-chart-icon">🎤</div>
+                        <div class="empty-chart-text">Complete fluency practice to see your progress</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comprehension Skills -->
+            <div class="progress-card">
+                <div class="card-header">
+                    <h2 class="card-title">Comprehension Skills</h2>
+                    <span class="card-badge" id="compBadge">-- %</span>
+                </div>
+                <div class="skill-list" id="skillList">
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Literal</span>
+                            <span class="skill-percent">--%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill literal" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Inferential</span>
+                            <span class="skill-percent">--%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill inferential" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Vocabulary</span>
+                            <span class="skill-percent">--%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill vocabulary" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Main Idea</span>
+                            <span class="skill-percent">--%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill main-idea" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="progress-card full-width">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Activity</h2>
+                </div>
+                <div class="activity-timeline" id="activityTimeline">
+                    <div class="empty-chart">
+                        <div class="empty-chart-icon">📚</div>
+                        <div class="empty-chart-text">Start reading to see your activity here</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const LEVEL_NAMES = [
+            'Emerging Reader',
+            'Developing Reader',
+            'Confident Reader',
+            'Skilled Reader',
+            'Advanced Reader',
+            'Expert Reader',
+            'Master Reader',
+            'Reading Champion',
+        ];
+
+        const XP_THRESHOLDS = [0, 500, 1500, 3500, 7000, 12000, 20000, 35000];
+
+        let currentStudent = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.ReadingPlanetDB) {
+                await window.ReadingPlanetDB.ready;
+            }
+
+            const picker = new StudentPicker({
+                title: 'View Progress',
+                allowCreate: true,
+                allowSkip: false,
+            });
+
+            currentStudent = await picker.show();
+
+            if (currentStudent) {
+                loadProgress(currentStudent.id);
+            }
+        });
+
+        async function loadProgress(studentId) {
+            if (!window.ReadingPlanetDB) return;
+
+            try {
+                const dashboard = await window.ReadingPlanetDB.getStudentDashboard(studentId);
+                if (!dashboard) return;
+
+                // Update streak
+                updateStreak(dashboard);
+
+                // Update level
+                updateLevel(dashboard);
+
+                // Update fluency chart
+                updateFluencyChart(dashboard.fluencyHistory, dashboard.targetWcpm);
+
+                // Update comprehension skills
+                updateComprehensionSkills(dashboard.comprehensionStats);
+
+                // Update activity timeline
+                updateActivityTimeline(dashboard.recentSessions);
+
+            } catch (e) {
+                console.error('Failed to load progress:', e);
+            }
+        }
+
+        function updateStreak(dashboard) {
+            const streak = dashboard.stats?.currentStreak || 0;
+            const longestStreak = dashboard.stats?.longestStreak || 0;
+
+            document.getElementById('streakValue').textContent = streak;
+            document.getElementById('streakBadge').textContent = streak === 1 ? '1 day' : `${streak} days`;
+
+            if (streak > 0) {
+                document.getElementById('streakSub').textContent =
+                    streak >= longestStreak ? 'Personal best!' : `Best: ${longestStreak} days`;
+            }
+
+            // Generate calendar
+            generateStreakCalendar(dashboard.recentSessions || []);
+        }
+
+        function generateStreakCalendar(sessions) {
+            const calendar = document.getElementById('streakCalendar');
+            const today = new Date();
+            const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
+            // Get active dates
+            const activeDates = new Set(
+                sessions.map(s => s.date)
+            );
+
+            let html = days.map(d => `<div class="streak-day-header">${d}</div>`).join('');
+
+            // Show last 28 days
+            for (let i = 27; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                const dayNum = date.getDate();
+                const isToday = i === 0;
+                const isActive = activeDates.has(dateStr);
+
+                let classes = 'streak-day';
+                if (isActive) classes += ' active';
+                if (isToday) classes += ' today';
+
+                html += `<div class="${classes}">${dayNum}</div>`;
+            }
+
+            calendar.innerHTML = html;
+        }
+
+        function updateLevel(dashboard) {
+            const stats = dashboard.stats || {};
+            const xp = stats.totalXp || 0;
+            const level = stats.level || 1;
+
+            document.getElementById('levelNum').textContent = level;
+            document.getElementById('levelTitle').textContent = LEVEL_NAMES[level - 1] || 'Reader';
+            document.getElementById('xpBadge').textContent = formatNumber(xp) + ' XP';
+
+            // Calculate progress to next level
+            const currentThreshold = XP_THRESHOLDS[level - 1] || 0;
+            const nextThreshold = XP_THRESHOLDS[level] || XP_THRESHOLDS[XP_THRESHOLDS.length - 1];
+            const xpInLevel = xp - currentThreshold;
+            const xpNeeded = nextThreshold - currentThreshold;
+            const percent = Math.min(100, Math.round((xpInLevel / xpNeeded) * 100));
+
+            document.getElementById('levelProgressText').textContent =
+                `${formatNumber(xpInLevel)} / ${formatNumber(xpNeeded)} XP to next level`;
+            document.getElementById('levelFill').style.width = `${percent}%`;
+
+            // Stats
+            document.getElementById('statTexts').textContent = stats.textsCompleted || 0;
+            document.getElementById('statWords').textContent = formatNumber(stats.wordsRead || 0);
+            document.getElementById('statTime').textContent = stats.timeSpentMinutes || 0;
+        }
+
+        function updateFluencyChart(fluencyHistory, targetWcpm) {
+            const container = document.getElementById('fluencyChart');
+
+            if (!fluencyHistory || fluencyHistory.length === 0) {
+                return;
+            }
+
+            // Update badge
+            const latestWcpm = fluencyHistory[0]?.wcpm || 0;
+            document.getElementById('wcpmBadge').textContent = `${latestWcpm} WCPM`;
+
+            // Prepare data (reverse for chronological order)
+            const data = [...fluencyHistory].reverse().slice(-10);
+
+            // Calculate dimensions
+            const width = container.offsetWidth;
+            const height = 200;
+            const padding = { top: 20, right: 40, bottom: 30, left: 40 };
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+
+            // Calculate scales
+            const maxWcpm = Math.max(...data.map(d => d.wcpm), targetWcpm || 150);
+            const minWcpm = Math.min(...data.map(d => d.wcpm), 50);
+            const range = maxWcpm - minWcpm;
+
+            const xScale = (i) => padding.left + (i / (data.length - 1)) * chartWidth;
+            const yScale = (v) => padding.top + chartHeight - ((v - minWcpm) / range) * chartHeight;
+
+            // Build path
+            const linePath = data.map((d, i) => {
+                const x = xScale(i);
+                const y = yScale(d.wcpm);
+                return `${i === 0 ? 'M' : 'L'} ${x} ${y}`;
+            }).join(' ');
+
+            // Build area path
+            const areaPath = linePath +
+                ` L ${xScale(data.length - 1)} ${height - padding.bottom}` +
+                ` L ${xScale(0)} ${height - padding.bottom} Z`;
+
+            // Target line
+            const targetY = targetWcpm ? yScale(targetWcpm) : null;
+
+            container.innerHTML = `
+                <svg class="chart-svg" viewBox="0 0 ${width} ${height}">
+                    <defs>
+                        <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color: var(--color-accent); stop-opacity: 0.3"/>
+                            <stop offset="100%" style="stop-color: var(--color-accent); stop-opacity: 0.05"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Grid lines -->
+                    ${[0, 0.5, 1].map(p => {
+                        const y = padding.top + p * chartHeight;
+                        const val = Math.round(maxWcpm - p * range);
+                        return `
+                            <line class="chart-grid-line" x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}"/>
+                            <text class="chart-label" x="${padding.left - 8}" y="${y + 4}" text-anchor="end">${val}</text>
+                        `;
+                    }).join('')}
+
+                    <!-- Target line -->
+                    ${targetY ? `
+                        <line class="chart-target-line" x1="${padding.left}" y1="${targetY}" x2="${width - padding.right}" y2="${targetY}"/>
+                        <text class="chart-target-label" x="${width - padding.right + 4}" y="${targetY + 4}">Target</text>
+                    ` : ''}
+
+                    <!-- Area fill -->
+                    <path class="chart-area" d="${areaPath}"/>
+
+                    <!-- Line -->
+                    <path class="chart-line" d="${linePath}"/>
+
+                    <!-- Dots -->
+                    ${data.map((d, i) => `
+                        <circle class="chart-dot" cx="${xScale(i)}" cy="${yScale(d.wcpm)}" r="4"/>
+                    `).join('')}
+
+                    <!-- X labels -->
+                    ${data.filter((_, i) => i === 0 || i === data.length - 1).map((d, i, arr) => {
+                        const idx = i === 0 ? 0 : data.length - 1;
+                        const date = new Date(d.date);
+                        const label = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                        return `<text class="chart-label" x="${xScale(idx)}" y="${height - 8}" text-anchor="middle">${label}</text>`;
+                    }).join('')}
+                </svg>
+            `;
+        }
+
+        function updateComprehensionSkills(stats) {
+            if (!stats || stats.total === 0) {
+                return;
+            }
+
+            document.getElementById('compBadge').textContent = `${stats.accuracy}%`;
+
+            const skillList = document.getElementById('skillList');
+            const types = [
+                { key: 'literal', name: 'Literal', class: 'literal' },
+                { key: 'inferential', name: 'Inferential', class: 'inferential' },
+                { key: 'vocabulary', name: 'Vocabulary', class: 'vocabulary' },
+                { key: 'main-idea', name: 'Main Idea', class: 'main-idea' },
+            ];
+
+            skillList.innerHTML = types.map(type => {
+                const data = stats.byType?.[type.key] || { total: 0, accuracy: 0 };
+                const hasData = data.total > 0;
+                const percent = hasData ? data.accuracy : 0;
+
+                return `
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">${type.name}</span>
+                            <span class="skill-percent">${hasData ? percent + '%' : '--'}</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill ${type.class}" style="width: ${percent}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateActivityTimeline(sessions) {
+            const timeline = document.getElementById('activityTimeline');
+
+            if (!sessions || sessions.length === 0) {
+                return;
+            }
+
+            // Group by date
+            const byDate = {};
+            sessions.forEach(s => {
+                const date = s.date;
+                if (!byDate[date]) byDate[date] = [];
+                byDate[date].push(s);
+            });
+
+            const dates = Object.keys(byDate).sort().reverse().slice(0, 7);
+
+            timeline.innerHTML = dates.map(date => {
+                const items = byDate[date];
+                const dateObj = new Date(date + 'T12:00:00');
+                const isToday = date === new Date().toISOString().split('T')[0];
+                const dayName = isToday ? 'Today' : dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+                const dateStr = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+                return `
+                    <div class="activity-day">
+                        <div class="activity-date">
+                            <div class="activity-date-day">${dayName}</div>
+                            <div class="activity-date-full">${dateStr}</div>
+                        </div>
+                        <div class="activity-items">
+                            ${items.map(item => {
+                                const icon = item.completed ? '✅' : '📖';
+                                const text = item.textTitle || 'Reading session';
+                                const mins = Math.round((item.timeSpentSeconds || 0) / 60);
+                                const xp = item.completed ? '+25 XP' : '';
+
+                                return `
+                                    <div class="activity-entry">
+                                        <span class="activity-icon">${icon}</span>
+                                        <span class="activity-text">${text} (${mins} min)</span>
+                                        ${xp ? `<span class="activity-xp">${xp}</span>` : ''}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+    </script>
+</body>
+</html>

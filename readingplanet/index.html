@@ -392,6 +392,148 @@
             margin: 0 auto var(--space-lg);
         }
 
+        /* Streak celebration */
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: var(--space-md);
+        }
+
+        .streak-badge.active {
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .streak-fire {
+            font-size: 1rem;
+        }
+
+        /* Goal card improved */
+        .goal-visual {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .goal-circle {
+            width: 64px;
+            height: 64px;
+            position: relative;
+        }
+
+        .goal-circle-bg {
+            fill: none;
+            stroke: var(--color-bg-alt);
+            stroke-width: 6;
+        }
+
+        .goal-circle-fill {
+            fill: none;
+            stroke: var(--color-teal);
+            stroke-width: 6;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: center;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        .goal-circle-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .goal-info {
+            flex: 1;
+        }
+
+        .goal-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 2px;
+        }
+
+        .goal-subtitle {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Recommendation cards */
+        .rec-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .rec-card {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+        }
+
+        .rec-card:hover {
+            background: var(--color-border);
+        }
+
+        .rec-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .rec-icon.fluency { background: #dcfce7; }
+        .rec-icon.comprehension { background: #dbeafe; }
+        .rec-icon.vocabulary { background: #fef3c7; }
+        .rec-icon.engagement { background: #fce7f3; }
+
+        .rec-text {
+            flex: 1;
+        }
+
+        .rec-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .rec-desc {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        .rec-arrow {
+            color: var(--color-text-muted);
+        }
+
         /* Mobile Nav */
         @media (max-width: 768px) {
             .nav-links {
@@ -442,6 +584,10 @@
         <section class="welcome-section" id="welcomeSection">
             <div class="container">
                 <div class="welcome-content">
+                    <div class="streak-badge" id="streakBadge">
+                        <span class="streak-fire">🔥</span>
+                        <span id="streakBadgeText">0 day streak</span>
+                    </div>
                     <p class="welcome-greeting" id="welcomeGreeting">Welcome back</p>
                     <h1 class="welcome-title" id="welcomeTitle">Ready to read?</h1>
                     <p class="welcome-subtitle">Pick up where you left off or explore something new in the library.</p>
@@ -547,16 +693,23 @@
                         <!-- Weekly Goal -->
                         <div class="sidebar-card">
                             <h3 class="sidebar-title">Weekly Goal</h3>
-                            <div class="goal-progress">
-                                <div class="goal-header">
-                                    <span class="goal-label">Reading Time</span>
-                                    <span class="goal-value" id="goalProgress">0 / 60 min</span>
+                            <div class="goal-visual">
+                                <div class="goal-circle">
+                                    <svg width="64" height="64" viewBox="0 0 64 64">
+                                        <circle class="goal-circle-bg" cx="32" cy="32" r="28"/>
+                                        <circle class="goal-circle-fill" id="goalCircle" cx="32" cy="32" r="28"
+                                            stroke-dasharray="176" stroke-dashoffset="176"/>
+                                    </svg>
+                                    <div class="goal-circle-text" id="goalPercent">0%</div>
                                 </div>
-                                <div class="progress">
-                                    <div class="progress-fill" id="goalBar" style="width: 0%"></div>
+                                <div class="goal-info">
+                                    <div class="goal-title" id="goalTitle">0 / 60 minutes</div>
+                                    <div class="goal-subtitle">Read 60 min this week for bonus XP</div>
                                 </div>
                             </div>
-                            <p class="text-sm text-muted">Read for 60 minutes this week to earn bonus XP!</p>
+                            <div class="progress">
+                                <div class="progress-fill" id="goalBar" style="width: 0%"></div>
+                            </div>
                         </div>
 
                         <!-- Quick Stats -->
@@ -582,12 +735,20 @@
                             </div>
                         </div>
 
-                        <!-- Skill Focus -->
+                        <!-- Recommendations -->
                         <div class="sidebar-card">
-                            <h3 class="sidebar-title">Focus Area</h3>
-                            <div id="skillFocus">
-                                <p class="text-sm text-muted">Complete the placement assessment to see personalized recommendations.</p>
-                                <a href="/readingplanet/assessment/" class="btn btn-outline btn-sm mt-md">Take Assessment</a>
+                            <h3 class="sidebar-title">Recommended For You</h3>
+                            <div class="rec-list" id="recList">
+                                <a href="/readingplanet/library/" class="rec-card">
+                                    <div class="rec-icon engagement">📚</div>
+                                    <div class="rec-text">
+                                        <div class="rec-title">Start Reading</div>
+                                        <div class="rec-desc">Browse the library to begin</div>
+                                    </div>
+                                    <svg class="rec-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 18l6-6-6-6"/>
+                                    </svg>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -639,8 +800,11 @@
 
         function updateUI(student) {
             // Update header
-            document.getElementById('userAvatar').textContent = student.avatar || student.name.slice(0, 2).toUpperCase();
+            const isEmoji = student.avatar && /\p{Emoji}/u.test(student.avatar);
+            const displayAvatar = isEmoji ? student.avatar : (student.avatar || student.name.slice(0, 2).toUpperCase());
+            document.getElementById('userAvatar').textContent = displayAvatar;
             document.getElementById('userAvatar').style.backgroundColor = student.avatarColor || '#3b82f6';
+            document.getElementById('userAvatar').style.fontSize = isEmoji ? '1rem' : '0.8125rem';
             document.getElementById('userName').textContent = student.name;
 
             // Update welcome
@@ -651,6 +815,17 @@
 
             document.getElementById('welcomeGreeting').textContent = greeting;
             document.getElementById('welcomeTitle').textContent = `Ready to read, ${student.name.split(' ')[0]}?`;
+
+            // Update streak badge
+            const streak = student.stats?.currentStreak || 0;
+            const streakBadge = document.getElementById('streakBadge');
+            const streakBadgeText = document.getElementById('streakBadgeText');
+            streakBadgeText.textContent = streak === 1 ? '1 day streak' : `${streak} day streak`;
+            if (streak >= 3) {
+                streakBadge.classList.add('active');
+            } else {
+                streakBadge.classList.remove('active');
+            }
 
             // Update stats
             const stats = student.stats || {};
@@ -672,12 +847,17 @@
                 document.getElementById('statVocab').textContent = dashboard.vocabularyLearned || 0;
                 document.getElementById('statWcpm').textContent = dashboard.currentWcpm || '--';
 
-                // Update goal progress
+                // Update goal progress (circle)
                 const goalMinutes = 60;
                 const currentMinutes = dashboard.thisWeekMinutes || 0;
                 const goalPercent = Math.min(100, Math.round((currentMinutes / goalMinutes) * 100));
-                document.getElementById('goalProgress').textContent = `${currentMinutes} / ${goalMinutes} min`;
+                document.getElementById('goalTitle').textContent = `${currentMinutes} / ${goalMinutes} minutes`;
+                document.getElementById('goalPercent').textContent = `${goalPercent}%`;
                 document.getElementById('goalBar').style.width = `${goalPercent}%`;
+
+                // Update circle (stroke-dashoffset: 176 = 0%, 0 = 100%)
+                const circleOffset = 176 - (176 * goalPercent / 100);
+                document.getElementById('goalCircle').style.strokeDashoffset = circleOffset;
 
                 // Show continue reading if there's an in-progress session
                 const inProgress = dashboard.recentSessions?.find(s => !s.completed);
@@ -706,15 +886,7 @@
                 }
 
                 // Show recommendations
-                if (dashboard.recommendations?.length > 0) {
-                    const rec = dashboard.recommendations[0];
-                    document.getElementById('skillFocus').innerHTML = `
-                        <div class="alert alert-${rec.priority === 'high' ? 'warning' : 'info'}" style="padding: var(--space-md);">
-                            <p class="text-sm font-medium">${rec.message}</p>
-                        </div>
-                        <a href="${rec.action}" class="btn btn-primary btn-sm mt-md">Practice Now</a>
-                    `;
-                }
+                updateRecommendations(dashboard.recommendations || [], dashboard);
 
             } catch (e) {
                 console.error('Failed to load dashboard:', e);
@@ -737,6 +909,80 @@
             if (days === 1) return 'Yesterday';
             if (days < 7) return `${days} days ago`;
             return date.toLocaleDateString();
+        }
+
+        function updateRecommendations(recommendations, dashboard) {
+            const recList = document.getElementById('recList');
+            const recs = [];
+
+            // Add personalized recommendations
+            recommendations.forEach(rec => {
+                const iconClass = rec.type || 'engagement';
+                const icons = {
+                    fluency: '🎤',
+                    comprehension: '📖',
+                    vocabulary: '📝',
+                    engagement: '🔥',
+                };
+
+                recs.push({
+                    href: rec.action || '/readingplanet/library/',
+                    icon: icons[iconClass] || '📚',
+                    iconClass,
+                    title: rec.message,
+                    desc: rec.priority === 'high' ? 'Recommended focus area' : 'Keep practicing',
+                });
+            });
+
+            // If no recommendations or few, add default ones
+            if (recs.length < 3) {
+                // Check if fluency needs attention
+                if (!dashboard.currentWcpm) {
+                    recs.push({
+                        href: '/readingplanet/fluency/',
+                        icon: '🎤',
+                        iconClass: 'fluency',
+                        title: 'Check your reading speed',
+                        desc: 'Take a fluency assessment',
+                    });
+                }
+
+                // Always suggest library
+                if (recs.length < 3) {
+                    recs.push({
+                        href: '/readingplanet/library/',
+                        icon: '📚',
+                        iconClass: 'engagement',
+                        title: 'Explore the library',
+                        desc: 'Find your next read',
+                    });
+                }
+
+                // Suggest progress if has activity
+                if (dashboard.stats?.textsCompleted > 0 && recs.length < 3) {
+                    recs.push({
+                        href: '/readingplanet/progress/',
+                        icon: '📊',
+                        iconClass: 'comprehension',
+                        title: 'View your progress',
+                        desc: 'See how far you\'ve come',
+                    });
+                }
+            }
+
+            // Render recommendations
+            recList.innerHTML = recs.slice(0, 3).map(rec => `
+                <a href="${rec.href}" class="rec-card">
+                    <div class="rec-icon ${rec.iconClass}">${rec.icon}</div>
+                    <div class="rec-text">
+                        <div class="rec-title">${rec.title}</div>
+                        <div class="rec-desc">${rec.desc}</div>
+                    </div>
+                    <svg class="rec-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </a>
+            `).join('');
         }
     </script>
 </body>

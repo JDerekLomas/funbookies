@@ -5,6 +5,39 @@
  * Designed for older students - no childish elements.
  */
 
+const AVATAR_OPTIONS = [
+    { id: 'astronaut', emoji: '🧑‍🚀', label: 'Astronaut' },
+    { id: 'scientist', emoji: '🧑‍🔬', label: 'Scientist' },
+    { id: 'artist', emoji: '🧑‍🎨', label: 'Artist' },
+    { id: 'athlete', emoji: '🏃', label: 'Athlete' },
+    { id: 'musician', emoji: '🎸', label: 'Musician' },
+    { id: 'gamer', emoji: '🎮', label: 'Gamer' },
+    { id: 'reader', emoji: '📚', label: 'Reader' },
+    { id: 'explorer', emoji: '🧭', label: 'Explorer' },
+];
+
+const GENRE_OPTIONS = [
+    { id: 'sports', label: 'Sports', emoji: '🏀' },
+    { id: 'science', label: 'Science', emoji: '🔬' },
+    { id: 'technology', label: 'Technology', emoji: '💻' },
+    { id: 'music', label: 'Music', emoji: '🎵' },
+    { id: 'gaming', label: 'Gaming', emoji: '🎮' },
+    { id: 'history', label: 'History', emoji: '📜' },
+    { id: 'nature', label: 'Nature', emoji: '🌿' },
+    { id: 'mystery', label: 'Mystery', emoji: '🔍' },
+];
+
+const AVATAR_COLORS = [
+    '#3b82f6', // blue
+    '#8b5cf6', // purple
+    '#ec4899', // pink
+    '#ef4444', // red
+    '#f59e0b', // amber
+    '#22c55e', // green
+    '#14b8a6', // teal
+    '#06b6d4', // cyan
+];
+
 class StudentPicker {
     constructor(options = {}) {
         this.options = {
@@ -15,6 +48,10 @@ class StudentPicker {
         };
         this.modal = null;
         this.resolve = null;
+        this.selectedAvatar = AVATAR_OPTIONS[0];
+        this.selectedColor = AVATAR_COLORS[0];
+        this.selectedGenres = [];
+        this.createStep = 1; // 1: name/grade, 2: avatar, 3: preferences
     }
 
     /**
@@ -95,25 +132,83 @@ class StudentPicker {
                         </div>
 
                         <div class="sp-create-form hidden" id="spCreateForm">
-                            <div class="sp-form-group">
-                                <label class="sp-label">Name</label>
-                                <input type="text" class="sp-input" id="spNameInput" placeholder="Enter your name" maxlength="30">
+                            <!-- Step 1: Name and Grade -->
+                            <div class="sp-step" id="spStep1">
+                                <div class="sp-step-header">
+                                    <span class="sp-step-num">1 of 3</span>
+                                    <span class="sp-step-title">Basic Info</span>
+                                </div>
+                                <div class="sp-form-group">
+                                    <label class="sp-label">Name</label>
+                                    <input type="text" class="sp-input" id="spNameInput" placeholder="Enter your name" maxlength="30">
+                                </div>
+                                <div class="sp-form-group">
+                                    <label class="sp-label">Grade Level</label>
+                                    <select class="sp-select" id="spGradeInput">
+                                        <option value="4">4th Grade</option>
+                                        <option value="5">5th Grade</option>
+                                        <option value="6" selected>6th Grade</option>
+                                        <option value="7">7th Grade</option>
+                                        <option value="8">8th Grade</option>
+                                        <option value="9">9th Grade</option>
+                                        <option value="10">10th Grade</option>
+                                    </select>
+                                </div>
+                                <div class="sp-form-actions">
+                                    <button class="sp-btn sp-btn-ghost" id="spCancelCreate">Cancel</button>
+                                    <button class="sp-btn sp-btn-primary" id="spNextStep1">Next</button>
+                                </div>
                             </div>
-                            <div class="sp-form-group">
-                                <label class="sp-label">Grade Level</label>
-                                <select class="sp-select" id="spGradeInput">
-                                    <option value="4">4th Grade</option>
-                                    <option value="5">5th Grade</option>
-                                    <option value="6" selected>6th Grade</option>
-                                    <option value="7">7th Grade</option>
-                                    <option value="8">8th Grade</option>
-                                    <option value="9">9th Grade</option>
-                                    <option value="10">10th Grade</option>
-                                </select>
+
+                            <!-- Step 2: Avatar -->
+                            <div class="sp-step hidden" id="spStep2">
+                                <div class="sp-step-header">
+                                    <span class="sp-step-num">2 of 3</span>
+                                    <span class="sp-step-title">Choose Your Avatar</span>
+                                </div>
+                                <div class="sp-avatar-preview" id="spAvatarPreview">
+                                    <div class="sp-avatar-large" id="spAvatarLarge">🧑‍🚀</div>
+                                </div>
+                                <div class="sp-avatar-grid" id="spAvatarGrid">
+                                    ${AVATAR_OPTIONS.map((a, i) => `
+                                        <button class="sp-avatar-option ${i === 0 ? 'selected' : ''}" data-avatar="${a.id}" data-emoji="${a.emoji}">
+                                            ${a.emoji}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                                <div class="sp-form-group">
+                                    <label class="sp-label">Color</label>
+                                    <div class="sp-color-grid" id="spColorGrid">
+                                        ${AVATAR_COLORS.map((c, i) => `
+                                            <button class="sp-color-option ${i === 0 ? 'selected' : ''}" data-color="${c}" style="background-color: ${c}"></button>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                <div class="sp-form-actions">
+                                    <button class="sp-btn sp-btn-ghost" id="spBackStep2">Back</button>
+                                    <button class="sp-btn sp-btn-primary" id="spNextStep2">Next</button>
+                                </div>
                             </div>
-                            <div class="sp-form-actions">
-                                <button class="sp-btn sp-btn-ghost" id="spCancelCreate">Cancel</button>
-                                <button class="sp-btn sp-btn-primary" id="spConfirmCreate">Create Profile</button>
+
+                            <!-- Step 3: Interests -->
+                            <div class="sp-step hidden" id="spStep3">
+                                <div class="sp-step-header">
+                                    <span class="sp-step-num">3 of 3</span>
+                                    <span class="sp-step-title">What do you like to read about?</span>
+                                </div>
+                                <p class="sp-hint">Select 2-4 topics that interest you</p>
+                                <div class="sp-genre-grid" id="spGenreGrid">
+                                    ${GENRE_OPTIONS.map(g => `
+                                        <button class="sp-genre-option" data-genre="${g.id}">
+                                            <span class="sp-genre-emoji">${g.emoji}</span>
+                                            <span class="sp-genre-label">${g.label}</span>
+                                        </button>
+                                    `).join('')}
+                                </div>
+                                <div class="sp-form-actions">
+                                    <button class="sp-btn sp-btn-ghost" id="spBackStep3">Back</button>
+                                    <button class="sp-btn sp-btn-primary" id="spConfirmCreate">Create Profile</button>
+                                </div>
                             </div>
                         </div>
                     ` : ''}
@@ -137,13 +232,16 @@ class StudentPicker {
     }
 
     renderStudent(student) {
-        const initials = student.avatar || student.name.slice(0, 2).toUpperCase();
+        // Check if avatar is an emoji or initials
+        const isEmoji = student.avatar && /\p{Emoji}/u.test(student.avatar);
+        const displayAvatar = isEmoji ? student.avatar : (student.avatar || student.name.slice(0, 2).toUpperCase());
         const color = student.avatarColor || '#3b82f6';
+        const fontSize = isEmoji ? '1.5rem' : '1rem';
 
         return `
             <button class="sp-student" data-id="${student.id}">
-                <div class="sp-avatar" style="background-color: ${color}">
-                    ${initials}
+                <div class="sp-avatar" style="background-color: ${color}; font-size: ${fontSize}">
+                    ${displayAvatar}
                 </div>
                 <div class="sp-student-info">
                     <span class="sp-student-name">${student.name}</span>
@@ -186,17 +284,76 @@ class StudentPicker {
             cancelBtn.addEventListener('click', () => this.hideCreateForm());
         }
 
+        // Step navigation
+        const nextStep1 = this.modal.querySelector('#spNextStep1');
+        if (nextStep1) {
+            nextStep1.addEventListener('click', () => this.goToStep(2));
+        }
+
+        const backStep2 = this.modal.querySelector('#spBackStep2');
+        if (backStep2) {
+            backStep2.addEventListener('click', () => this.goToStep(1));
+        }
+
+        const nextStep2 = this.modal.querySelector('#spNextStep2');
+        if (nextStep2) {
+            nextStep2.addEventListener('click', () => this.goToStep(3));
+        }
+
+        const backStep3 = this.modal.querySelector('#spBackStep3');
+        if (backStep3) {
+            backStep3.addEventListener('click', () => this.goToStep(2));
+        }
+
         // Confirm create
         const confirmBtn = this.modal.querySelector('#spConfirmCreate');
         if (confirmBtn) {
             confirmBtn.addEventListener('click', () => this.createStudent());
         }
 
+        // Avatar selection
+        this.modal.querySelectorAll('.sp-avatar-option').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.modal.querySelectorAll('.sp-avatar-option').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                this.selectedAvatar = AVATAR_OPTIONS.find(a => a.id === btn.dataset.avatar);
+                const preview = this.modal.querySelector('#spAvatarLarge');
+                if (preview) preview.textContent = btn.dataset.emoji;
+            });
+        });
+
+        // Color selection
+        this.modal.querySelectorAll('.sp-color-option').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.modal.querySelectorAll('.sp-color-option').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                this.selectedColor = btn.dataset.color;
+                const preview = this.modal.querySelector('#spAvatarLarge');
+                if (preview) preview.style.backgroundColor = this.selectedColor;
+            });
+        });
+
+        // Genre selection
+        this.modal.querySelectorAll('.sp-genre-option').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const genre = btn.dataset.genre;
+                if (btn.classList.contains('selected')) {
+                    btn.classList.remove('selected');
+                    this.selectedGenres = this.selectedGenres.filter(g => g !== genre);
+                } else {
+                    if (this.selectedGenres.length < 4) {
+                        btn.classList.add('selected');
+                        this.selectedGenres.push(genre);
+                    }
+                }
+            });
+        });
+
         // Enter key in name input
         const nameInput = this.modal.querySelector('#spNameInput');
         if (nameInput) {
             nameInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') this.createStudent();
+                if (e.key === 'Enter') this.goToStep(2);
             });
         }
 
@@ -213,6 +370,28 @@ class StudentPicker {
                 this.close(null);
             }
         });
+    }
+
+    goToStep(step) {
+        // Validate current step
+        if (step === 2) {
+            const nameInput = this.modal.querySelector('#spNameInput');
+            if (!nameInput?.value.trim()) {
+                nameInput?.focus();
+                return;
+            }
+        }
+
+        // Hide all steps
+        this.modal.querySelectorAll('.sp-step').forEach(s => s.classList.add('hidden'));
+
+        // Show target step
+        const targetStep = this.modal.querySelector(`#spStep${step}`);
+        if (targetStep) {
+            targetStep.classList.remove('hidden');
+        }
+
+        this.createStep = step;
     }
 
     showCreateForm() {
@@ -239,6 +418,19 @@ class StudentPicker {
         if (btn) btn.classList.remove('hidden');
         if (form) form.classList.add('hidden');
         if (students) students.classList.remove('hidden');
+
+        // Reset to step 1
+        this.createStep = 1;
+        this.goToStep(1);
+
+        // Reset selections
+        this.selectedAvatar = AVATAR_OPTIONS[0];
+        this.selectedColor = AVATAR_COLORS[0];
+        this.selectedGenres = [];
+
+        // Reset form
+        const nameInput = this.modal.querySelector('#spNameInput');
+        if (nameInput) nameInput.value = '';
     }
 
     async createStudent() {
@@ -249,6 +441,7 @@ class StudentPicker {
         const grade = parseInt(gradeInput?.value || '6');
 
         if (!name) {
+            this.goToStep(1);
             nameInput?.focus();
             return;
         }
@@ -259,7 +452,12 @@ class StudentPicker {
         }
 
         try {
-            const student = await window.ReadingPlanetDB.createStudent(name, { grade });
+            const student = await window.ReadingPlanetDB.createStudent(name, {
+                grade,
+                avatar: this.selectedAvatar.emoji,
+                avatarColor: this.selectedColor,
+                favoriteGenres: this.selectedGenres,
+            });
             this.selectStudent(student);
         } catch (e) {
             console.error('Failed to create student:', e);
@@ -549,6 +747,150 @@ class StudentPicker {
 
             .hidden {
                 display: none !important;
+            }
+
+            /* Step header */
+            .sp-step-header {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .sp-step-num {
+                font-size: 0.75rem;
+                font-weight: 500;
+                color: #64748b;
+                background: #f1f5f9;
+                padding: 0.25rem 0.5rem;
+                border-radius: 4px;
+            }
+
+            .sp-step-title {
+                font-size: 1rem;
+                font-weight: 600;
+                color: #1e293b;
+            }
+
+            .sp-hint {
+                font-size: 0.8125rem;
+                color: #64748b;
+                margin-bottom: 1rem;
+            }
+
+            /* Avatar preview */
+            .sp-avatar-preview {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 1.25rem;
+            }
+
+            .sp-avatar-large {
+                width: 80px;
+                height: 80px;
+                border-radius: 20px;
+                background: #3b82f6;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2.5rem;
+                transition: background-color 200ms ease;
+            }
+
+            /* Avatar grid */
+            .sp-avatar-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .sp-avatar-option {
+                aspect-ratio: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                background: #f8fafc;
+                border: 2px solid #e2e8f0;
+                border-radius: 12px;
+                cursor: pointer;
+                transition: all 150ms;
+            }
+
+            .sp-avatar-option:hover {
+                background: #f1f5f9;
+                border-color: #94a3b8;
+            }
+
+            .sp-avatar-option.selected {
+                border-color: #3b82f6;
+                background: #eff6ff;
+            }
+
+            /* Color grid */
+            .sp-color-grid {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            .sp-color-option {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                border: 3px solid transparent;
+                cursor: pointer;
+                transition: all 150ms;
+            }
+
+            .sp-color-option:hover {
+                transform: scale(1.1);
+            }
+
+            .sp-color-option.selected {
+                border-color: #1e293b;
+                box-shadow: 0 0 0 2px white inset;
+            }
+
+            /* Genre grid */
+            .sp-genre-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+
+            .sp-genre-option {
+                display: flex;
+                align-items: center;
+                gap: 0.625rem;
+                padding: 0.75rem;
+                background: #f8fafc;
+                border: 2px solid #e2e8f0;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: all 150ms;
+                text-align: left;
+            }
+
+            .sp-genre-option:hover {
+                background: #f1f5f9;
+                border-color: #94a3b8;
+            }
+
+            .sp-genre-option.selected {
+                border-color: #3b82f6;
+                background: #eff6ff;
+            }
+
+            .sp-genre-emoji {
+                font-size: 1.25rem;
+            }
+
+            .sp-genre-label {
+                font-size: 0.875rem;
+                font-weight: 500;
+                color: #1e293b;
             }
 
             @media (prefers-color-scheme: dark) {

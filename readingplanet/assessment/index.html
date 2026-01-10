@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Assessment - ReadingPlanet</title>
+    <link rel="icon" type="image/svg+xml" href="/readingplanet/images/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/readingplanet/styles/shared.css">
+
+    <style>
+        body {
+            background: var(--color-bg);
+            min-height: 100vh;
+        }
+
+        .assessment-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-md) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .logo-text {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-navy);
+        }
+
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .progress-text {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .progress-bar-container {
+            width: 200px;
+            height: 8px;
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--color-teal);
+            border-radius: var(--radius-full);
+            transition: width 0.3s ease;
+        }
+
+        /* Assessment Container */
+        .assessment-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+
+        /* Intro Screen */
+        .intro-screen {
+            text-align: center;
+            padding: var(--space-3xl) var(--space-lg);
+        }
+
+        .intro-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-lg);
+        }
+
+        .intro-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            color: var(--color-navy);
+        }
+
+        .intro-text {
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            max-width: 500px;
+            margin: 0 auto var(--space-xl);
+            line-height: 1.6;
+        }
+
+        .intro-features {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+            flex-wrap: wrap;
+        }
+
+        .intro-feature {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.9375rem;
+            color: var(--color-text-muted);
+        }
+
+        .intro-feature-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: var(--radius-full);
+            background: #dcfce7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16a34a;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-lg);
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .question-type {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            background: var(--color-bg-alt);
+            color: var(--color-text-muted);
+        }
+
+        .question-type.comprehension { background: #dbeafe; color: #1e40af; }
+        .question-type.vocabulary { background: #fef3c7; color: #92400e; }
+        .question-type.inference { background: #e9d5ff; color: #7c3aed; }
+        .question-type.main-idea { background: #dcfce7; color: #166534; }
+
+        .question-difficulty {
+            margin-left: auto;
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Passage */
+        .passage-container {
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .passage-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .passage-text {
+            font-family: 'Literata', serif;
+            font-size: 1.0625rem;
+            line-height: 1.8;
+            color: var(--color-text);
+        }
+
+        /* Question Text */
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--space-xl);
+            color: var(--color-text);
+            line-height: 1.4;
+        }
+
+        /* Answer Options */
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .answer-option {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .answer-option:hover {
+            border-color: var(--color-accent);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .answer-option.selected {
+            border-color: var(--color-accent);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .answer-option.correct {
+            border-color: #16a34a;
+            background: rgba(22, 163, 74, 0.1);
+        }
+
+        .answer-option.incorrect {
+            border-color: #dc2626;
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .answer-option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .answer-radio {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+
+        .answer-option.selected .answer-radio {
+            border-color: var(--color-accent);
+            background: var(--color-accent);
+        }
+
+        .answer-option.selected .answer-radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: var(--radius-full);
+        }
+
+        .answer-option.correct .answer-radio {
+            border-color: #16a34a;
+            background: #16a34a;
+        }
+
+        .answer-option.incorrect .answer-radio {
+            border-color: #dc2626;
+            background: #dc2626;
+        }
+
+        .answer-text {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Actions */
+        .question-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-xl);
+        }
+
+        .skip-btn {
+            color: var(--color-text-muted);
+            font-size: 0.875rem;
+        }
+
+        .skip-btn:hover {
+            color: var(--color-text);
+        }
+
+        /* Feedback */
+        .feedback-card {
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .feedback-card.correct {
+            background: #dcfce7;
+            border: 1px solid #86efac;
+        }
+
+        .feedback-card.incorrect {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .feedback-card.correct .feedback-header {
+            color: #166534;
+        }
+
+        .feedback-card.incorrect .feedback-header {
+            color: #991b1b;
+        }
+
+        .feedback-text {
+            font-size: 0.9375rem;
+            line-height: 1.5;
+        }
+
+        .feedback-card.correct .feedback-text {
+            color: #14532d;
+        }
+
+        .feedback-card.incorrect .feedback-text {
+            color: #7f1d1d;
+        }
+
+        /* Results Screen */
+        .results-screen {
+            text-align: center;
+        }
+
+        .results-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-lg);
+        }
+
+        .results-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            color: var(--color-navy);
+        }
+
+        .results-subtitle {
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .result-stat {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .result-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-navy);
+        }
+
+        .result-stat-label {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .skill-breakdown {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+            text-align: left;
+        }
+
+        .skill-breakdown-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+
+        .skill-item {
+            margin-bottom: var(--space-md);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-xs);
+        }
+
+        .skill-name {
+            font-weight: 500;
+        }
+
+        .skill-score {
+            color: var(--color-text-muted);
+        }
+
+        .recommendations {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+            text-align: left;
+        }
+
+        .recommendations-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+
+        .recommendation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-sm);
+        }
+
+        .recommendation-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .recommendation-icon.high { background: #fecaca; }
+        .recommendation-icon.medium { background: #fef3c7; }
+        .recommendation-icon.low { background: #dcfce7; }
+
+        .recommendation-content {
+            flex: 1;
+        }
+
+        .recommendation-title {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .recommendation-desc {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .results-actions {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        /* Loading */
+        .loading-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-3xl);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--color-border);
+            border-top-color: var(--color-accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: var(--space-md);
+            color: var(--color-text-muted);
+        }
+    </style>
+</head>
+<body>
+    <script src="/readingplanet/js/data-service.js"></script>
+    <script src="/readingplanet/js/student-picker.js"></script>
+
+    <!-- Header -->
+    <header class="assessment-header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="/readingplanet/" class="logo">
+                    <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+                        <circle cx="18" cy="18" r="18" fill="#1e3a5f"/>
+                        <path d="M10 26V10h6c4 0 6 2 6 5s-2 5-6 5h-3v6h-3zm3-9h3c2 0 3-1 3-2s-1-2-3-2h-3v4z" fill="white"/>
+                    </svg>
+                    <span class="logo-text">ReadingPlanet</span>
+                </a>
+
+                <div class="progress-indicator hidden" id="progressIndicator">
+                    <span class="progress-text" id="progressText">Question 1 of 15</span>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary hidden" id="exitBtn">Exit Assessment</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="assessment-container">
+        <!-- Intro Screen -->
+        <div class="intro-screen" id="introScreen">
+            <div class="intro-icon">📊</div>
+            <h1 class="intro-title">Reading Skills Assessment</h1>
+            <p class="intro-text">
+                This assessment helps us understand your reading level and create a personalized learning path just for you.
+            </p>
+
+            <div class="intro-features">
+                <div class="intro-feature">
+                    <div class="intro-feature-icon">✓</div>
+                    <span>15-20 questions</span>
+                </div>
+                <div class="intro-feature">
+                    <div class="intro-feature-icon">✓</div>
+                    <span>About 15 minutes</span>
+                </div>
+                <div class="intro-feature">
+                    <div class="intro-feature-icon">✓</div>
+                    <span>Adapts to you</span>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-lg" id="startBtn">Start Assessment</button>
+        </div>
+
+        <!-- Question Screen -->
+        <div class="question-screen hidden" id="questionScreen">
+            <div class="question-card fade-in" id="questionCard">
+                <div class="question-header">
+                    <span class="question-type" id="questionType">Comprehension</span>
+                    <span class="question-difficulty" id="questionDifficulty">Level 3</span>
+                </div>
+
+                <div class="passage-container hidden" id="passageContainer">
+                    <div class="passage-label">Read the passage:</div>
+                    <div class="passage-text" id="passageText"></div>
+                </div>
+
+                <div class="question-text" id="questionText">
+                    Loading question...
+                </div>
+
+                <div class="answer-options" id="answerOptions">
+                    <!-- Filled dynamically -->
+                </div>
+
+                <div class="feedback-card hidden" id="feedbackCard">
+                    <div class="feedback-header" id="feedbackHeader">
+                        <span id="feedbackIcon">✓</span>
+                        <span id="feedbackTitle">Correct!</span>
+                    </div>
+                    <p class="feedback-text" id="feedbackText"></p>
+                </div>
+
+                <div class="question-actions">
+                    <button class="skip-btn" id="skipBtn">Skip this question</button>
+                    <button class="btn btn-primary hidden" id="nextBtn">Next Question</button>
+                    <button class="btn btn-primary hidden" id="submitBtn">Check Answer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Screen -->
+        <div class="loading-indicator hidden" id="loadingScreen">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Analyzing your results...</p>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="results-screen hidden" id="resultsScreen">
+            <div class="intro-icon">🎉</div>
+            <h1 class="results-title">Assessment Complete!</h1>
+            <p class="results-subtitle" id="resultsSubtitle">Great work! Here's what we learned about your reading skills.</p>
+
+            <div class="results-stats">
+                <div class="result-stat">
+                    <div class="result-stat-value" id="resultScore">0%</div>
+                    <div class="result-stat-label">Overall Score</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-value" id="resultLexile">--L</div>
+                    <div class="result-stat-label">Estimated Lexile</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-value" id="resultLevel">--</div>
+                    <div class="result-stat-label">Grade Level</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-value" id="resultTime">--</div>
+                    <div class="result-stat-label">Time Taken</div>
+                </div>
+            </div>
+
+            <div class="skill-breakdown">
+                <h3 class="skill-breakdown-title">Skill Breakdown</h3>
+                <div id="skillBreakdownContent">
+                    <!-- Filled dynamically -->
+                </div>
+            </div>
+
+            <div class="recommendations">
+                <h3 class="recommendations-title">Your Learning Path</h3>
+                <div id="recommendationsContent">
+                    <!-- Filled dynamically -->
+                </div>
+            </div>
+
+            <div class="results-actions">
+                <a href="/readingplanet/" class="btn btn-secondary">Back to Home</a>
+                <a href="/readingplanet/skills/" class="btn btn-primary" id="startLearningBtn">Start Learning Path</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Assessment question bank - adaptive questions by difficulty
+        const QUESTION_BANK = {
+            // Level 1-2: Basic (Lexile 400-600)
+            basic: [
+                {
+                    id: 'b1',
+                    type: 'vocabulary',
+                    difficulty: 1,
+                    passage: 'The dog was very happy. It wagged its tail and jumped up and down. The dog wanted to play with its owner.',
+                    question: 'What does "wagged" mean in this passage?',
+                    options: ['Moved back and forth', 'Stayed still', 'Made a sound', 'Ran away'],
+                    correct: 0,
+                    explanation: '"Wagged" means to move something back and forth quickly. Dogs wag their tails when they are happy.'
+                },
+                {
+                    id: 'b2',
+                    type: 'literal',
+                    difficulty: 1,
+                    passage: 'Maria went to the store. She bought milk, bread, and apples. Then she walked home.',
+                    question: 'What did Maria buy at the store?',
+                    options: ['Milk, bread, and apples', 'Cookies and juice', 'Only milk', 'Nothing'],
+                    correct: 0,
+                    explanation: 'The passage states that Maria bought milk, bread, and apples.'
+                },
+                {
+                    id: 'b3',
+                    type: 'inference',
+                    difficulty: 2,
+                    passage: 'Tom looked at the dark clouds in the sky. He grabbed his umbrella before leaving the house.',
+                    question: 'Why did Tom grab his umbrella?',
+                    options: ['He thought it might rain', 'He wanted to play with it', 'Someone told him to', 'He always carries one'],
+                    correct: 0,
+                    explanation: 'The dark clouds suggest rain is coming, so Tom took his umbrella to stay dry.'
+                },
+                {
+                    id: 'b4',
+                    type: 'main-idea',
+                    difficulty: 2,
+                    passage: 'Bees are very important insects. They help flowers grow by carrying pollen from one flower to another. Without bees, we would have fewer fruits and vegetables.',
+                    question: 'What is this passage mainly about?',
+                    options: ['Why bees are important', 'How to catch bees', 'Different types of flowers', 'Growing vegetables'],
+                    correct: 0,
+                    explanation: 'The main idea is that bees are important because they help flowers grow and produce food.'
+                }
+            ],
+            // Level 3-4: Intermediate (Lexile 600-800)
+            intermediate: [
+                {
+                    id: 'i1',
+                    type: 'vocabulary',
+                    difficulty: 3,
+                    passage: 'The ancient castle stood on the hill for centuries. Despite the harsh weather, its sturdy walls remained intact.',
+                    question: 'What does "intact" most likely mean?',
+                    options: ['Not damaged', 'Very old', 'Covered in moss', 'Empty inside'],
+                    correct: 0,
+                    explanation: '"Intact" means not damaged or broken. The walls stayed complete despite the weather.'
+                },
+                {
+                    id: 'i2',
+                    type: 'inference',
+                    difficulty: 3,
+                    passage: 'Sarah checked her phone again and sighed. The movie started in ten minutes, but her friend had not replied to any messages. She bought one ticket and walked inside alone.',
+                    question: 'What can you infer about Sarah\'s friend?',
+                    options: ['The friend probably isn\'t coming', 'The friend is already inside', 'The friend doesn\'t like movies', 'The friend lost their phone'],
+                    correct: 0,
+                    explanation: 'Since the friend didn\'t reply and Sarah bought only one ticket, we can infer the friend isn\'t coming.'
+                },
+                {
+                    id: 'i3',
+                    type: 'main-idea',
+                    difficulty: 4,
+                    passage: 'Solar panels convert sunlight into electricity. They work by using special materials called semiconductors that release electrons when light hits them. This process, called the photovoltaic effect, makes solar power a clean energy source.',
+                    question: 'What is the main idea of this passage?',
+                    options: ['How solar panels create electricity', 'Why electricity is important', 'The history of solar power', 'Different types of energy'],
+                    correct: 0,
+                    explanation: 'The passage explains how solar panels convert sunlight into electricity using the photovoltaic effect.'
+                },
+                {
+                    id: 'i4',
+                    type: 'literal',
+                    difficulty: 3,
+                    passage: 'The Great Wall of China stretches over 13,000 miles. It was built over many centuries by different dynasties. Millions of workers helped construct this massive structure.',
+                    question: 'How long is the Great Wall of China?',
+                    options: ['Over 13,000 miles', 'About 1,000 miles', 'Exactly 500 miles', 'Less than 100 miles'],
+                    correct: 0,
+                    explanation: 'The passage states the Great Wall stretches over 13,000 miles.'
+                },
+                {
+                    id: 'i5',
+                    type: 'vocabulary',
+                    difficulty: 4,
+                    passage: 'The scientist was meticulous in her research. She checked every calculation three times and documented each step carefully.',
+                    question: 'What does "meticulous" mean?',
+                    options: ['Very careful and precise', 'Quick and efficient', 'Creative and artistic', 'Loud and energetic'],
+                    correct: 0,
+                    explanation: '"Meticulous" means showing great attention to detail and being very careful.'
+                }
+            ],
+            // Level 5-6: Advanced (Lexile 800-1000)
+            advanced: [
+                {
+                    id: 'a1',
+                    type: 'inference',
+                    difficulty: 5,
+                    passage: 'The company announced record profits, yet employees noticed smaller bonuses this year. Meanwhile, executives purchased a new fleet of luxury vehicles for corporate use.',
+                    question: 'What can you infer about the company\'s priorities?',
+                    options: ['Executive benefits over employee compensation', 'Saving money for expansion', 'Investing in transportation', 'Preparing for financial difficulties'],
+                    correct: 0,
+                    explanation: 'The contrast between record profits, smaller bonuses, and luxury vehicles suggests priorities favor executives.'
+                },
+                {
+                    id: 'a2',
+                    type: 'vocabulary',
+                    difficulty: 5,
+                    passage: 'The politician\'s rhetoric was persuasive but lacked substantive policy details. Critics argued that eloquent speeches could not substitute for concrete action.',
+                    question: 'What does "substantive" mean in this context?',
+                    options: ['Having real importance or value', 'Entertaining to listen to', 'Easy to understand', 'Popular with voters'],
+                    correct: 0,
+                    explanation: '"Substantive" means having real importance, meaning, or value - in this case, actual policy details.'
+                },
+                {
+                    id: 'a3',
+                    type: 'main-idea',
+                    difficulty: 6,
+                    passage: 'Confirmation bias leads people to seek information that supports their existing beliefs while ignoring contradictory evidence. This cognitive tendency affects everything from political opinions to scientific research. Recognizing this bias is the first step toward more objective thinking.',
+                    question: 'What is the author\'s main point?',
+                    options: ['Understanding confirmation bias helps us think more objectively', 'Political opinions are always biased', 'Scientific research is unreliable', 'People should avoid forming opinions'],
+                    correct: 0,
+                    explanation: 'The main point is that recognizing confirmation bias helps us think more objectively.'
+                },
+                {
+                    id: 'a4',
+                    type: 'inference',
+                    difficulty: 6,
+                    passage: 'The invention of the printing press democratized knowledge by making books affordable. Before this, manuscripts were hand-copied by monks, making each book extremely valuable and accessible only to the wealthy or clergy.',
+                    question: 'What does "democratized knowledge" imply?',
+                    options: ['Made knowledge available to more people', 'Created new governments', 'Improved the quality of books', 'Replaced spoken language'],
+                    correct: 0,
+                    explanation: '"Democratized knowledge" means making knowledge accessible to ordinary people, not just the elite.'
+                },
+                {
+                    id: 'a5',
+                    type: 'vocabulary',
+                    difficulty: 6,
+                    passage: 'The artist\'s work was deliberately provocative, challenging viewers to question their assumptions about beauty and meaning in art.',
+                    question: 'What does "provocative" mean here?',
+                    options: ['Intended to cause a reaction or response', 'Beautiful and pleasing', 'Simple and easy to understand', 'Traditional and classic'],
+                    correct: 0,
+                    explanation: '"Provocative" means intended to stimulate thought or reaction, often by challenging conventions.'
+                }
+            ],
+            // Level 7-8: Expert (Lexile 1000+)
+            expert: [
+                {
+                    id: 'e1',
+                    type: 'inference',
+                    difficulty: 7,
+                    passage: 'The author employs an unreliable narrator whose gradually revealed biases force readers to reconsider earlier events. This narrative technique creates layers of meaning that reward close reading and multiple interpretations.',
+                    question: 'Why might an author choose an unreliable narrator?',
+                    options: ['To create complexity and encourage critical reading', 'To simplify the story', 'To make the book shorter', 'To avoid describing events'],
+                    correct: 0,
+                    explanation: 'Unreliable narrators add complexity and encourage readers to think critically about the story.'
+                },
+                {
+                    id: 'e2',
+                    type: 'vocabulary',
+                    difficulty: 7,
+                    passage: 'The theory\'s parsimony made it appealing to scientists who valued elegant explanations over convoluted ones.',
+                    question: 'What does "parsimony" mean in this context?',
+                    options: ['Simplicity and economy', 'Mathematical precision', 'Experimental proof', 'Popular acceptance'],
+                    correct: 0,
+                    explanation: '"Parsimony" in science means using the simplest explanation that fits the facts.'
+                },
+                {
+                    id: 'e3',
+                    type: 'main-idea',
+                    difficulty: 8,
+                    passage: 'While technological determinism suggests that technology drives social change, social constructivism argues that society shapes how technologies are developed and used. A nuanced view recognizes the bidirectional relationship between technology and society, where each influences the other in complex ways.',
+                    question: 'What is the author advocating for?',
+                    options: ['A balanced view recognizing mutual influence', 'Technological determinism', 'Social constructivism', 'Rejecting both theories'],
+                    correct: 0,
+                    explanation: 'The author advocates for a nuanced, bidirectional view where technology and society influence each other.'
+                },
+                {
+                    id: 'e4',
+                    type: 'vocabulary',
+                    difficulty: 8,
+                    passage: 'The philosopher\'s epistemological framework questioned the very foundations of how we claim to know anything.',
+                    question: 'What does "epistemological" relate to?',
+                    options: ['The nature and limits of knowledge', 'The study of ethics', 'The structure of language', 'The history of philosophy'],
+                    correct: 0,
+                    explanation: '"Epistemological" relates to epistemology, the branch of philosophy concerned with knowledge and belief.'
+                }
+            ]
+        };
+
+        // State
+        let currentStudent = null;
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let answers = [];
+        let startTime = null;
+        let currentDifficulty = 3; // Start at intermediate
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.ReadingPlanetDB) {
+                await window.ReadingPlanetDB.ready;
+            }
+
+            // Get current student
+            const session = localStorage.getItem('readingplanet_session');
+            if (session) {
+                const { studentId } = JSON.parse(session);
+                currentStudent = await window.ReadingPlanetDB.getStudent(studentId);
+            }
+
+            if (!currentStudent) {
+                const picker = new StudentPicker({
+                    title: 'Select Profile',
+                    allowCreate: true,
+                    allowSkip: false,
+                });
+                currentStudent = await picker.show();
+            }
+
+            // Set initial difficulty based on grade
+            if (currentStudent?.grade) {
+                if (currentStudent.grade <= 4) currentDifficulty = 2;
+                else if (currentStudent.grade <= 6) currentDifficulty = 4;
+                else if (currentStudent.grade <= 8) currentDifficulty = 6;
+                else currentDifficulty = 7;
+            }
+
+            // Setup event listeners
+            document.getElementById('startBtn').addEventListener('click', startAssessment);
+            document.getElementById('exitBtn').addEventListener('click', confirmExit);
+            document.getElementById('skipBtn').addEventListener('click', skipQuestion);
+            document.getElementById('submitBtn').addEventListener('click', submitAnswer);
+            document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+        });
+
+        function startAssessment() {
+            // Generate adaptive question set
+            questions = generateQuestions();
+            currentQuestionIndex = 0;
+            answers = [];
+            startTime = Date.now();
+
+            // Show question screen
+            document.getElementById('introScreen').classList.add('hidden');
+            document.getElementById('questionScreen').classList.remove('hidden');
+            document.getElementById('progressIndicator').classList.remove('hidden');
+            document.getElementById('exitBtn').classList.remove('hidden');
+
+            showQuestion();
+        }
+
+        function generateQuestions() {
+            // Start with questions around the initial difficulty level
+            const allQuestions = [
+                ...QUESTION_BANK.basic,
+                ...QUESTION_BANK.intermediate,
+                ...QUESTION_BANK.advanced,
+                ...QUESTION_BANK.expert
+            ];
+
+            // Sort by difficulty
+            allQuestions.sort((a, b) => a.difficulty - b.difficulty);
+
+            // Select 15 questions adaptively starting around current difficulty
+            const selected = [];
+            const targetCount = 15;
+
+            // Start near current difficulty
+            const startIndex = allQuestions.findIndex(q => q.difficulty >= currentDifficulty - 1);
+
+            // Add initial questions
+            for (let i = startIndex; i < allQuestions.length && selected.length < 5; i++) {
+                selected.push(allQuestions[i]);
+            }
+
+            // Fill remaining with variety
+            const remaining = allQuestions.filter(q => !selected.includes(q));
+            while (selected.length < targetCount && remaining.length > 0) {
+                const idx = Math.floor(Math.random() * remaining.length);
+                selected.push(remaining.splice(idx, 1)[0]);
+            }
+
+            // Shuffle but keep some order by difficulty
+            return selected.sort((a, b) => {
+                // Group by difficulty ranges
+                const groupA = Math.floor(a.difficulty / 2);
+                const groupB = Math.floor(b.difficulty / 2);
+                if (groupA !== groupB) return groupA - groupB;
+                return Math.random() - 0.5;
+            });
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+
+            // Update progress
+            updateProgress();
+
+            // Update question type badge
+            const typeEl = document.getElementById('questionType');
+            typeEl.textContent = formatQuestionType(question.type);
+            typeEl.className = `question-type ${question.type}`;
+
+            // Update difficulty
+            document.getElementById('questionDifficulty').textContent = `Level ${question.difficulty}`;
+
+            // Show passage if exists
+            const passageContainer = document.getElementById('passageContainer');
+            if (question.passage) {
+                passageContainer.classList.remove('hidden');
+                document.getElementById('passageText').textContent = question.passage;
+            } else {
+                passageContainer.classList.add('hidden');
+            }
+
+            // Show question
+            document.getElementById('questionText').textContent = question.question;
+
+            // Show options
+            const optionsEl = document.getElementById('answerOptions');
+            optionsEl.innerHTML = question.options.map((option, idx) => `
+                <div class="answer-option" data-index="${idx}">
+                    <div class="answer-radio"></div>
+                    <span class="answer-text">${option}</span>
+                </div>
+            `).join('');
+
+            // Add click handlers
+            optionsEl.querySelectorAll('.answer-option').forEach(opt => {
+                opt.addEventListener('click', () => selectOption(opt));
+            });
+
+            // Hide feedback
+            document.getElementById('feedbackCard').classList.add('hidden');
+
+            // Show submit, hide next
+            document.getElementById('submitBtn').classList.remove('hidden');
+            document.getElementById('nextBtn').classList.add('hidden');
+            document.getElementById('skipBtn').style.visibility = 'visible';
+
+            // Animate in
+            document.getElementById('questionCard').classList.remove('fade-in');
+            void document.getElementById('questionCard').offsetWidth; // Trigger reflow
+            document.getElementById('questionCard').classList.add('fade-in');
+        }
+
+        function formatQuestionType(type) {
+            const labels = {
+                'vocabulary': 'Vocabulary',
+                'literal': 'Comprehension',
+                'inference': 'Inference',
+                'main-idea': 'Main Idea'
+            };
+            return labels[type] || type;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            document.getElementById('progressText').textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+        }
+
+        function selectOption(optionEl) {
+            // Remove previous selection
+            document.querySelectorAll('.answer-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            // Select this one
+            optionEl.classList.add('selected');
+        }
+
+        function submitAnswer() {
+            const selected = document.querySelector('.answer-option.selected');
+            if (!selected) {
+                alert('Please select an answer');
+                return;
+            }
+
+            const selectedIndex = parseInt(selected.dataset.index);
+            const question = questions[currentQuestionIndex];
+            const isCorrect = selectedIndex === question.correct;
+
+            // Record answer
+            answers.push({
+                questionId: question.id,
+                type: question.type,
+                difficulty: question.difficulty,
+                selected: selectedIndex,
+                correct: question.correct,
+                isCorrect
+            });
+
+            // Update difficulty for next questions (adaptive)
+            if (isCorrect) {
+                currentDifficulty = Math.min(8, currentDifficulty + 0.5);
+            } else {
+                currentDifficulty = Math.max(1, currentDifficulty - 0.5);
+            }
+
+            // Show feedback
+            showFeedback(isCorrect, question);
+
+            // Disable options
+            document.querySelectorAll('.answer-option').forEach(opt => {
+                opt.classList.add('disabled');
+                const idx = parseInt(opt.dataset.index);
+                if (idx === question.correct) {
+                    opt.classList.add('correct');
+                } else if (idx === selectedIndex && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            // Show next button
+            document.getElementById('submitBtn').classList.add('hidden');
+            document.getElementById('nextBtn').classList.remove('hidden');
+            document.getElementById('skipBtn').style.visibility = 'hidden';
+        }
+
+        function showFeedback(isCorrect, question) {
+            const feedbackCard = document.getElementById('feedbackCard');
+            const feedbackHeader = document.getElementById('feedbackHeader');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackTitle = document.getElementById('feedbackTitle');
+            const feedbackText = document.getElementById('feedbackText');
+
+            feedbackCard.classList.remove('hidden', 'correct', 'incorrect');
+            feedbackCard.classList.add(isCorrect ? 'correct' : 'incorrect');
+
+            feedbackIcon.textContent = isCorrect ? '✓' : '✗';
+            feedbackTitle.textContent = isCorrect ? 'Correct!' : 'Not quite';
+            feedbackText.textContent = question.explanation;
+        }
+
+        function skipQuestion() {
+            // Record as skipped
+            const question = questions[currentQuestionIndex];
+            answers.push({
+                questionId: question.id,
+                type: question.type,
+                difficulty: question.difficulty,
+                selected: null,
+                correct: question.correct,
+                isCorrect: false,
+                skipped: true
+            });
+
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex >= questions.length) {
+                finishAssessment();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function confirmExit() {
+            if (confirm('Are you sure you want to exit? Your progress will be lost.')) {
+                window.location.href = '/readingplanet/';
+            }
+        }
+
+        async function finishAssessment() {
+            // Show loading
+            document.getElementById('questionScreen').classList.add('hidden');
+            document.getElementById('loadingScreen').classList.remove('hidden');
+
+            // Calculate results
+            await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate analysis
+
+            const results = calculateResults();
+
+            // Save to database
+            await saveResults(results);
+
+            // Show results
+            showResults(results);
+        }
+
+        function calculateResults() {
+            const totalQuestions = answers.length;
+            const correctAnswers = answers.filter(a => a.isCorrect).length;
+            const skippedAnswers = answers.filter(a => a.skipped).length;
+
+            const score = Math.round((correctAnswers / totalQuestions) * 100);
+
+            // Calculate by skill type
+            const byType = {};
+            answers.forEach(a => {
+                if (!byType[a.type]) {
+                    byType[a.type] = { total: 0, correct: 0 };
+                }
+                byType[a.type].total++;
+                if (a.isCorrect) byType[a.type].correct++;
+            });
+
+            Object.keys(byType).forEach(type => {
+                byType[type].accuracy = Math.round((byType[type].correct / byType[type].total) * 100);
+            });
+
+            // Calculate average difficulty of correct answers
+            const correctDifficulties = answers.filter(a => a.isCorrect).map(a => a.difficulty);
+            const avgDifficulty = correctDifficulties.length > 0
+                ? correctDifficulties.reduce((a, b) => a + b, 0) / correctDifficulties.length
+                : 3;
+
+            // Estimate Lexile based on difficulty
+            const lexileMap = {
+                1: 450, 2: 550, 3: 650, 4: 750, 5: 850, 6: 950, 7: 1050, 8: 1150
+            };
+            const estimatedLexile = Math.round(lexileMap[Math.round(avgDifficulty)] || 650);
+
+            // Estimate grade level
+            const gradeLevel = Math.max(3, Math.min(12, Math.round(avgDifficulty / 2) + 3));
+
+            // Time taken
+            const timeTaken = Math.round((Date.now() - startTime) / 60000);
+
+            // Generate recommendations
+            const recommendations = generateRecommendations(byType, score, estimatedLexile);
+
+            return {
+                score,
+                totalQuestions,
+                correctAnswers,
+                skippedAnswers,
+                byType,
+                estimatedLexile,
+                gradeLevel,
+                timeTaken,
+                recommendations,
+                avgDifficulty
+            };
+        }
+
+        function generateRecommendations(byType, score, lexile) {
+            const recommendations = [];
+
+            // Check each skill type
+            const typeLabels = {
+                'vocabulary': 'Vocabulary Skills',
+                'literal': 'Literal Comprehension',
+                'inference': 'Making Inferences',
+                'main-idea': 'Finding Main Ideas'
+            };
+
+            Object.entries(byType).forEach(([type, data]) => {
+                if (data.accuracy < 50) {
+                    recommendations.push({
+                        type,
+                        priority: 'high',
+                        title: `Focus on ${typeLabels[type]}`,
+                        description: `Practice activities to strengthen your ${type} skills.`,
+                        action: `/readingplanet/skills/?focus=${type}`
+                    });
+                } else if (data.accuracy < 70) {
+                    recommendations.push({
+                        type,
+                        priority: 'medium',
+                        title: `Practice ${typeLabels[type]}`,
+                        description: `A bit more practice will help you master ${type}.`,
+                        action: `/readingplanet/skills/?focus=${type}`
+                    });
+                }
+            });
+
+            // Add reading recommendation
+            if (lexile < 700) {
+                recommendations.push({
+                    type: 'reading',
+                    priority: 'medium',
+                    title: 'Start with Easier Texts',
+                    description: 'Build confidence with texts at your current level.',
+                    action: '/readingplanet/library/?level=beginner'
+                });
+            }
+
+            // Add fluency recommendation if low score
+            if (score < 60) {
+                recommendations.push({
+                    type: 'fluency',
+                    priority: 'high',
+                    title: 'Build Reading Fluency',
+                    description: 'Practice reading aloud to improve speed and accuracy.',
+                    action: '/readingplanet/fluency/'
+                });
+            }
+
+            // Sort by priority
+            const priorityOrder = { high: 0, medium: 1, low: 2 };
+            recommendations.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+
+            return recommendations;
+        }
+
+        async function saveResults(results) {
+            if (!currentStudent || !window.ReadingPlanetDB) return;
+
+            try {
+                // Update student with assessment results
+                await window.ReadingPlanetDB.updateStudent(currentStudent.id, {
+                    currentLexile: results.estimatedLexile,
+                    initialLexile: currentStudent.initialLexile || results.estimatedLexile,
+                    lastAssessment: {
+                        date: new Date().toISOString(),
+                        score: results.score,
+                        lexile: results.estimatedLexile,
+                        byType: results.byType
+                    }
+                });
+
+                // Add XP for completing assessment
+                await window.ReadingPlanetDB.updateStudentStats(currentStudent.id, {
+                    totalXp: 100
+                });
+            } catch (e) {
+                console.error('Failed to save results:', e);
+            }
+        }
+
+        function showResults(results) {
+            document.getElementById('loadingScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('hidden');
+            document.getElementById('progressIndicator').classList.add('hidden');
+            document.getElementById('exitBtn').classList.add('hidden');
+
+            // Update stats
+            document.getElementById('resultScore').textContent = `${results.score}%`;
+            document.getElementById('resultLexile').textContent = `${results.estimatedLexile}L`;
+            document.getElementById('resultLevel').textContent = `Grade ${results.gradeLevel}`;
+            document.getElementById('resultTime').textContent = `${results.timeTaken} min`;
+
+            // Subtitle based on score
+            const subtitles = {
+                high: 'Excellent work! You\'re reading at an advanced level.',
+                medium: 'Good job! Here are some areas to focus on.',
+                low: 'Great effort! We\'ve created a personalized plan to help you improve.'
+            };
+            const level = results.score >= 80 ? 'high' : results.score >= 60 ? 'medium' : 'low';
+            document.getElementById('resultsSubtitle').textContent = subtitles[level];
+
+            // Skill breakdown
+            const skillContent = document.getElementById('skillBreakdownContent');
+            const typeLabels = {
+                'vocabulary': 'Vocabulary',
+                'literal': 'Literal Comprehension',
+                'inference': 'Making Inferences',
+                'main-idea': 'Main Ideas'
+            };
+
+            skillContent.innerHTML = Object.entries(results.byType).map(([type, data]) => {
+                const color = data.accuracy >= 70 ? '#22c55e' : data.accuracy >= 50 ? '#f59e0b' : '#ef4444';
+                return `
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">${typeLabels[type] || type}</span>
+                            <span class="skill-score">${data.accuracy}%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-fill" style="width: ${data.accuracy}%; background: ${color}"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Recommendations
+            const recContent = document.getElementById('recommendationsContent');
+            if (results.recommendations.length === 0) {
+                recContent.innerHTML = `
+                    <div class="recommendation-item">
+                        <div class="recommendation-icon low">🌟</div>
+                        <div class="recommendation-content">
+                            <div class="recommendation-title">You're doing great!</div>
+                            <div class="recommendation-desc">Keep reading to maintain your skills.</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                recContent.innerHTML = results.recommendations.slice(0, 4).map(rec => `
+                    <a href="${rec.action}" class="recommendation-item" style="text-decoration: none; color: inherit;">
+                        <div class="recommendation-icon ${rec.priority}">
+                            ${rec.priority === 'high' ? '🎯' : rec.priority === 'medium' ? '📚' : '✨'}
+                        </div>
+                        <div class="recommendation-content">
+                            <div class="recommendation-title">${rec.title}</div>
+                            <div class="recommendation-desc">${rec.description}</div>
+                        </div>
+                    </a>
+                `).join('');
+            }
+
+            // Update learning path link
+            if (results.recommendations.length > 0) {
+                document.getElementById('startLearningBtn').href = results.recommendations[0].action;
+            }
+        }
+    </script>
+</body>
+</html>

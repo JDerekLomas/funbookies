@@ -1103,6 +1103,199 @@ class ReadingPlanetDB {
     }
 
     // ============================================
+    // ADAPTIVE LEARNING
+    // ============================================
+
+    /**
+     * Check if student needs reassessment
+     */
+    async needsReassessment(studentId) {
+        const student = await this.getStudent(studentId);
+        if (!student) return false;
+
+        const lastAssessment = student.lastAssessment?.date;
+        if (!lastAssessment) return true; // Never assessed
+
+        // Recommend reassessment every 30 days
+        const daysSince = (Date.now() - new Date(lastAssessment).getTime()) / 86400000;
+        return daysSince >= 30;
+    }
+
+    /**
+     * Get recommended texts based on student level
+     */
+    async getRecommendedTexts(studentId, count = 5) {
+        const student = await this.getStudent(studentId);
+        if (!student) return [];
+
+        const lexile = student.currentLexile || LEXILE_BANDS[student.grade]?.target || 700;
+        const range = 100; // Lexile range for recommendations
+
+        // This would fetch from texts manifest in real app
+        // For now, return structure for what should be fetched
+        return {
+            targetLexile: lexile,
+            minLexile: lexile - range,
+            maxLexile: lexile + range,
+            favoriteGenres: student.preferences?.favoriteGenres || []
+        };
+    }
+
+    /**
+     * Detect if student has phonics gaps (for FunBookies bridge)
+     */
+    async detectPhonicsGaps(studentId) {
+        const student = await this.getStudent(studentId);
+        if (!student) return null;
+
+        const gaps = [];
+
+        // Check if Lexile is very low for grade (suggests decoding issues)
+        const gradeTarget = LEXILE_BANDS[student.grade]?.target || 700;
+        if (student.currentLexile && student.currentLexile < gradeTarget * 0.6) {
+            gaps.push({
+                type: 'decoding',
+                severity: 'high',
+                message: 'May benefit from phonics practice',
+                action: '/public/activities/early-reader/'
+            });
+        }
+
+        // Check WCPM vs target
+        const wcpmTarget = WCPM_TARGETS[student.grade]?.spring || 150;
+        if (student.currentWcpm && student.currentWcpm < wcpmTarget * 0.6) {
+            gaps.push({
+                type: 'fluency',
+                severity: 'high',
+                message: 'Reading fluency needs attention',
+                action: '/readingplanet/fluency/'
+            });
+        }
+
+        // Check comprehension accuracy from assessment
+        const assessment = student.lastAssessment;
+        if (assessment?.byType) {
+            Object.entries(assessment.byType).forEach(([type, data]) => {
+                if (data.accuracy < 50) {
+                    gaps.push({
+                        type,
+                        severity: 'high',
+                        message: `Needs practice with ${type} skills`,
+                        action: `/readingplanet/skills/?focus=${type}`
+                    });
+                } else if (data.accuracy < 70) {
+                    gaps.push({
+                        type,
+                        severity: 'medium',
+                        message: `Could improve ${type} skills`,
+                        action: `/readingplanet/skills/?focus=${type}`
+                    });
+                }
+            });
+        }
+
+        return {
+            hasGaps: gaps.length > 0,
+            gaps: gaps.sort((a, b) => {
+                const order = { high: 0, medium: 1, low: 2 };
+                return order[a.severity] - order[b.severity];
+            }),
+            needsPhonicsIntervention: gaps.some(g => g.type === 'decoding' && g.severity === 'high'),
+            funBookiesLink: gaps.some(g => g.type === 'decoding') ? '/public/activities/early-reader/' : null
+        };
+    }
+
+    /**
+     * Get adaptive learning path for student
+     */
+    async getAdaptivePath(studentId) {
+        const student = await this.getStudent(studentId);
+        if (!student) return null;
+
+        const gaps = await this.detectPhonicsGaps(studentId);
+        const path = [];
+
+        // If severe phonics gaps, start with FunBookies
+        if (gaps?.needsPhonicsIntervention) {
+            path.push({
+                step: 1,
+                type: 'phonics',
+                title: 'Build Foundation Skills',
+                description: 'Practice phonics with FunBookies activities',
+                action: '/public/activities/early-reader/',
+                priority: 'high'
+            });
+        }
+
+        // Add skill gaps
+        gaps?.gaps?.slice(0, 3).forEach((gap, idx) => {
+            path.push({
+                step: path.length + 1,
+                type: gap.type,
+                title: `Practice ${gap.type.replace('-', ' ')}`,
+                description: gap.message,
+                action: gap.action,
+                priority: gap.severity
+            });
+        });
+
+        // Add reading at level
+        path.push({
+            step: path.length + 1,
+            type: 'reading',
+            title: 'Read at Your Level',
+            description: 'Practice with texts matched to your ability',
+            action: '/readingplanet/library/',
+            priority: 'medium'
+        });
+
+        // Add fluency practice
+        if (!gaps?.gaps?.some(g => g.type === 'fluency')) {
+            path.push({
+                step: path.length + 1,
+                type: 'fluency',
+                title: 'Build Fluency',
+                description: 'Practice reading aloud smoothly',
+                action: '/readingplanet/fluency/',
+                priority: 'low'
+            });
+        }
+
+        return {
+            studentId,
+            path: path.slice(0, 5),
+            needsReassessment: await this.needsReassessment(studentId),
+            lastAssessment: student.lastAssessment?.date
+        };
+    }
+
+    /**
+     * Update student after assessment
+     */
+    async saveAssessmentResults(studentId, results) {
+        const student = await this.getStudent(studentId);
+        if (!student) return null;
+
+        const updates = {
+            currentLexile: results.estimatedLexile,
+            lastAssessment: {
+                date: new Date().toISOString(),
+                score: results.score,
+                lexile: results.estimatedLexile,
+                byType: results.byType,
+                gradeLevel: results.gradeLevel
+            }
+        };
+
+        // Set initial Lexile if not set
+        if (!student.initialLexile) {
+            updates.initialLexile = results.estimatedLexile;
+        }
+
+        return this.updateStudent(studentId, updates);
+    }
+
+    // ============================================
     // SETTINGS
     // ============================================
 

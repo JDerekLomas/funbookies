@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Practice - ReadingPlanet</title>
+    <link rel="icon" type="image/svg+xml" href="/readingplanet/images/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/readingplanet/styles/shared.css">
+
+    <style>
+        body {
+            background: var(--color-bg);
+        }
+
+        .skills-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-md) 0;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .logo-text {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-navy);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            background: var(--color-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .skills-hero {
+            background: linear-gradient(135deg, var(--color-navy) 0%, #2d5a8a 100%);
+            color: white;
+            padding: var(--space-2xl) 0;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            color: white;
+            margin-bottom: var(--space-sm);
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: var(--space-lg);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: var(--space-xl);
+        }
+
+        .hero-stat {
+            text-align: left;
+        }
+
+        .hero-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .hero-stat-label {
+            font-size: 0.8125rem;
+            opacity: 0.7;
+        }
+
+        /* Main Content */
+        .skills-main {
+            padding: var(--space-xl) 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Skill Cards Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .skill-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            transition: all var(--transition-base);
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .skill-card.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .skill-card.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .skill-card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .skill-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .skill-icon.comprehension { background: #dbeafe; }
+        .skill-icon.vocabulary { background: #fef3c7; }
+        .skill-icon.inference { background: #e9d5ff; }
+        .skill-icon.main-idea { background: #dcfce7; }
+        .skill-icon.decoding { background: #fce7f3; }
+        .skill-icon.fluency { background: #fed7aa; }
+
+        .skill-info {
+            flex: 1;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .skill-level {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+        }
+
+        .skill-badge {
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .skill-badge.new {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .skill-badge.in-progress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .skill-badge.mastered {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .skill-badge.locked {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .skill-description {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-md);
+            line-height: 1.5;
+        }
+
+        .skill-progress-container {
+            margin-bottom: var(--space-md);
+        }
+
+        .skill-progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-xs);
+            font-size: 0.8125rem;
+        }
+
+        .skill-progress-label {
+            color: var(--color-text-muted);
+        }
+
+        .skill-progress-value {
+            font-weight: 500;
+        }
+
+        .skill-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        /* Learning Path */
+        .learning-path {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .path-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+
+        .path-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .path-progress {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .path-steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .path-step {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            transition: background var(--transition-fast);
+        }
+
+        .path-step:hover {
+            background: var(--color-bg-alt);
+        }
+
+        .path-step.completed {
+            opacity: 0.7;
+        }
+
+        .path-step.current {
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid var(--color-accent);
+        }
+
+        .path-step.locked {
+            opacity: 0.5;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: var(--color-bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .path-step.completed .step-number {
+            background: #22c55e;
+            color: white;
+        }
+
+        .path-step.current .step-number {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .step-desc {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+        }
+
+        .step-action {
+            padding: 6px 16px;
+            font-size: 0.8125rem;
+        }
+
+        /* Practice Session */
+        .practice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        .practice-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-xl);
+        }
+
+        .practice-back {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.9375rem;
+        }
+
+        .practice-back:hover {
+            color: var(--color-text);
+        }
+
+        .practice-progress {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .practice-progress-text {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .practice-progress-bar {
+            width: 150px;
+            height: 6px;
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .practice-progress-fill {
+            height: 100%;
+            background: var(--color-teal);
+            border-radius: var(--radius-full);
+            transition: width 0.3s ease;
+        }
+
+        .practice-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-lg);
+        }
+
+        .practice-skill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 4px 12px;
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-full);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            margin-bottom: var(--space-lg);
+        }
+
+        .practice-instruction {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            color: var(--color-text);
+        }
+
+        .practice-content {
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .practice-text {
+            font-family: 'Literata', serif;
+            font-size: 1.0625rem;
+            line-height: 1.8;
+        }
+
+        .practice-highlight {
+            background: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .practice-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .practice-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .practice-option:hover {
+            border-color: var(--color-accent);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .practice-option.selected {
+            border-color: var(--color-accent);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .practice-option.correct {
+            border-color: #16a34a;
+            background: rgba(22, 163, 74, 0.1);
+        }
+
+        .practice-option.incorrect {
+            border-color: #dc2626;
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .option-marker {
+            width: 28px;
+            height: 28px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .practice-option.selected .option-marker {
+            border-color: var(--color-accent);
+            background: var(--color-accent);
+            color: white;
+        }
+
+        .practice-option.correct .option-marker {
+            border-color: #16a34a;
+            background: #16a34a;
+            color: white;
+        }
+
+        .practice-option.incorrect .option-marker {
+            border-color: #dc2626;
+            background: #dc2626;
+            color: white;
+        }
+
+        .option-text {
+            flex: 1;
+            font-size: 0.9375rem;
+        }
+
+        .practice-feedback {
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .practice-feedback.correct {
+            background: #dcfce7;
+            border: 1px solid #86efac;
+        }
+
+        .practice-feedback.incorrect {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        .feedback-title {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .practice-feedback.correct .feedback-title {
+            color: #166534;
+        }
+
+        .practice-feedback.incorrect .feedback-title {
+            color: #991b1b;
+        }
+
+        .feedback-explanation {
+            font-size: 0.9375rem;
+            line-height: 1.5;
+        }
+
+        .practice-feedback.correct .feedback-explanation {
+            color: #14532d;
+        }
+
+        .practice-feedback.incorrect .feedback-explanation {
+            color: #7f1d1d;
+        }
+
+        .practice-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-xl);
+        }
+
+        /* Complete Screen */
+        .complete-screen {
+            text-align: center;
+            padding: var(--space-3xl);
+        }
+
+        .complete-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-lg);
+        }
+
+        .complete-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            color: var(--color-navy);
+        }
+
+        .complete-subtitle {
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-xl);
+        }
+
+        .complete-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .complete-stat {
+            text-align: center;
+        }
+
+        .complete-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-navy);
+        }
+
+        .complete-stat-label {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .complete-actions {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <script src="/readingplanet/js/data-service.js"></script>
+    <script src="/readingplanet/js/student-picker.js"></script>
+
+    <!-- Header -->
+    <header class="skills-header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="/readingplanet/" class="logo">
+                    <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+                        <circle cx="18" cy="18" r="18" fill="#1e3a5f"/>
+                        <path d="M10 26V10h6c4 0 6 2 6 5s-2 5-6 5h-3v6h-3zm3-9h3c2 0 3-1 3-2s-1-2-3-2h-3v4z" fill="white"/>
+                    </svg>
+                    <span class="logo-text">ReadingPlanet</span>
+                </a>
+
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">?</div>
+                    <span id="userName">Student</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main View -->
+    <div id="mainView">
+        <!-- Hero -->
+        <section class="skills-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Skills Practice</h1>
+                    <p class="hero-subtitle">Build your reading skills with targeted practice activities</p>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <div class="hero-stat-value" id="statMastered">0</div>
+                            <div class="hero-stat-label">Skills Mastered</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-value" id="statStreak">0</div>
+                            <div class="hero-stat-label">Day Streak</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-value" id="statXp">0</div>
+                            <div class="hero-stat-label">Total XP</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="skills-main">
+            <div class="container">
+                <!-- Learning Path -->
+                <div class="learning-path" id="learningPath">
+                    <div class="path-header">
+                        <h2 class="path-title">Your Learning Path</h2>
+                        <span class="path-progress" id="pathProgress">0 of 5 complete</span>
+                    </div>
+                    <div class="path-steps" id="pathSteps">
+                        <!-- Filled dynamically -->
+                    </div>
+                </div>
+
+                <!-- All Skills -->
+                <div class="section-header">
+                    <h2 class="section-title">All Skills</h2>
+                    <a href="/readingplanet/assessment/" class="btn btn-secondary">Take Assessment</a>
+                </div>
+
+                <div class="skills-grid" id="skillsGrid">
+                    <!-- Filled dynamically -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Practice View -->
+    <div id="practiceView" class="hidden">
+        <div class="practice-container">
+            <div class="practice-header">
+                <a href="#" class="practice-back" id="backToSkills">
+                    <span>←</span>
+                    <span>Back to Skills</span>
+                </a>
+                <div class="practice-progress">
+                    <span class="practice-progress-text" id="practiceProgressText">1 of 10</span>
+                    <div class="practice-progress-bar">
+                        <div class="practice-progress-fill" id="practiceProgressFill" style="width: 10%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="practice-card" id="practiceCard">
+                <div class="practice-skill-badge" id="practiceSkillBadge">
+                    <span>📖</span>
+                    <span id="practiceSkillName">Main Idea</span>
+                </div>
+
+                <p class="practice-instruction" id="practiceInstruction">
+                    Read the passage and answer the question.
+                </p>
+
+                <div class="practice-content" id="practiceContent">
+                    <p class="practice-text" id="practiceText">Loading...</p>
+                </div>
+
+                <p class="practice-instruction" id="practiceQuestion">
+                    What is the main idea of this passage?
+                </p>
+
+                <div class="practice-options" id="practiceOptions">
+                    <!-- Filled dynamically -->
+                </div>
+
+                <div class="practice-feedback hidden" id="practiceFeedback">
+                    <div class="feedback-title" id="feedbackTitle">
+                        <span id="feedbackIcon">✓</span>
+                        <span id="feedbackLabel">Correct!</span>
+                    </div>
+                    <p class="feedback-explanation" id="feedbackExplanation"></p>
+                </div>
+
+                <div class="practice-actions">
+                    <button class="btn btn-secondary" id="skipPracticeBtn">Skip</button>
+                    <button class="btn btn-primary hidden" id="checkAnswerBtn">Check Answer</button>
+                    <button class="btn btn-primary hidden" id="nextPracticeBtn">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Complete View -->
+    <div id="completeView" class="hidden">
+        <div class="practice-container">
+            <div class="complete-screen">
+                <div class="complete-icon">🎉</div>
+                <h1 class="complete-title">Practice Complete!</h1>
+                <p class="complete-subtitle" id="completeSubtitle">Great work practicing Main Idea skills.</p>
+
+                <div class="complete-stats">
+                    <div class="complete-stat">
+                        <div class="complete-stat-value" id="completeScore">0%</div>
+                        <div class="complete-stat-label">Accuracy</div>
+                    </div>
+                    <div class="complete-stat">
+                        <div class="complete-stat-value" id="completeXp">+0</div>
+                        <div class="complete-stat-label">XP Earned</div>
+                    </div>
+                    <div class="complete-stat">
+                        <div class="complete-stat-value" id="completeMastery">0%</div>
+                        <div class="complete-stat-label">Skill Mastery</div>
+                    </div>
+                </div>
+
+                <div class="complete-actions">
+                    <a href="/readingplanet/skills/" class="btn btn-secondary">Back to Skills</a>
+                    <button class="btn btn-primary" id="practiceAgainBtn">Practice Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Skill definitions
+        const SKILLS = [
+            {
+                id: 'main-idea',
+                name: 'Finding Main Ideas',
+                icon: '📖',
+                category: 'comprehension',
+                description: 'Identify the central message or most important point of a passage.',
+                level: 1,
+                unlocked: true
+            },
+            {
+                id: 'literal',
+                name: 'Literal Comprehension',
+                icon: '🔍',
+                category: 'comprehension',
+                description: 'Find facts and details stated directly in the text.',
+                level: 1,
+                unlocked: true
+            },
+            {
+                id: 'inference',
+                name: 'Making Inferences',
+                icon: '💡',
+                category: 'inference',
+                description: 'Draw conclusions based on clues in the text.',
+                level: 2,
+                unlocked: true
+            },
+            {
+                id: 'vocabulary',
+                name: 'Vocabulary in Context',
+                icon: '📝',
+                category: 'vocabulary',
+                description: 'Use context clues to understand unfamiliar words.',
+                level: 1,
+                unlocked: true
+            },
+            {
+                id: 'text-structure',
+                name: 'Text Structure',
+                icon: '🏗️',
+                category: 'comprehension',
+                description: 'Recognize how authors organize information.',
+                level: 3,
+                unlocked: true
+            },
+            {
+                id: 'author-purpose',
+                name: "Author's Purpose",
+                icon: '🎯',
+                category: 'inference',
+                description: 'Understand why an author wrote a text.',
+                level: 3,
+                unlocked: true
+            },
+            {
+                id: 'word-parts',
+                name: 'Word Parts',
+                icon: '🧩',
+                category: 'vocabulary',
+                description: 'Use prefixes, suffixes, and roots to understand words.',
+                level: 2,
+                unlocked: true
+            },
+            {
+                id: 'context-clues',
+                name: 'Context Clues',
+                icon: '🔎',
+                category: 'vocabulary',
+                description: 'Use surrounding text to determine word meaning.',
+                level: 2,
+                unlocked: true
+            }
+        ];
+
+        // Practice questions by skill
+        const PRACTICE_QUESTIONS = {
+            'main-idea': [
+                {
+                    passage: 'Honeybees are facing serious threats. Pesticides poison their food. Diseases spread through hives. Climate change disrupts their life cycles. Without bees to pollinate crops, food production would drop dramatically.',
+                    question: 'What is the main idea of this passage?',
+                    options: ['Pesticides are dangerous', 'Honeybees are important but threatened', 'Climate change affects animals', 'Bees live in hives'],
+                    correct: 1,
+                    explanation: 'The passage discusses multiple threats to honeybees and why their survival matters.'
+                },
+                {
+                    passage: 'Regular exercise benefits both body and mind. Physical activity strengthens muscles and bones. It improves heart health and boosts energy levels. Exercise also reduces stress and improves mood by releasing endorphins.',
+                    question: 'What is the main idea of this passage?',
+                    options: ['Endorphins make you happy', 'Exercise has many benefits', 'Strong muscles are important', 'Stress is bad for you'],
+                    correct: 1,
+                    explanation: 'The passage describes multiple benefits of exercise for both physical and mental health.'
+                },
+                {
+                    passage: 'The library has evolved beyond just books. Modern libraries offer computer access, study rooms, and community events. They provide resources for job seekers and language learners. Libraries remain vital community centers.',
+                    question: 'What is the main idea of this passage?',
+                    options: ['Libraries have books', 'Computers are useful', 'Libraries have adapted to serve communities in new ways', 'Job seekers need help'],
+                    correct: 2,
+                    explanation: 'The passage describes how libraries have evolved to serve communities beyond traditional book lending.'
+                }
+            ],
+            'inference': [
+                {
+                    passage: 'Marcus checked his watch again and tapped his foot. The train platform was nearly empty now. He pulled out his phone but there was no signal underground.',
+                    question: 'What can you infer about Marcus?',
+                    options: ['He is waiting for someone', 'He is impatient because his train is late', 'He works at the train station', 'He just arrived'],
+                    correct: 1,
+                    explanation: 'Checking his watch, tapping his foot, and the empty platform suggest Marcus is frustrated waiting for a delayed train.'
+                },
+                {
+                    passage: 'The restaurant was nearly full when we arrived, but by 9 PM, only two other tables were occupied. The waiter brought our check without being asked.',
+                    question: 'What can you infer?',
+                    options: ['The food was bad', 'The restaurant was closing soon', 'It was an expensive restaurant', 'The waiter was rude'],
+                    correct: 1,
+                    explanation: 'The emptying restaurant and bringing the check unsolicited suggest the restaurant was closing.'
+                },
+                {
+                    passage: 'Sarah\'s eyes lit up when she opened the small velvet box. She looked at James, who was now on one knee with a hopeful expression.',
+                    question: 'What is happening in this scene?',
+                    options: ['Sarah is opening a birthday gift', 'James is proposing marriage', 'They are at a jewelry store', 'Sarah found something she lost'],
+                    correct: 1,
+                    explanation: 'A velvet box, kneeling, and a hopeful expression are classic signs of a marriage proposal.'
+                }
+            ],
+            'vocabulary': [
+                {
+                    passage: 'The negotiations were at an impasse. Neither side would budge from their position, and talks had stalled completely.',
+                    question: 'What does "impasse" mean?',
+                    options: ['A successful conclusion', 'A situation where no progress can be made', 'A long meeting', 'A secret agreement'],
+                    correct: 1,
+                    explanation: 'The context shows no movement or progress, indicating an impasse is a deadlock situation.'
+                },
+                {
+                    passage: 'The artist was prolific, producing hundreds of paintings, sculptures, and drawings throughout her career.',
+                    question: 'What does "prolific" mean?',
+                    options: ['Untalented', 'Famous', 'Producing many works', 'Working slowly'],
+                    correct: 2,
+                    explanation: '"Hundreds of" works indicates prolific means producing a lot.'
+                },
+                {
+                    passage: 'Despite the team\'s initial skepticism, the new strategy proved to be remarkably efficacious, solving problems that had persisted for years.',
+                    question: 'What does "efficacious" mean?',
+                    options: ['Confusing', 'Expensive', 'Effective', 'Simple'],
+                    correct: 2,
+                    explanation: 'The strategy solved longstanding problems, showing efficacious means effective.'
+                }
+            ],
+            'literal': [
+                {
+                    passage: 'The Great Barrier Reef stretches over 1,400 miles along Australia\'s northeast coast. It is home to over 1,500 species of fish and 400 types of coral.',
+                    question: 'How long is the Great Barrier Reef?',
+                    options: ['400 miles', '1,400 miles', '1,500 miles', '2,000 miles'],
+                    correct: 1,
+                    explanation: 'The passage states the reef "stretches over 1,400 miles."'
+                },
+                {
+                    passage: 'Marie Curie was born in Warsaw, Poland in 1867. She won two Nobel Prizes: one in Physics in 1903 and one in Chemistry in 1911.',
+                    question: 'How many Nobel Prizes did Marie Curie win?',
+                    options: ['One', 'Two', 'Three', 'None'],
+                    correct: 1,
+                    explanation: 'The passage clearly states she "won two Nobel Prizes."'
+                }
+            ],
+            'text-structure': [
+                {
+                    passage: 'First, gather all ingredients. Next, preheat the oven to 350°F. Then, mix the dry ingredients in one bowl. After that, combine the wet ingredients. Finally, bake for 25 minutes.',
+                    question: 'How is this passage organized?',
+                    options: ['Problem and solution', 'Compare and contrast', 'Sequence/chronological order', 'Cause and effect'],
+                    correct: 2,
+                    explanation: 'Words like "first," "next," "then," "after that," and "finally" indicate sequence.'
+                },
+                {
+                    passage: 'Cats and dogs differ in many ways. Cats are independent and clean themselves, while dogs require more attention and regular baths. Cats are natural hunters, whereas dogs were bred for various jobs.',
+                    question: 'How is this passage organized?',
+                    options: ['Cause and effect', 'Compare and contrast', 'Chronological order', 'Problem and solution'],
+                    correct: 1,
+                    explanation: 'Words like "differ," "while," and "whereas" indicate comparison and contrast.'
+                }
+            ],
+            'author-purpose': [
+                {
+                    passage: 'Ocean plastic is killing marine life at alarming rates. Every year, millions of animals die from ingesting plastic. We must act now to reduce plastic use and clean our oceans before it\'s too late.',
+                    question: "What is the author's main purpose?",
+                    options: ['To entertain with stories about animals', 'To persuade readers to take action', 'To explain how plastic is made', 'To describe ocean habitats'],
+                    correct: 1,
+                    explanation: '"We must act now" and "before it\'s too late" show the author wants to persuade action.'
+                },
+                {
+                    passage: 'Water molecules consist of two hydrogen atoms bonded to one oxygen atom. This arrangement gives water its unique properties, including high surface tension and the ability to dissolve many substances.',
+                    question: "What is the author's main purpose?",
+                    options: ['To persuade readers to drink water', 'To entertain with water stories', 'To inform readers about water chemistry', 'To argue about water policy'],
+                    correct: 2,
+                    explanation: 'The factual, scientific language indicates the purpose is to inform.'
+                }
+            ],
+            'word-parts': [
+                {
+                    passage: 'The prefix "un-" means "not." Understanding word parts helps you decode unfamiliar words.',
+                    question: 'What does "unfamiliar" mean?',
+                    options: ['Very familiar', 'Not familiar', 'Becoming familiar', 'Previously familiar'],
+                    correct: 1,
+                    explanation: 'The prefix un- means "not," so unfamiliar means not familiar.'
+                },
+                {
+                    passage: 'The suffix "-less" means "without." It turns nouns into adjectives.',
+                    question: 'What does "careless" mean?',
+                    options: ['Full of care', 'Without care', 'More careful', 'Caring person'],
+                    correct: 1,
+                    explanation: 'The suffix -less means "without," so careless means without care.'
+                }
+            ],
+            'context-clues': [
+                {
+                    passage: 'The barren landscape stretched for miles—no trees, no grass, just empty, lifeless desert.',
+                    question: 'What does "barren" mean?',
+                    options: ['Colorful', 'Empty and lifeless', 'Mountainous', 'Wet'],
+                    correct: 1,
+                    explanation: '"No trees, no grass, just empty, lifeless" directly defines barren.'
+                },
+                {
+                    passage: 'Unlike her gregarious brother who loved parties and crowds, Maya was shy and preferred quiet evenings alone.',
+                    question: 'What does "gregarious" mean?',
+                    options: ['Quiet and shy', 'Angry', 'Sociable and outgoing', 'Tired'],
+                    correct: 2,
+                    explanation: 'The contrast with shy Maya shows gregarious means sociable and outgoing.'
+                }
+            ]
+        };
+
+        // State
+        let currentStudent = null;
+        let skillProgress = {};
+        let currentSkill = null;
+        let practiceQuestions = [];
+        let practiceIndex = 0;
+        let practiceAnswers = [];
+        let focusSkill = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check URL params for focus skill
+            const params = new URLSearchParams(window.location.search);
+            focusSkill = params.get('focus');
+
+            if (window.ReadingPlanetDB) {
+                await window.ReadingPlanetDB.ready;
+            }
+
+            // Get current student
+            const session = localStorage.getItem('readingplanet_session');
+            if (session) {
+                const { studentId } = JSON.parse(session);
+                currentStudent = await window.ReadingPlanetDB.getStudent(studentId);
+            }
+
+            if (!currentStudent) {
+                const picker = new StudentPicker({
+                    title: 'Select Profile',
+                    allowCreate: true,
+                    allowSkip: false,
+                });
+                currentStudent = await picker.show();
+            }
+
+            // Update UI
+            updateUserInfo();
+            loadSkillProgress();
+            renderSkills();
+            renderLearningPath();
+
+            // If focus skill, start practice
+            if (focusSkill && PRACTICE_QUESTIONS[focusSkill]) {
+                startPractice(focusSkill);
+            }
+
+            // Event listeners
+            document.getElementById('backToSkills').addEventListener('click', (e) => {
+                e.preventDefault();
+                showMainView();
+            });
+            document.getElementById('checkAnswerBtn').addEventListener('click', checkAnswer);
+            document.getElementById('nextPracticeBtn').addEventListener('click', nextPractice);
+            document.getElementById('skipPracticeBtn').addEventListener('click', skipPractice);
+            document.getElementById('practiceAgainBtn').addEventListener('click', () => {
+                if (currentSkill) startPractice(currentSkill);
+            });
+        });
+
+        function updateUserInfo() {
+            if (currentStudent) {
+                const avatar = currentStudent.avatar || currentStudent.name.slice(0, 2).toUpperCase();
+                document.getElementById('userAvatar').textContent = avatar;
+                document.getElementById('userAvatar').style.backgroundColor = currentStudent.avatarColor || '#3b82f6';
+                document.getElementById('userName').textContent = currentStudent.name;
+
+                document.getElementById('statStreak').textContent = currentStudent.stats?.currentStreak || 0;
+                document.getElementById('statXp').textContent = currentStudent.stats?.totalXp || 0;
+            }
+        }
+
+        function loadSkillProgress() {
+            // Load from localStorage for now
+            const saved = localStorage.getItem(`rp_skills_${currentStudent?.id}`);
+            if (saved) {
+                skillProgress = JSON.parse(saved);
+            } else {
+                // Initialize with zeros
+                SKILLS.forEach(skill => {
+                    skillProgress[skill.id] = { mastery: 0, practiced: 0 };
+                });
+            }
+
+            // Count mastered
+            const mastered = Object.values(skillProgress).filter(p => p.mastery >= 80).length;
+            document.getElementById('statMastered').textContent = mastered;
+        }
+
+        function saveSkillProgress() {
+            if (currentStudent) {
+                localStorage.setItem(`rp_skills_${currentStudent.id}`, JSON.stringify(skillProgress));
+            }
+        }
+
+        function renderSkills() {
+            const grid = document.getElementById('skillsGrid');
+            grid.innerHTML = SKILLS.map(skill => {
+                const progress = skillProgress[skill.id] || { mastery: 0, practiced: 0 };
+                let badge = 'new';
+                let badgeText = 'Start';
+                if (progress.mastery >= 80) {
+                    badge = 'mastered';
+                    badgeText = 'Mastered';
+                } else if (progress.practiced > 0) {
+                    badge = 'in-progress';
+                    badgeText = 'In Progress';
+                }
+
+                return `
+                    <div class="skill-card" data-skill="${skill.id}">
+                        <div class="skill-card-header">
+                            <div class="skill-icon ${skill.category}">${skill.icon}</div>
+                            <div class="skill-info">
+                                <div class="skill-name">${skill.name}</div>
+                                <div class="skill-level">Level ${skill.level}</div>
+                            </div>
+                            <span class="skill-badge ${badge}">${badgeText}</span>
+                        </div>
+                        <p class="skill-description">${skill.description}</p>
+                        <div class="skill-progress-container">
+                            <div class="skill-progress-header">
+                                <span class="skill-progress-label">Mastery</span>
+                                <span class="skill-progress-value">${progress.mastery}%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-fill" style="width: ${progress.mastery}%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-actions">
+                            <button class="btn btn-primary" style="flex: 1;">Practice</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Add click handlers
+            grid.querySelectorAll('.skill-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const skillId = card.dataset.skill;
+                    if (PRACTICE_QUESTIONS[skillId]) {
+                        startPractice(skillId);
+                    }
+                });
+            });
+        }
+
+        function renderLearningPath() {
+            const steps = document.getElementById('pathSteps');
+
+            // Get recommended skills based on assessment or defaults
+            const lastAssessment = currentStudent?.lastAssessment;
+            let recommendedSkills = ['main-idea', 'literal', 'vocabulary', 'inference', 'text-structure'];
+
+            if (lastAssessment?.byType) {
+                // Sort by lowest accuracy first
+                const sorted = Object.entries(lastAssessment.byType)
+                    .sort((a, b) => a[1].accuracy - b[1].accuracy)
+                    .map(([type]) => type);
+                recommendedSkills = sorted.slice(0, 5);
+            }
+
+            let completedCount = 0;
+            steps.innerHTML = recommendedSkills.map((skillId, idx) => {
+                const skill = SKILLS.find(s => s.id === skillId) || { name: skillId, icon: '📖' };
+                const progress = skillProgress[skillId] || { mastery: 0 };
+                const isComplete = progress.mastery >= 80;
+                const isCurrent = !isComplete && idx === recommendedSkills.findIndex(id => (skillProgress[id]?.mastery || 0) < 80);
+
+                if (isComplete) completedCount++;
+
+                return `
+                    <div class="path-step ${isComplete ? 'completed' : ''} ${isCurrent ? 'current' : ''}" data-skill="${skillId}">
+                        <div class="step-number">${isComplete ? '✓' : idx + 1}</div>
+                        <div class="step-content">
+                            <div class="step-title">${skill.icon} ${skill.name}</div>
+                            <div class="step-desc">${progress.mastery}% mastery</div>
+                        </div>
+                        <button class="btn ${isCurrent ? 'btn-primary' : 'btn-secondary'} step-action">
+                            ${isComplete ? 'Review' : isCurrent ? 'Start' : 'Practice'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('pathProgress').textContent = `${completedCount} of ${recommendedSkills.length} complete`;
+
+            // Add click handlers
+            steps.querySelectorAll('.path-step').forEach(step => {
+                step.addEventListener('click', () => {
+                    const skillId = step.dataset.skill;
+                    if (PRACTICE_QUESTIONS[skillId]) {
+                        startPractice(skillId);
+                    }
+                });
+            });
+        }
+
+        function startPractice(skillId) {
+            currentSkill = skillId;
+            const skill = SKILLS.find(s => s.id === skillId);
+            const questions = PRACTICE_QUESTIONS[skillId];
+
+            if (!questions || questions.length === 0) {
+                alert('No practice questions available for this skill yet.');
+                return;
+            }
+
+            // Shuffle and take up to 5 questions
+            practiceQuestions = [...questions].sort(() => Math.random() - 0.5).slice(0, 5);
+            practiceIndex = 0;
+            practiceAnswers = [];
+
+            // Update UI
+            document.getElementById('practiceSkillName').textContent = skill?.name || skillId;
+
+            showPracticeView();
+            showPracticeQuestion();
+        }
+
+        function showPracticeQuestion() {
+            const question = practiceQuestions[practiceIndex];
+
+            // Update progress
+            const progress = ((practiceIndex + 1) / practiceQuestions.length) * 100;
+            document.getElementById('practiceProgressText').textContent = `${practiceIndex + 1} of ${practiceQuestions.length}`;
+            document.getElementById('practiceProgressFill').style.width = `${progress}%`;
+
+            // Show question
+            document.getElementById('practiceText').textContent = question.passage;
+            document.getElementById('practiceQuestion').textContent = question.question;
+
+            // Show options
+            const optionsEl = document.getElementById('practiceOptions');
+            const letters = ['A', 'B', 'C', 'D'];
+            optionsEl.innerHTML = question.options.map((opt, idx) => `
+                <div class="practice-option" data-index="${idx}">
+                    <div class="option-marker">${letters[idx]}</div>
+                    <span class="option-text">${opt}</span>
+                </div>
+            `).join('');
+
+            // Add click handlers
+            optionsEl.querySelectorAll('.practice-option').forEach(opt => {
+                opt.addEventListener('click', () => selectPracticeOption(opt));
+            });
+
+            // Reset state
+            document.getElementById('practiceFeedback').classList.add('hidden');
+            document.getElementById('checkAnswerBtn').classList.add('hidden');
+            document.getElementById('nextPracticeBtn').classList.add('hidden');
+        }
+
+        function selectPracticeOption(optionEl) {
+            // Remove previous selection
+            document.querySelectorAll('.practice-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            // Select this one
+            optionEl.classList.add('selected');
+
+            // Show check button
+            document.getElementById('checkAnswerBtn').classList.remove('hidden');
+        }
+
+        function checkAnswer() {
+            const selected = document.querySelector('.practice-option.selected');
+            if (!selected) return;
+
+            const selectedIndex = parseInt(selected.dataset.index);
+            const question = practiceQuestions[practiceIndex];
+            const isCorrect = selectedIndex === question.correct;
+
+            // Record answer
+            practiceAnswers.push({
+                questionIndex: practiceIndex,
+                selected: selectedIndex,
+                correct: question.correct,
+                isCorrect
+            });
+
+            // Show feedback
+            const feedback = document.getElementById('practiceFeedback');
+            feedback.classList.remove('hidden', 'correct', 'incorrect');
+            feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
+
+            document.getElementById('feedbackIcon').textContent = isCorrect ? '✓' : '✗';
+            document.getElementById('feedbackLabel').textContent = isCorrect ? 'Correct!' : 'Not quite';
+            document.getElementById('feedbackExplanation').textContent = question.explanation;
+
+            // Update option styles
+            document.querySelectorAll('.practice-option').forEach((opt, idx) => {
+                opt.style.pointerEvents = 'none';
+                if (idx === question.correct) {
+                    opt.classList.add('correct');
+                } else if (idx === selectedIndex && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            // Show next button
+            document.getElementById('checkAnswerBtn').classList.add('hidden');
+            document.getElementById('nextPracticeBtn').classList.remove('hidden');
+        }
+
+        function nextPractice() {
+            practiceIndex++;
+            if (practiceIndex >= practiceQuestions.length) {
+                completePractice();
+            } else {
+                showPracticeQuestion();
+            }
+        }
+
+        function skipPractice() {
+            practiceAnswers.push({
+                questionIndex: practiceIndex,
+                skipped: true,
+                isCorrect: false
+            });
+            nextPractice();
+        }
+
+        function completePractice() {
+            // Calculate results
+            const total = practiceAnswers.length;
+            const correct = practiceAnswers.filter(a => a.isCorrect).length;
+            const accuracy = Math.round((correct / total) * 100);
+            const xpEarned = correct * 10 + (accuracy >= 80 ? 25 : 0);
+
+            // Update skill progress
+            const currentProgress = skillProgress[currentSkill] || { mastery: 0, practiced: 0 };
+            currentProgress.practiced++;
+
+            // Update mastery (weighted average with new performance)
+            const weight = 0.3;
+            currentProgress.mastery = Math.round(
+                currentProgress.mastery * (1 - weight) + accuracy * weight
+            );
+            currentProgress.mastery = Math.min(100, currentProgress.mastery);
+
+            skillProgress[currentSkill] = currentProgress;
+            saveSkillProgress();
+
+            // Update student XP
+            if (currentStudent && window.ReadingPlanetDB) {
+                window.ReadingPlanetDB.updateStudentStats(currentStudent.id, {
+                    totalXp: xpEarned
+                });
+            }
+
+            // Show complete screen
+            const skill = SKILLS.find(s => s.id === currentSkill);
+            document.getElementById('completeSubtitle').textContent = `Great work practicing ${skill?.name || currentSkill} skills.`;
+            document.getElementById('completeScore').textContent = `${accuracy}%`;
+            document.getElementById('completeXp').textContent = `+${xpEarned}`;
+            document.getElementById('completeMastery').textContent = `${currentProgress.mastery}%`;
+
+            showCompleteView();
+        }
+
+        function showMainView() {
+            document.getElementById('mainView').classList.remove('hidden');
+            document.getElementById('practiceView').classList.add('hidden');
+            document.getElementById('completeView').classList.add('hidden');
+
+            // Refresh
+            loadSkillProgress();
+            renderSkills();
+            renderLearningPath();
+        }
+
+        function showPracticeView() {
+            document.getElementById('mainView').classList.add('hidden');
+            document.getElementById('practiceView').classList.remove('hidden');
+            document.getElementById('completeView').classList.add('hidden');
+        }
+
+        function showCompleteView() {
+            document.getElementById('mainView').classList.add('hidden');
+            document.getElementById('practiceView').classList.add('hidden');
+            document.getElementById('completeView').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

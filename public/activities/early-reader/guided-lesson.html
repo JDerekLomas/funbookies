@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Guided Lesson - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    :root {
+      --coach-bg: #e3f2fd;
+      --coach-border: #2196f3;
+      --child-bg: #e8f5e9;
+      --child-border: #4caf50;
+      --correction-bg: #fff3e0;
+      --correction-border: #ff9800;
+    }
+
+    .page-header {
+      padding-top: var(--space-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .lesson-title {
+      font-size: 1.5rem;
+      color: var(--color-charcoal);
+      margin: 0;
+    }
+
+    .lesson-progress {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      background: var(--color-cream);
+      padding: 6px 12px;
+      border-radius: 20px;
+    }
+
+    .lesson-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: var(--space-lg) 0;
+    }
+
+    /* Main lesson display */
+    .lesson-display {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-xl);
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: var(--space-lg);
+    }
+
+    .letter-display {
+      font-size: 10rem;
+      font-weight: 700;
+      color: var(--color-charcoal);
+      line-height: 1;
+      margin: var(--space-md) 0;
+      font-family: system-ui, sans-serif;
+    }
+
+    .letter-display.lowercase {
+      text-transform: lowercase;
+    }
+
+    .letter-display.uppercase {
+      text-transform: uppercase;
+    }
+
+    /* Coach box - for parent instructions */
+    .coach-box {
+      background: var(--coach-bg);
+      border-left: 4px solid var(--coach-border);
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      text-align: left;
+    }
+
+    .coach-box .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--coach-border);
+      margin-bottom: var(--space-xs);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-play-script {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: none;
+      background: var(--coach-border);
+      color: white;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-left: auto;
+      transition: all 0.2s;
+    }
+
+    .btn-play-script:hover {
+      transform: scale(1.1);
+      background: #1976d2;
+    }
+
+    .coach-box .script {
+      font-size: 1.2rem;
+      color: var(--color-charcoal);
+      line-height: 1.5;
+    }
+
+    .coach-box .script em {
+      background: rgba(33, 150, 243, 0.2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* Child response area */
+    .child-box {
+      background: var(--child-bg);
+      border-left: 4px solid var(--child-border);
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      text-align: left;
+    }
+
+    .child-box .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--child-border);
+      margin-bottom: var(--space-xs);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .child-box .expected {
+      font-size: 1.1rem;
+      color: var(--color-charcoal);
+    }
+
+    /* Correction box */
+    .correction-box {
+      background: var(--correction-bg);
+      border-left: 4px solid var(--correction-border);
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      text-align: left;
+      display: none;
+    }
+
+    .correction-box.visible {
+      display: block;
+    }
+
+    .correction-box .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--correction-border);
+      margin-bottom: var(--space-xs);
+    }
+
+    .correction-box .script {
+      font-size: 1rem;
+      color: var(--color-charcoal);
+      line-height: 1.5;
+    }
+
+    /* Phase indicator */
+    .phase-indicator {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .phase-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-border);
+      transition: all 0.3s;
+    }
+
+    .phase-dot.active {
+      background: var(--color-sage);
+      transform: scale(1.3);
+    }
+
+    .phase-dot.complete {
+      background: var(--color-sage);
+    }
+
+    .phase-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-sage);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Control buttons */
+    .controls {
+      display: flex;
+      gap: var(--space-md);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-phase {
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-phase.primary {
+      background: var(--color-sage);
+      color: white;
+    }
+
+    .btn-phase.primary:hover {
+      background: var(--color-sage-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-phase.secondary {
+      background: var(--color-cream);
+      color: var(--color-charcoal);
+      border: 2px solid var(--color-border);
+    }
+
+    .btn-phase.secondary:hover {
+      border-color: var(--color-sage);
+    }
+
+    .btn-play-sound {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: none;
+      background: var(--color-sage);
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-md);
+    }
+
+    .btn-play-sound:hover {
+      transform: scale(1.1);
+      background: var(--color-sage-dark);
+    }
+
+    .btn-play-sound:active {
+      transform: scale(0.95);
+    }
+
+    /* Response buttons */
+    .response-buttons {
+      display: flex;
+      gap: var(--space-md);
+      justify-content: center;
+      margin-top: var(--space-md);
+    }
+
+    .btn-response {
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: 2px solid;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-response.correct {
+      background: var(--child-bg);
+      border-color: var(--child-border);
+      color: #2e7d32;
+    }
+
+    .btn-response.correct:hover {
+      background: #c8e6c9;
+    }
+
+    .btn-response.incorrect {
+      background: var(--correction-bg);
+      border-color: var(--correction-border);
+      color: #e65100;
+    }
+
+    .btn-response.incorrect:hover {
+      background: #ffe0b2;
+    }
+
+    /* Settings panel */
+    .settings-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--color-charcoal);
+      color: white;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+
+    .settings-panel {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-md);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      z-index: 100;
+      display: none;
+      min-width: 280px;
+    }
+
+    .settings-panel.visible {
+      display: block;
+    }
+
+    .settings-panel h3 {
+      font-size: 1rem;
+      margin: 0 0 var(--space-md);
+      color: var(--color-charcoal);
+    }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-sm);
+    }
+
+    .setting-row label {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    .setting-row select,
+    .setting-row input[type="range"] {
+      min-width: 120px;
+    }
+
+    /* Lesson complete overlay */
+    .lesson-complete {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      display: none;
+    }
+
+    .lesson-complete.visible {
+      display: flex;
+    }
+
+    .complete-card {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-xl);
+      text-align: center;
+      max-width: 400px;
+      margin: var(--space-md);
+    }
+
+    .complete-card .emoji {
+      font-size: 4rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .complete-card h2 {
+      margin: 0 0 var(--space-sm);
+      color: var(--color-charcoal);
+    }
+
+    .complete-card p {
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-sage);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Intro screen */
+    .intro-screen {
+      text-align: center;
+      padding: var(--space-xl);
+    }
+
+    .intro-screen h2 {
+      font-size: 1.8rem;
+      margin-bottom: var(--space-md);
+      color: var(--color-charcoal);
+    }
+
+    .intro-screen p {
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-lg);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .di-explanation {
+      background: var(--color-cream);
+      border-radius: var(--border-radius);
+      padding: var(--space-lg);
+      text-align: left;
+      margin-bottom: var(--space-lg);
+    }
+
+    .di-step {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+
+    .di-step:last-child {
+      margin-bottom: 0;
+    }
+
+    .di-step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--color-sage);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .di-step-content h4 {
+      margin: 0 0 4px;
+      color: var(--color-charcoal);
+      font-size: 1rem;
+    }
+
+    .di-step-content p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="index.html" class="back-link">← Back to Pathway</a>
+      <span class="lesson-progress" id="lessonProgress">Letter 1 of 10</span>
+    </div>
+
+    <div class="lesson-container">
+      <!-- Intro Screen -->
+      <div id="introScreen" class="intro-screen">
+        <h2>📚 Guided Letter Lesson</h2>
+        <p>You'll teach letter sounds using the <strong>Direct Instruction</strong> method — the most effective way to teach reading.</p>
+
+        <div class="di-explanation">
+          <div class="di-step">
+            <div class="di-step-num">1</div>
+            <div class="di-step-content">
+              <h4>Model</h4>
+              <p>"I do it" — You say the sound clearly while your child watches and listens.</p>
+            </div>
+          </div>
+          <div class="di-step">
+            <div class="di-step-num">2</div>
+            <div class="di-step-content">
+              <h4>Lead</h4>
+              <p>"We do it" — Say the sound together with your child.</p>
+            </div>
+          </div>
+          <div class="di-step">
+            <div class="di-step-num">3</div>
+            <div class="di-step-content">
+              <h4>Test</h4>
+              <p>"You do it" — Your child says the sound alone. Praise or correct.</p>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-phase primary" onclick="startLesson()">
+          🎯 Start Teaching
+        </button>
+      </div>
+
+      <!-- Main Lesson View -->
+      <div id="lessonView" class="hidden">
+        <div class="phase-indicator">
+          <div class="phase-dot" data-phase="model"></div>
+          <div class="phase-dot" data-phase="lead"></div>
+          <div class="phase-dot" data-phase="test"></div>
+        </div>
+
+        <div class="phase-label" id="phaseLabel">Model</div>
+
+        <div class="lesson-display">
+          <button class="btn-play-sound" id="playSoundBtn" onclick="playCurrentSound()">🔊</button>
+          <div class="letter-display" id="letterDisplay">m</div>
+        </div>
+
+        <!-- MODEL phase -->
+        <div id="modelPhase" class="phase-content">
+          <div class="coach-box">
+            <div class="label">
+              👨‍👩‍👧 Say this to your child:
+              <button class="btn-play-script" onclick="playCoachingAudio('model')" title="Hear it spoken">🔊</button>
+            </div>
+            <div class="script" id="modelScript">
+              "This letter says <em>/m/</em>. Watch my mouth: <em>/m/</em>."
+            </div>
+          </div>
+          <div class="child-box">
+            <div class="label">👶 Child should:</div>
+            <div class="expected">Watch and listen quietly</div>
+          </div>
+          <div class="controls">
+            <button class="btn-phase primary" onclick="nextPhase()">Continue to Lead →</button>
+          </div>
+        </div>
+
+        <!-- LEAD phase -->
+        <div id="leadPhase" class="phase-content hidden">
+          <div class="coach-box">
+            <div class="label">
+              👨‍👩‍👧 Say this to your child:
+              <button class="btn-play-script" onclick="playCoachingAudio('lead')" title="Hear it spoken">🔊</button>
+            </div>
+            <div class="script" id="leadScript">
+              "Say it with me: <em>/m/</em>"
+            </div>
+          </div>
+          <div class="child-box">
+            <div class="label">👶 Child should:</div>
+            <div class="expected">Say the sound together with you: <strong>/m/</strong></div>
+          </div>
+          <div class="controls">
+            <button class="btn-phase primary" onclick="nextPhase()">Continue to Test →</button>
+          </div>
+        </div>
+
+        <!-- TEST phase -->
+        <div id="testPhase" class="phase-content hidden">
+          <div class="coach-box">
+            <div class="label">👨‍👩‍👧 Say this to your child:</div>
+            <div class="script" id="testScript">
+              "Your turn. What sound does this letter make?"
+            </div>
+          </div>
+          <div class="child-box">
+            <div class="label">👶 Child should say:</div>
+            <div class="expected" id="expectedSound"><strong>/m/</strong></div>
+          </div>
+
+          <div class="correction-box" id="correctionBox">
+            <div class="label">🔄 Correction (if wrong):</div>
+            <div class="script" id="correctionScript">
+              "That's <em>/m/</em>. Say <em>/m/</em>." (Have child repeat, then go back to MODEL)
+            </div>
+          </div>
+
+          <p style="text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-sm);">Did your child say it correctly?</p>
+          <div class="response-buttons">
+            <button class="btn-response correct" onclick="handleResponse(true)">✓ Correct!</button>
+            <button class="btn-response incorrect" onclick="handleResponse(false)">✗ Needs help</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <button class="settings-toggle" onclick="toggleSettings()">⚙️</button>
+  <div class="settings-panel" id="settingsPanel">
+    <h3>Lesson Settings</h3>
+    <div class="setting-row">
+      <label>Letter Set</label>
+      <select id="letterSetSelect" onchange="changeLetterSet()">
+        <option value="1">Set 1: a, m, t, s, i, f, d, r, o, g</option>
+        <option value="2">Set 2: l, h, u, c, b, n, k, v, e, w</option>
+        <option value="3">Set 3: j, p, y, x, q, z</option>
+        <option value="review">Review All</option>
+      </select>
+    </div>
+    <div class="setting-row">
+      <label>Case</label>
+      <select id="caseSelect" onchange="updateDisplay()">
+        <option value="lower">Lowercase (a)</option>
+        <option value="upper">Uppercase (A)</option>
+        <option value="both">Both (Aa)</option>
+      </select>
+    </div>
+    <div class="setting-row">
+      <label>Auto-play sound</label>
+      <input type="checkbox" id="autoPlayCheck" checked>
+    </div>
+  </div>
+
+  <!-- Lesson Complete Overlay -->
+  <div class="lesson-complete" id="lessonComplete">
+    <div class="complete-card">
+      <div class="emoji">🎉</div>
+      <h2>Lesson Complete!</h2>
+      <p>Great job teaching today!</p>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-value" id="statLetters">10</div>
+          <div class="stat-label">Letters</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="statCorrect">8</div>
+          <div class="stat-label">First Try</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="statReview">2</div>
+          <div class="stat-label">Need Review</div>
+        </div>
+      </div>
+      <button class="btn-phase primary" onclick="restartLesson()">Practice Again</button>
+      <button class="btn-phase secondary" style="margin-top: var(--space-sm);" onclick="goToPathway()">Back to Pathway</button>
+    </div>
+  </div>
+
+  <script>
+    // Letter sets based on DI sequence
+    const letterSets = {
+      1: ['a', 'm', 't', 's', 'i', 'f', 'd', 'r', 'o', 'g'],
+      2: ['l', 'h', 'u', 'c', 'b', 'n', 'k', 'v', 'e', 'w'],
+      3: ['j', 'p', 'y', 'x', 'q', 'z'],
+      review: 'amtsifdroglhucbnkvewjpyxqz'.split('')
+    };
+
+    // Phonetic sounds for each letter
+    const letterSounds = {
+      a: '/a/ (like in "apple")',
+      b: '/b/',
+      c: '/k/ (hard c)',
+      d: '/d/',
+      e: '/e/ (like in "bed")',
+      f: '/f/',
+      g: '/g/ (hard g)',
+      h: '/h/',
+      i: '/i/ (like in "it")',
+      j: '/j/',
+      k: '/k/',
+      l: '/l/',
+      m: '/m/',
+      n: '/n/',
+      o: '/o/ (like in "hot")',
+      p: '/p/',
+      q: '/kw/',
+      r: '/r/',
+      s: '/s/',
+      t: '/t/',
+      u: '/u/ (like in "up")',
+      v: '/v/',
+      w: '/w/',
+      x: '/ks/',
+      y: '/y/',
+      z: '/z/'
+    };
+
+    // Short sound representations for scripts
+    const shortSounds = {
+      a: '/a/', b: '/b/', c: '/k/', d: '/d/', e: '/e/', f: '/f/', g: '/g/',
+      h: '/h/', i: '/i/', j: '/j/', k: '/k/', l: '/l/', m: '/m/', n: '/n/',
+      o: '/o/', p: '/p/', q: '/kw/', r: '/r/', s: '/s/', t: '/t/', u: '/u/',
+      v: '/v/', w: '/w/', x: '/ks/', y: '/y/', z: '/z/'
+    };
+
+    let currentSet = 1;
+    let currentLetters = [...letterSets[1]];
+    let currentIndex = 0;
+    let currentPhase = 'model'; // model, lead, test
+    let stats = { total: 0, correct: 0, needsReview: [] };
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Shuffle letters for variety
+      shuffleArray(currentLetters);
+    });
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function startLesson() {
+      document.getElementById('introScreen').classList.add('hidden');
+      document.getElementById('lessonView').classList.remove('hidden');
+
+      stats = { total: currentLetters.length, correct: 0, needsReview: [] };
+      currentIndex = 0;
+      currentPhase = 'model';
+
+      updateDisplay();
+      updatePhaseIndicator();
+      showPhase('model');
+
+      if (document.getElementById('autoPlayCheck').checked) {
+        setTimeout(playCurrentSound, 500);
+      }
+    }
+
+    function updateDisplay() {
+      const letter = currentLetters[currentIndex];
+      const caseMode = document.getElementById('caseSelect').value;
+      const letterEl = document.getElementById('letterDisplay');
+
+      if (caseMode === 'lower') {
+        letterEl.textContent = letter;
+        letterEl.className = 'letter-display lowercase';
+      } else if (caseMode === 'upper') {
+        letterEl.textContent = letter.toUpperCase();
+        letterEl.className = 'letter-display uppercase';
+      } else {
+        letterEl.textContent = letter.toUpperCase() + letter;
+        letterEl.className = 'letter-display';
+      }
+
+      // Update scripts
+      const sound = shortSounds[letter];
+      const fullSound = letterSounds[letter];
+
+      document.getElementById('modelScript').innerHTML =
+        `"This letter says <em>${sound}</em>. Watch my mouth: <em>${sound}</em>."`;
+
+      document.getElementById('leadScript').innerHTML =
+        `"Say it with me: <em>${sound}</em>"`;
+
+      document.getElementById('testScript').innerHTML =
+        `"Your turn. What sound does this letter make?"`;
+
+      document.getElementById('expectedSound').innerHTML =
+        `<strong>${sound}</strong> ${fullSound.includes('like') ? fullSound : ''}`;
+
+      document.getElementById('correctionScript').innerHTML =
+        `"That's <em>${sound}</em>. Say <em>${sound}</em>."<br><small>(Have child repeat, then start over from MODEL)</small>`;
+
+      // Update progress
+      document.getElementById('lessonProgress').textContent =
+        `Letter ${currentIndex + 1} of ${currentLetters.length}`;
+    }
+
+    function updatePhaseIndicator() {
+      const dots = document.querySelectorAll('.phase-dot');
+      const phases = ['model', 'lead', 'test'];
+      const currentIdx = phases.indexOf(currentPhase);
+
+      dots.forEach((dot, i) => {
+        dot.classList.remove('active', 'complete');
+        if (i < currentIdx) dot.classList.add('complete');
+        if (i === currentIdx) dot.classList.add('active');
+      });
+
+      const labels = { model: 'Model', lead: 'Lead', test: 'Test' };
+      document.getElementById('phaseLabel').textContent = labels[currentPhase];
+    }
+
+    function showPhase(phase) {
+      currentPhase = phase;
+
+      document.getElementById('modelPhase').classList.add('hidden');
+      document.getElementById('leadPhase').classList.add('hidden');
+      document.getElementById('testPhase').classList.add('hidden');
+
+      document.getElementById(phase + 'Phase').classList.remove('hidden');
+      document.getElementById('correctionBox').classList.remove('visible');
+
+      updatePhaseIndicator();
+    }
+
+    function nextPhase() {
+      if (currentPhase === 'model') {
+        showPhase('lead');
+        if (document.getElementById('autoPlayCheck').checked) {
+          playCurrentSound();
+        }
+      } else if (currentPhase === 'lead') {
+        showPhase('test');
+      }
+    }
+
+    function handleResponse(correct) {
+      if (correct) {
+        stats.correct++;
+        nextLetter();
+      } else {
+        // Show correction
+        document.getElementById('correctionBox').classList.add('visible');
+        stats.needsReview.push(currentLetters[currentIndex]);
+
+        // After showing correction, go back to model
+        setTimeout(() => {
+          showPhase('model');
+          if (document.getElementById('autoPlayCheck').checked) {
+            playCurrentSound();
+          }
+        }, 2000);
+      }
+    }
+
+    function nextLetter() {
+      currentIndex++;
+
+      if (currentIndex >= currentLetters.length) {
+        // Lesson complete
+        showComplete();
+      } else {
+        currentPhase = 'model';
+        updateDisplay();
+        showPhase('model');
+
+        if (document.getElementById('autoPlayCheck').checked) {
+          setTimeout(playCurrentSound, 300);
+        }
+      }
+    }
+
+    function showComplete() {
+      document.getElementById('statLetters').textContent = stats.total;
+      document.getElementById('statCorrect').textContent = stats.correct;
+      document.getElementById('statReview').textContent = stats.needsReview.length;
+      document.getElementById('lessonComplete').classList.add('visible');
+    }
+
+    function restartLesson() {
+      document.getElementById('lessonComplete').classList.remove('visible');
+
+      // If there are letters to review, focus on those
+      if (stats.needsReview.length > 0) {
+        currentLetters = [...new Set(stats.needsReview)]; // Remove duplicates
+      } else {
+        currentLetters = [...letterSets[currentSet]];
+        shuffleArray(currentLetters);
+      }
+
+      currentIndex = 0;
+      stats = { total: currentLetters.length, correct: 0, needsReview: [] };
+
+      updateDisplay();
+      showPhase('model');
+
+      if (document.getElementById('autoPlayCheck').checked) {
+        setTimeout(playCurrentSound, 500);
+      }
+    }
+
+    function goToPathway() {
+      window.location.href = 'index.html';
+    }
+
+    // Audio playback
+    const audioCache = {};
+
+    async function playAudio(path) {
+      return new Promise((resolve, reject) => {
+        const audio = audioCache[path] || new Audio(path);
+        audioCache[path] = audio;
+
+        audio.currentTime = 0;
+        audio.onended = resolve;
+        audio.onerror = reject;
+        audio.play().catch(reject);
+      });
+    }
+
+    async function playCurrentSound() {
+      const letter = currentLetters[currentIndex];
+
+      // Try pre-recorded audio first
+      const audioPath = `/audio/sounds/${letter}.mp3`;
+
+      try {
+        await playAudio(audioPath);
+      } catch (e) {
+        // Fallback to Web Speech API
+        speakSound(letter);
+      }
+    }
+
+    // Play coaching audio for current phase
+    async function playCoachingAudio(type) {
+      const letter = currentLetters[currentIndex];
+      const coachingPath = `/audio/coaching/letter_${letter}/${type}.mp3`;
+
+      try {
+        await playAudio(coachingPath);
+      } catch (e) {
+        // Coaching audio not available - that's fine, parent reads the script
+        console.log('Coaching audio not available:', coachingPath);
+      }
+    }
+
+    // Play general coaching audio
+    async function playGeneralAudio(type) {
+      const path = `/audio/coaching/general/${type}.mp3`;
+
+      try {
+        await playAudio(path);
+      } catch (e) {
+        console.log('General audio not available:', path);
+      }
+    }
+
+    function speakSound(letter) {
+      if ('speechSynthesis' in window) {
+        // Cancel any ongoing speech
+        window.speechSynthesis.cancel();
+
+        // Get phonetic sound
+        const phonetics = {
+          a: 'ah', b: 'buh', c: 'kuh', d: 'duh', e: 'eh', f: 'fff',
+          g: 'guh', h: 'huh', i: 'ih', j: 'juh', k: 'kuh', l: 'lll',
+          m: 'mmm', n: 'nnn', o: 'ah', p: 'puh', q: 'kwuh', r: 'rrr',
+          s: 'sss', t: 'tuh', u: 'uh', v: 'vvv', w: 'wuh', x: 'ks',
+          y: 'yuh', z: 'zzz'
+        };
+
+        const utterance = new SpeechSynthesisUtterance(phonetics[letter] || letter);
+        utterance.rate = 0.7;
+        utterance.pitch = 1;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // Settings
+    function toggleSettings() {
+      document.getElementById('settingsPanel').classList.toggle('visible');
+    }
+
+    function changeLetterSet() {
+      const setId = document.getElementById('letterSetSelect').value;
+      currentSet = setId;
+      currentLetters = [...letterSets[setId]];
+      shuffleArray(currentLetters);
+      currentIndex = 0;
+
+      if (!document.getElementById('introScreen').classList.contains('hidden')) {
+        // Still on intro, just update
+      } else {
+        // Reset lesson with new set
+        startLesson();
+      }
+    }
+
+    // Close settings when clicking outside
+    document.addEventListener('click', (e) => {
+      const panel = document.getElementById('settingsPanel');
+      const toggle = document.querySelector('.settings-toggle');
+      if (!panel.contains(e.target) && !toggle.contains(e.target)) {
+        panel.classList.remove('visible');
+      }
+    });
+  </script>
+</body>
+</html>

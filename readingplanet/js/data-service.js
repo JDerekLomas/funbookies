@@ -551,6 +551,28 @@ class ReadingPlanetDB {
         });
     }
 
+    /**
+     * Record a fluency practice session (alias for saveFluencyAssessment)
+     */
+    async recordFluency(studentId, data) {
+        return this.saveFluencyAssessment({
+            studentId,
+            passageId: data.passageId,
+            passageTitle: data.passageTitle,
+            wordsRead: data.wordsRead,
+            errors: data.errors,
+            wcpm: data.wcpm,
+            duration: data.timeSeconds,
+        });
+    }
+
+    /**
+     * Get fluency records for a student (alias for getFluencyHistory)
+     */
+    async getFluencyRecords(studentId) {
+        return this.getFluencyHistory(studentId);
+    }
+
     // ============================================
     // VOCABULARY OPERATIONS
     // ============================================

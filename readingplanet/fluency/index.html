@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluency Practice - ReadingPlanet</title>
+    <link rel="icon" type="image/svg+xml" href="/readingplanet/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/readingplanet/styles/shared.css">
+    <style>
+        :root {
+            --fluency-max-width: 720px;
+        }
+
+        body {
+            background: var(--color-bg);
+        }
+
+        /* Header */
+        .page-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-lg) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .back-link:hover {
+            color: var(--color-text);
+        }
+
+        .page-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: var(--fluency-max-width);
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+        }
+
+        /* View: Passage Selection */
+        .passage-selection {
+            display: block;
+        }
+
+        .passage-selection.hidden {
+            display: none;
+        }
+
+        .level-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .level-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+        }
+
+        .level-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .level-subtitle {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+        }
+
+        .passage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .passage-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .passage-card:hover {
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .passage-card-emoji {
+            font-size: 2rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .passage-card-title {
+            font-weight: 600;
+            font-size: 0.9375rem;
+            margin-bottom: var(--space-xs);
+            color: var(--color-text);
+        }
+
+        .passage-card-meta {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        .passage-card-attempts {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            margin-top: var(--space-sm);
+            font-size: 0.75rem;
+            color: var(--color-accent);
+        }
+
+        /* View: Practice Session */
+        .practice-view {
+            display: none;
+        }
+
+        .practice-view.active {
+            display: block;
+        }
+
+        .practice-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .practice-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .practice-meta {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Timer Display */
+        .timer-container {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .timer-display {
+            font-size: 4rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: var(--color-navy);
+            line-height: 1;
+        }
+
+        .timer-display.warning {
+            color: #f59e0b;
+        }
+
+        .timer-display.danger {
+            color: #ef4444;
+        }
+
+        .timer-label {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        /* Reading Passage */
+        .passage-container {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .passage-text {
+            font-family: var(--font-reading);
+            font-size: 1.25rem;
+            line-height: 2;
+            color: var(--color-text);
+        }
+
+        .passage-text .word {
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: background-color 0.15s ease;
+        }
+
+        .passage-text .word:hover {
+            background: var(--color-bg-alt);
+        }
+
+        .passage-text .word.error {
+            background: #fee2e2;
+            color: #dc2626;
+            text-decoration: line-through;
+        }
+
+        .passage-text .word.current {
+            background: var(--color-accent-light);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .control-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-xl);
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .control-btn.primary {
+            background: var(--color-accent);
+            color: white;
+            border: none;
+        }
+
+        .control-btn.primary:hover {
+            background: var(--color-accent-dark);
+        }
+
+        .control-btn.primary:disabled {
+            background: var(--color-border);
+            cursor: not-allowed;
+        }
+
+        .control-btn.secondary {
+            background: var(--color-white);
+            color: var(--color-text-secondary);
+            border: 1px solid var(--color-border);
+        }
+
+        .control-btn.secondary:hover {
+            background: var(--color-bg-alt);
+        }
+
+        .control-btn.danger {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .control-btn.danger:hover {
+            background: #fee2e2;
+        }
+
+        /* Recording Indicator */
+        .recording-indicator {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: #fef2f2;
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-lg);
+        }
+
+        .recording-indicator.active {
+            display: flex;
+        }
+
+        .recording-dot {
+            width: 12px;
+            height: 12px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .recording-text {
+            font-size: 0.875rem;
+            color: #dc2626;
+            font-weight: 500;
+        }
+
+        /* Instructions */
+        .instructions {
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .instructions-title {
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .instructions-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .instructions-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            padding: var(--space-xs) 0;
+            font-size: 0.9375rem;
+            color: var(--color-text-secondary);
+        }
+
+        .instructions-list li::before {
+            content: "1";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: var(--color-accent);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .instructions-list li:nth-child(2)::before { content: "2"; }
+        .instructions-list li:nth-child(3)::before { content: "3"; }
+        .instructions-list li:nth-child(4)::before { content: "4"; }
+
+        /* View: Results */
+        .results-view {
+            display: none;
+            text-align: center;
+        }
+
+        .results-view.active {
+            display: block;
+        }
+
+        .results-header {
+            margin-bottom: var(--space-xl);
+        }
+
+        .results-emoji {
+            font-size: 4rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .results-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+
+        .results-subtitle {
+            color: var(--color-text-muted);
+        }
+
+        /* WCPM Display */
+        .wcpm-display {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .wcpm-score {
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--color-navy);
+            line-height: 1;
+        }
+
+        .wcpm-label {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            margin-top: var(--space-sm);
+        }
+
+        .wcpm-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
+            margin-top: var(--space-lg);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .wcpm-stat {
+            text-align: center;
+        }
+
+        .wcpm-stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .wcpm-stat-label {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Benchmark Comparison */
+        .benchmark-container {
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .benchmark-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+
+        .benchmark-bar {
+            height: 24px;
+            background: var(--color-white);
+            border-radius: var(--radius-full);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benchmark-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e);
+            border-radius: var(--radius-full);
+        }
+
+        .benchmark-marker {
+            position: absolute;
+            top: -4px;
+            bottom: -4px;
+            width: 4px;
+            background: var(--color-navy);
+            border-radius: 2px;
+            transform: translateX(-50%);
+        }
+
+        .benchmark-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-sm);
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Playback Controls */
+        .playback-section {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .playback-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+
+        .playback-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-md);
+        }
+
+        .playback-btn {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-bg-alt);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+            transition: all var(--transition-fast);
+        }
+
+        .playback-btn:hover {
+            background: var(--color-border);
+            color: var(--color-text);
+        }
+
+        .playback-btn.play {
+            width: 56px;
+            height: 56px;
+            background: var(--color-accent);
+            color: white;
+        }
+
+        .playback-btn.play:hover {
+            background: var(--color-accent-dark);
+        }
+
+        /* Results Actions */
+        .results-actions {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            margin-top: var(--space-2xl);
+            padding-top: var(--space-xl);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .progress-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            text-align: left;
+        }
+
+        .attempts-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .attempt-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+        }
+
+        .attempt-number {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            min-width: 80px;
+        }
+
+        .attempt-score {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-navy);
+            min-width: 100px;
+        }
+
+        .attempt-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--color-border);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .attempt-bar-fill {
+            height: 100%;
+            background: var(--color-accent);
+            border-radius: var(--radius-full);
+            transition: width 0.5s ease;
+        }
+
+        .attempt-change {
+            font-size: 0.875rem;
+            font-weight: 500;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .attempt-change.positive {
+            color: #22c55e;
+        }
+
+        .attempt-change.negative {
+            color: #ef4444;
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+            .timer-display {
+                font-size: 3rem;
+            }
+
+            .passage-text {
+                font-size: 1.125rem;
+            }
+
+            .wcpm-score {
+                font-size: 3.5rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .control-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="/readingplanet/js/data-service.js"></script>
+    <script src="/readingplanet/js/student-picker.js"></script>
+
+    <header class="page-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/readingplanet/" class="back-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                    Back to Home
+                </a>
+                <h1 class="page-title">Fluency Practice</h1>
+                <div style="width: 100px;"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- View: Passage Selection -->
+        <section class="passage-selection" id="passageSelection">
+            <div class="instructions">
+                <div class="instructions-title">How Fluency Practice Works</div>
+                <ul class="instructions-list">
+                    <li>Choose a passage at your reading level</li>
+                    <li>Read aloud for 1 minute while recording</li>
+                    <li>Tap any words you missed or struggled with</li>
+                    <li>Get your Words Correct Per Minute (WCPM) score</li>
+                </ul>
+            </div>
+
+            <div id="passageLevels">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- View: Practice Session -->
+        <section class="practice-view" id="practiceView">
+            <div class="practice-header">
+                <h2 class="practice-title" id="practiceTitle">Loading...</h2>
+                <p class="practice-meta"><span id="passageWords">--</span> words</p>
+            </div>
+
+            <div class="timer-container">
+                <div class="timer-display" id="timerDisplay">1:00</div>
+                <div class="timer-label">Time Remaining</div>
+            </div>
+
+            <div class="recording-indicator" id="recordingIndicator">
+                <div class="recording-dot"></div>
+                <span class="recording-text">Recording...</span>
+            </div>
+
+            <div class="passage-container">
+                <div class="passage-text" id="passageText">
+                    <!-- Words populated by JS -->
+                </div>
+            </div>
+
+            <div class="controls" id="practiceControls">
+                <button class="control-btn primary" id="startBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/>
+                    </svg>
+                    Start Reading
+                </button>
+                <button class="control-btn danger hidden" id="stopBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>
+                    </svg>
+                    Stop
+                </button>
+                <button class="control-btn secondary" id="cancelBtn">Cancel</button>
+            </div>
+
+            <p style="text-align: center; font-size: 0.875rem; color: var(--color-text-muted);">
+                Tap any words you miss or struggle with while reading
+            </p>
+        </section>
+
+        <!-- View: Results -->
+        <section class="results-view" id="resultsView">
+            <div class="results-header">
+                <div class="results-emoji" id="resultsEmoji">🎉</div>
+                <h2 class="results-title" id="resultsTitle">Great Reading!</h2>
+                <p class="results-subtitle" id="resultsSubtitle">Keep practicing to improve</p>
+            </div>
+
+            <div class="wcpm-display">
+                <div class="wcpm-score" id="wcpmScore">0</div>
+                <div class="wcpm-label">Words Correct Per Minute</div>
+                <div class="wcpm-breakdown">
+                    <div class="wcpm-stat">
+                        <div class="wcpm-stat-value" id="totalWords">0</div>
+                        <div class="wcpm-stat-label">Total Words</div>
+                    </div>
+                    <div class="wcpm-stat">
+                        <div class="wcpm-stat-value" id="errorCount">0</div>
+                        <div class="wcpm-stat-label">Errors</div>
+                    </div>
+                    <div class="wcpm-stat">
+                        <div class="wcpm-stat-value" id="readingTime">0:00</div>
+                        <div class="wcpm-stat-label">Time</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="benchmark-container">
+                <div class="benchmark-title">How you compare to grade-level benchmarks</div>
+                <div class="benchmark-bar">
+                    <div class="benchmark-fill"></div>
+                    <div class="benchmark-marker" id="benchmarkMarker" style="left: 50%"></div>
+                </div>
+                <div class="benchmark-labels">
+                    <span>Below</span>
+                    <span>On Track</span>
+                    <span>Above</span>
+                </div>
+            </div>
+
+            <div class="playback-section" id="playbackSection">
+                <div class="playback-title">Listen to Your Recording</div>
+                <div class="playback-controls">
+                    <button class="playback-btn" id="playbackRestart">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 4v6h6"/>
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                        </svg>
+                    </button>
+                    <button class="playback-btn play" id="playbackPlay">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" id="playbackPlayIcon">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" id="playbackPauseIcon" class="hidden">
+                            <rect x="6" y="4" width="4" height="16"/>
+                            <rect x="14" y="4" width="4" height="16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-actions">
+                <button class="control-btn primary" id="tryAgainBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 4v6h6"/>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                    </svg>
+                    Try Again
+                </button>
+                <button class="control-btn secondary" id="newPassageBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    New Passage
+                </button>
+            </div>
+
+            <div class="progress-section" id="progressSection">
+                <h3 class="progress-title">Your Progress on This Passage</h3>
+                <div class="attempts-list" id="attemptsList">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // State
+        let currentStudent = null;
+        let currentPassage = null;
+        let passages = [];
+        let passageAttempts = {};
+
+        // Timer state
+        let timerInterval = null;
+        let timeRemaining = 60;
+        let isRunning = false;
+
+        // Recording state
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let recordedBlob = null;
+        let audioElement = null;
+
+        // Reading state
+        let errorWords = new Set();
+        let wordsRead = 0;
+
+        // WCPM Benchmarks by grade level (fall targets)
+        const WCPM_BENCHMARKS = {
+            3: { below: 70, target: 77, above: 100 },
+            4: { below: 94, target: 99, above: 120 },
+            5: { below: 110, target: 118, above: 140 },
+            6: { below: 127, target: 132, above: 155 },
+            7: { below: 128, target: 138, above: 160 },
+            8: { below: 133, target: 146, above: 170 },
+            9: { below: 140, target: 150, above: 175 },
+            10: { below: 145, target: 155, above: 180 }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Wait for DB
+            if (window.ReadingPlanetDB) {
+                await window.ReadingPlanetDB.ready;
+            }
+
+            // Get current student
+            const session = JSON.parse(localStorage.getItem('readingplanet_session') || '{}');
+            if (session.currentStudentId && window.ReadingPlanetDB) {
+                currentStudent = await window.ReadingPlanetDB.getStudent(session.currentStudentId);
+            }
+
+            // Load passages
+            await loadPassages();
+
+            // Load previous attempts
+            await loadAttempts();
+
+            // Render passage selection
+            renderPassageSelection();
+
+            // Setup event listeners
+            setupEventListeners();
+        });
+
+        async function loadPassages() {
+            try {
+                const response = await fetch('/readingplanet/fluency/passages.json');
+                const data = await response.json();
+                passages = data.passages || [];
+            } catch (e) {
+                console.error('Failed to load passages:', e);
+                passages = [];
+            }
+        }
+
+        async function loadAttempts() {
+            if (!currentStudent || !window.ReadingPlanetDB) return;
+
+            try {
+                const fluencyRecords = await window.ReadingPlanetDB.getFluencyRecords(currentStudent.id);
+                // Group by passage ID
+                passageAttempts = {};
+                fluencyRecords.forEach(record => {
+                    if (!passageAttempts[record.passageId]) {
+                        passageAttempts[record.passageId] = [];
+                    }
+                    passageAttempts[record.passageId].push(record);
+                });
+            } catch (e) {
+                console.error('Failed to load attempts:', e);
+            }
+        }
+
+        function renderPassageSelection() {
+            const container = document.getElementById('passageLevels');
+
+            // Group passages by level
+            const levels = {
+                'grades-3-4': { title: 'Grades 3-4', subtitle: 'Easier passages', passages: [] },
+                'grades-5-6': { title: 'Grades 5-6', subtitle: 'Intermediate', passages: [] },
+                'grades-7-8': { title: 'Grades 7-8', subtitle: 'Challenging', passages: [] },
+                'grades-9-10': { title: 'Grades 9-10', subtitle: 'Advanced', passages: [] }
+            };
+
+            passages.forEach(p => {
+                if (levels[p.level]) {
+                    levels[p.level].passages.push(p);
+                }
+            });
+
+            container.innerHTML = Object.entries(levels).map(([key, level]) => {
+                if (level.passages.length === 0) return '';
+
+                return `
+                    <div class="level-section">
+                        <div class="level-header">
+                            <div>
+                                <h3 class="level-title">${level.title}</h3>
+                                <p class="level-subtitle">${level.subtitle}</p>
+                            </div>
+                        </div>
+                        <div class="passage-grid">
+                            ${level.passages.map(p => {
+                                const attempts = passageAttempts[p.id] || [];
+                                const bestScore = attempts.length > 0
+                                    ? Math.max(...attempts.map(a => a.wcpm))
+                                    : null;
+
+                                return `
+                                    <div class="passage-card" data-passage-id="${p.id}">
+                                        <div class="passage-card-emoji">${p.emoji || '📖'}</div>
+                                        <div class="passage-card-title">${p.title}</div>
+                                        <div class="passage-card-meta">${p.wordCount} words</div>
+                                        ${attempts.length > 0 ? `
+                                            <div class="passage-card-attempts">
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                                </svg>
+                                                Best: ${bestScore} WCPM (${attempts.length} attempt${attempts.length !== 1 ? 's' : ''})
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Add click handlers
+            container.querySelectorAll('.passage-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const passageId = card.dataset.passageId;
+                    startPractice(passageId);
+                });
+            });
+        }
+
+        function startPractice(passageId) {
+            currentPassage = passages.find(p => p.id === passageId);
+            if (!currentPassage) return;
+
+            // Reset state
+            errorWords = new Set();
+            wordsRead = 0;
+            timeRemaining = 60;
+            isRunning = false;
+
+            // Update UI
+            document.getElementById('practiceTitle').textContent = currentPassage.title;
+            document.getElementById('passageWords').textContent = currentPassage.wordCount;
+            document.getElementById('timerDisplay').textContent = '1:00';
+            document.getElementById('timerDisplay').className = 'timer-display';
+
+            // Render passage with word spans
+            renderPassageWords();
+
+            // Show practice view
+            document.getElementById('passageSelection').classList.add('hidden');
+            document.getElementById('practiceView').classList.add('active');
+            document.getElementById('resultsView').classList.remove('active');
+
+            // Reset buttons
+            document.getElementById('startBtn').classList.remove('hidden');
+            document.getElementById('stopBtn').classList.add('hidden');
+        }
+
+        function renderPassageWords() {
+            const container = document.getElementById('passageText');
+            const words = currentPassage.text.split(/\s+/);
+
+            container.innerHTML = words.map((word, index) => {
+                return `<span class="word" data-index="${index}">${word}</span> `;
+            }).join('');
+
+            // Add click handlers for marking errors
+            container.querySelectorAll('.word').forEach(wordEl => {
+                wordEl.addEventListener('click', () => {
+                    if (!isRunning) return;
+
+                    const index = parseInt(wordEl.dataset.index);
+                    if (errorWords.has(index)) {
+                        errorWords.delete(index);
+                        wordEl.classList.remove('error');
+                    } else {
+                        errorWords.add(index);
+                        wordEl.classList.add('error');
+                    }
+                });
+            });
+        }
+
+        async function startReading() {
+            // Request microphone permission and start recording
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (e) => {
+                    audioChunks.push(e.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    recordedBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    stream.getTracks().forEach(track => track.stop());
+                };
+
+                mediaRecorder.start();
+            } catch (e) {
+                console.error('Failed to start recording:', e);
+                // Continue without recording
+            }
+
+            // Update UI
+            isRunning = true;
+            document.getElementById('startBtn').classList.add('hidden');
+            document.getElementById('stopBtn').classList.remove('hidden');
+            document.getElementById('recordingIndicator').classList.add('active');
+
+            // Count total words in passage
+            wordsRead = currentPassage.text.split(/\s+/).length;
+
+            // Start timer
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= 0) {
+                    stopReading();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const display = document.getElementById('timerDisplay');
+            display.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            // Color changes
+            if (timeRemaining <= 10) {
+                display.className = 'timer-display danger';
+            } else if (timeRemaining <= 20) {
+                display.className = 'timer-display warning';
+            }
+        }
+
+        async function stopReading() {
+            isRunning = false;
+            clearInterval(timerInterval);
+
+            // Stop recording
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+            }
+
+            document.getElementById('recordingIndicator').classList.remove('active');
+
+            // Calculate results
+            const timeElapsed = 60 - timeRemaining;
+            const errors = errorWords.size;
+            const correctWords = wordsRead - errors;
+            const wcpm = timeElapsed > 0
+                ? Math.round((correctWords / timeElapsed) * 60)
+                : 0;
+
+            // Save to database
+            if (currentStudent && window.ReadingPlanetDB) {
+                try {
+                    await window.ReadingPlanetDB.recordFluency(currentStudent.id, {
+                        passageId: currentPassage.id,
+                        passageTitle: currentPassage.title,
+                        wcpm,
+                        wordsRead,
+                        errors,
+                        timeSeconds: timeElapsed
+                    });
+
+                    // Reload attempts
+                    await loadAttempts();
+                } catch (e) {
+                    console.error('Failed to save fluency record:', e);
+                }
+            }
+
+            // Show results
+            showResults(wcpm, wordsRead, errors, timeElapsed);
+        }
+
+        function showResults(wcpm, totalWords, errors, timeSeconds) {
+            // Update WCPM display
+            document.getElementById('wcpmScore').textContent = wcpm;
+            document.getElementById('totalWords').textContent = totalWords;
+            document.getElementById('errorCount').textContent = errors;
+
+            const mins = Math.floor(timeSeconds / 60);
+            const secs = timeSeconds % 60;
+            document.getElementById('readingTime').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+            // Determine emoji and message based on performance
+            const grade = currentStudent?.grade || 6;
+            const benchmark = WCPM_BENCHMARKS[grade] || WCPM_BENCHMARKS[6];
+
+            let emoji, title, subtitle;
+            if (wcpm >= benchmark.above) {
+                emoji = '🌟';
+                title = 'Excellent Reading!';
+                subtitle = 'You\'re reading above grade level!';
+            } else if (wcpm >= benchmark.target) {
+                emoji = '🎉';
+                title = 'Great Job!';
+                subtitle = 'You\'re reading at grade level!';
+            } else if (wcpm >= benchmark.below) {
+                emoji = '👍';
+                title = 'Good Effort!';
+                subtitle = 'Keep practicing to improve!';
+            } else {
+                emoji = '💪';
+                title = 'Keep Going!';
+                subtitle = 'Practice makes perfect!';
+            }
+
+            document.getElementById('resultsEmoji').textContent = emoji;
+            document.getElementById('resultsTitle').textContent = title;
+            document.getElementById('resultsSubtitle').textContent = subtitle;
+
+            // Update benchmark visualization
+            const markerPosition = Math.min(100, Math.max(0,
+                ((wcpm - benchmark.below + 20) / (benchmark.above - benchmark.below + 40)) * 100
+            ));
+            document.getElementById('benchmarkMarker').style.left = `${markerPosition}%`;
+
+            // Show/hide playback section based on recording availability
+            document.getElementById('playbackSection').style.display = recordedBlob ? 'block' : 'none';
+
+            // Render attempts history
+            renderAttemptsHistory();
+
+            // Switch views
+            document.getElementById('practiceView').classList.remove('active');
+            document.getElementById('resultsView').classList.add('active');
+        }
+
+        function renderAttemptsHistory() {
+            const attempts = passageAttempts[currentPassage.id] || [];
+            if (attempts.length === 0) {
+                document.getElementById('progressSection').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('progressSection').style.display = 'block';
+
+            // Sort by date (most recent first)
+            const sorted = [...attempts].sort((a, b) =>
+                new Date(b.createdAt) - new Date(a.createdAt)
+            );
+
+            const maxWcpm = Math.max(...sorted.map(a => a.wcpm), 100);
+
+            document.getElementById('attemptsList').innerHTML = sorted.map((attempt, index) => {
+                const change = index < sorted.length - 1
+                    ? attempt.wcpm - sorted[index + 1].wcpm
+                    : 0;
+                const changeClass = change > 0 ? 'positive' : change < 0 ? 'negative' : '';
+                const changeText = change > 0 ? `+${change}` : change < 0 ? `${change}` : '-';
+                const barWidth = (attempt.wcpm / maxWcpm) * 100;
+
+                return `
+                    <div class="attempt-row">
+                        <span class="attempt-number">Attempt ${sorted.length - index}</span>
+                        <span class="attempt-score">${attempt.wcpm} WCPM</span>
+                        <div class="attempt-bar">
+                            <div class="attempt-bar-fill" style="width: ${barWidth}%"></div>
+                        </div>
+                        <span class="attempt-change ${changeClass}">${changeText}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function setupEventListeners() {
+            // Start button
+            document.getElementById('startBtn').addEventListener('click', startReading);
+
+            // Stop button
+            document.getElementById('stopBtn').addEventListener('click', stopReading);
+
+            // Cancel button
+            document.getElementById('cancelBtn').addEventListener('click', () => {
+                if (isRunning) {
+                    clearInterval(timerInterval);
+                    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                        mediaRecorder.stop();
+                    }
+                }
+                document.getElementById('practiceView').classList.remove('active');
+                document.getElementById('passageSelection').classList.remove('hidden');
+            });
+
+            // Try again button
+            document.getElementById('tryAgainBtn').addEventListener('click', () => {
+                startPractice(currentPassage.id);
+            });
+
+            // New passage button
+            document.getElementById('newPassageBtn').addEventListener('click', () => {
+                document.getElementById('resultsView').classList.remove('active');
+                document.getElementById('passageSelection').classList.remove('hidden');
+            });
+
+            // Playback controls
+            document.getElementById('playbackPlay').addEventListener('click', togglePlayback);
+            document.getElementById('playbackRestart').addEventListener('click', restartPlayback);
+        }
+
+        function togglePlayback() {
+            if (!recordedBlob) return;
+
+            if (!audioElement) {
+                audioElement = new Audio(URL.createObjectURL(recordedBlob));
+                audioElement.onended = () => {
+                    document.getElementById('playbackPlayIcon').classList.remove('hidden');
+                    document.getElementById('playbackPauseIcon').classList.add('hidden');
+                };
+            }
+
+            if (audioElement.paused) {
+                audioElement.play();
+                document.getElementById('playbackPlayIcon').classList.add('hidden');
+                document.getElementById('playbackPauseIcon').classList.remove('hidden');
+            } else {
+                audioElement.pause();
+                document.getElementById('playbackPlayIcon').classList.remove('hidden');
+                document.getElementById('playbackPauseIcon').classList.add('hidden');
+            }
+        }
+
+        function restartPlayback() {
+            if (audioElement) {
+                audioElement.currentTime = 0;
+                audioElement.play();
+                document.getElementById('playbackPlayIcon').classList.add('hidden');
+                document.getElementById('playbackPauseIcon').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

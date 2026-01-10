@@ -363,8 +363,8 @@
             }
 
             grid.innerHTML = books.map(book => {
-                // Use thumbnail (has title baked in) instead of cover
-                const thumbImg = `/images/thumbnails/${book.slug}.png`;
+                // Use optimized thumbnail (256px JPEG, ~25KB each)
+                const thumbImg = `/images/thumbs/${book.slug}.jpg`;
                 return `
                     <a class="book-card" href="/reader.html?book=${book.slug}">
                         <img src="${thumbImg}" alt="${book.title}" loading="lazy">

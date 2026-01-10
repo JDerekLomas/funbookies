@@ -852,18 +852,33 @@ class ReadingPlanetDB {
         const sessions = await this.getReadingSessions(studentId, { limit: 30 });
         const dates = [...new Set(sessions.map(s => s.date))].sort().reverse();
 
-        let streak = 0;
+        let streak = student.stats?.currentStreak || 0;
         const today = new Date().toISOString().split('T')[0];
         const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
 
-        // Must have activity today or yesterday
+        // Check if we need to use a streak freeze
         if (dates[0] !== today && dates[0] !== yesterday) {
-            streak = 0;
+            // Check for streak freeze
+            const freezeKey = `rp_freezes_${studentId}`;
+            const freezes = parseInt(localStorage.getItem(freezeKey) || '2');
+
+            if (freezes > 0 && streak > 0) {
+                // Use a freeze to protect the streak
+                localStorage.setItem(freezeKey, (freezes - 1).toString());
+                localStorage.setItem(`rp_freeze_used_${studentId}`, new Date().toISOString());
+            } else {
+                streak = 0;
+            }
         } else {
-            for (let i = 0; i < dates.length; i++) {
+            // Recalculate streak from activity
+            streak = 0;
+            for (let i = 0; i < 365; i++) {
                 const expected = new Date(Date.now() - i * 86400000).toISOString().split('T')[0];
                 if (dates.includes(expected)) {
                     streak++;
+                } else if (i === 0 && dates[0] === yesterday) {
+                    // Allow gap for today if yesterday was active
+                    continue;
                 } else {
                     break;
                 }
@@ -879,6 +894,38 @@ class ReadingPlanetDB {
         };
 
         return this.updateStudent(studentId, updates);
+    }
+
+    /**
+     * Use a streak freeze
+     */
+    async useStreakFreeze(studentId) {
+        const freezeKey = `rp_freezes_${studentId}`;
+        const freezes = parseInt(localStorage.getItem(freezeKey) || '2');
+
+        if (freezes <= 0) {
+            return { success: false, remaining: 0, error: 'No freezes available' };
+        }
+
+        localStorage.setItem(freezeKey, (freezes - 1).toString());
+        return { success: true, remaining: freezes - 1 };
+    }
+
+    /**
+     * Get streak freeze count
+     */
+    getStreakFreezes(studentId) {
+        return parseInt(localStorage.getItem(`rp_freezes_${studentId}`) || '2');
+    }
+
+    /**
+     * Add streak freeze (earned through achievements or purchase)
+     */
+    addStreakFreeze(studentId, count = 1) {
+        const freezeKey = `rp_freezes_${studentId}`;
+        const current = parseInt(localStorage.getItem(freezeKey) || '2');
+        localStorage.setItem(freezeKey, (current + count).toString());
+        return current + count;
     }
 
     /**

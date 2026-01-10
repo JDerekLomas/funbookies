@@ -1167,9 +1167,182 @@
             font-size: 1.2rem;
             z-index: 10;
         }
+
+        /* Book Complete Overlay */
+        .book-complete-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeInOverlay 0.5s ease-out;
+        }
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .book-complete-content {
+            background: var(--color-cream);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            animation: slideUp 0.4s ease-out 0.2s both;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .complete-celebration {
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+
+        .complete-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--color-charcoal);
+            margin-bottom: 8px;
+        }
+
+        .complete-subtitle {
+            color: var(--color-text-muted);
+            margin-bottom: 24px;
+        }
+
+        .complete-stats {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .complete-stat {
+            text-align: center;
+        }
+
+        .complete-stat-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-sage-dark);
+        }
+
+        .complete-stat-label {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .practice-section {
+            background: var(--color-sage-light);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .practice-section h4 {
+            font-size: 0.9rem;
+            color: var(--color-sage-dark);
+            margin-bottom: 12px;
+        }
+
+        .practice-activities {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .practice-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--color-charcoal);
+            transition: all 0.2s;
+        }
+
+        .practice-link:hover {
+            transform: translateX(4px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .practice-link .icon {
+            font-size: 1.5rem;
+        }
+
+        .practice-link .text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .practice-link .name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .practice-link .desc {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        .practice-link .arrow {
+            color: var(--color-sage);
+        }
+
+        .complete-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .complete-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .complete-btn.primary {
+            background: var(--color-sage);
+            color: white;
+        }
+
+        .complete-btn.primary:hover {
+            background: #7FB38A;
+        }
+
+        .complete-btn.secondary {
+            background: white;
+            color: var(--color-charcoal);
+            border: 2px solid var(--color-border);
+        }
+
+        .complete-btn.secondary:hover {
+            border-color: var(--color-sage);
+        }
+
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
+    <script src="/js/data-service.js"></script>
     <header class="reader-header">
         <a href="/">← Back to Books</a>
         <span class="book-title" id="bookTitle">Loading...</span>
@@ -1232,6 +1405,38 @@
 
     <div class="keyboard-hint">
         <kbd>←</kbd> Previous <kbd>→</kbd> Next <kbd>Esc</kbd> Close
+    </div>
+
+    <!-- Book Complete Overlay -->
+    <div id="bookCompleteOverlay" class="book-complete-overlay hidden">
+        <div class="book-complete-content">
+            <div class="complete-celebration">🎉</div>
+            <h2 class="complete-title">Great Reading!</h2>
+            <p class="complete-subtitle">You finished <strong id="completeBookTitle">the book</strong>!</p>
+
+            <div class="complete-stats">
+                <div class="complete-stat">
+                    <div class="complete-stat-value" id="completePages">0</div>
+                    <div class="complete-stat-label">Pages Read</div>
+                </div>
+                <div class="complete-stat">
+                    <div class="complete-stat-value" id="completeLevel">A1</div>
+                    <div class="complete-stat-label">Level</div>
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <h4>Keep practicing with these activities:</h4>
+                <div class="practice-activities" id="practiceActivities">
+                    <!-- Filled dynamically -->
+                </div>
+            </div>
+
+            <div class="complete-actions">
+                <a href="/books/" class="complete-btn secondary">More Books</a>
+                <button class="complete-btn primary" onclick="closeCompleteOverlay()">Read Again</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1916,6 +2121,12 @@
                     bookPage.classList.remove('slide-left');
                     bookPage.classList.add('fade-in');
                     setTimeout(() => bookPage.classList.remove('fade-in'), 300);
+
+                    // Check if we just reached the last page
+                    if (currentPage === currentBook.pages.length - 1) {
+                        // Show completion overlay after a brief delay
+                        setTimeout(() => showBookComplete(), 1500);
+                    }
                 }, 150);
             }
         }
@@ -2173,6 +2384,173 @@
                 countEl.textContent = '';
             }
         }
+
+        // Activity recommendations based on level
+        const levelActivities = {
+            'A': [
+                { icon: '🔤', name: 'Letter Sounds', desc: 'Practice letter sounds', url: '/activities/early-reader/letter-sounds.html' },
+                { icon: '🎯', name: 'First Sounds', desc: 'Identify beginning sounds', url: '/activities/early-reader/first-sounds.html' },
+                { icon: '🎵', name: 'Rhyme Time', desc: 'Find rhyming words', url: '/activities/early-reader/rhyme-time.html' },
+            ],
+            'B1': [
+                { icon: '🔊', name: 'Blend It Out', desc: 'Blend sounds into words', url: '/activities/voice-blend.html' },
+                { icon: '✂️', name: 'Chop It Up', desc: 'Segment words into sounds', url: '/activities/chop-it-up.html' },
+                { icon: '🧱', name: 'Word Builder', desc: 'Build CVC words', url: '/activities/word-builder.html' },
+            ],
+            'B2': [
+                { icon: '🔊', name: 'Blend It Out', desc: 'Practice blending', url: '/activities/voice-blend.html' },
+                { icon: '👨‍👩‍👧', name: 'Word Families', desc: 'Practice -at, -ig patterns', url: '/activities/word-families.html' },
+                { icon: '🎤', name: 'Read Aloud', desc: 'Practice fluency', url: '/activities/read-aloud.html' },
+            ],
+            'B3': [
+                { icon: '🔊', name: 'Blend It Out (B3)', desc: 'Practice consonant blends', url: '/activities/voice-blend.html' },
+                { icon: '💬', name: 'Say the Sound', desc: 'Blend sounds practice', url: '/activities/say-the-sound.html' },
+                { icon: '🎤', name: 'Read Aloud', desc: 'Track your fluency', url: '/activities/read-aloud.html' },
+            ],
+            'B5': [
+                { icon: '💬', name: 'Say the Sound (B5)', desc: 'Practice digraphs: sh, ch, th', url: '/activities/say-the-sound.html' },
+                { icon: '✂️', name: 'Chop It Up', desc: 'Segment digraph words', url: '/activities/chop-it-up.html' },
+                { icon: '🎤', name: 'Read Aloud', desc: 'Build fluency', url: '/activities/read-aloud.html' },
+            ],
+            'B6': [
+                { icon: '🔊', name: 'Blend It Out (B6)', desc: 'Practice silent-e words', url: '/activities/voice-blend.html' },
+                { icon: '🎤', name: 'Read Aloud', desc: 'Build fluency', url: '/activities/read-aloud.html' },
+                { icon: '👁️', name: 'Sight Words', desc: 'Learn high-frequency words', url: '/activities/sight-words.html' },
+            ],
+            'B7': [
+                { icon: '💬', name: 'Say the Sound (B7)', desc: 'Practice r-controlled vowels', url: '/activities/say-the-sound.html' },
+                { icon: '🎤', name: 'Read Aloud', desc: 'Track WCPM', url: '/activities/read-aloud.html' },
+                { icon: '✂️', name: 'Chop It Up', desc: 'Segment complex words', url: '/activities/chop-it-up.html' },
+            ],
+            'B8': [
+                { icon: '🔊', name: 'Blend It Out (B8)', desc: 'Practice vowel teams', url: '/activities/voice-blend.html' },
+                { icon: '🎤', name: 'Read Aloud', desc: 'Build fluency', url: '/activities/read-aloud.html' },
+                { icon: '👁️', name: 'Sight Words', desc: 'Expand vocabulary', url: '/activities/sight-words.html' },
+            ],
+            'C': [
+                { icon: '🎤', name: 'Read Aloud', desc: 'Track fluency progress', url: '/activities/read-aloud.html' },
+                { icon: '✂️', name: 'Chop It Up (C)', desc: 'Multi-syllable words', url: '/activities/chop-it-up.html' },
+                { icon: '👁️', name: 'Sight Words', desc: 'Advanced words', url: '/activities/sight-words.html' },
+            ],
+            'D': [
+                { icon: '🎤', name: 'Read Aloud', desc: 'Master fluency', url: '/activities/read-aloud.html' },
+                { icon: '👁️', name: 'Sight Words', desc: 'Advanced vocabulary', url: '/activities/sight-words.html' },
+            ],
+        };
+
+        function getActivitiesForLevel(level) {
+            if (!level) return levelActivities['A'];
+
+            // Check exact match first
+            if (levelActivities[level]) return levelActivities[level];
+
+            // Fall back to band (first character)
+            const band = level.charAt(0);
+            if (levelActivities[band]) return levelActivities[band];
+
+            return levelActivities['A'];
+        }
+
+        function showBookComplete() {
+            if (!currentBook || editMode) return;
+
+            // Count story pages (exclude front/back matter)
+            const storyPages = currentBook.pages.filter(p =>
+                !['cover', 'copyright', 'parent_guide', 'level_info', 'wordlist', 'series_info', 'back_cover'].includes(p.type)
+            ).length;
+
+            // Update overlay content
+            document.getElementById('completeBookTitle').textContent = currentBook.title;
+            document.getElementById('completePages').textContent = storyPages;
+            document.getElementById('completeLevel').textContent = currentBook.level || 'A1';
+
+            // Get and render activity suggestions
+            const activities = getActivitiesForLevel(currentBook.level);
+            const activitiesContainer = document.getElementById('practiceActivities');
+            activitiesContainer.innerHTML = activities.map(a => `
+                <a href="${a.url}" class="practice-link">
+                    <span class="icon">${a.icon}</span>
+                    <div class="text">
+                        <div class="name">${a.name}</div>
+                        <div class="desc">${a.desc}</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            `).join('');
+
+            // Show overlay
+            document.getElementById('bookCompleteOverlay').classList.remove('hidden');
+
+            // Save reading history
+            saveReadingHistory();
+
+            // Save session state
+            saveSessionState();
+        }
+
+        function closeCompleteOverlay() {
+            document.getElementById('bookCompleteOverlay').classList.add('hidden');
+            // Reset to first page
+            currentPage = 0;
+            renderPage();
+        }
+
+        async function saveReadingHistory() {
+            if (!currentBook || !window.FunBookiesDB) return;
+
+            try {
+                // Get current student from session
+                const sessionData = JSON.parse(localStorage.getItem('funbookies_session') || '{}');
+                const studentId = sessionData.currentStudentId;
+
+                if (studentId) {
+                    await window.FunBookiesDB.saveReadingHistory({
+                        studentId: studentId,
+                        bookSlug: bookSlug,
+                        bookTitle: currentBook.title,
+                        level: currentBook.level,
+                        coverImage: getCoverImagePath(),
+                        pagesRead: currentBook.pages.length,
+                        completedAt: new Date().toISOString()
+                    });
+                }
+            } catch (e) {
+                console.error('Failed to save reading history:', e);
+            }
+        }
+
+        function saveSessionState() {
+            const session = JSON.parse(localStorage.getItem('funbookies_session') || '{}');
+            session.lastActivity = {
+                type: 'book',
+                bookSlug: bookSlug,
+                bookTitle: currentBook.title,
+                level: currentBook.level,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('funbookies_session', JSON.stringify(session));
+        }
+
+        // Modify nextPage to detect book completion
+        const originalNextPage = function() {
+            if (currentBook && currentPage < currentBook.pages.length - 1) {
+                const bookPage = document.getElementById('bookPage');
+                bookPage.classList.add('slide-left');
+                setTimeout(() => {
+                    currentPage++;
+                    renderPage();
+                    bookPage.classList.remove('slide-left');
+                    bookPage.classList.add('fade-in');
+                    setTimeout(() => bookPage.classList.remove('fade-in'), 300);
+
+                    // Check if we just reached the last page
+                    if (currentPage === currentBook.pages.length - 1) {
+                        // Show completion overlay after a brief delay
+                        setTimeout(() => showBookComplete(), 1500);
+                    }
+                }, 150);
+            }
+        };
 
         // Load book on page load
         loadBook();

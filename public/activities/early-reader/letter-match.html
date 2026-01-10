@@ -437,12 +437,31 @@
       }
 
       sessionStartTime = Date.now();
+      saveSessionState();
       loadLetter();
       renderProgress();
 
       // Auto-play first letter
       setTimeout(() => playLetter(), 500);
     });
+
+    function saveSessionState() {
+      try {
+        const session = JSON.parse(localStorage.getItem('funbookies_session') || '{}');
+        if (currentStudent) {
+          session.currentStudentId = currentStudent.id;
+        }
+        session.lastActivity = {
+          type: 'activity',
+          activityType: 'letter-match',
+          url: '/activities/early-reader/letter-match.html',
+          timestamp: Date.now()
+        };
+        localStorage.setItem('funbookies_session', JSON.stringify(session));
+      } catch (e) {
+        console.error('Failed to save session state:', e);
+      }
+    }
 
     function setupModeButtons() {
       document.querySelectorAll('.mode-btn').forEach(btn => {

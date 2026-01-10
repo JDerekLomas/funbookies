@@ -737,6 +737,93 @@
             padding: 0 var(--space-sm);
         }
 
+        /* Welcome Back Banner */
+        .welcome-back {
+            display: none;
+            background: linear-gradient(135deg, var(--color-sage-light), #E0F0E8);
+            border: 2px solid var(--color-sage);
+            border-radius: 12px;
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .welcome-back.show {
+            display: block;
+        }
+
+        .welcome-back-content {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .welcome-back-avatar {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .welcome-back-text {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .welcome-back-text h3 {
+            margin: 0 0 4px;
+            font-size: 1.2rem;
+            color: var(--color-soft-black);
+        }
+
+        .welcome-back-text p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #5A5A52;
+        }
+
+        .welcome-back-actions {
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+        }
+
+        .welcome-back-actions .btn {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-dismiss {
+            background: transparent;
+            color: #666;
+            border: 1px solid var(--color-border);
+        }
+
+        .btn-dismiss:hover {
+            background: var(--color-cream);
+        }
+
+        @media (max-width: 600px) {
+            .welcome-back-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .welcome-back-actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
         /* Utility */
         .text-center { text-align: center; }
         .mb-lg { margin-bottom: var(--space-lg); }
@@ -754,6 +841,7 @@
                 <a href="#how-it-works">How It Works</a>
                 <a href="#books">Books</a>
                 <a href="#activities">Activities</a>
+                <a href="/progress/">Progress</a>
                 <a href="/dashboard.html">Dashboard</a>
                 <a href="/editor/">Editor</a>
                 <a href="/activities/phonics-assessment.html" class="nav-cta">Start Assessment</a>
@@ -787,6 +875,23 @@
             </div>
         </div>
     </section>
+
+    <!-- Welcome Back Banner -->
+    <div class="container" style="padding-top: var(--space-md);">
+        <div class="welcome-back" id="welcomeBack">
+            <div class="welcome-back-content">
+                <div class="welcome-back-avatar" id="welcomeAvatar">👋</div>
+                <div class="welcome-back-text">
+                    <h3 id="welcomeTitle">Welcome back!</h3>
+                    <p id="welcomeMessage">Continue where you left off</p>
+                </div>
+                <div class="welcome-back-actions">
+                    <a href="#" class="btn btn-primary" id="welcomeResume">Continue</a>
+                    <button class="btn btn-dismiss" onclick="dismissWelcome()">Maybe Later</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- How It Works -->
     <section class="how-it-works" id="how-it-works">
@@ -935,6 +1040,7 @@
                 <div>
                     <h4>Resources</h4>
                     <ul class="footer-links">
+                        <li><a href="/progress/">Progress</a></li>
                         <li><a href="/dashboard.html">Dashboard</a></li>
                         <li><a href="/generate-story.html">Story Generator</a></li>
                     </ul>
@@ -1068,8 +1174,84 @@
             if (e.target.id === 'readerModal') closeReader();
         });
 
+        // Welcome Back functionality
+        function checkWelcomeBack() {
+            try {
+                const session = JSON.parse(localStorage.getItem('funbookies_session') || '{}');
+                const lastActivity = session.lastActivity;
+
+                // Check if there's a recent activity (within last 7 days)
+                if (!lastActivity || !lastActivity.timestamp) return;
+
+                const daysSince = (Date.now() - lastActivity.timestamp) / (1000 * 60 * 60 * 24);
+                if (daysSince > 7) return;
+
+                // Check if dismissed recently (within this session)
+                const dismissed = sessionStorage.getItem('welcomeDismissed');
+                if (dismissed) return;
+
+                // Show welcome back banner
+                const banner = document.getElementById('welcomeBack');
+                const avatar = document.getElementById('welcomeAvatar');
+                const title = document.getElementById('welcomeTitle');
+                const message = document.getElementById('welcomeMessage');
+                const resumeBtn = document.getElementById('welcomeResume');
+
+                // Get student info
+                const students = JSON.parse(localStorage.getItem('funbookies_students') || '[]');
+                const student = students.find(s => s.id === session.currentStudentId);
+
+                if (student) {
+                    avatar.textContent = student.avatar || '👋';
+                    title.textContent = `Welcome back, ${student.name}!`;
+                } else {
+                    avatar.textContent = '👋';
+                    title.textContent = 'Welcome back!';
+                }
+
+                // Set message based on activity type
+                if (lastActivity.type === 'book') {
+                    message.textContent = `You were reading "${lastActivity.bookTitle}"`;
+                    resumeBtn.href = `/reader.html?book=${lastActivity.bookSlug}`;
+                    resumeBtn.textContent = 'Continue Reading';
+                } else if (lastActivity.type === 'activity') {
+                    const activityNames = {
+                        'letter-sounds': 'Letter Sounds',
+                        'letter-match': 'Letter Match',
+                        'first-sounds': 'First Sounds',
+                        'rhyme-time': 'Rhyme Time',
+                        'syllable-clap': 'Syllable Clap',
+                        'voice-blend': 'Blend It Out',
+                        'chop-it-up': 'Chop It Up',
+                        'say-the-sound': 'Say the Sound',
+                        'word-builder': 'Word Builder',
+                        'sight-words': 'Sight Words',
+                        'read-aloud': 'Read Aloud'
+                    };
+                    const activityName = activityNames[lastActivity.activityType] || lastActivity.activityType;
+                    message.textContent = `You were practicing ${activityName}`;
+                    resumeBtn.href = lastActivity.url || '/activities/';
+                    resumeBtn.textContent = 'Continue Practice';
+                } else {
+                    message.textContent = 'Continue where you left off';
+                    resumeBtn.href = '/activities/';
+                    resumeBtn.textContent = 'Continue';
+                }
+
+                banner.classList.add('show');
+            } catch (e) {
+                console.error('Error checking welcome back:', e);
+            }
+        }
+
+        function dismissWelcome() {
+            document.getElementById('welcomeBack').classList.remove('show');
+            sessionStorage.setItem('welcomeDismissed', 'true');
+        }
+
         // Init
         loadBooks();
+        checkWelcomeBack();
     </script>
 </body>
 </html>

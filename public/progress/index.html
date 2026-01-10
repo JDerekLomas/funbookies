@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Progress Dashboard - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header {
+      padding-top: var(--space-md);
+    }
+
+    .student-header {
+      background: linear-gradient(135deg, var(--color-sage-light), var(--color-cream));
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-lg);
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    .student-avatar {
+      font-size: 4rem;
+      width: 80px;
+      height: 80px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .student-info h1 {
+      font-size: 1.8rem;
+      margin: 0 0 4px;
+    }
+
+    .student-level {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-sage);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .stat-card {
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-md);
+      text-align: center;
+    }
+
+    .stat-icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-xs);
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-charcoal);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    .section-title {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+      margin: var(--space-lg) 0 var(--space-md);
+    }
+
+    /* Letters Progress */
+    .letters-grid {
+      display: grid;
+      grid-template-columns: repeat(13, 1fr);
+      gap: 6px;
+      margin-bottom: var(--space-lg);
+    }
+
+    .letter-cell {
+      aspect-ratio: 1;
+      border-radius: 6px;
+      background: var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    .letter-cell.learned {
+      background: var(--color-sage);
+      color: white;
+    }
+
+    .letter-cell.in-progress {
+      background: var(--color-sage-light);
+      color: var(--color-sage-dark);
+      border: 2px solid var(--color-sage);
+    }
+
+    /* Activity History */
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius);
+    }
+
+    .activity-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .activity-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .activity-name {
+      font-weight: 600;
+      color: var(--color-charcoal);
+      margin-bottom: 2px;
+    }
+
+    .activity-meta {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    .activity-score {
+      text-align: right;
+    }
+
+    .activity-score-value {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--color-sage-dark);
+    }
+
+    .activity-score-label {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Books Read */
+    .books-scroll {
+      display: flex;
+      gap: var(--space-md);
+      overflow-x: auto;
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .book-card {
+      flex-shrink: 0;
+      width: 120px;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .book-cover {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--color-cream);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--space-xs);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border: 2px solid var(--color-border);
+    }
+
+    .book-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+    }
+
+    .book-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+      line-height: 1.3;
+    }
+
+    .book-date {
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+    }
+
+    /* WCPM Chart */
+    .wcpm-chart {
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .wcpm-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .wcpm-title {
+      font-weight: 600;
+      color: var(--color-charcoal);
+    }
+
+    .wcpm-current {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-sage-dark);
+    }
+
+    .wcpm-label {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .chart-container {
+      height: 150px;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      padding: var(--space-sm) 0;
+    }
+
+    .chart-bar {
+      flex: 1;
+      background: linear-gradient(to top, var(--color-sage), var(--color-sage-light));
+      border-radius: 4px 4px 0 0;
+      min-height: 10px;
+      position: relative;
+    }
+
+    .chart-bar-label {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.65rem;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    }
+
+    /* Achievements */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .achievement {
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius);
+      padding: var(--space-md);
+      text-align: center;
+    }
+
+    .achievement.earned {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .achievement.locked {
+      opacity: 0.5;
+    }
+
+    .achievement-icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-xs);
+    }
+
+    .achievement-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--color-charcoal);
+    }
+
+    .achievement-desc {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: var(--space-xl);
+      color: var(--color-text-muted);
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .no-student {
+      text-align: center;
+      padding: var(--space-xl);
+    }
+
+    .no-student h2 {
+      margin-bottom: var(--space-md);
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .letters-grid { grid-template-columns: repeat(9, 1fr); }
+      .student-header { flex-direction: column; text-align: center; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/" class="back-link">&larr; Back to Home</a>
+    </div>
+
+    <div id="noStudent" class="no-student">
+      <h2>Select a Student</h2>
+      <p>Choose a student to view their progress</p>
+      <button class="btn btn-primary" onclick="showPicker()">Select Student</button>
+    </div>
+
+    <div id="dashboard" class="hidden">
+      <div class="student-header">
+        <div class="student-avatar" id="studentAvatar">🧒</div>
+        <div class="student-info">
+          <h1 id="studentName">Student Name</h1>
+          <span class="student-level">
+            <span id="currentLevel">A1</span> Reader
+          </span>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📚</div>
+          <div class="stat-value" id="booksRead">0</div>
+          <div class="stat-label">Books Read</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-value" id="activitiesCompleted">0</div>
+          <div class="stat-label">Activities</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔤</div>
+          <div class="stat-value" id="lettersLearned">0</div>
+          <div class="stat-label">Letters</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔥</div>
+          <div class="stat-value" id="bestStreak">0</div>
+          <div class="stat-label">Best Streak</div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Letters Learned</h2>
+      <div class="letters-grid" id="lettersGrid"></div>
+
+      <h2 class="section-title">Reading Fluency (WCPM)</h2>
+      <div class="wcpm-chart">
+        <div class="wcpm-header">
+          <div>
+            <div class="wcpm-title">Words Correct Per Minute</div>
+          </div>
+          <div class="text-right">
+            <div class="wcpm-current" id="currentWcpm">--</div>
+            <div class="wcpm-label">Latest</div>
+          </div>
+        </div>
+        <div class="chart-container" id="wcpmChart">
+          <div class="empty-state" id="wcpmEmpty">
+            <p>Complete Read Aloud activities to track fluency</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Books Read</h2>
+      <div class="books-scroll" id="booksScroll">
+        <div class="empty-state" id="booksEmpty">
+          <p>No books read yet. Start reading!</p>
+        </div>
+      </div>
+
+      <h2 class="section-title">Recent Activities</h2>
+      <div class="activity-list" id="activityList">
+        <div class="empty-state" id="activitiesEmpty">
+          <div class="empty-state-icon">🎮</div>
+          <p>No activities yet. Start practicing!</p>
+        </div>
+      </div>
+
+      <h2 class="section-title">Achievements</h2>
+      <div class="achievements-grid" id="achievementsGrid"></div>
+    </div>
+  </div>
+
+  <script>
+    let currentStudent = null;
+
+    // Achievement definitions
+    const achievements = [
+      { id: 'first-book', name: 'First Book', desc: 'Read your first book', icon: '📖', check: (s) => s.booksRead >= 1 },
+      { id: 'bookworm', name: 'Bookworm', desc: 'Read 5 books', icon: '📚', check: (s) => s.booksRead >= 5 },
+      { id: 'library', name: 'Library Card', desc: 'Read 10 books', icon: '🏛️', check: (s) => s.booksRead >= 10 },
+      { id: 'alphabet', name: 'ABC Master', desc: 'Learn all 26 letters', icon: '🔤', check: (s) => s.lettersLearned >= 26 },
+      { id: 'streak-3', name: 'On Fire', desc: '3 correct in a row', icon: '🔥', check: (s) => s.bestStreak >= 3 },
+      { id: 'streak-10', name: 'Unstoppable', desc: '10 correct in a row', icon: '💪', check: (s) => s.bestStreak >= 10 },
+      { id: 'activities-5', name: 'Getting Started', desc: 'Complete 5 activities', icon: '🎯', check: (s) => s.activitiesCompleted >= 5 },
+      { id: 'activities-20', name: 'Practice Pro', desc: 'Complete 20 activities', icon: '🏆', check: (s) => s.activitiesCompleted >= 20 },
+      { id: 'fluent', name: 'Fluent Reader', desc: 'Reach 30 WCPM', icon: '⚡', check: (s) => s.wcpm >= 30 },
+      { id: 'speed-reader', name: 'Speed Reader', desc: 'Reach 60 WCPM', icon: '🚀', check: (s) => s.wcpm >= 60 },
+    ];
+
+    // Activity type metadata
+    const activityMeta = {
+      'letter-sounds': { name: 'Letter Sounds', icon: '🔤', color: '#667eea' },
+      'letter-match': { name: 'Letter Match', icon: '🔠', color: '#764ba2' },
+      'first-sounds': { name: 'First Sounds', icon: '🎯', color: '#f093fb' },
+      'rhyme-time': { name: 'Rhyme Time', icon: '🎵', color: '#4facfe' },
+      'syllable-clap': { name: 'Syllable Clap', icon: '👏', color: '#a8e063' },
+      'voice-blend': { name: 'Blend It Out', icon: '🔊', color: '#f5576c' },
+      'chop-it-up': { name: 'Chop It Up', icon: '✂️', color: '#56ab2f' },
+      'say-the-sound': { name: 'Say the Sound', icon: '💬', color: '#00f2fe' },
+      'read-aloud': { name: 'Read Aloud', icon: '🎤', color: '#667eea' },
+      'word-builder': { name: 'Word Builder', icon: '🧱', color: '#ffecd2' },
+      'word-families': { name: 'Word Families', icon: '👨‍👩‍👧', color: '#ff9a9e' },
+      'sight-words': { name: 'Sight Words', icon: '👁️', color: '#fecfef' },
+      'phonics-assessment': { name: 'Assessment', icon: '📋', color: '#96e6a1' },
+    };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await showPicker();
+    });
+
+    async function showPicker() {
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'View Progress For',
+          allowSkip: false
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          document.getElementById('noStudent').classList.add('hidden');
+          document.getElementById('dashboard').classList.remove('hidden');
+          await loadDashboard();
+        }
+      }
+    }
+
+    async function loadDashboard() {
+      if (!currentStudent || !window.FunBookiesDB) return;
+
+      // Update header
+      document.getElementById('studentAvatar').textContent = currentStudent.avatar;
+      document.getElementById('studentName').textContent = currentStudent.name;
+
+      // Load data
+      const activities = await window.FunBookiesDB.getActivities(currentStudent.id) || [];
+      const readingHistory = await window.FunBookiesDB.getReadingHistory(currentStudent.id) || [];
+      const level = await window.FunBookiesDB.getCurrentLevel(currentStudent.id) || 'A1';
+
+      document.getElementById('currentLevel').textContent = level;
+
+      // Calculate stats
+      const stats = calculateStats(activities, readingHistory);
+
+      // Update stat cards
+      document.getElementById('booksRead').textContent = stats.booksRead;
+      document.getElementById('activitiesCompleted').textContent = stats.activitiesCompleted;
+      document.getElementById('lettersLearned').textContent = stats.lettersLearned;
+      document.getElementById('bestStreak').textContent = stats.bestStreak;
+
+      // Render sections
+      renderLettersGrid(activities);
+      renderWcpmChart(activities);
+      renderBooksRead(readingHistory);
+      renderActivityList(activities);
+      renderAchievements(stats);
+    }
+
+    function calculateStats(activities, readingHistory) {
+      const stats = {
+        booksRead: readingHistory.length,
+        activitiesCompleted: activities.length,
+        lettersLearned: 0,
+        bestStreak: 0,
+        wcpm: 0,
+      };
+
+      // Count letters learned from letter-sounds and letter-match activities
+      const learnedLetters = new Set();
+      activities.forEach(a => {
+        if ((a.type === 'letter-sounds' || a.type === 'letter-match') && a.details?.completedLetters) {
+          a.details.completedLetters.forEach(l => learnedLetters.add(l));
+        }
+        // Track best streak
+        if (a.details?.streak && a.details.streak > stats.bestStreak) {
+          stats.bestStreak = a.details.streak;
+        }
+      });
+      stats.lettersLearned = learnedLetters.size;
+
+      // Get latest WCPM
+      const readAloudActivities = activities.filter(a => a.type === 'read-aloud' && a.details?.wcpm);
+      if (readAloudActivities.length > 0) {
+        const latest = readAloudActivities.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))[0];
+        stats.wcpm = latest.details.wcpm;
+      }
+
+      return stats;
+    }
+
+    function renderLettersGrid(activities) {
+      const grid = document.getElementById('lettersGrid');
+      grid.innerHTML = '';
+
+      // Get learned letters
+      const learnedLetters = new Set();
+      const inProgressLetters = new Set();
+
+      activities.forEach(a => {
+        if (a.type === 'letter-sounds' || a.type === 'letter-match') {
+          if (a.score >= a.total * 0.8) {
+            // 80%+ = learned
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach((l, i) => {
+              if (a.details?.completedLetters?.includes(i)) {
+                learnedLetters.add(l);
+              }
+            });
+          }
+        }
+      });
+
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(letter => {
+        const cell = document.createElement('div');
+        cell.className = 'letter-cell';
+        cell.textContent = letter;
+
+        if (learnedLetters.has(letter)) {
+          cell.classList.add('learned');
+        } else if (inProgressLetters.has(letter)) {
+          cell.classList.add('in-progress');
+        }
+
+        grid.appendChild(cell);
+      });
+    }
+
+    function renderWcpmChart(activities) {
+      const container = document.getElementById('wcpmChart');
+      const emptyEl = document.getElementById('wcpmEmpty');
+
+      const readAloudActivities = activities
+        .filter(a => a.type === 'read-aloud' && a.details?.wcpm)
+        .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
+        .slice(-7); // Last 7 sessions
+
+      if (readAloudActivities.length === 0) {
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+      container.innerHTML = '';
+
+      const maxWcpm = Math.max(...readAloudActivities.map(a => a.details.wcpm), 30);
+
+      readAloudActivities.forEach(a => {
+        const bar = document.createElement('div');
+        bar.className = 'chart-bar';
+        const height = (a.details.wcpm / maxWcpm) * 100;
+        bar.style.height = `${Math.max(height, 5)}%`;
+
+        const label = document.createElement('span');
+        label.className = 'chart-bar-label';
+        const date = new Date(a.timestamp);
+        label.textContent = `${date.getMonth() + 1}/${date.getDate()}`;
+        bar.appendChild(label);
+
+        bar.title = `${a.details.wcpm} WCPM`;
+        container.appendChild(bar);
+      });
+
+      // Update current WCPM
+      const latest = readAloudActivities[readAloudActivities.length - 1];
+      document.getElementById('currentWcpm').textContent = latest.details.wcpm;
+    }
+
+    function renderBooksRead(readingHistory) {
+      const container = document.getElementById('booksScroll');
+      const emptyEl = document.getElementById('booksEmpty');
+
+      if (readingHistory.length === 0) {
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+      container.innerHTML = '';
+
+      // Get unique books (most recent first)
+      const uniqueBooks = [];
+      const seen = new Set();
+      readingHistory.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+      for (const entry of readingHistory) {
+        if (!seen.has(entry.bookSlug)) {
+          seen.add(entry.bookSlug);
+          uniqueBooks.push(entry);
+        }
+        if (uniqueBooks.length >= 10) break;
+      }
+
+      uniqueBooks.forEach(entry => {
+        const card = document.createElement('a');
+        card.className = 'book-card';
+        card.href = `/reader.html?book=${entry.bookSlug}`;
+
+        const cover = document.createElement('div');
+        cover.className = 'book-cover';
+
+        if (entry.coverImage) {
+          const img = document.createElement('img');
+          img.src = entry.coverImage;
+          img.alt = entry.bookTitle;
+          cover.appendChild(img);
+        } else {
+          cover.textContent = '📖';
+        }
+
+        const title = document.createElement('div');
+        title.className = 'book-title';
+        title.textContent = entry.bookTitle || entry.bookSlug;
+
+        const date = document.createElement('div');
+        date.className = 'book-date';
+        const readDate = new Date(entry.timestamp);
+        date.textContent = readDate.toLocaleDateString();
+
+        card.appendChild(cover);
+        card.appendChild(title);
+        card.appendChild(date);
+        container.appendChild(card);
+      });
+    }
+
+    function renderActivityList(activities) {
+      const container = document.getElementById('activityList');
+      const emptyEl = document.getElementById('activitiesEmpty');
+
+      if (activities.length === 0) {
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+      container.innerHTML = '';
+
+      // Show last 10 activities
+      const recent = activities
+        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+        .slice(0, 10);
+
+      recent.forEach(activity => {
+        const meta = activityMeta[activity.type] || { name: activity.type, icon: '🎮', color: '#ccc' };
+
+        const item = document.createElement('div');
+        item.className = 'activity-item';
+
+        item.innerHTML = `
+          <div class="activity-icon" style="background: ${meta.color}">
+            ${meta.icon}
+          </div>
+          <div class="activity-details">
+            <div class="activity-name">${meta.name}</div>
+            <div class="activity-meta">
+              ${activity.level || ''} • ${formatDuration(activity.duration)}
+              • ${formatDate(activity.timestamp)}
+            </div>
+          </div>
+          <div class="activity-score">
+            <div class="activity-score-value">${activity.score}/${activity.total}</div>
+            <div class="activity-score-label">${Math.round((activity.score / activity.total) * 100)}%</div>
+          </div>
+        `;
+
+        container.appendChild(item);
+      });
+    }
+
+    function renderAchievements(stats) {
+      const grid = document.getElementById('achievementsGrid');
+      grid.innerHTML = '';
+
+      achievements.forEach(achievement => {
+        const earned = achievement.check(stats);
+
+        const el = document.createElement('div');
+        el.className = `achievement ${earned ? 'earned' : 'locked'}`;
+
+        el.innerHTML = `
+          <div class="achievement-icon">${earned ? achievement.icon : '🔒'}</div>
+          <div class="achievement-name">${achievement.name}</div>
+          <div class="achievement-desc">${achievement.desc}</div>
+        `;
+
+        grid.appendChild(el);
+      });
+    }
+
+    function formatDuration(seconds) {
+      if (!seconds) return '';
+      if (seconds < 60) return `${seconds}s`;
+      const mins = Math.floor(seconds / 60);
+      return `${mins}m`;
+    }
+
+    function formatDate(timestamp) {
+      if (!timestamp) return '';
+      const date = new Date(timestamp);
+      const now = new Date();
+      const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+
+      if (diffDays === 0) return 'Today';
+      if (diffDays === 1) return 'Yesterday';
+      if (diffDays < 7) return `${diffDays} days ago`;
+      return date.toLocaleDateString();
+    }
+  </script>
+</body>
+</html>

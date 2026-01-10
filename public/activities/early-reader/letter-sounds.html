@@ -382,10 +382,29 @@
       }
 
       sessionStartTime = Date.now();
+      saveSessionState();
 
       // Auto-play first sound after a moment
       setTimeout(() => playCurrentSound(), 500);
     });
+
+    function saveSessionState() {
+      try {
+        const session = JSON.parse(localStorage.getItem('funbookies_session') || '{}');
+        if (currentStudent) {
+          session.currentStudentId = currentStudent.id;
+        }
+        session.lastActivity = {
+          type: 'activity',
+          activityType: 'letter-sounds',
+          url: '/activities/early-reader/letter-sounds.html',
+          timestamp: Date.now()
+        };
+        localStorage.setItem('funbookies_session', JSON.stringify(session));
+      } catch (e) {
+        console.error('Failed to save session state:', e);
+      }
+    }
 
     function setupModeButtons() {
       document.querySelectorAll('.mode-btn').forEach(btn => {

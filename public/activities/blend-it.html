@@ -531,7 +531,27 @@
       }
     });
 
+    // Pre-recorded audio
+    let segmentAudio = null;
+
     function speakSound(sound) {
+      // Stop any playing audio
+      if (segmentAudio) {
+        segmentAudio.pause();
+        segmentAudio.currentTime = 0;
+      }
+
+      // For single letters, use pre-recorded audio files
+      if (sound.length === 1 && /^[a-z]$/.test(sound)) {
+        segmentAudio = new Audio(`/activities/letter-sounds/openai-us/sounds/${sound}.mp3`);
+        segmentAudio.play().catch(() => speakSoundFallback(sound));
+      } else {
+        // For blends/digraphs/vowel teams, use speech synthesis
+        speakSoundFallback(sound);
+      }
+    }
+
+    function speakSoundFallback(sound) {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(sound);

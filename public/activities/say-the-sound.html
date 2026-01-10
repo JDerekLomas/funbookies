@@ -621,7 +621,7 @@
       document.getElementById('micButton').classList.add('success');
       document.getElementById('nextBtn').disabled = false;
 
-      speakSound(currentSound.sound);
+      playLetterSound(currentSound.letter);
       showCelebration();
     }
 
@@ -636,12 +636,30 @@
         document.getElementById('feedback').innerHTML = `The sound is <strong>"${currentSound.sound}"</strong>`;
         document.getElementById('feedback').className = 'feedback incorrect';
         document.getElementById('nextBtn').disabled = false;
-        speakSound(currentSound.sound);
+        playLetterSound(currentSound.letter);
       }
     }
 
+    // Audio for pre-recorded letter sounds
+    let soundAudio = null;
+
     function hearSound() {
-      speakSound(currentSound.sound);
+      playLetterSound(currentSound.letter);
+    }
+
+    function playLetterSound(letter) {
+      // For single letters, use pre-recorded audio files
+      if (letter.length === 1 && /^[a-z]$/.test(letter)) {
+        if (soundAudio) {
+          soundAudio.pause();
+          soundAudio.currentTime = 0;
+        }
+        soundAudio = new Audio(`/activities/letter-sounds/openai-us/sounds/${letter}.mp3`);
+        soundAudio.play().catch(() => speakSound(currentSound.sound));
+      } else {
+        // For blends/digraphs, use speech synthesis
+        speakSound(currentSound.sound);
+      }
     }
 
     function speakSound(text) {

@@ -658,7 +658,28 @@
       document.getElementById('feedback').className = 'feedback waiting';
     }
 
+    // Pre-recorded audio element
+    let phonemeAudio = null;
+
     function speakPhoneme(text) {
+      return new Promise(resolve => {
+        // For single letters, use pre-recorded audio files
+        if (text.length === 1 && /^[a-z]$/.test(text)) {
+          if (phonemeAudio) {
+            phonemeAudio.pause();
+            phonemeAudio.currentTime = 0;
+          }
+          phonemeAudio = new Audio(`/activities/letter-sounds/openai-us/sounds/${text}.mp3`);
+          phonemeAudio.onended = resolve;
+          phonemeAudio.onerror = () => speakPhonemeFallback(text).then(resolve);
+          phonemeAudio.play().catch(() => speakPhonemeFallback(text).then(resolve));
+        } else {
+          speakPhonemeFallback(text).then(resolve);
+        }
+      });
+    }
+
+    function speakPhonemeFallback(text) {
       return new Promise(resolve => {
         if ('speechSynthesis' in window) {
           window.speechSynthesis.cancel();

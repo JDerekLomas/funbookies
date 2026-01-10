@@ -1173,6 +1173,86 @@
             z-index: 10;
         }
 
+        /* Prompt value styling */
+        .prompt-value {
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            background: var(--color-white);
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid var(--color-border);
+            margin-top: 4px;
+        }
+
+        /* Feedback Modal */
+        .feedback-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .feedback-modal-content {
+            background: var(--color-white);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 700px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feedback-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .feedback-modal-header h3 {
+            margin: 0;
+            font-family: var(--font-display);
+        }
+
+        .feedback-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-text-muted);
+        }
+
+        .feedback-modal-text {
+            flex: 1;
+            margin: 16px 20px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            resize: none;
+            min-height: 300px;
+        }
+
+        .feedback-modal-actions {
+            padding: 16px 20px;
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
         /* Book Complete Overlay */
         .book-complete-overlay {
             position: fixed;
@@ -1367,7 +1447,7 @@
                 <div><label>Book Slug</label><span class="value" id="infoSlug">-</span></div>
                 <div style="margin-top: 8px;"><label>Level</label><span class="value" id="infoLevel">-</span></div>
                 <div style="margin-top: 8px;"><label>Current Page</label><span class="value" id="infoPage">-</span></div>
-                <div style="margin-top: 8px;"><label>Scene Description</label><span class="value" id="infoScene">-</span></div>
+                <div style="margin-top: 8px;"><label>Image Prompt</label><div class="value prompt-value" id="infoScene">-</div></div>
             </div>
 
             <div class="feedback-panel" id="feedbackPanel">
@@ -1385,11 +1465,26 @@
                 <textarea class="feedback-comment" id="feedbackComment" placeholder="Add comments about this page (image quality, text issues, suggestions...)"></textarea>
                 <div class="feedback-actions">
                     <button class="feedback-save" onclick="saveFeedback()">Save</button>
-                    <button class="feedback-export" onclick="submitToGitHub()">Submit to GitHub</button>
+                    <button class="feedback-export" onclick="showAllFeedback()">Show All</button>
                     <button class="feedback-clear" onclick="clearAllFeedback()">Clear</button>
                 </div>
                 <div class="feedback-status" id="feedbackStatus"></div>
                 <div class="feedback-count" id="feedbackCount"></div>
+            </div>
+        </div>
+
+        <!-- All Feedback Modal -->
+        <div class="feedback-modal" id="feedbackModal" style="display: none;">
+            <div class="feedback-modal-content">
+                <div class="feedback-modal-header">
+                    <h3>All Feedback</h3>
+                    <button class="feedback-modal-close" onclick="closeFeedbackModal()">×</button>
+                </div>
+                <textarea class="feedback-modal-text" id="feedbackModalText" readonly></textarea>
+                <div class="feedback-modal-actions">
+                    <button class="feedback-save" onclick="copyFeedback()">Copy to Clipboard</button>
+                    <button class="feedback-clear" onclick="closeFeedbackModal()">Close</button>
+                </div>
             </div>
         </div>
 
@@ -1490,7 +1585,8 @@
 
                 currentBook = await res.json();
                 currentBook._slug = bookId;
-                currentPage = 0;
+                // In edit mode, start at reference page (-1)
+                currentPage = editMode ? -1 : 0;
 
                 document.getElementById('bookTitle').textContent = currentBook.title;
                 document.title = `${currentBook.title} - FunBookies${editMode ? ' (Edit)' : ''}`;
@@ -1546,9 +1642,17 @@
         function updateEditInfo() {
             if (!editMode || !currentBook) return;
 
-            const page = currentBook.pages[currentPage];
-            document.getElementById('infoPage').textContent = `${currentPage + 1} / ${currentBook.pages.length}`;
-            document.getElementById('infoScene').textContent = page?.scene || page?.text || 'No description';
+            // Handle reference page (page -1)
+            if (currentPage === -1) {
+                document.getElementById('infoPage').textContent = `Reference / ${currentBook.pages.length}`;
+                document.getElementById('infoScene').textContent = 'Reference image for style consistency';
+            } else {
+                const page = currentBook.pages[currentPage];
+                document.getElementById('infoPage').textContent = `${currentPage + 1} / ${currentBook.pages.length}`;
+                // Show image_prompt first, fall back to scene, then text
+                const prompt = page?.image_prompt || page?.scene || page?.text || 'No prompt available';
+                document.getElementById('infoScene').textContent = prompt;
+            }
 
             // Load feedback for current page
             loadFeedback();
@@ -1777,8 +1881,23 @@
         function renderPage() {
             if (!currentBook) return;
 
-            const page = currentBook.pages[currentPage];
             const bookPage = document.getElementById('bookPage');
+
+            // Handle reference page (page -1) in edit mode
+            if (currentPage === -1 && editMode) {
+                const refPath = getReferenceImagePath();
+                bookPage.innerHTML = `
+                    <div class="page-story" style="display: flex; align-items: center; justify-content: center; background: var(--color-charcoal);">
+                        <img src="${refPath}" alt="Reference Image" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px;"
+                             onerror="this.parentElement.innerHTML='<div style=\\'text-align:center; color: var(--color-text-muted);\\'>No reference image available</div>'">
+                    </div>
+                `;
+                updateNavigationState();
+                updateEditInfo();
+                return;
+            }
+
+            const page = currentBook.pages[currentPage];
             // Support both 'color' and 'level' fields
             const colorRaw = currentBook.color || currentBook.level || 'orange';
             const color = colorRaw.toLowerCase();
@@ -2090,10 +2209,8 @@
                     }
             }
 
-            // Update navigation
-            document.getElementById('pageIndicator').textContent = `${currentPage + 1} / ${currentBook.pages.length}`;
-            document.getElementById('prevBtn').disabled = currentPage === 0;
-            document.getElementById('nextBtn').disabled = currentPage >= currentBook.pages.length - 1;
+            // Update navigation state
+            updateNavigationState();
 
             // Update edit mode info
             updateEditInfo();
@@ -2103,7 +2220,9 @@
         }
 
         function prevPage() {
-            if (currentPage > 0) {
+            // In edit mode, allow going to page -1 (reference)
+            const minPage = editMode ? -1 : 0;
+            if (currentPage > minPage) {
                 const bookPage = document.getElementById('bookPage');
                 bookPage.classList.add('slide-right');
                 setTimeout(() => {
@@ -2133,6 +2252,19 @@
                         setTimeout(() => showBookComplete(), 1500);
                     }
                 }, 150);
+            }
+        }
+
+        function updateNavigationState() {
+            const minPage = editMode ? -1 : 0;
+            document.getElementById('prevBtn').disabled = currentPage <= minPage;
+            document.getElementById('nextBtn').disabled = !currentBook || currentPage >= currentBook.pages.length - 1;
+
+            // Update page indicator
+            if (currentPage === -1) {
+                document.getElementById('pageIndicator').textContent = `Ref / ${currentBook?.pages.length || 0}`;
+            } else {
+                document.getElementById('pageIndicator').textContent = `${currentPage + 1} / ${currentBook?.pages.length || 0}`;
             }
         }
 
@@ -2388,6 +2520,62 @@
             } else {
                 countEl.textContent = '';
             }
+        }
+
+        function showAllFeedback() {
+            const allFeedback = JSON.parse(localStorage.getItem(getAllFeedbackKey()) || '{}');
+
+            if (Object.keys(allFeedback).length === 0) {
+                alert('No feedback saved yet! Rate some pages first.');
+                return;
+            }
+
+            // Build text output
+            let text = `# Book Feedback\n`;
+            text += `Generated: ${new Date().toLocaleString()}\n\n`;
+
+            for (const [slug, bookData] of Object.entries(allFeedback)) {
+                text += `## ${bookData.title || slug}\n`;
+                text += `Level: ${bookData.level || 'N/A'}\n\n`;
+
+                const pages = Object.entries(bookData.pages || {}).sort((a, b) => Number(a[0]) - Number(b[0]));
+
+                for (const [pageNum, feedback] of pages) {
+                    const rating = feedback.rating === 'up' ? '👍 Good' : feedback.rating === 'down' ? '👎 Needs Work' : '— No rating';
+                    text += `### Page ${pageNum} - ${rating}\n`;
+                    if (feedback.pageType && feedback.pageType !== 'story') {
+                        text += `Type: ${feedback.pageType}\n`;
+                    }
+                    if (feedback.scene) {
+                        text += `Prompt: ${feedback.scene.substring(0, 100)}...\n`;
+                    }
+                    if (feedback.comment) {
+                        text += `Comment: ${feedback.comment}\n`;
+                    }
+                    text += `\n`;
+                }
+            }
+
+            // Show modal
+            document.getElementById('feedbackModalText').value = text;
+            document.getElementById('feedbackModal').style.display = 'flex';
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('feedbackModal').style.display = 'none';
+        }
+
+        function copyFeedback() {
+            const textarea = document.getElementById('feedbackModalText');
+            textarea.select();
+            document.execCommand('copy');
+
+            // Show feedback
+            const status = document.getElementById('feedbackStatus');
+            status.textContent = 'Copied to clipboard!';
+            setTimeout(() => { status.textContent = ''; }, 3000);
+
+            closeFeedbackModal();
         }
 
         // Activity recommendations based on level

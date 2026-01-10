@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - ReadingPlanet</title>
+    <link rel="icon" type="image/svg+xml" href="/readingplanet/images/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/readingplanet/styles/shared.css">
+
+    <style>
+        :root {
+            --sidebar-width: 260px;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--color-navy);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: var(--space-lg);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+            color: white;
+        }
+
+        .sidebar-logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .sidebar-logo-text {
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .sidebar-badge {
+            font-size: 0.625rem;
+            background: var(--color-teal);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            margin-left: var(--space-sm);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: var(--space-md) 0;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            padding: 0 var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .nav-section-title {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: var(--space-sm);
+            padding: 0 var(--space-sm);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .nav-item-icon {
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-item-badge {
+            margin-left: auto;
+            font-size: 0.75rem;
+            background: var(--color-coral);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+        }
+
+        .sidebar-footer {
+            padding: var(--space-md);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .teacher-profile {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+        }
+
+        .teacher-profile:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .teacher-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            background: var(--color-teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .teacher-info {
+            flex: 1;
+        }
+
+        .teacher-name {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .teacher-role {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            background: var(--color-bg);
+            min-height: 100vh;
+        }
+
+        .main-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .main-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .main-subtitle {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .main-body {
+            padding: var(--space-xl);
+        }
+
+        /* Views */
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        /* Stats Grid */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .stat-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .stat-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-sm);
+        }
+
+        .stat-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .stat-card-icon.blue { background: #dbeafe; }
+        .stat-card-icon.green { background: #dcfce7; }
+        .stat-card-icon.orange { background: #fed7aa; }
+        .stat-card-icon.purple { background: #e9d5ff; }
+        .stat-card-icon.red { background: #fecaca; }
+
+        .stat-card-trend {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .stat-card-trend.up { color: #16a34a; }
+        .stat-card-trend.down { color: #dc2626; }
+
+        .stat-card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 4px;
+        }
+
+        .stat-card-label {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Card */
+        .card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: var(--space-lg);
+        }
+
+        /* Student Table */
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .student-table th,
+        .student-table td {
+            padding: var(--space-md);
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .student-table th {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            background: var(--color-bg-alt);
+        }
+
+        .student-table tr:hover {
+            background: var(--color-bg-alt);
+        }
+
+        .student-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .student-row {
+            cursor: pointer;
+        }
+
+        .student-cell {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .student-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: white;
+        }
+
+        .student-info {
+            flex: 1;
+        }
+
+        .student-name {
+            font-weight: 500;
+        }
+
+        .student-grade {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-badge.on-track {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-badge.needs-help {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-badge.struggling {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .status-badge.inactive {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-dot.on-track { background: #16a34a; }
+        .status-dot.needs-help { background: #f59e0b; }
+        .status-dot.struggling { background: #dc2626; }
+        .status-dot.inactive { background: #9ca3af; }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            background: var(--color-white);
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--color-accent);
+        }
+
+        .filter-btn.active {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: white;
+        }
+
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: var(--space-xl);
+        }
+
+        @media (max-width: 1100px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Activity Feed */
+        .activity-feed {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: var(--color-bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-text {
+            font-size: 0.875rem;
+            margin-bottom: 2px;
+        }
+
+        .activity-text strong {
+            font-weight: 600;
+        }
+
+        .activity-time {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Alerts List */
+        .alerts-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+            border-left: 3px solid;
+        }
+
+        .alert-item.warning {
+            border-left-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .alert-item.danger {
+            border-left-color: #dc2626;
+            background: #fef2f2;
+        }
+
+        .alert-item.info {
+            border-left-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .alert-icon {
+            font-size: 1.25rem;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 2px;
+        }
+
+        .alert-desc {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow: hidden;
+            transform: scale(0.95);
+            transition: transform var(--transition-base);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-lg);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: var(--color-bg-alt);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: var(--space-lg);
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-sm);
+            padding: var(--space-lg);
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--space-sm);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: 0.9375rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-hint {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        /* Student Detail View */
+        .student-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .student-header-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: white;
+        }
+
+        .student-header-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .student-header-meta {
+            display: flex;
+            gap: var(--space-lg);
+            color: var(--color-text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Progress Bars */
+        .skill-progress {
+            margin-bottom: var(--space-md);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-xs);
+        }
+
+        .skill-name {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .skill-score {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Charts placeholder */
+        .chart-container {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+        }
+
+        /* Assignment Card */
+        .assignment-card {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-sm);
+        }
+
+        .assignment-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--color-bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+        }
+
+        .assignment-info {
+            flex: 1;
+        }
+
+        .assignment-title {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .assignment-meta {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+        }
+
+        .assignment-status {
+            font-size: 0.8125rem;
+        }
+
+        .assignment-status.complete { color: #16a34a; }
+        .assignment-status.pending { color: #f59e0b; }
+        .assignment-status.overdue { color: #dc2626; }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: var(--space-lg);
+        }
+
+        .tab {
+            padding: var(--space-md) var(--space-lg);
+            border: none;
+            background: none;
+            font-size: 0.9375rem;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+
+        .tab:hover {
+            color: var(--color-text);
+        }
+
+        .tab.active {
+            color: var(--color-accent);
+            border-bottom-color: var(--color-accent);
+        }
+
+        /* Class Code */
+        .class-code {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .class-code-value {
+            font-family: monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--color-navy);
+        }
+
+        .class-code-label {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-3xl);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .empty-state-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .empty-state-text {
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* Print Styles */
+        @media print {
+            .sidebar, .main-header, .btn {
+                display: none !important;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .card {
+                break-inside: avoid;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform var(--transition-base);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="/readingplanet/js/data-service.js"></script>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="/readingplanet/" class="sidebar-logo">
+                <svg viewBox="0 0 36 36" fill="none">
+                    <circle cx="18" cy="18" r="18" fill="white" fill-opacity="0.2"/>
+                    <path d="M10 26V10h6c4 0 6 2 6 5s-2 5-6 5h-3v6h-3zm3-9h3c2 0 3-1 3-2s-1-2-3-2h-3v4z" fill="white"/>
+                </svg>
+                <span class="sidebar-logo-text">ReadingPlanet</span>
+                <span class="sidebar-badge">Teacher</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Overview</div>
+                <a class="nav-item active" data-view="overview">
+                    <span class="nav-item-icon">📊</span>
+                    Dashboard
+                </a>
+                <a class="nav-item" data-view="students">
+                    <span class="nav-item-icon">👥</span>
+                    Students
+                </a>
+                <a class="nav-item" data-view="assignments">
+                    <span class="nav-item-icon">📝</span>
+                    Assignments
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Class</div>
+                <a class="nav-item" data-view="class-settings">
+                    <span class="nav-item-icon">⚙️</span>
+                    Class Settings
+                </a>
+                <a class="nav-item" data-view="reports">
+                    <span class="nav-item-icon">📈</span>
+                    Reports
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Alerts</div>
+                <a class="nav-item" id="alertsNavItem">
+                    <span class="nav-item-icon">🔔</span>
+                    Needs Attention
+                    <span class="nav-item-badge" id="alertsBadge">0</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="teacher-profile">
+                <div class="teacher-avatar">T</div>
+                <div class="teacher-info">
+                    <div class="teacher-name">Teacher</div>
+                    <div class="teacher-role">Class Manager</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="main-header">
+            <div>
+                <h1 class="main-title" id="viewTitle">Class Dashboard</h1>
+                <p class="main-subtitle" id="viewSubtitle">Monitor student progress and activity</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" id="exportBtn">Export Report</button>
+                <button class="btn btn-primary" id="addStudentBtn">Add Student</button>
+            </div>
+        </header>
+
+        <!-- Main Body -->
+        <div class="main-body">
+            <!-- Overview View -->
+            <div class="view active" id="overview-view">
+                <!-- Stats Row -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon blue">👥</div>
+                            <span class="stat-card-trend up" id="statStudentsTrend"></span>
+                        </div>
+                        <div class="stat-card-value" id="statStudents">0</div>
+                        <div class="stat-card-label">Total Students</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon green">📖</div>
+                            <span class="stat-card-trend up" id="statActivesTrend"></span>
+                        </div>
+                        <div class="stat-card-value" id="statActives">0</div>
+                        <div class="stat-card-label">Active This Week</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon orange">📚</div>
+                        </div>
+                        <div class="stat-card-value" id="statTexts">0</div>
+                        <div class="stat-card-label">Texts Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon purple">🎯</div>
+                        </div>
+                        <div class="stat-card-value" id="statAvgWcpm">--</div>
+                        <div class="stat-card-label">Avg WCPM</div>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <div>
+                        <!-- Student Performance -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Student Performance</h3>
+                                <div class="filters" id="statusFilters">
+                                    <button class="filter-btn active" data-filter="all">All</button>
+                                    <button class="filter-btn" data-filter="on-track">On Track</button>
+                                    <button class="filter-btn" data-filter="needs-help">Needs Help</button>
+                                    <button class="filter-btn" data-filter="struggling">Struggling</button>
+                                </div>
+                            </div>
+                            <div class="card-body" style="padding: 0;">
+                                <table class="student-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Student</th>
+                                            <th>Level</th>
+                                            <th>WCPM</th>
+                                            <th>Comprehension</th>
+                                            <th>This Week</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="studentTableBody">
+                                        <tr>
+                                            <td colspan="6">
+                                                <div class="empty-state">
+                                                    <p>No students yet. Add students to get started.</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- Alerts -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Needs Attention</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="alerts-list" id="alertsList">
+                                    <div class="empty-state">
+                                        <p>No alerts at this time.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Recent Activity</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="activity-feed" id="activityFeed">
+                                    <div class="empty-state">
+                                        <p>No recent activity.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Students View -->
+            <div class="view" id="students-view">
+                <div class="class-code">
+                    <div>
+                        <div class="class-code-label">Class Join Code</div>
+                        <div class="class-code-value" id="classCode">RP-XXXX</div>
+                    </div>
+                    <button class="btn btn-secondary" id="copyCodeBtn">Copy Code</button>
+                    <button class="btn btn-secondary" id="refreshCodeBtn">Regenerate</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">All Students (<span id="studentCount">0</span>)</h3>
+                        <div class="header-actions">
+                            <button class="btn btn-secondary" id="importCsvBtn">Import CSV</button>
+                            <button class="btn btn-primary" id="addStudentBtn2">Add Student</button>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
+                        <table class="student-table">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Grade</th>
+                                    <th>Current Level</th>
+                                    <th>Streak</th>
+                                    <th>Last Active</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allStudentsTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Detail View -->
+            <div class="view" id="student-detail-view">
+                <button class="btn btn-secondary" id="backToStudentsBtn" style="margin-bottom: var(--space-lg);">
+                    ← Back to Students
+                </button>
+
+                <div class="student-header" id="studentDetailHeader">
+                    <!-- Filled dynamically -->
+                </div>
+
+                <div class="tabs" id="studentTabs">
+                    <button class="tab active" data-tab="progress">Progress</button>
+                    <button class="tab" data-tab="reading">Reading History</button>
+                    <button class="tab" data-tab="writing">Writing</button>
+                    <button class="tab" data-tab="assignments">Assignments</button>
+                </div>
+
+                <div id="studentTabContent">
+                    <!-- Filled dynamically -->
+                </div>
+            </div>
+
+            <!-- Assignments View -->
+            <div class="view" id="assignments-view">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Active Assignments</h3>
+                        <button class="btn btn-primary" id="createAssignmentBtn">Create Assignment</button>
+                    </div>
+                    <div class="card-body" id="assignmentsList">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📝</div>
+                            <div class="empty-state-title">No Assignments Yet</div>
+                            <div class="empty-state-text">Create assignments to assign texts or writing prompts to students.</div>
+                            <button class="btn btn-primary" id="createAssignmentBtn2">Create First Assignment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Class Settings View -->
+            <div class="view" id="class-settings-view">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Class Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label">Class Name</label>
+                            <input type="text" class="form-input" id="className" value="My Class" placeholder="Enter class name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Grade Level</label>
+                            <select class="form-input" id="classGrade">
+                                <option value="4">Grade 4</option>
+                                <option value="5">Grade 5</option>
+                                <option value="6" selected>Grade 6</option>
+                                <option value="7">Grade 7</option>
+                                <option value="8">Grade 8</option>
+                                <option value="9">Grade 9</option>
+                                <option value="10">Grade 10</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Weekly Reading Goal (minutes)</label>
+                            <input type="number" class="form-input" id="weeklyGoal" value="60" min="15" max="300">
+                        </div>
+                        <button class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports View -->
+            <div class="view" id="reports-view">
+                <div class="stats-row">
+                    <div class="card" style="grid-column: span 2;">
+                        <div class="card-header">
+                            <h3 class="card-title">Class Progress Report</h3>
+                            <button class="btn btn-secondary" id="downloadPdfBtn">Download PDF</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" id="classProgressChart">
+                                <p style="color: var(--color-text-muted);">Progress chart will appear here when there is student data</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Skill Breakdown</h3>
+                        </div>
+                        <div class="card-body" id="skillBreakdown">
+                            <div class="skill-progress">
+                                <div class="skill-header">
+                                    <span class="skill-name">Fluency</span>
+                                    <span class="skill-score">-- avg WCPM</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-header">
+                                    <span class="skill-name">Comprehension</span>
+                                    <span class="skill-score">--%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-header">
+                                    <span class="skill-name">Vocabulary</span>
+                                    <span class="skill-score">-- words learned</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Export Options</h3>
+                        </div>
+                        <div class="card-body">
+                            <button class="btn btn-secondary" style="width: 100%; margin-bottom: var(--space-sm);">
+                                Export Class Report (PDF)
+                            </button>
+                            <button class="btn btn-secondary" style="width: 100%; margin-bottom: var(--space-sm);">
+                                Export Student Data (CSV)
+                            </button>
+                            <button class="btn btn-secondary" style="width: 100%;">
+                                Export Reading Logs (CSV)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Student Modal -->
+    <div class="modal-overlay" id="addStudentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Student</h3>
+                <button class="modal-close" id="closeAddStudentModal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Student Name *</label>
+                    <input type="text" class="form-input" id="newStudentName" placeholder="Enter student name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Grade Level</label>
+                    <select class="form-input" id="newStudentGrade">
+                        <option value="4">Grade 4</option>
+                        <option value="5">Grade 5</option>
+                        <option value="6" selected>Grade 6</option>
+                        <option value="7">Grade 7</option>
+                        <option value="8">Grade 8</option>
+                        <option value="9">Grade 9</option>
+                        <option value="10">Grade 10</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Initial Lexile Level (optional)</label>
+                    <input type="number" class="form-input" id="newStudentLexile" placeholder="e.g., 650">
+                    <p class="form-hint">Leave blank to use grade-level default</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notes (optional)</label>
+                    <textarea class="form-input" id="newStudentNotes" placeholder="Any notes about this student..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelAddStudent">Cancel</button>
+                <button class="btn btn-primary" id="confirmAddStudent">Add Student</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Assignment Modal -->
+    <div class="modal-overlay" id="createAssignmentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Create Assignment</h3>
+                <button class="modal-close" id="closeAssignmentModal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Assignment Type</label>
+                    <select class="form-input" id="assignmentType">
+                        <option value="reading">Reading Assignment</option>
+                        <option value="writing">Writing Prompt</option>
+                        <option value="fluency">Fluency Practice</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Title *</label>
+                    <input type="text" class="form-input" id="assignmentTitle" placeholder="Enter assignment title">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Select Text</label>
+                    <select class="form-input" id="assignmentText">
+                        <option value="">Choose a text...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Due Date</label>
+                    <input type="date" class="form-input" id="assignmentDueDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Assign To</label>
+                    <select class="form-input" id="assignmentStudents">
+                        <option value="all">All Students</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Instructions (optional)</label>
+                    <textarea class="form-input" id="assignmentInstructions" placeholder="Add any instructions..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelAssignment">Cancel</button>
+                <button class="btn btn-primary" id="confirmAssignment">Create Assignment</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let students = [];
+        let currentStudentId = null;
+        let currentFilter = 'all';
+        let classCode = localStorage.getItem('rp_class_code') || generateClassCode();
+        let assignments = JSON.parse(localStorage.getItem('rp_assignments') || '[]');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.ReadingPlanetDB) {
+                await window.ReadingPlanetDB.ready;
+            }
+
+            // Generate and store class code
+            localStorage.setItem('rp_class_code', classCode);
+            document.getElementById('classCode').textContent = classCode;
+
+            // Load data
+            await loadStudents();
+            updateDashboard();
+
+            // Set up navigation
+            setupNavigation();
+            setupModals();
+            setupFilters();
+        });
+
+        function generateClassCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = 'RP-';
+            for (let i = 0; i < 4; i++) {
+                code += chars[Math.floor(Math.random() * chars.length)];
+            }
+            return code;
+        }
+
+        async function loadStudents() {
+            if (!window.ReadingPlanetDB) return;
+
+            try {
+                students = await window.ReadingPlanetDB.getStudents();
+
+                // Load dashboard data for each student
+                for (let student of students) {
+                    student.dashboard = await window.ReadingPlanetDB.getStudentDashboard(student.id);
+                }
+            } catch (e) {
+                console.error('Failed to load students:', e);
+            }
+        }
+
+        function setupNavigation() {
+            // Nav items
+            document.querySelectorAll('.nav-item[data-view]').forEach(item => {
+                item.addEventListener('click', () => {
+                    const view = item.dataset.view;
+                    showView(view);
+
+                    // Update active state
+                    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                });
+            });
+
+            // Alerts nav item
+            document.getElementById('alertsNavItem').addEventListener('click', () => {
+                showView('overview');
+                document.querySelector('.nav-item[data-view="overview"]').classList.add('active');
+                // Scroll to alerts
+                document.getElementById('alertsList').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Back button
+            document.getElementById('backToStudentsBtn').addEventListener('click', () => {
+                showView('students');
+            });
+
+            // Student tabs
+            document.querySelectorAll('#studentTabs .tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('#studentTabs .tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    showStudentTab(tab.dataset.tab);
+                });
+            });
+        }
+
+        function showView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+
+            // Show requested view
+            const view = document.getElementById(`${viewId}-view`);
+            if (view) {
+                view.classList.add('active');
+            }
+
+            // Update header
+            const titles = {
+                'overview': ['Class Dashboard', 'Monitor student progress and activity'],
+                'students': ['Students', 'Manage your class roster'],
+                'student-detail': ['Student Details', 'View individual progress'],
+                'assignments': ['Assignments', 'Create and track assignments'],
+                'class-settings': ['Class Settings', 'Configure class options'],
+                'reports': ['Reports', 'View and export class reports']
+            };
+
+            if (titles[viewId]) {
+                document.getElementById('viewTitle').textContent = titles[viewId][0];
+                document.getElementById('viewSubtitle').textContent = titles[viewId][1];
+            }
+
+            // Refresh data for specific views
+            if (viewId === 'students') {
+                renderAllStudentsTable();
+            } else if (viewId === 'assignments') {
+                renderAssignments();
+            }
+        }
+
+        function setupModals() {
+            // Add student modal
+            const addStudentBtns = [
+                document.getElementById('addStudentBtn'),
+                document.getElementById('addStudentBtn2')
+            ];
+
+            addStudentBtns.forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        document.getElementById('addStudentModal').classList.add('active');
+                    });
+                }
+            });
+
+            document.getElementById('closeAddStudentModal').addEventListener('click', () => {
+                document.getElementById('addStudentModal').classList.remove('active');
+            });
+
+            document.getElementById('cancelAddStudent').addEventListener('click', () => {
+                document.getElementById('addStudentModal').classList.remove('active');
+            });
+
+            document.getElementById('confirmAddStudent').addEventListener('click', addStudent);
+
+            // Assignment modal
+            const assignmentBtns = [
+                document.getElementById('createAssignmentBtn'),
+                document.getElementById('createAssignmentBtn2')
+            ];
+
+            assignmentBtns.forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        document.getElementById('createAssignmentModal').classList.add('active');
+                        loadTextsForAssignment();
+                    });
+                }
+            });
+
+            document.getElementById('closeAssignmentModal').addEventListener('click', () => {
+                document.getElementById('createAssignmentModal').classList.remove('active');
+            });
+
+            document.getElementById('cancelAssignment').addEventListener('click', () => {
+                document.getElementById('createAssignmentModal').classList.remove('active');
+            });
+
+            document.getElementById('confirmAssignment').addEventListener('click', createAssignment);
+
+            // Copy class code
+            document.getElementById('copyCodeBtn').addEventListener('click', () => {
+                navigator.clipboard.writeText(classCode);
+                alert('Class code copied to clipboard!');
+            });
+
+            // Regenerate class code
+            document.getElementById('refreshCodeBtn').addEventListener('click', () => {
+                if (confirm('Are you sure you want to regenerate the class code? The old code will no longer work.')) {
+                    classCode = generateClassCode();
+                    localStorage.setItem('rp_class_code', classCode);
+                    document.getElementById('classCode').textContent = classCode;
+                }
+            });
+
+            // Export button
+            document.getElementById('exportBtn').addEventListener('click', exportClassReport);
+        }
+
+        function setupFilters() {
+            document.querySelectorAll('#statusFilters .filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('#statusFilters .filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.filter;
+                    renderStudentTable();
+                });
+            });
+        }
+
+        async function addStudent() {
+            const name = document.getElementById('newStudentName').value.trim();
+            const grade = parseInt(document.getElementById('newStudentGrade').value);
+            const lexile = document.getElementById('newStudentLexile').value;
+            const notes = document.getElementById('newStudentNotes').value;
+
+            if (!name) {
+                alert('Please enter a student name');
+                return;
+            }
+
+            try {
+                const student = await window.ReadingPlanetDB.createStudent(name, {
+                    grade,
+                    initialLexile: lexile ? parseInt(lexile) : null,
+                    notes
+                });
+
+                // Reload
+                await loadStudents();
+                updateDashboard();
+
+                // Close modal
+                document.getElementById('addStudentModal').classList.remove('active');
+                document.getElementById('newStudentName').value = '';
+                document.getElementById('newStudentNotes').value = '';
+                document.getElementById('newStudentLexile').value = '';
+
+            } catch (e) {
+                console.error('Failed to add student:', e);
+                alert('Failed to add student. Please try again.');
+            }
+        }
+
+        function updateDashboard() {
+            // Update stats
+            document.getElementById('statStudents').textContent = students.length;
+            document.getElementById('studentCount').textContent = students.length;
+
+            // Calculate active this week
+            const weekAgo = new Date(Date.now() - 7 * 86400000);
+            const activeStudents = students.filter(s => {
+                const lastActive = s.dashboard?.recentSessions?.[0]?.startedAt;
+                return lastActive && new Date(lastActive) >= weekAgo;
+            });
+            document.getElementById('statActives').textContent = activeStudents.length;
+
+            // Total texts completed
+            const totalTexts = students.reduce((sum, s) => sum + (s.stats?.textsCompleted || 0), 0);
+            document.getElementById('statTexts').textContent = totalTexts;
+
+            // Average WCPM
+            const wcpmStudents = students.filter(s => s.currentWcpm);
+            const avgWcpm = wcpmStudents.length > 0
+                ? Math.round(wcpmStudents.reduce((sum, s) => sum + s.currentWcpm, 0) / wcpmStudents.length)
+                : '--';
+            document.getElementById('statAvgWcpm').textContent = avgWcpm;
+
+            // Render tables
+            renderStudentTable();
+            renderAlerts();
+            renderActivityFeed();
+        }
+
+        function getStudentStatus(student) {
+            const dashboard = student.dashboard;
+            if (!dashboard) return 'inactive';
+
+            // Check for recent activity
+            const weekAgo = new Date(Date.now() - 7 * 86400000);
+            const lastActive = dashboard.recentSessions?.[0]?.startedAt;
+            if (!lastActive || new Date(lastActive) < weekAgo) {
+                return 'inactive';
+            }
+
+            // Check comprehension
+            const compAccuracy = dashboard.comprehensionStats?.accuracy || 0;
+            if (compAccuracy < 50) return 'struggling';
+            if (compAccuracy < 70) return 'needs-help';
+
+            // Check WCPM against target
+            if (student.currentWcpm && student.targetWcpm) {
+                if (student.currentWcpm < student.targetWcpm * 0.7) return 'struggling';
+                if (student.currentWcpm < student.targetWcpm * 0.85) return 'needs-help';
+            }
+
+            return 'on-track';
+        }
+
+        function renderStudentTable() {
+            const tbody = document.getElementById('studentTableBody');
+
+            let filteredStudents = students;
+            if (currentFilter !== 'all') {
+                filteredStudents = students.filter(s => getStudentStatus(s) === currentFilter);
+            }
+
+            if (filteredStudents.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <p>${currentFilter === 'all' ? 'No students yet. Add students to get started.' : 'No students match this filter.'}</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filteredStudents.map(student => {
+                const status = getStudentStatus(student);
+                const statusLabels = {
+                    'on-track': 'On Track',
+                    'needs-help': 'Needs Help',
+                    'struggling': 'Struggling',
+                    'inactive': 'Inactive'
+                };
+
+                const dashboard = student.dashboard;
+                const compAccuracy = dashboard?.comprehensionStats?.accuracy || '--';
+                const thisWeekMinutes = dashboard?.thisWeekMinutes || 0;
+
+                return `
+                    <tr class="student-row" data-student-id="${student.id}">
+                        <td>
+                            <div class="student-cell">
+                                <div class="student-avatar" style="background: ${student.avatarColor || '#3b82f6'}">
+                                    ${student.avatar || student.name.slice(0, 2).toUpperCase()}
+                                </div>
+                                <div class="student-info">
+                                    <div class="student-name">${student.name}</div>
+                                    <div class="student-grade">Grade ${student.grade}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${student.stats?.level || 1}</td>
+                        <td>${student.currentWcpm || '--'}</td>
+                        <td>${typeof compAccuracy === 'number' ? compAccuracy + '%' : compAccuracy}</td>
+                        <td>${thisWeekMinutes} min</td>
+                        <td>
+                            <span class="status-badge ${status}">
+                                <span class="status-dot ${status}"></span>
+                                ${statusLabels[status]}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Add click handlers
+            tbody.querySelectorAll('.student-row').forEach(row => {
+                row.addEventListener('click', () => {
+                    showStudentDetail(row.dataset.studentId);
+                });
+            });
+        }
+
+        function renderAllStudentsTable() {
+            const tbody = document.getElementById('allStudentsTableBody');
+
+            if (students.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <p>No students yet. Add students or share the class code.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = students.map(student => {
+                const lastActive = student.dashboard?.recentSessions?.[0]?.startedAt;
+                const lastActiveStr = lastActive ? formatRelativeTime(lastActive) : 'Never';
+
+                return `
+                    <tr class="student-row" data-student-id="${student.id}">
+                        <td>
+                            <div class="student-cell">
+                                <div class="student-avatar" style="background: ${student.avatarColor || '#3b82f6'}">
+                                    ${student.avatar || student.name.slice(0, 2).toUpperCase()}
+                                </div>
+                                <div class="student-info">
+                                    <div class="student-name">${student.name}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Grade ${student.grade}</td>
+                        <td>${student.currentLexile || 'Not set'}L</td>
+                        <td>${student.stats?.currentStreak || 0} days</td>
+                        <td>${lastActiveStr}</td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 4px 12px; font-size: 0.8125rem;" onclick="event.stopPropagation(); showStudentDetail('${student.id}')">
+                                View
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Add click handlers
+            tbody.querySelectorAll('.student-row').forEach(row => {
+                row.addEventListener('click', () => {
+                    showStudentDetail(row.dataset.studentId);
+                });
+            });
+        }
+
+        function renderAlerts() {
+            const alertsList = document.getElementById('alertsList');
+            const alerts = [];
+
+            students.forEach(student => {
+                const status = getStudentStatus(student);
+                const dashboard = student.dashboard;
+
+                if (status === 'inactive') {
+                    alerts.push({
+                        type: 'warning',
+                        icon: '⚠️',
+                        title: `${student.name} is inactive`,
+                        desc: 'No activity in the past week',
+                        studentId: student.id
+                    });
+                }
+
+                if (status === 'struggling') {
+                    alerts.push({
+                        type: 'danger',
+                        icon: '🚨',
+                        title: `${student.name} is struggling`,
+                        desc: 'Below target on multiple skills',
+                        studentId: student.id
+                    });
+                }
+
+                // Check for declining WCPM
+                const fluencyHistory = dashboard?.fluencyHistory || [];
+                if (fluencyHistory.length >= 2) {
+                    const recent = fluencyHistory[0].wcpm;
+                    const previous = fluencyHistory[1].wcpm;
+                    if (recent < previous - 10) {
+                        alerts.push({
+                            type: 'warning',
+                            icon: '📉',
+                            title: `${student.name}'s fluency is declining`,
+                            desc: `WCPM dropped from ${previous} to ${recent}`,
+                            studentId: student.id
+                        });
+                    }
+                }
+            });
+
+            // Update badge
+            document.getElementById('alertsBadge').textContent = alerts.length;
+
+            if (alerts.length === 0) {
+                alertsList.innerHTML = `
+                    <div class="empty-state" style="padding: var(--space-lg);">
+                        <p style="color: var(--color-text-muted);">No alerts at this time. All students are on track!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            alertsList.innerHTML = alerts.slice(0, 5).map(alert => `
+                <div class="alert-item ${alert.type}" onclick="showStudentDetail('${alert.studentId}')" style="cursor: pointer;">
+                    <span class="alert-icon">${alert.icon}</span>
+                    <div class="alert-content">
+                        <div class="alert-title">${alert.title}</div>
+                        <div class="alert-desc">${alert.desc}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderActivityFeed() {
+            const feed = document.getElementById('activityFeed');
+
+            // Collect all recent activity
+            const activities = [];
+
+            students.forEach(student => {
+                const sessions = student.dashboard?.recentSessions || [];
+                sessions.forEach(session => {
+                    activities.push({
+                        type: 'reading',
+                        student: student.name,
+                        text: session.textTitle || 'a text',
+                        time: session.startedAt,
+                        completed: session.completed
+                    });
+                });
+            });
+
+            // Sort by time
+            activities.sort((a, b) => new Date(b.time) - new Date(a.time));
+
+            if (activities.length === 0) {
+                feed.innerHTML = `
+                    <div class="empty-state" style="padding: var(--space-lg);">
+                        <p style="color: var(--color-text-muted);">No recent activity.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            feed.innerHTML = activities.slice(0, 10).map(activity => `
+                <div class="activity-item">
+                    <div class="activity-icon">${activity.completed ? '✅' : '📖'}</div>
+                    <div class="activity-content">
+                        <div class="activity-text">
+                            <strong>${activity.student}</strong> ${activity.completed ? 'completed' : 'started reading'} "${activity.text}"
+                        </div>
+                        <div class="activity-time">${formatRelativeTime(activity.time)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showStudentDetail(studentId) {
+            currentStudentId = studentId;
+            const student = students.find(s => s.id === studentId);
+            if (!student) return;
+
+            showView('student-detail');
+
+            // Update header
+            document.getElementById('studentDetailHeader').innerHTML = `
+                <div class="student-header-avatar" style="background: ${student.avatarColor || '#3b82f6'}">
+                    ${student.avatar || student.name.slice(0, 2).toUpperCase()}
+                </div>
+                <div class="student-header-info">
+                    <h2>${student.name}</h2>
+                    <div class="student-header-meta">
+                        <span>Grade ${student.grade}</span>
+                        <span>Level ${student.stats?.level || 1}</span>
+                        <span>${student.currentWcpm || '--'} WCPM</span>
+                        <span>${student.stats?.currentStreak || 0} day streak</span>
+                    </div>
+                </div>
+            `;
+
+            // Show progress tab by default
+            document.querySelectorAll('#studentTabs .tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('#studentTabs .tab[data-tab="progress"]').classList.add('active');
+            showStudentTab('progress');
+        }
+
+        function showStudentTab(tabId) {
+            const student = students.find(s => s.id === currentStudentId);
+            if (!student) return;
+
+            const content = document.getElementById('studentTabContent');
+            const dashboard = student.dashboard;
+
+            switch (tabId) {
+                case 'progress':
+                    content.innerHTML = `
+                        <div class="stats-row">
+                            <div class="stat-card">
+                                <div class="stat-card-value">${student.currentLexile || '--'}L</div>
+                                <div class="stat-card-label">Current Lexile</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card-value">${student.currentWcpm || '--'}</div>
+                                <div class="stat-card-label">WCPM</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card-value">${dashboard?.comprehensionStats?.accuracy || '--'}%</div>
+                                <div class="stat-card-label">Comprehension</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card-value">${dashboard?.vocabularyCount || 0}</div>
+                                <div class="stat-card-label">Words Learned</div>
+                            </div>
+                        </div>
+
+                        <div class="two-col">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Comprehension by Skill</h3>
+                                </div>
+                                <div class="card-body">
+                                    ${renderComprehensionSkills(dashboard?.comprehensionStats?.byType || {})}
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Recommendations</h3>
+                                </div>
+                                <div class="card-body">
+                                    ${renderRecommendations(dashboard?.recommendations || [])}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'reading':
+                    const sessions = dashboard?.recentSessions || [];
+                    content.innerHTML = `
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Reading History</h3>
+                            </div>
+                            <div class="card-body">
+                                ${sessions.length === 0 ? '<p style="color: var(--color-text-muted);">No reading sessions yet.</p>' : sessions.map(session => `
+                                    <div class="assignment-card">
+                                        <div class="assignment-icon">${session.completed ? '✅' : '📖'}</div>
+                                        <div class="assignment-info">
+                                            <div class="assignment-title">${session.textTitle || 'Untitled'}</div>
+                                            <div class="assignment-meta">${formatRelativeTime(session.startedAt)} • ${Math.round((session.timeSpentSeconds || 0) / 60)} min</div>
+                                        </div>
+                                        <span class="assignment-status ${session.completed ? 'complete' : 'pending'}">
+                                            ${session.completed ? 'Completed' : 'In Progress'}
+                                        </span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'writing':
+                    const writing = dashboard?.recentWriting || [];
+                    content.innerHTML = `
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Writing Submissions</h3>
+                            </div>
+                            <div class="card-body">
+                                ${writing.length === 0 ? '<p style="color: var(--color-text-muted);">No writing submissions yet.</p>' : writing.map(w => `
+                                    <div class="assignment-card">
+                                        <div class="assignment-icon">✍️</div>
+                                        <div class="assignment-info">
+                                            <div class="assignment-title">${w.promptType || 'Response'}</div>
+                                            <div class="assignment-meta">${formatRelativeTime(w.date)} • ${w.wordCount} words</div>
+                                        </div>
+                                        <span class="assignment-status complete">
+                                            ${w.score ? `Score: ${w.score}` : 'Submitted'}
+                                        </span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'assignments':
+                    const studentAssignments = assignments.filter(a =>
+                        a.students === 'all' || a.students === currentStudentId
+                    );
+                    content.innerHTML = `
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Assigned Work</h3>
+                            </div>
+                            <div class="card-body">
+                                ${studentAssignments.length === 0 ? '<p style="color: var(--color-text-muted);">No assignments for this student.</p>' : studentAssignments.map(a => `
+                                    <div class="assignment-card">
+                                        <div class="assignment-icon">${a.type === 'reading' ? '📖' : a.type === 'writing' ? '✍️' : '🎤'}</div>
+                                        <div class="assignment-info">
+                                            <div class="assignment-title">${a.title}</div>
+                                            <div class="assignment-meta">Due: ${new Date(a.dueDate).toLocaleDateString()}</div>
+                                        </div>
+                                        <span class="assignment-status pending">Pending</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        function renderComprehensionSkills(byType) {
+            const types = ['literal', 'inferential', 'vocabulary', 'main-idea'];
+            const labels = {
+                'literal': 'Literal Comprehension',
+                'inferential': 'Inferential',
+                'vocabulary': 'Vocabulary in Context',
+                'main-idea': 'Main Idea'
+            };
+
+            if (Object.keys(byType).length === 0) {
+                return '<p style="color: var(--color-text-muted);">No comprehension data yet.</p>';
+            }
+
+            return types.filter(t => byType[t]).map(type => {
+                const data = byType[type];
+                return `
+                    <div class="skill-progress">
+                        <div class="skill-header">
+                            <span class="skill-name">${labels[type] || type}</span>
+                            <span class="skill-score">${data.accuracy}%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-fill" style="width: ${data.accuracy}%; background: ${data.accuracy >= 70 ? '#22c55e' : data.accuracy >= 50 ? '#f59e0b' : '#ef4444'}"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderRecommendations(recommendations) {
+            if (recommendations.length === 0) {
+                return '<p style="color: var(--color-text-muted);">No specific recommendations at this time. Keep up the great work!</p>';
+            }
+
+            return recommendations.map(rec => `
+                <div class="alert-item info" style="margin-bottom: var(--space-sm);">
+                    <span class="alert-icon">${rec.type === 'fluency' ? '🎤' : rec.type === 'comprehension' ? '📖' : '🔥'}</span>
+                    <div class="alert-content">
+                        <div class="alert-title">${rec.message}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function loadTextsForAssignment() {
+            try {
+                const response = await fetch('/readingplanet/texts/manifest.json');
+                const manifest = await response.json();
+
+                const select = document.getElementById('assignmentText');
+                select.innerHTML = '<option value="">Choose a text...</option>' +
+                    manifest.texts.map(t => `<option value="${t.id}">${t.title} (${t.lexile}L)</option>`).join('');
+            } catch (e) {
+                console.error('Failed to load texts:', e);
+            }
+        }
+
+        function createAssignment() {
+            const type = document.getElementById('assignmentType').value;
+            const title = document.getElementById('assignmentTitle').value.trim();
+            const textId = document.getElementById('assignmentText').value;
+            const dueDate = document.getElementById('assignmentDueDate').value;
+            const studentsSelect = document.getElementById('assignmentStudents').value;
+            const instructions = document.getElementById('assignmentInstructions').value;
+
+            if (!title) {
+                alert('Please enter an assignment title');
+                return;
+            }
+
+            const assignment = {
+                id: crypto.randomUUID(),
+                type,
+                title,
+                textId,
+                dueDate,
+                students: studentsSelect,
+                instructions,
+                createdAt: new Date().toISOString()
+            };
+
+            assignments.push(assignment);
+            localStorage.setItem('rp_assignments', JSON.stringify(assignments));
+
+            document.getElementById('createAssignmentModal').classList.remove('active');
+            renderAssignments();
+        }
+
+        function renderAssignments() {
+            const container = document.getElementById('assignmentsList');
+
+            if (assignments.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📝</div>
+                        <div class="empty-state-title">No Assignments Yet</div>
+                        <div class="empty-state-text">Create assignments to assign texts or writing prompts to students.</div>
+                        <button class="btn btn-primary" onclick="document.getElementById('createAssignmentModal').classList.add('active'); loadTextsForAssignment();">Create First Assignment</button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = assignments.map(a => `
+                <div class="assignment-card">
+                    <div class="assignment-icon">${a.type === 'reading' ? '📖' : a.type === 'writing' ? '✍️' : '🎤'}</div>
+                    <div class="assignment-info">
+                        <div class="assignment-title">${a.title}</div>
+                        <div class="assignment-meta">Due: ${a.dueDate ? new Date(a.dueDate).toLocaleDateString() : 'No due date'} • ${a.students === 'all' ? 'All students' : '1 student'}</div>
+                    </div>
+                    <button class="btn btn-secondary" style="padding: 4px 12px; font-size: 0.8125rem;">View</button>
+                </div>
+            `).join('');
+        }
+
+        function exportClassReport() {
+            // Generate CSV report
+            const headers = ['Student', 'Grade', 'Level', 'Lexile', 'WCPM', 'Comprehension %', 'Texts Completed', 'Words Read', 'Streak'];
+
+            const rows = students.map(s => {
+                const dashboard = s.dashboard;
+                return [
+                    s.name,
+                    s.grade,
+                    s.stats?.level || 1,
+                    s.currentLexile || '',
+                    s.currentWcpm || '',
+                    dashboard?.comprehensionStats?.accuracy || '',
+                    s.stats?.textsCompleted || 0,
+                    s.stats?.wordsRead || 0,
+                    s.stats?.currentStreak || 0
+                ];
+            });
+
+            const csv = [headers, ...rows].map(row => row.join(',')).join('\n');
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `class-report-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function formatRelativeTime(dateStr) {
+            const date = new Date(dateStr);
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+
+            if (minutes < 1) return 'Just now';
+            if (minutes < 60) return `${minutes}m ago`;
+            if (hours < 24) return `${hours}h ago`;
+            if (days === 1) return 'Yesterday';
+            if (days < 7) return `${days}d ago`;
+            return date.toLocaleDateString();
+        }
+    </script>
+</body>
+</html>

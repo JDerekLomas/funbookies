@@ -194,28 +194,6 @@
             object-fit: cover;
         }
 
-        /* Title overlay - matches reader title page style */
-        .book-title-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 16px;
-            background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
-        }
-
-        .book-title {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: white;
-            text-shadow:
-                1px 1px 0 rgba(0,0,0,0.8),
-                2px 2px 4px rgba(0,0,0,0.4);
-            line-height: 1.25;
-            text-align: center;
-        }
-
         /* Empty state */
         .empty-band {
             text-align: center;
@@ -385,13 +363,11 @@
             }
 
             grid.innerHTML = books.map(book => {
-                const coverImg = book.coverImg || `/images/covers/${book.slug}.png`;
+                // Use thumbnail (has title baked in) instead of cover
+                const thumbImg = `/images/thumbnails/${book.slug}.png`;
                 return `
                     <a class="book-card" href="/reader.html?book=${book.slug}">
-                        <img src="${coverImg}" alt="${book.title}" loading="lazy">
-                        <div class="book-title-overlay">
-                            <div class="book-title">${book.title}</div>
-                        </div>
+                        <img src="${thumbImg}" alt="${book.title}" loading="lazy">
                     </a>
                 `;
             }).join('');

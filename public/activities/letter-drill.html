@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Letter Sound Drill - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-sm);
+    }
+
+    .game-header h1 { font-size: 1.4rem; }
+
+    .stats-row {
+      display: flex;
+      gap: 12px;
+      font-size: 0.85rem;
+    }
+
+    .stat {
+      background: var(--color-cream);
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
+    .stat-value { font-weight: 700; color: var(--color-sage-dark); }
+
+    .setup-panel {
+      background: var(--color-cream);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+
+    .setup-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .setup-row:last-child { margin-bottom: 0; }
+
+    .setup-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      min-width: 60px;
+    }
+
+    .setup-row .chip { font-size: 0.85rem; padding: 6px 12px; }
+
+    .drill-area {
+      text-align: center;
+      padding: var(--space-lg) 0;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .letter-card {
+      width: 200px;
+      height: 220px;
+      background: white;
+      border: 4px solid var(--color-sage);
+      border-radius: var(--border-radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+
+    .letter-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+
+    .letter-card:active {
+      transform: scale(0.98);
+    }
+
+    .letter-card.playing {
+      border-color: var(--color-terracotta);
+      background: var(--color-terracotta-light);
+    }
+
+    .letter-card.correct {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .letter-card.incorrect {
+      border-color: #e74c3c;
+      background: #fdeaea;
+    }
+
+    .letter-display {
+      font-family: var(--font-display);
+      font-size: 8rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .letter-display.lowercase {
+      text-transform: lowercase;
+    }
+
+    .prompt-text {
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-hear {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-check {
+      background: var(--color-sage);
+      color: white;
+    }
+
+    .btn-miss {
+      background: var(--color-terracotta);
+      color: white;
+    }
+
+    .progress-bar {
+      width: 100%;
+      max-width: 300px;
+      height: 8px;
+      background: var(--color-border);
+      border-radius: 4px;
+      margin: var(--space-md) auto;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--color-sage);
+      transition: width 0.3s;
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Results screen */
+    .results {
+      text-align: center;
+      padding: var(--space-lg);
+    }
+
+    .results h2 {
+      font-size: 1.8rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .results-stats {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: var(--space-lg);
+    }
+
+    .result-stat {
+      text-align: center;
+    }
+
+    .result-stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--color-sage-dark);
+    }
+
+    .result-stat-label {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    .missed-letters {
+      background: var(--color-cream);
+      padding: var(--space-md);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--space-md);
+    }
+
+    .missed-letters h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: var(--color-terracotta);
+    }
+
+    .missed-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .missed-letter {
+      width: 50px;
+      height: 50px;
+      background: white;
+      border: 2px solid var(--color-terracotta);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .missed-letter:hover {
+      background: var(--color-terracotta-light);
+    }
+
+    /* Start screen */
+    .start-screen {
+      text-align: center;
+      padding: var(--space-xl);
+    }
+
+    .start-screen h2 {
+      font-size: 1.5rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .start-screen p {
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    .btn-start {
+      font-size: 1.2rem;
+      padding: 16px 48px;
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
+
+    /* Auto mode indicator */
+    .auto-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-sage-light);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      color: var(--color-sage-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .auto-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--color-sage);
+      border-radius: 50%;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .case-toggle {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      background: var(--color-cream);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .case-toggle:hover {
+      background: var(--color-sage-light);
+    }
+
+    @media (max-width: 480px) {
+      .letter-card { width: 160px; height: 180px; }
+      .letter-display { font-size: 6rem; }
+      .btn-hear { width: 60px; height: 60px; font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Letter Sound Drill <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div class="stats-row">
+          <div class="stat"><span class="stat-value" id="correctCount">0</span> correct</div>
+          <div class="stat"><span class="stat-value" id="totalCount">0</span> total</div>
+        </div>
+      </div>
+
+      <!-- Setup Panel -->
+      <div class="setup-panel" id="setupPanel">
+        <div class="setup-row">
+          <span class="setup-label">Mode:</span>
+          <button class="chip active" data-mode="sounds">Sounds</button>
+          <button class="chip" data-mode="names">Names</button>
+        </div>
+        <div class="setup-row">
+          <span class="setup-label">Set:</span>
+          <button class="chip active" data-set="1">Set 1</button>
+          <button class="chip" data-set="2">Set 2</button>
+          <button class="chip" data-set="3">Set 3</button>
+          <button class="chip" data-set="all">All</button>
+        </div>
+        <div class="setup-row">
+          <span class="setup-label">Speed:</span>
+          <button class="chip" data-speed="slow">Slow</button>
+          <button class="chip active" data-speed="medium">Medium</button>
+          <button class="chip" data-speed="fast">Fast</button>
+        </div>
+        <div class="setup-row">
+          <span class="setup-label">Auto:</span>
+          <button class="chip" data-auto="off">Off</button>
+          <button class="chip active" data-auto="on">On</button>
+        </div>
+      </div>
+
+      <!-- Start Screen -->
+      <div class="start-screen" id="startScreen">
+        <h2>Ready to practice?</h2>
+        <p>Tap the letter card to hear the sound.<br>Mark each one as correct or missed.</p>
+        <button class="btn btn-primary btn-start" onclick="startDrill()">Start Drill</button>
+      </div>
+
+      <!-- Drill Area -->
+      <div class="drill-area hidden" id="drillArea">
+        <div class="auto-indicator hidden" id="autoIndicator">
+          <span class="auto-dot"></span> Auto-advance
+        </div>
+
+        <div class="prompt-text" id="promptText">What sound does this letter make?</div>
+
+        <div class="letter-card" id="letterCard" onclick="playSound()">
+          <div class="letter-display" id="letterDisplay">A</div>
+        </div>
+
+        <button class="case-toggle" id="caseToggle" onclick="toggleCase()">Show lowercase</button>
+
+        <div class="controls" id="manualControls">
+          <button class="btn btn-hear btn-secondary" onclick="playSound()" title="Hear again">&#x1F50A;</button>
+          <button class="btn btn-primary btn-check" onclick="markCorrect()">&#x2714; Got It</button>
+          <button class="btn btn-miss" onclick="markMissed()">&#x2718; Missed</button>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text"><span id="currentIndex">1</span> of <span id="totalLetters">10</span></div>
+      </div>
+
+      <!-- Results Screen -->
+      <div class="results hidden" id="resultsScreen">
+        <h2 id="resultsTitle">Great job!</h2>
+
+        <div class="results-stats">
+          <div class="result-stat">
+            <div class="result-stat-value" id="resultCorrect">0</div>
+            <div class="result-stat-label">Correct</div>
+          </div>
+          <div class="result-stat">
+            <div class="result-stat-value" id="resultAccuracy">0%</div>
+            <div class="result-stat-label">Accuracy</div>
+          </div>
+          <div class="result-stat">
+            <div class="result-stat-value" id="resultTime">0s</div>
+            <div class="result-stat-label">Time</div>
+          </div>
+        </div>
+
+        <div class="missed-letters hidden" id="missedSection">
+          <h3>Practice these:</h3>
+          <div class="missed-grid" id="missedGrid"></div>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-secondary" onclick="reviewMissed()" id="reviewBtn">Review Missed</button>
+          <button class="btn btn-primary" onclick="restartDrill()">Drill Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // DI-recommended teaching sequence
+    const letterSets = {
+      1: ['a', 'm', 't', 's', 'i', 'f', 'd', 'r', 'o', 'g'],
+      2: ['l', 'h', 'u', 'c', 'b', 'n', 'k', 'v', 'e', 'w'],
+      3: ['j', 'p', 'y', 'x', 'q', 'z'],
+      all: 'abcdefghijklmnopqrstuvwxyz'.split('')
+    };
+
+    const speedSettings = {
+      slow: 4000,
+      medium: 2500,
+      fast: 1500
+    };
+
+    // State
+    let currentMode = 'sounds';
+    let currentSet = '1';
+    let currentSpeed = 'medium';
+    let autoAdvance = true;
+    let showUppercase = true;
+
+    let letters = [];
+    let currentIndex = 0;
+    let correctCount = 0;
+    let missedLetters = [];
+    let startTime = null;
+    let autoTimer = null;
+    let currentAudio = null;
+    let currentStudent = null;
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupButtons();
+
+      // Student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is practicing letters?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+        }
+      }
+    });
+
+    function setupButtons() {
+      // Mode buttons
+      document.querySelectorAll('[data-mode]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('[data-mode]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentMode = btn.dataset.mode;
+          updatePromptText();
+        });
+      });
+
+      // Set buttons
+      document.querySelectorAll('[data-set]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('[data-set]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentSet = btn.dataset.set;
+        });
+      });
+
+      // Speed buttons
+      document.querySelectorAll('[data-speed]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('[data-speed]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentSpeed = btn.dataset.speed;
+        });
+      });
+
+      // Auto buttons
+      document.querySelectorAll('[data-auto]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('[data-auto]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          autoAdvance = btn.dataset.auto === 'on';
+          updateAutoUI();
+        });
+      });
+    }
+
+    function updatePromptText() {
+      const prompt = document.getElementById('promptText');
+      if (currentMode === 'sounds') {
+        prompt.textContent = 'What sound does this letter make?';
+      } else {
+        prompt.textContent = 'What is this letter called?';
+      }
+    }
+
+    function updateAutoUI() {
+      const indicator = document.getElementById('autoIndicator');
+      const manualControls = document.getElementById('manualControls');
+
+      if (autoAdvance) {
+        indicator.classList.remove('hidden');
+      } else {
+        indicator.classList.add('hidden');
+      }
+    }
+
+    function startDrill() {
+      // Setup letters
+      letters = [...letterSets[currentSet]];
+      // Shuffle
+      for (let i = letters.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [letters[i], letters[j]] = [letters[j], letters[i]];
+      }
+
+      currentIndex = 0;
+      correctCount = 0;
+      missedLetters = [];
+      startTime = Date.now();
+
+      // Update UI
+      document.getElementById('setupPanel').classList.add('hidden');
+      document.getElementById('startScreen').classList.add('hidden');
+      document.getElementById('drillArea').classList.remove('hidden');
+      document.getElementById('resultsScreen').classList.add('hidden');
+
+      document.getElementById('totalLetters').textContent = letters.length;
+      updateAutoUI();
+      updatePromptText();
+
+      showLetter();
+    }
+
+    function showLetter() {
+      if (currentIndex >= letters.length) {
+        endDrill();
+        return;
+      }
+
+      const letter = letters[currentIndex];
+      const display = document.getElementById('letterDisplay');
+      display.textContent = showUppercase ? letter.toUpperCase() : letter;
+      display.className = 'letter-display' + (showUppercase ? '' : ' lowercase');
+
+      document.getElementById('letterCard').className = 'letter-card';
+      document.getElementById('currentIndex').textContent = currentIndex + 1;
+      document.getElementById('progressFill').style.width = ((currentIndex / letters.length) * 100) + '%';
+
+      // Auto-play sound
+      setTimeout(() => playSound(), 300);
+
+      // Auto-advance timer
+      if (autoAdvance) {
+        clearTimeout(autoTimer);
+        autoTimer = setTimeout(() => {
+          markCorrect();
+        }, speedSettings[currentSpeed]);
+      }
+    }
+
+    function playSound() {
+      const letter = letters[currentIndex];
+      const card = document.getElementById('letterCard');
+
+      // Stop previous audio
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+
+      card.classList.add('playing');
+
+      const type = currentMode === 'sounds' ? 'sounds' : 'names';
+      currentAudio = new Audio(`/activities/letter-sounds/openai-us/${type}/${letter}.mp3`);
+      currentAudio.play().catch(e => console.error('Audio error:', e));
+      currentAudio.onended = () => {
+        card.classList.remove('playing');
+      };
+    }
+
+    function markCorrect() {
+      clearTimeout(autoTimer);
+
+      const card = document.getElementById('letterCard');
+      card.classList.remove('playing');
+      card.classList.add('correct');
+
+      correctCount++;
+      document.getElementById('correctCount').textContent = correctCount;
+      document.getElementById('totalCount').textContent = currentIndex + 1;
+
+      setTimeout(() => {
+        currentIndex++;
+        showLetter();
+      }, 300);
+    }
+
+    function markMissed() {
+      clearTimeout(autoTimer);
+
+      const letter = letters[currentIndex];
+      const card = document.getElementById('letterCard');
+      card.classList.remove('playing');
+      card.classList.add('incorrect');
+
+      missedLetters.push(letter);
+      document.getElementById('totalCount').textContent = currentIndex + 1;
+
+      // Play correct sound as feedback
+      playSound();
+
+      setTimeout(() => {
+        currentIndex++;
+        showLetter();
+      }, 800);
+    }
+
+    function toggleCase() {
+      showUppercase = !showUppercase;
+      const btn = document.getElementById('caseToggle');
+      btn.textContent = showUppercase ? 'Show lowercase' : 'Show uppercase';
+
+      const letter = letters[currentIndex];
+      const display = document.getElementById('letterDisplay');
+      display.textContent = showUppercase ? letter.toUpperCase() : letter;
+      display.className = 'letter-display' + (showUppercase ? '' : ' lowercase');
+    }
+
+    function endDrill() {
+      clearTimeout(autoTimer);
+      const elapsed = Math.round((Date.now() - startTime) / 1000);
+      const accuracy = Math.round((correctCount / letters.length) * 100);
+
+      // Update results
+      document.getElementById('resultCorrect').textContent = correctCount + '/' + letters.length;
+      document.getElementById('resultAccuracy').textContent = accuracy + '%';
+      document.getElementById('resultTime').textContent = elapsed + 's';
+
+      // Title based on performance
+      const title = document.getElementById('resultsTitle');
+      if (accuracy >= 90) {
+        title.textContent = 'Excellent!';
+      } else if (accuracy >= 70) {
+        title.textContent = 'Good job!';
+      } else {
+        title.textContent = 'Keep practicing!';
+      }
+
+      // Missed letters
+      const missedSection = document.getElementById('missedSection');
+      const missedGrid = document.getElementById('missedGrid');
+      const reviewBtn = document.getElementById('reviewBtn');
+
+      if (missedLetters.length > 0) {
+        missedSection.classList.remove('hidden');
+        reviewBtn.classList.remove('hidden');
+        missedGrid.innerHTML = '';
+
+        missedLetters.forEach(letter => {
+          const div = document.createElement('div');
+          div.className = 'missed-letter';
+          div.textContent = letter.toUpperCase();
+          div.onclick = () => playMissedSound(letter);
+          missedGrid.appendChild(div);
+        });
+      } else {
+        missedSection.classList.add('hidden');
+        reviewBtn.classList.add('hidden');
+      }
+
+      // Save activity
+      saveActivity(accuracy, elapsed);
+
+      // Show results
+      document.getElementById('drillArea').classList.add('hidden');
+      document.getElementById('resultsScreen').classList.remove('hidden');
+    }
+
+    function playMissedSound(letter) {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+      const type = currentMode === 'sounds' ? 'sounds' : 'names';
+      currentAudio = new Audio(`/activities/letter-sounds/openai-us/${type}/${letter}.mp3`);
+      currentAudio.play();
+    }
+
+    function reviewMissed() {
+      if (missedLetters.length === 0) return;
+
+      // Set letters to just the missed ones
+      letters = [...missedLetters];
+      // Shuffle
+      for (let i = letters.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [letters[i], letters[j]] = [letters[j], letters[i]];
+      }
+
+      currentIndex = 0;
+      correctCount = 0;
+      missedLetters = [];
+      startTime = Date.now();
+
+      document.getElementById('totalLetters').textContent = letters.length;
+      document.getElementById('resultsScreen').classList.add('hidden');
+      document.getElementById('drillArea').classList.remove('hidden');
+
+      showLetter();
+    }
+
+    function restartDrill() {
+      document.getElementById('resultsScreen').classList.add('hidden');
+      document.getElementById('setupPanel').classList.remove('hidden');
+      document.getElementById('startScreen').classList.remove('hidden');
+      document.getElementById('correctCount').textContent = '0';
+      document.getElementById('totalCount').textContent = '0';
+    }
+
+    async function saveActivity(accuracy, duration) {
+      if (!currentStudent || !window.FunBookiesDB) return;
+
+      try {
+        await window.FunBookiesDB.saveActivity({
+          studentId: currentStudent.id,
+          type: 'letter-drill',
+          level: 'A2',
+          score: correctCount,
+          total: letters.length,
+          duration: duration,
+          details: {
+            mode: currentMode,
+            set: currentSet,
+            speed: currentSpeed,
+            accuracy: accuracy,
+            missed: missedLetters
+          }
+        });
+      } catch (e) {
+        console.error('Failed to save:', e);
+      }
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (document.getElementById('drillArea').classList.contains('hidden')) return;
+
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        playSound();
+      } else if (e.key === 'ArrowRight' || e.key === 'g') {
+        markCorrect();
+      } else if (e.key === 'ArrowLeft' || e.key === 'm') {
+        markMissed();
+      }
+    });
+  </script>
+</body>
+</html>

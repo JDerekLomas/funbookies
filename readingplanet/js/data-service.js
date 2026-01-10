@@ -6,7 +6,7 @@
  */
 
 const DB_NAME = 'readingplanet';
-const DB_VERSION = 1;
+const DB_VERSION = 2; // Bumped for standards mastery tracking
 
 // Lexile bands by grade level (approximate)
 const LEXILE_BANDS = {
@@ -130,6 +130,15 @@ class ReadingPlanetDB {
                 // Settings store
                 if (!db.objectStoreNames.contains('settings')) {
                     db.createObjectStore('settings', { keyPath: 'key' });
+                }
+
+                // Standards mastery store - tracks attempts per standard
+                if (!db.objectStoreNames.contains('standards_mastery')) {
+                    const standardsStore = db.createObjectStore('standards_mastery', { keyPath: 'id' });
+                    standardsStore.createIndex('studentId', 'studentId', { unique: false });
+                    standardsStore.createIndex('standardId', 'standardId', { unique: false });
+                    standardsStore.createIndex('studentStandard', ['studentId', 'standardId'], { unique: false });
+                    standardsStore.createIndex('date', 'date', { unique: false });
                 }
             };
         });
@@ -293,7 +302,7 @@ class ReadingPlanetDB {
     async deleteStudent(id) {
         await this.ready;
 
-        const stores = ['students', 'reading_sessions', 'fluency', 'vocabulary', 'writing', 'comprehension', 'achievements'];
+        const stores = ['students', 'reading_sessions', 'fluency', 'vocabulary', 'writing', 'comprehension', 'achievements', 'standards_mastery'];
 
         for (const storeName of stores) {
             const tx = this.db.transaction(storeName, 'readwrite');
@@ -764,6 +773,361 @@ class ReadingPlanetDB {
     }
 
     // ============================================
+    // STANDARDS MASTERY OPERATIONS
+    // ============================================
+
+    /**
+     * Record a standards-based question attempt
+     * Uses Max Value Grading - only the highest score matters
+     */
+    async recordStandardAttempt(data) {
+        await this.ready;
+
+        const attempt = {
+            id: crypto.randomUUID(),
+            studentId: data.studentId,
+            standardId: data.standardId, // e.g., "CCSS.ELA-LITERACY.RI.6.1"
+            textId: data.textId || null,
+            questionId: data.questionId || null,
+            skill: data.skill || null, // e.g., "inference", "main-idea"
+            correct: data.correct,
+            score: data.score || (data.correct ? 100 : 0), // 0-100 score
+            date: new Date().toISOString(),
+            responseTime: data.responseTime || null, // ms
+        };
+
+        return new Promise((resolve, reject) => {
+            const tx = this.db.transaction('standards_mastery', 'readwrite');
+            const store = tx.objectStore('standards_mastery');
+            const request = store.add(attempt);
+
+            request.onsuccess = () => resolve(attempt);
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    /**
+     * Get all attempts for a student on a specific standard
+     */
+    async getStandardAttempts(studentId, standardId) {
+        await this.ready;
+
+        return new Promise((resolve, reject) => {
+            const tx = this.db.transaction('standards_mastery', 'readonly');
+            const store = tx.objectStore('standards_mastery');
+            const index = store.index('studentStandard');
+            const request = index.getAll([studentId, standardId]);
+
+            request.onsuccess = () => {
+                const attempts = request.result;
+                attempts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                resolve(attempts);
+            };
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    /**
+     * Calculate mastery for a single standard using Max Value Grading
+     * Returns the highest score ever achieved (not average)
+     */
+    async getStandardMastery(studentId, standardId) {
+        const attempts = await this.getStandardAttempts(studentId, standardId);
+
+        if (attempts.length === 0) {
+            return {
+                standardId,
+                mastery: null, // Not yet attempted
+                attempts: 0,
+                lastAttempt: null,
+                highestScore: null,
+                trend: null,
+            };
+        }
+
+        // Max Value Grading: highest score = mastery level
+        const highestScore = Math.max(...attempts.map(a => a.score));
+
+        // Calculate trend (last 5 vs previous 5)
+        let trend = null;
+        if (attempts.length >= 3) {
+            const recent = attempts.slice(0, Math.min(5, attempts.length));
+            const older = attempts.slice(5, 10);
+            if (older.length > 0) {
+                const recentAvg = recent.reduce((sum, a) => sum + a.score, 0) / recent.length;
+                const olderAvg = older.reduce((sum, a) => sum + a.score, 0) / older.length;
+                trend = recentAvg - olderAvg; // Positive = improving
+            }
+        }
+
+        return {
+            standardId,
+            mastery: highestScore,
+            attempts: attempts.length,
+            lastAttempt: attempts[0].date,
+            highestScore,
+            correctCount: attempts.filter(a => a.correct).length,
+            accuracy: Math.round((attempts.filter(a => a.correct).length / attempts.length) * 100),
+            trend,
+        };
+    }
+
+    /**
+     * Get mastery for all standards a student has attempted
+     */
+    async getAllStandardsMastery(studentId) {
+        await this.ready;
+
+        return new Promise(async (resolve, reject) => {
+            const tx = this.db.transaction('standards_mastery', 'readonly');
+            const store = tx.objectStore('standards_mastery');
+            const index = store.index('studentId');
+            const request = index.getAll(studentId);
+
+            request.onsuccess = async () => {
+                const attempts = request.result;
+
+                // Group by standard
+                const byStandard = {};
+                attempts.forEach(attempt => {
+                    if (!byStandard[attempt.standardId]) {
+                        byStandard[attempt.standardId] = [];
+                    }
+                    byStandard[attempt.standardId].push(attempt);
+                });
+
+                // Calculate mastery for each standard
+                const masteryData = {};
+                for (const [standardId, standardAttempts] of Object.entries(byStandard)) {
+                    const highestScore = Math.max(...standardAttempts.map(a => a.score));
+                    const correctCount = standardAttempts.filter(a => a.correct).length;
+
+                    masteryData[standardId] = {
+                        standardId,
+                        mastery: highestScore,
+                        attempts: standardAttempts.length,
+                        correctCount,
+                        accuracy: Math.round((correctCount / standardAttempts.length) * 100),
+                        lastAttempt: standardAttempts.sort((a, b) =>
+                            new Date(b.date) - new Date(a.date))[0].date,
+                    };
+                }
+
+                resolve(masteryData);
+            };
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    /**
+     * Get mastery grouped by domain (RL, RI, RF, L, W)
+     */
+    async getMasteryByDomain(studentId) {
+        const allMastery = await this.getAllStandardsMastery(studentId);
+
+        const byDomain = {
+            RL: { name: 'Reading: Literature', standards: [], avgMastery: null },
+            RI: { name: 'Reading: Informational Text', standards: [], avgMastery: null },
+            RF: { name: 'Reading: Foundational Skills', standards: [], avgMastery: null },
+            L: { name: 'Language', standards: [], avgMastery: null },
+            W: { name: 'Writing', standards: [], avgMastery: null },
+        };
+
+        // Group standards by domain
+        Object.entries(allMastery).forEach(([standardId, data]) => {
+            const domain = standardId.split('.')[3]; // e.g., "RL" from "CCSS.ELA-LITERACY.RL.6.1"
+            if (byDomain[domain]) {
+                byDomain[domain].standards.push(data);
+            }
+        });
+
+        // Calculate average mastery per domain
+        Object.values(byDomain).forEach(domain => {
+            if (domain.standards.length > 0) {
+                domain.avgMastery = Math.round(
+                    domain.standards.reduce((sum, s) => sum + s.mastery, 0) / domain.standards.length
+                );
+            }
+        });
+
+        return byDomain;
+    }
+
+    /**
+     * Get mastery grouped by grade level
+     */
+    async getMasteryByGrade(studentId) {
+        const allMastery = await this.getAllStandardsMastery(studentId);
+
+        const byGrade = {};
+
+        Object.entries(allMastery).forEach(([standardId, data]) => {
+            // Extract grade from standard ID: "CCSS.ELA-LITERACY.RL.6.1" -> "6"
+            const parts = standardId.split('.');
+            const grade = parts[4]; // The grade level
+
+            if (!byGrade[grade]) {
+                byGrade[grade] = { standards: [], avgMastery: null };
+            }
+            byGrade[grade].standards.push(data);
+        });
+
+        // Calculate average mastery per grade
+        Object.values(byGrade).forEach(gradeData => {
+            if (gradeData.standards.length > 0) {
+                gradeData.avgMastery = Math.round(
+                    gradeData.standards.reduce((sum, s) => sum + s.mastery, 0) / gradeData.standards.length
+                );
+            }
+        });
+
+        return byGrade;
+    }
+
+    /**
+     * Get standards that need practice (mastery below threshold)
+     */
+    async getStandardsNeedingPractice(studentId, threshold = 70) {
+        const allMastery = await this.getAllStandardsMastery(studentId);
+
+        return Object.values(allMastery)
+            .filter(s => s.mastery < threshold)
+            .sort((a, b) => a.mastery - b.mastery); // Lowest mastery first
+    }
+
+    /**
+     * Get standards at mastery (above threshold)
+     */
+    async getMasteredStandards(studentId, threshold = 80) {
+        const allMastery = await this.getAllStandardsMastery(studentId);
+
+        return Object.values(allMastery)
+            .filter(s => s.mastery >= threshold)
+            .sort((a, b) => b.mastery - a.mastery); // Highest mastery first
+    }
+
+    /**
+     * Get skill gaps - skills with low accuracy
+     */
+    async getSkillGaps(studentId) {
+        await this.ready;
+
+        return new Promise(async (resolve, reject) => {
+            const tx = this.db.transaction('standards_mastery', 'readonly');
+            const store = tx.objectStore('standards_mastery');
+            const index = store.index('studentId');
+            const request = index.getAll(studentId);
+
+            request.onsuccess = () => {
+                const attempts = request.result;
+
+                // Group by skill
+                const bySkill = {};
+                attempts.forEach(attempt => {
+                    if (!attempt.skill) return;
+                    if (!bySkill[attempt.skill]) {
+                        bySkill[attempt.skill] = { correct: 0, total: 0 };
+                    }
+                    bySkill[attempt.skill].total++;
+                    if (attempt.correct) bySkill[attempt.skill].correct++;
+                });
+
+                // Calculate accuracy and find gaps
+                const skillData = Object.entries(bySkill).map(([skill, data]) => ({
+                    skill,
+                    accuracy: Math.round((data.correct / data.total) * 100),
+                    attempts: data.total,
+                    correct: data.correct,
+                }));
+
+                // Sort by accuracy (lowest first) to show gaps
+                skillData.sort((a, b) => a.accuracy - b.accuracy);
+
+                resolve(skillData);
+            };
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    /**
+     * Get standards mastery summary for dashboard
+     */
+    async getStandardsSummary(studentId) {
+        const [allMastery, byDomain, skillGaps] = await Promise.all([
+            this.getAllStandardsMastery(studentId),
+            this.getMasteryByDomain(studentId),
+            this.getSkillGaps(studentId),
+        ]);
+
+        const standards = Object.values(allMastery);
+        const totalStandards = standards.length;
+
+        if (totalStandards === 0) {
+            return {
+                totalAttempted: 0,
+                mastered: 0,
+                approaching: 0,
+                needsPractice: 0,
+                overallMastery: null,
+                byDomain,
+                topSkillGaps: [],
+                recentProgress: [],
+            };
+        }
+
+        // Categorize standards
+        const mastered = standards.filter(s => s.mastery >= 80).length;
+        const approaching = standards.filter(s => s.mastery >= 60 && s.mastery < 80).length;
+        const needsPractice = standards.filter(s => s.mastery < 60).length;
+
+        // Overall mastery (average of all standards' max scores)
+        const overallMastery = Math.round(
+            standards.reduce((sum, s) => sum + s.mastery, 0) / totalStandards
+        );
+
+        return {
+            totalAttempted: totalStandards,
+            mastered,
+            approaching,
+            needsPractice,
+            overallMastery,
+            byDomain,
+            topSkillGaps: skillGaps.slice(0, 5), // Top 5 skill gaps
+            masteryDistribution: {
+                excellent: standards.filter(s => s.mastery >= 90).length,
+                good: standards.filter(s => s.mastery >= 70 && s.mastery < 90).length,
+                fair: standards.filter(s => s.mastery >= 50 && s.mastery < 70).length,
+                needsWork: standards.filter(s => s.mastery < 50).length,
+            },
+        };
+    }
+
+    /**
+     * Enhanced comprehension check that records standards data
+     */
+    async saveComprehensionCheckWithStandards(data) {
+        // Save the regular comprehension check
+        const check = await this.saveComprehensionCheck(data);
+
+        // If standards are provided, record standards attempts
+        if (data.standards && data.standards.length > 0) {
+            for (const standardId of data.standards) {
+                await this.recordStandardAttempt({
+                    studentId: data.studentId,
+                    standardId,
+                    textId: data.textId,
+                    questionId: data.questionId,
+                    skill: data.skill || data.questionType,
+                    correct: data.correct,
+                    score: data.correct ? 100 : 0,
+                });
+            }
+        }
+
+        return check;
+    }
+
+    // ============================================
     // WRITING OPERATIONS
     // ============================================
 
@@ -1043,7 +1407,8 @@ class ReadingPlanetDB {
             vocabulary,
             comprehension,
             writing,
-            achievements
+            achievements,
+            standardsSummary
         ] = await Promise.all([
             this.getStudent(studentId),
             this.getReadingSessions(studentId, { limit: 50 }),
@@ -1052,6 +1417,7 @@ class ReadingPlanetDB {
             this.getComprehensionStats(studentId),
             this.getWriting(studentId, { limit: 10, excludeDrafts: true }),
             this.getAchievements(studentId),
+            this.getStandardsSummary(studentId),
         ]);
 
         if (!student) return null;
@@ -1101,15 +1467,18 @@ class ReadingPlanetDB {
             // Achievements
             achievements,
 
+            // Standards Mastery
+            standardsSummary,
+
             // Recommendations
-            recommendations: this.generateRecommendations(student, comprehension, fluency),
+            recommendations: this.generateRecommendations(student, comprehension, fluency, standardsSummary),
         };
     }
 
     /**
      * Generate recommendations based on student data
      */
-    generateRecommendations(student, comprehension, fluency) {
+    generateRecommendations(student, comprehension, fluency, standardsSummary) {
         const recommendations = [];
 
         // Check fluency
@@ -1133,6 +1502,32 @@ class ReadingPlanetDB {
                         action: `/skills/${type}`,
                     });
                 }
+            });
+        }
+
+        // Check standards-based skill gaps
+        if (standardsSummary?.topSkillGaps) {
+            standardsSummary.topSkillGaps.slice(0, 3).forEach(gap => {
+                if (gap.accuracy < 60) {
+                    recommendations.push({
+                        type: 'standards',
+                        priority: 'medium',
+                        message: `Practice ${gap.skill.replace('-', ' ')} skills`,
+                        action: `/skills/${gap.skill}`,
+                        skill: gap.skill,
+                        currentAccuracy: gap.accuracy,
+                    });
+                }
+            });
+        }
+
+        // Check for standards needing practice
+        if (standardsSummary?.needsPractice > 0) {
+            recommendations.push({
+                type: 'standards',
+                priority: 'medium',
+                message: `${standardsSummary.needsPractice} standards need more practice`,
+                action: '/standards',
             });
         }
 

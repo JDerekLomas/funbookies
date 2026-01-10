@@ -27,6 +27,11 @@
       "enum": ["sports", "science", "technology", "music", "gaming", "history", "biography", "fiction", "mystery", "adventure", "fantasy", "realistic-fiction"],
       "description": "Genre/topic category"
     },
+    "gradeLevel": {
+      "type": "string",
+      "enum": ["3", "4", "5", "6", "7", "8", "9-10"],
+      "description": "Target grade level for standards alignment"
+    },
     "lexile": {
       "type": "integer",
       "minimum": 200,
@@ -53,6 +58,13 @@
       "type": "string",
       "description": "Brief summary for library display"
     },
+    "standards": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of CCSS standard IDs this text addresses (e.g., CCSS.ELA-LITERACY.RI.6.1)"
+    },
     "vocabulary": {
       "type": "array",
       "items": {
@@ -60,7 +72,12 @@
         "properties": {
           "word": { "type": "string" },
           "definition": { "type": "string" },
-          "sentence": { "type": "string" }
+          "sentence": { "type": "string" },
+          "standards": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Standards addressed by learning this vocabulary"
+          }
         }
       },
       "description": "Key vocabulary words to highlight"
@@ -97,7 +114,17 @@
             "type": "array",
             "items": { "type": "string" }
           },
-          "correctIndex": { "type": "integer" }
+          "correctIndex": { "type": "integer" },
+          "standards": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "CCSS standard IDs this question assesses"
+          },
+          "skill": {
+            "type": "string",
+            "enum": ["main-idea", "inference", "literal", "vocabulary", "text-structure", "author-purpose", "citing-evidence", "summarizing", "compare-contrast", "cause-effect", "theme", "character-analysis"],
+            "description": "Primary skill this question assesses"
+          }
         }
       },
       "description": "Comprehension questions"

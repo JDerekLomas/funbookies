@@ -5,11 +5,18 @@
   "type": "article",
   "genre": "sports",
   "lexile": 720,
+  "gradeLevel": "6",
   "wordCount": 485,
   "readingTime": 4,
   "coverEmoji": "🏀",
   "coverColor": "#ea580c",
   "summary": "Discover what physics and psychology reveal about making more free throws.",
+  "standards": [
+    "CCSS.ELA-LITERACY.RI.6.1",
+    "CCSS.ELA-LITERACY.RI.6.2",
+    "CCSS.ELA-LITERACY.RI.6.4",
+    "CCSS.ELA-LITERACY.RI.6.5"
+  ],
   "vocabulary": [
     {
       "word": "arc",
@@ -103,7 +110,9 @@
           ],
           "correctIndex": 1,
           "hint": "Look at the paragraph about arc and the research findings.",
-          "explanation": "Research shows the optimal release angle is about 52 degrees, which gives the ball the best angle to fall through the hoop."
+          "explanation": "Research shows the optimal release angle is about 52 degrees, which gives the ball the best angle to fall through the hoop.",
+          "skill": "literal",
+          "standards": ["CCSS.ELA-LITERACY.RI.6.1"]
         },
         {
           "id": "ft-2",
@@ -118,7 +127,9 @@
           ],
           "correctIndex": 2,
           "hint": "Think about what kind of angle would help the ball go in.",
-          "explanation": "'Optimal' means the best or most effective. The optimal angle is the one that works best."
+          "explanation": "'Optimal' means the best or most effective. The optimal angle is the one that works best.",
+          "skill": "vocabulary",
+          "standards": ["CCSS.ELA-LITERACY.RI.6.4"]
         }
       ]
     },
@@ -138,7 +149,9 @@
           ],
           "correctIndex": 1,
           "hint": "The article mentions what happens 'with fans screaming and the pressure on.'",
-          "explanation": "The mental game matters - pressure and distractions from the crowd affect players' focus and performance."
+          "explanation": "The mental game matters - pressure and distractions from the crowd affect players' focus and performance.",
+          "skill": "inference",
+          "standards": ["CCSS.ELA-LITERACY.RI.6.1"]
         },
         {
           "id": "ft-4",
@@ -153,7 +166,9 @@
           ],
           "correctIndex": 2,
           "hint": "This was mentioned at the beginning and again in the psychology section.",
-          "explanation": "Curry bounces the ball three times before every free throw as part of his consistent routine."
+          "explanation": "Curry bounces the ball three times before every free throw as part of his consistent routine.",
+          "skill": "literal",
+          "standards": ["CCSS.ELA-LITERACY.RI.6.1"]
         }
       ]
     }
@@ -172,7 +187,9 @@
       ],
       "correctIndex": 2,
       "hint": "Think about the two main sections of the article.",
-      "explanation": "The article explains that successful free throws require understanding both the physics (arc, backspin, aim) and psychology (routines, focus)."
+      "explanation": "The article explains that successful free throws require understanding both the physics (arc, backspin, aim) and psychology (routines, focus).",
+      "skill": "main-idea",
+      "standards": ["CCSS.ELA-LITERACY.RI.6.2"]
     },
     {
       "id": "ft-6",
@@ -187,7 +204,9 @@
       ],
       "correctIndex": 1,
       "hint": "This player's problem is mental, not physical.",
-      "explanation": "Since the player can make shots in practice, the issue is mental. A consistent routine helps block out game-time distractions."
+      "explanation": "Since the player can make shots in practice, the issue is mental. A consistent routine helps block out game-time distractions.",
+      "skill": "inference",
+      "standards": ["CCSS.ELA-LITERACY.RI.6.1"]
     }
   ],
   "writingPrompts": [

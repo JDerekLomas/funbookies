@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standards Progress - ReadingPlanet</title>
+    <link rel="icon" type="image/svg+xml" href="/readingplanet/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/readingplanet/styles/shared.css">
+    <style>
+        :root {
+            --mastery-excellent: #10b981;
+            --mastery-good: #22c55e;
+            --mastery-approaching: #eab308;
+            --mastery-needs-work: #ef4444;
+            --mastery-not-started: #9ca3af;
+        }
+
+        /* Layout */
+        .standards-page {
+            min-height: 100vh;
+            background: var(--color-bg);
+        }
+
+        .standards-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-lg) var(--space-xl);
+        }
+
+        .standards-header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .standards-title {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .standards-title h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .back-link:hover {
+            color: var(--color-text);
+        }
+
+        /* Main Content */
+        .standards-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .summary-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            border: 1px solid var(--color-border);
+        }
+
+        .summary-card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .summary-card-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .summary-card-value.mastery {
+            color: var(--mastery-good);
+        }
+
+        .summary-card-label {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        /* Mastery Distribution */
+        .distribution-bar {
+            display: flex;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: var(--color-bg-alt);
+            margin-top: var(--space-md);
+        }
+
+        .distribution-segment {
+            transition: width 0.3s ease;
+        }
+
+        .distribution-segment.excellent { background: var(--mastery-excellent); }
+        .distribution-segment.good { background: var(--mastery-good); }
+        .distribution-segment.approaching { background: var(--mastery-approaching); }
+        .distribution-segment.needs-work { background: var(--mastery-needs-work); }
+
+        .distribution-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            margin-top: var(--space-sm);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: 0.75rem;
+            color: var(--color-text-secondary);
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Domain Cards */
+        .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .domain-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            border: 1px solid var(--color-border);
+        }
+
+        .domain-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .domain-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .domain-icon.RL { background: #f3e8ff; }
+        .domain-icon.RI { background: #dbeafe; }
+        .domain-icon.RF { background: #dcfce7; }
+        .domain-icon.L { background: #fef3c7; }
+        .domain-icon.W { background: #fce7f3; }
+
+        .domain-info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-2xs);
+        }
+
+        .domain-info p {
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+        }
+
+        .domain-mastery {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .mastery-circle {
+            position: relative;
+            width: 64px;
+            height: 64px;
+        }
+
+        .mastery-circle svg {
+            transform: rotate(-90deg);
+        }
+
+        .mastery-circle-bg {
+            fill: none;
+            stroke: var(--color-bg-alt);
+            stroke-width: 6;
+        }
+
+        .mastery-circle-progress {
+            fill: none;
+            stroke: var(--mastery-good);
+            stroke-width: 6;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        .mastery-circle-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .domain-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-sm);
+            text-align: center;
+        }
+
+        .domain-stat-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .domain-stat-label {
+            font-size: 0.6875rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Skills Section */
+        .skills-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            border: 1px solid var(--color-border);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .skills-list {
+            display: grid;
+            gap: var(--space-md);
+        }
+
+        .skill-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .skill-name {
+            flex: 0 0 180px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .skill-bar-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .skill-bar {
+            flex: 1;
+            height: 12px;
+            background: var(--color-bg-alt);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+
+        .skill-bar-fill.excellent { background: var(--mastery-excellent); }
+        .skill-bar-fill.good { background: var(--mastery-good); }
+        .skill-bar-fill.approaching { background: var(--mastery-approaching); }
+        .skill-bar-fill.needs-work { background: var(--mastery-needs-work); }
+        .skill-bar-fill.not-started { background: var(--mastery-not-started); }
+
+        .skill-value {
+            flex: 0 0 50px;
+            text-align: right;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .skill-attempts {
+            flex: 0 0 80px;
+            text-align: right;
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Standards Table */
+        .standards-table-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+        }
+
+        .standards-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .standards-table th {
+            background: var(--color-bg-alt);
+            padding: var(--space-md);
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-text-secondary);
+        }
+
+        .standards-table td {
+            padding: var(--space-md);
+            border-top: 1px solid var(--color-border);
+            font-size: 0.875rem;
+        }
+
+        .standards-table tr:hover td {
+            background: var(--color-bg-alt);
+        }
+
+        .standard-id {
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+        }
+
+        .standard-name {
+            font-weight: 500;
+        }
+
+        .standard-description {
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+            max-width: 400px;
+        }
+
+        .mastery-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-2xs) var(--space-sm);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .mastery-badge.excellent {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .mastery-badge.good {
+            background: #d1fae5;
+            color: #047857;
+        }
+
+        .mastery-badge.approaching {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .mastery-badge.needs-work {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .mastery-badge.not-started {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-3xl);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-lg);
+        }
+
+        .empty-state h2 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .empty-state p {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* Loading State */
+        .loading-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-3xl);
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid var(--color-border);
+            border-top-color: var(--color-accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: var(--space-sm) var(--space-md);
+            background: var(--color-bg-alt);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-tab:hover {
+            background: var(--color-border);
+        }
+
+        .filter-tab.active {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .standards-content {
+                padding: var(--space-lg);
+            }
+
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .domains-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skill-name {
+                flex: 0 0 120px;
+            }
+
+            .standards-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="standards-page">
+        <!-- Header -->
+        <header class="standards-header">
+            <div class="standards-header-inner">
+                <div class="standards-title">
+                    <a href="/readingplanet/dashboard/" class="back-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        Back
+                    </a>
+                    <h1>Standards Progress</h1>
+                </div>
+                <div id="studentInfo" class="student-badge" style="display: none;"></div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="standards-content">
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <p style="margin-top: var(--space-md); color: var(--color-text-secondary);">Loading standards data...</p>
+            </div>
+
+            <!-- Empty State (no student) -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-state-icon">📊</div>
+                <h2>No Student Selected</h2>
+                <p>Select a student to view their standards progress.</p>
+                <a href="/readingplanet/" class="btn btn-primary">Select Student</a>
+            </div>
+
+            <!-- Standards Content -->
+            <div id="standardsData" style="display: none;">
+                <!-- Summary Cards -->
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="summary-card-header">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            Overall Mastery
+                        </div>
+                        <div class="summary-card-value mastery" id="overallMastery">--</div>
+                        <div class="summary-card-label">Based on highest scores</div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="summary-card-header">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M9 9h6v6H9z"/>
+                            </svg>
+                            Standards Attempted
+                        </div>
+                        <div class="summary-card-value" id="totalAttempted">0</div>
+                        <div class="summary-card-label">of <span id="totalStandards">70</span> total standards</div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="summary-card-header">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            Mastered
+                        </div>
+                        <div class="summary-card-value" id="masteredCount" style="color: var(--mastery-excellent);">0</div>
+                        <div class="summary-card-label">standards at 80%+</div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="summary-card-header">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                            Needs Practice
+                        </div>
+                        <div class="summary-card-value" id="needsPracticeCount" style="color: var(--mastery-needs-work);">0</div>
+                        <div class="summary-card-label">standards below 60%</div>
+                    </div>
+                </div>
+
+                <!-- Mastery Distribution -->
+                <div class="summary-card" style="margin-bottom: var(--space-2xl);">
+                    <div class="summary-card-header">Mastery Distribution</div>
+                    <div class="distribution-bar" id="distributionBar">
+                        <div class="distribution-segment excellent" style="width: 0%"></div>
+                        <div class="distribution-segment good" style="width: 0%"></div>
+                        <div class="distribution-segment approaching" style="width: 0%"></div>
+                        <div class="distribution-segment needs-work" style="width: 0%"></div>
+                    </div>
+                    <div class="distribution-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--mastery-excellent);"></span>
+                            <span>Excellent (90%+)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--mastery-good);"></span>
+                            <span>Good (70-89%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--mastery-approaching);"></span>
+                            <span>Approaching (50-69%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--mastery-needs-work);"></span>
+                            <span>Needs Work (<50%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domain Progress -->
+                <div class="section-header">
+                    <h2 class="section-title">Progress by Domain</h2>
+                </div>
+                <div class="domains-grid" id="domainsGrid">
+                    <!-- Domain cards will be inserted here -->
+                </div>
+
+                <!-- Skills Progress -->
+                <div class="section-header">
+                    <h2 class="section-title">Skills Breakdown</h2>
+                </div>
+                <div class="skills-card">
+                    <div class="skills-list" id="skillsList">
+                        <!-- Skill rows will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Standards Table -->
+                <div class="section-header">
+                    <h2 class="section-title">All Standards</h2>
+                </div>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All</button>
+                    <button class="filter-tab" data-filter="mastered">Mastered</button>
+                    <button class="filter-tab" data-filter="approaching">Approaching</button>
+                    <button class="filter-tab" data-filter="needs-work">Needs Practice</button>
+                    <button class="filter-tab" data-filter="not-started">Not Started</button>
+                </div>
+                <div class="standards-table-card">
+                    <table class="standards-table">
+                        <thead>
+                            <tr>
+                                <th>Standard</th>
+                                <th>Description</th>
+                                <th>Mastery</th>
+                                <th>Attempts</th>
+                            </tr>
+                        </thead>
+                        <tbody id="standardsTableBody">
+                            <!-- Standard rows will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/readingplanet/js/data-service.js"></script>
+    <script src="/readingplanet/js/standards-service.js"></script>
+    <script>
+        // State
+        let currentStudent = null;
+        let standardsData = {};
+        let allStandards = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', init);
+
+        async function init() {
+            // Load student from localStorage
+            const studentId = localStorage.getItem('rp_current_student');
+
+            if (!studentId) {
+                showEmptyState();
+                return;
+            }
+
+            try {
+                await window.ReadingPlanetDB.ready;
+                await window.StandardsService.ready;
+
+                currentStudent = await window.ReadingPlanetDB.getStudent(studentId);
+
+                if (!currentStudent) {
+                    showEmptyState();
+                    return;
+                }
+
+                // Show student info
+                document.getElementById('studentInfo').innerHTML = `
+                    <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                        <div style="width: 32px; height: 32px; background: ${currentStudent.avatarColor}; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.75rem;">
+                            ${currentStudent.avatar}
+                        </div>
+                        <span style="font-weight: 500;">${currentStudent.name}</span>
+                    </div>
+                `;
+                document.getElementById('studentInfo').style.display = 'block';
+
+                // Load all standards from database
+                const standardsDb = await window.StandardsService.standards;
+                allStandards = standardsDb.standards;
+                document.getElementById('totalStandards').textContent = allStandards.length;
+
+                // Load mastery data
+                await loadStandardsData();
+
+            } catch (error) {
+                console.error('Error initializing:', error);
+                showEmptyState();
+            }
+        }
+
+        async function loadStandardsData() {
+            try {
+                // Get mastery data from database
+                const [summary, byDomain, skillGaps, allMastery] = await Promise.all([
+                    window.ReadingPlanetDB.getStandardsSummary(currentStudent.id),
+                    window.ReadingPlanetDB.getMasteryByDomain(currentStudent.id),
+                    window.ReadingPlanetDB.getSkillGaps(currentStudent.id),
+                    window.ReadingPlanetDB.getAllStandardsMastery(currentStudent.id),
+                ]);
+
+                standardsData = { summary, byDomain, skillGaps, allMastery };
+
+                // Update UI
+                renderSummary(summary);
+                renderDomains(byDomain);
+                renderSkills(skillGaps);
+                renderStandardsTable(allMastery);
+
+                // Show content
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('standardsData').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error loading standards data:', error);
+                showEmptyState();
+            }
+        }
+
+        function showEmptyState() {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('emptyState').style.display = 'block';
+        }
+
+        function renderSummary(summary) {
+            // Overall mastery
+            document.getElementById('overallMastery').textContent =
+                summary.overallMastery !== null ? `${summary.overallMastery}%` : '--';
+
+            // Counts
+            document.getElementById('totalAttempted').textContent = summary.totalAttempted;
+            document.getElementById('masteredCount').textContent = summary.mastered;
+            document.getElementById('needsPracticeCount').textContent = summary.needsPractice;
+
+            // Distribution bar
+            if (summary.totalAttempted > 0) {
+                const dist = summary.masteryDistribution;
+                const total = summary.totalAttempted;
+                const bar = document.getElementById('distributionBar');
+                bar.innerHTML = `
+                    <div class="distribution-segment excellent" style="width: ${(dist.excellent / total) * 100}%"></div>
+                    <div class="distribution-segment good" style="width: ${(dist.good / total) * 100}%"></div>
+                    <div class="distribution-segment approaching" style="width: ${(dist.fair / total) * 100}%"></div>
+                    <div class="distribution-segment needs-work" style="width: ${(dist.needsWork / total) * 100}%"></div>
+                `;
+            }
+        }
+
+        function renderDomains(byDomain) {
+            const grid = document.getElementById('domainsGrid');
+            const domainOrder = ['RL', 'RI', 'RF', 'L', 'W'];
+
+            grid.innerHTML = domainOrder.map(domainId => {
+                const domain = byDomain[domainId];
+                if (!domain) return '';
+
+                const info = window.StandardsService.getDomainInfo(domainId);
+                const mastery = domain.avgMastery || 0;
+                const circumference = 2 * Math.PI * 28;
+                const offset = circumference - (mastery / 100) * circumference;
+                const masteryCount = domain.standards.filter(s => s.mastery >= 80).length;
+                const approachingCount = domain.standards.filter(s => s.mastery >= 60 && s.mastery < 80).length;
+                const needsWorkCount = domain.standards.filter(s => s.mastery < 60).length;
+
+                return `
+                    <div class="domain-card">
+                        <div class="domain-header">
+                            <div class="domain-icon ${domainId}">${info.icon}</div>
+                            <div class="domain-info">
+                                <h3>${info.name}</h3>
+                                <p>${domain.standards.length} standards attempted</p>
+                            </div>
+                        </div>
+                        <div class="domain-mastery">
+                            <div class="mastery-circle">
+                                <svg width="64" height="64" viewBox="0 0 64 64">
+                                    <circle class="mastery-circle-bg" cx="32" cy="32" r="28"/>
+                                    <circle class="mastery-circle-progress"
+                                        cx="32" cy="32" r="28"
+                                        stroke-dasharray="${circumference}"
+                                        stroke-dashoffset="${offset}"
+                                        style="stroke: ${getMasteryColor(mastery)}"/>
+                                </svg>
+                                <span class="mastery-circle-text">${mastery}%</span>
+                            </div>
+                            <div class="domain-stats">
+                                <div>
+                                    <div class="domain-stat-value" style="color: var(--mastery-excellent);">${masteryCount}</div>
+                                    <div class="domain-stat-label">Mastered</div>
+                                </div>
+                                <div>
+                                    <div class="domain-stat-value" style="color: var(--mastery-approaching);">${approachingCount}</div>
+                                    <div class="domain-stat-label">Approaching</div>
+                                </div>
+                                <div>
+                                    <div class="domain-stat-value" style="color: var(--mastery-needs-work);">${needsWorkCount}</div>
+                                    <div class="domain-stat-label">Needs Work</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderSkills(skillGaps) {
+            const list = document.getElementById('skillsList');
+
+            if (skillGaps.length === 0) {
+                list.innerHTML = `
+                    <div style="text-align: center; padding: var(--space-xl); color: var(--color-text-secondary);">
+                        No skill data yet. Complete some reading activities to see your progress.
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort by accuracy descending (best skills first)
+            const sortedSkills = [...skillGaps].sort((a, b) => b.accuracy - a.accuracy);
+
+            list.innerHTML = sortedSkills.map(skill => {
+                const displayName = window.StandardsService.getSkillDisplayName(skill.skill);
+                const colorClass = getMasteryClass(skill.accuracy);
+
+                return `
+                    <div class="skill-row">
+                        <div class="skill-name">${displayName}</div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar">
+                                <div class="skill-bar-fill ${colorClass}" style="width: ${skill.accuracy}%"></div>
+                            </div>
+                            <div class="skill-value">${skill.accuracy}%</div>
+                            <div class="skill-attempts">${skill.attempts} attempts</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderStandardsTable(allMastery, filter = 'all') {
+            const tbody = document.getElementById('standardsTableBody');
+
+            // Combine all standards with mastery data
+            const standardsWithMastery = allStandards.map(std => {
+                const mastery = allMastery[std.id];
+                return {
+                    ...std,
+                    mastery: mastery?.mastery || null,
+                    attempts: mastery?.attempts || 0,
+                    shortId: window.StandardsService.formatShortId(std.id),
+                };
+            });
+
+            // Filter
+            let filtered = standardsWithMastery;
+            if (filter === 'mastered') {
+                filtered = standardsWithMastery.filter(s => s.mastery >= 80);
+            } else if (filter === 'approaching') {
+                filtered = standardsWithMastery.filter(s => s.mastery >= 50 && s.mastery < 80);
+            } else if (filter === 'needs-work') {
+                filtered = standardsWithMastery.filter(s => s.mastery !== null && s.mastery < 50);
+            } else if (filter === 'not-started') {
+                filtered = standardsWithMastery.filter(s => s.mastery === null);
+            }
+
+            // Sort by domain, then grade, then number
+            filtered.sort((a, b) => {
+                if (a.domain !== b.domain) return a.domain.localeCompare(b.domain);
+                if (a.grade !== b.grade) return parseInt(a.grade) - parseInt(b.grade);
+                return parseInt(a.number) - parseInt(b.number);
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: var(--space-xl); color: var(--color-text-secondary);">
+                            No standards match this filter.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(std => {
+                const colorClass = getMasteryClass(std.mastery);
+                const statusText = window.StandardsService.getMasteryStatus(std.mastery);
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="standard-id">${std.shortId}</div>
+                            <div class="standard-name">${std.shortName}</div>
+                        </td>
+                        <td class="standard-description">${std.description}</td>
+                        <td>
+                            <span class="mastery-badge ${colorClass}">
+                                ${std.mastery !== null ? `${std.mastery}%` : '--'}
+                                ${statusText}
+                            </span>
+                        </td>
+                        <td>${std.attempts}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Filter tabs
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                renderStandardsTable(standardsData.allMastery, tab.dataset.filter);
+            });
+        });
+
+        // Helper functions
+        function getMasteryClass(mastery) {
+            if (mastery === null || mastery === undefined) return 'not-started';
+            if (mastery >= 90) return 'excellent';
+            if (mastery >= 70) return 'good';
+            if (mastery >= 50) return 'approaching';
+            return 'needs-work';
+        }
+
+        function getMasteryColor(mastery) {
+            if (mastery >= 90) return 'var(--mastery-excellent)';
+            if (mastery >= 70) return 'var(--mastery-good)';
+            if (mastery >= 50) return 'var(--mastery-approaching)';
+            return 'var(--mastery-needs-work)';
+        }
+    </script>
+</body>
+</html>

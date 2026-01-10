@@ -5,11 +5,18 @@
   "type": "article",
   "genre": "biography",
   "lexile": 750,
+  "gradeLevel": "6",
   "wordCount": 430,
   "readingTime": 4,
   "coverEmoji": "🔬",
   "coverColor": "#7c3aed",
   "summary": "The inspiring story of Marie Curie, the first woman to win a Nobel Prize and the only person to win Nobel Prizes in two different sciences.",
+  "standards": [
+    "CCSS.ELA-LITERACY.RI.6.1",
+    "CCSS.ELA-LITERACY.RI.6.2",
+    "CCSS.ELA-LITERACY.RI.6.3",
+    "CCSS.ELA-LITERACY.RI.6.6"
+  ],
   "vocabulary": [
     {
       "word": "radioactivity",
@@ -79,7 +86,9 @@
         "She was the youngest winner",
         "She refused to accept it"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "skill": "literal",
+      "standards": ["CCSS.ELA-LITERACY.RI.6.1"]
     },
     {
       "question": "What obstacles did Marie Curie face early in her life?",
@@ -90,7 +99,9 @@
         "Not being interested in science",
         "Having too many siblings"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "skill": "literal",
+      "standards": ["CCSS.ELA-LITERACY.RI.6.1", "CCSS.ELA-LITERACY.RI.6.3"]
     },
     {
       "question": "Why did Marie name one of her discovered elements polonium?",
@@ -101,7 +112,9 @@
         "After her husband Pierre",
         "It was a random choice"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "literal",
+      "standards": ["CCSS.ELA-LITERACY.RI.6.1"]
     },
     {
       "question": "What can you infer about Marie Curie's character from this passage?",
@@ -112,7 +125,9 @@
         "She preferred working alone always",
         "She did not care about helping others"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "inference",
+      "standards": ["CCSS.ELA-LITERACY.RI.6.1"]
     },
     {
       "question": "What is the author's main purpose in writing this passage?",
@@ -123,7 +138,9 @@
         "To inform and inspire readers about Marie Curie's achievements",
         "To argue that women should not be scientists"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "skill": "author-purpose",
+      "standards": ["CCSS.ELA-LITERACY.RI.6.6"]
     }
   ]
 }

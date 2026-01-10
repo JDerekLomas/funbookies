@@ -5,11 +5,18 @@
   "type": "poem",
   "genre": "fiction",
   "lexile": 870,
+  "gradeLevel": "8+",
   "wordCount": 250,
   "readingTime": 3,
   "coverEmoji": "🍂",
   "coverColor": "#ca8a04",
   "summary": "Robert Frost's famous poem about choices, independence, and the paths we take in life.",
+  "standards": [
+    "CCSS.ELA-LITERACY.RL.8.1",
+    "CCSS.ELA-LITERACY.RL.8.2",
+    "CCSS.ELA-LITERACY.RL.8.4",
+    "CCSS.ELA-LITERACY.RL.8.6"
+  ],
   "vocabulary": [
     {
       "word": "diverge",
@@ -67,7 +74,9 @@
         "He is waiting for a friend",
         "He is running from something"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "skill": "literal",
+      "standards": ["CCSS.ELA-LITERACY.RL.8.1"]
     },
     {
       "question": "What does the speaker mean by 'wanted wear'?",
@@ -78,7 +87,9 @@
         "The path was too expensive",
         "The path was wearing out"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "vocabulary",
+      "standards": ["CCSS.ELA-LITERACY.RL.8.4"]
     },
     {
       "question": "Why does the speaker doubt he will 'ever come back'?",
@@ -89,7 +100,9 @@
         "He doesn't like the woods",
         "Someone told him not to return"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "inference",
+      "standards": ["CCSS.ELA-LITERACY.RL.8.1", "CCSS.ELA-LITERACY.RL.8.4"]
     },
     {
       "question": "What does the last line 'And that has made all the difference' suggest?",
@@ -100,7 +113,9 @@
         "Both paths were exactly the same",
         "The speaker is angry about his decision"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "inference",
+      "standards": ["CCSS.ELA-LITERACY.RL.8.1"]
     },
     {
       "question": "What is one possible theme of this poem?",
@@ -111,7 +126,9 @@
         "Walking is good exercise",
         "Roads should be better maintained"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "theme",
+      "standards": ["CCSS.ELA-LITERACY.RL.8.2"]
     }
   ]
 }

@@ -2291,16 +2291,30 @@
             if (isCorrect) compState.totalCorrect++;
             compState.totalQuestions++;
 
-            // Save to database
+            // Save to database with standards tracking
             if (currentStudent && window.ReadingPlanetDB) {
-                window.ReadingPlanetDB.saveComprehensionCheck({
-                    studentId: currentStudent.id,
-                    textId: currentText.id,
-                    questionId: question.id,
-                    questionType: question.type,
-                    correct: isCorrect,
-                    response: compState.selectedAnswer
-                });
+                // Use standards-aware method if question has standards data
+                if (question.standards && question.standards.length > 0) {
+                    window.ReadingPlanetDB.saveComprehensionCheckWithStandards({
+                        studentId: currentStudent.id,
+                        textId: currentText.id,
+                        questionId: question.id,
+                        questionType: question.type || question.skill,
+                        skill: question.skill,
+                        standards: question.standards,
+                        correct: isCorrect,
+                        response: compState.selectedAnswer
+                    });
+                } else {
+                    window.ReadingPlanetDB.saveComprehensionCheck({
+                        studentId: currentStudent.id,
+                        textId: currentText.id,
+                        questionId: question.id,
+                        questionType: question.type,
+                        correct: isCorrect,
+                        response: compState.selectedAnswer
+                    });
+                }
             }
 
             // Update buttons

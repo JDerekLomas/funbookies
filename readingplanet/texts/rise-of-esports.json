@@ -5,11 +5,18 @@
   "type": "article",
   "genre": "gaming",
   "lexile": 850,
+  "gradeLevel": "7-8",
   "wordCount": 520,
   "readingTime": 5,
   "coverEmoji": "🎮",
   "coverColor": "#7c3aed",
   "summary": "How competitive gaming became a billion-dollar industry with millions of fans.",
+  "standards": [
+    "CCSS.ELA-LITERACY.RI.7.1",
+    "CCSS.ELA-LITERACY.RI.7.2",
+    "CCSS.ELA-LITERACY.RI.7.4",
+    "CCSS.ELA-LITERACY.RI.7.8"
+  ],
   "vocabulary": [
     {
       "word": "phenomenon",
@@ -107,7 +114,9 @@
           ],
           "correctIndex": 2,
           "hint": "This information is in the first paragraph.",
-          "explanation": "Kyle Giersdorf won $3 million at the Fortnite World Cup in 2019."
+          "explanation": "Kyle Giersdorf won $3 million at the Fortnite World Cup in 2019.",
+          "skill": "literal",
+          "standards": ["CCSS.ELA-LITERACY.RI.7.1"]
         },
         {
           "id": "es-2",
@@ -122,7 +131,9 @@
           ],
           "correctIndex": 1,
           "hint": "Think about what the internet allowed players to do that they couldn't before.",
-          "explanation": "The internet allowed players to compete against anyone in the world, not just people in their local area."
+          "explanation": "The internet allowed players to compete against anyone in the world, not just people in their local area.",
+          "skill": "inference",
+          "standards": ["CCSS.ELA-LITERACY.RI.7.1"]
         }
       ]
     },
@@ -142,7 +153,9 @@
           ],
           "correctIndex": 2,
           "hint": "Look for the research study mentioned in the 'Athletes or Just Gamers?' section.",
-          "explanation": "A study found that StarCraft II players make an average of 300 actions per minute during intense matches."
+          "explanation": "A study found that StarCraft II players make an average of 300 actions per minute during intense matches.",
+          "skill": "literal",
+          "standards": ["CCSS.ELA-LITERACY.RI.7.1"]
         },
         {
           "id": "es-4",
@@ -157,7 +170,9 @@
           ],
           "correctIndex": 1,
           "hint": "The article says 'Skeptics question whether esports should be called a sport.'",
-          "explanation": "'Skeptics' are people who doubt or question something. In this case, they question whether gaming is really a sport."
+          "explanation": "'Skeptics' are people who doubt or question something. In this case, they question whether gaming is really a sport.",
+          "skill": "vocabulary",
+          "standards": ["CCSS.ELA-LITERACY.RI.7.4"]
         }
       ]
     }
@@ -176,7 +191,9 @@
       ],
       "correctIndex": 1,
       "hint": "Think about what the whole article is trying to explain.",
-      "explanation": "The article traces how esports grew from small arcade competitions to a billion-dollar global industry with professional players and major tournaments."
+      "explanation": "The article traces how esports grew from small arcade competitions to a billion-dollar global industry with professional players and major tournaments.",
+      "skill": "main-idea",
+      "standards": ["CCSS.ELA-LITERACY.RI.7.2"]
     },
     {
       "id": "es-6",
@@ -191,7 +208,9 @@
       ],
       "correctIndex": 1,
       "hint": "Look at what the article says about how pro gamers train.",
-      "explanation": "Supporters argue that pro gamers train 10-14 hours daily, work with coaches and psychologists, and need incredible reaction times and mental focus - just like traditional athletes."
+      "explanation": "Supporters argue that pro gamers train 10-14 hours daily, work with coaches and psychologists, and need incredible reaction times and mental focus - just like traditional athletes.",
+      "skill": "inference",
+      "standards": ["CCSS.ELA-LITERACY.RI.7.1"]
     }
   ],
   "writingPrompts": [

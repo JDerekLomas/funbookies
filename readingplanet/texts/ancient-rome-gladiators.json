@@ -4,27 +4,39 @@
   "author": "ReadingPlanet Staff",
   "type": "article",
   "genre": "history",
+  "gradeLevel": "6",
   "lexile": 780,
   "wordCount": 445,
   "readingTime": 4,
   "coverEmoji": "🗡️",
   "coverColor": "#b91c1c",
   "summary": "Discover the brutal world of Roman gladiators and the massive arenas where they fought.",
+  "standards": [
+    "CCSS.ELA-LITERACY.RI.6.1",
+    "CCSS.ELA-LITERACY.RI.6.2",
+    "CCSS.ELA-LITERACY.RI.6.3",
+    "CCSS.ELA-LITERACY.RI.6.4",
+    "CCSS.ELA-LITERACY.RI.6.5",
+    "CCSS.ELA-LITERACY.L.6.4"
+  ],
   "vocabulary": [
     {
       "word": "gladiator",
       "definition": "a person trained to fight with weapons against other people or animals in an arena",
-      "sentence": "The gladiator raised his sword to salute the emperor before the battle began."
+      "sentence": "The gladiator raised his sword to salute the emperor before the battle began.",
+      "standards": ["CCSS.ELA-LITERACY.L.6.4"]
     },
     {
       "word": "arena",
       "definition": "a large, usually roofless building with seats arranged around a central area for sporting events",
-      "sentence": "The Colosseum was the largest arena in the Roman Empire."
+      "sentence": "The Colosseum was the largest arena in the Roman Empire.",
+      "standards": ["CCSS.ELA-LITERACY.L.6.4"]
     },
     {
       "word": "spectacle",
       "definition": "a visually striking performance or display",
-      "sentence": "Gladiator fights were considered the greatest spectacle of Roman entertainment."
+      "sentence": "Gladiator fights were considered the greatest spectacle of Roman entertainment.",
+      "standards": ["CCSS.ELA-LITERACY.L.6.4", "CCSS.ELA-LITERACY.RI.6.4"]
     }
   ],
   "content": [
@@ -79,7 +91,9 @@
         "Religious ceremonies to honor the gods",
         "Educational demonstrations for schools"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "standards": ["CCSS.ELA-LITERACY.RI.6.2"],
+      "skill": "main-idea"
     },
     {
       "question": "Based on the passage, what can you infer about the value of skilled gladiators?",
@@ -90,7 +104,9 @@
         "They were treated the same as regular slaves",
         "They had no special status in Roman society"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "standards": ["CCSS.ELA-LITERACY.RI.6.1"],
+      "skill": "inference"
     },
     {
       "question": "What made the retiarius type of gladiator different from others?",
@@ -101,7 +117,9 @@
         "He wore the heaviest armor of all gladiators",
         "He was always a volunteer, never a slave"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "standards": ["CCSS.ELA-LITERACY.RI.6.1"],
+      "skill": "literal"
     },
     {
       "question": "What does the word 'spectacle' most likely mean in this passage?",
@@ -112,7 +130,9 @@
         "A written document",
         "A type of weapon"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "standards": ["CCSS.ELA-LITERACY.RI.6.4", "CCSS.ELA-LITERACY.L.6.4"],
+      "skill": "vocabulary"
     },
     {
       "question": "What is the author's tone when describing gladiator life?",
@@ -123,7 +143,9 @@
         "Angry and judgmental",
         "Confused and uncertain"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "standards": ["CCSS.ELA-LITERACY.RI.6.6"],
+      "skill": "author-purpose"
     }
   ]
 }

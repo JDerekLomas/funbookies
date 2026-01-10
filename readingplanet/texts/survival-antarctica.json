@@ -5,11 +5,18 @@
   "type": "article",
   "genre": "adventure",
   "lexile": 800,
+  "gradeLevel": "7-8",
   "wordCount": 480,
   "readingTime": 5,
   "coverEmoji": "🧊",
   "coverColor": "#0ea5e9",
   "summary": "The true story of how Ernest Shackleton and his crew survived two years stranded in Antarctica.",
+  "standards": [
+    "CCSS.ELA-LITERACY.RI.7.1",
+    "CCSS.ELA-LITERACY.RI.7.2",
+    "CCSS.ELA-LITERACY.RI.7.3",
+    "CCSS.ELA-LITERACY.RI.7.4"
+  ],
   "vocabulary": [
     {
       "word": "expedition",
@@ -91,7 +98,9 @@
         "To set a speed record sailing around the world",
         "To build a research station"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "skill": "literal",
+      "standards": ["CCSS.ELA-LITERACY.RI.7.1"]
     },
     {
       "question": "What happened to the ship Endurance?",
@@ -102,7 +111,9 @@
         "It caught fire",
         "It reached Antarctica safely"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "literal",
+      "standards": ["CCSS.ELA-LITERACY.RI.7.1"]
     },
     {
       "question": "Why did Shackleton decide to sail to South Georgia Island?",
@@ -113,7 +124,9 @@
         "The crew voted to go there",
         "He had family there"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "skill": "inference",
+      "standards": ["CCSS.ELA-LITERACY.RI.7.1"]
     },
     {
       "question": "What makes Shackleton's journey remarkable?",
@@ -124,7 +137,9 @@
         "He was the fastest to reach Antarctica",
         "He found buried treasure"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "main-idea",
+      "standards": ["CCSS.ELA-LITERACY.RI.7.2"]
     },
     {
       "question": "What is the main theme of this passage?",
@@ -135,7 +150,9 @@
         "Leadership and perseverance can overcome extreme challenges",
         "Penguins are an important food source"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "skill": "theme",
+      "standards": ["CCSS.ELA-LITERACY.RI.7.2"]
     }
   ]
 }

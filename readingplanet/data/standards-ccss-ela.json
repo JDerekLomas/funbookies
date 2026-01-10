@@ -1,0 +1,733 @@
+{
+  "id": "ccss-ela",
+  "name": "Common Core State Standards - English Language Arts",
+  "version": "2010",
+  "grades": ["3", "4", "5", "6", "7", "8", "9-10", "11-12"],
+  "domains": [
+    {
+      "id": "RL",
+      "name": "Reading: Literature",
+      "description": "Standards for reading literary texts"
+    },
+    {
+      "id": "RI",
+      "name": "Reading: Informational Text",
+      "description": "Standards for reading informational texts"
+    },
+    {
+      "id": "RF",
+      "name": "Reading: Foundational Skills",
+      "description": "Standards for foundational reading skills"
+    },
+    {
+      "id": "W",
+      "name": "Writing",
+      "description": "Standards for writing"
+    },
+    {
+      "id": "SL",
+      "name": "Speaking & Listening",
+      "description": "Standards for speaking and listening"
+    },
+    {
+      "id": "L",
+      "name": "Language",
+      "description": "Standards for language conventions and vocabulary"
+    }
+  ],
+  "standards": [
+    {
+      "id": "CCSS.ELA-LITERACY.RL.4.1",
+      "domain": "RL",
+      "grade": "4",
+      "number": "1",
+      "description": "Refer to details and examples in a text when explaining what the text says explicitly and when drawing inferences from the text.",
+      "shortName": "Cite textual evidence",
+      "skills": ["citing-evidence", "inference", "literal-comprehension"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.4.2",
+      "domain": "RL",
+      "grade": "4",
+      "number": "2",
+      "description": "Determine a theme of a story, drama, or poem from details in the text; summarize the text.",
+      "shortName": "Determine theme & summarize",
+      "skills": ["theme", "summarizing"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.4.3",
+      "domain": "RL",
+      "grade": "4",
+      "number": "3",
+      "description": "Describe in depth a character, setting, or event in a story or drama, drawing on specific details in the text.",
+      "shortName": "Analyze character/setting/event",
+      "skills": ["character-analysis", "setting", "plot"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.4.4",
+      "domain": "RL",
+      "grade": "4",
+      "number": "4",
+      "description": "Determine the meaning of words and phrases as they are used in a text, including those that allude to significant characters found in mythology.",
+      "shortName": "Vocabulary in context",
+      "skills": ["vocabulary", "context-clues"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.5.1",
+      "domain": "RL",
+      "grade": "5",
+      "number": "1",
+      "description": "Quote accurately from a text when explaining what the text says explicitly and when drawing inferences from the text.",
+      "shortName": "Quote & cite evidence",
+      "skills": ["citing-evidence", "inference", "literal-comprehension"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.5.2",
+      "domain": "RL",
+      "grade": "5",
+      "number": "2",
+      "description": "Determine a theme of a story, drama, or poem from details in the text, including how characters in a story or drama respond to challenges; summarize the text.",
+      "shortName": "Theme from character response",
+      "skills": ["theme", "character-analysis", "summarizing"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.5.3",
+      "domain": "RL",
+      "grade": "5",
+      "number": "3",
+      "description": "Compare and contrast two or more characters, settings, or events in a story or drama, drawing on specific details in the text.",
+      "shortName": "Compare/contrast elements",
+      "skills": ["compare-contrast", "character-analysis", "setting", "plot"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.5.4",
+      "domain": "RL",
+      "grade": "5",
+      "number": "4",
+      "description": "Determine the meaning of words and phrases as they are used in a text, including figurative language such as metaphors and similes.",
+      "shortName": "Figurative language",
+      "skills": ["vocabulary", "figurative-language", "context-clues"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.6.1",
+      "domain": "RL",
+      "grade": "6",
+      "number": "1",
+      "description": "Cite textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text.",
+      "shortName": "Cite evidence for analysis",
+      "skills": ["citing-evidence", "inference", "analysis"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.6.2",
+      "domain": "RL",
+      "grade": "6",
+      "number": "2",
+      "description": "Determine a theme or central idea of a text and how it is conveyed through particular details; provide a summary of the text distinct from personal opinions or judgments.",
+      "shortName": "Theme & objective summary",
+      "skills": ["theme", "summarizing", "main-idea"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.6.3",
+      "domain": "RL",
+      "grade": "6",
+      "number": "3",
+      "description": "Describe how a particular story's or drama's plot unfolds in a series of episodes as well as how the characters respond or change as the plot moves toward a resolution.",
+      "shortName": "Plot development & character change",
+      "skills": ["plot", "character-analysis", "story-structure"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.6.4",
+      "domain": "RL",
+      "grade": "6",
+      "number": "4",
+      "description": "Determine the meaning of words and phrases as they are used in a text, including figurative and connotative meanings; analyze the impact of a specific word choice on meaning and tone.",
+      "shortName": "Word choice impact",
+      "skills": ["vocabulary", "figurative-language", "tone", "word-choice"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.7.1",
+      "domain": "RL",
+      "grade": "7",
+      "number": "1",
+      "description": "Cite several pieces of textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text.",
+      "shortName": "Multiple pieces of evidence",
+      "skills": ["citing-evidence", "inference", "analysis"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.7.2",
+      "domain": "RL",
+      "grade": "7",
+      "number": "2",
+      "description": "Determine a theme or central idea of a text and analyze its development over the course of the text; provide an objective summary of the text.",
+      "shortName": "Theme development",
+      "skills": ["theme", "summarizing", "analysis"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.7.3",
+      "domain": "RL",
+      "grade": "7",
+      "number": "3",
+      "description": "Analyze how particular elements of a story or drama interact.",
+      "shortName": "Analyze story elements",
+      "skills": ["plot", "character-analysis", "setting", "analysis"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.7.4",
+      "domain": "RL",
+      "grade": "7",
+      "number": "4",
+      "description": "Determine the meaning of words and phrases as they are used in a text, including figurative and connotative meanings; analyze the impact of rhymes and other repetitions of sounds on a specific verse or stanza of a poem or section of a story or drama.",
+      "shortName": "Sound devices & word meaning",
+      "skills": ["vocabulary", "figurative-language", "poetry-elements"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.8.1",
+      "domain": "RL",
+      "grade": "8",
+      "number": "1",
+      "description": "Cite the textual evidence that most strongly supports an analysis of what the text says explicitly as well as inferences drawn from the text.",
+      "shortName": "Strongest evidence",
+      "skills": ["citing-evidence", "inference", "analysis", "evaluation"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.8.2",
+      "domain": "RL",
+      "grade": "8",
+      "number": "2",
+      "description": "Determine a theme or central idea of a text and analyze its development over the course of the text, including its relationship to the characters, setting, and plot; provide an objective summary of the text.",
+      "shortName": "Theme & element relationships",
+      "skills": ["theme", "summarizing", "character-analysis", "setting", "plot"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RL.8.4",
+      "domain": "RL",
+      "grade": "8",
+      "number": "4",
+      "description": "Determine the meaning of words and phrases as they are used in a text, including figurative and connotative meanings; analyze the impact of specific word choices on meaning and tone, including analogies or allusions to other texts.",
+      "shortName": "Allusions & analogies",
+      "skills": ["vocabulary", "figurative-language", "tone", "allusion"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.4.1",
+      "domain": "RI",
+      "grade": "4",
+      "number": "1",
+      "description": "Refer to details and examples in a text when explaining what the text says explicitly and when drawing inferences from the text.",
+      "shortName": "Details & inferences",
+      "skills": ["citing-evidence", "inference", "literal-comprehension"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.4.2",
+      "domain": "RI",
+      "grade": "4",
+      "number": "2",
+      "description": "Determine the main idea of a text and explain how it is supported by key details; summarize the text.",
+      "shortName": "Main idea & details",
+      "skills": ["main-idea", "supporting-details", "summarizing"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.4.3",
+      "domain": "RI",
+      "grade": "4",
+      "number": "3",
+      "description": "Explain events, procedures, ideas, or concepts in a historical, scientific, or technical text, including what happened and why, based on specific information in the text.",
+      "shortName": "Explain concepts",
+      "skills": ["cause-effect", "sequence", "explanation"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.4.4",
+      "domain": "RI",
+      "grade": "4",
+      "number": "4",
+      "description": "Determine the meaning of general academic and domain-specific words or phrases in a text relevant to a grade 4 topic or subject area.",
+      "shortName": "Academic vocabulary",
+      "skills": ["vocabulary", "context-clues", "domain-vocabulary"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.4.5",
+      "domain": "RI",
+      "grade": "4",
+      "number": "5",
+      "description": "Describe the overall structure of events, ideas, concepts, or information in a text or part of a text.",
+      "shortName": "Text structure",
+      "skills": ["text-structure", "organization"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.4.6",
+      "domain": "RI",
+      "grade": "4",
+      "number": "6",
+      "description": "Compare and contrast a firsthand and secondhand account of the same event or topic; describe the differences in focus and the information provided.",
+      "shortName": "Point of view",
+      "skills": ["point-of-view", "compare-contrast"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.4.8",
+      "domain": "RI",
+      "grade": "4",
+      "number": "8",
+      "description": "Explain how an author uses reasons and evidence to support particular points in a text.",
+      "shortName": "Author's argument",
+      "skills": ["author-purpose", "argument", "evidence"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.5.1",
+      "domain": "RI",
+      "grade": "5",
+      "number": "1",
+      "description": "Quote accurately from a text when explaining what the text says explicitly and when drawing inferences from the text.",
+      "shortName": "Quote evidence",
+      "skills": ["citing-evidence", "inference", "literal-comprehension"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.5.2",
+      "domain": "RI",
+      "grade": "5",
+      "number": "2",
+      "description": "Determine two or more main ideas of a text and explain how they are supported by key details; summarize the text.",
+      "shortName": "Multiple main ideas",
+      "skills": ["main-idea", "supporting-details", "summarizing"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.5.3",
+      "domain": "RI",
+      "grade": "5",
+      "number": "3",
+      "description": "Explain the relationships or interactions between two or more individuals, events, ideas, or concepts in a historical, scientific, or technical text based on specific information in the text.",
+      "shortName": "Relationships in text",
+      "skills": ["cause-effect", "compare-contrast", "connections"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.5.4",
+      "domain": "RI",
+      "grade": "5",
+      "number": "4",
+      "description": "Determine the meaning of general academic and domain-specific words and phrases in a text relevant to a grade 5 topic or subject area.",
+      "shortName": "Academic vocabulary",
+      "skills": ["vocabulary", "context-clues", "domain-vocabulary"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.5.5",
+      "domain": "RI",
+      "grade": "5",
+      "number": "5",
+      "description": "Compare and contrast the overall structure of events, ideas, concepts, or information in two or more texts.",
+      "shortName": "Compare text structures",
+      "skills": ["text-structure", "compare-contrast"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.5.6",
+      "domain": "RI",
+      "grade": "5",
+      "number": "6",
+      "description": "Analyze multiple accounts of the same event or topic, noting important similarities and differences in the point of view they represent.",
+      "shortName": "Multiple perspectives",
+      "skills": ["point-of-view", "compare-contrast", "analysis"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.5.8",
+      "domain": "RI",
+      "grade": "5",
+      "number": "8",
+      "description": "Explain how an author uses reasons and evidence to support particular points in a text, identifying which reasons and evidence support which point(s).",
+      "shortName": "Evidence & argument",
+      "skills": ["author-purpose", "argument", "evidence"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.6.1",
+      "domain": "RI",
+      "grade": "6",
+      "number": "1",
+      "description": "Cite textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text.",
+      "shortName": "Cite for analysis",
+      "skills": ["citing-evidence", "inference", "analysis"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.6.2",
+      "domain": "RI",
+      "grade": "6",
+      "number": "2",
+      "description": "Determine a central idea of a text and how it is conveyed through particular details; provide a summary of the text distinct from personal opinions or judgments.",
+      "shortName": "Central idea & summary",
+      "skills": ["main-idea", "supporting-details", "summarizing"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.6.3",
+      "domain": "RI",
+      "grade": "6",
+      "number": "3",
+      "description": "Analyze in detail how a key individual, event, or idea is introduced, illustrated, and elaborated in a text.",
+      "shortName": "Analyze development",
+      "skills": ["analysis", "text-structure", "development"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.6.4",
+      "domain": "RI",
+      "grade": "6",
+      "number": "4",
+      "description": "Determine the meaning of words and phrases as they are used in a text, including figurative, connotative, and technical meanings.",
+      "shortName": "Word meanings",
+      "skills": ["vocabulary", "context-clues", "figurative-language"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.6.5",
+      "domain": "RI",
+      "grade": "6",
+      "number": "5",
+      "description": "Analyze how a particular sentence, paragraph, chapter, or section fits into the overall structure of a text and contributes to the development of the ideas.",
+      "shortName": "Structural analysis",
+      "skills": ["text-structure", "analysis", "organization"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.6.6",
+      "domain": "RI",
+      "grade": "6",
+      "number": "6",
+      "description": "Determine an author's point of view or purpose in a text and explain how it is conveyed in the text.",
+      "shortName": "Author purpose & POV",
+      "skills": ["author-purpose", "point-of-view"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.6.8",
+      "domain": "RI",
+      "grade": "6",
+      "number": "8",
+      "description": "Trace and evaluate the argument and specific claims in a text, distinguishing claims that are supported by reasons and evidence from claims that are not.",
+      "shortName": "Evaluate argument",
+      "skills": ["argument", "evidence", "evaluation"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.7.1",
+      "domain": "RI",
+      "grade": "7",
+      "number": "1",
+      "description": "Cite several pieces of textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text.",
+      "shortName": "Multiple evidence",
+      "skills": ["citing-evidence", "inference", "analysis"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.7.2",
+      "domain": "RI",
+      "grade": "7",
+      "number": "2",
+      "description": "Determine two or more central ideas in a text and analyze their development over the course of the text; provide an objective summary of the text.",
+      "shortName": "Multiple central ideas",
+      "skills": ["main-idea", "analysis", "summarizing"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.7.3",
+      "domain": "RI",
+      "grade": "7",
+      "number": "3",
+      "description": "Analyze the interactions between individuals, events, and ideas in a text.",
+      "shortName": "Analyze interactions",
+      "skills": ["analysis", "connections", "cause-effect"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.7.4",
+      "domain": "RI",
+      "grade": "7",
+      "number": "4",
+      "description": "Determine the meaning of words and phrases as they are used in a text, including figurative, connotative, and technical meanings; analyze the impact of a specific word choice on meaning and tone.",
+      "shortName": "Word impact",
+      "skills": ["vocabulary", "word-choice", "tone"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.7.5",
+      "domain": "RI",
+      "grade": "7",
+      "number": "5",
+      "description": "Analyze the structure an author uses to organize a text, including how the major sections contribute to the whole and to the development of the ideas.",
+      "shortName": "Analyze structure",
+      "skills": ["text-structure", "analysis", "organization"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.7.6",
+      "domain": "RI",
+      "grade": "7",
+      "number": "6",
+      "description": "Determine an author's point of view or purpose in a text and analyze how the author distinguishes his or her position from that of others.",
+      "shortName": "Author position",
+      "skills": ["author-purpose", "point-of-view", "analysis"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.7.8",
+      "domain": "RI",
+      "grade": "7",
+      "number": "8",
+      "description": "Trace and evaluate the argument and specific claims in a text, assessing whether the reasoning is sound and the evidence is relevant and sufficient to support the claims.",
+      "shortName": "Evaluate reasoning",
+      "skills": ["argument", "evidence", "evaluation", "reasoning"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.8.1",
+      "domain": "RI",
+      "grade": "8",
+      "number": "1",
+      "description": "Cite the textual evidence that most strongly supports an analysis of what the text says explicitly as well as inferences drawn from the text.",
+      "shortName": "Strongest evidence",
+      "skills": ["citing-evidence", "inference", "evaluation"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.8.2",
+      "domain": "RI",
+      "grade": "8",
+      "number": "2",
+      "description": "Determine a central idea of a text and analyze its development over the course of the text, including its relationship to supporting ideas; provide an objective summary of the text.",
+      "shortName": "Central idea development",
+      "skills": ["main-idea", "analysis", "summarizing"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.8.4",
+      "domain": "RI",
+      "grade": "8",
+      "number": "4",
+      "description": "Determine the meaning of words and phrases as they are used in a text, including figurative, connotative, and technical meanings; analyze the impact of specific word choices on meaning and tone, including analogies or allusions to other texts.",
+      "shortName": "Allusions & word impact",
+      "skills": ["vocabulary", "figurative-language", "allusion", "tone"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.8.5",
+      "domain": "RI",
+      "grade": "8",
+      "number": "5",
+      "description": "Analyze in detail the structure of a specific paragraph in a text, including the role of particular sentences in developing and refining a key concept.",
+      "shortName": "Paragraph structure",
+      "skills": ["text-structure", "analysis"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.8.6",
+      "domain": "RI",
+      "grade": "8",
+      "number": "6",
+      "description": "Determine an author's point of view or purpose in a text and analyze how the author acknowledges and responds to conflicting evidence or viewpoints.",
+      "shortName": "Conflicting viewpoints",
+      "skills": ["author-purpose", "point-of-view", "argument"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RI.8.8",
+      "domain": "RI",
+      "grade": "8",
+      "number": "8",
+      "description": "Delineate and evaluate the argument and specific claims in a text, assessing whether the reasoning is sound and the evidence is relevant and sufficient; recognize when irrelevant evidence is introduced.",
+      "shortName": "Evaluate claims",
+      "skills": ["argument", "evidence", "evaluation", "reasoning"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RF.4.3",
+      "domain": "RF",
+      "grade": "4",
+      "number": "3",
+      "description": "Know and apply grade-level phonics and word analysis skills in decoding words.",
+      "shortName": "Phonics & word analysis",
+      "skills": ["phonics", "decoding", "word-parts"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RF.4.4",
+      "domain": "RF",
+      "grade": "4",
+      "number": "4",
+      "description": "Read with sufficient accuracy and fluency to support comprehension.",
+      "shortName": "Fluency",
+      "skills": ["fluency", "accuracy", "expression"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RF.5.3",
+      "domain": "RF",
+      "grade": "5",
+      "number": "3",
+      "description": "Know and apply grade-level phonics and word analysis skills in decoding words.",
+      "shortName": "Phonics & word analysis",
+      "skills": ["phonics", "decoding", "word-parts"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.RF.5.4",
+      "domain": "RF",
+      "grade": "5",
+      "number": "4",
+      "description": "Read with sufficient accuracy and fluency to support comprehension.",
+      "shortName": "Fluency",
+      "skills": ["fluency", "accuracy", "expression"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.L.4.4",
+      "domain": "L",
+      "grade": "4",
+      "number": "4",
+      "description": "Determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 4 reading and content, choosing flexibly from a range of strategies.",
+      "shortName": "Vocabulary strategies",
+      "skills": ["vocabulary", "context-clues", "word-parts", "dictionary-use"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.L.4.5",
+      "domain": "L",
+      "grade": "4",
+      "number": "5",
+      "description": "Demonstrate understanding of figurative language, word relationships, and nuances in word meanings.",
+      "shortName": "Figurative language",
+      "skills": ["figurative-language", "simile", "metaphor", "idiom"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.L.5.4",
+      "domain": "L",
+      "grade": "5",
+      "number": "4",
+      "description": "Determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 5 reading and content, choosing flexibly from a range of strategies.",
+      "shortName": "Vocabulary strategies",
+      "skills": ["vocabulary", "context-clues", "word-parts", "dictionary-use"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.L.5.5",
+      "domain": "L",
+      "grade": "5",
+      "number": "5",
+      "description": "Demonstrate understanding of figurative language, word relationships, and nuances in word meanings.",
+      "shortName": "Figurative language",
+      "skills": ["figurative-language", "simile", "metaphor", "idiom", "proverb"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.L.6.4",
+      "domain": "L",
+      "grade": "6",
+      "number": "4",
+      "description": "Determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 6 reading and content, choosing flexibly from a range of strategies.",
+      "shortName": "Vocabulary strategies",
+      "skills": ["vocabulary", "context-clues", "word-parts", "dictionary-use"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.L.6.5",
+      "domain": "L",
+      "grade": "6",
+      "number": "5",
+      "description": "Demonstrate understanding of figurative language, word relationships, and nuances in word meanings.",
+      "shortName": "Figurative language",
+      "skills": ["figurative-language", "personification", "connotation"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.L.7.4",
+      "domain": "L",
+      "grade": "7",
+      "number": "4",
+      "description": "Determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 7 reading and content, choosing flexibly from a range of strategies.",
+      "shortName": "Vocabulary strategies",
+      "skills": ["vocabulary", "context-clues", "word-parts", "dictionary-use"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.L.7.5",
+      "domain": "L",
+      "grade": "7",
+      "number": "5",
+      "description": "Demonstrate understanding of figurative language, word relationships, and nuances in word meanings.",
+      "shortName": "Figurative language",
+      "skills": ["figurative-language", "analogy", "allusion"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.L.8.4",
+      "domain": "L",
+      "grade": "8",
+      "number": "4",
+      "description": "Determine or clarify the meaning of unknown and multiple-meaning words or phrases based on grade 8 reading and content, choosing flexibly from a range of strategies.",
+      "shortName": "Vocabulary strategies",
+      "skills": ["vocabulary", "context-clues", "word-parts", "dictionary-use"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.L.8.5",
+      "domain": "L",
+      "grade": "8",
+      "number": "5",
+      "description": "Demonstrate understanding of figurative language, word relationships, and nuances in word meanings.",
+      "shortName": "Figurative language",
+      "skills": ["figurative-language", "verbal-irony", "pun"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.W.4.1",
+      "domain": "W",
+      "grade": "4",
+      "number": "1",
+      "description": "Write opinion pieces on topics or texts, supporting a point of view with reasons and information.",
+      "shortName": "Opinion writing",
+      "skills": ["opinion-writing", "argument", "evidence"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.W.4.2",
+      "domain": "W",
+      "grade": "4",
+      "number": "2",
+      "description": "Write informative/explanatory texts to examine a topic and convey ideas and information clearly.",
+      "shortName": "Informative writing",
+      "skills": ["informative-writing", "organization", "evidence"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.W.5.1",
+      "domain": "W",
+      "grade": "5",
+      "number": "1",
+      "description": "Write opinion pieces on topics or texts, supporting a point of view with reasons and information.",
+      "shortName": "Opinion writing",
+      "skills": ["opinion-writing", "argument", "evidence"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.W.5.2",
+      "domain": "W",
+      "grade": "5",
+      "number": "2",
+      "description": "Write informative/explanatory texts to examine a topic and convey ideas and information clearly.",
+      "shortName": "Informative writing",
+      "skills": ["informative-writing", "organization", "evidence"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.W.6.1",
+      "domain": "W",
+      "grade": "6",
+      "number": "1",
+      "description": "Write arguments to support claims with clear reasons and relevant evidence.",
+      "shortName": "Argument writing",
+      "skills": ["argument-writing", "claims", "evidence"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.W.6.2",
+      "domain": "W",
+      "grade": "6",
+      "number": "2",
+      "description": "Write informative/explanatory texts to examine a topic and convey ideas, concepts, and information through the selection, organization, and analysis of relevant content.",
+      "shortName": "Informative writing",
+      "skills": ["informative-writing", "organization", "analysis"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.W.7.1",
+      "domain": "W",
+      "grade": "7",
+      "number": "1",
+      "description": "Write arguments to support claims with clear reasons and relevant evidence.",
+      "shortName": "Argument writing",
+      "skills": ["argument-writing", "claims", "evidence"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.W.7.2",
+      "domain": "W",
+      "grade": "7",
+      "number": "2",
+      "description": "Write informative/explanatory texts to examine a topic and convey ideas, concepts, and information through the selection, organization, and analysis of relevant content.",
+      "shortName": "Informative writing",
+      "skills": ["informative-writing", "organization", "analysis"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.W.8.1",
+      "domain": "W",
+      "grade": "8",
+      "number": "1",
+      "description": "Write arguments to support claims with clear reasons and relevant evidence.",
+      "shortName": "Argument writing",
+      "skills": ["argument-writing", "claims", "evidence", "counterargument"]
+    },
+    {
+      "id": "CCSS.ELA-LITERACY.W.8.2",
+      "domain": "W",
+      "grade": "8",
+      "number": "2",
+      "description": "Write informative/explanatory texts to examine a topic and convey ideas, concepts, and information through the selection, organization, and analysis of relevant content.",
+      "shortName": "Informative writing",
+      "skills": ["informative-writing", "organization", "analysis"]
+    }
+  ]
+}

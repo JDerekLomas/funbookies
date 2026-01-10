@@ -5,11 +5,18 @@
   "type": "article",
   "genre": "science",
   "lexile": 820,
+  "gradeLevel": "7-8",
   "wordCount": 470,
   "readingTime": 4,
   "coverEmoji": "🕳️",
   "coverColor": "#1e1b4b",
   "summary": "Explore the fascinating science of black holes and what happens when stars die.",
+  "standards": [
+    "CCSS.ELA-LITERACY.RI.7.1",
+    "CCSS.ELA-LITERACY.RI.7.2",
+    "CCSS.ELA-LITERACY.RI.7.4",
+    "CCSS.ELA-LITERACY.RI.7.8"
+  ],
   "vocabulary": [
     {
       "word": "gravity",
@@ -83,7 +90,9 @@
         "Explosions in empty space",
         "The cooling of hot gas clouds"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "skill": "literal",
+      "standards": ["CCSS.ELA-LITERACY.RI.7.1"]
     },
     {
       "question": "Why is the event horizon called 'the point of no return'?",
@@ -94,7 +103,9 @@
         "Because it is visible from Earth",
         "Because it marks the center of the black hole"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "literal",
+      "standards": ["CCSS.ELA-LITERACY.RI.7.1"]
     },
     {
       "question": "What is 'spaghettification'?",
@@ -105,7 +116,9 @@
         "How black holes spin",
         "The color of black holes"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "vocabulary",
+      "standards": ["CCSS.ELA-LITERACY.RI.7.4"]
     },
     {
       "question": "How did scientists create the first image of a black hole?",
@@ -116,7 +129,9 @@
         "By using a satellite in orbit",
         "By studying old photographs"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "literal",
+      "standards": ["CCSS.ELA-LITERACY.RI.7.1"]
     },
     {
       "question": "What can you infer about scientists' understanding of black holes?",
@@ -127,7 +142,9 @@
         "Scientists are still learning new things about them",
         "Scientists think black holes are not real"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "skill": "inference",
+      "standards": ["CCSS.ELA-LITERACY.RI.7.1"]
     }
   ]
 }

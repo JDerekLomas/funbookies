@@ -5,11 +5,18 @@
   "type": "story",
   "genre": "realistic-fiction",
   "lexile": 680,
+  "gradeLevel": "4-5",
   "wordCount": 520,
   "readingTime": 5,
   "coverEmoji": "🌅",
   "coverColor": "#f97316",
   "summary": "Marcus faces the end of summer and must say goodbye to his best friend who is moving away.",
+  "standards": [
+    "CCSS.ELA-LITERACY.RL.5.1",
+    "CCSS.ELA-LITERACY.RL.5.2",
+    "CCSS.ELA-LITERACY.RL.5.3",
+    "CCSS.ELA-LITERACY.RL.5.4"
+  ],
   "vocabulary": [
     {
       "word": "bittersweet",
@@ -115,7 +122,9 @@
         "His family is getting a divorce",
         "He broke his bicycle"
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "skill": "literal",
+      "standards": ["CCSS.ELA-LITERACY.RL.5.1"]
     },
     {
       "question": "What does the stone skipping scene reveal about Marcus and Damon's friendship?",
@@ -126,7 +135,9 @@
         "They don't really like each other",
         "Damon is better at everything"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "inference",
+      "standards": ["CCSS.ELA-LITERACY.RL.5.1"]
     },
     {
       "question": "What does Damon's dad mean when he says 'change is just life's way of making room for new adventures'?",
@@ -137,7 +148,9 @@
         "Change can lead to new opportunities and experiences",
         "Life is always difficult"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "skill": "inference",
+      "standards": ["CCSS.ELA-LITERACY.RL.5.4"]
     },
     {
       "question": "How does Marcus's mood change by the end of the story?",
@@ -148,7 +161,9 @@
         "He becomes angry at Damon",
         "He decides to move away too"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "skill": "character-analysis",
+      "standards": ["CCSS.ELA-LITERACY.RL.5.3"]
     },
     {
       "question": "What is the theme of this story?",
@@ -159,7 +174,9 @@
         "Friendship can survive change",
         "Summer is the best season"
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "skill": "theme",
+      "standards": ["CCSS.ELA-LITERACY.RL.5.2"]
     }
   ]
 }

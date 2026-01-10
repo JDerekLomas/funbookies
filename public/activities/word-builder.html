@@ -123,6 +123,14 @@
       animation: shake 0.3s;
     }
 
+    .tap-hint {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-sm);
+      opacity: 0.7;
+    }
+
     .letter-bank {
       display: flex;
       flex-wrap: wrap;
@@ -158,9 +166,24 @@
 
     .controls {
       display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-hear {
+      font-size: 1.2rem;
+      padding: 14px 32px;
+    }
+
+    .skip-link {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+    }
+
+    .skip-link:hover {
+      text-decoration: underline;
     }
 
     .feedback {
@@ -282,13 +305,12 @@
       </div>
 
       <div class="word-slots" id="wordSlots"></div>
+      <div class="tap-hint">tap a letter to remove it</div>
       <div class="letter-bank" id="letterBank"></div>
 
       <div class="controls">
-        <button class="btn btn-ghost" onclick="clearWord()">Clear</button>
-        <button class="btn btn-primary" onclick="checkWord()">Check</button>
-        <button class="btn btn-secondary" onclick="speakWord(currentWord?.word)" title="Hear the word">&#x1F50A;</button>
-        <button class="btn btn-outline" onclick="skipWord()">Skip</button>
+        <button class="btn btn-primary btn-hear" onclick="speakWord(currentWord?.word)" title="Hear the word">&#x1F50A; Hear Word</button>
+        <a href="#" class="skip-link" onclick="skipWord(); return false;">skip this word</a>
       </div>
 
       <div class="feedback" id="feedback"></div>
@@ -770,6 +792,11 @@
         tile.classList.add('used');
         speakLetter(letter);
         renderSlots();
+
+        // Auto-check when word is complete
+        if (builtWord.length === currentWord.word.length) {
+          setTimeout(checkWord, 300);
+        }
       }
     }
 

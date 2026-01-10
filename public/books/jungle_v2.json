@@ -5,8 +5,16 @@
   "band": "B",
   "riso_colors": {
     "black": "outlines, details, text, tree trunks",
-    "color_a": {"name": "Green", "pantone": "354", "use": "Zee, leaves, jungle"},
-    "color_b": {"name": "Risofederal Blue", "pantone": "286", "use": "Pip the bird, sky, water"}
+    "color_a": {
+      "name": "Green",
+      "pantone": "354",
+      "use": "Zee, leaves, jungle"
+    },
+    "color_b": {
+      "name": "Risofederal Blue",
+      "pantone": "286",
+      "use": "Pip the bird, sky, water"
+    }
   },
   "characters": [
     {
@@ -29,9 +37,33 @@
     }
   ],
   "word_list": {
-    "sound_out": ["sun", "fun", "sit", "big", "fast", "slow", "win", "best", "pal"],
-    "sight": ["the", "said", "to", "I", "was", "a", "is", "my"],
-    "new": ["Zee", "Pip", "sloth", "jungle"]
+    "sound_out": [
+      "sun",
+      "fun",
+      "sit",
+      "big",
+      "fast",
+      "slow",
+      "win",
+      "best",
+      "pal"
+    ],
+    "sight": [
+      "the",
+      "said",
+      "to",
+      "I",
+      "was",
+      "a",
+      "is",
+      "my"
+    ],
+    "new": [
+      "Zee",
+      "Pip",
+      "sloth",
+      "jungle"
+    ]
   },
   "pages": [
     {
@@ -184,5 +216,6 @@
       "image_prompt": "WIDE SHOT: Zee and Pip in their tree at sunset. Zee hanging from branch with LONG CURVED CLAWS, Pip perched nearby with relaxed CREST. Jungle silhouette. Perfect contentment. Expression: both at peace, together.",
       "riso_notes": "Zee GREEN, Pip BLUE, jungle BLACK silhouette, warm ending"
     }
-  ]
+  ],
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Zee and the Jungle\nPanel 2: Words to Know\nPanel 3: Zee sat in a big tree.\nPanel 4: The sun was up.\nPanel 5: \"Slow is good,\" said Zee.\nPanel 6: ZIP! A bird!\nPanel 7: \"Fast! Fast! Fast!\" said Pip.\nPanel 8: Pip sat with Zee.\nPanel 9: \"Let's go fast!\" said Pip.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

@@ -14,15 +14,44 @@
   "summary": "Pip the pig discovers a mud puddle and has the best day ever!",
   "character_description": "Pip, a round cheerful pink cartoon pig with a curly tail",
   "style_preset": "classic",
-
   "word_list": {
-    "sound_out": ["mud", "fun", "sun", "run", "hug", "tub", "bug", "cup", "pup"],
-    "sight": ["the", "in", "is", "a", "and", "I", "go", "to"],
-    "new": ["Pip", "pig", "puddle"]
+    "sound_out": [
+      "mud",
+      "fun",
+      "sun",
+      "run",
+      "hug",
+      "tub",
+      "bug",
+      "cup",
+      "pup"
+    ],
+    "sight": [
+      "the",
+      "in",
+      "is",
+      "a",
+      "and",
+      "I",
+      "go",
+      "to"
+    ],
+    "new": [
+      "Pip",
+      "pig",
+      "puddle"
+    ]
   },
-
-  "wordsearch_words": ["mud", "pig", "fun", "sun", "run", "hug", "tub", "bug"],
-
+  "wordsearch_words": [
+    "mud",
+    "pig",
+    "fun",
+    "sun",
+    "run",
+    "hug",
+    "tub",
+    "bug"
+  ],
   "pages": [
     {
       "page": 1,
@@ -31,10 +60,23 @@
       "text": "Pig in the Mud",
       "image_prompt": "Children's book cover: A cheerful round pink cartoon pig jumping into a brown mud puddle, splashing joyfully. Sunny day, green grass. Title 'Pig in the Mud'. Warm soft watercolor style."
     },
-    { "page": 2, "type": "copyright" },
-    { "page": 3, "type": "parent_guide" },
-    { "page": 4, "type": "level_info" },
-    { "page": 5, "type": "wordlist", "text": "Words to Know" },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
     {
       "page": 6,
       "story_page": 1,
@@ -146,8 +188,14 @@
       "text": "The End",
       "image_prompt": "A round cheerful pink cartoon pig with a curly tail waving goodbye, happy and content, sunset colors. Warm soft watercolor style."
     },
-    { "page": 20, "type": "wordsearch" },
-    { "page": 21, "type": "series_info" },
+    {
+      "page": 20,
+      "type": "wordsearch"
+    },
+    {
+      "page": 21,
+      "type": "series_info"
+    },
     {
       "page": 22,
       "type": "back_cover",
@@ -155,5 +203,6 @@
       "text": "Pip the pig discovers a mud puddle and has the best day ever!",
       "image_prompt": "A round cheerful pink cartoon pig with a curly tail waving, simple friendly pose. Warm soft watercolor style."
     }
-  ]
+  ],
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Pig in the Mud\nPanel 2: Words to Know\nPanel 3: Pip the pig sat in the sun.\nPanel 4: Pip saw mud!\nPanel 5: Pip ran to the mud.\nPanel 6: Pip got in the mud.\nPanel 7: The mud is fun!\nPanel 8: Pip saw a bug in the mud.\nPanel 9: Pip got a cup.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

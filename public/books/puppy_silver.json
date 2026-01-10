@@ -7,8 +7,14 @@
   "level_description": "Multisyllabic words: puppy, birthday, happy, surprise, 20-30 words per page",
   "riso_colors": {
     "black": "outlines",
-    "color_a": {"name": "Yellow", "use": "puppy, balloons"},
-    "color_b": {"name": "Fluorescent Pink", "use": "decorations, cake"}
+    "color_a": {
+      "name": "Yellow",
+      "use": "puppy, balloons"
+    },
+    "color_b": {
+      "name": "Fluorescent Pink",
+      "use": "decorations, cake"
+    }
   },
   "character": {
     "name": "Puppy",
@@ -16,28 +22,163 @@
     "description": "Small fluffy yellow puppy with floppy ears, big round eyes, stubby tail, pink nose"
   },
   "word_list": {
-    "sound_out": ["puppy", "birthday", "happy", "party", "funny", "sunny", "kitten", "mitten", "ribbon", "muffin", "basket", "blanket", "rabbit", "napkin", "butter", "better", "under", "over", "into", "hello"],
-    "sight": ["a", "the", "is", "it", "I", "and", "to", "my", "you", "said", "was", "for", "they", "what", "could", "would", "were", "there", "because", "friend"],
-  "new": ["Puppy", "surprise"]
+    "sound_out": [
+      "puppy",
+      "birthday",
+      "happy",
+      "party",
+      "funny",
+      "sunny",
+      "kitten",
+      "mitten",
+      "ribbon",
+      "muffin",
+      "basket",
+      "blanket",
+      "rabbit",
+      "napkin",
+      "butter",
+      "better",
+      "under",
+      "over",
+      "into",
+      "hello"
+    ],
+    "sight": [
+      "a",
+      "the",
+      "is",
+      "it",
+      "I",
+      "and",
+      "to",
+      "my",
+      "you",
+      "said",
+      "was",
+      "for",
+      "they",
+      "what",
+      "could",
+      "would",
+      "were",
+      "there",
+      "because",
+      "friend"
+    ],
+    "new": [
+      "Puppy",
+      "surprise"
+    ]
   },
   "pages": [
-    {"page": 1, "type": "cover", "text": "Puppy's Birthday", "image_prompt": "NO TEXT IN IMAGE. Cute fluffy yellow puppy looking hopefully at wrapped present with pink ribbon, birthday balloons around. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 2, "type": "wordlist", "text": "Words to Know"},
-    {"page": 3, "type": "story", "text": "Puppy woke up. Today was Puppy's birthday!", "image_prompt": "NO TEXT IN IMAGE. Fluffy yellow puppy stretching and yawning in bed, excited expression, morning light. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 4, "type": "story", "text": "Puppy was so happy. \"It is my birthday!\"", "image_prompt": "NO TEXT IN IMAGE. Yellow puppy bouncing with joy, tail wagging, huge smile, ears flopping. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 5, "type": "story", "text": "Puppy went to find Kitten. But Kitten was not there.", "image_prompt": "NO TEXT IN IMAGE. Puppy looking around empty room, confused expression, kitten's bed empty. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 6, "type": "story", "text": "Puppy went to find Rabbit. But Rabbit was not there.", "image_prompt": "NO TEXT IN IMAGE. Puppy checking rabbit's hutch, nobody home, increasingly worried expression. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 7, "type": "story", "text": "\"Hello? Hello?\" No one said hello to Puppy.", "image_prompt": "NO TEXT IN IMAGE. Lonely yellow puppy calling out, looking sad, empty room around. Ears drooping. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 8, "type": "story", "text": "Puppy was not happy. \"They forgot my birthday!\"", "image_prompt": "NO TEXT IN IMAGE. Sad puppy sitting alone, single tear, looking at floor. Very emotional. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 9, "type": "story", "text": "Puppy went under the blanket because Puppy was so sad.", "image_prompt": "NO TEXT IN IMAGE. Puppy hiding under blanket on bed, just nose and eyes peeking out, miserable expression. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 10, "type": "story", "text": "But then Puppy could hear a funny sound!", "image_prompt": "NO TEXT IN IMAGE. Puppy's ears perking up under blanket, curious expression, hearing something. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 11, "type": "story", "text": "Puppy went into the sunny garden.", "image_prompt": "NO TEXT IN IMAGE. Puppy stepping outside into bright sunny garden, hopeful expression, following sound. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 12, "type": "story", "text": "\"SURPRISE!\" Kitten and Rabbit were there!", "image_prompt": "NO TEXT IN IMAGE. Kitten and rabbit jumping out with party hats, balloons and streamers, shouting surprise. Puppy shocked! BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 13, "type": "story", "text": "It was a birthday party for Puppy! There were ribbons and muffins!", "image_prompt": "NO TEXT IN IMAGE. Party scene with decorations, muffins on table, ribbons everywhere. Puppy's eyes wide with joy. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 14, "type": "story", "text": "\"We did not forget,\" said Kitten. \"We were getting the party!\"", "image_prompt": "NO TEXT IN IMAGE. Kitten explaining to puppy, pointing at party setup. Puppy starting to smile again. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 15, "type": "story", "text": "Rabbit gave Puppy a basket with a ribbon. It had a mitten inside!", "image_prompt": "NO TEXT IN IMAGE. Rabbit presenting basket with bow to puppy. Puppy unwrapping to find cute mitten. Delighted expression. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 16, "type": "story", "text": "Puppy was so happy. \"This is the better birthday!\"", "image_prompt": "NO TEXT IN IMAGE. Puppy hugging kitten and rabbit, all three friends together, party decorations around. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 17, "type": "story", "text": "They had muffins and butter. What a funny, happy party!", "image_prompt": "NO TEXT IN IMAGE. Puppy, kitten and rabbit eating muffins at party, laughing, having wonderful time. Crumbs flying. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 18, "type": "end", "text": "The End", "image_prompt": "NO TEXT IN IMAGE. Puppy, kitten, and rabbit sleeping contentedly after party, party hats askew, empty muffin plates. Sweet ending. BOLD BLACK OUTLINES. Children's book illustration."}
-  ]
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Puppy's Birthday",
+      "image_prompt": "NO TEXT IN IMAGE. Cute fluffy yellow puppy looking hopefully at wrapped present with pink ribbon, birthday balloons around. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Puppy woke up. Today was Puppy's birthday!",
+      "image_prompt": "NO TEXT IN IMAGE. Fluffy yellow puppy stretching and yawning in bed, excited expression, morning light. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "Puppy was so happy. \"It is my birthday!\"",
+      "image_prompt": "NO TEXT IN IMAGE. Yellow puppy bouncing with joy, tail wagging, huge smile, ears flopping. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "Puppy went to find Kitten. But Kitten was not there.",
+      "image_prompt": "NO TEXT IN IMAGE. Puppy looking around empty room, confused expression, kitten's bed empty. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "Puppy went to find Rabbit. But Rabbit was not there.",
+      "image_prompt": "NO TEXT IN IMAGE. Puppy checking rabbit's hutch, nobody home, increasingly worried expression. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "\"Hello? Hello?\" No one said hello to Puppy.",
+      "image_prompt": "NO TEXT IN IMAGE. Lonely yellow puppy calling out, looking sad, empty room around. Ears drooping. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "Puppy was not happy. \"They forgot my birthday!\"",
+      "image_prompt": "NO TEXT IN IMAGE. Sad puppy sitting alone, single tear, looking at floor. Very emotional. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "Puppy went under the blanket because Puppy was so sad.",
+      "image_prompt": "NO TEXT IN IMAGE. Puppy hiding under blanket on bed, just nose and eyes peeking out, miserable expression. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "But then Puppy could hear a funny sound!",
+      "image_prompt": "NO TEXT IN IMAGE. Puppy's ears perking up under blanket, curious expression, hearing something. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "Puppy went into the sunny garden.",
+      "image_prompt": "NO TEXT IN IMAGE. Puppy stepping outside into bright sunny garden, hopeful expression, following sound. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "\"SURPRISE!\" Kitten and Rabbit were there!",
+      "image_prompt": "NO TEXT IN IMAGE. Kitten and rabbit jumping out with party hats, balloons and streamers, shouting surprise. Puppy shocked! BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "It was a birthday party for Puppy! There were ribbons and muffins!",
+      "image_prompt": "NO TEXT IN IMAGE. Party scene with decorations, muffins on table, ribbons everywhere. Puppy's eyes wide with joy. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "\"We did not forget,\" said Kitten. \"We were getting the party!\"",
+      "image_prompt": "NO TEXT IN IMAGE. Kitten explaining to puppy, pointing at party setup. Puppy starting to smile again. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "Rabbit gave Puppy a basket with a ribbon. It had a mitten inside!",
+      "image_prompt": "NO TEXT IN IMAGE. Rabbit presenting basket with bow to puppy. Puppy unwrapping to find cute mitten. Delighted expression. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "Puppy was so happy. \"This is the better birthday!\"",
+      "image_prompt": "NO TEXT IN IMAGE. Puppy hugging kitten and rabbit, all three friends together, party decorations around. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "They had muffins and butter. What a funny, happy party!",
+      "image_prompt": "NO TEXT IN IMAGE. Puppy, kitten and rabbit eating muffins at party, laughing, having wonderful time. Crumbs flying. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 18,
+      "type": "end",
+      "text": "The End",
+      "image_prompt": "NO TEXT IN IMAGE. Puppy, kitten, and rabbit sleeping contentedly after party, party hats askew, empty muffin plates. Sweet ending. BOLD BLACK OUTLINES. Children's book illustration."
+    }
+  ],
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Rich watercolor illustration, more detailed characters and settings, dynamic compositions\nMood: exciting, imaginative, engaging\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Puppy's Birthday\nPanel 2: Words to Know\nPanel 3: Puppy woke up. Today was Puppy's birthday!\nPanel 4: Puppy was so happy. \"It is my birthday!\"\nPanel 5: Puppy went to find Kitten. But Kitten was not there.\nPanel 6: Puppy went to find Rabbit. But Rabbit was not there.\nPanel 7: \"Hello? Hello?\" No one said hello to Puppy.\nPanel 8: Puppy was not happy. \"They forgot my birthday!\"\nPanel 9: Puppy went under the blanket because Puppy was so sad.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

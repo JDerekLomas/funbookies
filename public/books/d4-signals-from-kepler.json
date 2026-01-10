@@ -3,87 +3,469 @@
   "title": "Signals from Kepler",
   "level": "D4",
   "band": "D",
-  "targetSkills": ["Greek roots", "science fiction themes", "exploration narrative", "scientific vocabulary"],
+  "targetSkills": [
+    "Greek roots",
+    "science fiction themes",
+    "exploration narrative",
+    "scientific vocabulary"
+  ],
   "vocabularyFocus": {
-    "graph": ["paragraph", "biography", "photograph", "autograph", "seismograph", "graphics"],
-    "phon": ["telephone", "symphony", "microphone", "phonics", "cacophony", "polyphonic"],
-    "photo": ["photograph", "photosynthesis", "photon", "photosphere"],
-    "bio": ["biology", "biography", "antibiotic", "biodegradable", "biosphere", "biological"],
-    "geo": ["geography", "geology", "geometry", "geothermal", "geologist"],
-    "chron": ["chronological", "chronic", "synchronize", "chronicle", "chronometer"],
-    "tele": ["telephone", "television", "telescope", "telegram", "telepathy", "telecommunications"],
-    "auto": ["automatic", "automobile", "autobiography", "autonomy", "autonomous", "autopilot"],
-    "meter/metr": ["thermometer", "centimeter", "diameter", "barometer", "perimeter", "metric"],
-    "scope": ["telescope", "microscope", "horoscope", "stethoscope", "spectroscope", "periscope"]
+    "graph": [
+      "paragraph",
+      "biography",
+      "photograph",
+      "autograph",
+      "seismograph",
+      "graphics"
+    ],
+    "phon": [
+      "telephone",
+      "symphony",
+      "microphone",
+      "phonics",
+      "cacophony",
+      "polyphonic"
+    ],
+    "photo": [
+      "photograph",
+      "photosynthesis",
+      "photon",
+      "photosphere"
+    ],
+    "bio": [
+      "biology",
+      "biography",
+      "antibiotic",
+      "biodegradable",
+      "biosphere",
+      "biological"
+    ],
+    "geo": [
+      "geography",
+      "geology",
+      "geometry",
+      "geothermal",
+      "geologist"
+    ],
+    "chron": [
+      "chronological",
+      "chronic",
+      "synchronize",
+      "chronicle",
+      "chronometer"
+    ],
+    "tele": [
+      "telephone",
+      "television",
+      "telescope",
+      "telegram",
+      "telepathy",
+      "telecommunications"
+    ],
+    "auto": [
+      "automatic",
+      "automobile",
+      "autobiography",
+      "autonomy",
+      "autonomous",
+      "autopilot"
+    ],
+    "meter/metr": [
+      "thermometer",
+      "centimeter",
+      "diameter",
+      "barometer",
+      "perimeter",
+      "metric"
+    ],
+    "scope": [
+      "telescope",
+      "microscope",
+      "horoscope",
+      "stethoscope",
+      "spectroscope",
+      "periscope"
+    ]
   },
   "pages": [
-    {"page": 1, "type": "cover", "text": "Signals from Kepler", "scene": "A teenager gazing through a telescope at a distant star, with digital waveforms overlaying the starfield."},
-    {"page": 2, "type": "copyright"},
-    {"page": 3, "type": "title", "text": "Signals from Kepler"},
-    {"page": 4, "type": "chapter", "text": "Chapter 1: The Observatory", "scene": "Chapter heading with telescope and constellation design."},
-    {"page": 5, "type": "story", "text": "Amara had spent three years studying the biography of every astronomer who had ever pointed a telescope toward the distant star system known as Kepler-442.", "scene": "A twelve-year-old girl surrounded by astronomy books and star charts in a cluttered bedroom observatory."},
-    {"page": 6, "type": "story", "text": "Her grandmother's old telescope stood by the window, its polished lenses capable of capturing photons that had traveled 112 light-years across the cosmos to reach her eyes.", "scene": "An antique brass telescope mounted on a tripod, starlight streaming through a window."},
-    {"page": 7, "type": "story", "text": "The telescope connected her to the biography of her grandmother, a geologist who had always believed that life existed beyond Earth's biosphere.", "scene": "Old photograph of grandmother beside the telescope, with geological samples and astronomy notes."},
-    {"page": 8, "type": "story", "text": "Tonight, the graphics on Amara's computer showed something unprecedented: a pattern in the light that could not be explained by any known astronomical phenomenon.", "scene": "Computer screen showing unusual waveform patterns, girl leaning forward intently."},
-    {"page": 9, "type": "story", "text": "She reached for the telephone to call Dr. Chen at the university, but hesitated because she knew how often amateur astronomers made mistakes that embarrassed them.", "scene": "Hand hovering over phone, face showing uncertainty and excitement."},
-    {"page": 10, "type": "story", "text": "The chronometer on her wall showed 2:47 AM, far too late to call anyone, so she decided to gather more data and synchronize her observations with the automatic recording system.", "scene": "Digital clock showing late hour, girl making notes, recording equipment running."},
-    {"page": 11, "type": "chapter", "text": "Chapter 2: The Pattern", "scene": "Chapter heading with waveform pattern design."},
-    {"page": 12, "type": "story", "text": "By morning, Amara had documented the signal in chronological order across several hours, and the pattern showed a mathematical geometry that seemed almost deliberate.", "scene": "Notebook pages filled with timestamps and geometric diagrams."},
-    {"page": 13, "type": "story", "text": "The photosphere of Kepler-442 was blocking something at regular intervals, and the spectroscope analysis revealed elements that suggested biological activity on a nearby planet.", "scene": "Spectral analysis charts showing unusual elemental signatures."},
-    {"page": 14, "type": "story", "text": "Amara knew that photosynthesis on distant planets could create detectable signatures, but this was something more complex and organized than simple plant life.", "scene": "Diagram showing how alien photosynthesis might appear through a telescope."},
-    {"page": 15, "type": "story", "text": "The telephone rang suddenly, and Amara jumped before answering to hear Dr. Chen's voice, tense with excitement and speaking rapidly about overnight observations.", "scene": "Girl answering phone, surprised expression, scientist's excited voice coming through."},
-    {"page": 16, "type": "story", "text": "\"Our seismograph-style instruments detected the same polyphonic pattern you must have seen,\" Dr. Chen said, \"and the university's autonomous monitoring system flagged it as anomalous.\"", "scene": "Split screen showing university observatory with monitoring equipment and Amara on phone."},
-    {"page": 17, "type": "story", "text": "Amara felt her heart race as she realized that her grandmother's old telescope had detected something that even the most sophisticated automatic systems had noticed simultaneously.", "scene": "Girl looking at grandmother's telescope with new wonder and respect."},
-    {"page": 18, "type": "chapter", "text": "Chapter 3: Decoding the Message", "scene": "Chapter heading with binary code and star pattern."},
-    {"page": 19, "type": "story", "text": "At the university laboratory, Amara watched scientists photograph each segment of the signal as it appeared on massive monitors connected to telecommunications satellites around the world.", "scene": "University control room with large screens, scientists at workstations, Amara observing."},
-    {"page": 20, "type": "story", "text": "The geometry of the pattern suggested that whoever or whatever had created it understood the mathematics of the cosmos in ways that transcended biological limitations.", "scene": "Mathematical patterns appearing on screens, scientists pointing and discussing."},
-    {"page": 21, "type": "story", "text": "Dr. Chen explained that they needed to measure the diameter of the signal's origin point using a network of telescopes synchronized across different geographic locations.", "scene": "World map showing telescope network, red lines connecting observation points."},
-    {"page": 22, "type": "story", "text": "\"The perimeter of our detection capabilities is expanding every day,\" he said, adjusting the barometer-like instruments that monitored atmospheric conditions for optimal viewing.", "scene": "Scientist adjusting equipment, Amara helping with calculations."},
-    {"page": 23, "type": "story", "text": "The microscope of analysis they applied to each data point revealed that the signal contained information about the sender's biology, geography, and chronological understanding of time.", "scene": "Close-up data analysis, revealing complex layered information in the signal."},
-    {"page": 24, "type": "story", "text": "Amara realized that this was not just a signal but an autobiography in mathematical form, a way for an intelligent species to introduce themselves across the vast emptiness of space.", "scene": "Girl's face lit by screen glow, expression of profound realization."},
-    {"page": 25, "type": "chapter", "text": "Chapter 4: First Contact Protocol", "scene": "Chapter heading with handshake across stars motif."},
-    {"page": 26, "type": "story", "text": "The telecommunications teams from twelve countries gathered for a video conference that synchronized automatically despite the different geographic time zones involved.", "scene": "Video conference wall showing faces from many countries, flags visible."},
-    {"page": 27, "type": "story", "text": "Each nation's scientists contributed their analysis, creating a symphony of collaborative research that represented the best of human biological intelligence working together.", "scene": "Scientists sharing data, graphs flowing between screens."},
-    {"page": 28, "type": "story", "text": "The signal appeared to be a chronicle of an ancient civilization that had achieved autonomous space travel long before humans had even developed basic telephonic communication.", "scene": "Artist's rendering of alien spacecraft, timeline showing millions of years."},
-    {"page": 29, "type": "story", "text": "Their biography suggested a species that had survived the chronic challenges of cosmic existence by developing technology that worked in harmony with their planet's biosphere.", "scene": "Alien planet visualization showing sustainable civilization integrated with nature."},
-    {"page": 30, "type": "story", "text": "The geometry of their cities, visible in the mathematical descriptions, showed a sophistication that made human geography seem primitive by comparison.", "scene": "Geometric city designs derived from signal data, beautiful and complex."},
-    {"page": 31, "type": "story", "text": "\"They are offering us their autobiography as a gift,\" Amara said quietly, understanding suddenly what her grandmother had always believed about life in the universe.", "scene": "Girl speaking to assembly, her words appearing as text on screens."},
-    {"page": 32, "type": "chapter", "text": "Chapter 5: The Response", "scene": "Chapter heading with Earth sending signal outward."},
-    {"page": 33, "type": "story", "text": "The question of whether to respond occupied scientists, philosophers, and leaders for weeks, each perspective adding to a polyphonic debate about humanity's future.", "scene": "Montage of debates, discussions, and deliberations around the world."},
-    {"page": 34, "type": "story", "text": "Amara was asked to write a paragraph for the potential response, explaining how a young human had used an antique telescope to participate in the greatest discovery in history.", "scene": "Girl writing at her desk, drafts crumpled around her."},
-    {"page": 35, "type": "story", "text": "She chose to include a photograph of her grandmother and the old telescope, along with the thermometer reading from that cold night when she first noticed the signal.", "scene": "Items being prepared for digital transmission: photo, data, personal artifacts."},
-    {"page": 36, "type": "story", "text": "The response would travel at light speed through the photosphere of countless stars, carrying humanity's autograph across the cosmos toward beings who might receive it in over a century.", "scene": "Visualization of signal traveling through space, passing stars."},
-    {"page": 37, "type": "story", "text": "The geographic diversity of Earth's languages and cultures would be encoded in graphics that any mathematically intelligent species could decode and understand.", "scene": "Cultural symbols and languages being translated into mathematical patterns."},
-    {"page": 38, "type": "chapter", "text": "Chapter 6: Legacy of the Stars", "scene": "Chapter heading with grandmother and granddaughter silhouettes looking at stars."},
-    {"page": 39, "type": "story", "text": "Months later, Amara stood at the university's new telescope facility, which featured an autonomous observation system more powerful than anything her grandmother could have imagined.", "scene": "Modern observatory dome, girl standing before massive telescope."},
-    {"page": 40, "type": "story", "text": "The chronological record of the discovery now included her name alongside scientists who had spent their entire biographies studying the cosmos.", "scene": "Plaque listing contributors to the discovery, Amara's name prominent."},
-    {"page": 41, "type": "story", "text": "Her grandmother's telescope had been photographed and placed in the astronomy museum, where children could learn about how the first signal from Kepler-442 was detected.", "scene": "Grandmother's telescope in museum display, children gathered around."},
-    {"page": 42, "type": "story", "text": "The biography of human astronomy had changed forever, and with it, the geography of our understanding about our place in the biological tapestry of the universe.", "scene": "Star map showing Earth's position in relation to Kepler-442, lines of connection."},
-    {"page": 43, "type": "story", "text": "Amara knew that the response would not reach its destination during her lifetime, but that was the nature of cosmic communication across such impossible geometric distances.", "scene": "Girl looking at stars, contemplating the vast scale of time and space."},
-    {"page": 44, "type": "story", "text": "The thermometer outside showed a cold winter night, just like the night she had first seen the signal, and she smiled knowing that somewhere, someone was looking back.", "scene": "Winter observatory, girl at telescope, stars brilliant overhead."},
-    {"page": 45, "type": "story", "text": "Her grandmother's chronic belief in intelligent life beyond Earth had been validated, and the biography of their family now included a chapter that would echo through the centuries.", "scene": "Framed photograph of grandmother beside window showing stars, girl reflected in glass."},
-    {"page": 46, "type": "story", "text": "The symphony of signals between stars had only just begun, and Amara would spend her life learning to understand the polyphonic conversation that connected all intelligent life across the cosmos.", "scene": "Multiple signals visualized as music, connecting points of light across a galactic map."},
-    {"page": 47, "type": "end", "text": "The End", "scene": "Earth as seen from space, a small blue marble in the vast darkness, connected to distant stars by invisible threads of communication."}
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Signals from Kepler",
+      "scene": "A teenager gazing through a telescope at a distant star, with digital waveforms overlaying the starfield."
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "title",
+      "text": "Signals from Kepler"
+    },
+    {
+      "page": 4,
+      "type": "chapter",
+      "text": "Chapter 1: The Observatory",
+      "scene": "Chapter heading with telescope and constellation design."
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "Amara had spent three years studying the biography of every astronomer who had ever pointed a telescope toward the distant star system known as Kepler-442.",
+      "scene": "A twelve-year-old girl surrounded by astronomy books and star charts in a cluttered bedroom observatory."
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "Her grandmother's old telescope stood by the window, its polished lenses capable of capturing photons that had traveled 112 light-years across the cosmos to reach her eyes.",
+      "scene": "An antique brass telescope mounted on a tripod, starlight streaming through a window."
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "The telescope connected her to the biography of her grandmother, a geologist who had always believed that life existed beyond Earth's biosphere.",
+      "scene": "Old photograph of grandmother beside the telescope, with geological samples and astronomy notes."
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "Tonight, the graphics on Amara's computer showed something unprecedented: a pattern in the light that could not be explained by any known astronomical phenomenon.",
+      "scene": "Computer screen showing unusual waveform patterns, girl leaning forward intently."
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "She reached for the telephone to call Dr. Chen at the university, but hesitated because she knew how often amateur astronomers made mistakes that embarrassed them.",
+      "scene": "Hand hovering over phone, face showing uncertainty and excitement."
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "The chronometer on her wall showed 2:47 AM, far too late to call anyone, so she decided to gather more data and synchronize her observations with the automatic recording system.",
+      "scene": "Digital clock showing late hour, girl making notes, recording equipment running."
+    },
+    {
+      "page": 11,
+      "type": "chapter",
+      "text": "Chapter 2: The Pattern",
+      "scene": "Chapter heading with waveform pattern design."
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "By morning, Amara had documented the signal in chronological order across several hours, and the pattern showed a mathematical geometry that seemed almost deliberate.",
+      "scene": "Notebook pages filled with timestamps and geometric diagrams."
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "The photosphere of Kepler-442 was blocking something at regular intervals, and the spectroscope analysis revealed elements that suggested biological activity on a nearby planet.",
+      "scene": "Spectral analysis charts showing unusual elemental signatures."
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "Amara knew that photosynthesis on distant planets could create detectable signatures, but this was something more complex and organized than simple plant life.",
+      "scene": "Diagram showing how alien photosynthesis might appear through a telescope."
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "The telephone rang suddenly, and Amara jumped before answering to hear Dr. Chen's voice, tense with excitement and speaking rapidly about overnight observations.",
+      "scene": "Girl answering phone, surprised expression, scientist's excited voice coming through."
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "\"Our seismograph-style instruments detected the same polyphonic pattern you must have seen,\" Dr. Chen said, \"and the university's autonomous monitoring system flagged it as anomalous.\"",
+      "scene": "Split screen showing university observatory with monitoring equipment and Amara on phone."
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "Amara felt her heart race as she realized that her grandmother's old telescope had detected something that even the most sophisticated automatic systems had noticed simultaneously.",
+      "scene": "Girl looking at grandmother's telescope with new wonder and respect."
+    },
+    {
+      "page": 18,
+      "type": "chapter",
+      "text": "Chapter 3: Decoding the Message",
+      "scene": "Chapter heading with binary code and star pattern."
+    },
+    {
+      "page": 19,
+      "type": "story",
+      "text": "At the university laboratory, Amara watched scientists photograph each segment of the signal as it appeared on massive monitors connected to telecommunications satellites around the world.",
+      "scene": "University control room with large screens, scientists at workstations, Amara observing."
+    },
+    {
+      "page": 20,
+      "type": "story",
+      "text": "The geometry of the pattern suggested that whoever or whatever had created it understood the mathematics of the cosmos in ways that transcended biological limitations.",
+      "scene": "Mathematical patterns appearing on screens, scientists pointing and discussing."
+    },
+    {
+      "page": 21,
+      "type": "story",
+      "text": "Dr. Chen explained that they needed to measure the diameter of the signal's origin point using a network of telescopes synchronized across different geographic locations.",
+      "scene": "World map showing telescope network, red lines connecting observation points."
+    },
+    {
+      "page": 22,
+      "type": "story",
+      "text": "\"The perimeter of our detection capabilities is expanding every day,\" he said, adjusting the barometer-like instruments that monitored atmospheric conditions for optimal viewing.",
+      "scene": "Scientist adjusting equipment, Amara helping with calculations."
+    },
+    {
+      "page": 23,
+      "type": "story",
+      "text": "The microscope of analysis they applied to each data point revealed that the signal contained information about the sender's biology, geography, and chronological understanding of time.",
+      "scene": "Close-up data analysis, revealing complex layered information in the signal."
+    },
+    {
+      "page": 24,
+      "type": "story",
+      "text": "Amara realized that this was not just a signal but an autobiography in mathematical form, a way for an intelligent species to introduce themselves across the vast emptiness of space.",
+      "scene": "Girl's face lit by screen glow, expression of profound realization."
+    },
+    {
+      "page": 25,
+      "type": "chapter",
+      "text": "Chapter 4: First Contact Protocol",
+      "scene": "Chapter heading with handshake across stars motif."
+    },
+    {
+      "page": 26,
+      "type": "story",
+      "text": "The telecommunications teams from twelve countries gathered for a video conference that synchronized automatically despite the different geographic time zones involved.",
+      "scene": "Video conference wall showing faces from many countries, flags visible."
+    },
+    {
+      "page": 27,
+      "type": "story",
+      "text": "Each nation's scientists contributed their analysis, creating a symphony of collaborative research that represented the best of human biological intelligence working together.",
+      "scene": "Scientists sharing data, graphs flowing between screens."
+    },
+    {
+      "page": 28,
+      "type": "story",
+      "text": "The signal appeared to be a chronicle of an ancient civilization that had achieved autonomous space travel long before humans had even developed basic telephonic communication.",
+      "scene": "Artist's rendering of alien spacecraft, timeline showing millions of years."
+    },
+    {
+      "page": 29,
+      "type": "story",
+      "text": "Their biography suggested a species that had survived the chronic challenges of cosmic existence by developing technology that worked in harmony with their planet's biosphere.",
+      "scene": "Alien planet visualization showing sustainable civilization integrated with nature."
+    },
+    {
+      "page": 30,
+      "type": "story",
+      "text": "The geometry of their cities, visible in the mathematical descriptions, showed a sophistication that made human geography seem primitive by comparison.",
+      "scene": "Geometric city designs derived from signal data, beautiful and complex."
+    },
+    {
+      "page": 31,
+      "type": "story",
+      "text": "\"They are offering us their autobiography as a gift,\" Amara said quietly, understanding suddenly what her grandmother had always believed about life in the universe.",
+      "scene": "Girl speaking to assembly, her words appearing as text on screens."
+    },
+    {
+      "page": 32,
+      "type": "chapter",
+      "text": "Chapter 5: The Response",
+      "scene": "Chapter heading with Earth sending signal outward."
+    },
+    {
+      "page": 33,
+      "type": "story",
+      "text": "The question of whether to respond occupied scientists, philosophers, and leaders for weeks, each perspective adding to a polyphonic debate about humanity's future.",
+      "scene": "Montage of debates, discussions, and deliberations around the world."
+    },
+    {
+      "page": 34,
+      "type": "story",
+      "text": "Amara was asked to write a paragraph for the potential response, explaining how a young human had used an antique telescope to participate in the greatest discovery in history.",
+      "scene": "Girl writing at her desk, drafts crumpled around her."
+    },
+    {
+      "page": 35,
+      "type": "story",
+      "text": "She chose to include a photograph of her grandmother and the old telescope, along with the thermometer reading from that cold night when she first noticed the signal.",
+      "scene": "Items being prepared for digital transmission: photo, data, personal artifacts."
+    },
+    {
+      "page": 36,
+      "type": "story",
+      "text": "The response would travel at light speed through the photosphere of countless stars, carrying humanity's autograph across the cosmos toward beings who might receive it in over a century.",
+      "scene": "Visualization of signal traveling through space, passing stars."
+    },
+    {
+      "page": 37,
+      "type": "story",
+      "text": "The geographic diversity of Earth's languages and cultures would be encoded in graphics that any mathematically intelligent species could decode and understand.",
+      "scene": "Cultural symbols and languages being translated into mathematical patterns."
+    },
+    {
+      "page": 38,
+      "type": "chapter",
+      "text": "Chapter 6: Legacy of the Stars",
+      "scene": "Chapter heading with grandmother and granddaughter silhouettes looking at stars."
+    },
+    {
+      "page": 39,
+      "type": "story",
+      "text": "Months later, Amara stood at the university's new telescope facility, which featured an autonomous observation system more powerful than anything her grandmother could have imagined.",
+      "scene": "Modern observatory dome, girl standing before massive telescope."
+    },
+    {
+      "page": 40,
+      "type": "story",
+      "text": "The chronological record of the discovery now included her name alongside scientists who had spent their entire biographies studying the cosmos.",
+      "scene": "Plaque listing contributors to the discovery, Amara's name prominent."
+    },
+    {
+      "page": 41,
+      "type": "story",
+      "text": "Her grandmother's telescope had been photographed and placed in the astronomy museum, where children could learn about how the first signal from Kepler-442 was detected.",
+      "scene": "Grandmother's telescope in museum display, children gathered around."
+    },
+    {
+      "page": 42,
+      "type": "story",
+      "text": "The biography of human astronomy had changed forever, and with it, the geography of our understanding about our place in the biological tapestry of the universe.",
+      "scene": "Star map showing Earth's position in relation to Kepler-442, lines of connection."
+    },
+    {
+      "page": 43,
+      "type": "story",
+      "text": "Amara knew that the response would not reach its destination during her lifetime, but that was the nature of cosmic communication across such impossible geometric distances.",
+      "scene": "Girl looking at stars, contemplating the vast scale of time and space."
+    },
+    {
+      "page": 44,
+      "type": "story",
+      "text": "The thermometer outside showed a cold winter night, just like the night she had first seen the signal, and she smiled knowing that somewhere, someone was looking back.",
+      "scene": "Winter observatory, girl at telescope, stars brilliant overhead."
+    },
+    {
+      "page": 45,
+      "type": "story",
+      "text": "Her grandmother's chronic belief in intelligent life beyond Earth had been validated, and the biography of their family now included a chapter that would echo through the centuries.",
+      "scene": "Framed photograph of grandmother beside window showing stars, girl reflected in glass."
+    },
+    {
+      "page": 46,
+      "type": "story",
+      "text": "The symphony of signals between stars had only just begun, and Amara would spend her life learning to understand the polyphonic conversation that connected all intelligent life across the cosmos.",
+      "scene": "Multiple signals visualized as music, connecting points of light across a galactic map."
+    },
+    {
+      "page": 47,
+      "type": "end",
+      "text": "The End",
+      "scene": "Earth as seen from space, a small blue marble in the vast darkness, connected to distant stars by invisible threads of communication."
+    }
   ],
   "chapters": [
-    {"chapter": 1, "title": "The Observatory", "startPage": 4},
-    {"chapter": 2, "title": "The Pattern", "startPage": 11},
-    {"chapter": 3, "title": "Decoding the Message", "startPage": 18},
-    {"chapter": 4, "title": "First Contact Protocol", "startPage": 25},
-    {"chapter": 5, "title": "The Response", "startPage": 32},
-    {"chapter": 6, "title": "Legacy of the Stars", "startPage": 38}
+    {
+      "chapter": 1,
+      "title": "The Observatory",
+      "startPage": 4
+    },
+    {
+      "chapter": 2,
+      "title": "The Pattern",
+      "startPage": 11
+    },
+    {
+      "chapter": 3,
+      "title": "Decoding the Message",
+      "startPage": 18
+    },
+    {
+      "chapter": 4,
+      "title": "First Contact Protocol",
+      "startPage": 25
+    },
+    {
+      "chapter": 5,
+      "title": "The Response",
+      "startPage": 32
+    },
+    {
+      "chapter": 6,
+      "title": "Legacy of the Stars",
+      "startPage": 38
+    }
   ],
   "greekRootsUsed": {
-    "graph": ["biography", "photograph", "photographed", "graphics", "seismograph", "autograph", "paragraph"],
-    "phon": ["telephone", "telephonic", "symphony", "polyphonic"],
-    "photo": ["photograph", "photons", "photosynthesis", "photosphere"],
-    "bio": ["biography", "biological", "biosphere", "biographies"],
-    "geo": ["geologist", "geography", "geographic", "geometry", "geometric"],
-    "chron": ["chronometer", "chronological", "chronic", "chronicle"],
-    "tele": ["telephone", "telescope", "telescopes", "telecommunications"],
-    "auto": ["automatic", "automatically", "autonomous", "autobiography", "autograph"],
-    "meter/metr": ["thermometer", "diameter", "barometer", "perimeter"],
-    "scope": ["telescope", "telescopes", "microscope", "spectroscope"]
+    "graph": [
+      "biography",
+      "photograph",
+      "photographed",
+      "graphics",
+      "seismograph",
+      "autograph",
+      "paragraph"
+    ],
+    "phon": [
+      "telephone",
+      "telephonic",
+      "symphony",
+      "polyphonic"
+    ],
+    "photo": [
+      "photograph",
+      "photons",
+      "photosynthesis",
+      "photosphere"
+    ],
+    "bio": [
+      "biography",
+      "biological",
+      "biosphere",
+      "biographies"
+    ],
+    "geo": [
+      "geologist",
+      "geography",
+      "geographic",
+      "geometry",
+      "geometric"
+    ],
+    "chron": [
+      "chronometer",
+      "chronological",
+      "chronic",
+      "chronicle"
+    ],
+    "tele": [
+      "telephone",
+      "telescope",
+      "telescopes",
+      "telecommunications"
+    ],
+    "auto": [
+      "automatic",
+      "automatically",
+      "autonomous",
+      "autobiography",
+      "autograph"
+    ],
+    "meter/metr": [
+      "thermometer",
+      "diameter",
+      "barometer",
+      "perimeter"
+    ],
+    "scope": [
+      "telescope",
+      "telescopes",
+      "microscope",
+      "spectroscope"
+    ]
   },
   "metadata": {
     "generatedAt": "2026-01-06T12:00:00Z",
@@ -94,5 +476,6 @@
     "averageWordsPerSentence": 21.4,
     "theme": "First contact, scientific discovery, intergenerational legacy",
     "morphologyFocus": "Greek root identification and scientific vocabulary building"
-  }
+  },
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Science fiction illustration, deep space blues and purples, glowing technology, starfield backgrounds\nMood: atmospheric, immersive, evocative\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A teenager gazing through a telescope at a distant star, with digital waveforms overlaying the starf...\nPanel 2: Signals from Kepler\nPanel 3: Chapter heading with telescope and constellation design.\nPanel 4: A twelve-year-old girl surrounded by astronomy books and star charts in a cluttered bedroom observat...\nPanel 5: An antique brass telescope mounted on a tripod, starlight streaming through a window.\nPanel 6: Old photograph of grandmother beside the telescope, with geological samples and astronomy notes.\nPanel 7: Computer screen showing unusual waveform patterns, girl leaning forward intently.\nPanel 8: Hand hovering over phone, face showing uncertainty and excitement.\nPanel 9: Digital clock showing late hour, girl making notes, recording equipment running.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

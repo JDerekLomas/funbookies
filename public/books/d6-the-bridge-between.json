@@ -3,78 +3,421 @@
   "title": "The Bridge Between",
   "level": "D6",
   "band": "D",
-  "targetSkills": ["grade-level prose", "complex themes", "multiple perspectives", "identity", "justice", "growth", "ambiguity", "author's craft"],
-  "vocabularyFocus": ["ambivalence", "solidarity", "integrity", "reconciliation", "heritage", "diaspora", "assimilation", "authenticity", "advocacy", "transformation", "intersection", "marginalization", "privilege", "empathy", "accountability"],
+  "targetSkills": [
+    "grade-level prose",
+    "complex themes",
+    "multiple perspectives",
+    "identity",
+    "justice",
+    "growth",
+    "ambiguity",
+    "author's craft"
+  ],
+  "vocabularyFocus": [
+    "ambivalence",
+    "solidarity",
+    "integrity",
+    "reconciliation",
+    "heritage",
+    "diaspora",
+    "assimilation",
+    "authenticity",
+    "advocacy",
+    "transformation",
+    "intersection",
+    "marginalization",
+    "privilege",
+    "empathy",
+    "accountability"
+  ],
   "pages": [
-    {"page": 1, "type": "cover", "text": "The Bridge Between", "scene": "A teenage girl standing at the center of a symbolic bridge, one side showing a traditional Vietnamese neighborhood, the other a modern American suburb, her reflection split between both."},
-    {"page": 2, "type": "copyright"},
-    {"page": 3, "type": "title", "text": "The Bridge Between"},
-    {"page": 4, "type": "chapter", "text": "Chapter 1: Two Names", "scene": "Chapter heading with Vietnamese and English calligraphy intertwined."},
-    {"page": 5, "type": "story", "text": "Mai Nguyen had always known she carried two names inside her chest, one that her grandmother whispered with reverence when she pressed her wrinkled hands against Mai's cheeks, and another that teachers consistently mispronounced despite her patient corrections, a sound that never quite matched the melody she heard at home.", "scene": "Thirteen-year-old Vietnamese-American girl looking at her reflection, traditional ao dai dress superimposed over school uniform."},
-    {"page": 6, "type": "story", "text": "Her Vietnamese name, Nguyen Thi Mai, placed her family identity first and her individual name last, a grammatical structure that reflected values her grandmother explained with stories of ancestors who had survived wars, famines, and the terrifying voyage across an ocean to a country that promised everything but delivered its promises unevenly.", "scene": "Grandmother and granddaughter looking at old photographs, images of boats, family portraits, and American landmarks."},
-    {"page": 7, "type": "story", "text": "At Westfield Middle School, she was just Mai Nguyen, a name that other students sometimes shortened to May, as if her identity could be trimmed down to fit more comfortably in their mouths without any effort to stretch toward the unfamiliar sounds that honored where she came from.", "scene": "Classroom roll call, teacher hesitating over pronunciation, Mai's resigned expression."},
-    {"page": 8, "type": "story", "text": "The dissonance between these two versions of herself had grown louder recently, ever since the school announced plans to demolish the old community center in Little Saigon to build a parking structure for the new shopping complex that developers promised would bring prosperity to the neighborhood.", "scene": "Protest signs visible through bus window, Vietnamese storefronts with SAVE OUR COMMUNITY banners."},
-    {"page": 9, "type": "story", "text": "Her grandmother had learned English in that community center thirty years ago, sitting beside other refugees who had arrived with nothing but their resilience and their memories, building new lives from the fragments of ones they had been forced to leave behind.", "scene": "Memory image of young grandmother in ESL classroom, diverse group of immigrants studying together."},
-    {"page": 10, "type": "story", "text": "Mai understood, with a complexity that surprised even her, that the conflict was not simply about a building but about something larger and more difficult to name: the question of whose stories mattered enough to preserve, whose history deserved to occupy space, whose future the city was actually building.", "scene": "Girl looking at architectural plans, seeing the community center as it is now superimposed over the proposed parking structure."},
-    {"page": 11, "type": "chapter", "text": "Chapter 2: Lines in the Sand", "scene": "Chapter heading with divided communities illustrated symbolically."},
-    {"page": 12, "type": "story", "text": "The student council meeting where Mai first raised her concerns became a turning point she would remember for years, not because of what she said but because of how differently her words were received depending on who was listening and what assumptions they carried into the room.", "scene": "Student council chamber, diverse students seated around table, Mai standing to speak."},
-    {"page": 13, "type": "story", "text": "\"The community center represents sixty years of immigrant history,\" she explained, trying to keep her voice steady despite the trembling she felt in her chest, \"and destroying it without consulting the people it serves sends a message about whose voices this city considers worth hearing.\"", "scene": "Close-up of Mai speaking, her prepared notes visible, determination in her eyes."},
-    {"page": 14, "type": "story", "text": "Jason Chen, whose family had lived in the neighborhood for three generations and whose parents owned one of the oldest restaurants on the block, nodded with an intensity that told her she was not alone in her concerns, that someone else understood the weight of what was at stake.", "scene": "Asian-American boy nodding supportively, his family's restaurant visible in a framed photo behind him."},
-    {"page": 15, "type": "story", "text": "But Connor Williams, the student body president whose father served on the city planning commission that had approved the demolition, leaned back in his chair with an expression Mai recognized as the particular skepticism that privileged people wore when their assumptions were challenged by perspectives they had never needed to consider.", "scene": "White student with arms crossed, skeptical expression, contrast with other students' reactions."},
-    {"page": 16, "type": "story", "text": "\"Progress requires change,\" Connor said, using a phrase that Mai had heard so often it had become almost meaningless, a verbal shortcut that allowed people to avoid examining who benefited from that progress and who paid its costs, \"and sometimes we have to sacrifice the past to build the future.\"", "scene": "Student council divided, some nodding with Connor, others looking uncomfortable."},
-    {"page": 17, "type": "story", "text": "Mai felt something shift inside her at that moment, a crystallization of frustration that had been building for years, every mispronounced name and every assuming comment and every time someone treated her culture as exotic decoration rather than living heritage finally condensing into a clarity that surprised her with its sharpness.", "scene": "Mai's expression changing from patience to resolve, subtle but powerful transformation."},
-    {"page": 18, "type": "story", "text": "\"Whose past?\" she asked quietly, and the silence that followed her question told her that she had touched something real, something that made even those who disagreed with her pause to consider whether their understanding of the situation was as complete as they had assumed.", "scene": "Silence in room, students looking at Mai with new attention, Connor's confidence slightly shaken."},
-    {"page": 19, "type": "chapter", "text": "Chapter 3: Building Coalitions", "scene": "Chapter heading with diverse hands reaching toward each other."},
-    {"page": 20, "type": "story", "text": "The weeks that followed taught Mai that change rarely happened through individual effort alone, and that building a movement required her to reach across the boundaries she had unconsciously constructed between people she assumed would understand her and people she had written off as impossible to reach.", "scene": "Mai meeting with different groups: elderly Vietnamese community members, young activists, local business owners."},
-    {"page": 21, "type": "story", "text": "She found unexpected allies in the Black student union, whose members understood immediately what it meant to have your community's history erased by development projects that claimed to serve everyone while serving only the already powerful, and whose solidarity felt like recognition across the distances that American society worked so hard to maintain.", "scene": "Meeting between Mai and Black student union, shared understanding visible in their expressions."},
-    {"page": 22, "type": "story", "text": "Lucia Hernandez, whose family had immigrated from Guatemala when she was three, shared stories of how her neighborhood had changed as rents increased and longtime residents were pushed further from the city center, their presence deemed less valuable than the coffee shops and boutiques that replaced their tiendas.", "scene": "Latina girl sharing photos of her old neighborhood, before and after gentrification."},
-    {"page": 23, "type": "story", "text": "Even some of the white students began to listen differently once Mai learned to frame the issue not as their problem to solve but as a pattern they could choose to interrupt, inviting them to examine how they benefited from systems that harmed others and what responsibility that awareness created.", "scene": "Diverse group of students in dialogue, white students listening and asking questions."},
-    {"page": 24, "type": "story", "text": "Connor Williams remained resistant, but Mai noticed that his certainty had begun to crack around the edges, small moments of hesitation that suggested he was wrestling with ideas he had never been asked to consider before, ideas that challenged the comfortable narrative of inevitable progress that had shaped his understanding of how the world worked.", "scene": "Connor in private moment of reflection, looking at community center from a distance."},
-    {"page": 25, "type": "story", "text": "Mai's grandmother watched these developments with a pride that she expressed not in words but in the extra care she took preparing Mai's favorite pho, the way she pressed folded bills into Mai's hand for the printing costs of flyers, the stories she told more frequently about activists she had known in Vietnam before everything changed.", "scene": "Grandmother cooking, secretly watching Mai work on campaign materials, love in her expression."},
-    {"page": 26, "type": "chapter", "text": "Chapter 4: Crossroads", "scene": "Chapter heading with paths diverging and converging."},
-    {"page": 27, "type": "story", "text": "The city council hearing was scheduled for a Thursday evening in late October, and Mai spent the preceding weeks gathering testimonies from community members whose stories deserved to be heard by the officials who would determine whether their history would be preserved or paved over.", "scene": "Mai interviewing elderly Vietnamese man outside community center, notebook and recorder in hand."},
-    {"page": 28, "type": "story", "text": "An elderly woman named Mrs. Tran, who had learned to read in the community center's literacy program and gone on to become a paralegal helping other immigrants navigate the legal system, spoke with a quiet dignity that reminded Mai why this fight mattered more than any personal discomfort she might experience along the way.", "scene": "Elderly Vietnamese woman speaking with quiet strength, Mai listening intently."},
-    {"page": 29, "type": "story", "text": "\"When I came here, I was nothing in the eyes of this country,\" Mrs. Tran said, her English still carrying traces of the accent she had never tried to erase, \"but in that building, someone saw me as someone who could learn, who could contribute, who could become part of this place without giving up who I was.\"", "scene": "Close-up of Mrs. Tran's face, strength and vulnerability combined."},
-    {"page": 30, "type": "story", "text": "Mai understood that the preservation of the community center was connected to something larger than the building itself, that the fight was really about who got to decide what deserved to be remembered and what could be conveniently forgotten to make room for more profitable uses of land and resources.", "scene": "Mai sitting alone, processing connections between individual stories and systemic issues."},
-    {"page": 31, "type": "story", "text": "Her mother, who had spent years trying to assimilate into American culture as seamlessly as possible, expressed ambivalence about Mai's activism that revealed the generational differences in how they understood belonging, safety, and the costs of visibility in a country that sometimes welcomed them and sometimes did not.", "scene": "Mother and daughter in tense conversation, love mixed with disagreement."},
-    {"page": 32, "type": "story", "text": "\"You don't know what it was like,\" her mother said one evening, her voice carrying wounds that Mai could hear but not fully comprehend, \"to feel so invisible that you would do anything just to blend in, just to not be noticed, just to survive without drawing attention to your difference.\"", "scene": "Mother looking away, pain of past experiences visible in her posture."},
-    {"page": 33, "type": "story", "text": "Mai reached for her mother's hand across the kitchen table, feeling the roughness of hands that had worked cleaning jobs to ensure Mai would have opportunities she herself had never known, and understood that the bridge between them required patience and grace that neither generation could build alone.", "scene": "Daughter reaching for mother's hand, moment of connection across generational divide."},
-    {"page": 34, "type": "chapter", "text": "Chapter 5: The Hearing", "scene": "Chapter heading with city hall and crowd gathering."},
-    {"page": 35, "type": "story", "text": "The city council chamber on the night of the hearing was filled with more people than Mai had ever seen in a civic meeting, community members who had taken time off work and arranged childcare and overcome language barriers and decades of learned invisibility to show up for something that mattered.", "scene": "Crowded city council chamber, diverse faces, signs in multiple languages."},
-    {"page": 36, "type": "story", "text": "Mai had prepared her testimony with care, but when she approached the microphone and saw the council members in their elevated seats, she felt the weight of speaking for people who had rarely been given the opportunity to speak for themselves in spaces where decisions that shaped their lives were made by others.", "scene": "Mai approaching podium, council members above, cameras and crowd behind."},
-    {"page": 37, "type": "story", "text": "\"I am here tonight not as an exceptional young person whose story should be used to prove that the system works,\" she began, her voice steady despite her racing heart, \"but as someone who has learned from my community that individual success means nothing if it requires me to forget where I came from or who made my success possible.\"", "scene": "Mai speaking at podium, her prepared remarks visible, crowd listening intently."},
-    {"page": 38, "type": "story", "text": "She spoke of her grandmother's journey, of Mrs. Tran's transformation, of the countless unnamed people whose stories lived in the walls of the community center and whose presence would be erased if the building fell to make room for another parking structure in a city that was already choking on concrete and cars.", "scene": "Projection of historical photos behind Mai, humanizing the abstract debate."},
-    {"page": 39, "type": "story", "text": "When she finished, the applause that erupted from the community members in attendance carried a warmth that told her she had spoken truly, even if she could not know yet whether her words would change anything in the calculations of power that would ultimately determine the outcome.", "scene": "Standing ovation from community members, council members showing mixed reactions."},
-    {"page": 40, "type": "story", "text": "The council voted that night to delay the demolition for six months to allow for a comprehensive review of the community center's historical significance, a partial victory that left Mai feeling both hopeful and aware that the fight was far from over, that justice rarely arrived in single decisive moments but accumulated through persistent effort over time.", "scene": "Vote tally on screen showing delay approved, cheers and tears in audience."},
-    {"page": 41, "type": "chapter", "text": "Chapter 6: Bridges", "scene": "Chapter heading with bridge under construction, community working together."},
-    {"page": 42, "type": "story", "text": "In the months that followed the hearing, Mai found herself changed in ways she was still learning to understand, her sense of who she was expanding to include not just the identities she had inherited but the identity she was actively choosing to construct through her actions and alliances and ongoing work.", "scene": "Mai working with diverse group of community members on renovation project."},
-    {"page": 43, "type": "story", "text": "The community center was eventually designated a historic landmark, a decision that came only after sustained pressure from a coalition that had learned to work together across the differences that had once seemed insurmountable, discovering in the process that solidarity was not sameness but a choice to stand together despite and because of their different positions.", "scene": "Historic landmark plaque being unveiled, diverse crowd celebrating."},
-    {"page": 44, "type": "story", "text": "Connor Williams surprised everyone by writing a letter to the school newspaper acknowledging that his initial opposition to preservation had reflected assumptions he had never examined, assumptions about progress and value and whose stories deserved protection that he now understood were shaped by privileges he had been taught not to see.", "scene": "Connor at computer, writing letter, Mai visible in his thoughts."},
-    {"page": 45, "type": "story", "text": "Mai appreciated his willingness to grow publicly, understanding that accountability was not about punishment but about creating conditions where transformation became possible, where people could move from ignorance to awareness to action without being permanently defined by their starting points.", "scene": "Mai reading Connor's letter, expression of thoughtful approval."},
-    {"page": 46, "type": "story", "text": "Her grandmother, who had watched Mai's journey with the quiet attention of someone who knew that understanding sometimes comes only after we have lived enough to recognize our own stories in the struggles of others, finally spoke the words that Mai had been waiting her whole life to hear.", "scene": "Grandmother and granddaughter sitting together in community center, afternoon light."},
-    {"page": 47, "type": "story", "text": "\"You are the bridge,\" Ba Noi said, using the Vietnamese term for paternal grandmother that Mai had always loved for its musicality, \"not between Vietnam and America, but between what was and what could be, between survival and flourishing, between hiding and speaking, between the past that formed you and the future you are forming.\"", "scene": "Close-up of grandmother speaking, wisdom and love in every line of her face."},
-    {"page": 48, "type": "story", "text": "Mai understood then that she did not have to choose between her identities, that the two names she carried were not a burden but a gift, that her ability to move between worlds gave her a perspective that neither world could achieve alone, and that this perspective was itself a form of power that she could use to build connections others could not even imagine.", "scene": "Mai looking at reflection that now shows unity rather than division."},
-    {"page": 49, "type": "story", "text": "The community center stood as a testament not only to the resilience of those who had built it but to the possibility that preservation and progress could coexist if people were willing to imagine futures that included everyone rather than requiring some to be displaced for others to thrive.", "scene": "Community center renovated, new programs running, multiple generations present."},
-    {"page": 50, "type": "story", "text": "On graduation day three years later, when Mai Nguyen crossed the stage to receive an award for community leadership, she paused for a moment to look at her grandmother in the audience, and in that exchange of glances was everything: the ocean crossing, the struggles, the victories, the losses, and the love that had made all of it meaningful.", "scene": "Graduation ceremony, Mai on stage, grandmother in audience, eye contact connecting generations."},
-    {"page": 51, "type": "story", "text": "She had learned that identity was not a fixed thing but a river that flowed between banks carved by history and circumstance, that justice was not a destination but a direction, and that the measure of who we become is found not in what we achieve for ourselves but in what we make possible for others.", "scene": "Mai walking forward, community behind her, future ahead."},
-    {"page": 52, "type": "story", "text": "The bridge between was not a place but a practice, one that required constant attention and repair, and Mai Nguyen, Nguyen Thi Mai, was ready to spend her life maintaining the crossing, welcoming travelers from both directions, honoring what had been built before her while creating foundations for what would come after.", "scene": "Symbolic bridge glowing with connection, Mai standing at its center with arms open."},
-    {"page": 53, "type": "end", "text": "The End", "scene": "The community center at sunset, lights coming on inside, laughter audible, children running between Vietnamese and English signs, a living bridge between past and future."}
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "The Bridge Between",
+      "scene": "A teenage girl standing at the center of a symbolic bridge, one side showing a traditional Vietnamese neighborhood, the other a modern American suburb, her reflection split between both."
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "title",
+      "text": "The Bridge Between"
+    },
+    {
+      "page": 4,
+      "type": "chapter",
+      "text": "Chapter 1: Two Names",
+      "scene": "Chapter heading with Vietnamese and English calligraphy intertwined."
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "Mai Nguyen had always known she carried two names inside her chest, one that her grandmother whispered with reverence when she pressed her wrinkled hands against Mai's cheeks, and another that teachers consistently mispronounced despite her patient corrections, a sound that never quite matched the melody she heard at home.",
+      "scene": "Thirteen-year-old Vietnamese-American girl looking at her reflection, traditional ao dai dress superimposed over school uniform."
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "Her Vietnamese name, Nguyen Thi Mai, placed her family identity first and her individual name last, a grammatical structure that reflected values her grandmother explained with stories of ancestors who had survived wars, famines, and the terrifying voyage across an ocean to a country that promised everything but delivered its promises unevenly.",
+      "scene": "Grandmother and granddaughter looking at old photographs, images of boats, family portraits, and American landmarks."
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "At Westfield Middle School, she was just Mai Nguyen, a name that other students sometimes shortened to May, as if her identity could be trimmed down to fit more comfortably in their mouths without any effort to stretch toward the unfamiliar sounds that honored where she came from.",
+      "scene": "Classroom roll call, teacher hesitating over pronunciation, Mai's resigned expression."
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "The dissonance between these two versions of herself had grown louder recently, ever since the school announced plans to demolish the old community center in Little Saigon to build a parking structure for the new shopping complex that developers promised would bring prosperity to the neighborhood.",
+      "scene": "Protest signs visible through bus window, Vietnamese storefronts with SAVE OUR COMMUNITY banners."
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "Her grandmother had learned English in that community center thirty years ago, sitting beside other refugees who had arrived with nothing but their resilience and their memories, building new lives from the fragments of ones they had been forced to leave behind.",
+      "scene": "Memory image of young grandmother in ESL classroom, diverse group of immigrants studying together."
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "Mai understood, with a complexity that surprised even her, that the conflict was not simply about a building but about something larger and more difficult to name: the question of whose stories mattered enough to preserve, whose history deserved to occupy space, whose future the city was actually building.",
+      "scene": "Girl looking at architectural plans, seeing the community center as it is now superimposed over the proposed parking structure."
+    },
+    {
+      "page": 11,
+      "type": "chapter",
+      "text": "Chapter 2: Lines in the Sand",
+      "scene": "Chapter heading with divided communities illustrated symbolically."
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "The student council meeting where Mai first raised her concerns became a turning point she would remember for years, not because of what she said but because of how differently her words were received depending on who was listening and what assumptions they carried into the room.",
+      "scene": "Student council chamber, diverse students seated around table, Mai standing to speak."
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "\"The community center represents sixty years of immigrant history,\" she explained, trying to keep her voice steady despite the trembling she felt in her chest, \"and destroying it without consulting the people it serves sends a message about whose voices this city considers worth hearing.\"",
+      "scene": "Close-up of Mai speaking, her prepared notes visible, determination in her eyes."
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "Jason Chen, whose family had lived in the neighborhood for three generations and whose parents owned one of the oldest restaurants on the block, nodded with an intensity that told her she was not alone in her concerns, that someone else understood the weight of what was at stake.",
+      "scene": "Asian-American boy nodding supportively, his family's restaurant visible in a framed photo behind him."
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "But Connor Williams, the student body president whose father served on the city planning commission that had approved the demolition, leaned back in his chair with an expression Mai recognized as the particular skepticism that privileged people wore when their assumptions were challenged by perspectives they had never needed to consider.",
+      "scene": "White student with arms crossed, skeptical expression, contrast with other students' reactions."
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "\"Progress requires change,\" Connor said, using a phrase that Mai had heard so often it had become almost meaningless, a verbal shortcut that allowed people to avoid examining who benefited from that progress and who paid its costs, \"and sometimes we have to sacrifice the past to build the future.\"",
+      "scene": "Student council divided, some nodding with Connor, others looking uncomfortable."
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "Mai felt something shift inside her at that moment, a crystallization of frustration that had been building for years, every mispronounced name and every assuming comment and every time someone treated her culture as exotic decoration rather than living heritage finally condensing into a clarity that surprised her with its sharpness.",
+      "scene": "Mai's expression changing from patience to resolve, subtle but powerful transformation."
+    },
+    {
+      "page": 18,
+      "type": "story",
+      "text": "\"Whose past?\" she asked quietly, and the silence that followed her question told her that she had touched something real, something that made even those who disagreed with her pause to consider whether their understanding of the situation was as complete as they had assumed.",
+      "scene": "Silence in room, students looking at Mai with new attention, Connor's confidence slightly shaken."
+    },
+    {
+      "page": 19,
+      "type": "chapter",
+      "text": "Chapter 3: Building Coalitions",
+      "scene": "Chapter heading with diverse hands reaching toward each other."
+    },
+    {
+      "page": 20,
+      "type": "story",
+      "text": "The weeks that followed taught Mai that change rarely happened through individual effort alone, and that building a movement required her to reach across the boundaries she had unconsciously constructed between people she assumed would understand her and people she had written off as impossible to reach.",
+      "scene": "Mai meeting with different groups: elderly Vietnamese community members, young activists, local business owners."
+    },
+    {
+      "page": 21,
+      "type": "story",
+      "text": "She found unexpected allies in the Black student union, whose members understood immediately what it meant to have your community's history erased by development projects that claimed to serve everyone while serving only the already powerful, and whose solidarity felt like recognition across the distances that American society worked so hard to maintain.",
+      "scene": "Meeting between Mai and Black student union, shared understanding visible in their expressions."
+    },
+    {
+      "page": 22,
+      "type": "story",
+      "text": "Lucia Hernandez, whose family had immigrated from Guatemala when she was three, shared stories of how her neighborhood had changed as rents increased and longtime residents were pushed further from the city center, their presence deemed less valuable than the coffee shops and boutiques that replaced their tiendas.",
+      "scene": "Latina girl sharing photos of her old neighborhood, before and after gentrification."
+    },
+    {
+      "page": 23,
+      "type": "story",
+      "text": "Even some of the white students began to listen differently once Mai learned to frame the issue not as their problem to solve but as a pattern they could choose to interrupt, inviting them to examine how they benefited from systems that harmed others and what responsibility that awareness created.",
+      "scene": "Diverse group of students in dialogue, white students listening and asking questions."
+    },
+    {
+      "page": 24,
+      "type": "story",
+      "text": "Connor Williams remained resistant, but Mai noticed that his certainty had begun to crack around the edges, small moments of hesitation that suggested he was wrestling with ideas he had never been asked to consider before, ideas that challenged the comfortable narrative of inevitable progress that had shaped his understanding of how the world worked.",
+      "scene": "Connor in private moment of reflection, looking at community center from a distance."
+    },
+    {
+      "page": 25,
+      "type": "story",
+      "text": "Mai's grandmother watched these developments with a pride that she expressed not in words but in the extra care she took preparing Mai's favorite pho, the way she pressed folded bills into Mai's hand for the printing costs of flyers, the stories she told more frequently about activists she had known in Vietnam before everything changed.",
+      "scene": "Grandmother cooking, secretly watching Mai work on campaign materials, love in her expression."
+    },
+    {
+      "page": 26,
+      "type": "chapter",
+      "text": "Chapter 4: Crossroads",
+      "scene": "Chapter heading with paths diverging and converging."
+    },
+    {
+      "page": 27,
+      "type": "story",
+      "text": "The city council hearing was scheduled for a Thursday evening in late October, and Mai spent the preceding weeks gathering testimonies from community members whose stories deserved to be heard by the officials who would determine whether their history would be preserved or paved over.",
+      "scene": "Mai interviewing elderly Vietnamese man outside community center, notebook and recorder in hand."
+    },
+    {
+      "page": 28,
+      "type": "story",
+      "text": "An elderly woman named Mrs. Tran, who had learned to read in the community center's literacy program and gone on to become a paralegal helping other immigrants navigate the legal system, spoke with a quiet dignity that reminded Mai why this fight mattered more than any personal discomfort she might experience along the way.",
+      "scene": "Elderly Vietnamese woman speaking with quiet strength, Mai listening intently."
+    },
+    {
+      "page": 29,
+      "type": "story",
+      "text": "\"When I came here, I was nothing in the eyes of this country,\" Mrs. Tran said, her English still carrying traces of the accent she had never tried to erase, \"but in that building, someone saw me as someone who could learn, who could contribute, who could become part of this place without giving up who I was.\"",
+      "scene": "Close-up of Mrs. Tran's face, strength and vulnerability combined."
+    },
+    {
+      "page": 30,
+      "type": "story",
+      "text": "Mai understood that the preservation of the community center was connected to something larger than the building itself, that the fight was really about who got to decide what deserved to be remembered and what could be conveniently forgotten to make room for more profitable uses of land and resources.",
+      "scene": "Mai sitting alone, processing connections between individual stories and systemic issues."
+    },
+    {
+      "page": 31,
+      "type": "story",
+      "text": "Her mother, who had spent years trying to assimilate into American culture as seamlessly as possible, expressed ambivalence about Mai's activism that revealed the generational differences in how they understood belonging, safety, and the costs of visibility in a country that sometimes welcomed them and sometimes did not.",
+      "scene": "Mother and daughter in tense conversation, love mixed with disagreement."
+    },
+    {
+      "page": 32,
+      "type": "story",
+      "text": "\"You don't know what it was like,\" her mother said one evening, her voice carrying wounds that Mai could hear but not fully comprehend, \"to feel so invisible that you would do anything just to blend in, just to not be noticed, just to survive without drawing attention to your difference.\"",
+      "scene": "Mother looking away, pain of past experiences visible in her posture."
+    },
+    {
+      "page": 33,
+      "type": "story",
+      "text": "Mai reached for her mother's hand across the kitchen table, feeling the roughness of hands that had worked cleaning jobs to ensure Mai would have opportunities she herself had never known, and understood that the bridge between them required patience and grace that neither generation could build alone.",
+      "scene": "Daughter reaching for mother's hand, moment of connection across generational divide."
+    },
+    {
+      "page": 34,
+      "type": "chapter",
+      "text": "Chapter 5: The Hearing",
+      "scene": "Chapter heading with city hall and crowd gathering."
+    },
+    {
+      "page": 35,
+      "type": "story",
+      "text": "The city council chamber on the night of the hearing was filled with more people than Mai had ever seen in a civic meeting, community members who had taken time off work and arranged childcare and overcome language barriers and decades of learned invisibility to show up for something that mattered.",
+      "scene": "Crowded city council chamber, diverse faces, signs in multiple languages."
+    },
+    {
+      "page": 36,
+      "type": "story",
+      "text": "Mai had prepared her testimony with care, but when she approached the microphone and saw the council members in their elevated seats, she felt the weight of speaking for people who had rarely been given the opportunity to speak for themselves in spaces where decisions that shaped their lives were made by others.",
+      "scene": "Mai approaching podium, council members above, cameras and crowd behind."
+    },
+    {
+      "page": 37,
+      "type": "story",
+      "text": "\"I am here tonight not as an exceptional young person whose story should be used to prove that the system works,\" she began, her voice steady despite her racing heart, \"but as someone who has learned from my community that individual success means nothing if it requires me to forget where I came from or who made my success possible.\"",
+      "scene": "Mai speaking at podium, her prepared remarks visible, crowd listening intently."
+    },
+    {
+      "page": 38,
+      "type": "story",
+      "text": "She spoke of her grandmother's journey, of Mrs. Tran's transformation, of the countless unnamed people whose stories lived in the walls of the community center and whose presence would be erased if the building fell to make room for another parking structure in a city that was already choking on concrete and cars.",
+      "scene": "Projection of historical photos behind Mai, humanizing the abstract debate."
+    },
+    {
+      "page": 39,
+      "type": "story",
+      "text": "When she finished, the applause that erupted from the community members in attendance carried a warmth that told her she had spoken truly, even if she could not know yet whether her words would change anything in the calculations of power that would ultimately determine the outcome.",
+      "scene": "Standing ovation from community members, council members showing mixed reactions."
+    },
+    {
+      "page": 40,
+      "type": "story",
+      "text": "The council voted that night to delay the demolition for six months to allow for a comprehensive review of the community center's historical significance, a partial victory that left Mai feeling both hopeful and aware that the fight was far from over, that justice rarely arrived in single decisive moments but accumulated through persistent effort over time.",
+      "scene": "Vote tally on screen showing delay approved, cheers and tears in audience."
+    },
+    {
+      "page": 41,
+      "type": "chapter",
+      "text": "Chapter 6: Bridges",
+      "scene": "Chapter heading with bridge under construction, community working together."
+    },
+    {
+      "page": 42,
+      "type": "story",
+      "text": "In the months that followed the hearing, Mai found herself changed in ways she was still learning to understand, her sense of who she was expanding to include not just the identities she had inherited but the identity she was actively choosing to construct through her actions and alliances and ongoing work.",
+      "scene": "Mai working with diverse group of community members on renovation project."
+    },
+    {
+      "page": 43,
+      "type": "story",
+      "text": "The community center was eventually designated a historic landmark, a decision that came only after sustained pressure from a coalition that had learned to work together across the differences that had once seemed insurmountable, discovering in the process that solidarity was not sameness but a choice to stand together despite and because of their different positions.",
+      "scene": "Historic landmark plaque being unveiled, diverse crowd celebrating."
+    },
+    {
+      "page": 44,
+      "type": "story",
+      "text": "Connor Williams surprised everyone by writing a letter to the school newspaper acknowledging that his initial opposition to preservation had reflected assumptions he had never examined, assumptions about progress and value and whose stories deserved protection that he now understood were shaped by privileges he had been taught not to see.",
+      "scene": "Connor at computer, writing letter, Mai visible in his thoughts."
+    },
+    {
+      "page": 45,
+      "type": "story",
+      "text": "Mai appreciated his willingness to grow publicly, understanding that accountability was not about punishment but about creating conditions where transformation became possible, where people could move from ignorance to awareness to action without being permanently defined by their starting points.",
+      "scene": "Mai reading Connor's letter, expression of thoughtful approval."
+    },
+    {
+      "page": 46,
+      "type": "story",
+      "text": "Her grandmother, who had watched Mai's journey with the quiet attention of someone who knew that understanding sometimes comes only after we have lived enough to recognize our own stories in the struggles of others, finally spoke the words that Mai had been waiting her whole life to hear.",
+      "scene": "Grandmother and granddaughter sitting together in community center, afternoon light."
+    },
+    {
+      "page": 47,
+      "type": "story",
+      "text": "\"You are the bridge,\" Ba Noi said, using the Vietnamese term for paternal grandmother that Mai had always loved for its musicality, \"not between Vietnam and America, but between what was and what could be, between survival and flourishing, between hiding and speaking, between the past that formed you and the future you are forming.\"",
+      "scene": "Close-up of grandmother speaking, wisdom and love in every line of her face."
+    },
+    {
+      "page": 48,
+      "type": "story",
+      "text": "Mai understood then that she did not have to choose between her identities, that the two names she carried were not a burden but a gift, that her ability to move between worlds gave her a perspective that neither world could achieve alone, and that this perspective was itself a form of power that she could use to build connections others could not even imagine.",
+      "scene": "Mai looking at reflection that now shows unity rather than division."
+    },
+    {
+      "page": 49,
+      "type": "story",
+      "text": "The community center stood as a testament not only to the resilience of those who had built it but to the possibility that preservation and progress could coexist if people were willing to imagine futures that included everyone rather than requiring some to be displaced for others to thrive.",
+      "scene": "Community center renovated, new programs running, multiple generations present."
+    },
+    {
+      "page": 50,
+      "type": "story",
+      "text": "On graduation day three years later, when Mai Nguyen crossed the stage to receive an award for community leadership, she paused for a moment to look at her grandmother in the audience, and in that exchange of glances was everything: the ocean crossing, the struggles, the victories, the losses, and the love that had made all of it meaningful.",
+      "scene": "Graduation ceremony, Mai on stage, grandmother in audience, eye contact connecting generations."
+    },
+    {
+      "page": 51,
+      "type": "story",
+      "text": "She had learned that identity was not a fixed thing but a river that flowed between banks carved by history and circumstance, that justice was not a destination but a direction, and that the measure of who we become is found not in what we achieve for ourselves but in what we make possible for others.",
+      "scene": "Mai walking forward, community behind her, future ahead."
+    },
+    {
+      "page": 52,
+      "type": "story",
+      "text": "The bridge between was not a place but a practice, one that required constant attention and repair, and Mai Nguyen, Nguyen Thi Mai, was ready to spend her life maintaining the crossing, welcoming travelers from both directions, honoring what had been built before her while creating foundations for what would come after.",
+      "scene": "Symbolic bridge glowing with connection, Mai standing at its center with arms open."
+    },
+    {
+      "page": 53,
+      "type": "end",
+      "text": "The End",
+      "scene": "The community center at sunset, lights coming on inside, laughter audible, children running between Vietnamese and English signs, a living bridge between past and future."
+    }
   ],
   "chapters": [
-    {"chapter": 1, "title": "Two Names", "startPage": 4},
-    {"chapter": 2, "title": "Lines in the Sand", "startPage": 11},
-    {"chapter": 3, "title": "Building Coalitions", "startPage": 19},
-    {"chapter": 4, "title": "Crossroads", "startPage": 26},
-    {"chapter": 5, "title": "The Hearing", "startPage": 34},
-    {"chapter": 6, "title": "Bridges", "startPage": 41}
+    {
+      "chapter": 1,
+      "title": "Two Names",
+      "startPage": 4
+    },
+    {
+      "chapter": 2,
+      "title": "Lines in the Sand",
+      "startPage": 11
+    },
+    {
+      "chapter": 3,
+      "title": "Building Coalitions",
+      "startPage": 19
+    },
+    {
+      "chapter": 4,
+      "title": "Crossroads",
+      "startPage": 26
+    },
+    {
+      "chapter": 5,
+      "title": "The Hearing",
+      "startPage": 34
+    },
+    {
+      "chapter": 6,
+      "title": "Bridges",
+      "startPage": 41
+    }
   ],
   "thematicElements": {
-    "identity": ["Vietnamese-American dual identity", "name as identity marker", "generational differences in assimilation", "choosing vs inheriting identity"],
-    "justice": ["historic preservation", "gentrification", "whose voices matter", "systemic vs individual responsibility", "accountability as transformation"],
-    "growth": ["from silence to voice", "coalition building across difference", "understanding privilege", "intergenerational learning"],
-    "multiplePerspectives": ["Mai's evolving understanding", "grandmother's refugee experience", "mother's assimilation approach", "Connor's privilege awakening", "community members' varied stories"],
-    "ambiguity": ["partial victory", "ongoing work of justice", "complexity of progress", "no simple heroes or villains"],
-    "symbolism": ["bridge as connection", "two names as dual identity", "community center as collective memory", "river as fluid identity"]
+    "identity": [
+      "Vietnamese-American dual identity",
+      "name as identity marker",
+      "generational differences in assimilation",
+      "choosing vs inheriting identity"
+    ],
+    "justice": [
+      "historic preservation",
+      "gentrification",
+      "whose voices matter",
+      "systemic vs individual responsibility",
+      "accountability as transformation"
+    ],
+    "growth": [
+      "from silence to voice",
+      "coalition building across difference",
+      "understanding privilege",
+      "intergenerational learning"
+    ],
+    "multiplePerspectives": [
+      "Mai's evolving understanding",
+      "grandmother's refugee experience",
+      "mother's assimilation approach",
+      "Connor's privilege awakening",
+      "community members' varied stories"
+    ],
+    "ambiguity": [
+      "partial victory",
+      "ongoing work of justice",
+      "complexity of progress",
+      "no simple heroes or villains"
+    ],
+    "symbolism": [
+      "bridge as connection",
+      "two names as dual identity",
+      "community center as collective memory",
+      "river as fluid identity"
+    ]
   },
   "metadata": {
     "generatedAt": "2026-01-06T12:00:00Z",
@@ -84,6 +427,14 @@
     "fluencyTarget": "130-145 wpm",
     "averageWordsPerSentence": 29.4,
     "theme": "Coming of age through community activism, dual cultural identity, historic preservation as social justice",
-    "craftElements": ["Extended complex sentences", "Multiple embedded perspectives", "Abstract concepts grounded in specific details", "Nuanced character development", "Open-ended resolution", "Thematic symbolism"]
-  }
+    "craftElements": [
+      "Extended complex sentences",
+      "Multiple embedded perspectives",
+      "Abstract concepts grounded in specific details",
+      "Nuanced character development",
+      "Open-ended resolution",
+      "Thematic symbolism"
+    ]
+  },
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Dreamlike illustration, soft gradients, bridge and connection imagery, ethereal lighting\nMood: atmospheric, immersive, evocative\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A teenage girl standing at the center of a symbolic bridge, one side showing a traditional Vietnames...\nPanel 2: The Bridge Between\nPanel 3: Chapter heading with Vietnamese and English calligraphy intertwined.\nPanel 4: Thirteen-year-old Vietnamese-American girl looking at her reflection, traditional ao dai dress super...\nPanel 5: Grandmother and granddaughter looking at old photographs, images of boats, family portraits, and Ame...\nPanel 6: Classroom roll call, teacher hesitating over pronunciation, Mai's resigned expression.\nPanel 7: Protest signs visible through bus window, Vietnamese storefronts with SAVE OUR COMMUNITY banners.\nPanel 8: Memory image of young grandmother in ESL classroom, diverse group of immigrants studying together.\nPanel 9: Girl looking at architectural plans, seeing the community center as it is now superimposed over the ...\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

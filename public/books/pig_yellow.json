@@ -7,8 +7,14 @@
   "level_description": "CVC words only: pig, mud, big, run, wet, 3-5 words per page",
   "riso_colors": {
     "black": "outlines",
-    "color_a": {"name": "Fluorescent Pink", "use": "pig"},
-    "color_b": {"name": "Brown", "use": "mud"}
+    "color_a": {
+      "name": "Fluorescent Pink",
+      "use": "pig"
+    },
+    "color_b": {
+      "name": "Brown",
+      "use": "mud"
+    }
   },
   "character": {
     "name": "Pig",
@@ -16,25 +22,121 @@
     "description": "Cute round pink pig with small curly tail, big floppy ears, snout with two nostrils, happy eyes"
   },
   "word_list": {
-    "sound_out": ["pig", "mud", "big", "run", "wet", "got", "hot", "sit", "sun", "fun", "mom", "can", "not"],
-    "sight": ["a", "the", "in", "is", "it", "I"],
+    "sound_out": [
+      "pig",
+      "mud",
+      "big",
+      "run",
+      "wet",
+      "got",
+      "hot",
+      "sit",
+      "sun",
+      "fun",
+      "mom",
+      "can",
+      "not"
+    ],
+    "sight": [
+      "a",
+      "the",
+      "in",
+      "is",
+      "it",
+      "I"
+    ],
     "new": []
   },
   "pages": [
-    {"page": 1, "type": "cover", "text": "Pig in Mud", "image_prompt": "NO TEXT IN IMAGE. Cute round pink pig sitting happily in brown mud puddle, big smile, floppy ears, curly tail visible. Mud splashing. BOLD BLACK OUTLINES. Simple children's book style."},
-    {"page": 2, "type": "wordlist", "text": "Words to Know"},
-    {"page": 3, "type": "story", "text": "Pig is hot.", "image_prompt": "NO TEXT IN IMAGE. Cute round pink pig standing in sunshine, looking hot and uncomfortable, floppy ears drooping, sun overhead. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 4, "type": "story", "text": "Pig can run.", "image_prompt": "NO TEXT IN IMAGE. Cute round pink pig running toward mud puddle, excited expression, floppy ears bouncing, curly tail. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 5, "type": "story", "text": "Pig got in the mud!", "image_prompt": "NO TEXT IN IMAGE. Cute pink pig jumping into brown mud puddle with big splash, joyful expression, mud flying. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 6, "type": "story", "text": "It is wet. It is fun!", "image_prompt": "NO TEXT IN IMAGE. Cute pink pig rolling happily in mud, covered in brown mud, huge smile, splashing around. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 7, "type": "story", "text": "Mom Pig is not happy.", "image_prompt": "NO TEXT IN IMAGE. Larger pink mother pig looking at muddy baby pig with disapproving expression, hands on hips. Muddy pig looking guilty. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 8, "type": "story", "text": "\"Not in the mud!\"", "image_prompt": "NO TEXT IN IMAGE. Mother pig pointing away from mud puddle sternly. Baby pig looking sad, stepping out of mud. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 9, "type": "story", "text": "Pig is sad.", "image_prompt": "NO TEXT IN IMAGE. Cute pink pig sitting alone looking sad, head down, floppy ears drooping. Mud puddle in background. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 10, "type": "story", "text": "The sun is hot.", "image_prompt": "NO TEXT IN IMAGE. Bright hot sun overhead. Mother pig wiping brow, looking uncomfortable. Baby pig watching. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 11, "type": "story", "text": "Mom is hot!", "image_prompt": "NO TEXT IN IMAGE. Mother pig fanning herself, very hot, looking at mud puddle longingly. Baby pig noticing. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 12, "type": "story", "text": "Mom got in the mud!", "image_prompt": "NO TEXT IN IMAGE. Mother pig jumping into mud puddle with big splash, surprised happy expression on her face! Mud flying everywhere. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 13, "type": "story", "text": "Pig can run!", "image_prompt": "NO TEXT IN IMAGE. Baby pig running excitedly toward mud puddle where mom is, huge smile, floppy ears bouncing. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 14, "type": "story", "text": "Fun in the mud!", "image_prompt": "NO TEXT IN IMAGE. Mother pig and baby pig both splashing happily in mud together, laughing, mud flying, having wonderful time. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 15, "type": "end", "text": "The End", "image_prompt": "NO TEXT IN IMAGE. Mother pig and baby pig sitting together in mud puddle, both covered in mud, big happy smiles, hugging. BOLD BLACK OUTLINES. Children's book illustration."}
-  ]
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Pig in Mud",
+      "image_prompt": "NO TEXT IN IMAGE. Cute round pink pig sitting happily in brown mud puddle, big smile, floppy ears, curly tail visible. Mud splashing. BOLD BLACK OUTLINES. Simple children's book style."
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Pig is hot.",
+      "image_prompt": "NO TEXT IN IMAGE. Cute round pink pig standing in sunshine, looking hot and uncomfortable, floppy ears drooping, sun overhead. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "Pig can run.",
+      "image_prompt": "NO TEXT IN IMAGE. Cute round pink pig running toward mud puddle, excited expression, floppy ears bouncing, curly tail. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "Pig got in the mud!",
+      "image_prompt": "NO TEXT IN IMAGE. Cute pink pig jumping into brown mud puddle with big splash, joyful expression, mud flying. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "It is wet. It is fun!",
+      "image_prompt": "NO TEXT IN IMAGE. Cute pink pig rolling happily in mud, covered in brown mud, huge smile, splashing around. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "Mom Pig is not happy.",
+      "image_prompt": "NO TEXT IN IMAGE. Larger pink mother pig looking at muddy baby pig with disapproving expression, hands on hips. Muddy pig looking guilty. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "\"Not in the mud!\"",
+      "image_prompt": "NO TEXT IN IMAGE. Mother pig pointing away from mud puddle sternly. Baby pig looking sad, stepping out of mud. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "Pig is sad.",
+      "image_prompt": "NO TEXT IN IMAGE. Cute pink pig sitting alone looking sad, head down, floppy ears drooping. Mud puddle in background. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "The sun is hot.",
+      "image_prompt": "NO TEXT IN IMAGE. Bright hot sun overhead. Mother pig wiping brow, looking uncomfortable. Baby pig watching. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "Mom is hot!",
+      "image_prompt": "NO TEXT IN IMAGE. Mother pig fanning herself, very hot, looking at mud puddle longingly. Baby pig noticing. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "Mom got in the mud!",
+      "image_prompt": "NO TEXT IN IMAGE. Mother pig jumping into mud puddle with big splash, surprised happy expression on her face! Mud flying everywhere. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "Pig can run!",
+      "image_prompt": "NO TEXT IN IMAGE. Baby pig running excitedly toward mud puddle where mom is, huge smile, floppy ears bouncing. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "Fun in the mud!",
+      "image_prompt": "NO TEXT IN IMAGE. Mother pig and baby pig both splashing happily in mud together, laughing, mud flying, having wonderful time. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 15,
+      "type": "end",
+      "text": "The End",
+      "image_prompt": "NO TEXT IN IMAGE. Mother pig and baby pig sitting together in mud puddle, both covered in mud, big happy smiles, hugging. BOLD BLACK OUTLINES. Children's book illustration."
+    }
+  ],
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly illustration\nMood: gentle, comforting, bright\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Pig in Mud\nPanel 2: Words to Know\nPanel 3: Pig is hot.\nPanel 4: Pig can run.\nPanel 5: Pig got in the mud!\nPanel 6: It is wet. It is fun!\nPanel 7: Mom Pig is not happy.\nPanel 8: \"Not in the mud!\"\nPanel 9: Pig is sad.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

@@ -1672,7 +1672,7 @@
             // Handle reference page (page -1)
             if (currentPage === -1) {
                 document.getElementById('infoPage').textContent = `Reference / ${currentBook.pages.length}`;
-                document.getElementById('infoScene').textContent = 'Reference image for style consistency';
+                document.getElementById('infoScene').textContent = currentBook.reference_prompt || 'No reference prompt available';
             } else {
                 const page = currentBook.pages[currentPage];
                 document.getElementById('infoPage').textContent = `${currentPage + 1} / ${currentBook.pages.length}`;

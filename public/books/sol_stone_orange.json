@@ -4,7 +4,9 @@
   "band": "B",
   "theme": "Earth elemental - alchemical salamander discovers glowing cave stone",
   "character": {
-    "names": ["Sol"],
+    "names": [
+      "Sol"
+    ],
     "sol": {
       "species": "small salamander",
       "color": "deep amber/orange with golden belly (#E65100 body, #FFB300 belly)",
@@ -19,7 +21,11 @@
   },
   "art_direction": {
     "style": "Expressive Minimal with mystical undertones - Mo Willems expressiveness meets Jon Klassen atmosphere. Bold black outlines, flat color fills, subtle paper texture, minimal but moody backgrounds",
-    "influences": ["Mo Willems (expression)", "Jon Klassen (atmosphere/restraint)", "Studio Ghibli (quiet magic)"],
+    "influences": [
+      "Mo Willems (expression)",
+      "Jon Klassen (atmosphere/restraint)",
+      "Studio Ghibli (quiet magic)"
+    ],
     "palette": {
       "sol_body": "#E65100",
       "sol_belly": "#FFB300",
@@ -54,19 +60,75 @@
   },
   "word_list": {
     "decodable": {
-      "cvc": ["got", "big", "dim", "lit", "sat", "sun", "run", "hid", "can", "did", "not", "but", "let", "set", "yet", "den", "wet", "hot"],
-      "digraphs": ["path", "with", "that", "this", "hush", "wish", "such", "much", "gush"]
+      "cvc": [
+        "got",
+        "big",
+        "dim",
+        "lit",
+        "sat",
+        "sun",
+        "run",
+        "hid",
+        "can",
+        "did",
+        "not",
+        "but",
+        "let",
+        "set",
+        "yet",
+        "den",
+        "wet",
+        "hot"
+      ],
+      "digraphs": [
+        "path",
+        "with",
+        "that",
+        "this",
+        "hush",
+        "wish",
+        "such",
+        "much",
+        "gush"
+      ]
     },
     "sight_words": {
-      "flash": ["the", "to", "a", "in", "it", "is", "I", "go", "no", "see", "was", "my"],
-      "heart": ["said", "saw", "there", "what"]
+      "flash": [
+        "the",
+        "to",
+        "a",
+        "in",
+        "it",
+        "is",
+        "I",
+        "go",
+        "no",
+        "see",
+        "was",
+        "my"
+      ],
+      "heart": [
+        "said",
+        "saw",
+        "there",
+        "what"
+      ]
     },
     "vocabulary": {
-      "topic": ["cave", "stone", "glow"],
-      "character": ["Sol"]
+      "topic": [
+        "cave",
+        "stone",
+        "glow"
+      ],
+      "character": [
+        "Sol"
+      ]
     }
   },
-  "phonics_focus": ["short vowels CVC", "digraphs th/sh/ch"],
+  "phonics_focus": [
+    "short vowels CVC",
+    "digraphs th/sh/ch"
+  ],
   "refrain": "Hmmm... yes.",
   "emotional_arc": "curious -> exploring -> discovering -> awed -> connected -> content",
   "pages": [
@@ -81,9 +143,34 @@
       "type": "wordlist",
       "text": "Words to Know",
       "sections": {
-        "sound_it_out": ["dim", "lit", "path", "got", "big", "hush", "glow", "sat", "wish"],
-        "know_by_heart": ["the", "said", "saw", "was", "to", "I", "a", "there", "what"],
-        "new_words": ["cave", "stone", "glow", "Sol"]
+        "sound_it_out": [
+          "dim",
+          "lit",
+          "path",
+          "got",
+          "big",
+          "hush",
+          "glow",
+          "sat",
+          "wish"
+        ],
+        "know_by_heart": [
+          "the",
+          "said",
+          "saw",
+          "was",
+          "to",
+          "I",
+          "a",
+          "there",
+          "what"
+        ],
+        "new_words": [
+          "cave",
+          "stone",
+          "glow",
+          "Sol"
+        ]
       },
       "image_prompt": null
     },
@@ -240,5 +327,6 @@
       "text": "The End",
       "image_prompt": "FINAL IMAGE: Sol (amber salamander) sitting on his rock in golden sunset light, looking at the viewer with a warm, knowing expression - as if sharing a secret. Behind him in the far distance, the cave entrance is visible, with the faintest purple glow emanating from within. Sol's forehead spots glow gold. He waves one small foot at the viewer - a gentle 'goodbye for now.' The image says: magic is real, patience is rewarded, and Sol knows where to find wonder. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
     }
-  ]
+  ],
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Sol and the Stone\nPanel 2: Words to Know\nPanel 3: Sol sat in the sun.\nPanel 4: Sol saw a path.\nPanel 5: The path led to a cave.\nPanel 6: \"I can go in,\" said Sol.\nPanel 7: In Sol went.\nPanel 8: It was dim.\nPanel 9: Hush. Hush. Hush.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

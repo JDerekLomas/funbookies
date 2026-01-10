@@ -5,7 +5,10 @@
   "level": "C3",
   "band": "C",
   "targetPhonics": "Two-Syllable Closed",
-  "wordFamilies": ["VC/CV division", "double consonant patterns"],
+  "wordFamilies": [
+    "VC/CV division",
+    "double consonant patterns"
+  ],
   "skill": "Two-Syllable Closed",
   "skill_description": "Practice reading two-syllable words with closed syllables divided between consonants (VC/CV pattern): kitten, rabbit, hidden, sudden, basket.",
   "age_range": "1st-2nd Grade",
@@ -13,69 +16,323 @@
   "author": "FunBookies",
   "illustrator": "AI Generated",
   "summary": "A kitten named Mittens makes an unexpected friend when a rabbit hops through the window. They discover that sudden surprises can lead to wonderful friendships.",
-
   "word_list": {
-    "sound_out": ["kitten", "Mittens", "hidden", "basket", "rabbit", "sudden", "button", "dinner", "better", "letter", "lettuce", "happy", "fluffy", "puppy", "silly", "pretty", "buddy", "buddies", "ladder", "jogger", "follow", "nibble", "snuggle", "happen", "little", "nothing", "something", "window", "funny", "carrot", "cotton", "sunset", "sitting"],
-    "sight": ["a", "the", "was", "in", "and", "to", "her", "on", "at", "of", "with", "they", "were", "could", "would", "through", "before", "together", "their"],
+    "sound_out": [
+      "kitten",
+      "Mittens",
+      "hidden",
+      "basket",
+      "rabbit",
+      "sudden",
+      "button",
+      "dinner",
+      "better",
+      "letter",
+      "lettuce",
+      "happy",
+      "fluffy",
+      "puppy",
+      "silly",
+      "pretty",
+      "buddy",
+      "buddies",
+      "ladder",
+      "jogger",
+      "follow",
+      "nibble",
+      "snuggle",
+      "happen",
+      "little",
+      "nothing",
+      "something",
+      "window",
+      "funny",
+      "carrot",
+      "cotton",
+      "sunset",
+      "sitting"
+    ],
+    "sight": [
+      "a",
+      "the",
+      "was",
+      "in",
+      "and",
+      "to",
+      "her",
+      "on",
+      "at",
+      "of",
+      "with",
+      "they",
+      "were",
+      "could",
+      "would",
+      "through",
+      "before",
+      "together",
+      "their"
+    ],
     "new": []
   },
-
-  "sightWordsUsed": ["a", "the", "was", "in", "and", "to", "her", "on", "at", "of", "with", "they", "were", "could", "would", "through", "before", "together", "their"],
-
-  "wordsearch_words": ["kitten", "rabbit", "basket", "hidden", "sudden", "fluffy", "buddy", "happy"],
-
+  "sightWordsUsed": [
+    "a",
+    "the",
+    "was",
+    "in",
+    "and",
+    "to",
+    "her",
+    "on",
+    "at",
+    "of",
+    "with",
+    "they",
+    "were",
+    "could",
+    "would",
+    "through",
+    "before",
+    "together",
+    "their"
+  ],
+  "wordsearch_words": [
+    "kitten",
+    "rabbit",
+    "basket",
+    "hidden",
+    "sudden",
+    "fluffy",
+    "buddy",
+    "happy"
+  ],
   "parent_tips": {
     "before_reading": "Look at the cover together. Ask: What animals do you see? Where might they be hiding?",
     "during_reading": "Help your child clap out two-syllable words: kit-ten, rab-bit, bas-ket. Point out the double consonants in the middle.",
     "after_reading": "Ask: How did Mittens feel when she first saw the rabbit? How did her feelings change?"
   },
-
   "comprehension_questions": [
-    {"question": "Where was Mittens hiding at the start of the story?", "answer": "In a basket"},
-    {"question": "How did the rabbit get into the house?", "answer": "Through the open window"},
-    {"question": "What made the rabbit hop into the basket?", "answer": "A puppy barked and scared the rabbit"},
-    {"question": "What lesson did Mittens learn?", "answer": "That sudden surprises can bring wonderful new friends"}
+    {
+      "question": "Where was Mittens hiding at the start of the story?",
+      "answer": "In a basket"
+    },
+    {
+      "question": "How did the rabbit get into the house?",
+      "answer": "Through the open window"
+    },
+    {
+      "question": "What made the rabbit hop into the basket?",
+      "answer": "A puppy barked and scared the rabbit"
+    },
+    {
+      "question": "What lesson did Mittens learn?",
+      "answer": "That sudden surprises can bring wonderful new friends"
+    }
   ],
-
   "pages": [
-    { "page": 1, "type": "cover", "text": "The Kitten in the Basket", "scene": "A fluffy orange kitten and a brown rabbit peeking out from a woven basket together. Warm watercolor style." },
-    { "page": 2, "type": "copyright" },
-    { "page": 3, "type": "parent_guide" },
-    { "page": 4, "type": "level_info" },
-    { "page": 5, "type": "wordlist", "text": "Words to Know" },
-    { "page": 6, "story_page": 1, "type": "story", "text": "A little kitten named Mittens was hidden inside a big basket.", "scene": "A fluffy orange kitten peeking out from a woven basket in a sunny room. Warm watercolor style." },
-    { "page": 7, "story_page": 2, "type": "story", "text": "Mittens was a happy kitten who loved to run and play all day.", "scene": "The playful kitten bounding through a living room, toys scattered around. Warm watercolor style." },
-    { "page": 8, "story_page": 3, "type": "story", "text": "One day, something funny happened in the kitchen near the ladder.", "scene": "The kitchen with a wooden ladder against the wall, kitten looking curious. Warm watercolor style." },
-    { "page": 9, "story_page": 4, "type": "story", "text": "A rabbit hopped in through the open window and landed on the rug.", "scene": "A brown rabbit mid-hop, coming through an open kitchen window. Warm watercolor style." },
-    { "page": 10, "story_page": 5, "type": "story", "text": "Mittens had never seen a rabbit before and felt a sudden surprise.", "scene": "The kitten with wide eyes, fur slightly raised, staring at the rabbit. Warm watercolor style." },
-    { "page": 11, "story_page": 6, "type": "story", "text": "The rabbit looked at the kitten and began to nibble on a carrot.", "scene": "The rabbit calmly eating a carrot while the kitten watches intently. Warm watercolor style." },
-    { "page": 12, "story_page": 7, "type": "story", "text": "Mittens thought the rabbit was silly but also pretty and fluffy.", "scene": "The kitten tilting its head, studying the soft fluffy rabbit. Warm watercolor style." },
-    { "page": 13, "story_page": 8, "type": "story", "text": "The kitten crept closer and sniffed the rabbit with her little button nose.", "scene": "The kitten cautiously approaching, nose twitching near the rabbit. Warm watercolor style." },
-    { "page": 14, "story_page": 9, "type": "story", "text": "The rabbit did not run away but just kept on munching dinner.", "scene": "The relaxed rabbit continuing to eat, kitten sitting nearby watching. Warm watercolor style." },
-    { "page": 15, "story_page": 10, "type": "story", "text": "Mittens felt happy that the rabbit was not hidden from her at all.", "scene": "The kitten looking pleased, sitting companionably next to the rabbit. Warm watercolor style." },
-    { "page": 16, "story_page": 11, "type": "story", "text": "They sat together on the rug and looked out the window at sunset.", "scene": "Kitten and rabbit sitting side by side, golden sunset light streaming in. Warm watercolor style." },
-    { "page": 17, "story_page": 12, "type": "story", "text": "A puppy ran past the window and barked at a passing jogger.", "scene": "View through window of a puppy chasing after someone jogging by. Warm watercolor style." },
-    { "page": 18, "story_page": 13, "type": "story", "text": "The sudden noise made the rabbit hop into the basket in a hurry.", "scene": "The startled rabbit leaping into the woven basket beside the kitten. Warm watercolor style." },
-    { "page": 19, "story_page": 14, "type": "story", "text": "Mittens followed the rabbit and snuggled into the basket with her new buddy.", "scene": "Both animals curled up together cozily in the basket. Warm watercolor style." },
-    { "page": 20, "story_page": 15, "type": "story", "text": "The kitten purred and the rabbit felt better in the hidden spot.", "scene": "The kitten purring contentedly, rabbit's nose twitching peacefully. Warm watercolor style." },
-    { "page": 21, "story_page": 16, "type": "story", "text": "Nothing could bother them when they were hidden in the basket.", "scene": "The basket with both animals inside, looking safe and warm. Warm watercolor style." },
-    { "page": 22, "story_page": 17, "type": "story", "text": "When dinner time came, the children put food in two little dishes.", "scene": "Children placing food bowls near the basket, animals perking up. Warm watercolor style." },
-    { "page": 23, "story_page": 18, "type": "story", "text": "Mittens ate her kitten food and the rabbit ate fresh lettuce.", "scene": "Both animals eating from their respective bowls side by side. Warm watercolor style." },
-    { "page": 24, "story_page": 19, "type": "story", "text": "After dinner, they went back to the basket and fell asleep together.", "scene": "The kitten and rabbit curled up sleeping peacefully in the basket. Warm watercolor style." },
-    { "page": 25, "story_page": 20, "type": "story", "text": "From that day on, the kitten and the rabbit were the best of buddies.", "scene": "The kitten and rabbit playing together in a sunny garden, both happy. Warm watercolor style." },
-    { "page": 26, "story_page": 21, "type": "story", "text": "Mittens learned that sudden surprises can bring wonderful new buddies.", "scene": "The kitten and rabbit nuzzling each other affectionately. Warm watercolor style." },
-    { "page": 27, "story_page": 22, "type": "story", "text": "And the little basket became their hidden spot in the whole house.", "scene": "The cozy basket with both animals inside, surrounded by soft blankets, warm light. Warm watercolor style." },
-    { "page": 28, "type": "end", "text": "The End", "scene": "Kitten and rabbit sleeping peacefully in the basket under moonlight. Warm watercolor style." },
-    { "page": 29, "type": "wordsearch" },
-    { "page": 30, "type": "series_info" },
-    { "page": 31, "type": "back_cover", "text": "" }
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "The Kitten in the Basket",
+      "scene": "A fluffy orange kitten and a brown rabbit peeking out from a woven basket together. Warm watercolor style."
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "A little kitten named Mittens was hidden inside a big basket.",
+      "scene": "A fluffy orange kitten peeking out from a woven basket in a sunny room. Warm watercolor style."
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "Mittens was a happy kitten who loved to run and play all day.",
+      "scene": "The playful kitten bounding through a living room, toys scattered around. Warm watercolor style."
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "One day, something funny happened in the kitchen near the ladder.",
+      "scene": "The kitchen with a wooden ladder against the wall, kitten looking curious. Warm watercolor style."
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "A rabbit hopped in through the open window and landed on the rug.",
+      "scene": "A brown rabbit mid-hop, coming through an open kitchen window. Warm watercolor style."
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "Mittens had never seen a rabbit before and felt a sudden surprise.",
+      "scene": "The kitten with wide eyes, fur slightly raised, staring at the rabbit. Warm watercolor style."
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "The rabbit looked at the kitten and began to nibble on a carrot.",
+      "scene": "The rabbit calmly eating a carrot while the kitten watches intently. Warm watercolor style."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Mittens thought the rabbit was silly but also pretty and fluffy.",
+      "scene": "The kitten tilting its head, studying the soft fluffy rabbit. Warm watercolor style."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "The kitten crept closer and sniffed the rabbit with her little button nose.",
+      "scene": "The kitten cautiously approaching, nose twitching near the rabbit. Warm watercolor style."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "The rabbit did not run away but just kept on munching dinner.",
+      "scene": "The relaxed rabbit continuing to eat, kitten sitting nearby watching. Warm watercolor style."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "Mittens felt happy that the rabbit was not hidden from her at all.",
+      "scene": "The kitten looking pleased, sitting companionably next to the rabbit. Warm watercolor style."
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "They sat together on the rug and looked out the window at sunset.",
+      "scene": "Kitten and rabbit sitting side by side, golden sunset light streaming in. Warm watercolor style."
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "A puppy ran past the window and barked at a passing jogger.",
+      "scene": "View through window of a puppy chasing after someone jogging by. Warm watercolor style."
+    },
+    {
+      "page": 18,
+      "story_page": 13,
+      "type": "story",
+      "text": "The sudden noise made the rabbit hop into the basket in a hurry.",
+      "scene": "The startled rabbit leaping into the woven basket beside the kitten. Warm watercolor style."
+    },
+    {
+      "page": 19,
+      "story_page": 14,
+      "type": "story",
+      "text": "Mittens followed the rabbit and snuggled into the basket with her new buddy.",
+      "scene": "Both animals curled up together cozily in the basket. Warm watercolor style."
+    },
+    {
+      "page": 20,
+      "story_page": 15,
+      "type": "story",
+      "text": "The kitten purred and the rabbit felt better in the hidden spot.",
+      "scene": "The kitten purring contentedly, rabbit's nose twitching peacefully. Warm watercolor style."
+    },
+    {
+      "page": 21,
+      "story_page": 16,
+      "type": "story",
+      "text": "Nothing could bother them when they were hidden in the basket.",
+      "scene": "The basket with both animals inside, looking safe and warm. Warm watercolor style."
+    },
+    {
+      "page": 22,
+      "story_page": 17,
+      "type": "story",
+      "text": "When dinner time came, the children put food in two little dishes.",
+      "scene": "Children placing food bowls near the basket, animals perking up. Warm watercolor style."
+    },
+    {
+      "page": 23,
+      "story_page": 18,
+      "type": "story",
+      "text": "Mittens ate her kitten food and the rabbit ate fresh lettuce.",
+      "scene": "Both animals eating from their respective bowls side by side. Warm watercolor style."
+    },
+    {
+      "page": 24,
+      "story_page": 19,
+      "type": "story",
+      "text": "After dinner, they went back to the basket and fell asleep together.",
+      "scene": "The kitten and rabbit curled up sleeping peacefully in the basket. Warm watercolor style."
+    },
+    {
+      "page": 25,
+      "story_page": 20,
+      "type": "story",
+      "text": "From that day on, the kitten and the rabbit were the best of buddies.",
+      "scene": "The kitten and rabbit playing together in a sunny garden, both happy. Warm watercolor style."
+    },
+    {
+      "page": 26,
+      "story_page": 21,
+      "type": "story",
+      "text": "Mittens learned that sudden surprises can bring wonderful new buddies.",
+      "scene": "The kitten and rabbit nuzzling each other affectionately. Warm watercolor style."
+    },
+    {
+      "page": 27,
+      "story_page": 22,
+      "type": "story",
+      "text": "And the little basket became their hidden spot in the whole house.",
+      "scene": "The cozy basket with both animals inside, surrounded by soft blankets, warm light. Warm watercolor style."
+    },
+    {
+      "page": 28,
+      "type": "end",
+      "text": "The End",
+      "scene": "Kitten and rabbit sleeping peacefully in the basket under moonlight. Warm watercolor style."
+    },
+    {
+      "page": 29,
+      "type": "wordsearch"
+    },
+    {
+      "page": 30,
+      "type": "series_info"
+    },
+    {
+      "page": 31,
+      "type": "back_cover",
+      "text": ""
+    }
   ],
-
   "metadata": {
     "generatedAt": "2026-01-06T00:00:00.000Z",
     "levelSpecs": "v2",
     "wordCount": 420,
     "decodabilityTarget": "70%+",
     "storyPages": 22
-  }
+  },
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Rich watercolor illustration, more detailed characters and settings, dynamic compositions\nMood: exciting, imaginative, engaging\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A fluffy orange kitten and a brown rabbit peeking out from a woven basket together. Warm watercolor ...\nPanel 2: Words to Know\nPanel 3: A fluffy orange kitten peeking out from a woven basket in a sunny room. Warm watercolor style.\nPanel 4: The playful kitten bounding through a living room, toys scattered around. Warm watercolor style.\nPanel 5: The kitchen with a wooden ladder against the wall, kitten looking curious. Warm watercolor style.\nPanel 6: A brown rabbit mid-hop, coming through an open kitchen window. Warm watercolor style.\nPanel 7: The kitten with wide eyes, fur slightly raised, staring at the rabbit. Warm watercolor style.\nPanel 8: The rabbit calmly eating a carrot while the kitten watches intently. Warm watercolor style.\nPanel 9: The kitten tilting its head, studying the soft fluffy rabbit. Warm watercolor style.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

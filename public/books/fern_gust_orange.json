@@ -4,7 +4,10 @@
   "band": "B",
   "theme": "Air elemental - small mouse befriends an invisible wind spirit",
   "character": {
-    "names": ["Fern", "Gust"],
+    "names": [
+      "Fern",
+      "Gust"
+    ],
     "fern": {
       "species": "small field mouse",
       "color": "soft brown with cream belly (#8D6E63 body, #EFEBE9 belly)",
@@ -24,7 +27,11 @@
   },
   "art_direction": {
     "style": "Expressive Minimal with kinetic energy - Mo Willems expressiveness meets movement and swirls. Bold black outlines, flat color fills, LOTS of motion lines and movement effects to show the wind",
-    "influences": ["Mo Willems (expression)", "Hayao Miyazaki (wind animation)", "The Snowy Day (simple wonder)"],
+    "influences": [
+      "Mo Willems (expression)",
+      "Hayao Miyazaki (wind animation)",
+      "The Snowy Day (simple wonder)"
+    ],
     "palette": {
       "fern_body": "#8D6E63",
       "fern_belly": "#EFEBE9",
@@ -61,19 +68,81 @@
   },
   "word_list": {
     "decodable": {
-      "cvc": ["run", "fun", "sun", "can", "did", "not", "got", "hit", "bit", "sit", "hid", "big", "zig", "zag"],
-      "digraphs": ["rush", "gush", "push", "wish", "with", "that", "this", "whiz", "puff", "huff", "swish", "spin"]
+      "cvc": [
+        "run",
+        "fun",
+        "sun",
+        "can",
+        "did",
+        "not",
+        "got",
+        "hit",
+        "bit",
+        "sit",
+        "hid",
+        "big",
+        "zig",
+        "zag"
+      ],
+      "digraphs": [
+        "rush",
+        "gush",
+        "push",
+        "wish",
+        "with",
+        "that",
+        "this",
+        "whiz",
+        "puff",
+        "huff",
+        "swish",
+        "spin"
+      ]
     },
     "sight_words": {
-      "flash": ["the", "to", "a", "in", "it", "is", "I", "go", "no", "see", "said", "was", "my", "you", "are", "where"],
-      "heart": ["what", "there", "here", "could"]
+      "flash": [
+        "the",
+        "to",
+        "a",
+        "in",
+        "it",
+        "is",
+        "I",
+        "go",
+        "no",
+        "see",
+        "said",
+        "was",
+        "my",
+        "you",
+        "are",
+        "where"
+      ],
+      "heart": [
+        "what",
+        "there",
+        "here",
+        "could"
+      ]
     },
     "vocabulary": {
-      "topic": ["wind", "gust", "leaf", "air"],
-      "character": ["Fern", "Gust"]
+      "topic": [
+        "wind",
+        "gust",
+        "leaf",
+        "air"
+      ],
+      "character": [
+        "Fern",
+        "Gust"
+      ]
     }
   },
-  "phonics_focus": ["short vowels CVC", "digraphs sh/th/wh", "double letters ff"],
+  "phonics_focus": [
+    "short vowels CVC",
+    "digraphs sh/th/wh",
+    "double letters ff"
+  ],
   "refrain": "I can not see it!",
   "emotional_arc": "curious -> frustrated -> playful -> wondering -> accepting -> joyful",
   "pages": [
@@ -88,9 +157,35 @@
       "type": "wordlist",
       "text": "Words to Know",
       "sections": {
-        "sound_it_out": ["run", "fun", "rush", "gush", "puff", "huff", "spin", "swish", "whiz"],
-        "know_by_heart": ["the", "said", "was", "to", "I", "a", "where", "you", "are", "see"],
-        "new_words": ["wind", "gust", "leaf", "Fern"]
+        "sound_it_out": [
+          "run",
+          "fun",
+          "rush",
+          "gush",
+          "puff",
+          "huff",
+          "spin",
+          "swish",
+          "whiz"
+        ],
+        "know_by_heart": [
+          "the",
+          "said",
+          "was",
+          "to",
+          "I",
+          "a",
+          "where",
+          "you",
+          "are",
+          "see"
+        ],
+        "new_words": [
+          "wind",
+          "gust",
+          "leaf",
+          "Fern"
+        ]
       },
       "image_prompt": null
     },
@@ -247,5 +342,6 @@
       "text": "The End",
       "image_prompt": "FINAL IMAGE - SUNSET SCENE: Fern (brown mouse) sitting on her hill in warm sunset light, looking at the viewer with a knowing, happy smile. Behind and around her, leaves drift gently in the air, grass sways softly, suggesting Gust's continued presence. Her fur is gently ruffled. Her fern-spiral tail curls contentedly. She waves one small paw goodbye to the viewer. The scene is warm, peaceful, magical. Two friends together - one you can see, one you can only feel. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
     }
-  ]
+  ],
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Fern and the Gust\nPanel 2: Words to Know\nPanel 3: Fern sat in the sun.\nPanel 4: Swish! The grass did sway!\nPanel 5: \"What was that?\" said Fern.\nPanel 6: Whoosh! A leaf hit Fern!\nPanel 7: \"I can not see it!\" said Fern.\nPanel 8: Puff! Puff! Puff!\nPanel 9: Fern did run!\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

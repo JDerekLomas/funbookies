@@ -5,7 +5,16 @@
   "level": "B2",
   "band": "B",
   "targetPhonics": "Short Vowels & Digraphs",
-  "wordFamilies": ["-op", "-ot", "-it", "-at", "-et", "-ell", "-ish", "-ash"],
+  "wordFamilies": [
+    "-op",
+    "-ot",
+    "-it",
+    "-at",
+    "-et",
+    "-ell",
+    "-ish",
+    "-ash"
+  ],
   "skill": "Short Vowels & Digraphs",
   "skill_description": "Practice reading CVC words with short vowels and common digraphs like sh, th, and ll.",
   "age_range": "K-1",
@@ -14,9 +23,10 @@
   "illustrator": "AI Generated",
   "theme": "Water elemental - toad discovers a magical echoing well that speaks wisdom",
   "summary": "Pip the toad sits alone until he finds a magical well. When he calls into it, the well echoes back! Pip makes a wish for a pal, and the well becomes his friend.",
-
   "character": {
-    "names": ["Pip"],
+    "names": [
+      "Pip"
+    ],
     "pip": {
       "species": "small toad",
       "color": "soft teal-green with cream belly (#26A69A body, #E0F2F1 belly)",
@@ -29,10 +39,13 @@
     "catchphrase": "Did it talk?",
     "style_notes": "Pip is round and endearing. Simple shapes - body is a squat oval, head blends into body. Bold black outlines. Flat teal color with cream belly. The blue cheek-spot is always visible. Large eyes show emotion clearly. Pip often has head tilted in listening pose."
   },
-
   "art_direction": {
     "style": "Expressive Minimal with dreamy undertones - Mo Willems expressiveness meets Jon Klassen stillness. Bold black outlines, flat color fills, subtle paper texture, lots of empty space for contemplation",
-    "influences": ["Mo Willems (expression)", "Jon Klassen (stillness/space)", "Oliver Jeffers (gentle wonder)"],
+    "influences": [
+      "Mo Willems (expression)",
+      "Jon Klassen (stillness/space)",
+      "Oliver Jeffers (gentle wonder)"
+    ],
     "palette": {
       "pip_body": "#26A69A",
       "pip_belly": "#E0F2F1",
@@ -55,35 +68,105 @@
     "must_include": "NO TEXT IN IMAGE",
     "avoid": "realistic style, detailed textures, scary well/dark imagery, complex backgrounds, text or words"
   },
-
   "word_list": {
-    "sound_out": ["Pip", "sat", "got", "hop", "top", "big", "did", "yes", "wet", "well", "tell", "yell", "wish", "splash", "drip", "drop", "plop", "pal"],
-    "sight": ["a", "I", "the", "is", "to", "and", "it", "in", "see", "said", "was", "my"],
-    "new": ["well", "echo", "water"]
+    "sound_out": [
+      "Pip",
+      "sat",
+      "got",
+      "hop",
+      "top",
+      "big",
+      "did",
+      "yes",
+      "wet",
+      "well",
+      "tell",
+      "yell",
+      "wish",
+      "splash",
+      "drip",
+      "drop",
+      "plop",
+      "pal"
+    ],
+    "sight": [
+      "a",
+      "I",
+      "the",
+      "is",
+      "to",
+      "and",
+      "it",
+      "in",
+      "see",
+      "said",
+      "was",
+      "my"
+    ],
+    "new": [
+      "well",
+      "echo",
+      "water"
+    ]
   },
-
-  "sightWordsUsed": ["a", "I", "the", "is", "to", "and", "it", "in", "see", "said", "was", "my"],
-
-  "wordsearch_words": ["pip", "sat", "hop", "well", "wet", "wish", "pal", "drop"],
-
+  "sightWordsUsed": [
+    "a",
+    "I",
+    "the",
+    "is",
+    "to",
+    "and",
+    "it",
+    "in",
+    "see",
+    "said",
+    "was",
+    "my"
+  ],
+  "wordsearch_words": [
+    "pip",
+    "sat",
+    "hop",
+    "well",
+    "wet",
+    "wish",
+    "pal",
+    "drop"
+  ],
   "parent_tips": {
     "before_reading": "Look at the cover. Ask: What animal do you see? What is Pip looking at? Have you ever heard an echo?",
     "during_reading": "Notice the digraph words: well, wish, splash. Help your child blend the sounds. When the well 'talks back,' discuss what an echo is!",
     "after_reading": "Ask: Why was Pip lonely at first? How did the well become Pip's friend? Have you ever made a wish?"
   },
-
   "comprehension_questions": [
-    {"question": "What was Pip doing at the start?", "answer": "Sitting alone"},
-    {"question": "What did Pip find?", "answer": "A well"},
-    {"question": "What happened when Pip talked to the well?", "answer": "It echoed back / talked back"},
-    {"question": "What did Pip wish for?", "answer": "A pal / friend"},
-    {"question": "Did Pip get his wish?", "answer": "Yes, the well became his pal"}
+    {
+      "question": "What was Pip doing at the start?",
+      "answer": "Sitting alone"
+    },
+    {
+      "question": "What did Pip find?",
+      "answer": "A well"
+    },
+    {
+      "question": "What happened when Pip talked to the well?",
+      "answer": "It echoed back / talked back"
+    },
+    {
+      "question": "What did Pip wish for?",
+      "answer": "A pal / friend"
+    },
+    {
+      "question": "Did Pip get his wish?",
+      "answer": "Yes, the well became his pal"
+    }
   ],
-
-  "phonics_focus": ["short vowels CVC", "digraphs sh/th/ll", "double letters"],
+  "phonics_focus": [
+    "short vowels CVC",
+    "digraphs sh/th/ll",
+    "double letters"
+  ],
   "refrain": "Did it talk?",
   "emotional_arc": "lonely -> curious -> surprised -> delighted -> grateful",
-
   "pages": [
     {
       "page": 1,
@@ -108,9 +191,34 @@
       "type": "wordlist",
       "text": "Words to Know",
       "sections": {
-        "sound_it_out": ["hop", "got", "sat", "well", "yell", "wish", "drip", "drop", "splash", "pal"],
-        "know_by_heart": ["the", "said", "was", "to", "I", "a", "it", "is"],
-        "new_words": ["well", "water", "echo", "Pip"]
+        "sound_it_out": [
+          "hop",
+          "got",
+          "sat",
+          "well",
+          "yell",
+          "wish",
+          "drip",
+          "drop",
+          "splash",
+          "pal"
+        ],
+        "know_by_heart": [
+          "the",
+          "said",
+          "was",
+          "to",
+          "I",
+          "a",
+          "it",
+          "is"
+        ],
+        "new_words": [
+          "well",
+          "water",
+          "echo",
+          "Pip"
+        ]
       }
     },
     {
@@ -245,12 +353,12 @@
       "text": ""
     }
   ],
-
   "metadata": {
     "generatedAt": "2026-01-09T00:00:00.000Z",
     "levelSpecs": "v2",
     "wordCount": 115,
     "decodabilityTarget": "85%+",
     "storyPages": 14
-  }
+  },
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Pip and the Well\nPanel 2: Words to Know\nPanel 3: Pip sat. And sat. And sat.\nPanel 4: Pip saw a well!\nPanel 5: Hop, hop, hop! Pip got to the top.\nPanel 6: It was big! Pip sat on the well.\nPanel 7: \"Is it wet?\" said Pip.\nPanel 8: \"...wet... wet... wet...\"\nPanel 9: Did it talk? Yes! It did!\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

@@ -7,8 +7,14 @@
   "level_description": "Consonant blends (st, mp, nd, sp): stomp, jump, stand, spend, 8-12 words per page",
   "riso_colors": {
     "black": "outlines",
-    "color_a": {"name": "Light Gray", "use": "elephant"},
-    "color_b": {"name": "Yellow", "use": "savanna, sun"}
+    "color_a": {
+      "name": "Light Gray",
+      "use": "elephant"
+    },
+    "color_b": {
+      "name": "Yellow",
+      "use": "savanna, sun"
+    }
   },
   "character": {
     "name": "Ella",
@@ -16,26 +22,137 @@
     "description": "Cute small gray baby elephant with big floppy ears, long trunk, stubby legs, tiny tail, big round friendly eyes"
   },
   "word_list": {
-    "sound_out": ["stomp", "jump", "bump", "thump", "stamp", "stand", "hand", "land", "spend", "fast", "best", "just", "must", "dust"],
-    "sight": ["a", "the", "is", "it", "I", "and", "can", "you", "my", "we", "said", "to"],
-    "new": ["Ella", "friend"]
+    "sound_out": [
+      "stomp",
+      "jump",
+      "bump",
+      "thump",
+      "stamp",
+      "stand",
+      "hand",
+      "land",
+      "spend",
+      "fast",
+      "best",
+      "just",
+      "must",
+      "dust"
+    ],
+    "sight": [
+      "a",
+      "the",
+      "is",
+      "it",
+      "I",
+      "and",
+      "can",
+      "you",
+      "my",
+      "we",
+      "said",
+      "to"
+    ],
+    "new": [
+      "Ella",
+      "friend"
+    ]
   },
   "pages": [
-    {"page": 1, "type": "cover", "text": "Stomp! Stomp! Elephant", "image_prompt": "NO TEXT IN IMAGE. Cute small gray baby elephant with big floppy ears stomping happily, dust clouds around feet. Savanna background with yellow grass. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 2, "type": "wordlist", "text": "Words to Know"},
-    {"page": 3, "type": "story", "text": "Ella is a small elephant.", "image_prompt": "NO TEXT IN IMAGE. Cute small gray baby elephant standing alone, looking small next to big rocks. Friendly expression, big ears. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 4, "type": "story", "text": "Ella can stomp! Stomp, stomp, stomp!", "image_prompt": "NO TEXT IN IMAGE. Cute baby elephant stomping feet hard, dust clouds rising, big smile, ears flapping with each stomp. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 5, "type": "story", "text": "Ella can jump! Thump, thump!", "image_prompt": "NO TEXT IN IMAGE. Cute baby elephant jumping up in air, all four feet off ground, joyful expression, ears spread wide. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 6, "type": "story", "text": "A fast bug went past.", "image_prompt": "NO TEXT IN IMAGE. Baby elephant watching small colorful bug zooming past quickly, curious expression, trunk pointing at bug. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 7, "type": "story", "text": "Ella did stomp and bump!", "image_prompt": "NO TEXT IN IMAGE. Baby elephant stomping after bug, accidentally bumping into small tree, surprised expression. Dust flying. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 8, "type": "story", "text": "A bird had to stand back.", "image_prompt": "NO TEXT IN IMAGE. Small bird hopping backward away from clumsy stomping baby elephant, bird looking startled. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 9, "type": "story", "text": "\"I must stomp just a bit less!\"", "image_prompt": "NO TEXT IN IMAGE. Baby elephant looking thoughtful, one foot raised mid-stomp, realizing she's being too loud. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 10, "type": "story", "text": "Ella can stamp soft.", "image_prompt": "NO TEXT IN IMAGE. Baby elephant taking gentle soft step, being careful, pleased expression. Tiny dust puff. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 11, "type": "story", "text": "The bird can land on Ella!", "image_prompt": "NO TEXT IN IMAGE. Small bird landing gently on baby elephant's head, elephant looking up with big happy smile. Friends! BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 12, "type": "story", "text": "\"We can stomp and jump!\"", "image_prompt": "NO TEXT IN IMAGE. Baby elephant doing gentle jumps with bird riding on head, both happy, bird wings spread for balance. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 13, "type": "story", "text": "The bug can stand on my trunk!", "image_prompt": "NO TEXT IN IMAGE. Bug standing on elephant's outstretched trunk, elephant cross-eyed looking at bug, bird still on head. Three friends! BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 14, "type": "story", "text": "Stomp! Jump! Bump! What fun!", "image_prompt": "NO TEXT IN IMAGE. Baby elephant, bird, and bug all playing together, elephant dancing carefully, all three joyful. Dust and movement. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 15, "type": "story", "text": "We spend the best day!", "image_prompt": "NO TEXT IN IMAGE. Baby elephant, bird, and bug watching sunset together. Bird on elephant's back, bug on trunk. Peaceful happy scene. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 16, "type": "end", "text": "The End", "image_prompt": "NO TEXT IN IMAGE. Cute baby elephant waving trunk goodbye, bird and bug nearby. Sunset savanna background. Happy ending. BOLD BLACK OUTLINES. Children's book style."}
-  ]
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Stomp! Stomp! Elephant",
+      "image_prompt": "NO TEXT IN IMAGE. Cute small gray baby elephant with big floppy ears stomping happily, dust clouds around feet. Savanna background with yellow grass. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Ella is a small elephant.",
+      "image_prompt": "NO TEXT IN IMAGE. Cute small gray baby elephant standing alone, looking small next to big rocks. Friendly expression, big ears. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "Ella can stomp! Stomp, stomp, stomp!",
+      "image_prompt": "NO TEXT IN IMAGE. Cute baby elephant stomping feet hard, dust clouds rising, big smile, ears flapping with each stomp. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "Ella can jump! Thump, thump!",
+      "image_prompt": "NO TEXT IN IMAGE. Cute baby elephant jumping up in air, all four feet off ground, joyful expression, ears spread wide. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "A fast bug went past.",
+      "image_prompt": "NO TEXT IN IMAGE. Baby elephant watching small colorful bug zooming past quickly, curious expression, trunk pointing at bug. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "Ella did stomp and bump!",
+      "image_prompt": "NO TEXT IN IMAGE. Baby elephant stomping after bug, accidentally bumping into small tree, surprised expression. Dust flying. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "A bird had to stand back.",
+      "image_prompt": "NO TEXT IN IMAGE. Small bird hopping backward away from clumsy stomping baby elephant, bird looking startled. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "\"I must stomp just a bit less!\"",
+      "image_prompt": "NO TEXT IN IMAGE. Baby elephant looking thoughtful, one foot raised mid-stomp, realizing she's being too loud. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "Ella can stamp soft.",
+      "image_prompt": "NO TEXT IN IMAGE. Baby elephant taking gentle soft step, being careful, pleased expression. Tiny dust puff. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "The bird can land on Ella!",
+      "image_prompt": "NO TEXT IN IMAGE. Small bird landing gently on baby elephant's head, elephant looking up with big happy smile. Friends! BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "\"We can stomp and jump!\"",
+      "image_prompt": "NO TEXT IN IMAGE. Baby elephant doing gentle jumps with bird riding on head, both happy, bird wings spread for balance. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "The bug can stand on my trunk!",
+      "image_prompt": "NO TEXT IN IMAGE. Bug standing on elephant's outstretched trunk, elephant cross-eyed looking at bug, bird still on head. Three friends! BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "Stomp! Jump! Bump! What fun!",
+      "image_prompt": "NO TEXT IN IMAGE. Baby elephant, bird, and bug all playing together, elephant dancing carefully, all three joyful. Dust and movement. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "We spend the best day!",
+      "image_prompt": "NO TEXT IN IMAGE. Baby elephant, bird, and bug watching sunset together. Bird on elephant's back, bug on trunk. Peaceful happy scene. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 16,
+      "type": "end",
+      "text": "The End",
+      "image_prompt": "NO TEXT IN IMAGE. Cute baby elephant waving trunk goodbye, bird and bug nearby. Sunset savanna background. Happy ending. BOLD BLACK OUTLINES. Children's book style."
+    }
+  ],
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Stomp! Stomp! Elephant\nPanel 2: Words to Know\nPanel 3: Ella is a small elephant.\nPanel 4: Ella can stomp! Stomp, stomp, stomp!\nPanel 5: Ella can jump! Thump, thump!\nPanel 6: A fast bug went past.\nPanel 7: Ella did stomp and bump!\nPanel 8: A bird had to stand back.\nPanel 9: \"I must stomp just a bit less!\"\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

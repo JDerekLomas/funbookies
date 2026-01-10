@@ -3,43 +3,236 @@
   "title": "The Lighthouse Keeper",
   "level": "D1",
   "band": "D",
-  "targetSkills": ["sentence variety", "dialogue", "compound sentences", "complex sentences"],
-  "vocabularyFocus": ["weathered", "horizon", "beacon", "glistening", "solitude", "responsibility", "determination", "companionship"],
+  "targetSkills": [
+    "sentence variety",
+    "dialogue",
+    "compound sentences",
+    "complex sentences"
+  ],
+  "vocabularyFocus": [
+    "weathered",
+    "horizon",
+    "beacon",
+    "glistening",
+    "solitude",
+    "responsibility",
+    "determination",
+    "companionship"
+  ],
   "pages": [
-    {"page": 1, "type": "cover", "text": "The Lighthouse Keeper", "scene": "A weathered lighthouse stands on rocky cliffs against a sunset sky, with a young girl gazing up at it.", "shot_type": "wide"},
-    {"page": 2, "type": "copyright"},
-    {"page": 3, "type": "title", "text": "The Lighthouse Keeper"},
-    {"page": 4, "type": "story", "text": "Maya had always loved the old lighthouse, and she visited it every summer when she came to stay with her grandmother.", "scene": "A girl with windblown hair stands before a tall white lighthouse, waves crashing on rocks below.", "shot_type": "wide"},
-    {"page": 5, "type": "story", "text": "\"That lighthouse has been in our family for three generations,\" Grandma often said, her eyes sparkling with pride.", "scene": "An elderly woman with kind eyes sits in a rocking chair, gesturing as she tells stories.", "shot_type": "close"},
-    {"page": 6, "type": "story", "text": "This summer felt different, though, because Grandma seemed tired and the lighthouse needed more repairs than ever before.", "scene": "Peeling paint on lighthouse walls, broken shutters, and an elderly woman looking concerned.", "shot_type": "medium"},
-    {"page": 7, "type": "story", "text": "\"The light must never go out,\" Grandma whispered to Maya one evening, and Maya understood this was about more than electricity.", "scene": "Grandmother and granddaughter watching the beacon spin as dusk falls over the ocean.", "shot_type": "wide"},
-    {"page": 8, "type": "story", "text": "Although Maya was only eleven, she decided she would help keep the lighthouse running while her grandmother rested.", "scene": "Maya with a determined expression, rolling up her sleeves in front of maintenance supplies.", "shot_type": "medium"},
-    {"page": 9, "type": "story", "text": "\"Are you sure you can handle this?\" asked Mr. Chen, the harbor master, when he heard her plan.", "scene": "A friendly middle-aged man in a captain's hat looks down at Maya with concern and curiosity.", "shot_type": "close"},
-    {"page": 10, "type": "story", "text": "\"I can learn,\" Maya replied firmly, and something in her voice made him believe her.", "scene": "Maya standing tall, meeting the harbor master's gaze with confidence.", "shot_type": "medium"},
-    {"page": 11, "type": "story", "text": "Every morning before sunrise, Maya climbed the spiral staircase to check the great lens, and every evening she made sure the beacon was ready.", "scene": "Maya ascending a narrow spiral staircase inside the lighthouse, light streaming through small windows.", "shot_type": "interior"},
-    {"page": 12, "type": "story", "text": "The work was harder than she expected, but she refused to complain because she knew how much it meant to her grandmother.", "scene": "Maya wiping sweat from her brow while polishing the lighthouse lens.", "shot_type": "close"},
-    {"page": 13, "type": "story", "text": "\"You remind me of myself when I was young,\" Grandma murmured one afternoon, watching Maya work from her chair.", "scene": "Grandmother smiling warmly at Maya through the lighthouse window.", "shot_type": "close"},
-    {"page": 14, "type": "story", "text": "One night, a terrible storm rolled in from the sea, and the waves grew taller than Maya had ever seen them.", "scene": "Dark storm clouds over churning seas, lightning in the distance, rain lashing the lighthouse.", "shot_type": "wide"},
-    {"page": 15, "type": "story", "text": "\"The backup generator,\" Grandma called out weakly, \"you must check the backup generator, or the light will fail!\"", "scene": "Grandmother struggling to rise from bed, reaching toward Maya with urgency.", "shot_type": "close"},
-    {"page": 16, "type": "story", "text": "Maya raced down to the basement, and her heart pounded as she saw water seeping through the foundation.", "scene": "Dark basement with water pooling on the floor, old machinery and a worried girl.", "shot_type": "interior"},
-    {"page": 17, "type": "story", "text": "Although she was terrified, she remembered everything her grandmother had taught her about the old generator.", "scene": "Maya's hands working on machinery, her face lit by a flashlight beam.", "shot_type": "close"},
-    {"page": 18, "type": "story", "text": "\"Come on, come on,\" she muttered to herself, and then the engine roared back to life.", "scene": "The generator humming with power, relief washing over Maya's face.", "shot_type": "close"},
-    {"page": 19, "type": "story", "text": "When she climbed back up the stairs, she saw the beacon spinning brightly against the raging storm.", "scene": "The lighthouse beam cutting through rain and darkness, ships visible in the distance.", "shot_type": "wide"},
-    {"page": 20, "type": "story", "text": "\"You saved them,\" Mr. Chen said the next morning, gesturing toward three fishing boats in the harbor that had followed the light safely home.", "scene": "Morning sun, fishing boats safely docked, grateful sailors waving at the lighthouse.", "shot_type": "wide"},
-    {"page": 21, "type": "story", "text": "Maya felt tears in her eyes, but she quickly wiped them away and smiled.", "scene": "Maya with misty eyes and a proud smile, the harbor behind her.", "shot_type": "medium"},
-    {"page": 22, "type": "story", "text": "\"I only did what any lighthouse keeper would do,\" she answered quietly.", "scene": "Maya standing humbly, the lighthouse towering behind her.", "shot_type": "wide"},
-    {"page": 23, "type": "story", "text": "Grandma was waiting on the porch when Maya returned, and she opened her arms wide for a long embrace.", "scene": "Grandmother and granddaughter hugging on a cottage porch, morning light around them.", "shot_type": "medium"},
-    {"page": 24, "type": "story", "text": "\"I knew you could do it,\" Grandma said softly, and neither of them needed to say anything more.", "scene": "Close-up of grandmother and Maya, faces full of love and understanding.", "shot_type": "close"},
-    {"page": 25, "type": "story", "text": "From that day on, Maya spent every summer learning everything about the lighthouse, and she knew that someday it would be hers to protect.", "scene": "Maya studying old logbooks and charts at a wooden desk in the lighthouse.", "shot_type": "interior"},
-    {"page": 26, "type": "story", "text": "Although she would grow up and see the world, this lighthouse on the rocky shore would always be her true home.", "scene": "Older Maya standing beside her grandmother, both looking out at the sunset over the sea.", "shot_type": "medium"},
-    {"page": 27, "type": "story", "text": "The beacon continued to spin, night after night, guiding sailors safely through the darkness just as it had for generations before.", "scene": "The lighthouse at night, its beam sweeping across calm waters, stars above.", "shot_type": "wide"},
-    {"page": 28, "type": "end", "text": "The End", "scene": "The lighthouse silhouetted against a peaceful dawn sky.", "shot_type": "wide"}
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "The Lighthouse Keeper",
+      "scene": "A weathered lighthouse stands on rocky cliffs against a sunset sky, with a young girl gazing up at it.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "title",
+      "text": "The Lighthouse Keeper"
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "Maya had always loved the old lighthouse, and she visited it every summer when she came to stay with her grandmother.",
+      "scene": "A girl with windblown hair stands before a tall white lighthouse, waves crashing on rocks below.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "\"That lighthouse has been in our family for three generations,\" Grandma often said, her eyes sparkling with pride.",
+      "scene": "An elderly woman with kind eyes sits in a rocking chair, gesturing as she tells stories.",
+      "shot_type": "close"
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "This summer felt different, though, because Grandma seemed tired and the lighthouse needed more repairs than ever before.",
+      "scene": "Peeling paint on lighthouse walls, broken shutters, and an elderly woman looking concerned.",
+      "shot_type": "medium"
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "\"The light must never go out,\" Grandma whispered to Maya one evening, and Maya understood this was about more than electricity.",
+      "scene": "Grandmother and granddaughter watching the beacon spin as dusk falls over the ocean.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "Although Maya was only eleven, she decided she would help keep the lighthouse running while her grandmother rested.",
+      "scene": "Maya with a determined expression, rolling up her sleeves in front of maintenance supplies.",
+      "shot_type": "medium"
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "\"Are you sure you can handle this?\" asked Mr. Chen, the harbor master, when he heard her plan.",
+      "scene": "A friendly middle-aged man in a captain's hat looks down at Maya with concern and curiosity.",
+      "shot_type": "close"
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "\"I can learn,\" Maya replied firmly, and something in her voice made him believe her.",
+      "scene": "Maya standing tall, meeting the harbor master's gaze with confidence.",
+      "shot_type": "medium"
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "Every morning before sunrise, Maya climbed the spiral staircase to check the great lens, and every evening she made sure the beacon was ready.",
+      "scene": "Maya ascending a narrow spiral staircase inside the lighthouse, light streaming through small windows.",
+      "shot_type": "interior"
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "The work was harder than she expected, but she refused to complain because she knew how much it meant to her grandmother.",
+      "scene": "Maya wiping sweat from her brow while polishing the lighthouse lens.",
+      "shot_type": "close"
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "\"You remind me of myself when I was young,\" Grandma murmured one afternoon, watching Maya work from her chair.",
+      "scene": "Grandmother smiling warmly at Maya through the lighthouse window.",
+      "shot_type": "close"
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "One night, a terrible storm rolled in from the sea, and the waves grew taller than Maya had ever seen them.",
+      "scene": "Dark storm clouds over churning seas, lightning in the distance, rain lashing the lighthouse.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "\"The backup generator,\" Grandma called out weakly, \"you must check the backup generator, or the light will fail!\"",
+      "scene": "Grandmother struggling to rise from bed, reaching toward Maya with urgency.",
+      "shot_type": "close"
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "Maya raced down to the basement, and her heart pounded as she saw water seeping through the foundation.",
+      "scene": "Dark basement with water pooling on the floor, old machinery and a worried girl.",
+      "shot_type": "interior"
+    },
+    {
+      "page": 17,
+      "type": "story",
+      "text": "Although she was terrified, she remembered everything her grandmother had taught her about the old generator.",
+      "scene": "Maya's hands working on machinery, her face lit by a flashlight beam.",
+      "shot_type": "close"
+    },
+    {
+      "page": 18,
+      "type": "story",
+      "text": "\"Come on, come on,\" she muttered to herself, and then the engine roared back to life.",
+      "scene": "The generator humming with power, relief washing over Maya's face.",
+      "shot_type": "close"
+    },
+    {
+      "page": 19,
+      "type": "story",
+      "text": "When she climbed back up the stairs, she saw the beacon spinning brightly against the raging storm.",
+      "scene": "The lighthouse beam cutting through rain and darkness, ships visible in the distance.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 20,
+      "type": "story",
+      "text": "\"You saved them,\" Mr. Chen said the next morning, gesturing toward three fishing boats in the harbor that had followed the light safely home.",
+      "scene": "Morning sun, fishing boats safely docked, grateful sailors waving at the lighthouse.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 21,
+      "type": "story",
+      "text": "Maya felt tears in her eyes, but she quickly wiped them away and smiled.",
+      "scene": "Maya with misty eyes and a proud smile, the harbor behind her.",
+      "shot_type": "medium"
+    },
+    {
+      "page": 22,
+      "type": "story",
+      "text": "\"I only did what any lighthouse keeper would do,\" she answered quietly.",
+      "scene": "Maya standing humbly, the lighthouse towering behind her.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 23,
+      "type": "story",
+      "text": "Grandma was waiting on the porch when Maya returned, and she opened her arms wide for a long embrace.",
+      "scene": "Grandmother and granddaughter hugging on a cottage porch, morning light around them.",
+      "shot_type": "medium"
+    },
+    {
+      "page": 24,
+      "type": "story",
+      "text": "\"I knew you could do it,\" Grandma said softly, and neither of them needed to say anything more.",
+      "scene": "Close-up of grandmother and Maya, faces full of love and understanding.",
+      "shot_type": "close"
+    },
+    {
+      "page": 25,
+      "type": "story",
+      "text": "From that day on, Maya spent every summer learning everything about the lighthouse, and she knew that someday it would be hers to protect.",
+      "scene": "Maya studying old logbooks and charts at a wooden desk in the lighthouse.",
+      "shot_type": "interior"
+    },
+    {
+      "page": 26,
+      "type": "story",
+      "text": "Although she would grow up and see the world, this lighthouse on the rocky shore would always be her true home.",
+      "scene": "Older Maya standing beside her grandmother, both looking out at the sunset over the sea.",
+      "shot_type": "medium"
+    },
+    {
+      "page": 27,
+      "type": "story",
+      "text": "The beacon continued to spin, night after night, guiding sailors safely through the darkness just as it had for generations before.",
+      "scene": "The lighthouse at night, its beam sweeping across calm waters, stars above.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 28,
+      "type": "end",
+      "text": "The End",
+      "scene": "The lighthouse silhouetted against a peaceful dawn sky.",
+      "shot_type": "wide"
+    }
   ],
   "chapters": [
-    {"chapter": 1, "title": "The Lighthouse", "startPage": 4},
-    {"chapter": 2, "title": "A New Responsibility", "startPage": 8},
-    {"chapter": 3, "title": "The Storm", "startPage": 14},
-    {"chapter": 4, "title": "Home Light", "startPage": 20}
+    {
+      "chapter": 1,
+      "title": "The Lighthouse",
+      "startPage": 4
+    },
+    {
+      "chapter": 2,
+      "title": "A New Responsibility",
+      "startPage": 8
+    },
+    {
+      "chapter": 3,
+      "title": "The Storm",
+      "startPage": 14
+    },
+    {
+      "chapter": 4,
+      "title": "Home Light",
+      "startPage": 20
+    }
   ],
   "metadata": {
     "generatedAt": "2026-01-06T12:00:00Z",
@@ -48,7 +241,22 @@
     "lexileTarget": "450-500L",
     "fluencyTarget": "105-115 wpm",
     "averageWordsPerSentence": 15.2,
-    "dialogueTags": ["said", "whispered", "asked", "replied", "murmured", "called out", "muttered", "answered"],
-    "sentenceTypes": ["simple", "compound", "complex", "compound-complex"]
-  }
+    "dialogueTags": [
+      "said",
+      "whispered",
+      "asked",
+      "replied",
+      "murmured",
+      "called out",
+      "muttered",
+      "answered"
+    ],
+    "sentenceTypes": [
+      "simple",
+      "compound",
+      "complex",
+      "compound-complex"
+    ]
+  },
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Coastal watercolor style, muted blues and warm sunset oranges, vintage seaside aesthetic, atmospheric lighting\nMood: atmospheric, immersive, evocative\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A weathered lighthouse stands on rocky cliffs against a sunset sky, with a young girl gazing up at i...\nPanel 2: The Lighthouse Keeper\nPanel 3: A girl with windblown hair stands before a tall white lighthouse, waves crashing on rocks below.\nPanel 4: An elderly woman with kind eyes sits in a rocking chair, gesturing as she tells stories.\nPanel 5: Peeling paint on lighthouse walls, broken shutters, and an elderly woman looking concerned.\nPanel 6: Grandmother and granddaughter watching the beacon spin as dusk falls over the ocean.\nPanel 7: Maya with a determined expression, rolling up her sleeves in front of maintenance supplies.\nPanel 8: A friendly middle-aged man in a captain's hat looks down at Maya with concern and curiosity.\nPanel 9: Maya standing tall, meeting the harbor master's gaze with confidence.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

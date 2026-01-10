@@ -7,8 +7,14 @@
   "level_description": "Vowel teams (ee, ea, ai, oa): snail, see, sea, trail, boat, 12-18 words per page",
   "riso_colors": {
     "black": "outlines",
-    "color_a": {"name": "Yellow", "use": "snail"},
-    "color_b": {"name": "Blue", "use": "sea, sky"}
+    "color_a": {
+      "name": "Yellow",
+      "use": "snail"
+    },
+    "color_b": {
+      "name": "Blue",
+      "use": "sea, sky"
+    }
   },
   "character": {
     "name": "Snail",
@@ -16,27 +22,149 @@
     "description": "Cute small yellow snail with spiral brown shell, two eyestalks with friendly eyes, leaving sparkly trail"
   },
   "word_list": {
-    "sound_out": ["snail", "tail", "trail", "rain", "wait", "see", "sea", "tree", "bee", "feet", "need", "leaf", "read", "eat", "boat", "road", "toad"],
-    "sight": ["a", "the", "is", "it", "I", "and", "to", "my", "you", "said", "was", "for", "they", "what", "could"],
-    "new": ["slow", "fast"]
+    "sound_out": [
+      "snail",
+      "tail",
+      "trail",
+      "rain",
+      "wait",
+      "see",
+      "sea",
+      "tree",
+      "bee",
+      "feet",
+      "need",
+      "leaf",
+      "read",
+      "eat",
+      "boat",
+      "road",
+      "toad"
+    ],
+    "sight": [
+      "a",
+      "the",
+      "is",
+      "it",
+      "I",
+      "and",
+      "to",
+      "my",
+      "you",
+      "said",
+      "was",
+      "for",
+      "they",
+      "what",
+      "could"
+    ],
+    "new": [
+      "slow",
+      "fast"
+    ]
   },
   "pages": [
-    {"page": 1, "type": "cover", "text": "The Sneaky Snail", "image_prompt": "NO TEXT IN IMAGE. Cute yellow snail with spiral shell peeking around leaf, mischievous friendly expression, eyestalks up. Garden background. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 2, "type": "wordlist", "text": "Words to Know"},
-    {"page": 3, "type": "story", "text": "Snail was slow. Snail did not need to be fast.", "image_prompt": "NO TEXT IN IMAGE. Cute yellow snail moving slowly along garden path, peaceful content expression, leaving sparkly trail. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 4, "type": "story", "text": "\"I want to see the sea!\" said Snail.", "image_prompt": "NO TEXT IN IMAGE. Yellow snail looking toward distant blue sea on horizon, dreamy hopeful expression, eyestalks pointing forward. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 5, "type": "story", "text": "Snail went on the road. The trail was long.", "image_prompt": "NO TEXT IN IMAGE. Snail starting journey on winding road, long path ahead, determined expression. Sparkly trail behind. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 6, "type": "story", "text": "A bee said, \"You are too slow!\"", "image_prompt": "NO TEXT IN IMAGE. Striped bee zooming past slow snail, bee looking impatient. Snail not bothered, calm expression. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 7, "type": "story", "text": "But Snail could see a leaf the bee did not see!", "image_prompt": "NO TEXT IN IMAGE. Snail noticing beautiful detailed leaf that busy bee missed, snail stopping to look closely. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 8, "type": "story", "text": "A toad said, \"You need to leap and run!\"", "image_prompt": "NO TEXT IN IMAGE. Toad jumping past snail, toad looking smug. Snail watching calmly, not rushing. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 9, "type": "story", "text": "But Snail could see a trail of seeds to eat!", "image_prompt": "NO TEXT IN IMAGE. Snail finding delicious seeds on ground that rushing toad missed, happily eating one. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 10, "type": "story", "text": "Rain came! The bee and toad ran to hide.", "image_prompt": "NO TEXT IN IMAGE. Rain falling, bee and toad rushing frantically to find shelter. Snail not worried. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 11, "type": "story", "text": "But Snail could wait. Snail had a shell!", "image_prompt": "NO TEXT IN IMAGE. Snail tucked happily inside shell while rain falls, cozy and dry, peeking out peacefully. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 12, "type": "story", "text": "Snail went on. Snail went up a tree!", "image_prompt": "NO TEXT IN IMAGE. Snail slowly climbing up tree trunk, still calm and happy, enjoying the climb. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 13, "type": "story", "text": "Snail could see so much from up in the tree!", "image_prompt": "NO TEXT IN IMAGE. Snail at top of tree, looking out at beautiful view - flowers, road, and sea in distance. Wonder on face. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 14, "type": "story", "text": "At last, Snail got to the sea!", "image_prompt": "NO TEXT IN IMAGE. Snail arriving at beach, blue sea waves in front, joyful expression, eyestalks raised high. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 15, "type": "story", "text": "Snail saw a boat, a seal, and the deep blue sea!", "image_prompt": "NO TEXT IN IMAGE. Snail on beach looking at boat on water, seal playing, beautiful blue sea. Taking it all in slowly. BOLD BLACK OUTLINES. Children's book illustration."},
-    {"page": 16, "type": "story", "text": "\"I am slow. But I see it all!\"", "image_prompt": "NO TEXT IN IMAGE. Happy snail sitting peacefully on beach rock, watching sunset over sea. Content, satisfied expression. BOLD BLACK OUTLINES. Children's book style."},
-    {"page": 17, "type": "end", "text": "The End", "image_prompt": "NO TEXT IN IMAGE. Snail leaving sparkly trail on beach as sun sets over sea. Peaceful ending. BOLD BLACK OUTLINES. Children's book illustration."}
-  ]
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "The Sneaky Snail",
+      "image_prompt": "NO TEXT IN IMAGE. Cute yellow snail with spiral shell peeking around leaf, mischievous friendly expression, eyestalks up. Garden background. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 2,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Snail was slow. Snail did not need to be fast.",
+      "image_prompt": "NO TEXT IN IMAGE. Cute yellow snail moving slowly along garden path, peaceful content expression, leaving sparkly trail. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "\"I want to see the sea!\" said Snail.",
+      "image_prompt": "NO TEXT IN IMAGE. Yellow snail looking toward distant blue sea on horizon, dreamy hopeful expression, eyestalks pointing forward. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "Snail went on the road. The trail was long.",
+      "image_prompt": "NO TEXT IN IMAGE. Snail starting journey on winding road, long path ahead, determined expression. Sparkly trail behind. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "A bee said, \"You are too slow!\"",
+      "image_prompt": "NO TEXT IN IMAGE. Striped bee zooming past slow snail, bee looking impatient. Snail not bothered, calm expression. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "But Snail could see a leaf the bee did not see!",
+      "image_prompt": "NO TEXT IN IMAGE. Snail noticing beautiful detailed leaf that busy bee missed, snail stopping to look closely. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "A toad said, \"You need to leap and run!\"",
+      "image_prompt": "NO TEXT IN IMAGE. Toad jumping past snail, toad looking smug. Snail watching calmly, not rushing. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "But Snail could see a trail of seeds to eat!",
+      "image_prompt": "NO TEXT IN IMAGE. Snail finding delicious seeds on ground that rushing toad missed, happily eating one. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "Rain came! The bee and toad ran to hide.",
+      "image_prompt": "NO TEXT IN IMAGE. Rain falling, bee and toad rushing frantically to find shelter. Snail not worried. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 11,
+      "type": "story",
+      "text": "But Snail could wait. Snail had a shell!",
+      "image_prompt": "NO TEXT IN IMAGE. Snail tucked happily inside shell while rain falls, cozy and dry, peeking out peacefully. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 12,
+      "type": "story",
+      "text": "Snail went on. Snail went up a tree!",
+      "image_prompt": "NO TEXT IN IMAGE. Snail slowly climbing up tree trunk, still calm and happy, enjoying the climb. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 13,
+      "type": "story",
+      "text": "Snail could see so much from up in the tree!",
+      "image_prompt": "NO TEXT IN IMAGE. Snail at top of tree, looking out at beautiful view - flowers, road, and sea in distance. Wonder on face. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 14,
+      "type": "story",
+      "text": "At last, Snail got to the sea!",
+      "image_prompt": "NO TEXT IN IMAGE. Snail arriving at beach, blue sea waves in front, joyful expression, eyestalks raised high. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 15,
+      "type": "story",
+      "text": "Snail saw a boat, a seal, and the deep blue sea!",
+      "image_prompt": "NO TEXT IN IMAGE. Snail on beach looking at boat on water, seal playing, beautiful blue sea. Taking it all in slowly. BOLD BLACK OUTLINES. Children's book illustration."
+    },
+    {
+      "page": 16,
+      "type": "story",
+      "text": "\"I am slow. But I see it all!\"",
+      "image_prompt": "NO TEXT IN IMAGE. Happy snail sitting peacefully on beach rock, watching sunset over sea. Content, satisfied expression. BOLD BLACK OUTLINES. Children's book style."
+    },
+    {
+      "page": 17,
+      "type": "end",
+      "text": "The End",
+      "image_prompt": "NO TEXT IN IMAGE. Snail leaving sparkly trail on beach as sun sets over sea. Peaceful ending. BOLD BLACK OUTLINES. Children's book illustration."
+    }
+  ],
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: The Sneaky Snail\nPanel 2: Words to Know\nPanel 3: Snail was slow. Snail did not need to be fast.\nPanel 4: \"I want to see the sea!\" said Snail.\nPanel 5: Snail went on the road. The trail was long.\nPanel 6: A bee said, \"You are too slow!\"\nPanel 7: But Snail could see a leaf the bee did not see!\nPanel 8: A toad said, \"You need to leap and run!\"\nPanel 9: But Snail could see a trail of seeds to eat!\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

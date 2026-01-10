@@ -5,7 +5,17 @@
   "level": "B2",
   "band": "B",
   "targetPhonics": "CVC short o, u, e",
-  "wordFamilies": ["-ot", "-op", "-og", "-ug", "-up", "-un", "-ed", "-en", "-et"],
+  "wordFamilies": [
+    "-ot",
+    "-op",
+    "-og",
+    "-ug",
+    "-up",
+    "-un",
+    "-ed",
+    "-en",
+    "-et"
+  ],
   "skill": "CVC Short o, u, e (All 5 short vowels)",
   "skill_description": "Practice reading CVC words with all five short vowels, focusing on short o, u, and e patterns.",
   "age_range": "K-1",
@@ -13,48 +23,231 @@
   "author": "FunBookies",
   "illustrator": "AI Generated",
   "summary": "A playful pup gets muddy in a puddle, hops and runs in the sun, then gets a bath and a hug from her friend Jen.",
-
   "word_list": {
-    "sound_out": ["pup", "mud", "sun", "fun", "run", "hug", "tug", "bug", "rug", "cup", "hot", "not", "got", "dog", "fog", "hop", "mop", "top", "bed", "red", "wet", "get", "pet", "hen", "ten", "den"],
-    "sight": ["a", "I", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be"],
-    "new": ["Jen"]
+    "sound_out": [
+      "pup",
+      "mud",
+      "sun",
+      "fun",
+      "run",
+      "hug",
+      "tug",
+      "bug",
+      "rug",
+      "cup",
+      "hot",
+      "not",
+      "got",
+      "dog",
+      "fog",
+      "hop",
+      "mop",
+      "top",
+      "bed",
+      "red",
+      "wet",
+      "get",
+      "pet",
+      "hen",
+      "ten",
+      "den"
+    ],
+    "sight": [
+      "a",
+      "I",
+      "the",
+      "is",
+      "to",
+      "and",
+      "it",
+      "in",
+      "on",
+      "my",
+      "see",
+      "he",
+      "she",
+      "we",
+      "be"
+    ],
+    "new": [
+      "Jen"
+    ]
   },
-
-  "sightWordsUsed": ["a", "I", "the", "is", "to", "and", "it", "in", "on", "my", "see", "he", "she", "we", "be"],
-
-  "wordsearch_words": ["pup", "mud", "sun", "run", "hug", "hot", "wet", "bed"],
-
-  "pages": [
-    { "page": 1, "type": "cover", "text": "Pup in the Mud", "scene": "A cute muddy puppy splashing in a mud puddle under a sunny sky. Warm watercolor style." },
-    { "page": 2, "type": "copyright" },
-    { "page": 3, "type": "parent_guide" },
-    { "page": 4, "type": "level_info" },
-    { "page": 5, "type": "wordlist", "text": "Words to Know" },
-    { "page": 6, "story_page": 1, "type": "story", "text": "Jen had a pup. The pup is fun!", "scene": "A happy child named Jen playing with a small puppy. Warm watercolor style." },
-    { "page": 7, "story_page": 2, "type": "story", "text": "The pup can run in the sun.", "scene": "A puppy running joyfully in bright sunshine. Warm watercolor style." },
-    { "page": 8, "story_page": 3, "type": "story", "text": "The pup got hot. It is a hot sun!", "scene": "A puppy panting in the heat, looking at the bright sun. Warm watercolor style." },
-    { "page": 9, "story_page": 4, "type": "story", "text": "The pup ran to the mud. Hop, hop, hop!", "scene": "A puppy hopping toward a mud puddle excitedly. Warm watercolor style." },
-    { "page": 10, "story_page": 5, "type": "story", "text": "The pup got in the mud. It is wet!", "scene": "A puppy splashing happily in a mud puddle. Warm watercolor style." },
-    { "page": 11, "story_page": 6, "type": "story", "text": "The pup is not hot. The mud is fun!", "scene": "A muddy puppy looking cool and happy in the puddle. Warm watercolor style." },
-    { "page": 12, "story_page": 7, "type": "story", "text": "A bug sat on the pup. Get it, pup!", "scene": "A bug landing on the muddy puppy's nose. Warm watercolor style." },
-    { "page": 13, "story_page": 8, "type": "story", "text": "The pup ran and ran. Run, pup, run!", "scene": "A muddy puppy running playfully through the yard. Warm watercolor style." },
-    { "page": 14, "story_page": 9, "type": "story", "text": "Jen got a tub. We can get the pup wet.", "scene": "A child filling up a small tub with water. Warm watercolor style." },
-    { "page": 15, "story_page": 10, "type": "story", "text": "The pup got in the tub. Rub, rub, rub!", "scene": "The puppy getting a bath in a tub, suds everywhere. Warm watercolor style." },
-    { "page": 16, "story_page": 11, "type": "story", "text": "The pup is not wet. She is on the rug.", "scene": "A clean fluffy puppy lying on a soft rug. Warm watercolor style." },
-    { "page": 17, "story_page": 12, "type": "story", "text": "Jen sat on the rug. She can pet the pup.", "scene": "The child sitting and petting the clean puppy on the rug. Warm watercolor style." },
-    { "page": 18, "story_page": 13, "type": "story", "text": "The pup got up on the bed. Hug, hug, hug!", "scene": "The puppy jumping onto a red bed, getting hugs from Jen. Warm watercolor style." },
-    { "page": 19, "story_page": 14, "type": "story", "text": "Jen and the pup had fun. We had fun!", "scene": "Jen and the puppy cuddled together happily on the bed. Warm watercolor style." },
-    { "page": 20, "type": "end", "text": "The End", "scene": "Jen and the pup sleeping peacefully together. Warm watercolor style." },
-    { "page": 21, "type": "wordsearch" },
-    { "page": 22, "type": "series_info" },
-    { "page": 23, "type": "back_cover", "text": "" }
+  "sightWordsUsed": [
+    "a",
+    "I",
+    "the",
+    "is",
+    "to",
+    "and",
+    "it",
+    "in",
+    "on",
+    "my",
+    "see",
+    "he",
+    "she",
+    "we",
+    "be"
   ],
-
+  "wordsearch_words": [
+    "pup",
+    "mud",
+    "sun",
+    "run",
+    "hug",
+    "hot",
+    "wet",
+    "bed"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Pup in the Mud",
+      "scene": "A cute muddy puppy splashing in a mud puddle under a sunny sky. Warm watercolor style."
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "Jen had a pup. The pup is fun!",
+      "scene": "A happy child named Jen playing with a small puppy. Warm watercolor style."
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "The pup can run in the sun.",
+      "scene": "A puppy running joyfully in bright sunshine. Warm watercolor style."
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "The pup got hot. It is a hot sun!",
+      "scene": "A puppy panting in the heat, looking at the bright sun. Warm watercolor style."
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "The pup ran to the mud. Hop, hop, hop!",
+      "scene": "A puppy hopping toward a mud puddle excitedly. Warm watercolor style."
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "The pup got in the mud. It is wet!",
+      "scene": "A puppy splashing happily in a mud puddle. Warm watercolor style."
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "The pup is not hot. The mud is fun!",
+      "scene": "A muddy puppy looking cool and happy in the puddle. Warm watercolor style."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "A bug sat on the pup. Get it, pup!",
+      "scene": "A bug landing on the muddy puppy's nose. Warm watercolor style."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "The pup ran and ran. Run, pup, run!",
+      "scene": "A muddy puppy running playfully through the yard. Warm watercolor style."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "Jen got a tub. We can get the pup wet.",
+      "scene": "A child filling up a small tub with water. Warm watercolor style."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "The pup got in the tub. Rub, rub, rub!",
+      "scene": "The puppy getting a bath in a tub, suds everywhere. Warm watercolor style."
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "The pup is not wet. She is on the rug.",
+      "scene": "A clean fluffy puppy lying on a soft rug. Warm watercolor style."
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "Jen sat on the rug. She can pet the pup.",
+      "scene": "The child sitting and petting the clean puppy on the rug. Warm watercolor style."
+    },
+    {
+      "page": 18,
+      "story_page": 13,
+      "type": "story",
+      "text": "The pup got up on the bed. Hug, hug, hug!",
+      "scene": "The puppy jumping onto a red bed, getting hugs from Jen. Warm watercolor style."
+    },
+    {
+      "page": 19,
+      "story_page": 14,
+      "type": "story",
+      "text": "Jen and the pup had fun. We had fun!",
+      "scene": "Jen and the puppy cuddled together happily on the bed. Warm watercolor style."
+    },
+    {
+      "page": 20,
+      "type": "end",
+      "text": "The End",
+      "scene": "Jen and the pup sleeping peacefully together. Warm watercolor style."
+    },
+    {
+      "page": 21,
+      "type": "wordsearch"
+    },
+    {
+      "page": 22,
+      "type": "series_info"
+    },
+    {
+      "page": 23,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
   "metadata": {
     "generatedAt": "2026-01-06T00:00:00.000Z",
     "levelSpecs": "v2",
     "wordCount": 158,
     "decodabilityTarget": "90%+",
     "storyPages": 14
-  }
+  },
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A cute muddy puppy splashing in a mud puddle under a sunny sky. Warm watercolor style.\nPanel 2: Words to Know\nPanel 3: A happy child named Jen playing with a small puppy. Warm watercolor style.\nPanel 4: A puppy running joyfully in bright sunshine. Warm watercolor style.\nPanel 5: A puppy panting in the heat, looking at the bright sun. Warm watercolor style.\nPanel 6: A puppy hopping toward a mud puddle excitedly. Warm watercolor style.\nPanel 7: A puppy splashing happily in a mud puddle. Warm watercolor style.\nPanel 8: A muddy puppy looking cool and happy in the puddle. Warm watercolor style.\nPanel 9: A bug landing on the muddy puppy's nose. Warm watercolor style.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

@@ -14,46 +14,127 @@
   "illustrator": "AI Generated",
   "summary": "A child discovers amazing things by looking carefully at the world around them. A simple pattern book with the word LOOK repeated throughout.",
   "targetPhonics": "Single word: LOOK - visual recognition and tracking",
-  "sightWordsUsed": ["LOOK"],
-
+  "sightWordsUsed": [
+    "LOOK"
+  ],
   "word_list": {
     "sound_out": [],
-    "sight": ["LOOK"],
+    "sight": [
+      "LOOK"
+    ],
     "new": []
   },
-
   "wordsearch_words": [],
-
   "parent_tips": {
     "before_reading": "Hold the book together. Say: Let's look at this book! Point to the title. This word says LOOK. Can you find it?",
     "during_reading": "On each page, say LOOK! together, then pause to let your child explore the picture. Ask: What do you see? This builds vocabulary even before reading.",
     "after_reading": "Go on a 'LOOK walk' around your home. Say LOOK! and point to interesting things. Let your child say LOOK! too."
   },
-
   "comprehension_questions": [
-    {"question": "What word do we see on every page?", "answer": "LOOK"},
-    {"question": "What did the child look at in the sky?", "answer": "The sun / moon / stars"},
-    {"question": "What animals did we see?", "answer": "An owl, a dog, a bug"},
-    {"question": "What is your favorite thing to look at?", "answer": "Open-ended"}
+    {
+      "question": "What word do we see on every page?",
+      "answer": "LOOK"
+    },
+    {
+      "question": "What did the child look at in the sky?",
+      "answer": "The sun / moon / stars"
+    },
+    {
+      "question": "What animals did we see?",
+      "answer": "An owl, a dog, a bug"
+    },
+    {
+      "question": "What is your favorite thing to look at?",
+      "answer": "Open-ended"
+    }
   ],
-
   "pages": [
-    { "page": 1, "type": "cover", "text": "LOOK!", "scene": "A young child with wide curious eyes, pointing at something wonderful just out of frame. Bright and inviting. Warm watercolor style." },
-    { "page": 2, "type": "copyright" },
-    { "page": 3, "type": "parent_guide" },
-    { "page": 4, "type": "level_info" },
-    { "page": 5, "story_page": 1, "type": "story", "text": "LOOK!", "scene": "A child pointing excitedly at a bright yellow sun in a blue sky. Simple bold shapes. Warm watercolor style." },
-    { "page": 6, "story_page": 2, "type": "story", "text": "LOOK!", "scene": "A cute round owl with big eyes sitting in a tree, looking at the child. Simple and friendly. Warm watercolor style." },
-    { "page": 7, "story_page": 3, "type": "story", "text": "LOOK!", "scene": "A happy fluffy dog wagging its tail, looking up at the child. Simple bold shapes. Warm watercolor style." },
-    { "page": 8, "story_page": 4, "type": "story", "text": "LOOK!", "scene": "A big full moon glowing in a dark blue night sky. Simple and magical. Warm watercolor style." },
-    { "page": 9, "story_page": 5, "type": "story", "text": "LOOK!", "scene": "Three colorful bubbles floating upward, a child's hand reaching toward them. Warm watercolor style." },
-    { "page": 10, "story_page": 6, "type": "story", "text": "LOOK!", "scene": "A tiny ladybug sitting on a green leaf, child peering at it closely. Warm watercolor style." },
-    { "page": 11, "story_page": 7, "type": "story", "text": "LOOK!", "scene": "Twinkling stars appearing in the evening sky, child looking up in wonder. Warm watercolor style." },
-    { "page": 12, "story_page": 8, "type": "story", "text": "LOOK!", "scene": "A child holding an open picture book, looking at the pages with delight. Warm watercolor style." },
-    { "page": 13, "type": "end", "text": "THE END", "scene": "The child smiling at the reader, waving goodbye. A sun and moon visible together. Warm watercolor style." },
-    { "page": 14, "type": "back_cover", "text": "" }
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "LOOK!",
+      "scene": "A young child with wide curious eyes, pointing at something wonderful just out of frame. Bright and inviting. Warm watercolor style."
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "story_page": 1,
+      "type": "story",
+      "text": "LOOK!",
+      "scene": "A child pointing excitedly at a bright yellow sun in a blue sky. Simple bold shapes. Warm watercolor style."
+    },
+    {
+      "page": 6,
+      "story_page": 2,
+      "type": "story",
+      "text": "LOOK!",
+      "scene": "A cute round owl with big eyes sitting in a tree, looking at the child. Simple and friendly. Warm watercolor style."
+    },
+    {
+      "page": 7,
+      "story_page": 3,
+      "type": "story",
+      "text": "LOOK!",
+      "scene": "A happy fluffy dog wagging its tail, looking up at the child. Simple bold shapes. Warm watercolor style."
+    },
+    {
+      "page": 8,
+      "story_page": 4,
+      "type": "story",
+      "text": "LOOK!",
+      "scene": "A big full moon glowing in a dark blue night sky. Simple and magical. Warm watercolor style."
+    },
+    {
+      "page": 9,
+      "story_page": 5,
+      "type": "story",
+      "text": "LOOK!",
+      "scene": "Three colorful bubbles floating upward, a child's hand reaching toward them. Warm watercolor style."
+    },
+    {
+      "page": 10,
+      "story_page": 6,
+      "type": "story",
+      "text": "LOOK!",
+      "scene": "A tiny ladybug sitting on a green leaf, child peering at it closely. Warm watercolor style."
+    },
+    {
+      "page": 11,
+      "story_page": 7,
+      "type": "story",
+      "text": "LOOK!",
+      "scene": "Twinkling stars appearing in the evening sky, child looking up in wonder. Warm watercolor style."
+    },
+    {
+      "page": 12,
+      "story_page": 8,
+      "type": "story",
+      "text": "LOOK!",
+      "scene": "A child holding an open picture book, looking at the pages with delight. Warm watercolor style."
+    },
+    {
+      "page": 13,
+      "type": "end",
+      "text": "THE END",
+      "scene": "The child smiling at the reader, waving goodbye. A sun and moon visible together. Warm watercolor style."
+    },
+    {
+      "page": 14,
+      "type": "back_cover",
+      "text": ""
+    }
   ],
-
   "metadata": {
     "generatedAt": "2026-01-06T00:00:00Z",
     "levelSpecs": "v2",
@@ -61,5 +142,6 @@
     "uniqueWords": 1,
     "readingType": "Pattern book - same word repeated",
     "caseConstraint": "UPPERCASE ONLY"
-  }
+  },
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly illustration\nMood: gentle, comforting, bright\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A young child with wide curious eyes, pointing at something wonderful just out of frame. Bright and ...\nPanel 2: A child pointing excitedly at a bright yellow sun in a blue sky. Simple bold shapes. Warm watercolor...\nPanel 3: A cute round owl with big eyes sitting in a tree, looking at the child. Simple and friendly. Warm wa...\nPanel 4: A happy fluffy dog wagging its tail, looking up at the child. Simple bold shapes. Warm watercolor st...\nPanel 5: A big full moon glowing in a dark blue night sky. Simple and magical. Warm watercolor style.\nPanel 6: Three colorful bubbles floating upward, a child's hand reaching toward them. Warm watercolor style.\nPanel 7: A tiny ladybug sitting on a green leaf, child peering at it closely. Warm watercolor style.\nPanel 8: Twinkling stars appearing in the evening sky, child looking up in wonder. Warm watercolor style.\nPanel 9: A child holding an open picture book, looking at the pages with delight. Warm watercolor style.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

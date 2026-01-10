@@ -14,50 +14,173 @@
   "illustrator": "AI Generated",
   "summary": "A simple story about a cat exploring different spots, using simple declarative sentences with slight variation.",
   "targetPhonics": "CVC words using letters m, s, a, t, o, i, l, c, n, e, r, h",
-  "sightWordsUsed": ["a", "I", "the", "is", "to"],
-
+  "sightWordsUsed": [
+    "a",
+    "I",
+    "the",
+    "is",
+    "to"
+  ],
   "word_list": {
-    "sound_out": ["cat", "sat", "mat", "hat", "ran", "here", "it"],
-    "sight": ["a", "I", "the", "is", "to"],
+    "sound_out": [
+      "cat",
+      "sat",
+      "mat",
+      "hat",
+      "ran",
+      "here",
+      "it"
+    ],
+    "sight": [
+      "a",
+      "I",
+      "the",
+      "is",
+      "to"
+    ],
     "new": []
   },
-
-  "wordsearch_words": ["cat", "sat", "mat", "hat", "ran", "here"],
-
+  "wordsearch_words": [
+    "cat",
+    "sat",
+    "mat",
+    "hat",
+    "ran",
+    "here"
+  ],
   "parent_tips": {
     "before_reading": "Look at the cover. Ask: Where is the cat? Notice that 'cat', 'sat', 'mat', and 'hat' all rhyme - they're in the -at word family!",
     "during_reading": "Point to each word as you read. Help your child follow along. When you see 'cat', 'sat', 'mat', 'hat' - ask: What's the same about these words?",
     "after_reading": "Ask: Where did the cat sit? Can you think of other -at words? (bat, rat, pat, flat)"
   },
-
   "comprehension_questions": [
-    {"question": "What did the child see at the beginning?", "answer": "A cat"},
-    {"question": "Where did the cat sit first?", "answer": "On the mat"},
-    {"question": "What did the cat sit on at the end?", "answer": "The hat"},
-    {"question": "How does the child feel about the cat?", "answer": "Happy / loves the cat"}
+    {
+      "question": "What did the child see at the beginning?",
+      "answer": "A cat"
+    },
+    {
+      "question": "Where did the cat sit first?",
+      "answer": "On the mat"
+    },
+    {
+      "question": "What did the cat sit on at the end?",
+      "answer": "The hat"
+    },
+    {
+      "question": "How does the child feel about the cat?",
+      "answer": "Happy / loves the cat"
+    }
   ],
-
   "pages": [
-    { "page": 1, "type": "cover", "text": "The Cat Is Here", "scene": "A friendly orange cat peeking around a corner. Warm watercolor style." },
-    { "page": 2, "type": "copyright" },
-    { "page": 3, "type": "parent_guide" },
-    { "page": 4, "type": "level_info" },
-    { "page": 5, "type": "wordlist", "text": "Words to Know" },
-    { "page": 6, "story_page": 1, "type": "story", "text": "The cat is here.", "scene": "A cat standing in a room, looking at the viewer." },
-    { "page": 7, "story_page": 2, "type": "story", "text": "I see the cat.", "scene": "A child pointing at the cat with delight." },
-    { "page": 8, "story_page": 3, "type": "story", "text": "The cat sat.", "scene": "The cat sitting down on the floor." },
-    { "page": 9, "story_page": 4, "type": "story", "text": "It sat on a mat.", "scene": "The cat sitting on a colorful mat." },
-    { "page": 10, "story_page": 5, "type": "story", "text": "The cat ran to me.", "scene": "The cat running toward a child." },
-    { "page": 11, "story_page": 6, "type": "story", "text": "I see a hat.", "scene": "A child looking at a hat on a table." },
-    { "page": 12, "story_page": 7, "type": "story", "text": "The cat ran to it.", "scene": "The cat running toward the hat." },
-    { "page": 13, "story_page": 8, "type": "story", "text": "The cat sat on it.", "scene": "The cat sitting on top of the hat." },
-    { "page": 14, "story_page": 9, "type": "story", "text": "The cat is here!", "scene": "A child laughing at the cat on the hat." },
-    { "page": 15, "story_page": 10, "type": "story", "text": "I see the cat!", "scene": "A child hugging the cat happily." },
-    { "page": 16, "type": "end", "text": "The End", "scene": "A child and cat cuddled together on the mat." },
-    { "page": 17, "type": "wordsearch" },
-    { "page": 18, "type": "back_cover", "text": "" }
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "The Cat Is Here",
+      "scene": "A friendly orange cat peeking around a corner. Warm watercolor style."
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "The cat is here.",
+      "scene": "A cat standing in a room, looking at the viewer."
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "I see the cat.",
+      "scene": "A child pointing at the cat with delight."
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "The cat sat.",
+      "scene": "The cat sitting down on the floor."
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "It sat on a mat.",
+      "scene": "The cat sitting on a colorful mat."
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "The cat ran to me.",
+      "scene": "The cat running toward a child."
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "I see a hat.",
+      "scene": "A child looking at a hat on a table."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "The cat ran to it.",
+      "scene": "The cat running toward the hat."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "The cat sat on it.",
+      "scene": "The cat sitting on top of the hat."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "The cat is here!",
+      "scene": "A child laughing at the cat on the hat."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "I see the cat!",
+      "scene": "A child hugging the cat happily."
+    },
+    {
+      "page": 16,
+      "type": "end",
+      "text": "The End",
+      "scene": "A child and cat cuddled together on the mat."
+    },
+    {
+      "page": 17,
+      "type": "wordsearch"
+    },
+    {
+      "page": 18,
+      "type": "back_cover",
+      "text": ""
+    }
   ],
-
   "metadata": {
     "generatedAt": "2026-01-06T00:00:00Z",
     "levelSpecs": "v2",
@@ -65,5 +188,6 @@
     "uniqueWords": 12,
     "letterConstraints": "m, s, a, t, o, i, l, c, n, e, r, h",
     "caseConstraint": "Mostly lowercase"
-  }
+  },
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly illustration\nMood: gentle, comforting, bright\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A friendly orange cat peeking around a corner. Warm watercolor style.\nPanel 2: Words to Know\nPanel 3: A cat standing in a room, looking at the viewer.\nPanel 4: A child pointing at the cat with delight.\nPanel 5: The cat sitting down on the floor.\nPanel 6: The cat sitting on a colorful mat.\nPanel 7: The cat running toward a child.\nPanel 8: A child looking at a hat on a table.\nPanel 9: The cat running toward the hat.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
 }

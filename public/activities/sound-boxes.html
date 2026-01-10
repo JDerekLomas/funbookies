@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Sound Boxes - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .game-header h1 { font-size: 1.4rem; }
+
+    .score-badge {
+      background: var(--color-sage-light);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      color: var(--color-sage-dark);
+    }
+
+    .level-select {
+      display: flex;
+      gap: 8px;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .level-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .level-group-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+
+    .activity-area {
+      text-align: center;
+      padding: var(--space-sm) 0;
+    }
+
+    .word-prompt {
+      margin-bottom: var(--space-md);
+    }
+
+    .word-image {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto var(--space-sm);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .word-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .word-image:hover {
+      transform: scale(1.05);
+    }
+
+    .word-hint {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    .prompt-text {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--color-charcoal);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Sound Boxes (Elkonin boxes) */
+    .sound-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: var(--space-lg);
+      min-height: 100px;
+    }
+
+    .sound-box {
+      width: 80px;
+      height: 90px;
+      background: var(--color-cream);
+      border: 3px dashed var(--color-border);
+      border-radius: var(--border-radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: var(--color-charcoal);
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .sound-box.drag-over {
+      border-color: var(--color-sage);
+      border-style: solid;
+      background: var(--color-sage-light);
+      transform: scale(1.05);
+    }
+
+    .sound-box.filled {
+      border-style: solid;
+      border-color: var(--color-sage);
+      background: white;
+    }
+
+    .sound-box.correct {
+      border-color: var(--color-sage);
+      background: #e8f5e9;
+    }
+
+    .sound-box.incorrect {
+      border-color: #e74c3c;
+      background: #ffebee;
+      animation: shake 0.3s;
+    }
+
+    .sound-box .box-number {
+      position: absolute;
+      top: 4px;
+      left: 8px;
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+      font-weight: 600;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* Letter Tiles */
+    .letter-bank {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: var(--space-md);
+      min-height: 70px;
+      padding: var(--space-sm);
+      background: var(--color-cream);
+      border-radius: var(--border-radius);
+    }
+
+    .letter-tile {
+      width: 60px;
+      height: 68px;
+      background: var(--color-sage);
+      border: none;
+      border-radius: var(--border-radius);
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: white;
+      cursor: grab;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      box-shadow: 0 3px 8px rgba(159, 199, 170, 0.3);
+    }
+
+    .letter-tile:hover {
+      background: var(--color-sage-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px rgba(159, 199, 170, 0.4);
+    }
+
+    .letter-tile:active {
+      cursor: grabbing;
+      transform: scale(0.95);
+    }
+
+    .letter-tile.dragging {
+      opacity: 0.5;
+    }
+
+    .letter-tile.used {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .letter-tile.in-box {
+      background: var(--color-sage-dark);
+      cursor: pointer;
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-hear {
+      font-size: 1.1rem;
+    }
+
+    /* Feedback */
+    .feedback {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 500;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback.correct { color: var(--color-sage-dark); }
+    .feedback.incorrect { color: #e74c3c; }
+    .feedback.waiting { color: var(--color-text-muted); }
+
+    /* Progress */
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: var(--space-md);
+    }
+
+    .progress-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-border);
+      transition: all 0.2s;
+    }
+
+    .progress-dot.done { background: var(--color-sage); }
+    .progress-dot.current { background: var(--color-terracotta); transform: scale(1.3); }
+
+    /* Celebration */
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      animation: celebrate 0.5s ease-out;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes celebrate {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
+
+    /* Touch-friendly adjustments */
+    @media (max-width: 480px) {
+      .sound-box { width: 65px; height: 75px; font-size: 1.8rem; }
+      .letter-tile { width: 50px; height: 58px; font-size: 1.5rem; }
+    }
+
+    /* Instructions */
+    .instructions {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Sound Boxes <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div class="score-badge">Score: <span id="score">0</span></div>
+      </div>
+
+      <div class="level-select">
+        <div class="level-group">
+          <span class="level-group-label">Level:</span>
+          <button class="chip active" data-level="A4">3 sounds</button>
+          <button class="chip" data-level="B3">4 sounds</button>
+          <button class="chip" data-level="B5">digraphs</button>
+        </div>
+      </div>
+
+      <div class="activity-area">
+        <div class="word-prompt">
+          <div class="word-image" id="wordImage" onclick="playWord()">
+            <img src="/activities/word-icons/cat.png" alt="cat">
+          </div>
+          <div class="word-hint" id="wordHint">(a furry pet)</div>
+        </div>
+
+        <div class="prompt-text">Drag the sounds into the boxes</div>
+
+        <div class="sound-boxes" id="soundBoxes"></div>
+
+        <div class="letter-bank" id="letterBank"></div>
+
+        <div class="feedback waiting" id="feedback">Listen to the word, then fill the boxes!</div>
+
+        <div class="controls">
+          <button class="btn btn-secondary btn-hear" onclick="playWord()">&#x1F50A; Hear Word</button>
+          <button class="btn btn-primary" onclick="checkAnswer()" id="checkBtn">Check</button>
+          <button class="btn btn-ghost" onclick="clearBoxes()">Clear</button>
+          <button class="btn btn-outline" onclick="skipWord()">Skip</button>
+        </div>
+
+        <p class="instructions">Tap a letter to hear its sound. Tap a filled box to remove it.</p>
+
+        <div class="progress" id="progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Word banks with phoneme segmentation
+    const wordBanks = {
+      'A4': [
+        // CVC words - 3 phonemes
+        { word: 'cat', sounds: ['c', 'a', 't'], hint: 'a furry pet' },
+        { word: 'dog', sounds: ['d', 'o', 'g'], hint: 'barks and wags' },
+        { word: 'sun', sounds: ['s', 'u', 'n'], hint: 'bright in sky' },
+        { word: 'hat', sounds: ['h', 'a', 't'], hint: 'wear on head' },
+        { word: 'pig', sounds: ['p', 'i', 'g'], hint: 'says oink' },
+        { word: 'cup', sounds: ['c', 'u', 'p'], hint: 'drink from it' },
+        { word: 'bed', sounds: ['b', 'e', 'd'], hint: 'sleep on it' },
+        { word: 'bus', sounds: ['b', 'u', 's'], hint: 'yellow vehicle' },
+        { word: 'map', sounds: ['m', 'a', 'p'], hint: 'shows places' },
+        { word: 'pot', sounds: ['p', 'o', 't'], hint: 'cook in it' },
+        { word: 'net', sounds: ['n', 'e', 't'], hint: 'catch fish' },
+        { word: 'fox', sounds: ['f', 'o', 'x'], hint: 'clever animal' },
+        { word: 'bat', sounds: ['b', 'a', 't'], hint: 'flies at night' },
+        { word: 'rug', sounds: ['r', 'u', 'g'], hint: 'on the floor' },
+        { word: 'log', sounds: ['l', 'o', 'g'], hint: 'from a tree' },
+        { word: 'pen', sounds: ['p', 'e', 'n'], hint: 'write with it' },
+        { word: 'fan', sounds: ['f', 'a', 'n'], hint: 'keeps you cool' },
+        { word: 'top', sounds: ['t', 'o', 'p'], hint: 'spinning toy' },
+      ],
+      'B3': [
+        // CCVC and CVCC words - 4 phonemes
+        { word: 'frog', sounds: ['f', 'r', 'o', 'g'], hint: 'green and hops' },
+        { word: 'crab', sounds: ['c', 'r', 'a', 'b'], hint: 'has claws' },
+        { word: 'flag', sounds: ['f', 'l', 'a', 'g'], hint: 'waves in wind' },
+        { word: 'drum', sounds: ['d', 'r', 'u', 'm'], hint: 'bang on it' },
+        { word: 'stop', sounds: ['s', 't', 'o', 'p'], hint: 'red sign' },
+        { word: 'swim', sounds: ['s', 'w', 'i', 'm'], hint: 'in the water' },
+        { word: 'clap', sounds: ['c', 'l', 'a', 'p'], hint: 'hands together' },
+        { word: 'grin', sounds: ['g', 'r', 'i', 'n'], hint: 'big smile' },
+        { word: 'plum', sounds: ['p', 'l', 'u', 'm'], hint: 'purple fruit' },
+        { word: 'sled', sounds: ['s', 'l', 'e', 'd'], hint: 'ride on snow' },
+        { word: 'snap', sounds: ['s', 'n', 'a', 'p'], hint: 'finger click' },
+        { word: 'trip', sounds: ['t', 'r', 'i', 'p'], hint: 'go somewhere' },
+      ],
+      'B5': [
+        // Words with digraphs - digraph counts as one sound
+        { word: 'ship', sounds: ['sh', 'i', 'p'], hint: 'sails on water' },
+        { word: 'fish', sounds: ['f', 'i', 'sh'], hint: 'swims in water' },
+        { word: 'shop', sounds: ['sh', 'o', 'p'], hint: 'buy things' },
+        { word: 'chat', sounds: ['ch', 'a', 't'], hint: 'have a talk' },
+        { word: 'chin', sounds: ['ch', 'i', 'n'], hint: 'below mouth' },
+        { word: 'chop', sounds: ['ch', 'o', 'p'], hint: 'cut wood' },
+        { word: 'thin', sounds: ['th', 'i', 'n'], hint: 'not thick' },
+        { word: 'path', sounds: ['p', 'a', 'th'], hint: 'walk on it' },
+        { word: 'math', sounds: ['m', 'a', 'th'], hint: 'numbers class' },
+        { word: 'ring', sounds: ['r', 'i', 'ng'], hint: 'on your finger' },
+        { word: 'king', sounds: ['k', 'i', 'ng'], hint: 'wears a crown' },
+        { word: 'sing', sounds: ['s', 'i', 'ng'], hint: 'make music' },
+      ],
+    };
+
+    // State
+    let currentLevel = 'A4';
+    let currentWord = null;
+    let wordIndex = 0;
+    let roundWords = [];
+    let score = 0;
+    let boxContents = []; // What's in each box
+    let currentStudent = null;
+    let sessionStartTime = null;
+    let wordAudio = null;
+    let letterAudio = null;
+
+    // Drag state
+    let draggedTile = null;
+    let draggedLetter = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupLevelButtons();
+      setupDragAndDrop();
+
+      // Student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is practicing sounds?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+        }
+      }
+
+      sessionStartTime = Date.now();
+      startRound();
+    });
+
+    function setupLevelButtons() {
+      document.querySelectorAll('.chip[data-level]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.chip[data-level]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLevel = btn.dataset.level;
+          startRound();
+        });
+      });
+    }
+
+    function setupDragAndDrop() {
+      // Touch events for mobile
+      document.addEventListener('touchstart', handleTouchStart, { passive: false });
+      document.addEventListener('touchmove', handleTouchMove, { passive: false });
+      document.addEventListener('touchend', handleTouchEnd);
+    }
+
+    function startRound() {
+      wordIndex = 0;
+      const bank = wordBanks[currentLevel] || wordBanks['A4'];
+      roundWords = [...bank].sort(() => Math.random() - 0.5).slice(0, 6);
+      renderProgress();
+      loadWord();
+    }
+
+    function loadWord() {
+      currentWord = roundWords[wordIndex];
+      boxContents = new Array(currentWord.sounds.length).fill(null);
+
+      // Update UI
+      document.getElementById('wordImage').innerHTML =
+        `<img src="/activities/word-icons/${currentWord.word}.png" alt="${currentWord.word}" onerror="this.style.display='none'">`;
+      document.getElementById('wordHint').textContent = `(${currentWord.hint})`;
+      document.getElementById('feedback').textContent = 'Listen to the word, then fill the boxes!';
+      document.getElementById('feedback').className = 'feedback waiting';
+
+      renderSoundBoxes();
+      renderLetterBank();
+      renderProgress();
+
+      // Auto-play word
+      setTimeout(() => playWord(), 500);
+    }
+
+    function renderSoundBoxes() {
+      const container = document.getElementById('soundBoxes');
+      container.innerHTML = '';
+
+      currentWord.sounds.forEach((sound, idx) => {
+        const box = document.createElement('div');
+        box.className = 'sound-box';
+        box.dataset.index = idx;
+        box.innerHTML = `<span class="box-number">${idx + 1}</span>`;
+
+        if (boxContents[idx]) {
+          box.textContent = boxContents[idx];
+          box.classList.add('filled');
+          box.onclick = () => removeFromBox(idx);
+        }
+
+        // Drag and drop events
+        box.addEventListener('dragover', handleDragOver);
+        box.addEventListener('dragleave', handleDragLeave);
+        box.addEventListener('drop', handleDrop);
+
+        container.appendChild(box);
+      });
+    }
+
+    function renderLetterBank() {
+      const container = document.getElementById('letterBank');
+      container.innerHTML = '';
+
+      // Get all sounds from the word plus some distractors
+      let letters = [...currentWord.sounds];
+
+      // Add distractor letters
+      const distractors = 'aeiounrstlcmpbdfgh'.split('');
+      const numDistractors = Math.min(3, 8 - letters.length);
+      for (let i = 0; i < numDistractors; i++) {
+        const d = distractors[Math.floor(Math.random() * distractors.length)];
+        if (!letters.includes(d)) letters.push(d);
+      }
+
+      // Shuffle
+      for (let i = letters.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [letters[i], letters[j]] = [letters[j], letters[i]];
+      }
+
+      letters.forEach((letter, idx) => {
+        const tile = document.createElement('div');
+        tile.className = 'letter-tile';
+        tile.textContent = letter;
+        tile.draggable = true;
+        tile.dataset.letter = letter;
+        tile.dataset.index = idx;
+
+        // Check if already used
+        if (boxContents.includes(letter)) {
+          // Only mark as used if this specific instance is used
+          const usedCount = boxContents.filter(b => b === letter).length;
+          const availableCount = letters.slice(0, idx + 1).filter(l => l === letter).length;
+          if (usedCount >= availableCount) {
+            tile.classList.add('used');
+          }
+        }
+
+        // Click to hear sound
+        tile.addEventListener('click', (e) => {
+          if (!tile.classList.contains('used')) {
+            playLetterSound(letter);
+          }
+        });
+
+        // Drag events
+        tile.addEventListener('dragstart', handleDragStart);
+        tile.addEventListener('dragend', handleDragEnd);
+
+        container.appendChild(tile);
+      });
+    }
+
+    // Drag handlers
+    function handleDragStart(e) {
+      if (e.target.classList.contains('used')) {
+        e.preventDefault();
+        return;
+      }
+      draggedTile = e.target;
+      draggedLetter = e.target.dataset.letter;
+      e.target.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleDragEnd(e) {
+      e.target.classList.remove('dragging');
+      draggedTile = null;
+      draggedLetter = null;
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('drag-over');
+    }
+
+    function handleDragLeave(e) {
+      e.currentTarget.classList.remove('drag-over');
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('drag-over');
+
+      const boxIndex = parseInt(e.currentTarget.dataset.index);
+
+      if (draggedLetter && boxContents[boxIndex] === null) {
+        boxContents[boxIndex] = draggedLetter;
+        playLetterSound(draggedLetter);
+        renderSoundBoxes();
+        renderLetterBank();
+
+        // Auto-check if all boxes filled
+        if (boxContents.every(b => b !== null)) {
+          setTimeout(checkAnswer, 300);
+        }
+      }
+    }
+
+    // Touch handlers for mobile
+    let touchTile = null;
+    let touchClone = null;
+
+    function handleTouchStart(e) {
+      const tile = e.target.closest('.letter-tile');
+      if (!tile || tile.classList.contains('used')) return;
+
+      e.preventDefault();
+      touchTile = tile;
+      draggedLetter = tile.dataset.letter;
+
+      // Create floating clone
+      touchClone = tile.cloneNode(true);
+      touchClone.style.position = 'fixed';
+      touchClone.style.zIndex = '1000';
+      touchClone.style.pointerEvents = 'none';
+      touchClone.style.opacity = '0.8';
+      document.body.appendChild(touchClone);
+
+      const touch = e.touches[0];
+      touchClone.style.left = (touch.clientX - 30) + 'px';
+      touchClone.style.top = (touch.clientY - 34) + 'px';
+
+      tile.classList.add('dragging');
+    }
+
+    function handleTouchMove(e) {
+      if (!touchClone) return;
+      e.preventDefault();
+
+      const touch = e.touches[0];
+      touchClone.style.left = (touch.clientX - 30) + 'px';
+      touchClone.style.top = (touch.clientY - 34) + 'px';
+
+      // Highlight box under touch
+      document.querySelectorAll('.sound-box').forEach(box => {
+        const rect = box.getBoundingClientRect();
+        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+          box.classList.add('drag-over');
+        } else {
+          box.classList.remove('drag-over');
+        }
+      });
+    }
+
+    function handleTouchEnd(e) {
+      if (!touchClone) return;
+
+      const touch = e.changedTouches[0];
+
+      // Find box under touch
+      document.querySelectorAll('.sound-box').forEach(box => {
+        box.classList.remove('drag-over');
+        const rect = box.getBoundingClientRect();
+        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+          const boxIndex = parseInt(box.dataset.index);
+          if (boxContents[boxIndex] === null && draggedLetter) {
+            boxContents[boxIndex] = draggedLetter;
+            playLetterSound(draggedLetter);
+            renderSoundBoxes();
+            renderLetterBank();
+
+            // Auto-check if all boxes filled
+            if (boxContents.every(b => b !== null)) {
+              setTimeout(checkAnswer, 300);
+            }
+          }
+        }
+      });
+
+      // Cleanup
+      if (touchTile) touchTile.classList.remove('dragging');
+      if (touchClone) touchClone.remove();
+      touchTile = null;
+      touchClone = null;
+      draggedLetter = null;
+    }
+
+    function removeFromBox(index) {
+      if (boxContents[index]) {
+        boxContents[index] = null;
+        renderSoundBoxes();
+        renderLetterBank();
+      }
+    }
+
+    function clearBoxes() {
+      boxContents = new Array(currentWord.sounds.length).fill(null);
+      document.getElementById('feedback').textContent = 'Try again!';
+      document.getElementById('feedback').className = 'feedback waiting';
+      renderSoundBoxes();
+      renderLetterBank();
+    }
+
+    function checkAnswer() {
+      const boxes = document.querySelectorAll('.sound-box');
+      let allCorrect = true;
+
+      currentWord.sounds.forEach((sound, idx) => {
+        if (boxContents[idx] === sound) {
+          boxes[idx].classList.add('correct');
+        } else {
+          boxes[idx].classList.add('incorrect');
+          allCorrect = false;
+        }
+      });
+
+      if (allCorrect) {
+        score++;
+        document.getElementById('score').textContent = score;
+        document.getElementById('feedback').innerHTML = `<span>Correct! <strong>${currentWord.word.toUpperCase()}</strong></span>`;
+        document.getElementById('feedback').className = 'feedback correct';
+
+        showCelebration();
+        playWord();
+
+        setTimeout(() => {
+          wordIndex++;
+          if (wordIndex >= roundWords.length) {
+            document.getElementById('feedback').textContent = 'Round complete! Great job!';
+            saveActivity();
+            setTimeout(startRound, 2000);
+          } else {
+            loadWord();
+          }
+        }, 1500);
+      } else {
+        document.getElementById('feedback').textContent = 'Not quite - try again!';
+        document.getElementById('feedback').className = 'feedback incorrect';
+
+        // Show correct answer briefly
+        setTimeout(() => {
+          boxes.forEach((box, idx) => {
+            box.classList.remove('incorrect');
+          });
+        }, 1000);
+      }
+    }
+
+    function skipWord() {
+      wordIndex++;
+      if (wordIndex >= roundWords.length) {
+        startRound();
+      } else {
+        loadWord();
+      }
+    }
+
+    function playWord() {
+      if (wordAudio) {
+        wordAudio.pause();
+        wordAudio.currentTime = 0;
+      }
+      // Use speech synthesis for whole word
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(currentWord.word);
+        utterance.rate = 0.8;
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    function playLetterSound(letter) {
+      if (letterAudio) {
+        letterAudio.pause();
+        letterAudio.currentTime = 0;
+      }
+
+      // For single letters, use pre-recorded audio
+      if (letter.length === 1) {
+        letterAudio = new Audio(`/activities/letter-sounds/openai-us/sounds/${letter}.mp3`);
+        letterAudio.play().catch(() => {
+          // Fallback to speech synthesis
+          speakSound(letter);
+        });
+      } else {
+        // For digraphs, use speech synthesis
+        speakSound(letter);
+      }
+    }
+
+    function speakSound(sound) {
+      const phonemes = {
+        'sh': 'shh', 'ch': 'chh', 'th': 'thh', 'ng': 'ng'
+      };
+      const text = phonemes[sound] || sound;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.6;
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    function renderProgress() {
+      const container = document.getElementById('progress');
+      container.innerHTML = '';
+
+      for (let i = 0; i < roundWords.length; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'progress-dot';
+        if (i < wordIndex) dot.classList.add('done');
+        if (i === wordIndex) dot.classList.add('current');
+        container.appendChild(dot);
+      }
+    }
+
+    function showCelebration() {
+      const emojis = ['⭐', '🌟', '✨', '🎉', '👏'];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      celebration.textContent = emoji;
+      document.body.appendChild(celebration);
+
+      setTimeout(() => celebration.remove(), 500);
+    }
+
+    async function saveActivity() {
+      if (!currentStudent || !window.FunBookiesDB) return;
+
+      try {
+        await window.FunBookiesDB.saveActivity({
+          studentId: currentStudent.id,
+          type: 'sound-boxes',
+          level: currentLevel,
+          score: score,
+          total: roundWords.length,
+          duration: Math.round((Date.now() - sessionStartTime) / 1000),
+          details: {}
+        });
+      } catch (e) {
+        console.error('Failed to save:', e);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -15,6 +15,9 @@ const AudioUtils = (function() {
   const cache = new Map();
   const preloadedLetters = new Set();
 
+  // Currently playing audio (for stopping overlaps)
+  let currentlyPlaying = null;
+
   // Paths
   const SOUNDS_PATH = '/audio/sounds';
   const LETTER_SOUNDS_PATH = '/activities/letter-sounds/openai-us/sounds';
@@ -81,11 +84,27 @@ const AudioUtils = (function() {
   }
 
   /**
+   * Stop any currently playing audio
+   */
+  function stopCurrentAudio() {
+    if (currentlyPlaying) {
+      currentlyPlaying.pause();
+      currentlyPlaying.currentTime = 0;
+      currentlyPlaying = null;
+    }
+    // Also cancel any TTS
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+  }
+
+  /**
    * Play audio from cache or load on-demand
    * @param {string} path - Path to audio file
+   * @param {boolean} allowOverlap - If false (default), stops previous audio
    * @returns {Promise} Resolves when audio finishes playing
    */
-  async function playAudio(path) {
+  async function playAudio(path, allowOverlap = false) {
     let audio = cache.get(path);
 
     if (!audio) {
@@ -96,12 +115,23 @@ const AudioUtils = (function() {
       }
     }
 
-    // Clone for overlapping plays
+    // Stop previous audio unless overlap is allowed
+    if (!allowOverlap) {
+      stopCurrentAudio();
+    }
+
+    // Clone for clean playback
     const clone = audio.cloneNode();
     clone.currentTime = 0;
+    currentlyPlaying = clone;
 
     return new Promise((resolve, reject) => {
-      clone.onended = resolve;
+      clone.onended = () => {
+        if (currentlyPlaying === clone) {
+          currentlyPlaying = null;
+        }
+        resolve();
+      };
       clone.onerror = reject;
       clone.play().catch(reject);
     });
@@ -144,8 +174,8 @@ const AudioUtils = (function() {
         return;
       }
 
-      // Cancel any ongoing speech
-      window.speechSynthesis.cancel();
+      // Stop any currently playing audio AND cancel ongoing speech
+      stopCurrentAudio();
 
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = options.rate ?? 0.9;
@@ -248,6 +278,7 @@ const AudioUtils = (function() {
     playInstruction,
     playSoundSequence,
     speakTTS,
+    stopCurrentAudio,
     isPreloaded,
     getCacheStats,
     sleep,

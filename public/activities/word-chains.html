@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Word Chains - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .game-header h1 { font-size: 1.4rem; }
+
+    .score-badge {
+      background: var(--color-sage-light);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      color: var(--color-sage-dark);
+    }
+
+    .level-select {
+      display: flex;
+      gap: 8px;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .level-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .level-group-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+
+    .activity-area {
+      text-align: center;
+      padding: var(--space-sm) 0;
+    }
+
+    /* Chain visualization */
+    .chain-progress {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+      padding: 12px;
+      background: var(--color-cream);
+      border-radius: var(--border-radius);
+    }
+
+    .chain-word {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .chain-word.completed {
+      color: var(--color-sage-dark);
+      background: var(--color-sage-light);
+    }
+
+    .chain-word.current {
+      color: var(--color-terracotta);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .chain-word.upcoming {
+      color: var(--color-border);
+    }
+
+    .chain-arrow {
+      color: var(--color-border);
+      font-size: 0.8rem;
+    }
+
+    .chain-arrow.active {
+      color: var(--color-terracotta);
+    }
+
+    /* Current word display */
+    .word-display {
+      margin-bottom: var(--space-md);
+    }
+
+    .word-image {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto var(--space-sm);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .word-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .word-image:hover {
+      transform: scale(1.05);
+    }
+
+    .word-letters {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .word-letter {
+      width: 70px;
+      height: 80px;
+      background: white;
+      border: 3px solid var(--color-sage);
+      border-radius: var(--border-radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: var(--color-charcoal);
+      transition: all 0.3s;
+    }
+
+    .word-letter.changing {
+      border-color: var(--color-terracotta);
+      background: var(--color-terracotta-light);
+      animation: pulse-letter 1s infinite;
+    }
+
+    .word-letter.correct {
+      border-color: var(--color-sage);
+      background: #e8f5e9;
+      animation: pop 0.3s;
+    }
+
+    @keyframes pulse-letter {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    /* Prompt */
+    .prompt-text {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--color-charcoal);
+      margin-bottom: var(--space-md);
+    }
+
+    .target-word {
+      font-weight: 700;
+      color: var(--color-terracotta);
+    }
+
+    /* Letter choices */
+    .letter-choices {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: var(--space-md);
+    }
+
+    .letter-choice {
+      width: 65px;
+      height: 72px;
+      background: var(--color-sage);
+      border: none;
+      border-radius: var(--border-radius);
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 500;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 3px 8px rgba(159, 199, 170, 0.3);
+    }
+
+    .letter-choice:hover {
+      background: var(--color-sage-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(159, 199, 170, 0.4);
+    }
+
+    .letter-choice:active {
+      transform: translateY(0) scale(0.95);
+    }
+
+    .letter-choice.wrong {
+      background: #e74c3c;
+      animation: shake 0.3s;
+    }
+
+    .letter-choice.correct {
+      background: var(--color-sage-dark);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Feedback */
+    .feedback {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 500;
+      min-height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback.correct { color: var(--color-sage-dark); }
+    .feedback.incorrect { color: #e74c3c; }
+    .feedback.waiting { color: var(--color-text-muted); }
+
+    /* Celebration */
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      animation: celebrate 0.5s ease-out;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes celebrate {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
+    /* Chain complete celebration */
+    .chain-complete {
+      background: linear-gradient(135deg, var(--color-sage-light), #e8f5e9);
+      padding: var(--space-lg);
+      border-radius: var(--border-radius-lg);
+      margin-bottom: var(--space-md);
+    }
+
+    .chain-complete h2 {
+      color: var(--color-sage-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .chain-complete .chain-words {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--color-charcoal);
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .word-letter { width: 58px; height: 66px; font-size: 2rem; }
+      .letter-choice { width: 55px; height: 62px; font-size: 1.7rem; }
+      .chain-word { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Word Chains <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div class="score-badge">Chains: <span id="chainCount">0</span></div>
+      </div>
+
+      <div class="level-select">
+        <div class="level-group">
+          <span class="level-group-label">Length:</span>
+          <button class="chip active" data-level="short">Short (5)</button>
+          <button class="chip" data-level="medium">Medium (7)</button>
+          <button class="chip" data-level="long">Long (9)</button>
+        </div>
+      </div>
+
+      <div class="activity-area">
+        <!-- Chain Progress -->
+        <div class="chain-progress" id="chainProgress"></div>
+
+        <!-- Current Word Display -->
+        <div class="word-display" id="wordDisplay">
+          <div class="word-image" id="wordImage" onclick="playWord()">
+            <img src="/activities/word-icons/cat.png" alt="cat">
+          </div>
+          <div class="word-letters" id="wordLetters"></div>
+        </div>
+
+        <div class="prompt-text" id="promptText">
+          Change one letter to make: <span class="target-word" id="targetWord">hat</span>
+        </div>
+
+        <div class="letter-choices" id="letterChoices"></div>
+
+        <div class="feedback waiting" id="feedback">Pick the letter that changes!</div>
+
+        <div class="controls">
+          <button class="btn btn-secondary" onclick="playWord()">&#x1F50A; Hear Word</button>
+          <button class="btn btn-outline" onclick="skipChain()">New Chain</button>
+        </div>
+
+        <!-- Chain Complete -->
+        <div class="chain-complete hidden" id="chainComplete">
+          <h2>Chain Complete!</h2>
+          <div class="chain-words" id="completedChain"></div>
+          <button class="btn btn-primary" onclick="startNewChain()" style="margin-top: var(--space-md);">Next Chain</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Word chains - each chain is a sequence where only one letter changes at a time
+    const wordChains = {
+      short: [
+        ['cat', 'hat', 'hot', 'hop', 'top'],
+        ['pig', 'big', 'bag', 'bat', 'sat'],
+        ['dog', 'log', 'leg', 'peg', 'pen'],
+        ['sun', 'run', 'rug', 'bug', 'bus'],
+        ['bed', 'red', 'rod', 'pod', 'pop'],
+        ['cup', 'cut', 'cot', 'dot', 'dog'],
+        ['fan', 'can', 'cat', 'bat', 'bag'],
+        ['net', 'pet', 'pit', 'sit', 'sat'],
+        ['map', 'cap', 'cup', 'pup', 'pop'],
+        ['hug', 'bug', 'bun', 'sun', 'sum'],
+      ],
+      medium: [
+        ['cat', 'hat', 'hot', 'hop', 'top', 'tap', 'map'],
+        ['pig', 'big', 'bag', 'bat', 'sat', 'sit', 'pit'],
+        ['dog', 'log', 'leg', 'peg', 'pen', 'pan', 'man'],
+        ['sun', 'run', 'rug', 'bug', 'bus', 'but', 'cut'],
+        ['bed', 'red', 'rod', 'pod', 'pop', 'pot', 'hot'],
+        ['fan', 'can', 'cap', 'cup', 'pup', 'pop', 'top'],
+        ['net', 'pet', 'pen', 'pan', 'man', 'map', 'cap'],
+      ],
+      long: [
+        ['cat', 'hat', 'hot', 'hop', 'top', 'tap', 'map', 'cap', 'cup'],
+        ['pig', 'big', 'bag', 'bat', 'sat', 'sit', 'pit', 'pot', 'pop'],
+        ['dog', 'log', 'leg', 'peg', 'pen', 'pan', 'man', 'map', 'mop'],
+        ['sun', 'run', 'rug', 'bug', 'bus', 'but', 'cut', 'cup', 'pup'],
+        ['bed', 'red', 'rod', 'pod', 'pop', 'pot', 'hot', 'hat', 'bat'],
+      ],
+    };
+
+    // State
+    let currentLevel = 'short';
+    let currentChain = [];
+    let chainIndex = 0; // Current position in chain
+    let chainsCompleted = 0;
+    let currentStudent = null;
+    let sessionStartTime = null;
+    let letterAudio = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupLevelButtons();
+
+      // Student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is building word chains?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+        }
+      }
+
+      sessionStartTime = Date.now();
+      startNewChain();
+    });
+
+    function setupLevelButtons() {
+      document.querySelectorAll('.chip[data-level]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.chip[data-level]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLevel = btn.dataset.level;
+          startNewChain();
+        });
+      });
+    }
+
+    function startNewChain() {
+      // Pick a random chain
+      const chains = wordChains[currentLevel];
+      currentChain = [...chains[Math.floor(Math.random() * chains.length)]];
+      chainIndex = 0;
+
+      // Reset UI
+      document.getElementById('chainComplete').classList.add('hidden');
+      document.getElementById('wordDisplay').classList.remove('hidden');
+      document.getElementById('promptText').classList.remove('hidden');
+      document.getElementById('letterChoices').classList.remove('hidden');
+      document.getElementById('feedback').classList.remove('hidden');
+
+      renderChainProgress();
+      showCurrentStep();
+    }
+
+    function renderChainProgress() {
+      const container = document.getElementById('chainProgress');
+      container.innerHTML = '';
+
+      currentChain.forEach((word, idx) => {
+        // Word
+        const wordEl = document.createElement('span');
+        wordEl.className = 'chain-word';
+        wordEl.textContent = word;
+
+        if (idx < chainIndex) {
+          wordEl.classList.add('completed');
+        } else if (idx === chainIndex) {
+          wordEl.classList.add('current');
+        } else {
+          wordEl.classList.add('upcoming');
+        }
+
+        container.appendChild(wordEl);
+
+        // Arrow (except after last word)
+        if (idx < currentChain.length - 1) {
+          const arrow = document.createElement('span');
+          arrow.className = 'chain-arrow';
+          arrow.textContent = '→';
+          if (idx === chainIndex) arrow.classList.add('active');
+          container.appendChild(arrow);
+        }
+      });
+    }
+
+    function showCurrentStep() {
+      const currentWord = currentChain[chainIndex];
+      const nextWord = currentChain[chainIndex + 1];
+
+      if (!nextWord) {
+        // Chain complete!
+        completeChain();
+        return;
+      }
+
+      // Find which position changes
+      const changePos = findChangePosition(currentWord, nextWord);
+
+      // Update word image
+      const imgContainer = document.getElementById('wordImage');
+      imgContainer.innerHTML = `<img src="/activities/word-icons/${currentWord}.png" alt="${currentWord}" onerror="this.style.display='none'">`;
+
+      // Update word letters
+      renderWordLetters(currentWord, changePos);
+
+      // Update prompt
+      document.getElementById('targetWord').textContent = nextWord;
+
+      // Update letter choices
+      renderLetterChoices(currentWord, nextWord, changePos);
+
+      // Update feedback
+      document.getElementById('feedback').textContent = 'Pick the letter that changes!';
+      document.getElementById('feedback').className = 'feedback waiting';
+
+      // Play current word
+      setTimeout(() => playWord(), 300);
+    }
+
+    function findChangePosition(word1, word2) {
+      for (let i = 0; i < Math.max(word1.length, word2.length); i++) {
+        if (word1[i] !== word2[i]) return i;
+      }
+      return 0;
+    }
+
+    function renderWordLetters(word, changePos) {
+      const container = document.getElementById('wordLetters');
+      container.innerHTML = '';
+
+      word.split('').forEach((letter, idx) => {
+        const letterEl = document.createElement('div');
+        letterEl.className = 'word-letter';
+        letterEl.textContent = letter;
+        letterEl.dataset.index = idx;
+
+        if (idx === changePos) {
+          letterEl.classList.add('changing');
+        }
+
+        // Click to hear sound
+        letterEl.onclick = () => playLetterSound(letter);
+
+        container.appendChild(letterEl);
+      });
+    }
+
+    function renderLetterChoices(currentWord, nextWord, changePos) {
+      const container = document.getElementById('letterChoices');
+      container.innerHTML = '';
+
+      const correctLetter = nextWord[changePos];
+      const currentLetter = currentWord[changePos];
+
+      // Get distractor letters (common consonants/vowels)
+      const distractors = 'abcdefghilmnoprstuw'.split('').filter(l =>
+        l !== correctLetter && l !== currentLetter
+      );
+
+      // Shuffle and pick 2-3 distractors
+      for (let i = distractors.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [distractors[i], distractors[j]] = [distractors[j], distractors[i]];
+      }
+
+      let choices = [correctLetter, ...distractors.slice(0, 3)];
+
+      // Shuffle choices
+      for (let i = choices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [choices[i], choices[j]] = [choices[j], choices[i]];
+      }
+
+      choices.forEach(letter => {
+        const btn = document.createElement('button');
+        btn.className = 'letter-choice';
+        btn.textContent = letter;
+        btn.onclick = () => selectLetter(letter, correctLetter, changePos);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectLetter(selected, correct, changePos) {
+      const buttons = document.querySelectorAll('.letter-choice');
+      const wordLetters = document.querySelectorAll('.word-letter');
+
+      if (selected === correct) {
+        // Correct!
+        buttons.forEach(b => {
+          if (b.textContent === selected) b.classList.add('correct');
+          b.disabled = true;
+        });
+
+        // Animate the letter change
+        wordLetters[changePos].classList.remove('changing');
+        wordLetters[changePos].classList.add('correct');
+        wordLetters[changePos].textContent = correct;
+
+        playLetterSound(correct);
+
+        document.getElementById('feedback').innerHTML = `Yes! <strong>${currentChain[chainIndex + 1].toUpperCase()}</strong>!`;
+        document.getElementById('feedback').className = 'feedback correct';
+
+        showCelebration();
+
+        // Move to next step
+        setTimeout(() => {
+          chainIndex++;
+          renderChainProgress();
+          showCurrentStep();
+        }, 1200);
+
+      } else {
+        // Wrong
+        buttons.forEach(b => {
+          if (b.textContent === selected) {
+            b.classList.add('wrong');
+            setTimeout(() => b.classList.remove('wrong'), 300);
+          }
+        });
+
+        document.getElementById('feedback').textContent = 'Try again!';
+        document.getElementById('feedback').className = 'feedback incorrect';
+      }
+    }
+
+    function completeChain() {
+      chainsCompleted++;
+      document.getElementById('chainCount').textContent = chainsCompleted;
+
+      // Hide game elements
+      document.getElementById('wordDisplay').classList.add('hidden');
+      document.getElementById('promptText').classList.add('hidden');
+      document.getElementById('letterChoices').classList.add('hidden');
+      document.getElementById('feedback').classList.add('hidden');
+
+      // Show completion
+      const completeEl = document.getElementById('chainComplete');
+      completeEl.classList.remove('hidden');
+      document.getElementById('completedChain').textContent = currentChain.join(' → ');
+
+      // Big celebration
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => showCelebration(), i * 150);
+      }
+
+      // Play success sound
+      playSuccessSound();
+
+      // Save activity
+      saveActivity();
+    }
+
+    function skipChain() {
+      startNewChain();
+    }
+
+    function playWord() {
+      const word = currentChain[chainIndex];
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.rate = 0.8;
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    function playLetterSound(letter) {
+      if (letterAudio) {
+        letterAudio.pause();
+        letterAudio.currentTime = 0;
+      }
+
+      letterAudio = new Audio(`/activities/letter-sounds/openai-us/sounds/${letter.toLowerCase()}.mp3`);
+      letterAudio.play().catch(() => {
+        // Fallback
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(letter);
+          utterance.rate = 0.6;
+          speechSynthesis.speak(utterance);
+        }
+      });
+    }
+
+    function playSuccessSound() {
+      // Simple ascending notes
+      if (!window.AudioContext && !window.webkitAudioContext) return;
+
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.12);
+        gain.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.12);
+        gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + i * 0.12 + 0.2);
+        osc.start(ctx.currentTime + i * 0.12);
+        osc.stop(ctx.currentTime + i * 0.12 + 0.2);
+      });
+    }
+
+    function showCelebration() {
+      const emojis = ['⭐', '🌟', '✨', '🎉', '🔗', '⛓️'];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      celebration.textContent = emoji;
+      celebration.style.left = (20 + Math.random() * 60) + '%';
+      document.body.appendChild(celebration);
+
+      setTimeout(() => celebration.remove(), 500);
+    }
+
+    async function saveActivity() {
+      if (!currentStudent || !window.FunBookiesDB) return;
+
+      try {
+        await window.FunBookiesDB.saveActivity({
+          studentId: currentStudent.id,
+          type: 'word-chains',
+          level: currentLevel,
+          score: chainsCompleted,
+          total: chainsCompleted,
+          duration: Math.round((Date.now() - sessionStartTime) / 1000),
+          details: { chainLength: currentChain.length }
+        });
+      } catch (e) {
+        console.error('Failed to save:', e);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -145,6 +145,173 @@
             border-radius: var(--border-radius);
         }
 
+        /* Band Tabs */
+        .band-tabs {
+            display: flex;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-md);
+            padding: 4px;
+            background: var(--color-sage-light);
+            border-radius: var(--border-radius-lg);
+            overflow-x: auto;
+        }
+
+        .band-tab {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 100px;
+        }
+
+        .band-tab:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .band-tab.active {
+            background: var(--color-white);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .tab-badge {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .tab-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--color-charcoal);
+        }
+
+        @media (max-width: 500px) {
+            .tab-label { display: none; }
+            .band-tab { min-width: 60px; padding: 10px; }
+        }
+
+        /* Band Panels */
+        .band-panel {
+            display: none;
+        }
+
+        .band-panel.active {
+            display: block;
+        }
+
+        .band-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--color-sage-light);
+        }
+
+        .band-levels {
+            font-weight: 600;
+            color: var(--color-soft-black);
+        }
+
+        .band-description {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .band-info { flex-direction: column; align-items: flex-start; gap: 4px; }
+        }
+
+        /* Continue Reading Section */
+        .continue-section {
+            margin-bottom: var(--space-lg);
+            padding: var(--space-md);
+            background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-cream) 100%);
+            border-radius: var(--border-radius-lg);
+        }
+
+        .section-header {
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--color-soft-black);
+            margin: 0;
+        }
+
+        .continue-grid {
+            display: flex;
+            gap: var(--space-sm);
+            overflow-x: auto;
+            padding-bottom: var(--space-xs);
+        }
+
+        .continue-card {
+            flex: 0 0 160px;
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .continue-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .continue-cover {
+            aspect-ratio: 3/4;
+            overflow: hidden;
+        }
+
+        .continue-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .continue-info {
+            padding: 8px 10px;
+        }
+
+        .continue-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-soft-black);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .continue-progress {
+            margin-top: 4px;
+            height: 4px;
+            background: var(--color-sage-light);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .continue-progress-bar {
+            height: 100%;
+            background: var(--color-sage);
+            border-radius: 2px;
+        }
+
         /* Reader Modal */
         .reader-modal {
             display: none;
@@ -320,43 +487,64 @@
             <p class="page-subtitle">Decodable books organized by reading level</p>
         </div>
 
+        <!-- Continue Reading Section (shown if student has in-progress books) -->
+        <section class="continue-section" id="continueSection" style="display: none;">
+            <div class="section-header">
+                <h2 class="section-title">Continue Reading</h2>
+            </div>
+            <div class="continue-grid" id="continueGrid"></div>
+        </section>
+
+        <!-- Band Tabs -->
+        <div class="band-tabs" id="bandTabs">
+            <button class="band-tab active" data-band="A">
+                <span class="tab-badge band-a">A</span>
+                <span class="tab-label">Pre-Reader</span>
+            </button>
+            <button class="band-tab" data-band="B">
+                <span class="tab-badge band-b">B</span>
+                <span class="tab-label">Phonics</span>
+            </button>
+            <button class="band-tab" data-band="C">
+                <span class="tab-badge band-c">C</span>
+                <span class="tab-label">Word Study</span>
+            </button>
+            <button class="band-tab" data-band="D">
+                <span class="tab-badge band-d">D</span>
+                <span class="tab-label">Fluent</span>
+            </button>
+        </div>
+
+        <!-- Band Content Panels -->
         <div id="booksContainer">
-            <!-- Band A: Pre-Reader / Emergent -->
-            <section class="band-section" id="bandA">
-                <div class="band-header">
-                    <div class="band-badge band-a">A</div>
-                    <span class="band-title">Pre-Reader / Emergent</span>
-                    <span class="band-subtitle">Levels A0-A4</span>
+            <section class="band-panel active" id="panelA">
+                <div class="band-info">
+                    <span class="band-levels">Levels A0-A4</span>
+                    <span class="band-description">Concept of print, letter recognition, simple patterns</span>
                 </div>
                 <div class="books-grid" id="booksA"></div>
             </section>
 
-            <!-- Band B: Phonics Foundation -->
-            <section class="band-section" id="bandB">
-                <div class="band-header">
-                    <div class="band-badge band-b">B</div>
-                    <span class="band-title">Phonics Foundation</span>
-                    <span class="band-subtitle">Levels B1-B9</span>
+            <section class="band-panel" id="panelB">
+                <div class="band-info">
+                    <span class="band-levels">Levels B1-B9</span>
+                    <span class="band-description">CVC words, blends, digraphs, vowel patterns</span>
                 </div>
                 <div class="books-grid" id="booksB"></div>
             </section>
 
-            <!-- Band C: Word Study -->
-            <section class="band-section" id="bandC">
-                <div class="band-header">
-                    <div class="band-badge band-c">C</div>
-                    <span class="band-title">Word Study</span>
-                    <span class="band-subtitle">Levels C1-C8</span>
+            <section class="band-panel" id="panelC">
+                <div class="band-info">
+                    <span class="band-levels">Levels C1-C8</span>
+                    <span class="band-description">Multi-syllable words, suffixes, prefixes</span>
                 </div>
                 <div class="books-grid" id="booksC"></div>
             </section>
 
-            <!-- Band D: Fluent Reading -->
-            <section class="band-section" id="bandD">
-                <div class="band-header">
-                    <div class="band-badge band-d">D</div>
-                    <span class="band-title">Fluent Reading</span>
-                    <span class="band-subtitle">Levels D1-D6</span>
+            <section class="band-panel" id="panelD">
+                <div class="band-info">
+                    <span class="band-levels">Levels D1-D6</span>
+                    <span class="band-description">Complex texts, literary analysis, independent reading</span>
                 </div>
                 <div class="books-grid" id="booksD"></div>
             </section>
@@ -391,6 +579,7 @@
         </div>
     </div>
 
+    <script src="/js/data-service.js"></script>
     <script>
         // Level order for sorting (A0=0, A1=1, ..., D6=27)
         const levelOrder = {
@@ -414,99 +603,187 @@
             'D4': 'Greek Roots', 'D5': 'Figurative Language', 'D6': 'Grade-Level'
         };
 
-        // Known book files to scan (will be dynamically loaded)
-        const knownBooks = [
-            'a0-look.json', 'a1-i-sit.json', 'a2-i-see-it.json', 'a3-the-cat-is-here.json', 'a4-sam-and-the-hat.json',
-            'b1-sam-and-the-cat.json', 'b2-pup-in-the-mud.json', 'b3-jump-at-camp.json', 'b4-frog-and-crab.json',
-            'b5-the-ship-in-the-shell.json', 'b6-kate-and-the-lake.json', 'b7-the-rain-and-the-snow.json',
-            'b8-the-owl-and-the-boy.json', 'b9-a-star-at-the-farm.json',
-            'c1_knight_quest.json', 'c2_magic_city.json', 'c3_kitten_adventure.json', 'c4_robot_pilot.json',
-            'c5_treehouse_mystery.json', 'c6_biggest_race.json', 'c7_hopeless_garden.json', 'c8_impossible_invention.json',
-            'd1-the-lighthouse-keeper.json', 'd2-the-hidden-garden.json', 'd3-the-architects-secret.json',
-            'd4-signals-from-kepler.json', 'd5-the-winter-of-words.json', 'd6-the-bridge-between.json',
-            'volcano.json', 'castle.json'
-        ];
+        // Global state
+        let allBooks = [];
+        let booksByBand = { A: [], B: [], C: [], D: [] };
+        let currentBand = 'A';
 
-        // Load and display books
+        // Load books from manifest (single fetch instead of 38!)
         async function loadBooks() {
-            const booksByBand = { A: [], B: [], C: [], D: [] };
+            try {
+                const res = await fetch('/books/manifest.json');
+                allBooks = await res.json();
 
-            for (const filename of knownBooks) {
-                try {
-                    const res = await fetch(`/books/${filename}`);
-                    if (!res.ok) continue;
-                    const book = await res.json();
-
-                    // Extract level code from book data
-                    let level = book.level;
-                    if (typeof level === 'number') {
-                        // Convert old numeric levels to new codes (rough mapping)
-                        const oldToNew = { 0: 'A1', 1: 'A2', 2: 'B1', 3: 'B2', 4: 'B3', 5: 'B5', 6: 'B6', 7: 'B7', 8: 'B9' };
-                        level = oldToNew[level] || 'B1';
+                // Group by band
+                booksByBand = { A: [], B: [], C: [], D: [] };
+                allBooks.forEach(book => {
+                    const band = book.band || (book.level ? book.level.charAt(0) : null);
+                    if (band && booksByBand[band]) {
+                        booksByBand[band].push(book);
                     }
+                });
 
-                    const band = level.charAt(0);
-                    if (!['A', 'B', 'C', 'D'].includes(band)) continue;
-
-                    booksByBand[band].push({
-                        ...book,
-                        level,
-                        filename,
-                        slug: filename.replace('.json', '')
-                    });
-                } catch (e) {
-                    // Skip books that fail to load
+                // Sort each band by level
+                for (const band of ['A', 'B', 'C', 'D']) {
+                    booksByBand[band].sort((a, b) =>
+                        (levelOrder[a.level] || 0) - (levelOrder[b.level] || 0)
+                    );
                 }
-            }
 
-            // Sort books within each band by level order
-            for (const band of ['A', 'B', 'C', 'D']) {
-                booksByBand[band].sort((a, b) => (levelOrder[a.level] || 0) - (levelOrder[b.level] || 0));
-            }
+                // Render all bands (only active one visible)
+                renderBand('A', booksByBand.A);
+                renderBand('B', booksByBand.B);
+                renderBand('C', booksByBand.C);
+                renderBand('D', booksByBand.D);
 
-            // Render books for each band
-            renderBand('A', booksByBand.A);
-            renderBand('B', booksByBand.B);
-            renderBand('C', booksByBand.C);
-            renderBand('D', booksByBand.D);
+                // Try to load continue reading and set default band
+                await loadStudentContext();
+
+            } catch (e) {
+                console.error('Failed to load manifest:', e);
+            }
         }
 
+        // Load student context (continue reading + default band)
+        async function loadStudentContext() {
+            try {
+                // Wait for data service to be ready
+                if (!window.FunBookiesDB) return;
+                await window.FunBookiesDB.ready;
+
+                // Get active student from settings
+                const activeStudentId = await window.FunBookiesDB.getSetting('activeStudent');
+                if (!activeStudentId) return;
+
+                // Get student's current level to determine default band
+                const currentLevel = await window.FunBookiesDB.getCurrentLevel(activeStudentId);
+                if (currentLevel) {
+                    const studentBand = currentLevel.charAt(0);
+                    if (['A', 'B', 'C', 'D'].includes(studentBand)) {
+                        switchToBand(studentBand);
+                    }
+                }
+
+                // Load recent book activity for "Continue Reading"
+                const activities = await window.FunBookiesDB.getActivities(activeStudentId, {
+                    type: 'book-reading',
+                    limit: 10
+                });
+
+                // Get unique books with progress
+                const recentBooks = new Map();
+                activities.forEach(activity => {
+                    if (activity.details?.bookSlug && !recentBooks.has(activity.details.bookSlug)) {
+                        recentBooks.set(activity.details.bookSlug, {
+                            slug: activity.details.bookSlug,
+                            lastPage: activity.details.lastPage || 1,
+                            totalPages: activity.details.totalPages || 10,
+                            date: activity.date
+                        });
+                    }
+                });
+
+                // Show continue reading section if there are recent books
+                if (recentBooks.size > 0) {
+                    renderContinueReading(Array.from(recentBooks.values()));
+                }
+
+            } catch (e) {
+                // Data service not available or no student - that's fine
+                console.log('No student context available');
+            }
+        }
+
+        // Render continue reading section
+        function renderContinueReading(recentBooks) {
+            const section = document.getElementById('continueSection');
+            const grid = document.getElementById('continueGrid');
+
+            // Match recent books with manifest data
+            const booksToShow = recentBooks
+                .map(recent => {
+                    const bookData = allBooks.find(b => b.slug === recent.slug);
+                    if (!bookData) return null;
+                    return { ...bookData, ...recent };
+                })
+                .filter(Boolean)
+                .slice(0, 5);
+
+            if (booksToShow.length === 0) return;
+
+            grid.innerHTML = booksToShow.map(book => {
+                const progress = Math.round((book.lastPage / book.totalPages) * 100);
+                return `
+                    <a class="continue-card" href="/reader.html?book=${book.slug}&page=${book.lastPage}">
+                        <div class="continue-cover">
+                            <img src="${book.coverImg}" alt="${book.title}" loading="lazy"
+                                 onerror="this.parentElement.style.background='var(--color-sage-light)'">
+                        </div>
+                        <div class="continue-info">
+                            <div class="continue-title">${book.title}</div>
+                            <div class="continue-progress">
+                                <div class="continue-progress-bar" style="width: ${progress}%"></div>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+
+            section.style.display = 'block';
+        }
+
+        // Switch active band
+        function switchToBand(band) {
+            currentBand = band;
+
+            // Update tab states
+            document.querySelectorAll('.band-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.band === band);
+            });
+
+            // Update panel states
+            document.querySelectorAll('.band-panel').forEach(panel => {
+                panel.classList.toggle('active', panel.id === `panel${band}`);
+            });
+        }
+
+        // Render a band's books
         function renderBand(band, books) {
             const grid = document.getElementById(`books${band}`);
-            const section = document.getElementById(`band${band}`);
 
             if (books.length === 0) {
                 grid.innerHTML = '<div class="empty-band">More books coming soon!</div>';
                 return;
             }
 
-            books.forEach(book => {
-                const card = document.createElement('a');
-                card.className = 'book-card';
-                card.href = `/reader.html?book=${book.slug}`;
+            grid.innerHTML = books.map(book => {
+                const levelName = levelNames[book.level] || book.skill || book.level;
+                const coverImg = book.coverImg || `/images/covers/${book.slug}.png`;
 
-                // Get cover image (check multiple possible locations)
-                const coverImg = book.coverImage || book.cover_image ||
-                    `/images/covers/${book.slug}.png` ||
-                    `/books/${book.slug}_images/cover.png`;
-
-                const levelName = levelNames[book.level] || book.level;
-
-                card.innerHTML = `
-                    <div class="book-cover">
-                        <img src="${coverImg}" alt="${book.title}" onerror="this.parentElement.style.background='var(--color-sage-light)'">
-                    </div>
-                    <div class="book-info">
-                        <div class="book-title">${book.title}</div>
-                        <div class="book-meta">
-                            <span class="level-badge band-${band.toLowerCase()}">${book.level}</span>
-                            <span class="book-skill">${levelName}</span>
+                return `
+                    <a class="book-card" href="/reader.html?book=${book.slug}">
+                        <div class="book-cover">
+                            <img src="${coverImg}" alt="${book.title}" loading="lazy"
+                                 onerror="this.parentElement.style.background='var(--color-sage-light)'">
                         </div>
-                    </div>
+                        <div class="book-info">
+                            <div class="book-title">${book.title}</div>
+                            <div class="book-meta">
+                                <span class="level-badge band-${band.toLowerCase()}">${book.level}</span>
+                                <span class="book-skill">${levelName}</span>
+                            </div>
+                        </div>
+                    </a>
                 `;
-                grid.appendChild(card);
-            });
+            }).join('');
         }
+
+        // Set up tab click handlers
+        document.querySelectorAll('.band-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                switchToBand(tab.dataset.band);
+            });
+        });
 
         // Initialize on page load
         loadBooks();

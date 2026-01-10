@@ -220,8 +220,60 @@ CRITICAL: NO text, words, letters, or writing of any kind. Pure illustration onl
     return None
 
 
+# Shot type specific prompt templates
+SHOT_PROMPTS = {
+    "wide": """ONE wide establishing shot for children's book. No grid, no panels.
+
+Scene: {scene}
+
+Style: {style}
+
+IMPORTANT: Match the EXACT spatial layout from Panel 1 of the reference (top-left).
+Keep all geography consistent - building positions, distances, landscape features.
+Characters should match those in Panels 2-3 of the reference.
+
+CRITICAL: NO text, words, or letters. Single illustration only.""",
+
+    "medium": """ONE medium shot for children's book. No grid, no panels.
+
+Scene: {scene}
+
+Style: {style}
+
+Focus on the character(s) from waist up or full figure with some environment context.
+Match character designs from Panels 2-3 of the reference image.
+Background can be simplified or slightly blurred.
+
+CRITICAL: NO text, words, or letters. Single illustration only.""",
+
+    "close": """ONE close-up shot for children's book. No grid, no panels.
+
+Scene: {scene}
+
+Style: {style}
+
+Focus tightly on face, hands, or key details. Minimal or no background.
+Match character features from Panels 2-3 of the reference.
+Capture emotion and expression clearly.
+
+CRITICAL: NO text, words, or letters. Single illustration only.""",
+
+    "interior": """ONE interior scene for children's book. No grid, no panels.
+
+Scene: {scene}
+
+Style: {style}
+
+Match interior settings from Panels 4-6 of the reference if applicable.
+Focus on the indoor environment and character within it.
+Consistent lighting and architectural details.
+
+CRITICAL: NO text, words, or letters. Single illustration only."""
+}
+
+
 def generate_page(book: BookInfo, page_num: int, scene: str, page_type: str,
-                  ref_uri: str, config) -> bool:
+                  ref_uri: str, config, shot_type: str = None) -> bool:
     """Generate a single page image."""
 
     if page_type == "cover":
@@ -234,16 +286,10 @@ def generate_page(book: BookInfo, page_num: int, scene: str, page_type: str,
 
     band_style = BAND_STYLES.get(book.band, BAND_STYLES["B"])
 
-    prompt = f"""ONE illustration for children's book. No grid, no panels.
-
-Scene: {scene}
-
-Style: {band_style['base']}
-
-Match characters and settings exactly from the reference image (9-panel style guide).
-Maintain consistent spatial layout for any exterior scenes.
-
-CRITICAL: NO text, words, or letters. Single illustration only."""
+    # Use shot-type specific prompt or default to medium
+    shot = shot_type or "medium"
+    prompt_template = SHOT_PROMPTS.get(shot, SHOT_PROMPTS["medium"])
+    prompt = prompt_template.format(scene=scene, style=band_style['base'])
 
     body = {
         "prompt": prompt,
@@ -314,7 +360,8 @@ def generate_book(slug: str, ref_only: bool = False, pages_only: bool = False):
     if book.cover_page:
         print(f"\n  [COVER]")
         scene = book.cover_page.get("scene", f"Cover illustration for {book.title}")
-        if generate_page(book, 1, scene, "cover", ref_uri, config):
+        cover_shot = book.cover_page.get("shot_type", "wide")
+        if generate_page(book, 1, scene, "cover", ref_uri, config, shot_type=cover_shot):
             print(f"    ✓ Cover")
         else:
             print(f"    ✗ Cover failed")
@@ -323,7 +370,7 @@ def generate_book(slug: str, ref_only: bool = False, pages_only: bool = False):
     if book.title_page:
         print(f"\n  [TITLE PAGE]")
         scene = f"Decorative title page illustration showing the main setting of {book.title}. No characters, peaceful establishing shot."
-        if generate_page(book, 3, scene, "title", ref_uri, config):
+        if generate_page(book, 3, scene, "title", ref_uri, config, shot_type="wide"):
             print(f"    ✓ Title page")
         else:
             print(f"    ✗ Title page failed")
@@ -334,14 +381,15 @@ def generate_book(slug: str, ref_only: bool = False, pages_only: bool = False):
     for i, page in enumerate(book.story_pages):
         page_num = page.get("page", i + 4)
         scene = page.get("scene", "")
+        shot_type = page.get("shot_type", "medium")
 
         output_path = PAGES_DIR / f"{slug}_page{str(page_num).zfill(2)}.png"
         if output_path.exists():
             success += 1
             continue
 
-        print(f"    [{page_num}] {scene[:40]}...", end=" ", flush=True)
-        if generate_page(book, page_num, scene, "story", ref_uri, config):
+        print(f"    [{page_num}] ({shot_type}) {scene[:35]}...", end=" ", flush=True)
+        if generate_page(book, page_num, scene, "story", ref_uri, config, shot_type=shot_type):
             print("✓")
             success += 1
         else:

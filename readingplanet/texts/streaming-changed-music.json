@@ -188,5 +188,28 @@
       "hint": "Think about what the article says about how streaming changed songwriting.",
       "explanation": "Artists know listeners can skip at any time, so they make songs shorter with hooks that come faster to grab attention before people skip."
     }
+  ],
+  "writingPrompts": [
+    {
+      "id": "sm-summary",
+      "type": "summary",
+      "text": "Summarize how music listening has changed from 1999 to today. Include at least three major changes mentioned in the article.",
+      "minWords": 50,
+      "targetWords": 100
+    },
+    {
+      "id": "sm-opinion",
+      "type": "opinion",
+      "text": "Do you think streaming has been good or bad for music? Use evidence from the article to support your position.",
+      "minWords": 75,
+      "targetWords": 150
+    },
+    {
+      "id": "sm-connection",
+      "type": "response",
+      "text": "How do you discover and listen to music? Compare your experience to how people listened to music before streaming.",
+      "minWords": 75,
+      "targetWords": 150
+    }
   ]
 }

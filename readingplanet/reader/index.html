@@ -793,6 +793,7 @@
             </div>
             <div class="comp-summary-actions">
                 <a href="/readingplanet/library/" class="btn btn-outline">Back to Library</a>
+                <a href="#" class="btn btn-secondary" id="writeAboutBtn" style="display: none;">Write About This</a>
                 <button class="btn btn-primary" id="summaryDoneBtn">Finish</button>
             </div>
         </div>
@@ -2404,6 +2405,15 @@
                 <h3>Skill Breakdown</h3>
                 ${breakdownHtml}
             `;
+
+            // Show "Write About This" button if text has writing prompts
+            const writeBtn = document.getElementById('writeAboutBtn');
+            if (currentText?.writingPrompts && currentText.writingPrompts.length > 0) {
+                writeBtn.href = `/readingplanet/writing/?text=${currentText.id}`;
+                writeBtn.style.display = 'inline-flex';
+            } else {
+                writeBtn.style.display = 'none';
+            }
 
             document.getElementById('compSummary').classList.remove('hidden');
         }

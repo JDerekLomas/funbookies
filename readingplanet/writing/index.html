@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing Studio - ReadingPlanet</title>
+    <link rel="icon" type="image/svg+xml" href="/readingplanet/images/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/readingplanet/styles/shared.css">
+
+    <style>
+        .page-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-lg) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            color: var(--color-text-secondary);
+            transition: all var(--transition-fast);
+        }
+
+        .back-btn:hover {
+            background: var(--color-bg-alt);
+            color: var(--color-text);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
+            flex: 1;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: var(--space-xs);
+            background: var(--color-bg-alt);
+            padding: 4px;
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .tab {
+            flex: 1;
+            padding: var(--space-sm) var(--space-md);
+            border: none;
+            background: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .tab:hover {
+            color: var(--color-text);
+        }
+
+        .tab.active {
+            background: var(--color-white);
+            color: var(--color-text);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Prompt selection */
+        .prompt-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .prompt-section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+
+        .prompt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .prompt-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .prompt-card:hover {
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-md);
+        }
+
+        .prompt-card.selected {
+            border-color: var(--color-accent);
+            background: #eff6ff;
+        }
+
+        .prompt-type {
+            display: inline-block;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .prompt-type.summary { background: #dbeafe; color: #2563eb; }
+        .prompt-type.response { background: #dcfce7; color: #16a34a; }
+        .prompt-type.opinion { background: #fef3c7; color: #d97706; }
+        .prompt-type.creative { background: #fce7f3; color: #db2777; }
+
+        .prompt-text {
+            font-size: 0.9375rem;
+            color: var(--color-text);
+            line-height: 1.5;
+            margin-bottom: var(--space-sm);
+        }
+
+        .prompt-meta {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Writing Editor */
+        .editor-container {
+            display: none;
+            gap: var(--space-xl);
+        }
+
+        .editor-container.active {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+        }
+
+        @media (max-width: 1024px) {
+            .editor-container.active {
+                grid-template-columns: 1fr;
+            }
+
+            .editor-sidebar {
+                order: -1;
+            }
+        }
+
+        .editor-main {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .editor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-bg-alt);
+        }
+
+        .editor-prompt-preview {
+            flex: 1;
+        }
+
+        .editor-prompt-type {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 2px;
+        }
+
+        .editor-prompt-text {
+            font-size: 0.875rem;
+            color: var(--color-text);
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .editor-textarea {
+            width: 100%;
+            min-height: 400px;
+            padding: var(--space-xl);
+            border: none;
+            font-family: var(--font-reading);
+            font-size: 1.0625rem;
+            line-height: 1.8;
+            color: var(--color-text);
+            resize: vertical;
+        }
+
+        .editor-textarea:focus {
+            outline: none;
+        }
+
+        .editor-textarea::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        .editor-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-lg);
+            border-top: 1px solid var(--color-border);
+            background: var(--color-bg-alt);
+        }
+
+        .word-count {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+        }
+
+        .word-count-num {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .word-count.warning .word-count-num {
+            color: #f59e0b;
+        }
+
+        .word-count.good .word-count-num {
+            color: #22c55e;
+        }
+
+        /* Sidebar */
+        .editor-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .sidebar-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+
+        .sidebar-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+
+        .reference-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md);
+            background: var(--color-bg-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .reference-toggle:hover {
+            background: var(--color-border);
+        }
+
+        .reference-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .reference-content.open {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .reference-text {
+            padding: var(--space-md);
+            font-size: 0.8125rem;
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+            border: 1px solid var(--color-border);
+            border-top: none;
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+        }
+
+        /* Tips */
+        .tip-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+        }
+
+        .tip-icon {
+            color: var(--color-teal);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Feedback display */
+        .feedback-container {
+            display: none;
+        }
+
+        .feedback-container.active {
+            display: block;
+        }
+
+        .feedback-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .feedback-header {
+            padding: var(--space-lg);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .feedback-score {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .score-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .score-circle.excellent { background: #22c55e; }
+        .score-circle.good { background: #3b82f6; }
+        .score-circle.developing { background: #f59e0b; }
+        .score-circle.needs-work { background: #ef4444; }
+
+        .score-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .score-sublabel {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        .feedback-body {
+            padding: var(--space-lg);
+        }
+
+        .feedback-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .feedback-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .feedback-section-title {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .feedback-section-title .icon {
+            font-size: 1rem;
+        }
+
+        .feedback-text {
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+        }
+
+        .rubric-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+        }
+
+        .rubric-item {
+            padding: var(--space-md);
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+        }
+
+        .rubric-name {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin-bottom: 4px;
+        }
+
+        .rubric-score {
+            display: flex;
+            gap: 4px;
+        }
+
+        .rubric-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-border);
+        }
+
+        .rubric-dot.filled {
+            background: var(--color-accent);
+        }
+
+        .feedback-actions {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Portfolio */
+        .portfolio-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .portfolio-item {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .portfolio-item:hover {
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .portfolio-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: var(--space-sm);
+        }
+
+        .portfolio-prompt {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--color-text);
+            flex: 1;
+        }
+
+        .portfolio-score {
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+        }
+
+        .portfolio-score.excellent { background: #dcfce7; color: #16a34a; }
+        .portfolio-score.good { background: #dbeafe; color: #2563eb; }
+        .portfolio-score.developing { background: #fef3c7; color: #d97706; }
+
+        .portfolio-preview {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-sm);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .portfolio-meta {
+            display: flex;
+            gap: var(--space-md);
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--color-border);
+            border-top-color: var(--color-accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: var(--space-md);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .loading-subtext {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-3xl);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-md);
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .empty-text {
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-lg);
+        }
+    </style>
+</head>
+<body>
+    <script src="/readingplanet/js/data-service.js"></script>
+    <script src="/readingplanet/js/student-picker.js"></script>
+
+    <!-- Header -->
+    <header class="page-header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="/readingplanet/" class="back-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </a>
+                <h1 class="page-title">Writing Studio</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="container" style="padding: var(--space-xl) 0;">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="write">Write</button>
+            <button class="tab" data-tab="portfolio">My Writing</button>
+        </div>
+
+        <!-- Write Tab -->
+        <div class="tab-content active" id="tab-write">
+            <!-- Prompt Selection -->
+            <div class="prompt-selection" id="promptSelection">
+                <div class="prompt-section">
+                    <h2 class="prompt-section-title">Choose a Writing Prompt</h2>
+                    <div class="prompt-grid" id="promptGrid">
+                        <!-- Prompts loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editor -->
+            <div class="editor-container" id="editorContainer">
+                <div class="editor-main">
+                    <div class="editor-header">
+                        <div class="editor-prompt-preview">
+                            <div class="editor-prompt-type" id="editorPromptType">Summary</div>
+                            <div class="editor-prompt-text" id="editorPromptText">Write a summary...</div>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="btn btn-ghost btn-sm" id="changePromptBtn">Change Prompt</button>
+                        </div>
+                    </div>
+                    <textarea class="editor-textarea" id="editorTextarea" placeholder="Start writing here..."></textarea>
+                    <div class="editor-footer">
+                        <div class="word-count" id="wordCount">
+                            <span class="word-count-num">0</span> words
+                        </div>
+                        <div class="editor-actions">
+                            <button class="btn btn-outline" id="saveDraftBtn">Save Draft</button>
+                            <button class="btn btn-primary" id="submitBtn" disabled>Get Feedback</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="editor-sidebar">
+                    <!-- Reference Text -->
+                    <div class="sidebar-card" id="referenceCard" style="display: none;">
+                        <h3 class="sidebar-title">Reference Text</h3>
+                        <button class="reference-toggle" id="referenceToggle">
+                            <span id="referenceTitle">View original text</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </button>
+                        <div class="reference-content" id="referenceContent">
+                            <div class="reference-text" id="referenceText"></div>
+                        </div>
+                    </div>
+
+                    <!-- Writing Tips -->
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">Writing Tips</h3>
+                        <div class="tip-list" id="tipList">
+                            <div class="tip-item">
+                                <span class="tip-icon">&#10003;</span>
+                                <span>Start with your main idea</span>
+                            </div>
+                            <div class="tip-item">
+                                <span class="tip-icon">&#10003;</span>
+                                <span>Use evidence from the text</span>
+                            </div>
+                            <div class="tip-item">
+                                <span class="tip-icon">&#10003;</span>
+                                <span>Explain your thinking</span>
+                            </div>
+                            <div class="tip-item">
+                                <span class="tip-icon">&#10003;</span>
+                                <span>Check spelling and grammar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Display -->
+            <div class="feedback-container" id="feedbackContainer">
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-score">
+                            <div class="score-circle good" id="feedbackScoreCircle">B</div>
+                            <div>
+                                <div class="score-label" id="feedbackScoreLabel">Good Work!</div>
+                                <div class="score-sublabel" id="feedbackScoreSub">Keep improving</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback-body">
+                        <div class="feedback-section">
+                            <div class="feedback-section-title">
+                                <span class="icon">&#11088;</span> Strengths
+                            </div>
+                            <div class="feedback-text" id="feedbackStrengths">
+                                Loading feedback...
+                            </div>
+                        </div>
+                        <div class="feedback-section">
+                            <div class="feedback-section-title">
+                                <span class="icon">&#128161;</span> Suggestions
+                            </div>
+                            <div class="feedback-text" id="feedbackSuggestions">
+                                Loading suggestions...
+                            </div>
+                        </div>
+                        <div class="feedback-section">
+                            <div class="feedback-section-title">
+                                <span class="icon">&#128200;</span> Rubric Scores
+                            </div>
+                            <div class="rubric-grid" id="rubricGrid">
+                                <!-- Rubric items -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback-actions">
+                        <button class="btn btn-outline" id="reviseBtn">Revise My Writing</button>
+                        <button class="btn btn-primary" id="newWritingBtn">Start New Writing</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Tab -->
+        <div class="tab-content" id="tab-portfolio">
+            <div class="portfolio-list" id="portfolioList">
+                <div class="empty-state">
+                    <div class="empty-icon">&#9997;&#65039;</div>
+                    <div class="empty-title">No writing yet</div>
+                    <div class="empty-text">Complete a writing prompt to see your work here.</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Getting feedback...</div>
+        <div class="loading-subtext">This may take a moment</div>
+    </div>
+
+    <script>
+        // Writing prompts
+        const WRITING_PROMPTS = [
+            {
+                id: 'summary-general',
+                type: 'summary',
+                text: 'Write a summary of what you just read. Include the main idea and 2-3 key details.',
+                minWords: 50,
+                targetWords: 100,
+                tips: ['State the main idea first', 'Include important details', 'Use your own words']
+            },
+            {
+                id: 'response-connection',
+                type: 'response',
+                text: 'How does this text connect to something in your own life? Describe the connection and explain why it matters.',
+                minWords: 75,
+                targetWords: 150,
+                tips: ['Describe your personal connection', 'Explain how the text relates', 'Share why this matters to you']
+            },
+            {
+                id: 'opinion-agree',
+                type: 'opinion',
+                text: 'Do you agree with the main argument or message of this text? Explain your position using evidence from the text.',
+                minWords: 75,
+                targetWords: 150,
+                tips: ['State your opinion clearly', 'Give reasons from the text', 'Explain your thinking']
+            },
+            {
+                id: 'response-learn',
+                type: 'response',
+                text: 'What is the most important thing you learned from this text? Why do you think it matters?',
+                minWords: 50,
+                targetWords: 100,
+                tips: ['Identify the key takeaway', 'Explain why it\'s important', 'Connect to the bigger picture']
+            },
+            {
+                id: 'creative-continue',
+                type: 'creative',
+                text: 'If this story or article continued, what do you think would happen next? Write the next paragraph.',
+                minWords: 75,
+                targetWords: 150,
+                tips: ['Stay consistent with the text', 'Use similar style', 'Make it believable']
+            },
+            {
+                id: 'opinion-change',
+                type: 'opinion',
+                text: 'Did this text change how you think about something? Explain what changed and why.',
+                minWords: 75,
+                targetWords: 150,
+                tips: ['Describe your thinking before', 'Explain what changed', 'Give evidence from the text']
+            }
+        ];
+
+        let currentStudent = null;
+        let currentPrompt = null;
+        let currentDraft = null;
+        let referenceText = null;
+        let allWriting = [];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.ReadingPlanetDB) {
+                await window.ReadingPlanetDB.ready;
+            }
+
+            const picker = new StudentPicker({
+                title: 'Writing Studio',
+                allowCreate: true,
+                allowSkip: false,
+            });
+
+            currentStudent = await picker.show();
+
+            if (currentStudent) {
+                loadPrompts();
+                loadPortfolio();
+                checkForReferenceText();
+            }
+
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Tab switching
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+                });
+            });
+
+            // Editor textarea
+            const textarea = document.getElementById('editorTextarea');
+            textarea.addEventListener('input', updateWordCount);
+
+            // Change prompt
+            document.getElementById('changePromptBtn').addEventListener('click', () => {
+                document.getElementById('promptSelection').style.display = 'block';
+                document.getElementById('editorContainer').classList.remove('active');
+            });
+
+            // Save draft
+            document.getElementById('saveDraftBtn').addEventListener('click', saveDraft);
+
+            // Submit for feedback
+            document.getElementById('submitBtn').addEventListener('click', submitForFeedback);
+
+            // Reference toggle
+            document.getElementById('referenceToggle').addEventListener('click', () => {
+                document.getElementById('referenceContent').classList.toggle('open');
+            });
+
+            // Revise
+            document.getElementById('reviseBtn').addEventListener('click', () => {
+                document.getElementById('feedbackContainer').classList.remove('active');
+                document.getElementById('editorContainer').classList.add('active');
+            });
+
+            // New writing
+            document.getElementById('newWritingBtn').addEventListener('click', () => {
+                currentPrompt = null;
+                currentDraft = null;
+                document.getElementById('editorTextarea').value = '';
+                document.getElementById('feedbackContainer').classList.remove('active');
+                document.getElementById('promptSelection').style.display = 'block';
+                updateWordCount();
+            });
+        }
+
+        function loadPrompts() {
+            const grid = document.getElementById('promptGrid');
+
+            grid.innerHTML = WRITING_PROMPTS.map(prompt => `
+                <div class="prompt-card" data-id="${prompt.id}">
+                    <span class="prompt-type ${prompt.type}">${prompt.type}</span>
+                    <p class="prompt-text">${prompt.text}</p>
+                    <div class="prompt-meta">Target: ${prompt.targetWords} words</div>
+                </div>
+            `).join('');
+
+            // Add click handlers
+            grid.querySelectorAll('.prompt-card').forEach(card => {
+                card.addEventListener('click', () => selectPrompt(card.dataset.id));
+            });
+        }
+
+        function selectPrompt(promptId) {
+            currentPrompt = WRITING_PROMPTS.find(p => p.id === promptId);
+            if (!currentPrompt) return;
+
+            // Update editor
+            document.getElementById('editorPromptType').textContent = currentPrompt.type;
+            document.getElementById('editorPromptText').textContent = currentPrompt.text;
+
+            // Update tips
+            const tipList = document.getElementById('tipList');
+            tipList.innerHTML = currentPrompt.tips.map(tip => `
+                <div class="tip-item">
+                    <span class="tip-icon">&#10003;</span>
+                    <span>${tip}</span>
+                </div>
+            `).join('');
+
+            // Show editor
+            document.getElementById('promptSelection').style.display = 'none';
+            document.getElementById('editorContainer').classList.add('active');
+            document.getElementById('editorTextarea').focus();
+
+            updateWordCount();
+        }
+
+        function checkForReferenceText() {
+            // Check if coming from a reading session
+            const params = new URLSearchParams(window.location.search);
+            const textId = params.get('text');
+
+            if (textId) {
+                loadReferenceText(textId);
+            }
+        }
+
+        async function loadReferenceText(textId) {
+            try {
+                const response = await fetch(`/readingplanet/texts/${textId}.json`);
+                if (!response.ok) return;
+
+                referenceText = await response.json();
+
+                // Show reference card
+                document.getElementById('referenceCard').style.display = 'block';
+                document.getElementById('referenceTitle').textContent = referenceText.title;
+
+                // Build reference content
+                let content = '';
+                if (Array.isArray(referenceText.content)) {
+                    content = referenceText.content.map(block => {
+                        if (block.type === 'heading') return `<strong>${block.text}</strong><br><br>`;
+                        return `${block.text}<br><br>`;
+                    }).join('');
+                }
+                document.getElementById('referenceText').innerHTML = content;
+
+            } catch (e) {
+                console.error('Failed to load reference text:', e);
+            }
+        }
+
+        function updateWordCount() {
+            const text = document.getElementById('editorTextarea').value.trim();
+            const words = text ? text.split(/\s+/).length : 0;
+            const wordCountEl = document.getElementById('wordCount');
+            const submitBtn = document.getElementById('submitBtn');
+
+            wordCountEl.querySelector('.word-count-num').textContent = words;
+
+            // Update styling based on word count
+            wordCountEl.classList.remove('warning', 'good');
+            if (currentPrompt) {
+                if (words < currentPrompt.minWords) {
+                    wordCountEl.classList.add('warning');
+                } else if (words >= currentPrompt.targetWords) {
+                    wordCountEl.classList.add('good');
+                }
+            }
+
+            // Enable/disable submit button
+            submitBtn.disabled = words < (currentPrompt?.minWords || 30);
+        }
+
+        async function saveDraft() {
+            if (!currentStudent || !currentPrompt) return;
+
+            const text = document.getElementById('editorTextarea').value;
+
+            try {
+                const writing = await window.ReadingPlanetDB.saveWriting({
+                    studentId: currentStudent.id,
+                    promptId: currentPrompt.id,
+                    promptText: currentPrompt.text,
+                    content: text,
+                    wordCount: text.trim().split(/\s+/).length,
+                    textId: referenceText?.id,
+                    status: 'draft'
+                });
+
+                currentDraft = writing;
+
+                // Show saved confirmation
+                const btn = document.getElementById('saveDraftBtn');
+                btn.textContent = 'Saved!';
+                setTimeout(() => btn.textContent = 'Save Draft', 2000);
+
+            } catch (e) {
+                console.error('Failed to save draft:', e);
+            }
+        }
+
+        async function submitForFeedback() {
+            if (!currentStudent || !currentPrompt) return;
+
+            const text = document.getElementById('editorTextarea').value;
+
+            // Show loading
+            document.getElementById('loadingOverlay').classList.add('active');
+
+            try {
+                // Get AI feedback
+                const feedback = await getAIFeedback(text, currentPrompt);
+
+                // Save writing with feedback
+                const writing = await window.ReadingPlanetDB.saveWriting({
+                    studentId: currentStudent.id,
+                    promptId: currentPrompt.id,
+                    promptText: currentPrompt.text,
+                    content: text,
+                    wordCount: text.trim().split(/\s+/).length,
+                    textId: referenceText?.id,
+                    status: 'submitted',
+                    feedback: feedback
+                });
+
+                // Display feedback
+                displayFeedback(feedback);
+
+                // Reload portfolio
+                loadPortfolio();
+
+            } catch (e) {
+                console.error('Failed to get feedback:', e);
+                alert('Sorry, there was an error getting feedback. Please try again.');
+            } finally {
+                document.getElementById('loadingOverlay').classList.remove('active');
+            }
+        }
+
+        async function getAIFeedback(text, prompt) {
+            // For now, simulate AI feedback
+            // In production, this would call a Claude API endpoint
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            const wordCount = text.trim().split(/\s+/).length;
+            const hasMainIdea = text.toLowerCase().includes('because') || text.toLowerCase().includes('therefore') || text.length > 200;
+            const hasEvidence = text.includes('"') || text.toLowerCase().includes('according to') || text.toLowerCase().includes('the text says');
+            const hasOrganization = text.split('.').length > 3;
+
+            // Calculate scores (1-4)
+            const scores = {
+                mainIdea: hasMainIdea ? (wordCount > 100 ? 4 : 3) : 2,
+                evidence: hasEvidence ? 4 : (wordCount > 75 ? 3 : 2),
+                organization: hasOrganization ? (wordCount > 100 ? 4 : 3) : 2,
+                mechanics: wordCount > 50 ? 3 : 2
+            };
+
+            const avgScore = Object.values(scores).reduce((a, b) => a + b, 0) / 4;
+            let grade, label, sublabel;
+
+            if (avgScore >= 3.5) {
+                grade = 'A'; label = 'Excellent Work!'; sublabel = 'Outstanding response';
+            } else if (avgScore >= 2.75) {
+                grade = 'B'; label = 'Good Work!'; sublabel = 'Strong response';
+            } else if (avgScore >= 2) {
+                grade = 'C'; label = 'Developing'; sublabel = 'Keep practicing';
+            } else {
+                grade = 'D'; label = 'Needs Work'; sublabel = 'Let\'s improve together';
+            }
+
+            // Generate feedback based on type
+            let strengths = [];
+            let suggestions = [];
+
+            if (scores.mainIdea >= 3) {
+                strengths.push('You clearly stated your main idea.');
+            } else {
+                suggestions.push('Try to state your main point more clearly at the beginning.');
+            }
+
+            if (scores.evidence >= 3) {
+                strengths.push('Good use of evidence from the text.');
+            } else {
+                suggestions.push('Include more specific details or quotes from the text to support your ideas.');
+            }
+
+            if (scores.organization >= 3) {
+                strengths.push('Your writing is well-organized.');
+            } else {
+                suggestions.push('Try to organize your response with a clear beginning, middle, and end.');
+            }
+
+            if (wordCount >= prompt.targetWords) {
+                strengths.push(`You met the word count goal (${wordCount} words).`);
+            } else {
+                suggestions.push(`Try to write more - aim for ${prompt.targetWords} words.`);
+            }
+
+            return {
+                grade,
+                label,
+                sublabel,
+                scores,
+                strengths: strengths.join(' '),
+                suggestions: suggestions.join(' ')
+            };
+        }
+
+        function displayFeedback(feedback) {
+            // Update score
+            const circle = document.getElementById('feedbackScoreCircle');
+            circle.textContent = feedback.grade;
+            circle.className = 'score-circle';
+            if (feedback.grade === 'A') circle.classList.add('excellent');
+            else if (feedback.grade === 'B') circle.classList.add('good');
+            else if (feedback.grade === 'C') circle.classList.add('developing');
+            else circle.classList.add('needs-work');
+
+            document.getElementById('feedbackScoreLabel').textContent = feedback.label;
+            document.getElementById('feedbackScoreSub').textContent = feedback.sublabel;
+
+            // Update text sections
+            document.getElementById('feedbackStrengths').textContent = feedback.strengths;
+            document.getElementById('feedbackSuggestions').textContent = feedback.suggestions;
+
+            // Update rubric
+            const rubricGrid = document.getElementById('rubricGrid');
+            const rubricLabels = {
+                mainIdea: 'Main Idea',
+                evidence: 'Evidence',
+                organization: 'Organization',
+                mechanics: 'Mechanics'
+            };
+
+            rubricGrid.innerHTML = Object.entries(feedback.scores).map(([key, score]) => `
+                <div class="rubric-item">
+                    <div class="rubric-name">${rubricLabels[key]}</div>
+                    <div class="rubric-score">
+                        ${[1, 2, 3, 4].map(i => `
+                            <div class="rubric-dot ${i <= score ? 'filled' : ''}"></div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Show feedback
+            document.getElementById('editorContainer').classList.remove('active');
+            document.getElementById('feedbackContainer').classList.add('active');
+        }
+
+        async function loadPortfolio() {
+            if (!currentStudent || !window.ReadingPlanetDB) return;
+
+            try {
+                allWriting = await window.ReadingPlanetDB.getWriting(currentStudent.id, { excludeDrafts: true });
+
+                const list = document.getElementById('portfolioList');
+
+                if (allWriting.length === 0) {
+                    list.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">&#9997;&#65039;</div>
+                            <div class="empty-title">No writing yet</div>
+                            <div class="empty-text">Complete a writing prompt to see your work here.</div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                list.innerHTML = allWriting.map(writing => {
+                    const scoreClass = writing.feedback?.grade === 'A' ? 'excellent' :
+                                      writing.feedback?.grade === 'B' ? 'good' : 'developing';
+                    const date = new Date(writing.date).toLocaleDateString();
+
+                    return `
+                        <div class="portfolio-item" data-id="${writing.id}">
+                            <div class="portfolio-header">
+                                <div class="portfolio-prompt">${writing.promptText}</div>
+                                ${writing.feedback ? `
+                                    <span class="portfolio-score ${scoreClass}">${writing.feedback.grade}</span>
+                                ` : ''}
+                            </div>
+                            <div class="portfolio-preview">${writing.content.substring(0, 150)}...</div>
+                            <div class="portfolio-meta">
+                                <span>${writing.wordCount} words</span>
+                                <span>${date}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (e) {
+                console.error('Failed to load portfolio:', e);
+            }
+        }
+    </script>
+</body>
+</html>

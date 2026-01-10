@@ -189,5 +189,28 @@
       "hint": "This player's problem is mental, not physical.",
       "explanation": "Since the player can make shots in practice, the issue is mental. A consistent routine helps block out game-time distractions."
     }
+  ],
+  "writingPrompts": [
+    {
+      "id": "ft-summary",
+      "type": "summary",
+      "text": "Summarize the three key physical elements of a perfect free throw, and explain how psychology also plays a role.",
+      "minWords": 50,
+      "targetWords": 100
+    },
+    {
+      "id": "ft-connection",
+      "type": "response",
+      "text": "Think of a skill you've practiced (sports, music, art, etc.). How does the advice in this article apply to your own experience?",
+      "minWords": 75,
+      "targetWords": 150
+    },
+    {
+      "id": "ft-opinion",
+      "type": "opinion",
+      "text": "Is the mental aspect of sports more important than the physical aspect? Use evidence from the article to support your answer.",
+      "minWords": 75,
+      "targetWords": 150
+    }
   ]
 }

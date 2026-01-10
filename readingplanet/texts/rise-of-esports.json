@@ -193,5 +193,28 @@
       "hint": "Look at what the article says about how pro gamers train.",
       "explanation": "Supporters argue that pro gamers train 10-14 hours daily, work with coaches and psychologists, and need incredible reaction times and mental focus - just like traditional athletes."
     }
+  ],
+  "writingPrompts": [
+    {
+      "id": "es-summary",
+      "type": "summary",
+      "text": "Summarize the growth of esports from its beginnings to today. Include key milestones and statistics from the article.",
+      "minWords": 50,
+      "targetWords": 100
+    },
+    {
+      "id": "es-opinion",
+      "type": "opinion",
+      "text": "Should esports be considered a real sport? Take a position and support it with evidence from the article.",
+      "minWords": 75,
+      "targetWords": 150
+    },
+    {
+      "id": "es-connection",
+      "type": "response",
+      "text": "Have you ever watched or played competitive video games? How does your experience compare to what the article describes?",
+      "minWords": 75,
+      "targetWords": 150
+    }
   ]
 }

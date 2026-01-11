@@ -92,17 +92,19 @@ export default async function handler(req, res) {
       });
     }
 
-    // For sync APIs, result is immediate
-    if (submitResult.images && submitResult.images.length > 0) {
+    // For sync APIs, result is immediate - check various response formats
+    const images = submitResult.images || submitResult.output?.images || submitResult.data?.images;
+    if (images && images.length > 0) {
       return res.status(200).json({
         success: true,
-        url: submitResult.images[0],
+        url: images[0].url || images[0],
         path: `${slug}_page_${page}.png`,
         message: 'Image generated. Right-click to save.'
       });
     }
 
-    throw new Error('No image returned from API');
+    // Return debug info if no images found
+    throw new Error(`No image returned. Response keys: ${Object.keys(submitResult).join(', ')}`);
 
   } catch (error) {
     console.error('Generation error:', error);

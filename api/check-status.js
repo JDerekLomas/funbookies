@@ -57,11 +57,15 @@ export default async function handler(req, res) {
       });
     }
 
-    // Still pending
+    // Still pending - include debug info
     return res.status(200).json({
       success: true,
       pending: true,
-      status: status || 'unknown'
+      status: status || 'unknown',
+      debug: {
+        keys: Object.keys(statusResult),
+        raw: statusResult
+      }
     });
 
   } catch (error) {

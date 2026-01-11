@@ -138,5 +138,34 @@
       "image_prompt": "NO TEXT IN IMAGE. Mother pig and baby pig sitting together in mud puddle, both covered in mud, big happy smiles, hugging. BOLD BLACK OUTLINES. Children's book illustration."
     }
   ],
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly illustration\nMood: gentle, comforting, bright\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Pig in Mud\nPanel 2: Words to Know\nPanel 3: Pig is hot.\nPanel 4: Pig can run.\nPanel 5: Pig got in the mud!\nPanel 6: It is wet. It is fun!\nPanel 7: Mom Pig is not happy.\nPanel 8: \"Not in the mud!\"\nPanel 9: Pig is sad.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly illustration\nMood: gentle, comforting, bright\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Pig in Mud\nPanel 2: Words to Know\nPanel 3: Pig is hot.\nPanel 4: Pig can run.\nPanel 5: Pig got in the mud!\nPanel 6: It is wet. It is fun!\nPanel 7: Mom Pig is not happy.\nPanel 8: \"Not in the mud!\"\nPanel 9: Pig is sad.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Look at the cover together. Point to pictures and ask: What do you see? This book helps practice reading skills.",
+    "during_reading": "Point to each word as you read. Encourage your child to find pictures that match the words.",
+    "after_reading": "Ask: What happened in the story? Can you find your favorite picture?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'Pig in Mud'?",
+      "answer": "Not"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does Not solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ],
+  "wordsearch_words": [],
+  "summary": "Pig in Mud is a story about Not and Pig and Fun. This book helps readers practice reading skills while enjoying an engaging adventure."
 }

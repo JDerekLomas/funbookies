@@ -190,5 +190,48 @@
       "anyway"
     ]
   },
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Rich watercolor illustration, more detailed characters and settings, dynamic compositions\nMood: exciting, imaginative, engaging\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A young girl searching frantically through her bedroom, looking under the bed.\nPanel 2: A kind older brother putting his hand on his sister's shoulder reassuringly.\nPanel 3: Maya looking out the window at a wooden treehouse in the backyard.\nPanel 4: Maya pointing excitedly toward the backyard treehouse through the kitchen door.\nPanel 5: Two children climbing a wooden ladder up to a treehouse in a big oak tree.\nPanel 6: Ben pointing at a muddy footprint on the wooden treehouse floor.\nPanel 7: Maya crouching down to examine the mysterious footprint closely.\nPanel 8: Ben shaking his head, both children looking puzzled and curious.\nPanel 9: Both children looking out the treehouse window at rustling bushes below.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Rich watercolor illustration, more detailed characters and settings, dynamic compositions\nMood: exciting, imaginative, engaging\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A young girl searching frantically through her bedroom, looking under the bed.\nPanel 2: A kind older brother putting his hand on his sister's shoulder reassuringly.\nPanel 3: Maya looking out the window at a wooden treehouse in the backyard.\nPanel 4: Maya pointing excitedly toward the backyard treehouse through the kitchen door.\nPanel 5: Two children climbing a wooden ladder up to a treehouse in a big oak tree.\nPanel 6: Ben pointing at a muddy footprint on the wooden treehouse floor.\nPanel 7: Maya crouching down to examine the mysterious footprint closely.\nPanel 8: Ben shaking his head, both children looking puzzled and curious.\nPanel 9: Both children looking out the treehouse window at rustling bushes below.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Look at the title and cover of 'The Treehouse Mystery'. Ask: What might this story be about? This book focuses on reading skills.",
+    "during_reading": "Pause to discuss new vocabulary words. Encourage your child to use context clues and reading skills patterns.",
+    "after_reading": "Discuss the story together. Ask: Why did the character make those choices? What would you have done differently?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'The Treehouse Mystery'?",
+      "answer": "Check the story"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does the main character solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ],
+  "wordsearch_words": [
+    "you'd",
+    "isn't",
+    "must've",
+    "what's",
+    "we'll",
+    "it's",
+    "don't",
+    "can't"
+  ],
+  "summary": "The Treehouse Mystery is a story about the characters. This book helps readers practice reading skills while enjoying an engaging adventure.",
+  "word_list": {
+    "sound_out": [],
+    "sight": [],
+    "new": []
+  }
 }

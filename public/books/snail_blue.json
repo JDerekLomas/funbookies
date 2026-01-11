@@ -166,5 +166,43 @@
       "image_prompt": "NO TEXT IN IMAGE. Snail leaving sparkly trail on beach as sun sets over sea. Peaceful ending. BOLD BLACK OUTLINES. Children's book illustration."
     }
   ],
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: The Sneaky Snail\nPanel 2: Words to Know\nPanel 3: Snail was slow. Snail did not need to be fast.\nPanel 4: \"I want to see the sea!\" said Snail.\nPanel 5: Snail went on the road. The trail was long.\nPanel 6: A bee said, \"You are too slow!\"\nPanel 7: But Snail could see a leaf the bee did not see!\nPanel 8: A toad said, \"You need to leap and run!\"\nPanel 9: But Snail could see a trail of seeds to eat!\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: The Sneaky Snail\nPanel 2: Words to Know\nPanel 3: Snail was slow. Snail did not need to be fast.\nPanel 4: \"I want to see the sea!\" said Snail.\nPanel 5: Snail went on the road. The trail was long.\nPanel 6: A bee said, \"You are too slow!\"\nPanel 7: But Snail could see a leaf the bee did not see!\nPanel 8: A toad said, \"You need to leap and run!\"\nPanel 9: But Snail could see a trail of seeds to eat!\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Preview the cover of 'The Sneaky Snail'. Ask: What do you think will happen? Look for words with reading skills.",
+    "during_reading": "When you see tricky words, help your child sound them out. Notice words that use reading skills.",
+    "after_reading": "Ask: What was the problem in the story? How was it solved? What did You learn?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'The Sneaky Snail'?",
+      "answer": "You"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does You solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ],
+  "wordsearch_words": [
+    "could",
+    "leaf",
+    "tail",
+    "need",
+    "read",
+    "feet",
+    "trail",
+    "wait"
+  ],
+  "summary": "The Sneaky Snail is a story about You and At and Snail. This book helps readers practice reading skills while enjoying an engaging adventure."
 }

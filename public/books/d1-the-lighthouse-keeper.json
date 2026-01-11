@@ -258,5 +258,91 @@
       "compound-complex"
     ]
   },
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Coastal watercolor style, muted blues and warm sunset oranges, vintage seaside aesthetic, atmospheric lighting\nMood: atmospheric, immersive, evocative\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A weathered lighthouse stands on rocky cliffs against a sunset sky, with a young girl gazing up at i...\nPanel 2: The Lighthouse Keeper\nPanel 3: A girl with windblown hair stands before a tall white lighthouse, waves crashing on rocks below.\nPanel 4: An elderly woman with kind eyes sits in a rocking chair, gesturing as she tells stories.\nPanel 5: Peeling paint on lighthouse walls, broken shutters, and an elderly woman looking concerned.\nPanel 6: Grandmother and granddaughter watching the beacon spin as dusk falls over the ocean.\nPanel 7: Maya with a determined expression, rolling up her sleeves in front of maintenance supplies.\nPanel 8: A friendly middle-aged man in a captain's hat looks down at Maya with concern and curiosity.\nPanel 9: Maya standing tall, meeting the harbor master's gaze with confidence.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Coastal watercolor style, muted blues and warm sunset oranges, vintage seaside aesthetic, atmospheric lighting\nMood: atmospheric, immersive, evocative\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A weathered lighthouse stands on rocky cliffs against a sunset sky, with a young girl gazing up at i...\nPanel 2: The Lighthouse Keeper\nPanel 3: A girl with windblown hair stands before a tall white lighthouse, waves crashing on rocks below.\nPanel 4: An elderly woman with kind eyes sits in a rocking chair, gesturing as she tells stories.\nPanel 5: Peeling paint on lighthouse walls, broken shutters, and an elderly woman looking concerned.\nPanel 6: Grandmother and granddaughter watching the beacon spin as dusk falls over the ocean.\nPanel 7: Maya with a determined expression, rolling up her sleeves in front of maintenance supplies.\nPanel 8: A friendly middle-aged man in a captain's hat looks down at Maya with concern and curiosity.\nPanel 9: Maya standing tall, meeting the harbor master's gaze with confidence.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Preview 'The Lighthouse Keeper' and make predictions. Discuss any challenging vocabulary: reading skills.",
+    "during_reading": "Encourage independent reading. Pause to discuss plot developments and character motivations.",
+    "after_reading": "Have a conversation about themes in the story. Ask: What message did the author want to share?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'The Lighthouse Keeper'?",
+      "answer": "Grandma"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does Grandma solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ],
+  "wordsearch_words": [
+    "light",
+    "grandma",
+    "about",
+    "when",
+    "beacon",
+    "every",
+    "summer",
+    "before"
+  ],
+  "summary": "The Lighthouse Keeper is a story about Grandma and Although and From. This book helps readers practice reading skills while enjoying an engaging adventure.",
+  "word_list": {
+    "sound_out": [
+      "about",
+      "after",
+      "any",
+      "arms",
+      "as",
+      "asked",
+      "away",
+      "back",
+      "been",
+      "boats",
+      "but",
+      "came",
+      "can",
+      "chair",
+      "check",
+      "chen",
+      "could",
+      "day",
+      "did",
+      "do"
+    ],
+    "sight": [
+      "a",
+      "i",
+      "the",
+      "to",
+      "and",
+      "it",
+      "in",
+      "on",
+      "see",
+      "he",
+      "she",
+      "be",
+      "you",
+      "are",
+      "was"
+    ],
+    "new": [
+      "afternoon",
+      "against",
+      "although",
+      "always",
+      "answered"
+    ]
+  }
 }

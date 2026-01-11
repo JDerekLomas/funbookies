@@ -307,5 +307,32 @@
     "decodabilityTarget": "80%+",
     "storyPages": 16
   },
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A smiling girl named Kate standing by a sparkling blue lake with a friendly mule nearby. Warm waterc...\nPanel 2: Words to Know\nPanel 3: A girl waking up happily in her bedroom on a sunny June morning. Warm watercolor style.\nPanel 4: A girl riding a blue bike along a path toward a lake. Warm watercolor style.\nPanel 5: A girl arriving at a beautiful blue lake, bike beside her. Warm watercolor style.\nPanel 6: A girl sitting on a large stone by the water, waving. Warm watercolor style.\nPanel 7: A friendly tan mule approaching a girl by the lake. Warm watercolor style.\nPanel 8: Kate petting the large but gentle mule named Duke. Warm watercolor style.\nPanel 9: Kate and Duke playing hide and seek near pine trees by the lake. Warm watercolor style.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A smiling girl named Kate standing by a sparkling blue lake with a friendly mule nearby. Warm waterc...\nPanel 2: Words to Know\nPanel 3: A girl waking up happily in her bedroom on a sunny June morning. Warm watercolor style.\nPanel 4: A girl riding a blue bike along a path toward a lake. Warm watercolor style.\nPanel 5: A girl arriving at a beautiful blue lake, bike beside her. Warm watercolor style.\nPanel 6: A girl sitting on a large stone by the water, waving. Warm watercolor style.\nPanel 7: A friendly tan mule approaching a girl by the lake. Warm watercolor style.\nPanel 8: Kate petting the large but gentle mule named Duke. Warm watercolor style.\nPanel 9: Kate and Duke playing hide and seek near pine trees by the lake. Warm watercolor style.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Preview the cover of 'Kate and the Lake'. Ask: What do you think will happen? Look for words with reading skills.",
+    "during_reading": "When you see tricky words, help your child sound them out. Notice words that use reading skills.",
+    "after_reading": "Ask: What was the problem in the story? How was it solved? What did June learn?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'Kate and the Lake'?",
+      "answer": "June"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does June solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ]
 }

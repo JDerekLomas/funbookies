@@ -142,5 +142,32 @@
     "letterConstraints": "M, S, A, T, O, I, L, C",
     "caseConstraint": "Sentence-initial caps, lowercase for known letters"
   },
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly illustration\nMood: gentle, comforting, bright\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A child with binoculars looking at various animals. Warm watercolor style.\nPanel 2: Words to Know\nPanel 3: A friendly cat sitting and looking at the viewer.\nPanel 4: A colorful mat on the floor.\nPanel 5: A cat sitting down on the floor.\nPanel 6: A child pointing at the cat on the mat.\nPanel 7: The cat sitting comfortably on the mat.\nPanel 8: A child smiling and watching the cat.\nPanel 9: The cat curled up happily on the mat.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly illustration\nMood: gentle, comforting, bright\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A child with binoculars looking at various animals. Warm watercolor style.\nPanel 2: Words to Know\nPanel 3: A friendly cat sitting and looking at the viewer.\nPanel 4: A colorful mat on the floor.\nPanel 5: A cat sitting down on the floor.\nPanel 6: A child pointing at the cat on the mat.\nPanel 7: The cat sitting comfortably on the mat.\nPanel 8: A child smiling and watching the cat.\nPanel 9: The cat curled up happily on the mat.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Look at the cover together. Point to pictures and ask: What do you see? This book helps practice reading skills.",
+    "during_reading": "Point to each word as you read. Encourage your child to find pictures that match the words.",
+    "after_reading": "Ask: What happened in the story? Can you find your favorite picture?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'I See It'?",
+      "answer": "Check the story"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does the main character solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ]
 }

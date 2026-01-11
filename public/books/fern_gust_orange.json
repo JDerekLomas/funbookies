@@ -343,5 +343,43 @@
       "image_prompt": "FINAL IMAGE - SUNSET SCENE: Fern (brown mouse) sitting on her hill in warm sunset light, looking at the viewer with a knowing, happy smile. Behind and around her, leaves drift gently in the air, grass sways softly, suggesting Gust's continued presence. Her fur is gently ruffled. Her fern-spiral tail curls contentedly. She waves one small paw goodbye to the viewer. The scene is warm, peaceful, magical. Two friends together - one you can see, one you can only feel. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
     }
   ],
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Fern and the Gust\nPanel 2: Words to Know\nPanel 3: Fern sat in the sun.\nPanel 4: Swish! The grass did sway!\nPanel 5: \"What was that?\" said Fern.\nPanel 6: Whoosh! A leaf hit Fern!\nPanel 7: \"I can not see it!\" said Fern.\nPanel 8: Puff! Puff! Puff!\nPanel 9: Fern did run!\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Fern and the Gust\nPanel 2: Words to Know\nPanel 3: Fern sat in the sun.\nPanel 4: Swish! The grass did sway!\nPanel 5: \"What was that?\" said Fern.\nPanel 6: Whoosh! A leaf hit Fern!\nPanel 7: \"I can not see it!\" said Fern.\nPanel 8: Puff! Puff! Puff!\nPanel 9: Fern did run!\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Preview the cover of 'Fern and the Gust'. Ask: What do you think will happen? Look for words with short vowels CVC.",
+    "during_reading": "When you see tricky words, help your child sound them out. Notice words that use short vowels CVC.",
+    "after_reading": "Ask: What was the problem in the story? How was it solved? What did Gust learn?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'Fern and the Gust'?",
+      "answer": "Gust"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does Gust solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ],
+  "wordsearch_words": [
+    "with",
+    "rush",
+    "swish",
+    "puff",
+    "push",
+    "gust",
+    "spin",
+    "huff"
+  ],
+  "summary": "Fern and the Gust is a story about Gust and Whiz and Fern. This book helps readers practice short vowels CVC while enjoying an engaging adventure."
 }

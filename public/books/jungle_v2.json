@@ -217,5 +217,42 @@
       "riso_notes": "Zee GREEN, Pip BLUE, jungle BLACK silhouette, warm ending"
     }
   ],
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Zee and the Jungle\nPanel 2: Words to Know\nPanel 3: Zee sat in a big tree.\nPanel 4: The sun was up.\nPanel 5: \"Slow is good,\" said Zee.\nPanel 6: ZIP! A bird!\nPanel 7: \"Fast! Fast! Fast!\" said Pip.\nPanel 8: Pip sat with Zee.\nPanel 9: \"Let's go fast!\" said Pip.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Zee and the Jungle\nPanel 2: Words to Know\nPanel 3: Zee sat in a big tree.\nPanel 4: The sun was up.\nPanel 5: \"Slow is good,\" said Zee.\nPanel 6: ZIP! A bird!\nPanel 7: \"Fast! Fast! Fast!\" said Pip.\nPanel 8: Pip sat with Zee.\nPanel 9: \"Let's go fast!\" said Pip.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Preview the cover of 'Zee and the Jungle'. Ask: What do you think will happen? Look for words with reading skills.",
+    "during_reading": "When you see tricky words, help your child sound them out. Notice words that use reading skills.",
+    "after_reading": "Ask: What was the problem in the story? How was it solved? What did Zee learn?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'Zee and the Jungle'?",
+      "answer": "Zee"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does Zee solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ],
+  "wordsearch_words": [
+    "slow",
+    "with",
+    "fast",
+    "best",
+    "went",
+    "good",
+    "said"
+  ],
+  "summary": "Zee and the Jungle is a story about Zee and Go and Slow. This book helps readers practice reading skills while enjoying an engaging adventure."
 }

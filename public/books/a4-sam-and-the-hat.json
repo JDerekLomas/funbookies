@@ -190,5 +190,32 @@
     "letterConstraints": "All except b/d together",
     "caseConstraint": "Lowercase dominant"
   },
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly illustration\nMood: gentle, comforting, bright\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A cute orange cat named Sam looking at a colorful hat. Warm watercolor style.\nPanel 2: Words to Know\nPanel 3: A friendly orange cat named Sam sitting and smiling.\nPanel 4: Sam the cat sitting on a colorful mat.\nPanel 5: Sam looking up at a hat on a high shelf.\nPanel 6: A hat sitting on top of a tall shelf.\nPanel 7: Sam running toward the shelf with the hat.\nPanel 8: Sam looking up at the hat, thinking.\nPanel 9: Sam standing on the mat, ready to jump.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly illustration\nMood: gentle, comforting, bright\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A cute orange cat named Sam looking at a colorful hat. Warm watercolor style.\nPanel 2: Words to Know\nPanel 3: A friendly orange cat named Sam sitting and smiling.\nPanel 4: Sam the cat sitting on a colorful mat.\nPanel 5: Sam looking up at a hat on a high shelf.\nPanel 6: A hat sitting on top of a tall shelf.\nPanel 7: Sam running toward the shelf with the hat.\nPanel 8: Sam looking up at the hat, thinking.\nPanel 9: Sam standing on the mat, ready to jump.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Look at the cover together. Point to pictures and ask: What do you see? This book helps practice reading skills.",
+    "during_reading": "Point to each word as you read. Encourage your child to find pictures that match the words.",
+    "after_reading": "Ask: What happened in the story? Can you find your favorite picture?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'Sam and the Hat'?",
+      "answer": "Can"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does Can solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ]
 }

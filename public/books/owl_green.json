@@ -166,5 +166,43 @@
       "image_prompt": "NO TEXT IN IMAGE. Owl and bat waving, starry night behind them, first star brightest. Happy ending. BOLD BLACK OUTLINES. Children's book illustration."
     }
   ],
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: The First Star\nPanel 2: Words to Know\nPanel 3: Owl sat in the dark. It was not far from the barn.\nPanel 4: Owl liked the dark. It was her turn to wake!\nPanel 5: \"The first star! I can see the first star!\"\nPanel 6: A bird with fur came to sit with Owl.\nPanel 7: \"What is that star for?\" said the bird.\nPanel 8: \"Stars are for a wish,\" said Owl.\nPanel 9: Owl made a wish on the first star.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: The First Star\nPanel 2: Words to Know\nPanel 3: Owl sat in the dark. It was not far from the barn.\nPanel 4: Owl liked the dark. It was her turn to wake!\nPanel 5: \"The first star! I can see the first star!\"\nPanel 6: A bird with fur came to sit with Owl.\nPanel 7: \"What is that star for?\" said the bird.\nPanel 8: \"Stars are for a wish,\" said Owl.\nPanel 9: Owl made a wish on the first star.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Preview the cover of 'The First Star'. Ask: What do you think will happen? Look for words with reading skills.",
+    "during_reading": "When you see tricky words, help your child sound them out. Notice words that use reading skills.",
+    "after_reading": "Ask: What was the problem in the story? How was it solved? What did Owl learn?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'The First Star'?",
+      "answer": "Owl"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does Owl solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ],
+  "wordsearch_words": [
+    "with",
+    "burn",
+    "dark",
+    "came",
+    "turn",
+    "wish",
+    "first",
+    "stars"
+  ],
+  "summary": "The First Star is a story about Owl and Stars and More. This book helps readers practice reading skills while enjoying an engaging adventure."
 }

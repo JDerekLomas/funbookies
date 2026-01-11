@@ -249,5 +249,32 @@
     "decodabilityTarget": "90%+",
     "storyPages": 14
   },
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A cute muddy puppy splashing in a mud puddle under a sunny sky. Warm watercolor style.\nPanel 2: Words to Know\nPanel 3: A happy child named Jen playing with a small puppy. Warm watercolor style.\nPanel 4: A puppy running joyfully in bright sunshine. Warm watercolor style.\nPanel 5: A puppy panting in the heat, looking at the bright sun. Warm watercolor style.\nPanel 6: A puppy hopping toward a mud puddle excitedly. Warm watercolor style.\nPanel 7: A puppy splashing happily in a mud puddle. Warm watercolor style.\nPanel 8: A muddy puppy looking cool and happy in the puddle. Warm watercolor style.\nPanel 9: A bug landing on the muddy puppy's nose. Warm watercolor style.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A cute muddy puppy splashing in a mud puddle under a sunny sky. Warm watercolor style.\nPanel 2: Words to Know\nPanel 3: A happy child named Jen playing with a small puppy. Warm watercolor style.\nPanel 4: A puppy running joyfully in bright sunshine. Warm watercolor style.\nPanel 5: A puppy panting in the heat, looking at the bright sun. Warm watercolor style.\nPanel 6: A puppy hopping toward a mud puddle excitedly. Warm watercolor style.\nPanel 7: A puppy splashing happily in a mud puddle. Warm watercolor style.\nPanel 8: A muddy puppy looking cool and happy in the puddle. Warm watercolor style.\nPanel 9: A bug landing on the muddy puppy's nose. Warm watercolor style.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Preview the cover of 'Pup in the Mud'. Ask: What do you think will happen? Look for words with reading skills.",
+    "during_reading": "When you see tricky words, help your child sound them out. Notice words that use reading skills.",
+    "after_reading": "Ask: What was the problem in the story? How was it solved? What did Jen learn?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'Pup in the Mud'?",
+      "answer": "Jen"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does Jen solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ]
 }

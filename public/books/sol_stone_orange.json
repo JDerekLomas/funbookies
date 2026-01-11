@@ -328,5 +328,43 @@
       "image_prompt": "FINAL IMAGE: Sol (amber salamander) sitting on his rock in golden sunset light, looking at the viewer with a warm, knowing expression - as if sharing a secret. Behind him in the far distance, the cave entrance is visible, with the faintest purple glow emanating from within. Sol's forehead spots glow gold. He waves one small foot at the viewer - a gentle 'goodbye for now.' The image says: magic is real, patience is rewarded, and Sol knows where to find wonder. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
     }
   ],
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Sol and the Stone\nPanel 2: Words to Know\nPanel 3: Sol sat in the sun.\nPanel 4: Sol saw a path.\nPanel 5: The path led to a cave.\nPanel 6: \"I can go in,\" said Sol.\nPanel 7: In Sol went.\nPanel 8: It was dim.\nPanel 9: Hush. Hush. Hush.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Sol and the Stone\nPanel 2: Words to Know\nPanel 3: Sol sat in the sun.\nPanel 4: Sol saw a path.\nPanel 5: The path led to a cave.\nPanel 6: \"I can go in,\" said Sol.\nPanel 7: In Sol went.\nPanel 8: It was dim.\nPanel 9: Hush. Hush. Hush.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Preview the cover of 'Sol and the Stone'. Ask: What do you think will happen? Look for words with short vowels CVC.",
+    "during_reading": "When you see tricky words, help your child sound them out. Notice words that use short vowels CVC.",
+    "after_reading": "Ask: What was the problem in the story? How was it solved? What did Hush learn?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'Sol and the Stone'?",
+      "answer": "Hush"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does Hush solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ],
+  "wordsearch_words": [
+    "with",
+    "hmmm",
+    "much",
+    "stone",
+    "path",
+    "hush",
+    "wish",
+    "gush"
+  ],
+  "summary": "Sol and the Stone is a story about Hush and Sol and In. This book helps readers practice short vowels CVC while enjoying an engaging adventure."
 }

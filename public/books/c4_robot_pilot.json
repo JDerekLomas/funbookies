@@ -169,5 +169,48 @@
       "always"
     ]
   },
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Retro sci-fi illustration, friendly robots, cockpit views, chrome and sky blue palette\nMood: exciting, imaginative, engaging\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A friendly robot standing outside a small cabin near an airport runway.\nPanel 2: The robot gazing at airplanes taking off, dreaming expression on its face.\nPanel 3: A paper airplane floating down and landing near the robot's cabin door.\nPanel 4: The robot holding the paper airplane, reading the note carefully.\nPanel 5: Close-up of the note with a drawing of a tiger pilot.\nPanel 6: The robot running excitedly toward the airport terminal building.\nPanel 7: A vibrant purple airplane covered in sparkles sitting on the runway.\nPanel 8: A tiger wearing a pilot uniform, smiling warmly at the approaching robot.\nPanel 9: The tiger gesturing while explaining, robot listening attentively.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Retro sci-fi illustration, friendly robots, cockpit views, chrome and sky blue palette\nMood: exciting, imaginative, engaging\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A friendly robot standing outside a small cabin near an airport runway.\nPanel 2: The robot gazing at airplanes taking off, dreaming expression on its face.\nPanel 3: A paper airplane floating down and landing near the robot's cabin door.\nPanel 4: The robot holding the paper airplane, reading the note carefully.\nPanel 5: Close-up of the note with a drawing of a tiger pilot.\nPanel 6: The robot running excitedly toward the airport terminal building.\nPanel 7: A vibrant purple airplane covered in sparkles sitting on the runway.\nPanel 8: A tiger wearing a pilot uniform, smiling warmly at the approaching robot.\nPanel 9: The tiger gesturing while explaining, robot listening attentively.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Look at the title and cover of 'The Robot and the Pilot'. Ask: What might this story be about? This book focuses on reading skills.",
+    "during_reading": "Pause to discuss new vocabulary words. Encourage your child to use context clues and reading skills patterns.",
+    "after_reading": "Discuss the story together. Ask: Why did the character make those choices? What would you have done differently?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'The Robot and the Pilot'?",
+      "answer": "Check the story"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does the main character solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ],
+  "wordsearch_words": [
+    "runway",
+    "middle",
+    "focus",
+    "homework",
+    "birthday",
+    "pilot",
+    "little",
+    "open"
+  ],
+  "summary": "The Robot and the Pilot is a story about the characters. This book helps readers practice reading skills while enjoying an engaging adventure.",
+  "word_list": {
+    "sound_out": [],
+    "sight": [],
+    "new": []
+  }
 }

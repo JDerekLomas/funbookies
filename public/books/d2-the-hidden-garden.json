@@ -337,5 +337,91 @@
       "Working in garden -> healing -> reconnecting with father"
     ]
   },
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Lush botanical illustration, secret garden aesthetic, dappled sunlight, rich greens and flower colors\nMood: atmospheric, immersive, evocative\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A rusted iron gate covered in vines, with glimpses of wildflowers beyond, and a curious girl peering...\nPanel 2: The Hidden Garden\nPanel 3: Chapter heading with decorative vine border.\nPanel 4: A twelve-year-old girl with braided hair looking out a rainy car window, her expression distant.\nPanel 5: A father driving, worry lines on his face, looking at the mirror.\nPanel 6: Empty picture frame on a nightstand, wilting flowers beside it.\nPanel 7: A Victorian house in disrepair, overgrown yard, broken fence.\nPanel 8: Close-up of a girl's hands releasing from tight fists, tension in her posture.\nPanel 9: A dark bedroom window, moonlight streaming in, a girl sitting up in bed alert.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Lush botanical illustration, secret garden aesthetic, dappled sunlight, rich greens and flower colors\nMood: atmospheric, immersive, evocative\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A rusted iron gate covered in vines, with glimpses of wildflowers beyond, and a curious girl peering...\nPanel 2: The Hidden Garden\nPanel 3: Chapter heading with decorative vine border.\nPanel 4: A twelve-year-old girl with braided hair looking out a rainy car window, her expression distant.\nPanel 5: A father driving, worry lines on his face, looking at the mirror.\nPanel 6: Empty picture frame on a nightstand, wilting flowers beside it.\nPanel 7: A Victorian house in disrepair, overgrown yard, broken fence.\nPanel 8: Close-up of a girl's hands releasing from tight fists, tension in her posture.\nPanel 9: A dark bedroom window, moonlight streaming in, a girl sitting up in bed alert.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Preview 'The Hidden Garden' and make predictions. Discuss any challenging vocabulary: reading skills.",
+    "during_reading": "Encourage independent reading. Pause to discuss plot developments and character motivations.",
+    "after_reading": "Have a conversation about themes in the story. Ask: What message did the author want to share?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'The Hidden Garden'?",
+      "answer": "Her"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does Her solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ],
+  "wordsearch_words": [
+    "with",
+    "time",
+    "could",
+    "when",
+    "window",
+    "still",
+    "found",
+    "before"
+  ],
+  "summary": "The Hidden Garden is a story about Her and Your and Grandma. This book helps readers practice reading skills while enjoying an engaging adventure.",
+  "word_list": {
+    "sound_out": [
+      "about",
+      "ached",
+      "after",
+      "all",
+      "along",
+      "an",
+      "arms",
+      "as",
+      "aside",
+      "at",
+      "away",
+      "back",
+      "beat",
+      "been",
+      "began",
+      "blur",
+      "bones",
+      "box",
+      "brown",
+      "bulbs"
+    ],
+    "sight": [
+      "a",
+      "i",
+      "the",
+      "to",
+      "and",
+      "it",
+      "in",
+      "on",
+      "see",
+      "he",
+      "she",
+      "be",
+      "are",
+      "was",
+      "for"
+    ],
+    "new": [
+      "against",
+      "almost",
+      "always",
+      "anymore",
+      "anything"
+    ]
+  }
 }

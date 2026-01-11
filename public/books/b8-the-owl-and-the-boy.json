@@ -343,5 +343,32 @@
     "decodabilityTarget": "80%+",
     "storyPages": 18
   },
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A boy named Roy standing in a moonlit wood, looking up at a wise owl in a tree. Warm watercolor styl...\nPanel 2: Words to Know\nPanel 3: A boy looking out his window at a bright full moon. Warm watercolor style.\nPanel 4: A brown owl perched in a tall tree at night. Warm watercolor style.\nPanel 5: The owl hooting loudly, Roy looking up in wonder. Warm watercolor style.\nPanel 6: Close-up of the owl with round brown eyes and fluffy feathers. Warm watercolor style.\nPanel 7: The owl flying down near a small brook in the woods. Warm watercolor style.\nPanel 8: Roy at a brook, spotting a mouse near the water. Warm watercolor style.\nPanel 9: The owl swooping toward the mouse who is running away. Warm watercolor style.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A boy named Roy standing in a moonlit wood, looking up at a wise owl in a tree. Warm watercolor styl...\nPanel 2: Words to Know\nPanel 3: A boy looking out his window at a bright full moon. Warm watercolor style.\nPanel 4: A brown owl perched in a tall tree at night. Warm watercolor style.\nPanel 5: The owl hooting loudly, Roy looking up in wonder. Warm watercolor style.\nPanel 6: Close-up of the owl with round brown eyes and fluffy feathers. Warm watercolor style.\nPanel 7: The owl flying down near a small brook in the woods. Warm watercolor style.\nPanel 8: Roy at a brook, spotting a mouse near the water. Warm watercolor style.\nPanel 9: The owl swooping toward the mouse who is running away. Warm watercolor style.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Preview the cover of 'The Owl and the Boy'. Ask: What do you think will happen? Look for words with reading skills.",
+    "during_reading": "When you see tricky words, help your child sound them out. Notice words that use reading skills.",
+    "after_reading": "Ask: What was the problem in the story? How was it solved? What did Soon learn?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'The Owl and the Boy'?",
+      "answer": "Soon"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does Soon solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ]
 }

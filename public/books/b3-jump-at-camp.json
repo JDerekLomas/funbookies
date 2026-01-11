@@ -278,5 +278,32 @@
     "decodabilityTarget": "85%+",
     "storyPages": 14
   },
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Two happy kids jumping in the air at a summer camp with tents in background. Warm watercolor style.\nPanel 2: Words to Know\nPanel 3: Two excited kids arriving at a summer camp with colorful tents. Warm watercolor style.\nPanel 4: Two kids working together to set up a tent. Warm watercolor style.\nPanel 5: A collapsed tent with two kids scrambling to fix it. Warm watercolor style.\nPanel 6: Two kids jumping in sandy area at camp. Warm watercolor style.\nPanel 7: Kids stomping and jumping in sand, having fun. Warm watercolor style.\nPanel 8: A wasp flying near a startled boy at camp. Warm watercolor style.\nPanel 9: A boy running up a grassy hill away from a wasp. Warm watercolor style.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Two happy kids jumping in the air at a summer camp with tents in background. Warm watercolor style.\nPanel 2: Words to Know\nPanel 3: Two excited kids arriving at a summer camp with colorful tents. Warm watercolor style.\nPanel 4: Two kids working together to set up a tent. Warm watercolor style.\nPanel 5: A collapsed tent with two kids scrambling to fix it. Warm watercolor style.\nPanel 6: Two kids jumping in sandy area at camp. Warm watercolor style.\nPanel 7: Kids stomping and jumping in sand, having fun. Warm watercolor style.\nPanel 8: A wasp flying near a startled boy at camp. Warm watercolor style.\nPanel 9: A boy running up a grassy hill away from a wasp. Warm watercolor style.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Preview the cover of 'Jump at Camp'. Ask: What do you think will happen? Look for words with reading skills.",
+    "during_reading": "When you see tricky words, help your child sound them out. Notice words that use reading skills.",
+    "after_reading": "Ask: What was the problem in the story? How was it solved? What did Camp learn?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'Jump at Camp'?",
+      "answer": "Camp"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does Camp solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ]
 }

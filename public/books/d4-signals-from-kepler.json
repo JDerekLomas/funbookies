@@ -477,5 +477,91 @@
     "theme": "First contact, scientific discovery, intergenerational legacy",
     "morphologyFocus": "Greek root identification and scientific vocabulary building"
   },
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Science fiction illustration, deep space blues and purples, glowing technology, starfield backgrounds\nMood: atmospheric, immersive, evocative\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A teenager gazing through a telescope at a distant star, with digital waveforms overlaying the starf...\nPanel 2: Signals from Kepler\nPanel 3: Chapter heading with telescope and constellation design.\nPanel 4: A twelve-year-old girl surrounded by astronomy books and star charts in a cluttered bedroom observat...\nPanel 5: An antique brass telescope mounted on a tripod, starlight streaming through a window.\nPanel 6: Old photograph of grandmother beside the telescope, with geological samples and astronomy notes.\nPanel 7: Computer screen showing unusual waveform patterns, girl leaning forward intently.\nPanel 8: Hand hovering over phone, face showing uncertainty and excitement.\nPanel 9: Digital clock showing late hour, girl making notes, recording equipment running.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Science fiction illustration, deep space blues and purples, glowing technology, starfield backgrounds\nMood: atmospheric, immersive, evocative\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: A teenager gazing through a telescope at a distant star, with digital waveforms overlaying the starf...\nPanel 2: Signals from Kepler\nPanel 3: Chapter heading with telescope and constellation design.\nPanel 4: A twelve-year-old girl surrounded by astronomy books and star charts in a cluttered bedroom observat...\nPanel 5: An antique brass telescope mounted on a tripod, starlight streaming through a window.\nPanel 6: Old photograph of grandmother beside the telescope, with geological samples and astronomy notes.\nPanel 7: Computer screen showing unusual waveform patterns, girl leaning forward intently.\nPanel 8: Hand hovering over phone, face showing uncertainty and excitement.\nPanel 9: Digital clock showing late hour, girl making notes, recording equipment running.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "parent_tips": {
+    "before_reading": "Preview 'Signals from Kepler' and make predictions. Discuss any challenging vocabulary: reading skills.",
+    "during_reading": "Encourage independent reading. Pause to discuss plot developments and character motivations.",
+    "after_reading": "Have a conversation about themes in the story. Ask: What message did the author want to share?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Who is the main character in 'Signals from Kepler'?",
+      "answer": "Her"
+    },
+    {
+      "question": "What happens at the beginning of the story?",
+      "answer": "The story introduces the characters and setting"
+    },
+    {
+      "question": "What problem does the character face?",
+      "answer": "The main challenge in the story"
+    },
+    {
+      "question": "How does Her solve the problem?",
+      "answer": "Through determination and help from friends"
+    },
+    {
+      "question": "What lesson can we learn from this story?",
+      "answer": "A positive message about friendship, perseverance, or kindness"
+    }
+  ],
+  "wordsearch_words": [
+    "amara",
+    "with",
+    "could",
+    "about",
+    "life",
+    "across",
+    "human",
+    "system"
+  ],
+  "summary": "Signals from Kepler is a story about Her and Our and Their. This book helps readers practice reading skills while enjoying an engaging adventure.",
+  "word_list": {
+    "sound_out": [
+      "about",
+      "all",
+      "along",
+      "am",
+      "amara",
+      "an",
+      "any",
+      "as",
+      "asked",
+      "at",
+      "back",
+      "basic",
+      "been",
+      "begun",
+      "best",
+      "but",
+      "by",
+      "call",
+      "chen",
+      "chose"
+    ],
+    "sight": [
+      "a",
+      "the",
+      "is",
+      "to",
+      "and",
+      "it",
+      "in",
+      "on",
+      "he",
+      "she",
+      "be",
+      "you",
+      "are",
+      "was",
+      "for"
+    ],
+    "new": [
+      "achieved",
+      "across",
+      "activity",
+      "adding",
+      "adjusting"
+    ]
+  }
 }

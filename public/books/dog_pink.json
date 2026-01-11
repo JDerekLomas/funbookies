@@ -59,7 +59,8 @@
       "page": 1,
       "type": "cover",
       "text": "No, No, Dog!",
-      "image_prompt": "NO TEXT IN IMAGE. Cute fluffy brown dog with floppy ears looking mischievous, wagging tail, standing next to knocked over plant pot. Dirt everywhere. BOLD BLACK OUTLINES. Simple children's book style."
+      "image_prompt": "NO TEXT IN IMAGE. Cute fluffy brown dog with floppy ears looking mischievous, wagging tail, standing next to knocked over plant pot. Dirt everywhere. BOLD BLACK OUTLINES. Simple children's book style.",
+      "scene": "A cute fluffy brown dog with floppy ears and big eyes on the cover, looking playfully guilty. Pink/orange accents."
     },
     {
       "page": 2,
@@ -70,49 +71,57 @@
       "page": 3,
       "type": "story",
       "text": "Dog.",
-      "image_prompt": "NO TEXT IN IMAGE. Cute fluffy brown dog with floppy ears, sitting nicely, big innocent eyes, pink tongue out, wagging tail. Simple background. BOLD BLACK OUTLINES. Children's book illustration."
+      "image_prompt": "NO TEXT IN IMAGE. Cute fluffy brown dog with floppy ears, sitting nicely, big innocent eyes, pink tongue out, wagging tail. Simple background. BOLD BLACK OUTLINES. Children's book illustration.",
+      "scene": "The brown dog jumping on a couch, cushions flying everywhere. Playful chaos."
     },
     {
       "page": 4,
       "type": "story",
       "text": "No, no!",
-      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog eating from food bowl on kitchen floor, making mess, food flying. Excited expression. BOLD BLACK OUTLINES. Children's book style."
+      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog eating from food bowl on kitchen floor, making mess, food flying. Excited expression. BOLD BLACK OUTLINES. Children's book style.",
+      "scene": "The dog digging in a flower garden, dirt flying, flowers scattered. Naughty but cute."
     },
     {
       "page": 5,
       "type": "story",
       "text": "No, no, Dog!",
-      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog digging in garden, dirt flying everywhere, happy expression, floppy ears flopping. Hole in ground. BOLD BLACK OUTLINES. Children's book illustration."
+      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog digging in garden, dirt flying everywhere, happy expression, floppy ears flopping. Hole in ground. BOLD BLACK OUTLINES. Children's book illustration.",
+      "scene": "The dog splashing in a mud puddle, mud splatters everywhere. Joyful expression."
     },
     {
       "page": 6,
       "type": "story",
       "text": "No, no!",
-      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog pulling on sock, tugging with teeth, playful stance, wagging tail. Sock stretching. BOLD BLACK OUTLINES. Children's book style."
+      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog pulling on sock, tugging with teeth, playful stance, wagging tail. Sock stretching. BOLD BLACK OUTLINES. Children's book style.",
+      "scene": "The dog running through the house with toilet paper trailing behind."
     },
     {
       "page": 7,
       "type": "story",
       "text": "No, no, Dog!",
-      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog jumping on couch, cushions flying, floppy ears up, happy excited face. Messy living room. BOLD BLACK OUTLINES. Children's book illustration."
+      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog jumping on couch, cushions flying, floppy ears up, happy excited face. Messy living room. BOLD BLACK OUTLINES. Children's book illustration.",
+      "scene": "The dog knocking over a plant pot, soil spilling. Oops expression."
     },
     {
       "page": 8,
       "type": "story",
       "text": "No, no!",
-      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog splashing in mud puddle, mud splattering, joyful expression, completely dirty. BOLD BLACK OUTLINES. Children's book style."
+      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog splashing in mud puddle, mud splattering, joyful expression, completely dirty. BOLD BLACK OUTLINES. Children's book style.",
+      "scene": "The dog chewing on a shoe, looking innocent despite the evidence."
     },
     {
       "page": 9,
       "type": "story",
       "text": "No, no, Dog!",
-      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog (now muddy) running through house, muddy paw prints everywhere, floppy ears bouncing, tongue out. BOLD BLACK OUTLINES. Children's book illustration."
+      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog (now muddy) running through house, muddy paw prints everywhere, floppy ears bouncing, tongue out. BOLD BLACK OUTLINES. Children's book illustration.",
+      "scene": "A child hugging the messy dog anyway, both smiling. Love despite the chaos."
     },
     {
       "page": 10,
       "type": "story",
       "text": "No, no!",
-      "image_prompt": "NO TEXT IN IMAGE. Cute brown muddy dog shaking off water/mud, droplets flying everywhere in bathroom. Eyes closed, happy. BOLD BLACK OUTLINES. Children's book style."
+      "image_prompt": "NO TEXT IN IMAGE. Cute brown muddy dog shaking off water/mud, droplets flying everywhere in bathroom. Eyes closed, happy. BOLD BLACK OUTLINES. Children's book style.",
+      "scene": "The dog sleeping peacefully, finally tired out. Cute ending."
     },
     {
       "page": 11,
@@ -133,5 +142,7 @@
       "image_prompt": "NO TEXT IN IMAGE. Cute brown dog curled up sleeping on child's lap, content smile, floppy ears relaxed. Peaceful scene. BOLD BLACK OUTLINES. Children's book illustration."
     }
   ],
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly illustration\nMood: gentle, comforting, bright\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: No, No, Dog!\nPanel 2: Words to Know\nPanel 3: Dog.\nPanel 4: No, no!\nPanel 5: No, no, Dog!\nPanel 6: No, no!\nPanel 7: No, no, Dog!\nPanel 8: No, no!\nPanel 9: No, no, Dog!\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."
+  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly illustration\nMood: gentle, comforting, bright\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: No, No, Dog!\nPanel 2: Words to Know\nPanel 3: Dog.\nPanel 4: No, no!\nPanel 5: No, no, Dog!\nPanel 6: No, no!\nPanel 7: No, no, Dog!\nPanel 8: No, no!\nPanel 9: No, no, Dog!\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "wordsearch_words": [],
+  "summary": "No, No, Dog! is a story about Dog and No. This book helps readers practice reading skills while enjoying an engaging adventure."
 }

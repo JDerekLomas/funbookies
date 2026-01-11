@@ -82,7 +82,14 @@ export default async function handler(req, res) {
     }
 
     // For async APIs, poll for result
-    const taskId = submitResult.task_id || submitResult.task_info?.task_id;
+    // Debug: check what's in task_info
+    const taskInfo = submitResult.task_info;
+    const taskId = submitResult.task_id || taskInfo?.task_id || taskInfo?.id;
+
+    if (!taskId && taskInfo) {
+      throw new Error(`task_info present but no task_id. task_info keys: ${Object.keys(taskInfo).join(', ')}`);
+    }
+
     if (taskId) {
       const imageUrl = await pollForResult(taskId, endpoint, apiKey);
       return res.status(200).json({

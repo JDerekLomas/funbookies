@@ -21,7 +21,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const statusResponse = await fetch(`${MULEROUTER_API_URL}${endpoint}?task_id=${taskId}`, {
+    // Status is checked by GET {endpoint}/{taskId} - taskId is a path parameter
+    const statusResponse = await fetch(`${MULEROUTER_API_URL}${endpoint}/${taskId}`, {
       headers: {
         'Authorization': `Bearer ${apiKey}`
       }

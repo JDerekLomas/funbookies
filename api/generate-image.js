@@ -92,11 +92,12 @@ export default async function handler(req, res) {
 
     if (taskId) {
       // Return task info for frontend polling (Vercel has timeout limits)
+      // Status is checked by GET {endpoint}/{taskId} - append taskId to generation endpoint
       return res.status(200).json({
         success: true,
         pending: true,
         taskId: taskId,
-        statusEndpoint: endpoint.replace('/generation', '/status'),
+        statusEndpoint: endpoint,  // Keep the generation endpoint, taskId appended by check-status
         message: 'Image generation started. Polling for result...'
       });
     }

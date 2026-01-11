@@ -1,96 +1,157 @@
 #!/usr/bin/env python3
-"""Add reference_prompt field to book JSONs (backfill from generation logic)."""
+"""Generate comprehensive reference_prompt for book JSONs.
+
+Extracts character details, art direction, color palette, and story summary
+to create rich prompts for 9-panel reference sheet generation.
+"""
 
 import json
 from pathlib import Path
 
 BOOKS_DIR = Path("/Users/dereklomas/lilbookies/public/books")
 
-# Style templates based on reading level/band
-STYLE_TEMPLATES = {
-    "A": {
-        "base": "Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly illustration",
-        "mood": "gentle, comforting, bright"
-    },
-    "B": {
-        "base": "Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style",
-        "mood": "energetic, fun, adventurous"
-    },
-    "C": {
-        "base": "Rich watercolor illustration, more detailed characters and settings, dynamic compositions",
-        "mood": "exciting, imaginative, engaging"
-    },
-    "D": {
-        "base": "Sophisticated illustration style, detailed environments, nuanced lighting, chapter book aesthetic",
-        "mood": "atmospheric, immersive, evocative"
-    }
-}
-
-# Book-specific style overrides
-BOOK_STYLES = {
-    "d1-the-lighthouse-keeper": "Coastal watercolor style, muted blues and warm sunset oranges, vintage seaside aesthetic, atmospheric lighting",
-    "d2-the-hidden-garden": "Lush botanical illustration, secret garden aesthetic, dappled sunlight, rich greens and flower colors",
-    "d3-the-architects-secret": "Architectural illustration style, warm browns and golds, mysterious shadows, historical building details",
-    "d4-signals-from-kepler": "Science fiction illustration, deep space blues and purples, glowing technology, starfield backgrounds",
-    "d5-the-winter-of-words": "Cozy winter illustration, soft whites and warm indoor lighting, snowy landscapes, bookish atmosphere",
-    "d6-the-bridge-between": "Dreamlike illustration, soft gradients, bridge and connection imagery, ethereal lighting",
-    "c1_knight_quest": "Medieval fantasy illustration, castle and forest settings, noble knights, warm golden lighting",
-    "c2_magic_city": "Magical urban illustration, floating buildings, sparkles and wonder, vibrant fantasy colors",
-    "c4_robot_pilot": "Retro sci-fi illustration, friendly robots, cockpit views, chrome and sky blue palette",
-    "c6_biggest_race": "Dynamic sports illustration, motion blur effects, competitive energy, bright action colors",
-    "c7_hopeless_garden": "Whimsical garden illustration, overgrown plants, determined characters, green and earth tones",
-    "c8_impossible_invention": "Steampunk-lite illustration, gears and gadgets, inventor's workshop, brass and copper tones",
-}
-
 
 def build_reference_prompt(slug: str, book: dict) -> str:
-    """Build a prompt for generating a 9-panel reference image."""
+    """Build a comprehensive prompt for generating a 9-panel reference image."""
 
-    band = book.get("band", book.get("level", "B")[0])
     title = book.get("title", slug)
-    style_template = STYLE_TEMPLATES.get(band, STYLE_TEMPLATES["B"])
+    theme = book.get("theme", "")
+    summary = book.get("summary", "")
 
-    # Check for book-specific style override
-    book_style = BOOK_STYLES.get(slug, style_template["base"])
+    # Extract character information
+    characters = book.get("character", {})
+    character_descriptions = []
 
-    # Extract scenes from pages
+    # Handle different character field structures
+    if isinstance(characters, dict):
+        names = characters.get("names", [])
+        style_notes = characters.get("style_notes", "")
+
+        # Look for individual character details
+        for key, value in characters.items():
+            if isinstance(value, dict) and key not in ["names"]:
+                char_name = key.capitalize()
+                species = value.get("species", "")
+                color = value.get("color", "")
+                body = value.get("body", "")
+                distinguishing = value.get("distinguishing_feature", "")
+                appearance = value.get("appearance", "")
+                expression = value.get("expression_default", "")
+
+                parts = [f"{char_name}:"]
+                if species:
+                    parts.append(species)
+                if color:
+                    parts.append(f"({color})")
+                if body:
+                    parts.append(body)
+                if distinguishing:
+                    parts.append(f"Distinguishing feature: {distinguishing}")
+                if appearance:
+                    parts.append(appearance)
+                if expression:
+                    parts.append(f"Expression: {expression}")
+
+                if len(parts) > 1:
+                    character_descriptions.append(" ".join(parts))
+
+    # Extract art direction
+    art_dir = book.get("art_direction", {})
+    style = art_dir.get("style", "")
+    mood = art_dir.get("mood", "")
+    influences = art_dir.get("influences", [])
+    must_include = art_dir.get("must_include", "")
+    avoid = art_dir.get("avoid", "")
+
+    # Extract color palette
+    palette = art_dir.get("palette", {})
+    color_list = []
+    for color_name, color_value in palette.items():
+        # Format: "grass_green (#81C784)" -> "grass green: #81C784"
+        name_formatted = color_name.replace("_", " ")
+        color_list.append(f"{name_formatted}: {color_value}")
+
+    # Build the comprehensive prompt
+    sections = []
+
+    # Title and theme
+    sections.append(f"9-PANEL REFERENCE SHEET for \"{title}\"")
+
+    if theme:
+        sections.append(f"\nSTORY THEME: {theme}")
+
+    if summary:
+        sections.append(f"\nSUMMARY: {summary}")
+
+    # Characters
+    if character_descriptions:
+        sections.append("\nCHARACTERS:")
+        for desc in character_descriptions:
+            sections.append(f"- {desc}")
+
+    if style_notes := characters.get("style_notes", ""):
+        sections.append(f"\nCHARACTER STYLE NOTES: {style_notes}")
+
+    # Art direction
+    if style:
+        sections.append(f"\nART STYLE: {style}")
+
+    if mood:
+        sections.append(f"\nMOOD: {mood}")
+
+    if influences:
+        sections.append(f"\nINFLUENCES: {', '.join(influences)}")
+
+    # Color palette
+    if color_list:
+        sections.append(f"\nCOLOR PALETTE: {', '.join(color_list[:8])}")  # Limit to 8 colors
+
+    # Key scenes from pages
     scenes = []
     for p in book.get("pages", []):
         scene = p.get("scene") or p.get("text", "")
-        if scene:
-            scenes.append(scene)
-    scenes = scenes[:9]
+        if scene and len(scene) > 10:
+            scenes.append(scene[:80] + "..." if len(scene) > 80 else scene)
 
-    # Build panel descriptions
-    panel_descriptions = []
-    for i, scene in enumerate(scenes[:9]):
-        if len(scene) > 100:
-            scene = scene[:100] + "..."
-        panel_descriptions.append(f"Panel {i+1}: {scene}")
+    if scenes[:6]:
+        sections.append("\nKEY SCENES TO SHOW:")
+        for i, scene in enumerate(scenes[:6], 1):
+            sections.append(f"  Panel {i}: {scene}")
 
-    # Pad to 9 panels if needed
-    while len(panel_descriptions) < 9:
-        panel_descriptions.append(f"Panel {len(panel_descriptions)+1}: Character or setting detail from {title}")
+    # Technical requirements
+    sections.append("\nTECHNICAL REQUIREMENTS:")
+    sections.append("- 9 panels in 3x3 grid")
+    sections.append("- Consistent style across all panels")
+    sections.append("- Square vignettes showing characters, settings, key moments")
 
-    prompt = f"""A 9-panel reference sheet for children's book illustration style.
-Style: {book_style}
-Mood: {style_template['mood']}
+    if must_include:
+        sections.append(f"- {must_include}")
 
-The 9 panels arranged in a 3x3 grid showing:
-{chr(10).join(panel_descriptions[:9])}
+    if avoid:
+        sections.append(f"- AVOID: {avoid}")
 
-Consistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.
+    sections.append("- NO TEXT, WORDS, OR LETTERS in the image")
 
-IMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."""
-
-    return prompt
+    return "\n".join(sections)
 
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--slug", help="Update specific book only")
+    parser.add_argument("--preview", action="store_true", help="Preview prompt without saving")
+    args = parser.parse_args()
+
     book_files = list(BOOKS_DIR.glob("*.json"))
     book_files = [f for f in book_files if f.name != "manifest.json"]
 
-    print(f"Adding reference_prompt to {len(book_files)} books...\n")
+    if args.slug:
+        book_files = [f for f in book_files if f.stem == args.slug]
+        if not book_files:
+            print(f"Book not found: {args.slug}")
+            return
+
+    print(f"Generating reference_prompt for {len(book_files)} books...\n")
 
     updated = 0
     for book_file in sorted(book_files):
@@ -102,6 +163,12 @@ def main():
         # Generate the reference prompt
         ref_prompt = build_reference_prompt(slug, book)
 
+        if args.preview:
+            print(f"=== {slug} ===")
+            print(ref_prompt)
+            print("\n" + "="*60 + "\n")
+            continue
+
         # Add to book data
         book["reference_prompt"] = ref_prompt
 
@@ -109,10 +176,11 @@ def main():
         with open(book_file, 'w') as f:
             json.dump(book, f, indent=2)
 
-        print(f"[{slug}] Added reference_prompt")
+        print(f"[{slug}] Updated reference_prompt")
         updated += 1
 
-    print(f"\nDone! Updated {updated} books.")
+    if not args.preview:
+        print(f"\nDone! Updated {updated} books.")
 
 
 if __name__ == "__main__":

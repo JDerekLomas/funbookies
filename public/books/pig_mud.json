@@ -204,7 +204,7 @@
       "image_prompt": "A round cheerful pink cartoon pig with a curly tail waving, simple friendly pose. Warm soft watercolor style."
     }
   ],
-  "reference_prompt": "A 9-panel reference sheet for children's book illustration style.\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nThe 9 panels arranged in a 3x3 grid showing:\nPanel 1: Pig in the Mud\nPanel 2: Words to Know\nPanel 3: Pip the pig sat in the sun.\nPanel 4: Pip saw mud!\nPanel 5: Pip ran to the mud.\nPanel 6: Pip got in the mud.\nPanel 7: The mud is fun!\nPanel 8: Pip saw a bug in the mud.\nPanel 9: Pip got a cup.\n\nConsistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.\n\nIMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text.",
+  "reference_prompt": "9-PANEL REFERENCE SHEET for \"Pig in the Mud\"\n\nSUMMARY: Pip the pig discovers a mud puddle and has the best day ever!\n\nKEY SCENES TO SHOW:\n  Panel 1: Pig in the Mud\n  Panel 2: Words to Know\n  Panel 3: Pip the pig sat in the sun.\n  Panel 4: Pip saw mud!\n  Panel 5: Pip ran to the mud.\n  Panel 6: Pip got in the mud.\n\nTECHNICAL REQUIREMENTS:\n- 9 panels in 3x3 grid\n- Consistent style across all panels\n- Square vignettes showing characters, settings, key moments\n- NO TEXT, WORDS, OR LETTERS in the image",
   "parent_tips": {
     "before_reading": "Preview the cover of 'Pig in the Mud'. Ask: What do you think will happen? Look for words with reading skills.",
     "during_reading": "When you see tricky words, help your child sound them out. Notice words that use reading skills.",

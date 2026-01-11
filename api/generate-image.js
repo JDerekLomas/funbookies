@@ -5,7 +5,7 @@
  * Returns the generated image URL (user downloads/saves manually).
  */
 
-const MULEROUTER_API_URL = 'https://api.mulerouter.com';
+const MULEROUTER_API_URL = 'https://api.mulerouter.ai';
 
 export default async function handler(req, res) {
   // Only allow POST

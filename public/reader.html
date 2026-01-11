@@ -1829,8 +1829,8 @@
 
                 currentBook = await res.json();
                 currentBook._slug = bookId;
-                // In edit mode, start at reference page (-1)
-                currentPage = editMode ? -1 : 0;
+                // In edit mode, start at creation notes page (-2)
+                currentPage = editMode ? -2 : 0;
 
                 document.getElementById('bookTitle').textContent = currentBook.title;
                 document.title = `${currentBook.title} - FunBookies${editMode ? ' (Edit)' : ''}`;
@@ -1882,8 +1882,17 @@
 
             let currentPrompt = '';
 
+            // Handle creation notes page (page -2)
+            if (currentPage === -2) {
+                document.getElementById('infoPage').textContent = `Creation Notes / ${currentBook.pages.length}`;
+                // Show story_bible as JSON for editing
+                const storyBible = currentBook.story_bible || {};
+                currentPrompt = Object.keys(storyBible).length > 0
+                    ? JSON.stringify(storyBible, null, 2)
+                    : 'No story bible. Add a story_bible object with: premise, themes, character_arcs, setting, emotional_beats, level_adaptation';
+            }
             // Handle reference page (page -1)
-            if (currentPage === -1) {
+            else if (currentPage === -1) {
                 document.getElementById('infoPage').textContent = `Reference / ${currentBook.pages.length}`;
                 currentPrompt = currentBook.reference_prompt || 'No reference prompt available';
             } else {
@@ -2362,6 +2371,76 @@
 
             const bookPage = document.getElementById('bookPage');
 
+            // Handle creation notes page (page -2) in edit mode
+            if (currentPage === -2 && editMode) {
+                const storyBible = currentBook.story_bible || {};
+                const hasStoryBible = Object.keys(storyBible).length > 0;
+
+                bookPage.innerHTML = `
+                    <div class="page-story" style="padding: 24px; background: var(--color-cream); overflow-y: auto;">
+                        <h2 style="color: var(--color-sage); margin-bottom: 16px; font-size: 1.2rem;">Creation Notes</h2>
+
+                        ${hasStoryBible ? `
+                            ${storyBible.premise ? `
+                                <div style="margin-bottom: 16px;">
+                                    <h3 style="color: var(--color-terracotta); font-size: 0.9rem; margin-bottom: 6px;">Premise</h3>
+                                    <p style="font-size: 0.85rem; line-height: 1.5; color: var(--color-charcoal);">${storyBible.premise}</p>
+                                </div>
+                            ` : ''}
+
+                            ${storyBible.themes ? `
+                                <div style="margin-bottom: 16px;">
+                                    <h3 style="color: var(--color-terracotta); font-size: 0.9rem; margin-bottom: 6px;">Themes</h3>
+                                    <p style="font-size: 0.85rem; color: var(--color-charcoal);">${Array.isArray(storyBible.themes) ? storyBible.themes.join(', ') : storyBible.themes}</p>
+                                </div>
+                            ` : ''}
+
+                            ${storyBible.character_arcs ? `
+                                <div style="margin-bottom: 16px;">
+                                    <h3 style="color: var(--color-terracotta); font-size: 0.9rem; margin-bottom: 6px;">Character Arcs</h3>
+                                    ${Object.entries(storyBible.character_arcs).map(([char, arc]) =>
+                                        `<p style="font-size: 0.85rem; color: var(--color-charcoal); margin-bottom: 4px;"><strong>${char}:</strong> ${arc}</p>`
+                                    ).join('')}
+                                </div>
+                            ` : ''}
+
+                            ${storyBible.setting ? `
+                                <div style="margin-bottom: 16px;">
+                                    <h3 style="color: var(--color-terracotta); font-size: 0.9rem; margin-bottom: 6px;">Setting</h3>
+                                    <p style="font-size: 0.85rem; line-height: 1.5; color: var(--color-charcoal);">${storyBible.setting}</p>
+                                </div>
+                            ` : ''}
+
+                            ${storyBible.emotional_beats ? `
+                                <div style="margin-bottom: 16px;">
+                                    <h3 style="color: var(--color-terracotta); font-size: 0.9rem; margin-bottom: 6px;">Emotional Beats</h3>
+                                    ${storyBible.emotional_beats.map(beat =>
+                                        `<p style="font-size: 0.8rem; color: var(--color-charcoal); margin-bottom: 4px;">
+                                            <span style="color: var(--color-sage);">Page ${beat.page}:</span> ${beat.beat}
+                                        </p>`
+                                    ).join('')}
+                                </div>
+                            ` : ''}
+
+                            ${storyBible.level_adaptation ? `
+                                <div style="margin-bottom: 16px;">
+                                    <h3 style="color: var(--color-terracotta); font-size: 0.9rem; margin-bottom: 6px;">Level Adaptation Notes</h3>
+                                    <p style="font-size: 0.85rem; line-height: 1.5; color: var(--color-charcoal);">${storyBible.level_adaptation}</p>
+                                </div>
+                            ` : ''}
+                        ` : `
+                            <div style="text-align: center; color: var(--color-text-muted); padding: 40px 20px;">
+                                <p style="margin-bottom: 12px;">No story bible available for this book.</p>
+                                <p style="font-size: 0.8rem;">Add a <code>story_bible</code> field to the book JSON to enable creation notes.</p>
+                            </div>
+                        `}
+                    </div>
+                `;
+                updateNavigationState();
+                updateEditInfo();
+                return;
+            }
+
             // Handle reference page (page -1) in edit mode
             if (currentPage === -1 && editMode) {
                 const refPath = getReferenceImagePath();
@@ -2700,7 +2779,7 @@
 
         function prevPage() {
             // In edit mode, allow going to page -1 (reference)
-            const minPage = editMode ? -1 : 0;
+            const minPage = editMode ? -2 : 0;
             if (currentPage > minPage) {
                 const bookPage = document.getElementById('bookPage');
                 bookPage.classList.add('slide-right');
@@ -2735,13 +2814,15 @@
         }
 
         function updateNavigationState() {
-            const minPage = editMode ? -1 : 0;
+            const minPage = editMode ? -2 : 0;
             document.getElementById('prevBtn').disabled = currentPage <= minPage;
             document.getElementById('nextBtn').disabled = !currentBook || currentPage >= currentBook.pages.length - 1;
 
             // Update page indicators (both top and bottom)
             let pageText;
-            if (currentPage === -1) {
+            if (currentPage === -2) {
+                pageText = `Notes / ${currentBook?.pages.length || 0}`;
+            } else if (currentPage === -1) {
                 pageText = `Ref / ${currentBook?.pages.length || 0}`;
             } else {
                 pageText = `${currentPage + 1} / ${currentBook?.pages.length || 0}`;

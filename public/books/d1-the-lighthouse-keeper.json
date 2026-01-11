@@ -344,5 +344,82 @@
       "always",
       "answered"
     ]
+  },
+  "story_bible": {
+    "premise": "An eleven-year-old girl proves herself ready to carry on her family's three-generation legacy as lighthouse keepers when she saves three fishing boats during a violent storm while her aging grandmother can only watch.",
+    "themes": [
+      "family legacy and responsibility",
+      "coming of age",
+      "proving oneself",
+      "intergenerational bonds",
+      "courage under pressure"
+    ],
+    "character_arcs": {
+      "Maya": "Loving granddaughter \u2192 Determined helper \u2192 Tested by storm \u2192 Proven keeper \u2192 Legacy bearer",
+      "Grandma": "Proud keeper growing frail \u2192 Worried about the future \u2192 Trusting Maya \u2192 Passing the torch",
+      "Mr. Chen": "Skeptical adult \u2192 Believes in Maya \u2192 Witnesses her triumph \u2192 Confirms her capability"
+    },
+    "setting": "A weathered lighthouse on a rocky coastline, summer season. The lighthouse is old but beloved, showing signs of age\u2014peeling paint, broken shutters. Inside is warm and full of history. The sea is a constant presence, calm some days, terrifying during storms.",
+    "plot_summary": "Maya visits her grandmother's lighthouse every summer, but this year something is different. Grandma is tired, the lighthouse needs repairs, and there's an unspoken weight to Grandma's words about the light never going out.\n\nThough only eleven, Maya decides to take on the lighthouse keeper duties. Mr. Chen, the harbor master, is skeptical, but Maya's determination convinces him. She learns the routines\u2014climbing the spiral stairs before dawn, checking the great lens, maintaining the equipment.\n\nThe true test comes when a terrible storm hits. Grandma is too weak to help, and the backup generator fails just as waves pound the foundation. Alone in the flooded basement, terrified but remembering her grandmother's teachings, Maya gets the generator running.\n\nWhen the storm passes, Mr. Chen reveals that three fishing boats made it safely to harbor because of her light. Maya downplays her heroism, but Grandma knows the truth\u2014the legacy has been passed. Maya will grow up and see the world, but this lighthouse will always be her home, and she will always be its keeper.",
+    "emotional_beats": [
+      {
+        "page": 4,
+        "beat": "Nostalgia and love - Maya's connection to the lighthouse"
+      },
+      {
+        "page": 6,
+        "beat": "Worry - Grandma is aging, lighthouse deteriorating"
+      },
+      {
+        "page": 7,
+        "beat": "Weight of legacy - \"The light must never go out\""
+      },
+      {
+        "page": 8,
+        "beat": "Determination - Maya decides to step up"
+      },
+      {
+        "page": 10,
+        "beat": "Proving herself - Convincing Mr. Chen with her resolve"
+      },
+      {
+        "page": 12,
+        "beat": "Struggle - The work is harder than expected"
+      },
+      {
+        "page": 14,
+        "beat": "Crisis begins - Terrible storm rolls in"
+      },
+      {
+        "page": 16,
+        "beat": "Terror - Alone in flooded basement, generator dead"
+      },
+      {
+        "page": 18,
+        "beat": "Triumph - Generator roars back to life"
+      },
+      {
+        "page": 20,
+        "beat": "Recognition - \"You saved them\""
+      },
+      {
+        "page": 23,
+        "beat": "Validation - Grandma's embrace and pride"
+      },
+      {
+        "page": 26,
+        "beat": "Legacy secured - This will always be her home"
+      }
+    ],
+    "level_adaptation": "Band D allows complex sentences, dialogue, and emotional nuance. Used compound and complex sentence structures throughout. Vocabulary includes challenging words (weathered, beacon, determination) while keeping core narrative accessible. Emotional complexity preserved through showing rather than telling.",
+    "visual_style": "Rich watercolor illustrations with dramatic lighting. The lighthouse is a character\u2014shown in golden summer light, ominous storm gray, and triumphant beacon glow. Maya's expressions carry her emotional journey. Water and light are recurring visual motifs.",
+    "key_vocabulary": [
+      "lighthouse",
+      "beacon",
+      "storm",
+      "light",
+      "generation",
+      "legacy"
+    ]
   }
 }

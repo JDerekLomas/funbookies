@@ -2044,16 +2044,13 @@
 
                 const result = await response.json();
 
-                if (result.success && result.url) {
-                    status.className = 'generation-status success';
-                    status.innerHTML = `
-                        Image generated!<br>
-                        <a href="${result.url}" target="_blank" style="color: inherit; text-decoration: underline;">View full size</a> |
-                        <a href="${result.url}" download="${result.path}" style="color: inherit; text-decoration: underline;">Download</a>
-                        <div style="margin-top: 8px;">
-                            <img src="${result.url}" style="max-width: 200px; border-radius: 4px; cursor: pointer;" onclick="window.open('${result.url}', '_blank')">
-                        </div>
-                    `;
+                if (result.success && result.pending) {
+                    // Poll for result
+                    status.textContent = 'Generation started. Polling for result...';
+                    const imageUrl = await pollForImageResult(result.taskId, result.statusEndpoint);
+                    showGeneratedImage(imageUrl, slug, pageNum);
+                } else if (result.success && result.url) {
+                    showGeneratedImage(result.url, slug, pageNum);
                 } else {
                     throw new Error(result.error || 'Generation failed');
                 }
@@ -2072,6 +2069,46 @@
                 reader.onerror = reject;
                 reader.readAsDataURL(blob);
             });
+        }
+
+        async function pollForImageResult(taskId, statusEndpoint, maxAttempts = 40) {
+            const status = document.getElementById('generationStatus');
+
+            for (let i = 0; i < maxAttempts; i++) {
+                await new Promise(r => setTimeout(r, 3000)); // Wait 3 seconds
+
+                status.textContent = `Polling for result... (${i + 1}/${maxAttempts})`;
+
+                const response = await fetch(`/api/check-status?taskId=${taskId}&endpoint=${encodeURIComponent(statusEndpoint)}`);
+                const result = await response.json();
+
+                if (result.completed && result.url) {
+                    return result.url;
+                }
+
+                if (!result.success && result.error) {
+                    throw new Error(result.error);
+                }
+
+                // Still pending, continue polling
+            }
+
+            throw new Error('Timeout waiting for image generation');
+        }
+
+        function showGeneratedImage(url, slug, pageNum) {
+            const status = document.getElementById('generationStatus');
+            const filename = `${slug}_page_${pageNum}.png`;
+
+            status.className = 'generation-status success';
+            status.innerHTML = `
+                Image generated!<br>
+                <a href="${url}" target="_blank" style="color: inherit; text-decoration: underline;">View full size</a> |
+                <a href="${url}" download="${filename}" style="color: inherit; text-decoration: underline;">Download</a>
+                <div style="margin-top: 8px;">
+                    <img src="${url}" style="max-width: 200px; border-radius: 4px; cursor: pointer;" onclick="window.open('${url}', '_blank')">
+                </div>
+            `;
         }
 
         async function savePromptToBook() {

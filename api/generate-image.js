@@ -91,12 +91,13 @@ export default async function handler(req, res) {
     }
 
     if (taskId) {
-      const imageUrl = await pollForResult(taskId, endpoint, apiKey);
+      // Return task info for frontend polling (Vercel has timeout limits)
       return res.status(200).json({
         success: true,
-        url: imageUrl,
-        path: `${slug}_page_${page}.png`,
-        message: 'Image generated. Right-click to save.'
+        pending: true,
+        taskId: taskId,
+        statusEndpoint: endpoint.replace('/generation', '/status'),
+        message: 'Image generation started. Polling for result...'
       });
     }
 

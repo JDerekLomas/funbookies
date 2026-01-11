@@ -11,6 +11,7 @@
     }
   ],
   "routes": [
+    { "src": "/api/check-status", "dest": "/api/check-status.js" },
     { "src": "/api/generate-image", "dest": "/api/generate-image.js" },
     { "src": "/api/generate-story", "dest": "/api/generate-story.js" },
     { "src": "/api/evaluations", "dest": "/api/evaluations.js" },

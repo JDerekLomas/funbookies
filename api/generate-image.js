@@ -52,12 +52,12 @@ export default async function handler(req, res) {
         break;
 
       case 'nano-banana-pro':
-        // Reference sheet generation
-        endpoint = '/vendors/fal/nano-banana-pro/generation';
+        // Reference sheet generation (Google Imagen)
+        endpoint = '/vendors/google/v1/nano-banana-pro/generation';
         body = {
           prompt,
           aspect_ratio: '1:1',
-          num_images: 1
+          number_of_images: 1
         };
         break;
 

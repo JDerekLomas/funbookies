@@ -1,0 +1,28 @@
+{
+  "lastUpdated": "2025-01-11",
+  "version": 3,
+  "notes": "Regenerated multiple times to get correct phoneme sounds",
+  "approved": [
+    "dr", "sp", "sn", "sm", "sl", "sk", "sw", "tw",
+    "ch", "th_voiced", "wh", "ph", "ng",
+    "ar", "short_e", "short_u", "br", "fr", "oo_short"
+  ],
+  "needsWork": ["fl", "th_voiceless", "ck", "oo_long"],
+  "iterations": [
+    {
+      "date": "2025-01-11T1",
+      "method": "ElevenLabs IPA phoneme tags",
+      "result": "Many failures - TTS read abbreviations as words"
+    },
+    {
+      "date": "2025-01-11T2",
+      "method": "Phonetic spellings (druh, spuh, etc.)",
+      "result": "Better - most blends working"
+    },
+    {
+      "date": "2025-01-11T3",
+      "method": "Refined phonetic spellings",
+      "result": "19 approved, 4 still need work"
+    }
+  ]
+}

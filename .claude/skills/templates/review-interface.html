@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review: {{ASSET_TYPE}} - {{DIRECTORY_NAME}}</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; color: #333; margin-bottom: 5px; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 25px; }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 8px 16px;
+      border: 2px solid #ddd;
+      background: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: #4CAF50; }
+    .filter-btn.active { background: #4CAF50; border-color: #4CAF50; color: white; }
+    .filter-btn.rejected-filter { border-color: #e74c3c; }
+    .filter-btn.rejected-filter.active { background: #e74c3c; border-color: #e74c3c; }
+
+    .stats {
+      text-align: center;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .stats span { margin: 0 12px; }
+    .stat-approved { color: #2e7d32; }
+    .stat-rejected { color: #e74c3c; }
+    .stat-unreviewed { color: #666; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+      border: 3px solid transparent;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+    .card.approved { border-color: #4CAF50; background: #e8f5e9; }
+    .card.rejected { border-color: #e74c3c; background: #ffebee; }
+    .card.playing { border-color: #ff9800; background: #fff3e0; }
+
+    .preview {
+      cursor: pointer;
+      padding: 10px;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .preview:hover { background: rgba(0,0,0,0.03); border-radius: 4px; }
+    .preview img { max-width: 100%; max-height: 120px; border-radius: 4px; }
+    .preview .audio-icon { font-size: 3rem; }
+
+    .asset-name {
+      font-weight: 600;
+      color: #333;
+      margin: 8px 0;
+      font-size: 0.95rem;
+      word-break: break-all;
+    }
+
+    .rating {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #eee;
+    }
+    .rating-btn {
+      width: 44px;
+      height: 44px;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      background: white;
+      cursor: pointer;
+      font-size: 1.3rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rating-btn:hover { transform: scale(1.1); }
+    .rating-btn.approve:hover, .rating-btn.approve.selected { border-color: #4CAF50; background: #4CAF50; }
+    .rating-btn.reject:hover, .rating-btn.reject.selected { border-color: #e74c3c; background: #e74c3c; }
+
+    .note-input {
+      width: 100%;
+      margin-top: 8px;
+      padding: 6px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    .summary-section {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .summary-section h3 {
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .summary-section textarea {
+      width: 100%;
+      height: 200px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
+    .btn-primary { background: #4CAF50; color: white; }
+    .btn-primary:hover { background: #43a047; }
+    .btn-danger { background: #e74c3c; color: white; margin-left: 8px; }
+    .btn-secondary { background: #666; color: white; margin-left: 8px; }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+  </style>
+</head>
+<body>
+  <h1>{{ASSET_TYPE}} Review</h1>
+  <p class="subtitle">Click to preview, thumbs up/down to rate. Copy summary at bottom.</p>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="unreviewed">Unreviewed</button>
+    <button class="filter-btn" data-filter="approved">Approved</button>
+    <button class="filter-btn rejected-filter" data-filter="rejected">Needs Work</button>
+  </div>
+
+  <div class="stats" id="stats">Loading...</div>
+  <div class="grid" id="grid"></div>
+
+  <div class="summary-section">
+    <h3>
+      <span>Review Summary</span>
+      <span>
+        <button class="btn btn-primary" onclick="copySummary()">Copy to Clipboard</button>
+        <button class="btn btn-secondary" onclick="downloadJSON()">Download JSON</button>
+        <button class="btn btn-danger" onclick="clearReviews()">Clear All</button>
+      </span>
+    </h3>
+    <textarea id="summary" readonly placeholder="Rate assets above to see summary..."></textarea>
+  </div>
+
+  <script>
+    // Configuration - REPLACE THESE
+    const CONFIG = {
+      assetType: '{{ASSET_TYPE}}',
+      directory: '{{DIRECTORY}}',
+      storageKey: '{{STORAGE_KEY}}',
+      // Asset list - REPLACE WITH ACTUAL ASSETS
+      assets: {{ASSETS_JSON}}
+    };
+
+    let reviews = {};
+    let currentAudio = null;
+    let currentFilter = 'all';
+
+    // Load reviews from localStorage
+    function loadReviews() {
+      try {
+        const saved = localStorage.getItem(CONFIG.storageKey);
+        if (saved) reviews = JSON.parse(saved);
+      } catch (e) { reviews = {}; }
+    }
+
+    // Save reviews
+    function saveReviews() {
+      localStorage.setItem(CONFIG.storageKey, JSON.stringify(reviews));
+      updateSummary();
+    }
+
+    // Preview asset
+    function preview(id, event) {
+      event.stopPropagation();
+      const asset = CONFIG.assets.find(a => a.id === id);
+      if (!asset) return;
+
+      const card = document.querySelector(`[data-id="${id}"]`);
+
+      if (CONFIG.assetType === 'audio') {
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+          document.querySelectorAll('.card.playing').forEach(el => el.classList.remove('playing'));
+        }
+        currentAudio = new Audio(asset.path);
+        card.classList.add('playing');
+        currentAudio.onended = () => { card.classList.remove('playing'); currentAudio = null; };
+        currentAudio.play().catch(() => card.classList.remove('playing'));
+      } else {
+        // For images, could open in modal
+        window.open(asset.path, '_blank');
+      }
+    }
+
+    // Rate asset
+    function rate(id, status, event) {
+      event.stopPropagation();
+      if (reviews[id]?.status === status) {
+        delete reviews[id];
+      } else {
+        reviews[id] = { status, note: reviews[id]?.note || '', reviewedAt: new Date().toISOString() };
+      }
+      saveReviews();
+      render();
+    }
+
+    // Update note
+    function updateNote(id, note) {
+      if (reviews[id]) {
+        reviews[id].note = note;
+        saveReviews();
+      }
+    }
+
+    // Set filter
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filter);
+      });
+      render();
+    }
+
+    // Update summary
+    function updateSummary() {
+      const approved = [];
+      const rejected = [];
+
+      for (const [id, review] of Object.entries(reviews)) {
+        const asset = CONFIG.assets.find(a => a.id === id);
+        if (!asset) continue;
+        if (review.status === 'approved') {
+          approved.push(asset.name || id);
+        } else {
+          rejected.push(`- ${id}: ${review.note || 'needs improvement'}`);
+        }
+      }
+
+      let text = `# ${CONFIG.assetType} Review\n\n`;
+      text += `## Approved (${approved.length})\n`;
+      text += approved.length ? approved.join(', ') : '(none yet)';
+      text += `\n\n## Needs Work (${rejected.length})\n`;
+      text += rejected.length ? rejected.join('\n') : '(none)';
+
+      document.getElementById('summary').value = text;
+    }
+
+    // Copy summary
+    function copySummary() {
+      const textarea = document.getElementById('summary');
+      textarea.select();
+      document.execCommand('copy');
+      const btn = event.target;
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy to Clipboard', 1500);
+    }
+
+    // Download JSON
+    function downloadJSON() {
+      const data = {
+        lastUpdated: new Date().toISOString(),
+        assetType: CONFIG.assetType,
+        directory: CONFIG.directory,
+        totalAssets: CONFIG.assets.length,
+        reviews: reviews
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'reviews.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Clear reviews
+    function clearReviews() {
+      if (confirm('Clear all reviews? This cannot be undone.')) {
+        reviews = {};
+        saveReviews();
+        render();
+      }
+    }
+
+    // Render grid
+    function render() {
+      const grid = document.getElementById('grid');
+      const stats = document.getElementById('stats');
+
+      let approved = 0, rejected = 0, unreviewed = 0;
+      CONFIG.assets.forEach(a => {
+        if (reviews[a.id]?.status === 'approved') approved++;
+        else if (reviews[a.id]?.status === 'rejected') rejected++;
+        else unreviewed++;
+      });
+
+      stats.innerHTML = `
+        <span>Total: ${CONFIG.assets.length}</span>
+        <span class="stat-approved">Approved: ${approved}</span>
+        <span class="stat-rejected">Rejected: ${rejected}</span>
+        <span class="stat-unreviewed">Unreviewed: ${unreviewed}</span>
+      `;
+
+      let filtered = CONFIG.assets;
+      if (currentFilter === 'approved') filtered = CONFIG.assets.filter(a => reviews[a.id]?.status === 'approved');
+      else if (currentFilter === 'rejected') filtered = CONFIG.assets.filter(a => reviews[a.id]?.status === 'rejected');
+      else if (currentFilter === 'unreviewed') filtered = CONFIG.assets.filter(a => !reviews[a.id]);
+
+      grid.innerHTML = filtered.map(asset => {
+        const review = reviews[asset.id];
+        const status = review?.status || '';
+        const note = review?.note || '';
+
+        let previewHTML = '';
+        if (CONFIG.assetType === 'audio') {
+          previewHTML = `<div class="audio-icon">🔊</div>`;
+        } else {
+          previewHTML = `<img src="${asset.path}" alt="${asset.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2240%22>?</text></svg>'">`;
+        }
+
+        return `
+          <div class="card ${status}" data-id="${asset.id}">
+            <div class="preview" onclick="preview('${asset.id}', event)">
+              ${previewHTML}
+            </div>
+            <div class="asset-name">${asset.name || asset.id}</div>
+            <div class="rating">
+              <button class="rating-btn approve ${status === 'approved' ? 'selected' : ''}"
+                      onclick="rate('${asset.id}', 'approved', event)" title="Approve">👍</button>
+              <button class="rating-btn reject ${status === 'rejected' ? 'selected' : ''}"
+                      onclick="rate('${asset.id}', 'rejected', event)" title="Reject">👎</button>
+            </div>
+            ${status === 'rejected' ? `
+              <input class="note-input" placeholder="What's wrong?" value="${note}"
+                     onchange="updateNote('${asset.id}', this.value)">
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Setup
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => setFilter(btn.dataset.filter));
+    });
+
+    loadReviews();
+    updateSummary();
+    render();
+  </script>
+</body>
+</html>

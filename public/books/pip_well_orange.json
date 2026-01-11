@@ -78,7 +78,6 @@
       "big",
       "did",
       "yes",
-      "wet",
       "well",
       "tell",
       "yell",
@@ -101,7 +100,8 @@
       "see",
       "said",
       "was",
-      "my"
+      "my",
+      "hello"
     ],
     "new": [
       "well",
@@ -128,10 +128,10 @@
     "sat",
     "hop",
     "well",
-    "wet",
     "wish",
     "pal",
-    "drop"
+    "drop",
+    "sad"
   ],
   "parent_tips": {
     "before_reading": "Look at the cover. Ask: What animal do you see? What is Pip looking at? Have you ever heard an echo?",
@@ -262,7 +262,7 @@
       "page": 10,
       "story_page": 5,
       "type": "story",
-      "text": "\"Is it wet?\" said Pip.",
+      "text": "\"Hello?\" said Pip.",
       "beat": "first question",
       "image_prompt": "CLOSE-UP: Pip leaning over the well edge, mouth slightly open as if speaking into it. Large curious eyes. His blue cheek spot visible. Expression is hopeful, questioning. Stone rim visible below his chin. Bold black outlines. NO TEXT.",
       "scene": "CLOSE-UP: Pip leaning over the well edge, mouth slightly open as if speaking into it. Large curious eyes. His blue cheek spot visible. Expression is hopeful, questioning. Stone rim visible below his chin. Bold black outlines. NO TEXT."
@@ -271,7 +271,7 @@
       "page": 11,
       "story_page": 6,
       "type": "story",
-      "text": "\"...wet... wet... wet...\" it said!",
+      "text": "\"...hello... hello... hello...\" it said!",
       "beat": "the echo answers!",
       "image_prompt": "ATMOSPHERIC SHOT: Visual representation of the echo rising from the well. Concentric circles of blue-white ripples emanating from the dark center. Pip visible small at the top, head tilted in surprise. Sound waves made visible. Magical and strange. Bold black outlines. NO TEXT.",
       "scene": "ATMOSPHERIC SHOT: Visual representation of the echo rising from the well. Concentric circles of blue-white ripples emanating from the dark center. Pip visible small at the top, head tilted in surprise. Sound waves made visible. Magical and strange. Bold black outlines. NO TEXT."

@@ -82,8 +82,9 @@ export default async function handler(req, res) {
     }
 
     // For async APIs, poll for result
-    if (submitResult.task_id) {
-      const imageUrl = await pollForResult(submitResult.task_id, endpoint, apiKey);
+    const taskId = submitResult.task_id || submitResult.task_info?.task_id;
+    if (taskId) {
+      const imageUrl = await pollForResult(taskId, endpoint, apiKey);
       return res.status(200).json({
         success: true,
         url: imageUrl,
@@ -129,19 +130,24 @@ async function pollForResult(taskId, endpoint, apiKey, maxWait = 120000) {
     });
 
     const statusResult = await statusResponse.json();
+    const status = statusResult.status || statusResult.task_info?.status;
 
-    if (statusResult.status === 'succeeded' || statusResult.status === 'completed') {
-      if (statusResult.images && statusResult.images.length > 0) {
-        return statusResult.images[0];
+    if (status === 'succeeded' || status === 'completed' || status === 'SUCCEEDED') {
+      // Check various possible image locations
+      const images = statusResult.images ||
+                    statusResult.result?.images ||
+                    statusResult.output?.images ||
+                    statusResult.task_info?.output?.images;
+
+      if (images && images.length > 0) {
+        // Handle both string URLs and object with url property
+        return typeof images[0] === 'string' ? images[0] : images[0].url;
       }
-      if (statusResult.result && statusResult.result.images) {
-        return statusResult.result.images[0];
-      }
-      throw new Error('Task completed but no image found');
+      throw new Error(`Task completed but no image found. Keys: ${Object.keys(statusResult).join(', ')}`);
     }
 
-    if (statusResult.status === 'failed') {
-      throw new Error(statusResult.error || 'Task failed');
+    if (status === 'failed' || status === 'FAILED') {
+      throw new Error(statusResult.error || statusResult.task_info?.error || 'Task failed');
     }
 
     // Still pending, continue polling

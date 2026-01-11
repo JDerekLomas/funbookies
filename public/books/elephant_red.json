@@ -165,35 +165,36 @@
       "page": 16,
       "type": "end",
       "text": "The End",
-      "image_prompt": "NO TEXT IN IMAGE. Cute baby elephant waving trunk goodbye, bird and bug nearby. Sunset savanna background. Happy ending. BOLD BLACK OUTLINES. Children's book style."
+      "image_prompt": "NO TEXT IN IMAGE. Cute baby elephant waving trunk goodbye, bird and bug nearby. Sunset savanna background. Happy ending. BOLD BLACK OUTLINES. Children's book style.",
+      "scene": "NO TEXT IN IMAGE. Cute baby elephant waving trunk goodbye, bird and bug nearby. Sunset savanna background. Happy ending. BOLD BLACK OUTLINES. Children's book style."
     }
   ],
   "reference_prompt": "9-PANEL REFERENCE SHEET for \"Stomp! Stomp! Elephant\"\n\nSUMMARY: Stomp! Stomp! Elephant is a story about Jump and Stomp and Ella. This book helps readers practice reading skills while enjoying an engaging adventure.\n\nKEY SCENES TO SHOW:\n  Panel 1: A big friendly elephant stomping with big feet, dust clouds rising. Energetic an...\n  Panel 2: Words to Know\n  Panel 3: The friendly elephant in a colorful savanna setting, warm colors.\n  Panel 4: A big friendly elephant stomping with big feet, dust clouds rising. Energetic an...\n  Panel 5: The friendly elephant in a colorful savanna setting, warm colors.\n  Panel 6: The friendly elephant in a colorful savanna setting, warm colors.\n\nTECHNICAL REQUIREMENTS:\n- 9 panels in 3x3 grid\n- Consistent style across all panels\n- Square vignettes showing characters, settings, key moments\n- NO TEXT, WORDS, OR LETTERS in the image",
   "parent_tips": {
-    "before_reading": "Preview the cover of 'Stomp! Stomp! Elephant'. Ask: What do you think will happen? Look for words with reading skills.",
-    "during_reading": "When you see tricky words, help your child sound them out. Notice words that use reading skills.",
-    "after_reading": "Ask: What was the problem in the story? How was it solved? What did Jump learn?"
+    "before_reading": "Preview 'Stomp! Stomp! Elephant' together. Ask: What do you think Ella will do? Look for short vowel words like: stomp, jump, bump, thump, stamp.",
+    "during_reading": "Help your child sound out tricky words. Notice the short vowel pattern in words like stomp, jump, bump, thump, stamp. Encourage expression when reading!",
+    "after_reading": "Discuss: What did Ella do? What happened at the end? What was your favorite part about the park?"
   },
   "comprehension_questions": [
     {
-      "question": "Who is the main character in 'Stomp! Stomp! Elephant'?",
-      "answer": "Jump"
+      "question": "Who is the main character in this story?",
+      "answer": "Ella"
     },
     {
-      "question": "What happens at the beginning of the story?",
-      "answer": "The story introduces the characters and setting"
+      "question": "What happens at the very beginning of the story?",
+      "answer": "Ella is a small elephant."
     },
     {
-      "question": "What problem does the character face?",
-      "answer": "The main challenge in the story"
+      "question": "What happens in the middle of the story?",
+      "answer": "\"I must stomp just a bit less!\""
     },
     {
-      "question": "How does Jump solve the problem?",
-      "answer": "Through determination and help from friends"
+      "question": "How does the story end?",
+      "answer": "We spend the best day!"
     },
     {
-      "question": "What lesson can we learn from this story?",
-      "answer": "A positive message about friendship, perseverance, or kindness"
+      "question": "What fun activities happen in this story?",
+      "answer": "Stomp! Jump! Bump! What fun! We spend the best day!"
     }
   ],
   "wordsearch_words": [

@@ -274,7 +274,8 @@
       "type": "end",
       "image": "castle_images/page_24_the_end.png",
       "text": "The End",
-      "image_prompt": "Two cute cartoon rats sitting together contentedly at sunset. Warm soft watercolor style."
+      "image_prompt": "Two cute cartoon rats sitting together contentedly at sunset. Warm soft watercolor style.",
+      "scene": "Two cute cartoon rats sitting together contentedly at sunset. Warm soft watercolor style."
     },
     {
       "page": 28,
@@ -293,30 +294,30 @@
   ],
   "reference_prompt": "9-PANEL REFERENCE SHEET for \"Rats in the Castle\"\n\nSUMMARY: Join Rita and Rico on a daring adventure into a grand castle, where they discover jam, dodge a cat, and learn that teamwork makes everything possible!\n\nKEY SCENES TO SHOW:\n  Panel 1: A grand stone castle with tall towers and flags, medieval fantasy style.\n  Panel 2: Words to Know\n  Panel 3: Inside a cozy castle with stone walls and torches, rats exploring.\n  Panel 4: A grand stone castle with tall towers and flags, medieval fantasy style.\n  Panel 5: Inside a cozy castle with stone walls and torches, rats exploring.\n  Panel 6: Inside a cozy castle with stone walls and torches, rats exploring.\n\nTECHNICAL REQUIREMENTS:\n- 9 panels in 3x3 grid\n- Consistent style across all panels\n- Square vignettes showing characters, settings, key moments\n- NO TEXT, WORDS, OR LETTERS in the image",
   "parent_tips": {
-    "before_reading": "Preview the cover of 'Rats in the Castle'. Ask: What do you think will happen? Look for words with reading skills.",
-    "during_reading": "When you see tricky words, help your child sound them out. Notice words that use reading skills.",
-    "after_reading": "Ask: What was the problem in the story? How was it solved? What did Yum learn?"
+    "before_reading": "Preview 'Rats in the Castle' together. Ask: What do you think Rita will do? Look for short vowel words like: sat, sun, big, ran, jam.",
+    "during_reading": "Help your child sound out tricky words. Notice the short vowel pattern in words like sat, sun, big, ran, jam. Encourage expression when reading!",
+    "after_reading": "Discuss: What happened when Rita got into trouble? What happened at the end? What was your favorite part about the castle?"
   },
   "comprehension_questions": [
     {
-      "question": "Who is the main character in 'Rats in the Castle'?",
-      "answer": "Yum"
+      "question": "Who is the main character in this story?",
+      "answer": "Rita"
     },
     {
-      "question": "What happens at the beginning of the story?",
-      "answer": "The story introduces the characters and setting"
+      "question": "What happens at the very beginning of the story?",
+      "answer": "Rita and Rico sat in the sun."
     },
     {
-      "question": "What problem does the character face?",
-      "answer": "The main challenge in the story"
+      "question": "What challenge does Rita face in the story?",
+      "answer": "\"But wait!\" said Rico."
     },
     {
-      "question": "How does Yum solve the problem?",
-      "answer": "Through determination and help from friends"
+      "question": "How does the story end?",
+      "answer": "And they did!"
     },
     {
-      "question": "What lesson can we learn from this story?",
-      "answer": "A positive message about friendship, perseverance, or kindness"
+      "question": "What adventure does Rita go on?",
+      "answer": "\"Let's go back!\" said Rita. And they did!"
     }
   ]
 }

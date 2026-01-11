@@ -127,19 +127,22 @@
       "page": 11,
       "type": "story",
       "text": "Dog...",
-      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog (now clean) sitting with head down, looking guilty, big sad puppy eyes, floppy ears drooping. BOLD BLACK OUTLINES. Children's book illustration."
+      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog (now clean) sitting with head down, looking guilty, big sad puppy eyes, floppy ears drooping. BOLD BLACK OUTLINES. Children's book illustration.",
+      "scene": "NO TEXT IN IMAGE. Cute brown dog (now clean) sitting with head down, looking guilty, big sad puppy eyes, floppy ears drooping. BOLD BLACK OUTLINES. Children's book illustration."
     },
     {
       "page": 12,
       "type": "story",
       "text": "Dog!",
-      "image_prompt": "NO TEXT IN IMAGE. Child's hands reaching down to pet the cute brown dog. Dog looking up hopefully with big eyes, tail starting to wag. BOLD BLACK OUTLINES. Children's book style."
+      "image_prompt": "NO TEXT IN IMAGE. Child's hands reaching down to pet the cute brown dog. Dog looking up hopefully with big eyes, tail starting to wag. BOLD BLACK OUTLINES. Children's book style.",
+      "scene": "NO TEXT IN IMAGE. Child's hands reaching down to pet the cute brown dog. Dog looking up hopefully with big eyes, tail starting to wag. BOLD BLACK OUTLINES. Children's book style."
     },
     {
       "page": 13,
       "type": "end",
       "text": "The End",
-      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog curled up sleeping on child's lap, content smile, floppy ears relaxed. Peaceful scene. BOLD BLACK OUTLINES. Children's book illustration."
+      "image_prompt": "NO TEXT IN IMAGE. Cute brown dog curled up sleeping on child's lap, content smile, floppy ears relaxed. Peaceful scene. BOLD BLACK OUTLINES. Children's book illustration.",
+      "scene": "NO TEXT IN IMAGE. Cute brown dog curled up sleeping on child's lap, content smile, floppy ears relaxed. Peaceful scene. BOLD BLACK OUTLINES. Children's book illustration."
     }
   ],
   "reference_prompt": "9-PANEL REFERENCE SHEET for \"No, No, Dog!\"\n\nSUMMARY: No, No, Dog! is a story about Dog and No. This book helps readers practice reading skills while enjoying an engaging adventure.\n\nKEY SCENES TO SHOW:\n  Panel 1: A cute fluffy brown dog with floppy ears and big eyes on the cover, looking play...\n  Panel 2: Words to Know\n  Panel 3: The brown dog jumping on a couch, cushions flying everywhere. Playful chaos.\n  Panel 4: The dog digging in a flower garden, dirt flying, flowers scattered. Naughty but ...\n  Panel 5: The dog splashing in a mud puddle, mud splatters everywhere. Joyful expression.\n  Panel 6: The dog running through the house with toilet paper trailing behind.\n\nTECHNICAL REQUIREMENTS:\n- 9 panels in 3x3 grid\n- Consistent style across all panels\n- Square vignettes showing characters, settings, key moments\n- NO TEXT, WORDS, OR LETTERS in the image",

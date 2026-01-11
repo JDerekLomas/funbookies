@@ -180,6 +180,16 @@
     "coverImg": "/images/covers/elephant_red.png"
   },
   {
+    "slug": "clover-the-cloud",
+    "jsonFile": "clover-the-cloud.json",
+    "title": "Clover the Cloud",
+    "level": "B3",
+    "band": "B",
+    "color": "Gray",
+    "skill": "CVC short vowels, gl/fl blends",
+    "coverImg": "/images/covers/clover-the-cloud.png"
+  },
+  {
     "slug": "b4-frog-and-crab",
     "jsonFile": "b4-frog-and-crab.json",
     "title": "Frog and Crab",
@@ -188,6 +198,16 @@
     "color": "Gray",
     "skill": "Initial Blends",
     "coverImg": "/images/covers/b4-frog-and-crab.png"
+  },
+  {
+    "slug": "flicker-the-firefly",
+    "jsonFile": "flicker-the-firefly.json",
+    "title": "Flicker the Firefly",
+    "level": "B4",
+    "band": "B",
+    "color": "Gray",
+    "skill": "CVC short i, gl/fl blends",
+    "coverImg": "/images/covers/flicker-the-firefly.png"
   },
   {
     "slug": "b5-the-ship-in-the-shell",

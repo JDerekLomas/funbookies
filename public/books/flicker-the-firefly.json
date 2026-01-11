@@ -1,0 +1,231 @@
+{
+  "id": "flicker-the-firefly",
+  "title": "Flicker the Firefly",
+  "slug": "flicker-the-firefly",
+  "level": "B4",
+  "band": "B",
+  "targetPhonics": "CVC short i, consonant blends",
+  "skill": "CVC words with short i, gl/fl blends",
+  "skill_description": "Practice reading CVC words with short i (dim, big, hid, lit) and initial blends (glow, flap)",
+  "age_range": "4-6",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "created": "2026-01-11",
+  "story_bible": {
+    "premise": "Flicker is a tiny firefly who believes her light is too dim to matter. While the other fireflies blaze brightly, she hides in the grass, ashamed. But when a lost little moth can't find her way home in the dark forest, Flicker discovers that even the smallest light can guide someone who is truly lost—and that her gentle glow is exactly what was needed.",
+    "themes": [
+      "self-worth and confidence",
+      "everyone has something to offer",
+      "helping others reveals our strengths",
+      "small things can make a big difference",
+      "kindness matters more than being the brightest"
+    ],
+    "character_arcs": {
+      "Flicker": "Ashamed and hiding → Sees someone in need → Hesitates but tries → Discovers her light IS enough → Proud and glowing",
+      "Dot the Moth": "Lost and scared in the dark → Sees a tiny light → Follows hopefully → Finds her way home → Grateful friend",
+      "Other Fireflies": "Bright and busy → Don't notice the lost moth → See Flicker's success → Celebrate her"
+    },
+    "setting": "A magical nighttime meadow and forest edge. Tall grass glows with firefly light. The forest is dark and a little scary but not evil. Stars twinkle above. There's a cozy log where the moth family lives. Colors are deep blues, purples, and warm yellows/golds from the firefly lights.",
+    "plot_summary": "Every night, the fireflies of Willow Meadow light up the sky with their brilliant glow. But little Flicker always hangs back, hiding in the tall grass. Her light is so dim compared to the others—just a tiny flicker instead of a bright blaze.\n\n\"Why even try?\" she thinks, watching the others dance and shine. She tucks herself under a leaf, embarrassed.\n\nBut tonight, she hears a small, frightened voice: \"Hello? Is anyone there?\" It's Dot, a little moth who wandered too far from home and now can't find her way back through the dark forest.\n\nThe bright fireflies zoom past overhead, too high and fast to notice. But Flicker sees Dot's scared face. She wants to help, but... her light is so small. What if it's not enough?\n\nFlicker takes a deep breath and rises from the grass. Her tiny light blinks on—dim, but steady. \"Follow me,\" she says softly.\n\nSlowly, carefully, Flicker leads Dot through the dark forest. Her small glow lights just enough of the path ahead. When they finally reach the old log where Dot's family waits, Dot hugs her tight. \"Your light was perfect,\" Dot says. \"Not too bright, not too fast. Just right for me to follow.\"\n\nFlicker realizes something wonderful: her light wasn't too dim—it was exactly what Dot needed. As she flies back to the meadow, her glow seems just a little brighter. And this time, she doesn't hide.",
+    "emotional_beats": [
+      {"page": 1, "beat": "Wonder - Beautiful fireflies lighting up the night"},
+      {"page": 2, "beat": "Shame - Flicker comparing herself, feeling inadequate"},
+      {"page": 3, "beat": "Hiding - Flicker tucking away under a leaf"},
+      {"page": 4, "beat": "Distress - Hearing a scared voice calling for help"},
+      {"page": 5, "beat": "Compassion - Seeing Dot lost and frightened"},
+      {"page": 6, "beat": "Self-doubt - Wanting to help but doubting her light"},
+      {"page": 7, "beat": "Courage - Decision to try anyway"},
+      {"page": 8, "beat": "Determination - Leading Dot through the dark"},
+      {"page": 9, "beat": "Arrival - Reaching Dot's home safely"},
+      {"page": 10, "beat": "Validation - Dot saying her light was 'just right'"},
+      {"page": 11, "beat": "Realization - Understanding her worth"},
+      {"page": 12, "beat": "Confidence - Flying proudly, no longer hiding"}
+    ],
+    "level_adaptation": "Simplified to CVC words (dim, big, hid, lit, got, can, not) and short sentences. Key phonics: short i (Flicker, dim, hid, big, lit), fl/gl blends (Flicker, glow, flap). Emotional complexity preserved through expressive illustrations. 'Dot' chosen as moth name for CVC pattern.",
+    "visual_style": "Magical nighttime watercolor with deep blues and purples. Firefly lights are warm golden-yellow with soft glows. Flicker is a cute small firefly with big sad/hopeful eyes and tiny wings. Dot is a fluffy gray moth with big eyes. The forest should feel mysterious but not scary. Stars twinkle. Lots of atmosphere and magical lighting effects.",
+    "key_vocabulary": ["flicker", "glow", "dim", "lit", "big", "hid", "moth", "light"]
+  },
+  "word_list": {
+    "sound_out": ["dim", "big", "hid", "lit", "got", "can", "not", "sat", "had", "run", "but"],
+    "sight": ["the", "is", "a", "I", "to", "and", "she", "was", "her", "me", "my", "you"],
+    "new": ["Flicker", "glow", "moth", "Dot", "light", "night", "forest"]
+  },
+  "wordsearch_words": ["flicker", "glow", "dim", "moth", "light", "night", "big", "hid"],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Flicker the Firefly",
+      "scene": "A small, cute firefly with a gentle golden glow hovers in a magical nighttime meadow. She has big expressive eyes that look slightly uncertain. Other fireflies sparkle in the background. Deep blue and purple sky with twinkling stars. Warm, inviting but with a hint of loneliness. Soft watercolor style.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "The fireflies lit up the night. Glow, glow, glow!",
+      "scene": "A magical nighttime meadow filled with bright, happy fireflies dancing and glowing brilliantly. Their lights create a beautiful display against the deep blue sky. Stars twinkle above. Joyful, magical atmosphere. Other fireflies have bright, confident expressions.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "But Flicker was dim. Her glow was not big.",
+      "scene": "Little Flicker in the foreground with a very small, gentle glow compared to the bright fireflies behind her. She looks down sadly, comparing herself to others. Her light is soft and small. Melancholy but sweet expression.",
+      "shot_type": "medium"
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "Flicker hid. She sat in the grass.",
+      "scene": "Flicker hiding under a large leaf in the tall grass, looking ashamed and small. Her tiny light barely visible. She's curled up, trying to make herself invisible. The bright fireflies dance in the sky above, unaware of her.",
+      "shot_type": "close"
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "\"Help! Help!\" It was a little moth. She was lost!",
+      "scene": "A small, fluffy gray moth named Dot with big scared eyes, calling out in the dark forest. Trees loom around her. She looks frightened and alone. The darkness feels overwhelming. Her wings are slightly trembling.",
+      "shot_type": "medium"
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "The moth was sad. \"I can not see! It is too dim!\"",
+      "scene": "Close-up of Dot the moth looking very worried and lost, surrounded by darkness. Her big eyes are wide with fear. She's reaching out, trying to find her way. The forest around her is shadowy and confusing.",
+      "shot_type": "close"
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "Flicker saw her. \"I can help! But my glow...\"",
+      "scene": "Flicker peeking out from the grass, seeing Dot in distress. Her expression shows she wants to help but is uncertain, looking at her own small light doubtfully. Internal conflict visible on her face. Half-hidden, half-emerging.",
+      "shot_type": "medium"
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Flicker got up. Her little light lit up!",
+      "scene": "Flicker rising bravely from the grass, her small golden light glowing with determination. She looks nervous but resolved. A moment of courage. Her wings spread, ready to fly. Small but brave.",
+      "shot_type": "medium"
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "\"Follow me, Dot!\" Flicker led the way.",
+      "scene": "Flicker flying ahead through the dark forest, her gentle glow creating a soft path of light. Dot the moth following behind, looking hopeful and relieved. The darkness parts just enough around Flicker's light. Atmospheric and magical.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "Bit by bit, they got to the log. Dot was home!",
+      "scene": "Flicker and Dot arriving at a cozy hollow log home. Dot's moth family is there waiting, looking relieved and happy. Warm light spills from inside the log. Dot is rushing toward her family. Flicker watches with a gentle smile.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "Dot hugged Flicker. \"You did it! Your light was just right!\"",
+      "scene": "Dot the moth hugging Flicker warmly. Both have happy, emotional expressions. Flicker looks surprised and touched by the praise. Dot's family watches happily in the background. Warm, golden lighting. A tender moment.",
+      "shot_type": "close"
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "Flicker got it. She was not too dim. She was just right!",
+      "scene": "Flicker having a moment of realization, her face lighting up with understanding and joy. Her glow seems a bit brighter now. Stars twinkle around her. A magical moment of self-acceptance. Hopeful and warm.",
+      "shot_type": "close"
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "Now Flicker glows with the rest. She does not hid!",
+      "scene": "Flicker flying proudly among the other fireflies, no longer hiding. She's glowing confidently, joining the dance. The other fireflies seem to welcome her. She looks happy and confident. Joyful, celebratory atmosphere with lots of golden lights against the night sky.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 18,
+      "type": "end",
+      "text": "The End",
+      "scene": "Peaceful nighttime scene with Flicker glowing contentedly among friends. Dot the moth waves from below near her log home. Stars and firefly lights create a magical atmosphere. Everything feels warm, safe, and happy. A perfect ending.",
+      "shot_type": "wide"
+    },
+    {
+      "page": 19,
+      "type": "wordsearch"
+    },
+    {
+      "page": 20,
+      "type": "series_info"
+    },
+    {
+      "page": 21,
+      "type": "back_cover",
+      "text": "Flicker thinks her light is too dim. But when a lost moth needs help, Flicker discovers that even the smallest glow can guide someone home."
+    }
+  ],
+  "parent_tips": {
+    "before_reading": "Look at the cover of 'Flicker the Firefly'. Ask: How do you think Flicker is feeling? Have you ever felt like you weren't as good as others at something? This book practices short i words like dim, hid, big, and lit.",
+    "during_reading": "Help your child sound out the short i words: dim, big, hid, lit, bit. Notice the 'glow' and 'Flicker' words with blends. Use different voices for Flicker and Dot!",
+    "after_reading": "Discuss: Why did Flicker hide at first? What did she learn about herself? Has there been a time when you helped someone and felt proud? What makes YOUR light special?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Why did Flicker hide in the grass?",
+      "answer": "She thought her light was too dim compared to the other fireflies"
+    },
+    {
+      "question": "Who needed Flicker's help?",
+      "answer": "Dot the moth, who was lost in the dark forest"
+    },
+    {
+      "question": "How did Flicker help Dot?",
+      "answer": "She used her light to lead Dot home through the dark"
+    },
+    {
+      "question": "What did Dot say about Flicker's light?",
+      "answer": "That it was 'just right' - not too bright, perfect to follow"
+    },
+    {
+      "question": "How does Flicker feel at the end of the story?",
+      "answer": "Proud and confident - she doesn't hide anymore and glows with the other fireflies"
+    }
+  ],
+  "summary": "Flicker is a little firefly who thinks her light is too dim. When she helps a lost moth find her way home, Flicker discovers that even the smallest glow can make a big difference.",
+  "reference_prompt": "9-PANEL REFERENCE SHEET for 'Flicker the Firefly'\n\nCHARACTER: Flicker - A small, cute firefly with:\n- Big expressive eyes (can show shame, hope, courage, joy)\n- Tiny delicate wings\n- Soft golden glow (dimmer than other fireflies)\n- Small body, endearing and sympathetic\n\nSUPPORTING CHARACTER: Dot - A small fluffy gray moth with:\n- Big worried/grateful eyes\n- Soft fuzzy body\n- Delicate antennae\n\nKEY SCENES TO SHOW:\n  Panel 1: Bright fireflies dancing in night sky (Flicker's world)\n  Panel 2: Flicker looking sad, comparing her dim light to others\n  Panel 3: Flicker hiding under a leaf, ashamed\n  Panel 4: Dot the moth lost and scared in dark forest\n  Panel 5: Flicker hesitating, wanting to help but doubtful\n  Panel 6: Flicker bravely flying up, light glowing\n  Panel 7: Flicker leading Dot through the dark forest\n  Panel 8: Dot hugging Flicker gratefully at her log home\n  Panel 9: Flicker glowing proudly with other fireflies\n\nSTYLE: Magical nighttime watercolor, deep blues and purples with warm golden firefly glows\nMOOD: Transitions from melancholy to hopeful to triumphant\n\nTECHNICAL REQUIREMENTS:\n- 9 panels in 3x3 grid\n- Consistent character design across all panels\n- Expressive faces that show emotional journey\n- NO TEXT, WORDS, OR LETTERS in the image",
+  "metadata": {
+    "generatedAt": "2026-01-11",
+    "workflow": "story_bible_first",
+    "storyPages": 12,
+    "wordCount": 165
+  }
+}

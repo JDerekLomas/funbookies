@@ -409,7 +409,6 @@
     let chainsCompleted = 0;
     let currentStudent = null;
     let sessionStartTime = null;
-    let letterAudio = null;
 
     document.addEventListener('DOMContentLoaded', async () => {
       setupLevelButtons();
@@ -679,30 +678,11 @@
 
     function playWord() {
       const word = currentChain[chainIndex];
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(word);
-        utterance.rate = 0.8;
-        speechSynthesis.speak(utterance);
-      }
+      AudioUtils.playWord(word).catch(() => {});
     }
 
     function playLetterSound(letter) {
-      if (letterAudio) {
-        letterAudio.pause();
-        letterAudio.currentTime = 0;
-      }
-
-      letterAudio = new Audio(`/activities/letter-sounds/openai-us/sounds/${letter.toLowerCase()}.mp3`);
-      letterAudio.play().catch(() => {
-        // Fallback
-        if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-          const utterance = new SpeechSynthesisUtterance(letter);
-          utterance.rate = 0.6;
-          speechSynthesis.speak(utterance);
-        }
-      });
+      AudioUtils.playLetterSound(letter, 'sound').catch(() => {});
     }
 
     function playSuccessSound() {

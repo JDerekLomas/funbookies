@@ -340,9 +340,11 @@
       ],
     };
 
+    // Phoneme pronunciations for TTS
+    // Short vowels: /æ/ /ɛ/ /ɪ/ /ɒ/ /ʌ/ - distinct from long vowels
     const phonemes = {
-      'a': 'ah', 'e': 'eh', 'i': 'ih', 'o': 'oh', 'u': 'uh',
-      'a_e': 'ay', 'i_e': 'eye', 'o_e': 'oh', 'u_e': 'you',
+      'a': 'aah', 'e': 'eh', 'i': 'ih', 'o': 'aw', 'u': 'uh',
+      'a_e': 'ay', 'i_e': 'eye', 'o_e': 'oh', 'u_e': 'you', 'e_e': 'ee',
       'sh': 'shh', 'ch': 'chh', 'th': 'thh', 'ng': 'nng',
       'ar': 'arr', 'or': 'orr', 'er': 'err', 'ir': 'err', 'ur': 'err',
       'ai': 'ay', 'ay': 'ay', 'ee': 'ee', 'ea': 'ee', 'oa': 'oh', 'ow': 'oh',
@@ -437,7 +439,8 @@
       currentWord.segments.forEach((seg, idx) => {
         const segEl = document.createElement('div');
         segEl.className = 'segment';
-        segEl.textContent = seg.replace('_', '');
+        // Display split digraphs with dash (a_e → a-e) for clarity
+        segEl.textContent = seg.replace('_', '-');
         segEl.onclick = () => playSegment(idx);
         container.appendChild(segEl);
       });
@@ -545,43 +548,18 @@
       }
     });
 
-    // Pre-recorded audio
-    let segmentAudio = null;
-
     function speakSound(sound) {
-      // Stop any playing audio
-      if (segmentAudio) {
-        segmentAudio.pause();
-        segmentAudio.currentTime = 0;
-      }
-
       // For single letters, use pre-recorded audio files
       if (sound.length === 1 && /^[a-z]$/.test(sound)) {
-        segmentAudio = new Audio(`/activities/letter-sounds/openai-us/sounds/${sound}.mp3`);
-        segmentAudio.play().catch(() => speakSoundFallback(sound));
+        AudioUtils.playLetterSound(sound, 'sound').catch(() => {});
       } else {
-        // For blends/digraphs/vowel teams, use speech synthesis
-        speakSoundFallback(sound);
-      }
-    }
-
-    function speakSoundFallback(sound) {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(sound);
-        utterance.rate = 0.6;
-        utterance.pitch = 1.1;
-        speechSynthesis.speak(utterance);
+        // For blends/digraphs/vowel teams, use TTS
+        AudioUtils.speakTTS(sound, { rate: 0.6, pitch: 1.1 }).catch(() => {});
       }
     }
 
     function speakWord(word) {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(word);
-        utterance.rate = 0.7;
-        speechSynthesis.speak(utterance);
-      }
+      AudioUtils.playWord(word).catch(() => {});
     }
   </script>
 </body>

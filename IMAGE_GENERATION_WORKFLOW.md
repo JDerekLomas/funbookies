@@ -236,11 +236,46 @@ uv run python scripts/generate_covers.py
 uv run python scripts/generate_pages.py
 ```
 
+## Prompt Writing Best Practices
+
+### Avoid Negation - Describe What IS There
+
+Text-to-image models attend to concepts even when negated. Saying "no rain" activates "rain" in the model's attention and often produces rain.
+
+**Bad (mentions unwanted concept):**
+- "Nature is alive even without rain"
+- "No rain falling"
+- "Sky with no clouds"
+
+**Good (describes desired state):**
+- "Dry dirt trail under overcast gray sky"
+- "Parched garden bed, dusty soil"
+- "Clear blue sky"
+
+### Use Negative Prompts for Exclusions
+
+If the model supports a `negative_prompt` field, put unwanted elements there instead of in the main prompt:
+
+```python
+body = {
+    "prompt": "Girl standing in garden, gray overcast sky",
+    "negative_prompt": "rain, water drops, wet, puddles"
+}
+```
+
+### Weather Description Examples
+
+| Story Context | Bad Prompt | Good Prompt |
+|--------------|------------|-------------|
+| Waiting for rain | "No rain yet" | "Dry overcast day, gray clouds" |
+| Drought | "Garden without water" | "Parched soil, wilted plants" |
+| Before storm | "Calm before rain" | "Still air, dark clouds gathering" |
+
 ## Current Status
 
 | Component | Status |
 |-----------|--------|
-| Book JSONs | 43 books with scene descriptions |
-| Reference Images | 35 generated |
-| Cover Images | 43 generated (need regeneration for no-text) |
-| Page Images | Not yet generated (shows placeholder) |
+| Book JSONs | 47 books with scene descriptions |
+| Reference Images | 46 generated |
+| Cover Images | 47 generated |
+| Page Images | 1 book fully generated (b8-the-day-the-rain-came) |

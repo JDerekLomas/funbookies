@@ -19,6 +19,7 @@
     { "src": "/api/validate-text", "dest": "/api/validate-text.js" },
     { "src": "/api/update-book-github", "dest": "/api/update-book-github.js" },
     { "src": "/api/upload-image", "dest": "/api/upload-image.js" },
+    { "src": "/api/save-book", "dest": "/api/save-book-supabase.js" },
     { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }

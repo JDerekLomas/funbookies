@@ -2148,10 +2148,10 @@
             const pageNum = currentPage;
 
             status.className = 'generation-status';
-            status.textContent = 'Saving to GitHub...';
+            status.textContent = 'Saving...';
 
             try {
-                const response = await fetch('/api/update-book-github', {
+                const response = await fetch('/api/save-book', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -2166,9 +2166,7 @@
 
                 if (result.success) {
                     status.className = 'generation-status success';
-                    status.innerHTML = `
-                        Prompt saved! <a href="${result.commitUrl}" target="_blank" style="color: inherit;">View commit</a>
-                    `;
+                    status.textContent = 'Prompt saved!';
                     // Update local book data
                     if (pageNum === -1) {
                         currentBook.reference_prompt = prompt;
@@ -2223,7 +2221,7 @@
                 status.textContent = 'Updating book...';
 
                 // 2. Save the Supabase URL to book JSON via GitHub API
-                const response = await fetch('/api/update-book-github', {
+                const response = await fetch('/api/save-book', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -2240,7 +2238,7 @@
                     // Update local book data
                     currentBook.pages[pageNum].image = supabaseUrl;
                     status.className = 'generation-status success';
-                    status.innerHTML = `Image saved! <a href="${result.commitUrl}" target="_blank" style="color: inherit;">View commit</a>`;
+                    status.textContent = 'Image saved!';
 
                     // Refresh the page display immediately
                     setTimeout(() => {

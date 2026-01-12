@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Generate book covers using reference images for style consistency."""
+"""Generate book covers using reference images for style consistency.
+
+Saves generation metadata to book JSON:
+- cover_metadata.generated_at: ISO timestamp
+- cover_metadata.model: model used
+- cover_metadata.used_reference: whether reference was used
+- cover_metadata.reference_version: which reference version
+"""
 
 import sys
 import os
@@ -7,6 +14,7 @@ import base64
 import json
 import urllib.request
 from pathlib import Path
+from datetime import datetime
 
 # Add the skill directory to path
 SKILL_DIR = Path("/Users/dereklomas/.claude/plugins/cache/mulerouter-skills/mulerouter-skills/1.0.0/skills/mulerouter-skills")
@@ -69,20 +77,37 @@ Style: Soft watercolor illustration, warm colors, cute whimsical style for young
 IMPORTANT: Do NOT include any text, titles, words, or letters in the image. Pure illustration only."""
 
 
+def find_reference_image(slug: str) -> tuple[Path | None, str | None]:
+    """Find the reference image for a book, checking versioned files.
+
+    Returns: (path, version) or (None, None) if not found
+    """
+    versions = ["_v4", "_v3", "_v2", ""]
+    for version in versions:
+        suffix = f"_reference{version}.png"
+        path = REFS_DIR / f"{slug}{suffix}"
+        if path.exists():
+            version_str = version.replace("_", "") if version else "v1"
+            return path, version_str
+    return None, None
+
+
 def generate_cover(slug: str, config) -> bool:
     """Generate cover for a book using its reference image."""
 
-    ref_path = REFS_DIR / f"{slug}_reference.png"
+    ref_path, ref_version = find_reference_image(slug)
     book_path = BOOKS_DIR / f"{slug}.json"
     output_path = COVERS_DIR / f"{slug}.png"
 
-    if not ref_path.exists():
-        print(f"  No reference image found at {ref_path}")
+    if not ref_path:
+        print(f"  No reference image found for {slug}")
         return False
 
     if not book_path.exists():
         print(f"  No book JSON found at {book_path}")
         return False
+
+    print(f"  Using reference: {ref_version}")
 
     # Get prompt from book
     prompt = get_cover_prompt(book_path)
@@ -90,6 +115,8 @@ def generate_cover(slug: str, config) -> bool:
 
     # Convert reference to base64
     ref_uri = image_to_base64_uri(ref_path)
+
+    model = "wan2.6-image"
 
     # Build request
     body = {
@@ -103,7 +130,7 @@ def generate_cover(slug: str, config) -> bool:
     with APIClient(config) as client:
         result = create_and_poll_task(
             client=client,
-            endpoint_path="/vendors/alibaba/v1/wan2.6-image/generation",
+            endpoint_path=f"/vendors/alibaba/v1/{model}/generation",
             request_body=body,
             result_key="images",
             interval=5.0,
@@ -114,7 +141,26 @@ def generate_cover(slug: str, config) -> bool:
         if result.results:
             url = result.results[0]
             print(f"  Generated: {url}")
-            return download_image(url, output_path)
+
+            if download_image(url, output_path):
+                # Save metadata to book JSON
+                with open(book_path) as f:
+                    book = json.load(f)
+
+                book["cover_metadata"] = {
+                    "generated_at": datetime.now().isoformat(),
+                    "model": model,
+                    "used_reference": True,
+                    "reference_version": ref_version,
+                    "prompt": prompt
+                }
+
+                with open(book_path, 'w') as f:
+                    json.dump(book, f, indent=2)
+
+                print(f"  Metadata saved to book JSON")
+                return True
+            return False
         else:
             print(f"  Failed: {result.error}")
             return False

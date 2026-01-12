@@ -3,14 +3,22 @@
 
 Uses nano-banana-pro with consistent character descriptions in every prompt
 to maintain visual coherence across the book.
+
+Saves generation metadata for each image including:
+- generated_at: ISO timestamp
+- model: model used for generation
+- used_reference: whether style transfer was used
+- reference_version: which reference image version was used (if applicable)
 """
 
 import json
 import time
 import requests
 from pathlib import Path
+from datetime import datetime
 
 BOOKS_DIR = Path("/Users/dereklomas/lilbookies/public/books")
+REFS_DIR = BOOKS_DIR / "references"
 API_URL = "https://funbookies.com/api"
 
 
@@ -70,24 +78,60 @@ IMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.
     return prompt
 
 
-def generate_image(prompt: str, slug: str, page_num: int) -> str:
-    """Generate an image using nano-banana-pro."""
+def find_reference_image(slug: str) -> tuple[str | None, str | None]:
+    """Find the reference image for a book, checking versioned files.
+
+    Returns: (path, version) or (None, None) if not found
+    """
+    versions = ["_v4", "_v3", "_v2", ""]
+    for version in versions:
+        suffix = f"_reference{version}.png"
+        path = REFS_DIR / f"{slug}{suffix}"
+        if path.exists():
+            version_str = version.replace("_", "") if version else "v1"
+            return str(path), version_str
+    return None, None
+
+
+def generate_image(prompt: str, slug: str, page_num: int, use_reference: bool = False) -> dict | None:
+    """Generate an image using nano-banana-pro.
+
+    Returns: dict with 'url' and 'metadata' or None on failure
+    """
 
     print(f"  Generating page {page_num}...")
 
-    # Submit generation request - use nano-banana-pro for consistency
-    response = requests.post(f"{API_URL}/generate-image", json={
+    model = "nano-banana-pro"
+    ref_path, ref_version = None, None
+
+    if use_reference:
+        ref_path, ref_version = find_reference_image(slug)
+        if ref_path:
+            print(f"    Using reference: {ref_version}")
+            model = "wan2.6-image"  # Use I2I model with reference
+        else:
+            print(f"    No reference found, using T2I")
+
+    # Submit generation request
+    payload = {
         "prompt": prompt,
-        "model": "nano-banana-pro",
+        "model": model,
         "slug": slug,
         "page": page_num
-    })
+    }
 
+    # Add reference for I2I if available
+    if ref_path and use_reference:
+        payload["reference_image"] = f"/books/references/{slug}_reference{('_' + ref_version) if ref_version != 'v1' else ''}.png"
+
+    response = requests.post(f"{API_URL}/generate-image", json=payload)
     result = response.json()
 
     if not result.get("success"):
         print(f"    Error: {result.get('error')}")
         return None
+
+    image_url = None
 
     if result.get("pending"):
         task_id = result["taskId"]
@@ -106,7 +150,8 @@ def generate_image(prompt: str, slug: str, page_num: int) -> str:
 
                 if status.get("completed"):
                     print(f"    Done!")
-                    return status["url"]
+                    image_url = status["url"]
+                    break
 
                 if not status.get("success"):
                     print(f"    Error: {status.get('error')}")
@@ -116,12 +161,26 @@ def generate_image(prompt: str, slug: str, page_num: int) -> str:
             except Exception as e:
                 print(f"    Network error, retrying... ({e})")
                 time.sleep(5)
+        else:
+            print("    Timeout!")
+            return None
+    else:
+        # Immediate result
+        image_url = result.get("url")
 
-        print("    Timeout!")
+    if not image_url:
         return None
 
-    # Immediate result
-    return result.get("url")
+    # Return URL with metadata
+    return {
+        "url": image_url,
+        "metadata": {
+            "generated_at": datetime.now().isoformat(),
+            "model": model,
+            "used_reference": bool(ref_path and use_reference),
+            "reference_version": ref_version if (ref_path and use_reference) else None,
+        }
+    }
 
 
 def main():
@@ -131,6 +190,7 @@ def main():
     parser.add_argument("--pages", help="Comma-separated page numbers (default: all)")
     parser.add_argument("--dry-run", action="store_true", help="Show prompts only")
     parser.add_argument("--force", action="store_true", help="Regenerate even if image exists")
+    parser.add_argument("--use-reference", action="store_true", help="Use I2I with reference sheet")
     args = parser.parse_args()
 
     book_file = BOOKS_DIR / f"{args.slug}.json"
@@ -149,6 +209,13 @@ def main():
         pages = [p for p in pages if p["page"] in page_nums]
 
     print(f"Processing {len(pages)} pages for {args.slug}\n")
+
+    # Check for reference image
+    ref_path, ref_version = find_reference_image(args.slug)
+    if ref_path:
+        print(f"Reference image found: {ref_version}")
+    else:
+        print("No reference image found")
 
     # Show character block for reference
     char_block = get_character_block(book)
@@ -180,11 +247,12 @@ def main():
             print()
             continue
 
-        # Generate image
-        image_url = generate_image(prompt, args.slug, page_num)
+        # Generate image with metadata
+        result = generate_image(prompt, args.slug, page_num, use_reference=args.use_reference)
 
-        if image_url:
-            page["image"] = image_url
+        if result:
+            page["image"] = result["url"]
+            page["generation_metadata"] = result["metadata"]
             updated += 1
 
             # Save after each successful generation

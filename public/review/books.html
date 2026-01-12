@@ -663,7 +663,8 @@
                     <img class="page-image" id="refPageImg" src="${refPaths[0]}" alt="Reference Sheet" onclick="openLightbox(this.src)"
                         onerror="tryNextRef(this, ${JSON.stringify(refPaths).replace(/"/g, '&quot;')}, 1)">
                 `;
-                updatePageInfo('Reference', '-');
+                // Pass reference metadata if available
+                updatePageInfo('Reference', 'reference', currentBook.reference_metadata);
                 updateFeedbackUI();
                 return;
             }
@@ -690,7 +691,8 @@
                 ` : ''}
             `;
 
-            updatePageInfo(`Page ${currentPage + 1}`, page.type || 'story');
+            // Pass page-level generation metadata if available
+            updatePageInfo(`Page ${currentPage + 1}`, page.type || 'story', page.generation_metadata);
             updateFeedbackUI();
         }
 
@@ -703,7 +705,7 @@
             }
         }
 
-        function updatePageInfo(pageLabel, pageType) {
+        function updatePageInfo(pageLabel, pageType, pageMetadata = null) {
             document.getElementById('pageInfo').innerHTML = `
                 <div class="info-row"><label>Book</label><span class="value">${currentBook.title}</span></div>
                 <div class="info-row"><label>Level</label><span class="value">${currentBook.level || 'N/A'}</span></div>
@@ -711,16 +713,33 @@
                 <div class="info-row"><label>Type</label><span class="value">${pageType}</span></div>
             `;
 
-            // Update generation info
+            // Update generation info - use page metadata if available, else book-level
+            const meta = pageMetadata || {};
+            const model = meta.model || currentBook.model || 'Unknown';
+            const generatedAt = meta.generated_at
+                ? new Date(meta.generated_at).toLocaleDateString()
+                : currentBook.created || 'Unknown';
+            const usedRef = meta.used_reference;
+            const refVersion = meta.reference_version;
+
+            let refStatus = 'Checking...';
+            if (usedRef !== undefined) {
+                refStatus = usedRef
+                    ? `<span style="color: var(--color-sage);">✓ ${refVersion || 'Yes'}</span>`
+                    : '<span style="color: var(--color-text-muted);">No</span>';
+            }
+
             document.getElementById('genInfo').innerHTML = `
-                <div class="info-row"><label>Model</label><span class="value">${currentBook.model || 'Unknown'}</span></div>
-                <div class="info-row"><label>Created</label><span class="value">${currentBook.created || 'Unknown'}</span></div>
+                <div class="info-row"><label>Model</label><span class="value">${model}</span></div>
+                <div class="info-row"><label>Generated</label><span class="value">${generatedAt}</span></div>
                 <div class="info-row"><label>Style</label><span class="value">${currentBook.style_preset || 'Default'}</span></div>
-                <div class="info-row"><label>Reference</label><span class="value" id="hasRefValue">Checking...</span></div>
+                <div class="info-row"><label>Reference</label><span class="value" id="hasRefValue">${refStatus}</span></div>
             `;
 
-            // Check if reference image exists
-            checkReferenceExists();
+            // Only check if reference exists if we don't have page-level metadata
+            if (usedRef === undefined) {
+                checkReferenceExists();
+            }
         }
 
         function checkReferenceExists() {

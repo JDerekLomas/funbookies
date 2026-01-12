@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
-"""Generate 9-panel reference images for books based on their content."""
+"""Generate 9-panel reference images for books based on their content.
+
+Saves generation metadata to book JSON:
+- reference_generated_at: ISO timestamp
+- reference_model: model used
+- reference_prompt: the prompt used
+"""
 
 import sys
 import os
 import json
 import urllib.request
 from pathlib import Path
+from datetime import datetime
 
 SKILL_DIR = Path("/Users/dereklomas/.claude/plugins/cache/mulerouter-skills/mulerouter-skills/1.0.0/skills/mulerouter-skills")
 sys.path.insert(0, str(SKILL_DIR))
@@ -130,6 +137,8 @@ def generate_reference(slug: str, config) -> bool:
     print(f"  Band: {book_info['band']}")
     print(f"  Prompt preview: {prompt[:200]}...")
 
+    model = "wan2.6-t2i"
+
     # Use text-to-image for reference generation
     body = {
         "prompt": prompt,
@@ -140,7 +149,7 @@ def generate_reference(slug: str, config) -> bool:
     with APIClient(config) as client:
         result = create_and_poll_task(
             client=client,
-            endpoint_path="/vendors/alibaba/v1/wan2.6-t2i/generation",
+            endpoint_path=f"/vendors/alibaba/v1/{model}/generation",
             request_body=body,
             result_key="images",
             interval=5.0,
@@ -154,6 +163,23 @@ def generate_reference(slug: str, config) -> bool:
             try:
                 urllib.request.urlretrieve(url, output_path)
                 print(f"  Saved to: {output_path}")
+
+                # Save metadata to book JSON
+                book_path = BOOKS_DIR / f"{slug}.json"
+                with open(book_path) as f:
+                    book = json.load(f)
+
+                book["reference_metadata"] = {
+                    "generated_at": datetime.now().isoformat(),
+                    "model": model,
+                    "prompt": prompt,
+                    "output_path": str(output_path.relative_to(BOOKS_DIR.parent))
+                }
+
+                with open(book_path, 'w') as f:
+                    json.dump(book, f, indent=2)
+
+                print(f"  Metadata saved to book JSON")
                 return True
             except Exception as e:
                 print(f"  Download error: {e}")

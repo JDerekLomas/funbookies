@@ -17,6 +17,7 @@
     { "src": "/api/evaluations", "dest": "/api/evaluations.js" },
     { "src": "/api/feedback", "dest": "/api/feedback.js" },
     { "src": "/api/validate-text", "dest": "/api/validate-text.js" },
+    { "src": "/api/update-book-github", "dest": "/api/update-book-github.js" },
     { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }

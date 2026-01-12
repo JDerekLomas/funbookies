@@ -1,0 +1,58 @@
+{
+  "title": "Fern and the Gust",
+  "version": "2.0",
+
+  "character": {
+    "fern": {
+      "one_line": "A small round brown mouse with big ears and a curly tail",
+      "shape": "Round body, round head, two big round ears",
+      "color": "Brown with a cream tummy",
+      "features": "Big dark eyes, pink nose, tail curls at the end",
+      "size": "Small - fits in your hand"
+    },
+    "gust": {
+      "one_line": "Invisible wind spirit - NEVER drawn directly",
+      "shown_by": "Swirling leaves, bending grass, motion lines, ruffled fur"
+    }
+  },
+
+  "art_style": {
+    "one_line": "Simple flat shapes with bold black outlines, like a modern picture book",
+    "reference": "Dick Bruna (Miffy) meets Mo Willems - simple geometric shapes, bold outlines, flat colors",
+    "shapes": "Circles and ovals only. No complex details.",
+    "lines": "Thick black outlines around everything",
+    "colors": "Flat solid colors, no gradients or shading"
+  },
+
+  "palette": {
+    "fern_brown": "#8B5A2B",
+    "fern_cream": "#FFF8DC",
+    "grass_green": "#7CB342",
+    "sky_blue": "#87CEEB",
+    "leaf_orange": "#FF8C00",
+    "leaf_red": "#DC143C",
+    "sun_yellow": "#FFD700"
+  },
+
+  "rules": {
+    "always": [
+      "Fern has the same simple round shape in every image",
+      "Thick black outlines on everything",
+      "Flat colors, no gradients",
+      "Show wind through effects (leaves, grass, motion lines)",
+      "Keep backgrounds simple - grass and sky"
+    ],
+    "never": [
+      "NO text, words, or letters",
+      "NO detailed textures or fur",
+      "NO realistic style",
+      "NO drawing Gust as a character with a face",
+      "NO complex backgrounds"
+    ]
+  },
+
+  "scene_prompts": {
+    "style_suffix": "Simple flat illustration style. Round shapes, thick black outlines, flat colors. Like Dick Bruna or Mo Willems. NO TEXT.",
+    "character_prefix": "A small round brown mouse with big ears, cream tummy, and a curly tail"
+  }
+}

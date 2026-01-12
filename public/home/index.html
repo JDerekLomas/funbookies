@@ -187,8 +187,18 @@
         }
 
         .activity-icon {
-            font-size: 2.5rem;
+            width: 48px;
+            height: 48px;
             margin-bottom: var(--space-xs);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .activity-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .activity-name {
@@ -243,8 +253,28 @@
         }
 
         .setup-icon {
-            font-size: 5rem;
-            margin-bottom: var(--space-md);
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-md);
+        }
+
+        .setup-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .section-icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .section-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .setup-screen h2 {
@@ -283,7 +313,7 @@
     <div class="container">
         <!-- Setup Screen (shown if no child) -->
         <div id="setupScreen" class="setup-screen">
-            <div class="setup-icon">📚</div>
+            <div class="setup-icon"><img src="/images/icons/icon-books.png" alt=""></div>
             <h2>Welcome to FunBookies!</h2>
             <p>Let's set up reading practice for your child.</p>
             <form class="setup-form" onsubmit="createChild(event)">
@@ -312,7 +342,7 @@
             <!-- Today's Books -->
             <div class="books-section">
                 <div class="section-header">
-                    <h3 class="section-title">📖 Books for You</h3>
+                    <h3 class="section-title"><span class="section-icon"><img src="/images/icons/icon-books.png" alt=""></span> Books for You</h3>
                     <a href="/books/" class="see-all">See all</a>
                 </div>
                 <div class="books-scroll" id="booksScroll">
@@ -323,27 +353,27 @@
             <!-- Practice Activities -->
             <div class="activities-section">
                 <div class="section-header">
-                    <h3 class="section-title">🎮 Practice</h3>
+                    <h3 class="section-title"><span class="section-icon"><img src="/images/icons/icon-game.png" alt=""></span> Practice</h3>
                     <a href="/activities/" class="see-all">See all</a>
                 </div>
                 <div class="activity-grid" id="activityGrid">
                     <a href="/activities/sight-words.html" class="activity-card">
-                        <span class="activity-icon">👁️</span>
+                        <span class="activity-icon"><img src="/images/icons/icon-sight-words.png" alt=""></span>
                         <span class="activity-name">Sight Words</span>
                         <span class="activity-desc">Learn common words</span>
                     </a>
                     <a href="/activities/word-builder.html" class="activity-card">
-                        <span class="activity-icon">🔤</span>
+                        <span class="activity-icon"><img src="/images/icons/icon-word-builder.png" alt=""></span>
                         <span class="activity-name">Word Builder</span>
                         <span class="activity-desc">Spell words</span>
                     </a>
                     <a href="/activities/blend-it.html" class="activity-card">
-                        <span class="activity-icon">🔊</span>
+                        <span class="activity-icon"><img src="/images/icons/icon-blend-it.png" alt=""></span>
                         <span class="activity-name">Blend It</span>
                         <span class="activity-desc">Sound out words</span>
                     </a>
                     <a href="/activities/rhyme-match.html" class="activity-card">
-                        <span class="activity-icon">🎵</span>
+                        <span class="activity-icon"><img src="/images/icons/icon-rhyme-match.png" alt=""></span>
                         <span class="activity-name">Rhyme Match</span>
                         <span class="activity-desc">Find rhyming words</span>
                     </a>
@@ -353,7 +383,7 @@
             <!-- This Week Stats -->
             <div class="stats-section">
                 <div class="section-header">
-                    <h3 class="section-title">📊 This Week</h3>
+                    <h3 class="section-title"><span class="section-icon"><img src="/images/icons/icon-chart.png" alt=""></span> This Week</h3>
                 </div>
                 <div class="stats-grid">
                     <div class="stat-item">
@@ -374,7 +404,7 @@
             <!-- Assessment CTA (if not assessed) -->
             <div id="assessmentCta" class="hidden" style="text-align: center; margin-bottom: var(--space-lg);">
                 <a href="/activities/phonics-assessment.html" class="btn btn-primary btn-lg">
-                    📊 Find Reading Level
+                    Find Reading Level
                 </a>
                 <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-top: var(--space-xs);">
                     Takes about 5 minutes

@@ -69,8 +69,15 @@
     }
 
     .stat-icon {
-      font-size: 2rem;
-      margin-bottom: var(--space-xs);
+      width: 40px;
+      height: 40px;
+      margin: 0 auto var(--space-xs);
+    }
+
+    .stat-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .stat-value {
@@ -319,8 +326,9 @@
     }
 
     .achievement-icon {
-      font-size: 2rem;
-      margin-bottom: var(--space-xs);
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--space-xs);
     }
 
     .achievement-name {
@@ -342,8 +350,15 @@
     }
 
     .empty-state-icon {
-      font-size: 3rem;
-      margin-bottom: var(--space-sm);
+      width: 60px;
+      height: 60px;
+      margin: 0 auto var(--space-sm);
+    }
+
+    .empty-state-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .no-student {
@@ -391,22 +406,22 @@
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon">📚</div>
+          <div class="stat-icon"><img src="/images/icons/icon-books.png" alt=""></div>
           <div class="stat-value" id="booksRead">0</div>
           <div class="stat-label">Books Read</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">🎯</div>
+          <div class="stat-icon"><img src="/images/icons/icon-target.png" alt=""></div>
           <div class="stat-value" id="activitiesCompleted">0</div>
           <div class="stat-label">Activities</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">🔤</div>
+          <div class="stat-icon"><img src="/images/icons/icon-word-builder.png" alt=""></div>
           <div class="stat-value" id="lettersLearned">0</div>
           <div class="stat-label">Letters</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">🔥</div>
+          <div class="stat-icon"><img src="/images/icons/icon-star.png" alt=""></div>
           <div class="stat-value" id="bestStreak">0</div>
           <div class="stat-label">Best Streak</div>
         </div>
@@ -443,7 +458,7 @@
       <h2 class="section-title">Recent Activities</h2>
       <div class="activity-list" id="activityList">
         <div class="empty-state" id="activitiesEmpty">
-          <div class="empty-state-icon">🎮</div>
+          <div class="empty-state-icon"><img src="/images/icons/icon-game.png" alt=""></div>
           <p>No activities yet. Start practicing!</p>
         </div>
       </div>
@@ -456,35 +471,35 @@
   <script>
     let currentStudent = null;
 
-    // Achievement definitions
+    // Achievement definitions - using icon image paths
     const achievements = [
-      { id: 'first-book', name: 'First Book', desc: 'Read your first book', icon: '📖', check: (s) => s.booksRead >= 1 },
-      { id: 'bookworm', name: 'Bookworm', desc: 'Read 5 books', icon: '📚', check: (s) => s.booksRead >= 5 },
-      { id: 'library', name: 'Library Card', desc: 'Read 10 books', icon: '🏛️', check: (s) => s.booksRead >= 10 },
-      { id: 'alphabet', name: 'ABC Master', desc: 'Learn all 26 letters', icon: '🔤', check: (s) => s.lettersLearned >= 26 },
-      { id: 'streak-3', name: 'On Fire', desc: '3 correct in a row', icon: '🔥', check: (s) => s.bestStreak >= 3 },
-      { id: 'streak-10', name: 'Unstoppable', desc: '10 correct in a row', icon: '💪', check: (s) => s.bestStreak >= 10 },
-      { id: 'activities-5', name: 'Getting Started', desc: 'Complete 5 activities', icon: '🎯', check: (s) => s.activitiesCompleted >= 5 },
-      { id: 'activities-20', name: 'Practice Pro', desc: 'Complete 20 activities', icon: '🏆', check: (s) => s.activitiesCompleted >= 20 },
-      { id: 'fluent', name: 'Fluent Reader', desc: 'Reach 30 WCPM', icon: '⚡', check: (s) => s.wcpm >= 30 },
-      { id: 'speed-reader', name: 'Speed Reader', desc: 'Reach 60 WCPM', icon: '🚀', check: (s) => s.wcpm >= 60 },
+      { id: 'first-book', name: 'First Book', desc: 'Read your first book', icon: '/images/icons/icon-read-aloud.png', check: (s) => s.booksRead >= 1 },
+      { id: 'bookworm', name: 'Bookworm', desc: 'Read 5 books', icon: '/images/icons/icon-books.png', check: (s) => s.booksRead >= 5 },
+      { id: 'library', name: 'Library Card', desc: 'Read 10 books', icon: '/images/icons/icon-books.png', check: (s) => s.booksRead >= 10 },
+      { id: 'alphabet', name: 'ABC Master', desc: 'Learn all 26 letters', icon: '/images/icons/icon-word-builder.png', check: (s) => s.lettersLearned >= 26 },
+      { id: 'streak-3', name: 'On Fire', desc: '3 correct in a row', icon: '/images/icons/icon-star.png', check: (s) => s.bestStreak >= 3 },
+      { id: 'streak-10', name: 'Unstoppable', desc: '10 correct in a row', icon: '/images/icons/icon-star.png', check: (s) => s.bestStreak >= 10 },
+      { id: 'activities-5', name: 'Getting Started', desc: 'Complete 5 activities', icon: '/images/icons/icon-target.png', check: (s) => s.activitiesCompleted >= 5 },
+      { id: 'activities-20', name: 'Practice Pro', desc: 'Complete 20 activities', icon: '/images/icons/icon-target.png', check: (s) => s.activitiesCompleted >= 20 },
+      { id: 'fluent', name: 'Fluent Reader', desc: 'Reach 30 WCPM', icon: '/images/icons/icon-sparkles.png', check: (s) => s.wcpm >= 30 },
+      { id: 'speed-reader', name: 'Speed Reader', desc: 'Reach 60 WCPM', icon: '/images/icons/icon-sparkles.png', check: (s) => s.wcpm >= 60 },
     ];
 
-    // Activity type metadata
+    // Activity type metadata - using icon image paths
     const activityMeta = {
-      'letter-sounds': { name: 'Letter Sounds', icon: '🔤', color: '#667eea' },
-      'letter-match': { name: 'Letter Match', icon: '🔠', color: '#764ba2' },
-      'first-sounds': { name: 'First Sounds', icon: '🎯', color: '#f093fb' },
-      'rhyme-time': { name: 'Rhyme Time', icon: '🎵', color: '#4facfe' },
-      'syllable-clap': { name: 'Syllable Clap', icon: '👏', color: '#a8e063' },
-      'voice-blend': { name: 'Blend It Out', icon: '🔊', color: '#f5576c' },
-      'chop-it-up': { name: 'Chop It Up', icon: '✂️', color: '#56ab2f' },
-      'say-the-sound': { name: 'Say the Sound', icon: '💬', color: '#00f2fe' },
-      'read-aloud': { name: 'Read Aloud', icon: '🎤', color: '#667eea' },
-      'word-builder': { name: 'Word Builder', icon: '🧱', color: '#ffecd2' },
-      'word-families': { name: 'Word Families', icon: '👨‍👩‍👧', color: '#ff9a9e' },
-      'sight-words': { name: 'Sight Words', icon: '👁️', color: '#fecfef' },
-      'phonics-assessment': { name: 'Assessment', icon: '📋', color: '#96e6a1' },
+      'letter-sounds': { name: 'Letter Sounds', icon: '/images/icons/icon-letter-sounds.png', color: '#667eea' },
+      'letter-match': { name: 'Letter Match', icon: '/images/icons/icon-letter-match.png', color: '#764ba2' },
+      'first-sounds': { name: 'First Sounds', icon: '/images/icons/icon-first-sounds.png', color: '#f093fb' },
+      'rhyme-time': { name: 'Rhyme Time', icon: '/images/icons/icon-rhyme-time.png', color: '#4facfe' },
+      'syllable-clap': { name: 'Syllable Clap', icon: '/images/icons/icon-syllable-clap.png', color: '#a8e063' },
+      'voice-blend': { name: 'Blend It Out', icon: '/images/icons/icon-voice-blend.png', color: '#f5576c' },
+      'chop-it-up': { name: 'Chop It Up', icon: '/images/icons/icon-chop-it-up.png', color: '#56ab2f' },
+      'say-the-sound': { name: 'Say the Sound', icon: '/images/icons/icon-say-the-sound.png', color: '#00f2fe' },
+      'read-aloud': { name: 'Read Aloud', icon: '/images/icons/icon-read-aloud.png', color: '#667eea' },
+      'word-builder': { name: 'Word Builder', icon: '/images/icons/icon-word-builder.png', color: '#ffecd2' },
+      'word-families': { name: 'Word Families', icon: '/images/icons/icon-word-families.png', color: '#ff9a9e' },
+      'sight-words': { name: 'Sight Words', icon: '/images/icons/icon-sight-words.png', color: '#fecfef' },
+      'phonics-assessment': { name: 'Assessment', icon: '/images/icons/icon-assessment.png', color: '#96e6a1' },
     };
 
     document.addEventListener('DOMContentLoaded', async () => {
@@ -685,7 +700,11 @@
           img.alt = entry.bookTitle;
           cover.appendChild(img);
         } else {
-          cover.textContent = '📖';
+          const img = document.createElement('img');
+          img.src = '/images/icons/icon-read-aloud.png';
+          img.style.width = '60%';
+          img.style.height = 'auto';
+          cover.appendChild(img);
         }
 
         const title = document.createElement('div');
@@ -722,14 +741,14 @@
         .slice(0, 10);
 
       recent.forEach(activity => {
-        const meta = activityMeta[activity.type] || { name: activity.type, icon: '🎮', color: '#ccc' };
+        const meta = activityMeta[activity.type] || { name: activity.type, icon: '/images/icons/icon-game.png', color: '#ccc' };
 
         const item = document.createElement('div');
         item.className = 'activity-item';
 
         item.innerHTML = `
           <div class="activity-icon" style="background: ${meta.color}">
-            ${meta.icon}
+            <img src="${meta.icon}" alt="" style="width: 100%; height: 100%; object-fit: contain;">
           </div>
           <div class="activity-details">
             <div class="activity-name">${meta.name}</div>
@@ -758,8 +777,12 @@
         const el = document.createElement('div');
         el.className = `achievement ${earned ? 'earned' : 'locked'}`;
 
+        const iconHtml = earned
+          ? `<img src="${achievement.icon}" alt="" style="width: 100%; height: 100%; object-fit: contain;">`
+          : `<img src="/images/icons/icon-target.png" alt="" style="width: 100%; height: 100%; object-fit: contain; opacity: 0.3;">`;
+
         el.innerHTML = `
-          <div class="achievement-icon">${earned ? achievement.icon : '🔒'}</div>
+          <div class="achievement-icon">${iconHtml}</div>
           <div class="achievement-name">${achievement.name}</div>
           <div class="achievement-desc">${achievement.desc}</div>
         `;

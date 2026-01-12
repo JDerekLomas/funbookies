@@ -106,23 +106,32 @@ def build_reference_prompt(slug: str, book: dict) -> str:
     if color_list:
         sections.append(f"\nCOLOR PALETTE: {', '.join(color_list[:8])}")  # Limit to 8 colors
 
-    # Key scenes from pages
+    # Key scenes from pages - skip text-only pages like title, words to know, etc.
+    skip_phrases = ["words to know", "the end", "about the", "vocabulary", "glossary"]
     scenes = []
     for p in book.get("pages", []):
         scene = p.get("scene") or p.get("text", "")
         if scene and len(scene) > 10:
+            # Skip text-only/meta pages
+            scene_lower = scene.lower()
+            if any(skip in scene_lower for skip in skip_phrases):
+                continue
+            # Skip if it looks like a title page (just the book title)
+            if scene.strip() == title:
+                continue
             scenes.append(scene[:80] + "..." if len(scene) > 80 else scene)
 
     if scenes[:6]:
-        sections.append("\nKEY SCENES TO SHOW:")
+        sections.append("\nKEY SCENES TO SHOW (visual moments only):")
         for i, scene in enumerate(scenes[:6], 1):
             sections.append(f"  Panel {i}: {scene}")
 
-    # Technical requirements
+    # Technical requirements - NO TEXT is critical, put it first and last
     sections.append("\nTECHNICAL REQUIREMENTS:")
-    sections.append("- 9 panels in 3x3 grid")
-    sections.append("- Consistent style across all panels")
-    sections.append("- Square vignettes showing characters, settings, key moments")
+    sections.append("- CRITICAL: NO TEXT, NO WORDS, NO LETTERS, NO WRITING anywhere in the image")
+    sections.append("- 9 panels in 3x3 grid layout")
+    sections.append("- Consistent art style across all panels")
+    sections.append("- Pure visual storytelling - show scenes through imagery only")
 
     if must_include:
         sections.append(f"- {must_include}")
@@ -130,7 +139,7 @@ def build_reference_prompt(slug: str, book: dict) -> str:
     if avoid:
         sections.append(f"- AVOID: {avoid}")
 
-    sections.append("- NO TEXT, WORDS, OR LETTERS in the image")
+    sections.append("- REMINDER: This is a VISUAL ONLY reference sheet - absolutely no text or letters")
 
     return "\n".join(sections)
 

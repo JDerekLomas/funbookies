@@ -506,8 +506,14 @@
             justify-content: center;
             background: var(--color-white);
             border-radius: var(--border-radius);
-            font-size: 1.5rem;
             flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .activity-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .activity-info h3 {
@@ -771,8 +777,20 @@
         }
 
         .welcome-back-avatar {
-            font-size: 3rem;
-            line-height: 1;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--color-white);
+        }
+
+        .welcome-back-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .welcome-back-text {
@@ -880,7 +898,7 @@
     <div class="container" style="padding-top: var(--space-md);">
         <div class="welcome-back" id="welcomeBack">
             <div class="welcome-back-content">
-                <div class="welcome-back-avatar" id="welcomeAvatar">👋</div>
+                <div class="welcome-back-avatar" id="welcomeAvatar"><img src="/images/icons/icon-wave.png" alt="Wave"></div>
                 <div class="welcome-back-text">
                     <h3 id="welcomeTitle">Welcome back!</h3>
                     <p id="welcomeMessage">Continue where you left off</p>
@@ -945,42 +963,42 @@
             </div>
             <div class="activities-grid">
                 <a href="/activities/phonics-assessment.html" class="activity-card">
-                    <div class="activity-icon">📊</div>
+                    <div class="activity-icon"><img src="/images/icons/icon-assessment.png" alt=""></div>
                     <div class="activity-info">
                         <h3>Phonics Assessment</h3>
                         <p>Find your child's reading level</p>
                     </div>
                 </a>
                 <a href="/activities/sight-words.html" class="activity-card">
-                    <div class="activity-icon">👁</div>
+                    <div class="activity-icon"><img src="/images/icons/icon-sight-words.png" alt=""></div>
                     <div class="activity-info">
                         <h3>Sight Words</h3>
                         <p>Practice high-frequency words</p>
                     </div>
                 </a>
                 <a href="/activities/word-builder.html" class="activity-card">
-                    <div class="activity-icon">🔤</div>
+                    <div class="activity-icon"><img src="/images/icons/icon-word-builder.png" alt=""></div>
                     <div class="activity-info">
                         <h3>Word Builder</h3>
                         <p>Build words letter by letter</p>
                     </div>
                 </a>
                 <a href="/activities/blend-it.html" class="activity-card">
-                    <div class="activity-icon">🔊</div>
+                    <div class="activity-icon"><img src="/images/icons/icon-blend-it.png" alt=""></div>
                     <div class="activity-info">
                         <h3>Blend It</h3>
                         <p>Sound out and blend words</p>
                     </div>
                 </a>
                 <a href="/activities/rhyme-match.html" class="activity-card">
-                    <div class="activity-icon">🎵</div>
+                    <div class="activity-icon"><img src="/images/icons/icon-rhyme-match.png" alt=""></div>
                     <div class="activity-info">
                         <h3>Rhyme Match</h3>
                         <p>Match words that rhyme</p>
                     </div>
                 </a>
                 <a href="/generate-story.html" class="activity-card">
-                    <div class="activity-icon">✨</div>
+                    <div class="activity-icon"><img src="/images/icons/icon-story-generator.png" alt=""></div>
                     <div class="activity-info">
                         <h3>Story Generator</h3>
                         <p>Create custom stories with AI</p>
@@ -1202,12 +1220,12 @@
                 const student = students.find(s => s.id === session.currentStudentId);
 
                 if (student) {
-                    avatar.textContent = student.avatar || '👋';
+                    if (student.avatar) {
+                        avatar.innerHTML = `<span style="font-size:2.5rem;line-height:1">${student.avatar}</span>`;
+                    }
                     title.textContent = `Welcome back, ${student.name}!`;
-                } else {
-                    avatar.textContent = '👋';
-                    title.textContent = 'Welcome back!';
                 }
+                // Default wave icon is already in HTML
 
                 // Set message based on activity type
                 if (lastActivity.type === 'book') {

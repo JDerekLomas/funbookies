@@ -22,9 +22,42 @@ const AudioUtils = (function() {
   const SOUNDS_PATH = '/audio/sounds';
   const LETTER_SOUNDS_PATH = '/activities/letter-sounds/openai-us/sounds';
   const LETTER_NAMES_PATH = '/activities/letter-sounds/openai-us/names';
+  const PHONEMES_PATH = '/audio/phonemes';
 
   // All letters
   const LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+  // Map phoneme names to audio file names
+  const PHONEME_FILE_MAP = {
+    // Consonant blends
+    'bl': 'bl', 'br': 'br', 'cl': 'cl', 'cr': 'cr', 'dr': 'dr',
+    'fl': 'fl', 'fr': 'fr', 'gl': 'gl', 'gr': 'gr', 'pl': 'pl',
+    'pr': 'pr', 'sk': 'sk', 'sl': 'sl', 'sm': 'sm', 'sn': 'sn',
+    'sp': 'sp', 'st': 'st', 'sw': 'sw', 'tr': 'tr', 'tw': 'tw',
+    // Digraphs
+    'sh': 'sh', 'ch': 'ch', 'wh': 'wh', 'ph': 'ph', 'ck': 'ck', 'ng': 'ng',
+    'th': 'th_voiceless',  // default to voiceless (think, thing)
+    'th_voiced': 'th_voiced',  // (this, that)
+    'th_voiceless': 'th_voiceless',
+    // R-controlled vowels
+    'ar': 'ar', 'er': 'er', 'ir': 'ir', 'or': 'or', 'ur': 'ur',
+    // Vowel teams
+    'ai': 'ai', 'ay': 'ay', 'ea': 'ea', 'ee': 'ee', 'ie': 'ie',
+    'oa': 'oa', 'oe': 'oe', 'ou': 'ou', 'ue': 'ue', 'ui': 'ui',
+    'oo': 'oo_long',  // default to long (moon)
+    'oo_long': 'oo_long',
+    'oo_short': 'oo_short',  // (book)
+    'ow': 'ow_long',  // default to long (snow)
+    'ow_long': 'ow_long',
+    'ow_short': 'ow_short',  // (cow)
+    // Magic e patterns
+    'a_e': 'a_e', 'e_e': 'e_e', 'i_e': 'i_e', 'o_e': 'o_e', 'u_e': 'u_e',
+    // Also accept with macrons
+    'ā': 'a_e', 'ē': 'e_e', 'ī': 'i_e', 'ō': 'o_e', 'ū': 'u_e',
+    // Short vowels (as phonemes, not letters)
+    'short_a': 'short_a', 'short_e': 'short_e', 'short_i': 'short_i',
+    'short_o': 'short_o', 'short_u': 'short_u',
+  };
 
   // Phonetic representations for TTS fallback
   const PHONETICS = {
@@ -162,6 +195,53 @@ const AudioUtils = (function() {
   }
 
   /**
+   * Play a phoneme sound (blends, digraphs, vowel teams, r-controlled vowels)
+   * @param {string} phoneme - Phoneme to play (e.g., 'sh', 'ch', 'ai', 'ar')
+   * @returns {Promise}
+   */
+  async function playPhoneme(phoneme) {
+    const p = phoneme.toLowerCase();
+
+    // If it's a single letter, use letter sound
+    if (p.length === 1 && /^[a-z]$/.test(p)) {
+      return playLetterSound(p, 'sound');
+    }
+
+    // Check if we have a pre-recorded phoneme file
+    const fileName = PHONEME_FILE_MAP[p];
+    if (fileName) {
+      const path = `${PHONEMES_PATH}/${fileName}.mp3`;
+      try {
+        await playAudio(path);
+        return;
+      } catch (e) {
+        console.warn(`[AudioUtils] Phoneme audio not found: ${path}`);
+      }
+    }
+
+    // Fallback: TTS with phonetic hint
+    const ttsText = PHONETICS[p] || p;
+    await speakTTS(ttsText, { rate: 0.6, pitch: 1.1 });
+  }
+
+  /**
+   * Play a sound - automatically chooses between letter and phoneme
+   * @param {string} sound - Sound to play (letter or phoneme)
+   * @returns {Promise}
+   */
+  async function playSound(sound) {
+    const s = sound.toLowerCase();
+
+    // Single letter: use letter sound
+    if (s.length === 1 && /^[a-z]$/.test(s)) {
+      return playLetterSound(s, 'sound');
+    }
+
+    // Multi-character: try phoneme
+    return playPhoneme(s);
+  }
+
+  /**
    * Speak text using Web Speech API
    * @param {string} text - Text to speak
    * @param {object} options - { rate, pitch, volume }
@@ -274,6 +354,8 @@ const AudioUtils = (function() {
     preloadAudio,
     playAudio,
     playLetterSound,
+    playPhoneme,
+    playSound,
     playWord,
     playInstruction,
     playSoundSequence,
@@ -282,7 +364,8 @@ const AudioUtils = (function() {
     isPreloaded,
     getCacheStats,
     sleep,
-    PHONETICS
+    PHONETICS,
+    PHONEME_FILE_MAP
   };
 })();
 

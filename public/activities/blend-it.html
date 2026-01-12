@@ -549,13 +549,9 @@
     });
 
     function speakSound(sound) {
-      // For single letters, use pre-recorded audio files
-      if (sound.length === 1 && /^[a-z]$/.test(sound)) {
-        AudioUtils.playLetterSound(sound, 'sound').catch(() => {});
-      } else {
-        // For blends/digraphs/vowel teams, use TTS
-        AudioUtils.speakTTS(sound, { rate: 0.6, pitch: 1.1 }).catch(() => {});
-      }
+      // Use AudioUtils.playSound which handles both letters and phonemes
+      // with pre-recorded audio files
+      AudioUtils.playSound(sound).catch(() => {});
     }
 
     function speakWord(word) {

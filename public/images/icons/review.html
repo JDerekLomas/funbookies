@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review: Activity Icons</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; color: #333; margin-bottom: 5px; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 25px; }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 8px 16px;
+      border: 2px solid #ddd;
+      background: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: #9FC7AA; }
+    .filter-btn.active { background: #9FC7AA; border-color: #9FC7AA; color: white; }
+    .filter-btn.rejected-filter { border-color: #e74c3c; }
+    .filter-btn.rejected-filter.active { background: #e74c3c; border-color: #e74c3c; }
+
+    .stats {
+      text-align: center;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .stats span { margin: 0 12px; }
+    .stat-approved { color: #2e7d32; }
+    .stat-rejected { color: #e74c3c; }
+    .stat-unreviewed { color: #666; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+      border: 3px solid transparent;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+    .card.approved { border-color: #9FC7AA; background: #f0f8f2; }
+    .card.rejected { border-color: #e74c3c; background: #ffebee; }
+
+    .preview {
+      cursor: pointer;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FAF8F5;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .preview img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .asset-name {
+      font-weight: 600;
+      color: #333;
+      margin: 8px 0;
+      font-size: 0.85rem;
+      word-break: break-all;
+    }
+
+    .asset-usage {
+      font-size: 0.75rem;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .rating {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+    }
+    .rating-btn {
+      width: 44px;
+      height: 44px;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      background: white;
+      cursor: pointer;
+      font-size: 1.3rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rating-btn:hover { transform: scale(1.1); }
+    .rating-btn.approve:hover, .rating-btn.approve.selected { border-color: #9FC7AA; background: #9FC7AA; }
+    .rating-btn.reject:hover, .rating-btn.reject.selected { border-color: #e74c3c; background: #e74c3c; }
+
+    .note-input {
+      width: 100%;
+      margin-top: 8px;
+      padding: 6px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    .summary-section {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .summary-section h3 {
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .summary-section textarea {
+      width: 100%;
+      height: 200px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
+    .btn-primary { background: #9FC7AA; color: white; }
+    .btn-primary:hover { background: #8ab89a; }
+    .btn-danger { background: #e74c3c; color: white; margin-left: 8px; }
+    .btn-secondary { background: #666; color: white; margin-left: 8px; }
+
+    .refresh-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      background: #9FC7AA;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .refresh-btn:hover { background: #8ab89a; }
+  </style>
+</head>
+<body>
+  <h1>Activity Icons Review</h1>
+  <p class="subtitle">Click to view full size, thumbs up/down to rate</p>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="unreviewed">Unreviewed</button>
+    <button class="filter-btn" data-filter="approved">Approved</button>
+    <button class="filter-btn rejected-filter" data-filter="rejected">Needs Work</button>
+  </div>
+
+  <div class="stats" id="stats">Loading...</div>
+  <div class="grid" id="grid"></div>
+
+  <div class="summary-section">
+    <h3>
+      <span>Review Summary</span>
+      <span>
+        <button class="btn btn-primary" onclick="copySummary()">Copy to Clipboard</button>
+        <button class="btn btn-secondary" onclick="downloadJSON()">Download JSON</button>
+        <button class="btn btn-danger" onclick="clearReviews()">Clear All</button>
+      </span>
+    </h3>
+    <textarea id="summary" readonly placeholder="Rate icons above to see summary..."></textarea>
+  </div>
+
+  <button class="refresh-btn" onclick="location.reload()">Refresh Icons</button>
+
+  <script>
+    const CONFIG = {
+      assetType: 'icons',
+      storageKey: 'funbookies_icon_reviews',
+      // Icon metadata - what each icon is used for
+      iconMeta: {
+        'icon-assessment': { usage: 'Phonics Assessment activity' },
+        'icon-blend-it': { usage: 'Blend It activity' },
+        'icon-books': { usage: 'Books/library sections' },
+        'icon-chart': { usage: 'Statistics/progress' },
+        'icon-chop-it-up': { usage: 'Chop It Up activity' },
+        'icon-first-sounds': { usage: 'First Sounds activity (Early Reader)' },
+        'icon-game': { usage: 'Practice/games sections' },
+        'icon-guided-lesson': { usage: 'Guided Lesson activity (Early Reader)' },
+        'icon-letter-drill': { usage: 'Letter Drill activity' },
+        'icon-letter-match': { usage: 'Letter Match activity (Early Reader)' },
+        'icon-letter-sounds': { usage: 'Letter Sounds activity (Early Reader)' },
+        'icon-read-aloud': { usage: 'Read Aloud activity' },
+        'icon-rhyme-match': { usage: 'Rhyme Match activity' },
+        'icon-rhyme-time': { usage: 'Rhyme Time activity (Early Reader)' },
+        'icon-say-the-sound': { usage: 'Say the Sound activity' },
+        'icon-sentence-scramble': { usage: 'Sentence Scramble activity' },
+        'icon-sight-words': { usage: 'Sight Words activity' },
+        'icon-sound-boxes': { usage: 'Sound Boxes activity' },
+        'icon-sparkles': { usage: 'Story Generator/AI magic' },
+        'icon-star': { usage: 'Achievements/favorites' },
+        'icon-story-generator': { usage: 'Story Generator activity' },
+        'icon-syllable-clap': { usage: 'Syllable Clap activity (Early Reader)' },
+        'icon-target': { usage: 'Goals/achievements' },
+        'icon-voice-blend': { usage: 'Voice Blend activity' },
+        'icon-wave': { usage: 'Welcome/greeting' },
+        'icon-word-builder': { usage: 'Word Builder activity' },
+        'icon-word-chains': { usage: 'Word Chains activity' },
+        'icon-word-families': { usage: 'Word Families activity' },
+      },
+      assets: [] // Will be populated dynamically
+    };
+
+    let reviews = {};
+    let currentFilter = 'all';
+
+    // Dynamically discover icons
+    async function discoverIcons() {
+      const knownIcons = Object.keys(CONFIG.iconMeta);
+      CONFIG.assets = [];
+
+      for (const iconName of knownIcons) {
+        const path = `./${iconName}.png`;
+        // Check if icon exists by trying to load it
+        try {
+          const img = new Image();
+          img.src = path;
+          await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+            setTimeout(reject, 1000); // Timeout after 1s
+          });
+          CONFIG.assets.push({
+            id: iconName,
+            name: iconName.replace('icon-', '').replace(/-/g, ' '),
+            path: path,
+            usage: CONFIG.iconMeta[iconName]?.usage || ''
+          });
+        } catch (e) {
+          // Icon doesn't exist yet, skip
+        }
+      }
+
+      // Sort alphabetically
+      CONFIG.assets.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    function loadReviews() {
+      try {
+        const saved = localStorage.getItem(CONFIG.storageKey);
+        if (saved) reviews = JSON.parse(saved);
+      } catch (e) { reviews = {}; }
+    }
+
+    function saveReviews() {
+      localStorage.setItem(CONFIG.storageKey, JSON.stringify(reviews));
+      updateSummary();
+    }
+
+    function preview(id, event) {
+      event.stopPropagation();
+      const asset = CONFIG.assets.find(a => a.id === id);
+      if (asset) {
+        window.open(asset.path, '_blank');
+      }
+    }
+
+    function rate(id, status, event) {
+      event.stopPropagation();
+      if (reviews[id]?.status === status) {
+        delete reviews[id];
+      } else {
+        reviews[id] = { status, note: reviews[id]?.note || '', reviewedAt: new Date().toISOString() };
+      }
+      saveReviews();
+      render();
+    }
+
+    function updateNote(id, note) {
+      if (reviews[id]) {
+        reviews[id].note = note;
+        saveReviews();
+      }
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filter);
+      });
+      render();
+    }
+
+    function updateSummary() {
+      const approved = [];
+      const rejected = [];
+
+      for (const [id, review] of Object.entries(reviews)) {
+        const asset = CONFIG.assets.find(a => a.id === id);
+        if (!asset) continue;
+        if (review.status === 'approved') {
+          approved.push(asset.name);
+        } else {
+          rejected.push(`- ${id}: ${review.note || 'needs improvement'}`);
+        }
+      }
+
+      let text = `# Activity Icons Review\n\n`;
+      text += `## Approved (${approved.length})\n`;
+      text += approved.length ? approved.join(', ') : '(none yet)';
+      text += `\n\n## Needs Work (${rejected.length})\n`;
+      text += rejected.length ? rejected.join('\n') : '(none)';
+
+      document.getElementById('summary').value = text;
+    }
+
+    function copySummary() {
+      const textarea = document.getElementById('summary');
+      textarea.select();
+      document.execCommand('copy');
+      event.target.textContent = 'Copied!';
+      setTimeout(() => event.target.textContent = 'Copy to Clipboard', 1500);
+    }
+
+    function downloadJSON() {
+      const data = {
+        lastUpdated: new Date().toISOString(),
+        assetType: CONFIG.assetType,
+        totalAssets: CONFIG.assets.length,
+        reviews: reviews
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'icon-reviews.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function clearReviews() {
+      if (confirm('Clear all reviews? This cannot be undone.')) {
+        reviews = {};
+        saveReviews();
+        render();
+      }
+    }
+
+    function render() {
+      const grid = document.getElementById('grid');
+      const stats = document.getElementById('stats');
+
+      let approved = 0, rejected = 0, unreviewed = 0;
+      CONFIG.assets.forEach(a => {
+        if (reviews[a.id]?.status === 'approved') approved++;
+        else if (reviews[a.id]?.status === 'rejected') rejected++;
+        else unreviewed++;
+      });
+
+      stats.innerHTML = `
+        <span>Total: ${CONFIG.assets.length}</span>
+        <span class="stat-approved">Approved: ${approved}</span>
+        <span class="stat-rejected">Rejected: ${rejected}</span>
+        <span class="stat-unreviewed">Unreviewed: ${unreviewed}</span>
+      `;
+
+      let filtered = CONFIG.assets;
+      if (currentFilter === 'approved') filtered = CONFIG.assets.filter(a => reviews[a.id]?.status === 'approved');
+      else if (currentFilter === 'rejected') filtered = CONFIG.assets.filter(a => reviews[a.id]?.status === 'rejected');
+      else if (currentFilter === 'unreviewed') filtered = CONFIG.assets.filter(a => !reviews[a.id]);
+
+      grid.innerHTML = filtered.map(asset => {
+        const review = reviews[asset.id];
+        const status = review?.status || '';
+        const note = review?.note || '';
+
+        return `
+          <div class="card ${status}" data-id="${asset.id}">
+            <div class="preview" onclick="preview('${asset.id}', event)">
+              <img src="${asset.path}" alt="${asset.name}" onerror="this.parentElement.innerHTML='<span style=\\'color:#ccc;font-size:3rem\\'>?</span>'">
+            </div>
+            <div class="asset-name">${asset.name}</div>
+            <div class="asset-usage">${asset.usage}</div>
+            <div class="rating">
+              <button class="rating-btn approve ${status === 'approved' ? 'selected' : ''}"
+                      onclick="rate('${asset.id}', 'approved', event)" title="Approve">👍</button>
+              <button class="rating-btn reject ${status === 'rejected' ? 'selected' : ''}"
+                      onclick="rate('${asset.id}', 'rejected', event)" title="Reject">👎</button>
+            </div>
+            ${status === 'rejected' ? `
+              <input class="note-input" placeholder="What's wrong?" value="${note}"
+                     onchange="updateNote('${asset.id}', this.value)">
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Setup
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => setFilter(btn.dataset.filter));
+    });
+
+    // Initialize
+    async function init() {
+      await discoverIcons();
+      loadReviews();
+      updateSummary();
+      render();
+    }
+
+    init();
+  </script>
+</body>
+</html>

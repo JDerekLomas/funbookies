@@ -12,7 +12,7 @@
   "illustrator": "AI Generated",
   "created": "2026-01-11",
   "story_bible": {
-    "premise": "Clover is a small, fluffy cloud who loves floating peacefully in the blue sky. But whenever storm clouds gather and thunder rumbles, Clover hides behind the sun, terrified of the loud booms. When Clover finally joins a storm and sees the flowers blooming below, she discovers that her rain brings joy to the world—and thunder is just the sky's way of celebrating.",
+    "premise": "Clover is a small, fluffy cloud who loves floating peacefully in the blue sky. But whenever storm clouds gather and thunder rumbles, Clover hides behind the sun, terrified of the loud booms. When Clover finally joins a storm and sees the flowers blooming below, she discovers that her rain brings joy to the world\u2014and thunder is just the sky's way of celebrating.",
     "themes": [
       "overcoming fear",
       "finding your purpose",
@@ -21,36 +21,119 @@
       "being part of something bigger"
     ],
     "character_arcs": {
-      "Clover": "Timid and fearful → Avoids storms, feels left out → Pushed to join by wise friend → Terrified during first thunder → Sees flowers bloom → Proud and joyful, embraces storms",
-      "Gus the Gust": "Playful wind who encourages Clover → Patient mentor → Celebrates Clover's transformation",
-      "The Flowers": "Wilting and sad → Receive rain → Bloom beautifully → Show gratitude"
+      "Clover": "Timid and fearful \u2192 Avoids storms, feels left out \u2192 Pushed to join by wise friend \u2192 Terrified during first thunder \u2192 Sees flowers bloom \u2192 Proud and joyful, embraces storms",
+      "Gus the Gust": "Playful wind who encourages Clover \u2192 Patient mentor \u2192 Celebrates Clover's transformation",
+      "The Flowers": "Wilting and sad \u2192 Receive rain \u2192 Bloom beautifully \u2192 Show gratitude"
     },
-    "setting": "A bright, cheerful sky world where clouds have personalities. The sky shifts from peaceful blue to dramatic storm gray. Below is a meadow with a garden of flowers that desperately need rain. The sun is warm and friendly. Storm clouds are big and impressive but not scary—more like boisterous friends.",
-    "plot_summary": "Clover is a small, shy cloud who spends her days drifting peacefully through the blue sky. She loves the warmth of the sun and the gentle breeze. But whenever the big storm clouds gather and thunder begins to rumble, Clover races to hide behind the sun, trembling with fear.\n\nHer friend Gus the Gust, a playful little wind, tries to convince her that storms aren't scary. 'The thunder is just the sky clapping!' he says. But Clover isn't convinced. She watches from afar as the storm clouds dance and boom, their rain falling to the earth below.\n\nOne day, Gus shows Clover the meadow below—the flowers are wilting, their petals drooping sadly. 'They need rain, Clover. They need YOU.' Clover is torn between her fear and her desire to help. Finally, she takes a deep breath and joins the storm clouds.\n\nThe thunder booms and Clover squeezes her eyes shut. But then she feels something magical—her rain is falling! She peeks down and sees the flowers lifting their heads, drinking in the water, blooming in brilliant colors. The thunder rumbles again, and this time Clover realizes: it sounds like applause. The sky is celebrating! Clover isn't scared anymore. She's proud. She helped the flowers grow.",
+    "setting": "A bright, cheerful sky world where clouds have personalities. The sky shifts from peaceful blue to dramatic storm gray. Below is a meadow with a garden of flowers that desperately need rain. The sun is warm and friendly. Storm clouds are big and impressive but not scary\u2014more like boisterous friends.",
+    "plot_summary": "Clover is a small, shy cloud who spends her days drifting peacefully through the blue sky. She loves the warmth of the sun and the gentle breeze. But whenever the big storm clouds gather and thunder begins to rumble, Clover races to hide behind the sun, trembling with fear.\n\nHer friend Gus the Gust, a playful little wind, tries to convince her that storms aren't scary. 'The thunder is just the sky clapping!' he says. But Clover isn't convinced. She watches from afar as the storm clouds dance and boom, their rain falling to the earth below.\n\nOne day, Gus shows Clover the meadow below\u2014the flowers are wilting, their petals drooping sadly. 'They need rain, Clover. They need YOU.' Clover is torn between her fear and her desire to help. Finally, she takes a deep breath and joins the storm clouds.\n\nThe thunder booms and Clover squeezes her eyes shut. But then she feels something magical\u2014her rain is falling! She peeks down and sees the flowers lifting their heads, drinking in the water, blooming in brilliant colors. The thunder rumbles again, and this time Clover realizes: it sounds like applause. The sky is celebrating! Clover isn't scared anymore. She's proud. She helped the flowers grow.",
     "emotional_beats": [
-      {"page": 1, "beat": "Peace - Clover floating happily in blue sky"},
-      {"page": 2, "beat": "Fear - Thunder sounds, Clover hides"},
-      {"page": 4, "beat": "Loneliness - Watching other clouds have fun in storms"},
-      {"page": 5, "beat": "Curiosity - Gus explains thunder differently"},
-      {"page": 7, "beat": "Empathy - Seeing the wilting flowers"},
-      {"page": 8, "beat": "Internal conflict - Wanting to help but still scared"},
-      {"page": 9, "beat": "Courage - Decision to join the storm"},
-      {"page": 10, "beat": "Terror - Thunder booms, eyes squeezed shut"},
-      {"page": 11, "beat": "Wonder - Feeling the rain fall from her"},
-      {"page": 12, "beat": "Joy - Seeing flowers bloom"},
-      {"page": 13, "beat": "Reframe - Thunder sounds like celebration"},
-      {"page": 14, "beat": "Pride - Clover loves storms now"}
+      {
+        "page": 1,
+        "beat": "Peace - Clover floating happily in blue sky"
+      },
+      {
+        "page": 2,
+        "beat": "Fear - Thunder sounds, Clover hides"
+      },
+      {
+        "page": 4,
+        "beat": "Loneliness - Watching other clouds have fun in storms"
+      },
+      {
+        "page": 5,
+        "beat": "Curiosity - Gus explains thunder differently"
+      },
+      {
+        "page": 7,
+        "beat": "Empathy - Seeing the wilting flowers"
+      },
+      {
+        "page": 8,
+        "beat": "Internal conflict - Wanting to help but still scared"
+      },
+      {
+        "page": 9,
+        "beat": "Courage - Decision to join the storm"
+      },
+      {
+        "page": 10,
+        "beat": "Terror - Thunder booms, eyes squeezed shut"
+      },
+      {
+        "page": 11,
+        "beat": "Wonder - Feeling the rain fall from her"
+      },
+      {
+        "page": 12,
+        "beat": "Joy - Seeing flowers bloom"
+      },
+      {
+        "page": 13,
+        "beat": "Reframe - Thunder sounds like celebration"
+      },
+      {
+        "page": 14,
+        "beat": "Pride - Clover loves storms now"
+      }
     ],
-    "level_adaptation": "Simplified to CVC-heavy text (cloud→clud not possible, but sun, run, fun, hid, big, sad, wet, got). Used 'ou' words (cloud, loud, ground) as phonics focus. Each page has 1-2 short sentences. Emotional complexity preserved through illustrations—Clover's expressions carry the fear→joy arc. Thunder represented as 'BOOM' for phonetic practice.",
-    "visual_style": "Soft, dreamy watercolor with fluffy textures for clouds. Clover is a small white cloud with a sweet face—big eyes, rosy cheeks, expressive eyebrows. Sky transitions from sunny yellows and blues to dramatic storm purples and grays, then back to rainbow colors. Flowers below should be vibrant. Gus is a swirly, playful wind with a friendly smile. Thunder visualized as golden zigzags, not scary.",
-    "key_vocabulary": ["cloud", "sun", "rain", "loud", "boom", "ground", "grow", "flower"]
+    "level_adaptation": "Simplified to CVC-heavy text (cloud\u2192clud not possible, but sun, run, fun, hid, big, sad, wet, got). Used 'ou' words (cloud, loud, ground) as phonics focus. Each page has 1-2 short sentences. Emotional complexity preserved through illustrations\u2014Clover's expressions carry the fear\u2192joy arc. Thunder represented as 'BOOM' for phonetic practice.",
+    "visual_style": "Soft, dreamy watercolor with fluffy textures for clouds. Clover is a small white cloud with a sweet face\u2014big eyes, rosy cheeks, expressive eyebrows. Sky transitions from sunny yellows and blues to dramatic storm purples and grays, then back to rainbow colors. Flowers below should be vibrant. Gus is a swirly, playful wind with a friendly smile. Thunder visualized as golden zigzags, not scary.",
+    "key_vocabulary": [
+      "cloud",
+      "sun",
+      "rain",
+      "loud",
+      "boom",
+      "ground",
+      "grow",
+      "flower"
+    ]
   },
   "word_list": {
-    "sound_out": ["sun", "run", "hid", "big", "sad", "wet", "got", "can", "not"],
-    "sight": ["the", "is", "a", "I", "to", "and", "she", "was", "her"],
-    "new": ["cloud", "rain", "loud", "boom", "ground", "flower", "grow", "storm"]
+    "sound_out": [
+      "sun",
+      "run",
+      "hid",
+      "big",
+      "sad",
+      "wet",
+      "got",
+      "can",
+      "not"
+    ],
+    "sight": [
+      "the",
+      "is",
+      "a",
+      "I",
+      "to",
+      "and",
+      "she",
+      "was",
+      "her"
+    ],
+    "new": [
+      "cloud",
+      "rain",
+      "loud",
+      "boom",
+      "ground",
+      "flower",
+      "grow",
+      "storm"
+    ]
   },
-  "wordsearch_words": ["cloud", "rain", "sun", "boom", "grow", "wet", "flower", "storm"],
+  "wordsearch_words": [
+    "cloud",
+    "rain",
+    "sun",
+    "boom",
+    "grow",
+    "wet",
+    "flower",
+    "storm"
+  ],
   "pages": [
     {
       "page": 1,
@@ -121,7 +204,7 @@
       "story_page": 6,
       "type": "story",
       "text": "Gus and Clover sat on a hill. They saw the ground.",
-      "scene": "Clover and Gus looking down from the sky at the meadow below. They're positioned on a fluffy cloud 'hill.' The ground is visible—a garden with flowers that look wilted and sad, petals drooping. Clover's expression shifts to curiosity.",
+      "scene": "Clover and Gus looking down from the sky at the meadow below. They're positioned on a fluffy cloud 'hill.' The ground is visible\u2014a garden with flowers that look wilted and sad, petals drooping. Clover's expression shifts to curiosity.",
       "shot_type": "wide"
     },
     {
@@ -129,7 +212,7 @@
       "story_page": 7,
       "type": "story",
       "text": "The flowers on the ground! They were sad. They had no rain.",
-      "scene": "Close-up of the wilting flowers below—droopy petals, sad little flower faces looking up hopefully at the sky. The ground around them is dry and cracked. Colors are muted and brown. Evokes empathy.",
+      "scene": "Close-up of the wilting flowers below\u2014droopy petals, sad little flower faces looking up hopefully at the sky. The ground around them is dry and cracked. Colors are muted and brown. Evokes empathy.",
       "shot_type": "close"
     },
     {
@@ -137,7 +220,7 @@
       "story_page": 8,
       "type": "story",
       "text": "Clover got sad. \"I can help! But the boom...\"",
-      "scene": "Clover looking torn—eyes full of empathy for the flowers, but also showing fear. She's biting her lip (if clouds can), conflicted. Gus watches supportively. The storm beckons in the distance.",
+      "scene": "Clover looking torn\u2014eyes full of empathy for the flowers, but also showing fear. She's biting her lip (if clouds can), conflicted. Gus watches supportively. The storm beckons in the distance.",
       "shot_type": "medium"
     },
     {
@@ -145,7 +228,7 @@
       "story_page": 9,
       "type": "story",
       "text": "Clover ran to the storm. She was not little now!",
-      "scene": "Clover moving determinedly toward the big storm clouds, growing slightly larger and darker as she prepares to join. Her expression shows courage overcoming fear. Dynamic movement lines. Dramatic sky colors—purples and grays.",
+      "scene": "Clover moving determinedly toward the big storm clouds, growing slightly larger and darker as she prepares to join. Her expression shows courage overcoming fear. Dynamic movement lines. Dramatic sky colors\u2014purples and grays.",
       "shot_type": "wide"
     },
     {
@@ -160,7 +243,7 @@
       "page": 16,
       "story_page": 11,
       "type": "story",
-      "text": "But then—Clover felt it! Her rain fell down, down, down.",
+      "text": "But then\u2014Clover felt it! Her rain fell down, down, down.",
       "scene": "Clover's eyes opening in wonder as she feels rain falling from her. Beautiful silver-blue raindrops cascade down toward the ground below. Her expression transforms from fear to amazement. Magical, sparkly quality to the rain.",
       "shot_type": "medium"
     },
@@ -169,7 +252,7 @@
       "story_page": 12,
       "type": "story",
       "text": "The flowers got wet! They got big! They grew and grew!",
-      "scene": "The flowers below receiving the rain, transforming from wilted to vibrant. Bright colors blooming—reds, yellows, purples, pinks. The flowers have happy expressions, drinking in the water. Rainbow starting to form. Joyful explosion of color.",
+      "scene": "The flowers below receiving the rain, transforming from wilted to vibrant. Bright colors blooming\u2014reds, yellows, purples, pinks. The flowers have happy expressions, drinking in the water. Rainbow starting to form. Joyful explosion of color.",
       "shot_type": "wide"
     },
     {
@@ -177,7 +260,7 @@
       "story_page": 13,
       "type": "story",
       "text": "BOOM! Clover did not run. The boom was like a clap!",
-      "scene": "Clover in the storm, but now with a dawning smile. The thunder boom is visualized as the sky 'clapping'—golden light radiating outward like applause. Clover's fear is transforming into understanding. Celebratory feeling.",
+      "scene": "Clover in the storm, but now with a dawning smile. The thunder boom is visualized as the sky 'clapping'\u2014golden light radiating outward like applause. Clover's fear is transforming into understanding. Celebratory feeling.",
       "shot_type": "medium"
     },
     {
@@ -236,8 +319,8 @@
       "answer": "She loves them! The boom sounds like a clap (applause)"
     }
   ],
-  "summary": "Clover is a little cloud who is afraid of thunder. With help from her friend Gus, she learns that her rain helps flowers grow—and the thunder is just the sky celebrating!",
-  "reference_prompt": "9-PANEL REFERENCE SHEET for 'Clover the Cloud'\n\nCHARACTER: Clover - A small, adorable white fluffy cloud with:\n- Big expressive eyes (can show fear, wonder, joy)\n- Rosy pink cheeks\n- Soft, rounded fluffy shape\n- Gentle, sweet personality\n\nSUPPORTING CHARACTER: Gus the Gust - A playful wind depicted as:\n- Light blue swirly lines\n- Friendly face in the swirls\n- Energetic, encouraging personality\n\nKEY SCENES TO SHOW:\n  Panel 1: Clover happy in sunny blue sky\n  Panel 2: Clover scared, hiding behind sun, storm in distance\n  Panel 3: Clover sad and lonely\n  Panel 4: Gus encouraging Clover\n  Panel 5: Wilting sad flowers on dry ground\n  Panel 6: Clover in storm, eyes shut, rain falling\n  Panel 7: Flowers blooming in the rain\n  Panel 8: Clover joyful, thunder as golden celebration\n  Panel 9: Happy ending with rainbow and flowers\n\nSTYLE: Soft dreamy watercolor, child-friendly, expressive faces on clouds and flowers\nCOLORS: Sunny yellows/blues → Storm purples/grays → Rainbow celebration\n\nTECHNICAL REQUIREMENTS:\n- 9 panels in 3x3 grid\n- Consistent character design across all panels\n- NO TEXT, WORDS, OR LETTERS in the image",
+  "summary": "Clover is a little cloud who is afraid of thunder. With help from her friend Gus, she learns that her rain helps flowers grow\u2014and the thunder is just the sky celebrating!",
+  "reference_prompt": "9-PANEL REFERENCE SHEET for \"Clover the Cloud\"\n\nSUMMARY: Clover is a little cloud who is afraid of thunder. With help from her friend Gus, she learns that her rain helps flowers grow\u2014and the thunder is just the sky celebrating!\n\nKEY SCENES TO SHOW (visual moments only):\n  Panel 1: A small, adorable white cloud with a sweet face floats in a bright blue sky. She...\n  Panel 2: A small, fluffy white cloud named Clover with a happy, peaceful expression float...\n  Panel 3: Large, impressive storm clouds gather in the sky. A golden lightning bolt zigzag...\n  Panel 4: Clover floating alone in a quiet part of the sky, looking downcast with droopy e...\n  Panel 5: A playful swirly wind character named Gus with a friendly, encouraging smile app...\n  Panel 6: Clover with a skeptical, worried expression, shaking her head. Her eyebrows are ...\n\nTECHNICAL REQUIREMENTS:\n- CRITICAL: NO TEXT, NO WORDS, NO LETTERS, NO WRITING anywhere in the image\n- 9 panels in 3x3 grid layout\n- Consistent art style across all panels\n- Pure visual storytelling - show scenes through imagery only\n- REMINDER: This is a VISUAL ONLY reference sheet - absolutely no text or letters",
   "metadata": {
     "generatedAt": "2026-01-11",
     "workflow": "story_bible_first",

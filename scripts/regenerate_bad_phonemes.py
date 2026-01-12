@@ -19,17 +19,7 @@ OUTPUT_DIR = Path(__file__).parent.parent / "public" / "audio" / "phonemes"
 # Phonemes that need regeneration with phonetic spellings
 # The key insight: TTS needs something pronounceable, not abbreviations
 BAD_PHONEMES = {
-    # fl blend - f and l blended together
-    "fl": "fluh",       # fl with short schwa
-
-    # th voiceless - hissing sound, tongue between teeth
-    "th_voiceless": "thh",  # Just the th sound stretched
-
-    # ck - just k sound
-    "ck": "kuh",        # k with schwa
-
-    # oo long - as in moon, spoon
-    "oo_long": "ooo",   # Long oo sound
+    "th_voiceless": "thick",  # Just say thick
 }
 
 

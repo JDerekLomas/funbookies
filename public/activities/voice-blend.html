@@ -253,6 +253,7 @@
 <body>
   <script src="/js/data-service.js"></script>
   <script src="/js/student-picker.js"></script>
+  <script src="/js/audio-utils.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -642,8 +643,8 @@
         boxes[i].classList.add('speaking');
 
         const sound = currentWord.sounds[i];
-        const speakText = phonemeSpeak[sound] || sound;
-        await speakPhoneme(speakText);
+        // Pass sound directly - AudioUtils will use pre-recorded phoneme files
+        await speakPhoneme(sound);
 
         await sleep(400);
         boxes[i].classList.remove('speaking');
@@ -658,41 +659,11 @@
       document.getElementById('feedback').className = 'feedback waiting';
     }
 
-    // Pre-recorded audio element
-    let phonemeAudio = null;
-
-    function speakPhoneme(text) {
-      return new Promise(resolve => {
-        // For single letters, use pre-recorded audio files
-        if (text.length === 1 && /^[a-z]$/.test(text)) {
-          if (phonemeAudio) {
-            phonemeAudio.pause();
-            phonemeAudio.currentTime = 0;
-          }
-          phonemeAudio = new Audio(`/activities/letter-sounds/openai-us/sounds/${text}.mp3`);
-          phonemeAudio.onended = resolve;
-          phonemeAudio.onerror = () => speakPhonemeFallback(text).then(resolve);
-          phonemeAudio.play().catch(() => speakPhonemeFallback(text).then(resolve));
-        } else {
-          speakPhonemeFallback(text).then(resolve);
-        }
-      });
-    }
-
-    function speakPhonemeFallback(text) {
-      return new Promise(resolve => {
-        if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-          const utterance = new SpeechSynthesisUtterance(text);
-          utterance.rate = 0.6;
-          utterance.pitch = 1.1;
-          utterance.onend = resolve;
-          utterance.onerror = resolve;
-          speechSynthesis.speak(utterance);
-        } else {
-          resolve();
-        }
-      });
+    // Use AudioUtils for all sound playback
+    function speakPhoneme(sound) {
+      // AudioUtils.playSound handles both single letters and multi-char phonemes
+      // with pre-recorded audio files, falling back to TTS if needed
+      return AudioUtils.playSound(sound);
     }
 
     function sleep(ms) {

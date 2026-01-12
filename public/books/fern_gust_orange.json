@@ -150,8 +150,9 @@
       "page": 1,
       "type": "cover",
       "text": "Fern and the Gust",
-      "image_prompt": "COVER IMAGE: A small brown field mouse (Fern) standing on a grassy hill, eyes wide with wonder, as colorful autumn leaves swirl all around her in a spiral pattern. Fern has large round ears, cream belly, and a distinctive tail that curls like a fern frond. Her fur is ruffled by invisible wind. Leaves in orange, red, yellow swirl dynamically around her suggesting a playful wind presence (Gust). Fern's expression is delighted surprise. Blue sky, green grass, motion lines showing wind direction. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE. Do NOT draw the wind as a character - only show it through the swirling leaves and movement effects.",
-      "scene": "COVER IMAGE: A small brown field mouse (Fern) standing on a grassy hill, eyes wide with wonder, as colorful autumn leaves swirl all around her in a spiral pattern. Fern has large round ears, cream belly, and a distinctive tail that curls like a fern frond. Her fur is ruffled by invisible wind. Leaves in orange, red, yellow swirl dynamically around her suggesting a playful wind presence (Gust). Fern's expression is delighted surprise. Blue sky, green grass, motion lines showing wind direction. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE. Do NOT draw the wind as a character - only show it through the swirling leaves and movement effects."
+      "image_prompt": "COVER: Fern (a small round brown mouse with big ears, cream tummy, curly tail) standing on a grassy hill with colorful leaves swirling around her in the wind. She looks happy and curious.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "COVER IMAGE: A small brown field mouse (Fern) standing on a grassy hill, eyes wide with wonder, as colorful autumn leaves swirl all around her in a spiral pattern. Fern has large round ears, cream belly, and a distinctive tail that curls like a fern frond. Her fur is ruffled by invisible wind. Leaves in orange, red, yellow swirl dynamically around her suggesting a playful wind presence (Gust). Fern's expression is delighted surprise. Blue sky, green grass, motion lines showing wind direction. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE. Do NOT draw the wind as a character - only show it through the swirling leaves and movement effects.",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/f27fd184-9084-43dc-8114-b7c3371f9309/result_00.png"
     },
     {
       "page": 2,
@@ -188,185 +189,208 @@
           "Fern"
         ]
       },
-      "image_prompt": null
+      "image_prompt": null,
+      "image": null
     },
     {
       "page": 3,
       "type": "story",
       "text": "Fern sat in the sun.",
       "beat": "setup - peaceful beginning",
-      "image_prompt": "MEDIUM SHOT: A small brown field mouse (Fern) sitting contentedly on a grassy hill in warm sunshine. Fern has large round ears (pink inside), cream belly, big dark eyes with warm highlights, and a tail that curls like a fern frond at the end. She's relaxed - eyes half-closed, small content smile, enjoying the warmth. Simple green grass, blue sky, yellow sun. Everything is still and peaceful. No wind yet. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "MEDIUM SHOT: A small brown field mouse (Fern) sitting contentedly on a grassy hill in warm sunshine. Fern has large round ears (pink inside), cream belly, big dark eyes with warm highlights, and a tail that curls like a fern frond at the end. She's relaxed - eyes half-closed, small content smile, enjoying the warmth. Simple green grass, blue sky, yellow sun. Everything is still and peaceful. No wind yet. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) sitting peacefully on green grass under a yellow sun. Blue sky. She looks content with eyes half-closed.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "MEDIUM SHOT: A small brown field mouse (Fern) sitting contentedly on a grassy hill in warm sunshine. Fern has large round ears (pink inside), cream belly, big dark eyes with warm highlights, and a tail that curls like a fern frond at the end. She's relaxed - eyes half-closed, small content smile, enjoying the warmth. Simple green grass, blue sky, yellow sun. Everything is still and peaceful. No wind yet. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/3b855ea5-bb4b-4eca-854c-08237f55b98d/result_00.png"
     },
     {
       "page": 4,
       "type": "story",
       "text": "Swish! The grass did sway!",
       "beat": "inciting incident - something invisible arrives",
-      "image_prompt": "MEDIUM SHOT: Same scene but now the grass around Fern is bending and swaying! Motion lines show movement sweeping across from right to left. Fern's fur is starting to ruffle, her big ears are blowing back. Her expression has changed to alert surprise - eyes wide, head tilted. The grass bends in waves. Leaves are starting to lift off the ground. Something invisible is passing through. Fern looks around, confused. Simple flat cartoon style, bold black outlines, lots of motion lines, NO TEXT IN IMAGE",
-      "scene": "MEDIUM SHOT: Same scene but now the grass around Fern is bending and swaying! Motion lines show movement sweeping across from right to left. Fern's fur is starting to ruffle, her big ears are blowing back. Her expression has changed to alert surprise - eyes wide, head tilted. The grass bends in waves. Leaves are starting to lift off the ground. Something invisible is passing through. Fern looks around, confused. Simple flat cartoon style, bold black outlines, lots of motion lines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) looking surprised as the grass around her bends and sways. Motion lines show wind. Leaves starting to fly.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "MEDIUM SHOT: Same scene but now the grass around Fern is bending and swaying! Motion lines show movement sweeping across from right to left. Fern's fur is starting to ruffle, her big ears are blowing back. Her expression has changed to alert surprise - eyes wide, head tilted. The grass bends in waves. Leaves are starting to lift off the ground. Something invisible is passing through. Fern looks around, confused. Simple flat cartoon style, bold black outlines, lots of motion lines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/7b6187a3-7c5b-49e3-b59c-beb7496a3aa4/result_00.png"
     },
     {
       "page": 5,
       "type": "story",
       "text": "\"What was that?\" said Fern.",
       "beat": "question - Fern is curious",
-      "image_prompt": "CLOSE-UP on Fern (brown mouse): She's looking around with searching eyes, head turning. Her expression is curious confusion - eyebrows up, mouth slightly open in question. Her fur is still ruffled from the wind that passed. Her fern-spiral tail is visible, also windswept. She's trying to see what moved the grass. Background shows the swaying grass settling. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "CLOSE-UP on Fern (brown mouse): She's looking around with searching eyes, head turning. Her expression is curious confusion - eyebrows up, mouth slightly open in question. Her fur is still ruffled from the wind that passed. Her fern-spiral tail is visible, also windswept. She's trying to see what moved the grass. Background shows the swaying grass settling. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Close-up of Fern (a small round brown mouse with big ears, cream tummy, curly tail) looking around confused, head tilted, wondering what made the wind.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "CLOSE-UP on Fern (brown mouse): She's looking around with searching eyes, head turning. Her expression is curious confusion - eyebrows up, mouth slightly open in question. Her fur is still ruffled from the wind that passed. Her fern-spiral tail is visible, also windswept. She's trying to see what moved the grass. Background shows the swaying grass settling. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/88339f15-6b76-4223-a4d0-bbc8b04576b4/result_00.png"
     },
     {
       "page": 6,
       "type": "story",
       "text": "Whoosh! A leaf hit Fern!",
       "beat": "physical comedy - the wind plays",
-      "image_prompt": "DYNAMIC ACTION SHOT: A colorful orange leaf has just SMACKED right onto Fern's face! Fern is startled - body leaning back, arms out, the leaf stuck to her nose/face. Motion lines show the leaf's trajectory. Other leaves are flying past her. Her fern-spiral tail is blown straight out behind her. The scene is silly and surprising. More swirling leaves in the air suggest the wind is back and playful. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "DYNAMIC ACTION SHOT: A colorful orange leaf has just SMACKED right onto Fern's face! Fern is startled - body leaning back, arms out, the leaf stuck to her nose/face. Motion lines show the leaf's trajectory. Other leaves are flying past her. Her fern-spiral tail is blown straight out behind her. The scene is silly and surprising. More swirling leaves in the air suggest the wind is back and playful. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) with an orange leaf stuck on her face! She looks startled. Wind motion lines around her.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "DYNAMIC ACTION SHOT: A colorful orange leaf has just SMACKED right onto Fern's face! Fern is startled - body leaning back, arms out, the leaf stuck to her nose/face. Motion lines show the leaf's trajectory. Other leaves are flying past her. Her fern-spiral tail is blown straight out behind her. The scene is silly and surprising. More swirling leaves in the air suggest the wind is back and playful. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/7cc29619-3b81-4921-9082-99df10c77bf7/result_00.png"
     },
     {
       "page": 7,
       "type": "story",
       "text": "\"I can not see it!\" said Fern.",
       "beat": "catchphrase - frustration at the invisible",
-      "image_prompt": "CLOSE-UP on Fern: She's pulled the leaf off her face and is looking around with frustrated confusion. Her expression shows determination mixed with puzzlement - eyebrows furrowed, mouth in a puzzled frown, eyes scanning. Her fur is all mussed up from the wind. She's trying SO hard to see what's doing this to her. Her fern-spiral tail curls with agitation. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "CLOSE-UP on Fern: She's pulled the leaf off her face and is looking around with frustrated confusion. Her expression shows determination mixed with puzzlement - eyebrows furrowed, mouth in a puzzled frown, eyes scanning. Her fur is all mussed up from the wind. She's trying SO hard to see what's doing this to her. Her fern-spiral tail curls with agitation. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) holding the leaf, looking around searching for something invisible.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "CLOSE-UP on Fern: She's pulled the leaf off her face and is looking around with frustrated confusion. Her expression shows determination mixed with puzzlement - eyebrows furrowed, mouth in a puzzled frown, eyes scanning. Her fur is all mussed up from the wind. She's trying SO hard to see what's doing this to her. Her fern-spiral tail curls with agitation. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/49ba8a00-a23d-4b37-9df1-774d5a6daf61/result_00.png"
     },
     {
       "page": 8,
       "type": "story",
       "text": "Puff! Puff! Puff!",
       "beat": "the wind keeps playing - persistent presence",
-      "image_prompt": "SEQUENCE SHOT: Three poses of Fern being puffed by invisible wind from different directions. LEFT: Puff from right, she leans left. MIDDLE: Puff from left, she leans right. RIGHT: Puff from above, she's squished down. Her fur blown in different directions each time. Motion lines and small swirl marks show the wind puffs. Fern's expression goes from surprised to more surprised to 'okay this is ridiculous' deadpan. Comedy of invisible force. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "SEQUENCE SHOT: Three poses of Fern being puffed by invisible wind from different directions. LEFT: Puff from right, she leans left. MIDDLE: Puff from left, she leans right. RIGHT: Puff from above, she's squished down. Her fur blown in different directions each time. Motion lines and small swirl marks show the wind puffs. Fern's expression goes from surprised to more surprised to 'okay this is ridiculous' deadpan. Comedy of invisible force. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) being puffed by wind from different directions. Her fur is ruffled. Motion lines everywhere.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "SEQUENCE SHOT: Three poses of Fern being puffed by invisible wind from different directions. LEFT: Puff from right, she leans left. MIDDLE: Puff from left, she leans right. RIGHT: Puff from above, she's squished down. Her fur blown in different directions each time. Motion lines and small swirl marks show the wind puffs. Fern's expression goes from surprised to more surprised to 'okay this is ridiculous' deadpan. Comedy of invisible force. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/9ced1df5-17d3-4755-8f28-7097a4684125/result_00.png"
     },
     {
       "page": 9,
       "type": "story",
       "text": "Fern did run!",
       "beat": "chase begins - trying to catch the invisible",
-      "image_prompt": "ACTION SHOT: Fern (brown mouse) running at full speed across the grass, chasing... nothing visible! Her legs are a blur of motion, fern-spiral tail streaming behind, ears back. She's running toward swirling leaves ahead of her - that's where the wind is! Her expression is determined - eyes focused forward, slight grin of the chase. Motion lines behind her. The grass bends ahead where Gust is 'running.' Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "ACTION SHOT: Fern (brown mouse) running at full speed across the grass, chasing... nothing visible! Her legs are a blur of motion, fern-spiral tail streaming behind, ears back. She's running toward swirling leaves ahead of her - that's where the wind is! Her expression is determined - eyes focused forward, slight grin of the chase. Motion lines behind her. The grass bends ahead where Gust is 'running.' Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) running across the grass, legs moving fast. Wind effects behind her.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "ACTION SHOT: Fern (brown mouse) running at full speed across the grass, chasing... nothing visible! Her legs are a blur of motion, fern-spiral tail streaming behind, ears back. She's running toward swirling leaves ahead of her - that's where the wind is! Her expression is determined - eyes focused forward, slight grin of the chase. Motion lines behind her. The grass bends ahead where Gust is 'running.' Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/c2f5aca5-2ae8-4049-a7ea-04860d33e889/result_00.png"
     },
     {
       "page": 10,
       "type": "story",
       "text": "Run, Fern, run!",
       "beat": "chase continues - audience cheering",
-      "image_prompt": "WIDE DYNAMIC SHOT: Fern (brown mouse) small in the frame, running across a hillside. Ahead of her, a trail of bent grass and swirling leaves shows where Gust is 'running' - the wind is leading her on a merry chase. The path of disturbance winds across the hill. Fern is giving chase with enthusiasm, fern-spiral tail bouncing. The scene shows the invisible being visible through its effects. Fun and energetic. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "WIDE DYNAMIC SHOT: Fern (brown mouse) small in the frame, running across a hillside. Ahead of her, a trail of bent grass and swirling leaves shows where Gust is 'running' - the wind is leading her on a merry chase. The path of disturbance winds across the hill. Fern is giving chase with enthusiasm, fern-spiral tail bouncing. The scene shows the invisible being visible through its effects. Fun and energetic. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Wide shot: Fern (a small round brown mouse with big ears, cream tummy, curly tail) small in the frame, running across a big grassy hill. Leaves flying.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "WIDE DYNAMIC SHOT: Fern (brown mouse) small in the frame, running across a hillside. Ahead of her, a trail of bent grass and swirling leaves shows where Gust is 'running' - the wind is leading her on a merry chase. The path of disturbance winds across the hill. Fern is giving chase with enthusiasm, fern-spiral tail bouncing. The scene shows the invisible being visible through its effects. Fun and energetic. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/508747e3-b53b-4acf-800f-7b0d8ed76066/result_00.png"
     },
     {
       "page": 11,
       "type": "story",
       "text": "Zig! Zag! Spin!",
       "beat": "playful chaos - the wind is having fun",
-      "image_prompt": "CHAOTIC ACTION SHOT: Fern (brown mouse) shown spinning/tumbling as the wind plays with her! She's slightly off the ground, caught in a swirl of leaves and grass bits. Her fern-spiral tail is whirling. Her expression is dizzy but laughing - eyes spinning, silly grin. The composition shows circular motion - leaves and debris in a spiral pattern with Fern at the center. Gust is playing with her like a cat with a toy, but gently. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "CHAOTIC ACTION SHOT: Fern (brown mouse) shown spinning/tumbling as the wind plays with her! She's slightly off the ground, caught in a swirl of leaves and grass bits. Her fern-spiral tail is whirling. Her expression is dizzy but laughing - eyes spinning, silly grin. The composition shows circular motion - leaves and debris in a spiral pattern with Fern at the center. Gust is playing with her like a cat with a toy, but gently. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) spinning and tumbling, dizzy from the wind. Spiral motion lines. Leaves swirling.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "CHAOTIC ACTION SHOT: Fern (brown mouse) shown spinning/tumbling as the wind plays with her! She's slightly off the ground, caught in a swirl of leaves and grass bits. Her fern-spiral tail is whirling. Her expression is dizzy but laughing - eyes spinning, silly grin. The composition shows circular motion - leaves and debris in a spiral pattern with Fern at the center. Gust is playing with her like a cat with a toy, but gently. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/be12facd-e39e-411b-9c2a-f5a598f9149c/result_00.png"
     },
     {
       "page": 12,
       "type": "story",
       "text": "Fern got dizzy!",
       "beat": "consequence - spun silly",
-      "image_prompt": "MEDIUM SHOT: Fern (brown mouse) has plopped down on the grass, dizzy from spinning. She's sitting with a wobbly posture, eyes going in circles (cartoon dizzy spirals), small silly smile. Her fur is completely disheveled, pointing in all directions. Her fern-spiral tail is corkscrewed extra tight. Leaves are still settling around her. She looks ridiculous but happy. The wind has stopped for the moment. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "MEDIUM SHOT: Fern (brown mouse) has plopped down on the grass, dizzy from spinning. She's sitting with a wobbly posture, eyes going in circles (cartoon dizzy spirals), small silly smile. Her fur is completely disheveled, pointing in all directions. Her fern-spiral tail is corkscrewed extra tight. Leaves are still settling around her. She looks ridiculous but happy. The wind has stopped for the moment. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) sitting on the grass looking dizzy. Spiral eyes or wobbly expression. Stars around head.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "MEDIUM SHOT: Fern (brown mouse) has plopped down on the grass, dizzy from spinning. She's sitting with a wobbly posture, eyes going in circles (cartoon dizzy spirals), small silly smile. Her fur is completely disheveled, pointing in all directions. Her fern-spiral tail is corkscrewed extra tight. Leaves are still settling around her. She looks ridiculous but happy. The wind has stopped for the moment. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/53db8685-8715-4097-8f43-3344a231c81c/result_00.png"
     },
     {
       "page": 13,
       "type": "story",
       "text": "\"Where are you?\" said Fern.",
       "beat": "direct address - Fern talks to the wind",
-      "image_prompt": "MEDIUM SHOT: Fern (brown mouse) sitting up, recovered from dizziness, looking around and CALLING OUT to the air. Her posture is open - arms slightly spread, head turning, mouth open as if calling. Her expression is curious and friendly now - she's not frustrated, she wants to connect. She's addressing Gust directly, even though she can't see anything. The air around her is momentarily still. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "MEDIUM SHOT: Fern (brown mouse) sitting up, recovered from dizziness, looking around and CALLING OUT to the air. Her posture is open - arms slightly spread, head turning, mouth open as if calling. Her expression is curious and friendly now - she's not frustrated, she wants to connect. She's addressing Gust directly, even though she can't see anything. The air around her is momentarily still. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) sitting up, looking around with a questioning expression. Calm scene.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "MEDIUM SHOT: Fern (brown mouse) sitting up, recovered from dizziness, looking around and CALLING OUT to the air. Her posture is open - arms slightly spread, head turning, mouth open as if calling. Her expression is curious and friendly now - she's not frustrated, she wants to connect. She's addressing Gust directly, even though she can't see anything. The air around her is momentarily still. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/5d4c0f7b-2bd8-459a-9bd7-8c46ffc3721b/result_00.png"
     },
     {
       "page": 14,
       "type": "story",
       "text": "A gust did hush.",
       "beat": "response - the wind calms, listens",
-      "image_prompt": "QUIET WIDE SHOT: Stillness. Fern (brown mouse) small in the center of the frame, surrounded by grass that is now completely still. Leaves have settled on the ground around her. The air is calm. Fern is looking around with wonder - did the wind hear her? Her expression is soft, waiting. The scene feels like held breath - everything paused. Gust is listening. Simple flat cartoon style, bold black outlines, minimal motion, NO TEXT IN IMAGE",
-      "scene": "QUIET WIDE SHOT: Stillness. Fern (brown mouse) small in the center of the frame, surrounded by grass that is now completely still. Leaves have settled on the ground around her. The air is calm. Fern is looking around with wonder - did the wind hear her? Her expression is soft, waiting. The scene feels like held breath - everything paused. Gust is listening. Simple flat cartoon style, bold black outlines, minimal motion, NO TEXT IN IMAGE"
+      "image_prompt": "Quiet scene: Fern (a small round brown mouse with big ears, cream tummy, curly tail) small on the grass. Everything still. No wind. Peaceful.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "QUIET WIDE SHOT: Stillness. Fern (brown mouse) small in the center of the frame, surrounded by grass that is now completely still. Leaves have settled on the ground around her. The air is calm. Fern is looking around with wonder - did the wind hear her? Her expression is soft, waiting. The scene feels like held breath - everything paused. Gust is listening. Simple flat cartoon style, bold black outlines, minimal motion, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/0939a959-7bc7-4065-8baa-92daf9235acb/result_00.png"
     },
     {
       "page": 15,
       "type": "story",
       "text": "Then... a soft puff.",
       "beat": "gentle response - Gust answers softly",
-      "image_prompt": "TENDER MEDIUM SHOT: A gentle breeze - just a small puff - ruffles Fern's fur softly from the front. Her ears move back gently, her fur ripples slightly. The movement is gentle, not wild like before. Fern's expression is surprised recognition - eyes wide but soft, small 'oh' mouth. This puff feels intentional, like a greeting. A few grass blades bend toward her. Gust is saying hello properly. Simple flat cartoon style, bold black outlines, subtle motion lines, NO TEXT IN IMAGE",
-      "scene": "TENDER MEDIUM SHOT: A gentle breeze - just a small puff - ruffles Fern's fur softly from the front. Her ears move back gently, her fur ripples slightly. The movement is gentle, not wild like before. Fern's expression is surprised recognition - eyes wide but soft, small 'oh' mouth. This puff feels intentional, like a greeting. A few grass blades bend toward her. Gust is saying hello properly. Simple flat cartoon style, bold black outlines, subtle motion lines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) with just a gentle breeze ruffling her fur softly. She notices something.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "TENDER MEDIUM SHOT: A gentle breeze - just a small puff - ruffles Fern's fur softly from the front. Her ears move back gently, her fur ripples slightly. The movement is gentle, not wild like before. Fern's expression is surprised recognition - eyes wide but soft, small 'oh' mouth. This puff feels intentional, like a greeting. A few grass blades bend toward her. Gust is saying hello properly. Simple flat cartoon style, bold black outlines, subtle motion lines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/d4f12b87-cb7f-4cf9-9a5f-0eb078b5708d/result_00.png"
     },
     {
       "page": 16,
       "type": "story",
       "text": "Fern did grin.",
       "beat": "connection made - understanding begins",
-      "image_prompt": "CLOSE-UP on Fern's face: A huge, delighted grin spreads across her face. Her eyes are bright, sparkling with joy and understanding. Her fur is gently ruffled by the soft wind. She gets it now - she might not see Gust, but Gust is real, and Gust is friendly. Her fern-spiral tail (visible at edge of frame) curls happily. This is the moment of connection. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "CLOSE-UP on Fern's face: A huge, delighted grin spreads across her face. Her eyes are bright, sparkling with joy and understanding. Her fur is gently ruffled by the soft wind. She gets it now - she might not see Gust, but Gust is real, and Gust is friendly. Her fern-spiral tail (visible at edge of frame) curls happily. This is the moment of connection. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Close-up of Fern (a small round brown mouse with big ears, cream tummy, curly tail) with a big happy grin. Eyes bright and joyful.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "CLOSE-UP on Fern's face: A huge, delighted grin spreads across her face. Her eyes are bright, sparkling with joy and understanding. Her fur is gently ruffled by the soft wind. She gets it now - she might not see Gust, but Gust is real, and Gust is friendly. Her fern-spiral tail (visible at edge of frame) curls happily. This is the moment of connection. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/cb24cdc5-6235-4b59-87f3-d8369f948a42/result_00.png"
     },
     {
       "page": 17,
       "type": "story",
       "text": "\"You are the gust!\" said Fern.",
       "beat": "naming - Fern gives identity to the invisible",
-      "image_prompt": "MEDIUM SHOT: Fern (brown mouse) pointing at... nothing, but pointing with confidence and joy. She's addressing the air directly, recognizing Gust as a real being. Her expression is triumphant and friendly - big smile, eyes bright. Around her, a gentle swirl of leaves rises as if in response - Gust is pleased to be recognized. The wind effect is gentle, happy. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "MEDIUM SHOT: Fern (brown mouse) pointing at... nothing, but pointing with confidence and joy. She's addressing the air directly, recognizing Gust as a real being. Her expression is triumphant and friendly - big smile, eyes bright. Around her, a gentle swirl of leaves rises as if in response - Gust is pleased to be recognized. The wind effect is gentle, happy. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) pointing at the air with confidence, smiling. A gentle swirl of leaves nearby.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "MEDIUM SHOT: Fern (brown mouse) pointing at... nothing, but pointing with confidence and joy. She's addressing the air directly, recognizing Gust as a real being. Her expression is triumphant and friendly - big smile, eyes bright. Around her, a gentle swirl of leaves rises as if in response - Gust is pleased to be recognized. The wind effect is gentle, happy. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/f88404d8-d125-4b6d-9879-df05b926e31b/result_00.png"
     },
     {
       "page": 18,
       "type": "story",
       "text": "Rush! Swish! Whiz!",
       "beat": "celebration - Gust plays joyfully",
-      "image_prompt": "JOYFUL ACTION SHOT: Now the wind is playing with Fern TOGETHER, not AT her. Fern (brown mouse) is running and laughing, arms out, as leaves swirl around her in a joyful dance. Her fur streams back, her fern-spiral tail flies. But she's not being buffeted - she's dancing WITH the wind. The motion is harmonious, celebratory. Leaves form playful patterns around her. Two friends playing. Simple flat cartoon style, bold black outlines, lots of joyful motion, NO TEXT IN IMAGE",
-      "scene": "JOYFUL ACTION SHOT: Now the wind is playing with Fern TOGETHER, not AT her. Fern (brown mouse) is running and laughing, arms out, as leaves swirl around her in a joyful dance. Her fur streams back, her fern-spiral tail flies. But she's not being buffeted - she's dancing WITH the wind. The motion is harmonious, celebratory. Leaves form playful patterns around her. Two friends playing. Simple flat cartoon style, bold black outlines, lots of joyful motion, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) playing joyfully with the wind. Leaves dancing around her. She's jumping or spinning happily.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "JOYFUL ACTION SHOT: Now the wind is playing with Fern TOGETHER, not AT her. Fern (brown mouse) is running and laughing, arms out, as leaves swirl around her in a joyful dance. Her fur streams back, her fern-spiral tail flies. But she's not being buffeted - she's dancing WITH the wind. The motion is harmonious, celebratory. Leaves form playful patterns around her. Two friends playing. Simple flat cartoon style, bold black outlines, lots of joyful motion, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/71973b0d-f680-4791-93f5-9606d6a0c0c3/result_00.png"
     },
     {
       "page": 19,
       "type": "story",
       "text": "\"This is fun!\" said Fern.",
       "beat": "declaration of joy - pure happiness",
-      "image_prompt": "DYNAMIC SHOT: Fern (brown mouse) mid-leap or mid-spin, arms up, face full of joy - eyes squeezed in happiness, huge grin. Leaves spiral around her like confetti. Her fern-spiral tail curls with delight. She's having the time of her life playing with her invisible friend. The wind lifts her slightly (she's a light mouse). Everything is movement and joy. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "DYNAMIC SHOT: Fern (brown mouse) mid-leap or mid-spin, arms up, face full of joy - eyes squeezed in happiness, huge grin. Leaves spiral around her like confetti. Her fern-spiral tail curls with delight. She's having the time of her life playing with her invisible friend. The wind lifts her slightly (she's a light mouse). Everything is movement and joy. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) mid-jump with arms up, huge smile, having fun. Leaves and wind effects around her.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "DYNAMIC SHOT: Fern (brown mouse) mid-leap or mid-spin, arms up, face full of joy - eyes squeezed in happiness, huge grin. Leaves spiral around her like confetti. Her fern-spiral tail curls with delight. She's having the time of her life playing with her invisible friend. The wind lifts her slightly (she's a light mouse). Everything is movement and joy. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/00a6a3e7-9574-46f3-b482-7618dab856b9/result_00.png"
     },
     {
       "page": 20,
       "type": "story",
       "text": "Fern sat with Gust.",
       "beat": "peace - resting together",
-      "image_prompt": "PEACEFUL WIDE SHOT: Fern (brown mouse) sitting contentedly on the grass as the sun begins to set (warm orange sky). Around her, the grass sways gently, leaves drift slowly - Gust is still there, just calm now. Fern's fur ruffles softly in the gentle breeze. Her expression is peaceful contentment - soft smile, relaxed posture. Two friends sitting together, one visible, one not. The wind is present in the gentle movement of everything. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "PEACEFUL WIDE SHOT: Fern (brown mouse) sitting contentedly on the grass as the sun begins to set (warm orange sky). Around her, the grass sways gently, leaves drift slowly - Gust is still there, just calm now. Fern's fur ruffles softly in the gentle breeze. Her expression is peaceful contentment - soft smile, relaxed posture. Two friends sitting together, one visible, one not. The wind is present in the gentle movement of everything. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) sitting peacefully on the grass at sunset. Warm orange and pink sky. Content expression.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "PEACEFUL WIDE SHOT: Fern (brown mouse) sitting contentedly on the grass as the sun begins to set (warm orange sky). Around her, the grass sways gently, leaves drift slowly - Gust is still there, just calm now. Fern's fur ruffles softly in the gentle breeze. Her expression is peaceful contentment - soft smile, relaxed posture. Two friends sitting together, one visible, one not. The wind is present in the gentle movement of everything. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/8de090d5-525b-4a70-9a05-96582925ee59/result_00.png"
     },
     {
       "page": 21,
       "type": "story",
       "text": "\"I can not see you,\" said Fern.",
       "beat": "acceptance - seeing isn't everything",
-      "image_prompt": "TENDER CLOSE-UP: Fern (brown mouse) with a gentle, wise expression - small knowing smile, eyes soft. She's speaking to the air beside her, comfortable with the invisible. Her fur ripples slightly in a warm breeze. Her fern-spiral tail is relaxed. She's accepted that some friends can't be seen. The moment is intimate and peaceful. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "TENDER CLOSE-UP: Fern (brown mouse) with a gentle, wise expression - small knowing smile, eyes soft. She's speaking to the air beside her, comfortable with the invisible. Her fur ripples slightly in a warm breeze. Her fern-spiral tail is relaxed. She's accepted that some friends can't be seen. The moment is intimate and peaceful. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "Close-up of Fern (a small round brown mouse with big ears, cream tummy, curly tail) with a gentle, knowing smile. A soft breeze ruffles her fur.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "TENDER CLOSE-UP: Fern (brown mouse) with a gentle, wise expression - small knowing smile, eyes soft. She's speaking to the air beside her, comfortable with the invisible. Her fur ripples slightly in a warm breeze. Her fern-spiral tail is relaxed. She's accepted that some friends can't be seen. The moment is intimate and peaceful. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/9ee4c21b-7ecd-4ea8-874c-e9e51635e9c1/result_00.png"
     },
     {
       "page": 22,
       "type": "story",
       "text": "\"But I can feel you.\"",
       "beat": "wisdom - the lesson crystallizes",
-      "image_prompt": "EMOTIONAL CLOSE-UP: Fern (brown mouse) with eyes closed, peaceful smile, as a gentle wind ruffles her fur and ears. She's FEELING her friend. The wind's presence is shown in the soft movement of her fur, the way her ears tilt. Perhaps a single leaf drifts past gently. The moment is pure contentment - she doesn't need to see to know. Simple flat cartoon style, bold black outlines, subtle motion, NO TEXT IN IMAGE",
-      "scene": "EMOTIONAL CLOSE-UP: Fern (brown mouse) with eyes closed, peaceful smile, as a gentle wind ruffles her fur and ears. She's FEELING her friend. The wind's presence is shown in the soft movement of her fur, the way her ears tilt. Perhaps a single leaf drifts past gently. The moment is pure contentment - she doesn't need to see to know. Simple flat cartoon style, bold black outlines, subtle motion, NO TEXT IN IMAGE"
+      "image_prompt": "Fern (a small round brown mouse with big ears, cream tummy, curly tail) with eyes closed, peaceful smile, as a gentle wind swirls around her lovingly.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "EMOTIONAL CLOSE-UP: Fern (brown mouse) with eyes closed, peaceful smile, as a gentle wind ruffles her fur and ears. She's FEELING her friend. The wind's presence is shown in the soft movement of her fur, the way her ears tilt. Perhaps a single leaf drifts past gently. The moment is pure contentment - she doesn't need to see to know. Simple flat cartoon style, bold black outlines, subtle motion, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/b1b7e36f-b79a-40b9-aa0b-027347b7bc21/result_00.png"
     },
     {
       "page": 23,
       "type": "story",
       "text": "Gust did swish.",
       "beat": "response - Gust affirms the connection",
-      "image_prompt": "RESPONSE SHOT: A gentle, affectionate swirl of wind circles Fern (brown mouse) - shown by leaves making a soft spiral around her, grass bending toward her, a warm embracing motion. Fern's expression is happy receiving - she feels the wind's 'hug'. The swirl is gentle and loving. Gust is saying 'yes, I'm here, and I feel you too.' Simple flat cartoon style, bold black outlines, warm swirl motion, NO TEXT IN IMAGE",
-      "scene": "RESPONSE SHOT: A gentle, affectionate swirl of wind circles Fern (brown mouse) - shown by leaves making a soft spiral around her, grass bending toward her, a warm embracing motion. Fern's expression is happy receiving - she feels the wind's 'hug'. The swirl is gentle and loving. Gust is saying 'yes, I'm here, and I feel you too.' Simple flat cartoon style, bold black outlines, warm swirl motion, NO TEXT IN IMAGE"
+      "image_prompt": "A gentle spiral of leaves and wind circling around Fern (a small round brown mouse with big ears, cream tummy, curly tail) like a hug. She smiles.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "RESPONSE SHOT: A gentle, affectionate swirl of wind circles Fern (brown mouse) - shown by leaves making a soft spiral around her, grass bending toward her, a warm embracing motion. Fern's expression is happy receiving - she feels the wind's 'hug'. The swirl is gentle and loving. Gust is saying 'yes, I'm here, and I feel you too.' Simple flat cartoon style, bold black outlines, warm swirl motion, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/9057f0ed-233d-4560-910f-074c9769a4db/result_00.png"
     },
     {
       "page": 24,
       "type": "end",
       "text": "The End",
-      "image_prompt": "FINAL IMAGE - SUNSET SCENE: Fern (brown mouse) sitting on her hill in warm sunset light, looking at the viewer with a knowing, happy smile. Behind and around her, leaves drift gently in the air, grass sways softly, suggesting Gust's continued presence. Her fur is gently ruffled. Her fern-spiral tail curls contentedly. She waves one small paw goodbye to the viewer. The scene is warm, peaceful, magical. Two friends together - one you can see, one you can only feel. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
-      "scene": "FINAL IMAGE - SUNSET SCENE: Fern (brown mouse) sitting on her hill in warm sunset light, looking at the viewer with a knowing, happy smile. Behind and around her, leaves drift gently in the air, grass sways softly, suggesting Gust's continued presence. Her fur is gently ruffled. Her fern-spiral tail curls contentedly. She waves one small paw goodbye to the viewer. The scene is warm, peaceful, magical. Two friends together - one you can see, one you can only feel. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE"
+      "image_prompt": "FINAL: Fern (a small round brown mouse with big ears, cream tummy, curly tail) on her hill at sunset. Warm colors. Peaceful. Leaves gently floating. Happy ending.\n\nSTYLE: Simple flat illustration like Dick Bruna (Miffy) or Mo Willems.\n- Thick black outlines around everything\n- Flat solid colors, no gradients\n- Simple round shapes\n- Clean simple background (grass and sky)\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+      "scene": "FINAL IMAGE - SUNSET SCENE: Fern (brown mouse) sitting on her hill in warm sunset light, looking at the viewer with a knowing, happy smile. Behind and around her, leaves drift gently in the air, grass sways softly, suggesting Gust's continued presence. Her fur is gently ruffled. Her fern-spiral tail curls contentedly. She waves one small paw goodbye to the viewer. The scene is warm, peaceful, magical. Two friends together - one you can see, one you can only feel. Simple flat cartoon style, bold black outlines, NO TEXT IN IMAGE",
+      "image": "https://mule-router-assets.muleusercontent.com/router_public/production/ephemeral/042b1e60-5253-4b2d-a0fd-01ef47d92202/result_00.png"
     }
   ],
-  "reference_prompt": "9-PANEL REFERENCE SHEET for \"Fern and the Gust\"\n\nSTORY THEME: Air elemental - small mouse befriends an invisible wind spirit\n\nSUMMARY: Fern and the Gust is a story about Gust and Whiz and Fern. This book helps readers practice short vowels CVC while enjoying an engaging adventure.\n\nCHARACTERS:\n- Fern: small field mouse (soft brown with cream belly (#8D6E63 body, #EFEBE9 belly)) small and round, about 2 inches, big round ears, pink nose, fern-spiral tail Distinguishing feature: tail curls like a fern frond spiral at the end Expression: eager, bright, energetic - always leaning forward\n- Gust: wind spirit (invisible) Gust is NEVER drawn directly - only through effects: swirling leaves, bending grass, moving clouds, rippling fur, flying petals\n\nCHARACTER STYLE NOTES: Fern is round and cute with big ears. Simple shapes - body is oval, head is round. Bold black outlines. Flat brown color with cream belly. The fern-spiral tail is always visible and distinctive. Gust is shown ONLY through movement effects - leaves, grass bending, swirls, Fern's fur ruffling. The challenge is making an invisible character visible through consequences.\n\nART STYLE: Expressive Minimal with kinetic energy - Mo Willems expressiveness meets movement and swirls. Bold black outlines, flat color fills, LOTS of motion lines and movement effects to show the wind\n\nMOOD: Playful, kinetic, wondering, learning to feel what you can't see\n\nINFLUENCES: Mo Willems (expression), Hayao Miyazaki (wind animation), The Snowy Day (simple wonder)\n\nCOLOR PALETTE: fern body: #8D6E63, fern belly: #EFEBE9, fern ears: #FFAB91, grass green: #81C784, grass light: #C5E1A5, leaf orange: #FF8A65, leaf red: #E57373, leaf yellow: #FFF176\n\nKEY SCENES TO SHOW:\n  Panel 1: Fern and the Gust\n  Panel 2: Words to Know\n  Panel 3: Fern sat in the sun.\n  Panel 4: Swish! The grass did sway!\n  Panel 5: \"What was that?\" said Fern.\n  Panel 6: Whoosh! A leaf hit Fern!\n\nTECHNICAL REQUIREMENTS:\n- 9 panels in 3x3 grid\n- Consistent style across all panels\n- Square vignettes showing characters, settings, key moments\n- NO TEXT IN IMAGE. Gust is NEVER drawn as a visible character - only through effects.\n- AVOID: realistic style, detailed textures, drawing wind as a character with a face/body, complex backgrounds\n- NO TEXT, WORDS, OR LETTERS in the image",
+  "reference_prompt": "9-PANEL REFERENCE SHEET for \"Fern and the Gust\"\n\nSTORY THEME: Air elemental - small mouse befriends an invisible wind spirit\n\nSUMMARY: Fern and the Gust is a story about Gust and Whiz and Fern. This book helps readers practice short vowels CVC while enjoying an engaging adventure.\n\nCHARACTERS:\n- Fern: small field mouse (soft brown with cream belly (#8D6E63 body, #EFEBE9 belly)) small and round, about 2 inches, big round ears, pink nose, fern-spiral tail Distinguishing feature: tail curls like a fern frond spiral at the end Expression: eager, bright, energetic - always leaning forward\n- Gust: wind spirit (invisible) Gust is NEVER drawn directly - only through effects: swirling leaves, bending grass, moving clouds, rippling fur, flying petals\n\nCHARACTER STYLE NOTES: Fern is round and cute with big ears. Simple shapes - body is oval, head is round. Bold black outlines. Flat brown color with cream belly. The fern-spiral tail is always visible and distinctive. Gust is shown ONLY through movement effects - leaves, grass bending, swirls, Fern's fur ruffling. The challenge is making an invisible character visible through consequences.\n\nART STYLE: Expressive Minimal with kinetic energy - Mo Willems expressiveness meets movement and swirls. Bold black outlines, flat color fills, LOTS of motion lines and movement effects to show the wind\n\nMOOD: Playful, kinetic, wondering, learning to feel what you can't see\n\nINFLUENCES: Mo Willems (expression), Hayao Miyazaki (wind animation), The Snowy Day (simple wonder)\n\nCOLOR PALETTE: fern body: #8D6E63, fern belly: #EFEBE9, fern ears: #FFAB91, grass green: #81C784, grass light: #C5E1A5, leaf orange: #FF8A65, leaf red: #E57373, leaf yellow: #FFF176\n\nKEY SCENES TO SHOW (visual moments only):\n  Panel 1: COVER IMAGE: A small brown field mouse (Fern) standing on a grassy hill, eyes wi...\n  Panel 2: MEDIUM SHOT: Same scene but now the grass around Fern is bending and swaying! Mo...\n  Panel 3: CLOSE-UP on Fern (brown mouse): She's looking around with searching eyes, head t...\n  Panel 4: DYNAMIC ACTION SHOT: A colorful orange leaf has just SMACKED right onto Fern's f...\n  Panel 5: CLOSE-UP on Fern: She's pulled the leaf off her face and is looking around with ...\n  Panel 6: SEQUENCE SHOT: Three poses of Fern being puffed by invisible wind from different...\n\nTECHNICAL REQUIREMENTS:\n- CRITICAL: NO TEXT, NO WORDS, NO LETTERS, NO WRITING anywhere in the image\n- 9 panels in 3x3 grid layout\n- Consistent art style across all panels\n- Pure visual storytelling - show scenes through imagery only\n- NO TEXT IN IMAGE. Gust is NEVER drawn as a visible character - only through effects.\n- AVOID: realistic style, detailed textures, drawing wind as a character with a face/body, complex backgrounds\n- REMINDER: This is a VISUAL ONLY reference sheet - absolutely no text or letters",
   "parent_tips": {
     "before_reading": "Preview 'Fern and the Gust' together. Ask: What do you think Fern will do? Look for short vowel words like: key words.",
     "during_reading": "Help your child sound out tricky words. Notice the short vowel pattern in words like key words. Encourage expression when reading!",
@@ -404,5 +428,41 @@
     "spin",
     "huff"
   ],
-  "summary": "Fern and the Gust is a story about Gust and Whiz and Fern. This book helps readers practice short vowels CVC while enjoying an engaging adventure."
+  "summary": "Fern and the Gust is a story about Gust and Whiz and Fern. This book helps readers practice short vowels CVC while enjoying an engaging adventure.",
+  "story_bible": {
+    "premise": "A curious mouse named Fern discovers an invisible friend - a playful wind spirit called Gust. Through chasing, spinning, and finally understanding, she learns that some things cannot be seen but can be felt.",
+    "themes": [
+      "friendship",
+      "invisible connections",
+      "learning to feel what you cannot see",
+      "playfulness"
+    ],
+    "character_arcs": {
+      "fern": "Confusion → Frustration → Discovery → Joy → Understanding"
+    },
+    "setting": "A simple grassy hill under blue sky. Wind effects shown through bending grass, swirling leaves, and motion lines.",
+    "emotional_beats": [
+      "Peace (sitting in sun)",
+      "Surprise (wind appears)",
+      "Confusion (cannot see it)",
+      "Frustration (being puffed around)",
+      "Exhaustion (dizzy from spinning)",
+      "Stillness (wind calms)",
+      "Recognition (realizes its a friend)",
+      "Joy (playing together)",
+      "Love (feeling the invisible friend)"
+    ],
+    "level_adaptation": "CVC words (sat, sun, run, gust, puff). Simple sentences. Repetition for early readers.",
+    "art_direction": {
+      "style": "Simple flat illustration like Dick Bruna (Miffy) or Mo Willems",
+      "character": "Fern: small round brown mouse with big ears, cream tummy, curly tail",
+      "rules": [
+        "Thick black outlines",
+        "Flat colors no gradients",
+        "Simple shapes",
+        "NO TEXT in images",
+        "Wind shown through effects only"
+      ]
+    }
+  }
 }

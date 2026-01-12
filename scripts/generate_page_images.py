@@ -177,9 +177,10 @@ def generate_image(prompt: str, slug: str, page_num: int, config, use_reference:
                 urllib.request.urlretrieve(url, local_path)
                 print(f"    Saved: {local_path.name}")
 
+                # Path format for reader: "images/{slug}/page{nn}.png"
                 return {
                     "url": url,
-                    "local_path": str(local_path.relative_to(BOOKS_DIR.parent.parent)),
+                    "image_path": f"images/{slug}/page{page_num:02d}.png",
                     "metadata": {
                         "generated_at": datetime.now().isoformat(),
                         "model": model,
@@ -267,9 +268,7 @@ def main():
         result = generate_image(prompt, args.slug, page_num, config, use_reference=args.use_reference)
 
         if result:
-            page["image"] = result["url"]
-            if result.get("local_path"):
-                page["local_image"] = result["local_path"]
+            page["image"] = result["image_path"]
             page["generation_metadata"] = result["metadata"]
             updated += 1
 

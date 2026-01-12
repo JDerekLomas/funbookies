@@ -47,11 +47,11 @@ Updated pages:
 
 ## Still TODO
 
-### Book Review Fixes (Priority)
-1. Make images smaller to fit without scrolling
-2. Move reference sheet from right panel INTO page navigation (so it gets feedback)
-3. Fix scene prompt alignment
-4. Right panel = page info + scene prompt + feedback only
+### Book Review Fixes (Priority) - COMPLETED
+1. ~~Make images smaller to fit without scrolling~~ - Added max-height constraint
+2. ~~Move reference sheet from right panel INTO page navigation~~ - Ref is now page -1 in flow
+3. ~~Fix scene prompt alignment~~ - Added page label, better styling with left border
+4. ~~Right panel = page info + scene prompt + feedback only~~ - Removed reference section from panel
 
 ### New Review Pages Needed
 1. **Activities Config** (`/review/activities.html`)

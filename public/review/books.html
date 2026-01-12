@@ -40,12 +40,12 @@
 
         .main-layout {
             display: grid;
-            grid-template-columns: 220px 1fr 320px;
+            grid-template-columns: 200px 1fr 280px;
             height: calc(100vh - 52px);
         }
 
         @media (max-width: 1200px) {
-            .main-layout { grid-template-columns: 200px 1fr 280px; }
+            .main-layout { grid-template-columns: 180px 1fr 260px; }
         }
 
         @media (max-width: 900px) {
@@ -161,38 +161,39 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: var(--space-md);
+            padding: var(--space-sm);
             overflow: hidden;
         }
 
         .page-image {
             max-width: 100%;
-            max-height: 100%;
+            max-height: calc(100vh - 200px);
             border-radius: 8px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            object-fit: contain;
         }
 
         .page-text-overlay {
             position: absolute;
-            bottom: 60px;
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
             max-width: 80%;
             text-align: center;
-            font-size: 1.1rem;
-            line-height: 1.5;
+            font-size: 0.95rem;
+            line-height: 1.4;
         }
 
         .special-page {
             background: var(--color-cream);
             border-radius: 8px;
-            padding: var(--space-lg);
+            padding: var(--space-md);
             max-width: 600px;
-            max-height: 80%;
+            max-height: calc(100vh - 180px);
             overflow-y: auto;
         }
 
@@ -238,25 +239,6 @@
             gap: 6px;
         }
 
-        .reference-image {
-            width: 100%;
-            border-radius: 8px;
-            border: 1px solid var(--color-border);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .reference-image:hover { transform: scale(1.02); }
-
-        .no-reference {
-            padding: 30px;
-            text-align: center;
-            color: var(--color-text-muted);
-            background: var(--color-cream);
-            border-radius: 8px;
-            font-size: 0.85rem;
-        }
-
         .info-row {
             display: flex;
             justify-content: space-between;
@@ -274,8 +256,17 @@
             font-size: 0.8rem;
             line-height: 1.5;
             color: var(--color-charcoal);
-            max-height: 150px;
+            max-height: 200px;
             overflow-y: auto;
+            border-left: 3px solid var(--color-sage);
+        }
+
+        .scene-prompt-label {
+            font-size: 0.7rem;
+            color: var(--color-sage-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
 
         .feedback-buttons {
@@ -391,13 +382,6 @@
 
         <div class="info-panel" id="infoPanel">
             <div class="panel-section">
-                <h3>Reference Sheet</h3>
-                <div id="referenceContainer">
-                    <div class="no-reference">Select a book</div>
-                </div>
-            </div>
-
-            <div class="panel-section">
                 <h3>Page Info</h3>
                 <div id="pageInfo">
                     <div class="info-row"><label>Book</label><span class="value">-</span></div>
@@ -407,7 +391,7 @@
             </div>
 
             <div class="panel-section" id="sceneSection" style="display: none;">
-                <h3>Scene Prompt</h3>
+                <h3>Scene Prompt <span id="scenePageLabel" style="font-weight: normal; color: var(--color-text-muted);"></span></h3>
                 <div class="scene-prompt" id="scenePrompt"></div>
             </div>
 
@@ -577,30 +561,8 @@
             document.getElementById('pageNav').style.display = 'flex';
             document.getElementById('openReaderBtn').href = `/reader.html?book=${slug}&mode=edit`;
 
-            loadReferenceImage();
             buildPageSelect();
             renderPage();
-        }
-
-        async function loadReferenceImage() {
-            const container = document.getElementById('referenceContainer');
-            const paths = [
-                `/books/references/${currentBook.slug}_reference_v4.png`,
-                `/books/references/${currentBook.slug}_reference_v3.png`,
-                `/books/references/${currentBook.slug}_reference_v2.png`,
-                `/books/references/${currentBook.slug}_reference.png`
-            ];
-
-            for (const path of paths) {
-                try {
-                    const res = await fetch(path, { method: 'HEAD' });
-                    if (res.ok) {
-                        container.innerHTML = `<img class="reference-image" src="${path}" alt="Reference" onclick="openLightbox('${path}')">`;
-                        return;
-                    }
-                } catch {}
-            }
-            container.innerHTML = '<div class="no-reference">No reference image</div>';
         }
 
         function buildPageSelect() {
@@ -707,9 +669,10 @@
                 ${page.text ? `<div class="page-text-overlay">${page.text}</div>` : ''}
             `;
 
-            // Scene prompt
+            // Scene prompt - show with page number label
             if (page.scene) {
                 sceneSection.style.display = 'block';
+                document.getElementById('scenePageLabel').textContent = `(Page ${currentPage + 1})`;
                 document.getElementById('scenePrompt').textContent = page.scene;
             } else {
                 sceneSection.style.display = 'none';

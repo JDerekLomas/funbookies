@@ -2196,11 +2196,33 @@
                 return;
             }
 
+            const actualPageNum = page.page || pageNum + 1;
+
             status.className = 'generation-status';
-            status.textContent = 'Saving to GitHub...';
+            status.textContent = 'Uploading to Supabase...';
 
             try {
-                // Save the image URL directly to the book JSON via GitHub API
+                // 1. Upload image to Supabase Storage
+                const uploadResponse = await fetch('/api/upload-image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        imageUrl,
+                        slug,
+                        pageNum: actualPageNum
+                    })
+                });
+
+                const uploadResult = await uploadResponse.json();
+
+                if (!uploadResult.success) {
+                    throw new Error(uploadResult.error || 'Upload failed');
+                }
+
+                const supabaseUrl = uploadResult.url;
+                status.textContent = 'Updating book...';
+
+                // 2. Save the Supabase URL to book JSON via GitHub API
                 const response = await fetch('/api/update-book-github', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -2208,7 +2230,7 @@
                         slug,
                         pageIndex: pageNum,
                         field: 'image',
-                        value: imageUrl  // Store the URL directly
+                        value: supabaseUrl
                     })
                 });
 
@@ -2216,20 +2238,17 @@
 
                 if (result.success) {
                     // Update local book data
-                    currentBook.pages[pageNum].image = imageUrl;
+                    currentBook.pages[pageNum].image = supabaseUrl;
                     status.className = 'generation-status success';
-                    status.innerHTML = `
-                        Image saved! <a href="${result.commitUrl}" target="_blank" style="color: inherit;">View commit</a><br>
-                        <small>Site will redeploy in ~30 seconds</small>
-                    `;
+                    status.innerHTML = `Image saved! <a href="${result.commitUrl}" target="_blank" style="color: inherit;">View commit</a>`;
 
-                    // Refresh the page display to show new image immediately
+                    // Refresh the page display immediately
                     setTimeout(() => {
                         renderPages();
                         navigateToPage(pageNum);
                     }, 500);
                 } else {
-                    throw new Error(result.error || 'Failed to save');
+                    throw new Error(result.error || 'Failed to update book');
                 }
             } catch (error) {
                 status.className = 'generation-status error';

@@ -11,15 +11,35 @@ Saves generation metadata for each image including:
 - reference_version: which reference image version was used (if applicable)
 """
 
+import sys
 import json
 import time
-import requests
+import base64
+import urllib.request
 from pathlib import Path
 from datetime import datetime
 
+# Add MuleRouter skills to path
+SKILL_DIR = Path("/Users/dereklomas/.claude/plugins/cache/mulerouter-skills/mulerouter-skills/1.0.0/skills/mulerouter-skills")
+sys.path.insert(0, str(SKILL_DIR))
+
+from dotenv import load_dotenv
+load_dotenv(SKILL_DIR / ".env")
+
+from core import APIClient, load_config, create_and_poll_task
+
 BOOKS_DIR = Path("/Users/dereklomas/lilbookies/public/books")
 REFS_DIR = BOOKS_DIR / "references"
-API_URL = "https://funbookies.com/api"
+IMAGES_DIR = BOOKS_DIR / "images"
+
+
+def image_to_base64_uri(path: Path) -> str:
+    """Convert image file to data URI."""
+    with open(path, "rb") as f:
+        b64 = base64.b64encode(f.read()).decode()
+    ext = path.suffix.lower()
+    mime = "image/png" if ext == ".png" else "image/jpeg"
+    return f"data:{mime};base64,{b64}"
 
 
 def get_character_block(book: dict) -> str:
@@ -93,10 +113,10 @@ def find_reference_image(slug: str) -> tuple[str | None, str | None]:
     return None, None
 
 
-def generate_image(prompt: str, slug: str, page_num: int, use_reference: bool = False) -> dict | None:
-    """Generate an image using nano-banana-pro.
+def generate_image(prompt: str, slug: str, page_num: int, config, use_reference: bool = False) -> dict | None:
+    """Generate an image using nano-banana-pro or wan2.6-image with reference.
 
-    Returns: dict with 'url' and 'metadata' or None on failure
+    Returns: dict with 'url', 'local_path', and 'metadata' or None on failure
     """
 
     print(f"  Generating page {page_num}...")
@@ -108,79 +128,71 @@ def generate_image(prompt: str, slug: str, page_num: int, use_reference: bool = 
         ref_path, ref_version = find_reference_image(slug)
         if ref_path:
             print(f"    Using reference: {ref_version}")
-            model = "wan2.6-image"  # Use I2I model with reference
+            model = "wan2.6-image"
         else:
             print(f"    No reference found, using T2I")
 
-    # Submit generation request
-    payload = {
-        "prompt": prompt,
-        "model": model,
-        "slug": slug,
-        "page": page_num
-    }
-
-    # Add reference for I2I if available
-    if ref_path and use_reference:
-        payload["reference_image"] = f"/books/references/{slug}_reference{('_' + ref_version) if ref_version != 'v1' else ''}.png"
-
-    response = requests.post(f"{API_URL}/generate-image", json=payload)
-    result = response.json()
-
-    if not result.get("success"):
-        print(f"    Error: {result.get('error')}")
-        return None
-
-    image_url = None
-
-    if result.get("pending"):
-        task_id = result["taskId"]
-        endpoint = result["statusEndpoint"]
-        print(f"    Task: {task_id[:8]}...")
-
-        # Poll for completion
-        for i in range(60):  # Max 5 minutes
-            time.sleep(5)
-            try:
-                status_resp = requests.get(f"{API_URL}/check-status", params={
-                    "taskId": task_id,
-                    "endpoint": endpoint
-                }, timeout=30)
-                status = status_resp.json()
-
-                if status.get("completed"):
-                    print(f"    Done!")
-                    image_url = status["url"]
-                    break
-
-                if not status.get("success"):
-                    print(f"    Error: {status.get('error')}")
-                    return None
-
-                print(f"    Polling... ({i+1})")
-            except Exception as e:
-                print(f"    Network error, retrying... ({e})")
-                time.sleep(5)
-        else:
-            print("    Timeout!")
-            return None
-    else:
-        # Immediate result
-        image_url = result.get("url")
-
-    if not image_url:
-        return None
-
-    # Return URL with metadata
-    return {
-        "url": image_url,
-        "metadata": {
-            "generated_at": datetime.now().isoformat(),
-            "model": model,
-            "used_reference": bool(ref_path and use_reference),
-            "reference_version": ref_version if (ref_path and use_reference) else None,
+    # Build request body based on model type
+    if model == "wan2.6-image" and ref_path:
+        # Image-to-image with reference
+        ref_uri = image_to_base64_uri(Path(ref_path))
+        body = {
+            "prompt": prompt,
+            "images": [ref_uri],
+            "size": "1024*1024",
+            "n": 1
         }
-    }
+        endpoint_path = "/vendors/alibaba/v1/wan2.6-image/generation"
+    else:
+        # Text-to-image
+        body = {
+            "prompt": prompt,
+            "size": "1024*1024",
+            "n": 1
+        }
+        endpoint_path = "/vendors/google/v1/nano-banana-pro/generation"
+
+    # Generate using MuleRouter API directly
+    with APIClient(config) as client:
+        result = create_and_poll_task(
+            client=client,
+            endpoint_path=endpoint_path,
+            request_body=body,
+            result_key="images",
+            interval=5.0,
+            max_wait=300.0,
+            verbose=True
+        )
+
+        if result.results:
+            url = result.results[0]
+            print(f"    Generated: {url[:60]}...")
+
+            # Save image locally
+            image_dir = IMAGES_DIR / slug
+            image_dir.mkdir(parents=True, exist_ok=True)
+            local_path = image_dir / f"page{page_num:02d}.png"
+
+            try:
+                urllib.request.urlretrieve(url, local_path)
+                print(f"    Saved: {local_path.name}")
+
+                return {
+                    "url": url,
+                    "local_path": str(local_path.relative_to(BOOKS_DIR.parent.parent)),
+                    "metadata": {
+                        "generated_at": datetime.now().isoformat(),
+                        "model": model,
+                        "used_reference": bool(ref_path and use_reference),
+                        "reference_version": ref_version if (ref_path and use_reference) else None,
+                    }
+                }
+            except Exception as e:
+                print(f"    Download error: {e}")
+                return None
+        else:
+            print(f"    Failed: {result.error}")
+            return None
 
 
 def main():
@@ -209,6 +221,10 @@ def main():
         pages = [p for p in pages if p["page"] in page_nums]
 
     print(f"Processing {len(pages)} pages for {args.slug}\n")
+
+    # Load MuleRouter config
+    config = load_config()
+    print(f"Using API: {config.site}\n")
 
     # Check for reference image
     ref_path, ref_version = find_reference_image(args.slug)
@@ -248,10 +264,12 @@ def main():
             continue
 
         # Generate image with metadata
-        result = generate_image(prompt, args.slug, page_num, use_reference=args.use_reference)
+        result = generate_image(prompt, args.slug, page_num, config, use_reference=args.use_reference)
 
         if result:
             page["image"] = result["url"]
+            if result.get("local_path"):
+                page["local_image"] = result["local_path"]
             page["generation_metadata"] = result["metadata"]
             updated += 1
 

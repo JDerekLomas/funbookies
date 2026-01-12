@@ -167,11 +167,30 @@ def generate_cover(slug: str, config) -> bool:
 
 
 def main():
-    # Find books with reference images
-    refs = list(REFS_DIR.glob("*_reference.png"))
-    slugs = [r.stem.replace("_reference", "") for r in refs]
+    import argparse
+    parser = argparse.ArgumentParser(description="Generate book covers")
+    parser.add_argument("--book", help="Single book slug to generate")
+    parser.add_argument("--all", action="store_true", help="Generate for all books with references")
+    args = parser.parse_args()
 
-    print(f"Found {len(slugs)} books with reference images:")
+    if args.book:
+        # Single book mode
+        slugs = [args.book]
+        # Check reference exists
+        ref_path, _ = find_reference_image(args.book)
+        if not ref_path:
+            print(f"No reference image found for: {args.book}")
+            return
+    elif args.all:
+        # Find all books with reference images
+        refs = list(REFS_DIR.glob("*_reference*.png"))
+        slugs = list(set(r.stem.split("_reference")[0] for r in refs))
+    else:
+        print("Usage: python generate_covers.py --book SLUG")
+        print("       python generate_covers.py --all")
+        return
+
+    print(f"Generating covers for {len(slugs)} books:")
     for s in slugs:
         print(f"  - {s}")
 

@@ -71,8 +71,9 @@ def get_book_info(slug: str) -> dict:
     with open(book_path) as f:
         book = json.load(f)
 
-    # Get sample scenes
-    scenes = [p.get("scene", p.get("text", "")) for p in book.get("pages", []) if p.get("scene") or p.get("text")][:9]
+    # Get sample scenes (filter out None/empty)
+    scenes = [p.get("scene") or p.get("text") or "" for p in book.get("pages", [])]
+    scenes = [s for s in scenes if s][:9]
 
     return {
         "title": book.get("title", slug),
@@ -99,6 +100,8 @@ def build_reference_prompt(slug: str, book_info: dict) -> str:
     # Build panel descriptions
     panel_descriptions = []
     for i, scene in enumerate(scenes[:9]):
+        if not scene:
+            continue
         # Truncate long scenes
         if len(scene) > 100:
             scene = scene[:100] + "..."
@@ -117,7 +120,7 @@ The 9 panels arranged in a 3x3 grid showing:
 
 Consistent art style across all panels, suitable for children's picture book illustration. Each panel is a square vignette showing a key moment or character.
 
-IMPORTANT: Minimize text in panels. Focus on visual style, characters, colors, and mood. No title text."""
+IMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Focus on visual style, characters, colors, and mood only."""
 
     return prompt
 
@@ -190,21 +193,29 @@ def generate_reference(slug: str, config) -> bool:
 
 
 def main():
-    # Books missing reference images
-    missing = [
-        # Band A
-        "a1-i-sit", "a2-i-see-it",
-        # Band B
-        "b2-pup-in-the-mud", "b3-jump-at-camp", "b6-kate-and-the-lake", "b8-the-owl-and-the-boy",
-        # Band C
-        "c2_magic_city", "c4_robot_pilot", "c6_biggest_race", "c7_hopeless_garden", "c8_impossible_invention",
-        # Band D
-        "d1-the-lighthouse-keeper", "d2-the-hidden-garden", "d3-the-architects-secret",
-        "d4-signals-from-kepler", "d5-the-winter-of-words", "d6-the-bridge-between",
-    ]
+    import argparse
+    parser = argparse.ArgumentParser(description="Generate 9-panel reference images")
+    parser.add_argument("--book", help="Single book slug to generate")
+    parser.add_argument("--all-missing", action="store_true", help="Generate for all books missing references")
+    args = parser.parse_args()
 
-    # Filter to only existing books
-    existing = [s for s in missing if (BOOKS_DIR / f"{s}.json").exists()]
+    if args.book:
+        # Single book mode
+        existing = [args.book]
+        if not (BOOKS_DIR / f"{args.book}.json").exists():
+            print(f"Book not found: {args.book}")
+            return
+    elif args.all_missing:
+        # Find all books missing reference images
+        all_books = [p.stem for p in BOOKS_DIR.glob("*.json") if p.stem != "manifest"]
+        existing = [s for s in all_books if not (REFS_DIR / f"{s}_reference.png").exists()
+                    and not (REFS_DIR / f"{s}_reference_v2.png").exists()
+                    and not (REFS_DIR / f"{s}_reference_v3.png").exists()
+                    and not (REFS_DIR / f"{s}_reference_v4.png").exists()]
+    else:
+        print("Usage: python generate_references.py --book SLUG")
+        print("       python generate_references.py --all-missing")
+        return
 
     print(f"Generating reference images for {len(existing)} books:")
     for s in existing:

@@ -561,9 +561,16 @@
             renderPage();
         }
 
+        function getStoryPagesWithIndex() {
+            // Return story/cover pages with their ORIGINAL index in the pages array
+            return (currentBook.pages || [])
+                .map((page, originalIndex) => ({ ...page, originalIndex }))
+                .filter(p => p.type === 'story' || p.type === 'cover');
+        }
+
         function buildPageSelect() {
             const select = document.getElementById('pageSelect');
-            const storyPages = currentBook.pages?.filter(p => p.type === 'story' || p.type === 'cover') || [];
+            const storyPages = getStoryPagesWithIndex();
 
             let options = [
                 { value: -2, label: 'Creation Notes' },
@@ -587,7 +594,7 @@
         }
 
         function prevPage() {
-            const storyPages = currentBook.pages?.filter(p => p.type === 'story' || p.type === 'cover') || [];
+            const storyPages = getStoryPagesWithIndex();
             if (currentPage > -2) {
                 currentPage--;
                 document.getElementById('pageSelect').value = currentPage;
@@ -596,7 +603,7 @@
         }
 
         function nextPage() {
-            const storyPages = currentBook.pages?.filter(p => p.type === 'story' || p.type === 'cover') || [];
+            const storyPages = getStoryPagesWithIndex();
             if (currentPage < storyPages.length - 1) {
                 currentPage++;
                 document.getElementById('pageSelect').value = currentPage;
@@ -607,7 +614,7 @@
         function renderPage() {
             const pageView = document.getElementById('pageView');
             const pageInfo = document.getElementById('pageInfo');
-            const storyPages = currentBook.pages?.filter(p => p.type === 'story' || p.type === 'cover') || [];
+            const storyPages = getStoryPagesWithIndex();
 
             // Update nav buttons
             document.getElementById('prevBtn').disabled = currentPage <= -2;
@@ -655,7 +662,9 @@
             const page = storyPages[currentPage];
             if (!page) return;
 
-            const imgPath = `/books/images/${currentBook.slug}_page${String(currentPage + 1).padStart(2, '0')}.png`;
+            // Use original page index (1-indexed) for image filename
+            const pageNum = page.originalIndex + 1;
+            const imgPath = `/books/images/${currentBook.slug}_page${String(pageNum).padStart(2, '0')}.png`;
 
             // Show image, text, and prompt in vertical stack
             pageView.innerHTML = `

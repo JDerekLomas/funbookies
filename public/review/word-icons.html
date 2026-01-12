@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Icons Review - FunBookies</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .review-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: var(--space-md);
+    }
+
+    .review-nav-links { display: flex; gap: var(--space-sm); }
+
+    .review-nav a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: var(--border-radius);
+      transition: all 0.2s;
+    }
+
+    .review-nav a:hover { background: var(--color-cream); color: var(--color-charcoal); }
+    .review-nav a.active { background: var(--color-sage-light); color: var(--color-sage-dark); font-weight: 600; }
+
+    .page-title { text-align: center; margin-bottom: var(--space-xs); }
+    .subtitle { text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-lg); }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      border: 2px solid var(--color-border);
+      background: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover { border-color: var(--color-sage); }
+    .filter-btn.active { background: var(--color-sage); border-color: var(--color-sage); color: white; }
+    .filter-btn.rejected-filter { border-color: var(--color-error); }
+    .filter-btn.rejected-filter.active { background: var(--color-error); border-color: var(--color-error); }
+
+    .stats {
+      text-align: center;
+      padding: 15px;
+      background: white;
+      border-radius: var(--border-radius);
+      margin-bottom: var(--space-md);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .stats span { margin: 0 12px; }
+    .stat-found { color: var(--color-sage-dark); }
+    .stat-approved { color: var(--color-success); }
+    .stat-rejected { color: var(--color-error); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: all 0.2s;
+      border: 3px solid transparent;
+    }
+
+    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .card.approved { border-color: var(--color-sage); background: var(--color-sage-light); }
+    .card.rejected { border-color: var(--color-error); background: #ffebee; }
+    .card.missing { background: #f9f9f9; border-color: var(--color-border); }
+
+    .icon-image {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      background: var(--color-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    .icon-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .icon-image.empty {
+      border: 2px dashed var(--color-border);
+      color: var(--color-text-muted);
+      font-size: 0.8rem;
+    }
+
+    .word-label {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+    }
+
+    .rating-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .rating-btn {
+      width: 36px;
+      height: 36px;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      background: white;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rating-btn:hover { transform: scale(1.1); }
+    .rating-btn.approve:hover, .rating-btn.approve.selected { border-color: var(--color-sage); background: var(--color-sage); }
+    .rating-btn.reject:hover, .rating-btn.reject.selected { border-color: var(--color-error); background: var(--color-error); }
+
+    .review-summary {
+      max-width: 800px;
+      margin: var(--space-lg) auto;
+      padding: var(--space-md);
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .review-summary h3 {
+      margin-bottom: var(--space-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .review-summary textarea {
+      width: 100%;
+      height: 120px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      padding: 12px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="review-nav">
+      <a href="/review/" style="font-weight: 600;">&larr; Review Hub</a>
+      <div class="review-nav-links">
+        <a href="/review/books.html">Books</a>
+        <a href="/review/covers.html">Covers</a>
+        <a href="/review/references.html">References</a>
+        <a href="/review/phoneme-sounds.html">Phonemes</a>
+        <a href="/review/letter-sounds.html">Letters</a>
+        <a href="/review/word-icons.html" class="active">Word Icons</a>
+        <a href="/review/activity-icons.html">Activity Icons</a>
+      </div>
+    </nav>
+
+    <h1 class="page-title">Word Icons Review</h1>
+    <p class="subtitle">Review generated word illustration icons for activities</p>
+
+    <div class="controls">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="unreviewed">Unreviewed</button>
+      <button class="filter-btn rejected-filter" data-filter="rejected">Rejected</button>
+    </div>
+
+    <div class="stats" id="stats">Loading...</div>
+    <div class="grid" id="grid"></div>
+
+    <div class="review-summary">
+      <h3>
+        <span>Review Summary</span>
+        <div class="actions" style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-sm btn-secondary" onclick="copyRejected()">Copy</button>
+          <button class="btn btn-sm btn-secondary" onclick="openGitHubIssue()">Create GitHub Issue</button>
+          <button class="btn btn-sm btn-ghost" onclick="clearReviews()">Clear All</button>
+        </div>
+      </h3>
+      <textarea id="rejectedOutput" readonly placeholder="Rate icons above to build summary..."></textarea>
+      <div class="timestamp" id="timestamp" style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 8px;"></div>
+    </div>
+  </div>
+
+  <script>
+    const ICONS_PATH = '/activities/word-icons';
+    const STORAGE_KEY = 'word-icon-reviews-v2';
+    const GITHUB_REPO = 'dereklomas/lilbookies';
+
+    let icons = [];
+    let iconStatus = {};
+    let reviews = {};
+    let currentFilter = 'all';
+    let lastUpdated = null;
+
+    function loadReviews() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const data = JSON.parse(saved);
+          if (data.reviews) {
+            reviews = data.reviews;
+            lastUpdated = data.lastUpdated || null;
+          } else {
+            reviews = data; // backwards compat
+          }
+        }
+      } catch { reviews = {}; }
+    }
+
+    function saveReviews() {
+      lastUpdated = new Date().toISOString();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ reviews, lastUpdated }));
+      updateRejectedOutput();
+    }
+
+    function formatTimestamp(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      return d.toLocaleString('en-US', {
+        year: 'numeric', month: 'short', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+      });
+    }
+
+    function openGitHubIssue() {
+      const title = encodeURIComponent(`Word Icons Review - ${new Date().toLocaleDateString()}`);
+      const body = encodeURIComponent(document.getElementById('rejectedOutput').value);
+      const url = `https://github.com/${GITHUB_REPO}/issues/new?title=${title}&body=${body}&labels=review,icons`;
+      window.open(url, '_blank');
+    }
+
+    // All available word icons
+    const WORD_LIST = 'bake,ball,barn,bat,bath,bead,bed,bee,bell,bench,big,bike,bin,bird,bit,boat,bone,book,boy,brick,brim,brown,bug,bull,bun,burn,bus,cake,call,came,can,cane,cape,car,card,cart,cat,chat,chest,chin,chip,chop,clap,cliff,clock,clog,cloud,clown,coat,coin,cone,cook,corn,cot,couch,crab,crib,crow,crown,cub,cube,cup,cute,dark,day,dig,dime,dish,dog,doll,dot,down,dress,drop,drum,fall,fan,far,feet,fell,fern,fig,fill,fin,fish,flag,food,foot,for,fork,fort,fox,frog,full,fun,game,girl,glass,goat,gong,good,got,grass,grill,grin,grow,gull,hat,hen,her,hike,hill,hit,hive,home,hook,hop,hope,horn,hose,hot,house,hug,hurt,jar,join,joy,jug,king,kiss,kite,lake,like,log,look,loud,mail,make,man,mane,map,mat,math,meat,mill,miss,moon,mop,moth,mouse,mug,mule,name,net,nose,out,owl,pail,pan,park,path,pen,pig,pill,pin,pine,pit,play,plug,plum,pork,pot,pouch,pull,rain,ran,rat,read,red,ring,road,rope,rose,rug,run,sail,sat,say,seat,see,sell,shed,shell,ship,shirt,shop,show,shut,sing,sit,skip,skirt,skull,sled,slip,snail,snap,snow,soil,song,soon,spin,spoon,star,stay,stem,step,stop,sub,sun,swim,tail,tall,tape,tell,that,them,then,thin,this,time,toad,top,town,toy,tray,tree,trip,truck,tub,tube,turn,twig,van,vine,wall,web,well,wig,will,wing,wish,with,wood,worm'.split(',');
+
+    function loadIcons() {
+      icons = WORD_LIST.map(w => ({ id: w, word: w }));
+      render();
+    }
+
+    function markIcon(id, exists) {
+      iconStatus[id] = exists;
+      const card = document.querySelector(`[data-icon="${id}"]`);
+      if (card && !exists) {
+        card.classList.add('missing');
+        card.querySelector('.icon-image').classList.add('empty');
+        card.querySelector('.icon-image').innerHTML = 'Missing';
+        card.querySelector('.rating-buttons')?.remove();
+      }
+      updateStats();
+    }
+
+    function updateStats() {
+      const found = Object.values(iconStatus).filter(v => v).length;
+      const missing = Object.values(iconStatus).filter(v => !v).length;
+      const approved = Object.values(reviews).filter(r => r === 'approved').length;
+      const rejected = Object.values(reviews).filter(r => r === 'rejected').length;
+
+      document.getElementById('stats').innerHTML = `
+        <span class="stat-found">Found: ${found}</span>
+        <span class="stat-approved">Approved: ${approved}</span>
+        <span class="stat-rejected">Rejected: ${rejected}</span>
+        <span style="color: var(--color-text-muted);">Missing: ${missing}</span>
+      `;
+    }
+
+
+    function rate(id, rating, event) {
+      event.stopPropagation();
+      if (reviews[id] === rating) delete reviews[id];
+      else reviews[id] = rating;
+      saveReviews();
+      render();
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filter);
+      });
+      render();
+    }
+
+    function updateRejectedOutput() {
+      const approved = Object.entries(reviews)
+        .filter(([_, r]) => r === 'approved')
+        .map(([id, _]) => id);
+      const rejected = Object.entries(reviews)
+        .filter(([_, r]) => r === 'rejected')
+        .map(([id, _]) => `- [ ] ${id}`);
+
+      const timestamp = lastUpdated ? formatTimestamp(lastUpdated) : 'Not yet saved';
+
+      let text = `# Word Icons Review\n`;
+      text += `**Reviewed:** ${timestamp}\n\n`;
+      text += `## Approved (${approved.length})\n${approved.join(', ') || '(none)'}\n\n`;
+      text += `## Needs Regeneration (${rejected.length})\n${rejected.join('\n') || '(none)'}`;
+
+      document.getElementById('rejectedOutput').value = text;
+      document.getElementById('timestamp').textContent = lastUpdated
+        ? `Last updated: ${timestamp}`
+        : '';
+    }
+
+    function copyRejected() {
+      const output = document.getElementById('rejectedOutput');
+      output.select();
+      document.execCommand('copy');
+      alert('Copied to clipboard!');
+    }
+
+    function clearReviews() {
+      if (confirm('Clear all reviews?')) {
+        reviews = {};
+        saveReviews();
+        render();
+      }
+    }
+
+    function shouldShow(icon) {
+      if (currentFilter === 'all') return true;
+      if (currentFilter === 'unreviewed') return !reviews[icon.id] && iconStatus[icon.id] !== false;
+      if (currentFilter === 'rejected') return reviews[icon.id] === 'rejected';
+      return true;
+    }
+
+    function render() {
+      const grid = document.getElementById('grid');
+      document.getElementById('stats').innerHTML = 'Loading icons...';
+
+      grid.innerHTML = icons.filter(shouldShow).map(icon => {
+        const review = reviews[icon.id];
+        let cardClass = 'card';
+        if (review === 'approved') cardClass += ' approved';
+        if (review === 'rejected') cardClass += ' rejected';
+
+        return `
+          <div class="${cardClass}" data-icon="${icon.id}">
+            <div class="icon-image">
+              <img src="${ICONS_PATH}/${icon.id}.png" alt="${icon.word}"
+                   onload="markIcon('${icon.id}', true)"
+                   onerror="markIcon('${icon.id}', false)">
+            </div>
+            <div class="word-label">${icon.word}</div>
+            <div class="rating-buttons">
+              <button class="rating-btn approve ${review === 'approved' ? 'selected' : ''}" onclick="rate('${icon.id}', 'approved', event)">👍</button>
+              <button class="rating-btn reject ${review === 'rejected' ? 'selected' : ''}" onclick="rate('${icon.id}', 'rejected', event)">👎</button>
+            </div>
+          </div>
+        `;
+      }).join('') || '<p style="text-align: center; color: var(--color-text-muted); grid-column: 1/-1;">No icons match filter</p>';
+
+      updateRejectedOutput();
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.addEventListener('click', () => setFilter(btn.dataset.filter)));
+    loadReviews();
+    updateRejectedOutput();
+    loadIcons();
+  </script>
+</body>
+</html>

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Book Review - FunBookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <style>
+        body { background: var(--color-cream); }
+
+        .review-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm) var(--space-md);
+            background: white;
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .review-nav-links { display: flex; gap: var(--space-xs); flex-wrap: wrap; }
+
+        .review-nav a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: var(--border-radius);
+            transition: all 0.2s;
+        }
+
+        .review-nav a:hover { background: var(--color-cream); color: var(--color-charcoal); }
+        .review-nav a.active { background: var(--color-sage-light); color: var(--color-sage-dark); font-weight: 600; }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr 320px;
+            height: calc(100vh - 52px);
+        }
+
+        @media (max-width: 1200px) {
+            .main-layout { grid-template-columns: 200px 1fr 280px; }
+        }
+
+        @media (max-width: 900px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar, .info-panel { display: none; }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-right: 1px solid var(--color-border);
+            overflow-y: auto;
+            padding: var(--space-sm);
+        }
+
+        .sidebar h2 {
+            font-size: 0.75rem;
+            margin-bottom: var(--space-xs);
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 var(--space-xs);
+        }
+
+        .band-group { margin-bottom: var(--space-sm); }
+
+        .band-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--color-sage);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px var(--space-xs);
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 2px;
+        }
+
+        .story-item {
+            padding: 5px var(--space-xs);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .story-item:hover { background: var(--color-cream); }
+        .story-item.active { background: var(--color-sage-light); font-weight: 600; }
+
+        .story-item-level {
+            font-size: 0.6rem;
+            color: var(--color-text-muted);
+            font-weight: 500;
+            min-width: 24px;
+        }
+
+        .story-item-status {
+            margin-left: auto;
+            font-size: 0.7rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            background: var(--color-charcoal);
+            position: relative;
+        }
+
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px var(--space-md);
+            background: rgba(0,0,0,0.3);
+        }
+
+        .page-nav button {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .page-nav button:hover:not(:disabled) { background: rgba(255,255,255,0.2); }
+        .page-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .page-indicator {
+            color: white;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-indicator select {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 4px 8px;
+            border-radius: var(--border-radius);
+            font-size: 0.85rem;
+        }
+
+        .page-view {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-md);
+            overflow: hidden;
+        }
+
+        .page-image {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .page-text-overlay {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            max-width: 80%;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .special-page {
+            background: var(--color-cream);
+            border-radius: 8px;
+            padding: var(--space-lg);
+            max-width: 600px;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+
+        .special-page h2 {
+            color: var(--color-sage);
+            margin-bottom: var(--space-md);
+        }
+
+        .special-page h3 {
+            color: var(--color-terracotta);
+            font-size: 0.9rem;
+            margin: var(--space-sm) 0 4px;
+        }
+
+        .special-page p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--color-charcoal);
+        }
+
+        /* Info Panel */
+        .info-panel {
+            background: white;
+            border-left: 1px solid var(--color-border);
+            overflow-y: auto;
+            padding: var(--space-md);
+        }
+
+        .panel-section {
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .panel-section:last-child { border-bottom: none; }
+
+        .panel-section h3 {
+            font-size: 0.85rem;
+            color: var(--color-charcoal);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .reference-image {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .reference-image:hover { transform: scale(1.02); }
+
+        .no-reference {
+            padding: 30px;
+            text-align: center;
+            color: var(--color-text-muted);
+            background: var(--color-cream);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            padding: 4px 0;
+        }
+
+        .info-row label { color: var(--color-text-muted); }
+        .info-row .value { color: var(--color-charcoal); font-weight: 500; }
+
+        .scene-prompt {
+            background: var(--color-cream);
+            padding: var(--space-sm);
+            border-radius: var(--border-radius);
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: var(--color-charcoal);
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .feedback-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .feedback-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--border-radius);
+            background: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .feedback-btn:hover { border-color: var(--color-sage); }
+        .feedback-btn.selected.approve { background: var(--color-sage-light); border-color: var(--color-sage); }
+        .feedback-btn.selected.reject { background: #ffebee; border-color: var(--color-error); }
+
+        .feedback-btn span { font-size: 0.75rem; color: var(--color-text-muted); }
+
+        .notes-input {
+            width: 100%;
+            height: 80px;
+            padding: var(--space-sm);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            font-size: 0.8rem;
+            resize: vertical;
+            margin-top: var(--space-xs);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: var(--space-sm);
+        }
+
+        .action-buttons .btn { flex: 1; font-size: 0.8rem; }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+        }
+
+        .empty-state {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: white;
+            font-size: 1.1rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <nav class="review-nav">
+        <a href="/review/" style="font-weight: 600;">&larr; Review Hub</a>
+        <div class="review-nav-links">
+            <a href="/review/books.html" class="active">Books</a>
+            <a href="/review/covers.html">Covers</a>
+            <a href="/review/references.html">References</a>
+            <a href="/review/curriculum.html">Curriculum</a>
+            <a href="/review/phoneme-sounds.html">Phonemes</a>
+            <a href="/review/letter-sounds.html">Letters</a>
+            <a href="/review/word-icons.html">Word Icons</a>
+            <a href="/review/activity-icons.html">Activity Icons</a>
+        </div>
+    </nav>
+
+    <div class="main-layout">
+        <div class="sidebar">
+            <h2>Books</h2>
+            <div id="bookList"></div>
+        </div>
+
+        <div class="main-content">
+            <div class="page-nav" id="pageNav" style="display: none;">
+                <button id="prevBtn" onclick="prevPage()">&larr; Previous</button>
+                <div class="page-indicator">
+                    <select id="pageSelect" onchange="goToPage(this.value)"></select>
+                    <span id="pageLabel"></span>
+                </div>
+                <button id="nextBtn" onclick="nextPage()">Next &rarr;</button>
+            </div>
+            <div class="page-view" id="pageView">
+                <div class="empty-state">Select a book to begin review</div>
+            </div>
+        </div>
+
+        <div class="info-panel" id="infoPanel">
+            <div class="panel-section">
+                <h3>Reference Sheet</h3>
+                <div id="referenceContainer">
+                    <div class="no-reference">Select a book</div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3>Page Info</h3>
+                <div id="pageInfo">
+                    <div class="info-row"><label>Book</label><span class="value">-</span></div>
+                    <div class="info-row"><label>Level</label><span class="value">-</span></div>
+                    <div class="info-row"><label>Page</label><span class="value">-</span></div>
+                </div>
+            </div>
+
+            <div class="panel-section" id="sceneSection" style="display: none;">
+                <h3>Scene Prompt</h3>
+                <div class="scene-prompt" id="scenePrompt"></div>
+            </div>
+
+            <div class="panel-section">
+                <h3>Page Feedback</h3>
+                <div class="feedback-buttons">
+                    <button class="feedback-btn approve" id="approveBtn" onclick="setFeedback('approved')">
+                        👍 <span>Good</span>
+                    </button>
+                    <button class="feedback-btn reject" id="rejectBtn" onclick="setFeedback('rejected')">
+                        👎 <span>Redo</span>
+                    </button>
+                </div>
+                <textarea class="notes-input" id="notesInput" placeholder="Notes (optional)..." onchange="saveNotes()"></textarea>
+                <div class="action-buttons">
+                    <a class="btn btn-sm btn-secondary" id="openReaderBtn" href="#" target="_blank">Open in Reader</a>
+                    <button class="btn btn-sm btn-ghost" onclick="exportFeedback()">Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img id="lightboxImg" src="" alt="Enlarged view">
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'book-review-feedback-v1';
+        const GITHUB_REPO = 'dereklomas/lilbookies';
+
+        let manifest = [];
+        let currentBook = null;
+        let currentPage = 0;
+        let feedback = {};
+
+        // Load feedback from localStorage
+        function loadFeedback() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) feedback = JSON.parse(saved);
+            } catch { feedback = {}; }
+        }
+
+        function saveFeedback() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(feedback));
+        }
+
+        function getFeedbackKey() {
+            if (!currentBook) return null;
+            return `${currentBook.slug}:${currentPage}`;
+        }
+
+        function setFeedback(rating) {
+            const key = getFeedbackKey();
+            if (!key) return;
+
+            if (!feedback[currentBook.slug]) feedback[currentBook.slug] = {};
+
+            const current = feedback[currentBook.slug][currentPage];
+            if (current?.rating === rating) {
+                delete feedback[currentBook.slug][currentPage];
+            } else {
+                feedback[currentBook.slug][currentPage] = {
+                    rating,
+                    notes: document.getElementById('notesInput').value,
+                    timestamp: new Date().toISOString()
+                };
+            }
+            saveFeedback();
+            updateFeedbackUI();
+            updateBookStatus();
+        }
+
+        function saveNotes() {
+            if (!currentBook || !feedback[currentBook.slug]?.[currentPage]) return;
+            feedback[currentBook.slug][currentPage].notes = document.getElementById('notesInput').value;
+            saveFeedback();
+        }
+
+        function updateFeedbackUI() {
+            const approveBtn = document.getElementById('approveBtn');
+            const rejectBtn = document.getElementById('rejectBtn');
+            const notesInput = document.getElementById('notesInput');
+
+            approveBtn.classList.remove('selected');
+            rejectBtn.classList.remove('selected');
+            notesInput.value = '';
+
+            if (currentBook && feedback[currentBook.slug]?.[currentPage]) {
+                const fb = feedback[currentBook.slug][currentPage];
+                if (fb.rating === 'approved') approveBtn.classList.add('selected');
+                if (fb.rating === 'rejected') rejectBtn.classList.add('selected');
+                notesInput.value = fb.notes || '';
+            }
+        }
+
+        function updateBookStatus() {
+            document.querySelectorAll('.story-item').forEach(item => {
+                const slug = item.dataset.slug;
+                const statusEl = item.querySelector('.story-item-status');
+                if (!statusEl) return;
+
+                const bookFb = feedback[slug];
+                if (!bookFb || Object.keys(bookFb).length === 0) {
+                    statusEl.textContent = '';
+                    return;
+                }
+
+                const approved = Object.values(bookFb).filter(f => f.rating === 'approved').length;
+                const rejected = Object.values(bookFb).filter(f => f.rating === 'rejected').length;
+
+                if (rejected > 0) {
+                    statusEl.textContent = `❌${rejected}`;
+                    statusEl.style.color = 'var(--color-error)';
+                } else if (approved > 0) {
+                    statusEl.textContent = `✓${approved}`;
+                    statusEl.style.color = 'var(--color-sage)';
+                }
+            });
+        }
+
+        async function loadManifest() {
+            const res = await fetch('/books/manifest.json');
+            manifest = await res.json();
+            manifest.sort((a, b) => (a.level || '').localeCompare(b.level || ''));
+            renderBookList();
+        }
+
+        function renderBookList() {
+            const container = document.getElementById('bookList');
+            const bands = {};
+
+            manifest.forEach(book => {
+                const band = (book.level || 'X')[0].toUpperCase();
+                if (!bands[band]) bands[band] = [];
+                bands[band].push(book);
+            });
+
+            container.innerHTML = Object.entries(bands).map(([band, books]) => `
+                <div class="band-group">
+                    <div class="band-label">Band ${band}</div>
+                    ${books.map(book => `
+                        <div class="story-item ${currentBook?.slug === book.slug ? 'active' : ''}"
+                             data-slug="${book.slug}"
+                             onclick="selectBook('${book.slug}')">
+                            <span class="story-item-level">${book.level || '?'}</span>
+                            <span class="story-item-title">${book.title}</span>
+                            <span class="story-item-status"></span>
+                        </div>
+                    `).join('')}
+                </div>
+            `).join('');
+
+            updateBookStatus();
+        }
+
+        async function selectBook(slug) {
+            const res = await fetch(`/books/${slug}.json`);
+            currentBook = await res.json();
+            currentBook.slug = slug;
+            currentPage = -2; // Start at creation notes
+
+            document.querySelectorAll('.story-item').forEach(el => {
+                el.classList.toggle('active', el.dataset.slug === slug);
+            });
+
+            document.getElementById('pageNav').style.display = 'flex';
+            document.getElementById('openReaderBtn').href = `/reader.html?book=${slug}&mode=edit`;
+
+            loadReferenceImage();
+            buildPageSelect();
+            renderPage();
+        }
+
+        async function loadReferenceImage() {
+            const container = document.getElementById('referenceContainer');
+            const paths = [
+                `/books/references/${currentBook.slug}_reference_v4.png`,
+                `/books/references/${currentBook.slug}_reference_v3.png`,
+                `/books/references/${currentBook.slug}_reference_v2.png`,
+                `/books/references/${currentBook.slug}_reference.png`
+            ];
+
+            for (const path of paths) {
+                try {
+                    const res = await fetch(path, { method: 'HEAD' });
+                    if (res.ok) {
+                        container.innerHTML = `<img class="reference-image" src="${path}" alt="Reference" onclick="openLightbox('${path}')">`;
+                        return;
+                    }
+                } catch {}
+            }
+            container.innerHTML = '<div class="no-reference">No reference image</div>';
+        }
+
+        function buildPageSelect() {
+            const select = document.getElementById('pageSelect');
+            const storyPages = currentBook.pages?.filter(p => p.type === 'story' || p.type === 'cover') || [];
+
+            let options = [
+                { value: -2, label: 'Creation Notes' },
+                { value: -1, label: 'Reference Sheet' }
+            ];
+
+            storyPages.forEach((page, i) => {
+                options.push({ value: i, label: `Page ${i + 1}` });
+            });
+
+            select.innerHTML = options.map(opt =>
+                `<option value="${opt.value}">${opt.label}</option>`
+            ).join('');
+
+            select.value = currentPage;
+        }
+
+        function goToPage(page) {
+            currentPage = parseInt(page);
+            renderPage();
+        }
+
+        function prevPage() {
+            const storyPages = currentBook.pages?.filter(p => p.type === 'story' || p.type === 'cover') || [];
+            if (currentPage > -2) {
+                currentPage--;
+                document.getElementById('pageSelect').value = currentPage;
+                renderPage();
+            }
+        }
+
+        function nextPage() {
+            const storyPages = currentBook.pages?.filter(p => p.type === 'story' || p.type === 'cover') || [];
+            if (currentPage < storyPages.length - 1) {
+                currentPage++;
+                document.getElementById('pageSelect').value = currentPage;
+                renderPage();
+            }
+        }
+
+        function renderPage() {
+            const pageView = document.getElementById('pageView');
+            const pageInfo = document.getElementById('pageInfo');
+            const sceneSection = document.getElementById('sceneSection');
+            const storyPages = currentBook.pages?.filter(p => p.type === 'story' || p.type === 'cover') || [];
+
+            // Update nav buttons
+            document.getElementById('prevBtn').disabled = currentPage <= -2;
+            document.getElementById('nextBtn').disabled = currentPage >= storyPages.length - 1;
+            document.getElementById('pageLabel').textContent = `of ${storyPages.length} pages`;
+
+            // Creation Notes page
+            if (currentPage === -2) {
+                const bible = currentBook.story_bible || {};
+                pageView.innerHTML = `
+                    <div class="special-page">
+                        <h2>Creation Notes</h2>
+                        ${bible.premise ? `<h3>Premise</h3><p>${bible.premise}</p>` : ''}
+                        ${bible.themes ? `<h3>Themes</h3><p>${Array.isArray(bible.themes) ? bible.themes.join(', ') : bible.themes}</p>` : ''}
+                        ${bible.character_arcs ? `<h3>Character Arcs</h3>${Object.entries(bible.character_arcs).map(([c, a]) => `<p><strong>${c}:</strong> ${a}</p>`).join('')}` : ''}
+                        ${bible.setting ? `<h3>Setting</h3><p>${bible.setting}</p>` : ''}
+                        ${bible.visual_style ? `<h3>Visual Style</h3><p>${bible.visual_style}</p>` : ''}
+                        ${bible.emotional_beats ? `<h3>Emotional Beats</h3>${bible.emotional_beats.map(b => `<p><strong>Page ${b.page}:</strong> ${b.beat}</p>`).join('')}` : ''}
+                        ${Object.keys(bible).length === 0 ? '<p style="color: var(--color-text-muted);">No story bible available</p>' : ''}
+                    </div>
+                `;
+                sceneSection.style.display = 'none';
+                updatePageInfo('Creation Notes', '-');
+                updateFeedbackUI();
+                return;
+            }
+
+            // Reference page
+            if (currentPage === -1) {
+                const refPaths = [
+                    `/books/references/${currentBook.slug}_reference_v4.png`,
+                    `/books/references/${currentBook.slug}_reference_v3.png`,
+                    `/books/references/${currentBook.slug}_reference_v2.png`,
+                    `/books/references/${currentBook.slug}_reference.png`
+                ];
+                pageView.innerHTML = `<img class="page-image" id="refPageImg" src="${refPaths[0]}" alt="Reference Sheet" onclick="openLightbox(this.src)"
+                    onerror="tryNextRef(this, ${JSON.stringify(refPaths).replace(/"/g, '&quot;')}, 1)">`;
+                sceneSection.style.display = 'none';
+                updatePageInfo('Reference', '-');
+                updateFeedbackUI();
+                return;
+            }
+
+            // Story pages
+            const page = storyPages[currentPage];
+            if (!page) return;
+
+            const imgPath = `/books/images/${currentBook.slug}_page${String(currentPage + 1).padStart(2, '0')}.png`;
+
+            pageView.innerHTML = `
+                <img class="page-image" src="${imgPath}" alt="Page ${currentPage + 1}"
+                     onclick="openLightbox('${imgPath}')"
+                     onerror="this.style.opacity='0.3'">
+                ${page.text ? `<div class="page-text-overlay">${page.text}</div>` : ''}
+            `;
+
+            // Scene prompt
+            if (page.scene) {
+                sceneSection.style.display = 'block';
+                document.getElementById('scenePrompt').textContent = page.scene;
+            } else {
+                sceneSection.style.display = 'none';
+            }
+
+            updatePageInfo(`Page ${currentPage + 1}`, page.type || 'story');
+            updateFeedbackUI();
+        }
+
+        function tryNextRef(img, paths, index) {
+            if (index < paths.length) {
+                img.src = paths[index];
+                img.onerror = () => tryNextRef(img, paths, index + 1);
+            } else {
+                img.parentElement.innerHTML = '<div class="empty-state">No reference image</div>';
+            }
+        }
+
+        function updatePageInfo(pageLabel, pageType) {
+            document.getElementById('pageInfo').innerHTML = `
+                <div class="info-row"><label>Book</label><span class="value">${currentBook.title}</span></div>
+                <div class="info-row"><label>Level</label><span class="value">${currentBook.level || 'N/A'}</span></div>
+                <div class="info-row"><label>Page</label><span class="value">${pageLabel}</span></div>
+                <div class="info-row"><label>Type</label><span class="value">${pageType}</span></div>
+            `;
+        }
+
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        function exportFeedback() {
+            if (!currentBook) return;
+
+            const bookFb = feedback[currentBook.slug] || {};
+            const approved = [], rejected = [];
+
+            Object.entries(bookFb).forEach(([page, fb]) => {
+                const label = page == -2 ? 'Creation Notes' : page == -1 ? 'Reference' : `Page ${parseInt(page) + 1}`;
+                if (fb.rating === 'approved') {
+                    approved.push(label);
+                } else {
+                    rejected.push(`- [ ] ${label}${fb.notes ? `: ${fb.notes}` : ''}`);
+                }
+            });
+
+            const text = `# Book Review: ${currentBook.title}
+**Level:** ${currentBook.level || 'N/A'}
+**Reviewed:** ${new Date().toLocaleString()}
+
+## Approved (${approved.length})
+${approved.join(', ') || '(none)'}
+
+## Needs Work (${rejected.length})
+${rejected.join('\n') || '(none)'}`;
+
+            navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!'));
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft' && currentBook) prevPage();
+            if (e.key === 'ArrowRight' && currentBook) nextPage();
+        });
+
+        loadFeedback();
+        loadManifest();
+    </script>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phoneme Sounds Review - FunBookies</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .review-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: var(--space-md);
+    }
+
+    .review-nav-links { display: flex; gap: var(--space-sm); }
+
+    .review-nav a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: var(--border-radius);
+      transition: all 0.2s;
+    }
+
+    .review-nav a:hover { background: var(--color-cream); color: var(--color-charcoal); }
+    .review-nav a.active { background: var(--color-sage-light); color: var(--color-sage-dark); font-weight: 600; }
+
+    .page-title { text-align: center; margin-bottom: var(--space-xs); }
+    .subtitle { text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-lg); }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      border: 2px solid var(--color-border);
+      background: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover { border-color: var(--color-sage); }
+    .filter-btn.active { background: var(--color-sage); border-color: var(--color-sage); color: white; }
+    .filter-btn.rejected-filter { border-color: var(--color-error); }
+    .filter-btn.rejected-filter.active { background: var(--color-error); border-color: var(--color-error); }
+
+    .stats {
+      text-align: center;
+      margin-bottom: var(--space-md);
+      padding: 15px;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .stats span { margin: 0 10px; }
+    .found { color: var(--color-sage-dark); }
+    .approved-stat { color: var(--color-success); }
+    .rejected-stat { color: var(--color-error); }
+
+    .category { margin-bottom: var(--space-lg); }
+
+    .category h2 {
+      font-size: 1.2rem;
+      color: var(--color-charcoal);
+      border-bottom: 2px solid var(--color-sage);
+      padding-bottom: 8px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: all 0.2s;
+      border: 3px solid transparent;
+    }
+
+    .card:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .card.playing { border-color: var(--color-terracotta); background: var(--color-terracotta-light); }
+    .card.missing { background: #f5f5f5; border-color: #ddd; }
+    .card.approved { border-color: var(--color-sage); background: var(--color-sage-light); }
+    .card.rejected { border-color: var(--color-error); background: #ffebee; }
+
+    .play-area {
+      cursor: pointer;
+      padding: 10px;
+      margin: -10px -10px 10px -10px;
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+
+    .play-area:hover { background: rgba(0,0,0,0.03); }
+
+    .phoneme {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+      margin-bottom: 5px;
+    }
+
+    .ipa { font-size: 1rem; color: var(--color-text-muted); margin-bottom: 5px; }
+    .example { font-size: 0.85rem; color: var(--color-sage-dark); }
+
+    .rating-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #eee;
+    }
+
+    .rating-btn {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      background: white;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rating-btn:hover { transform: scale(1.1); }
+    .rating-btn.approve:hover, .rating-btn.approve.selected { border-color: var(--color-sage); background: var(--color-sage); }
+    .rating-btn.reject:hover, .rating-btn.reject.selected { border-color: var(--color-error); background: var(--color-error); }
+
+    .review-summary {
+      max-width: 800px;
+      margin: var(--space-lg) auto;
+      padding: var(--space-md);
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .review-summary h3 {
+      margin-bottom: var(--space-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .review-summary textarea {
+      width: 100%;
+      height: 150px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      padding: 12px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      resize: vertical;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="review-nav">
+      <a href="/review/" style="font-weight: 600;">&larr; Review Hub</a>
+      <div class="review-nav-links">
+        <a href="/review/books.html">Books</a>
+        <a href="/review/covers.html">Covers</a>
+        <a href="/review/references.html">References</a>
+        <a href="/review/phoneme-sounds.html" class="active">Phonemes</a>
+        <a href="/review/letter-sounds.html">Letters</a>
+        <a href="/review/word-icons.html">Word Icons</a>
+        <a href="/review/activity-icons.html">Activity Icons</a>
+      </div>
+    </nav>
+
+    <h1 class="page-title">Phoneme Sounds Review</h1>
+    <p class="subtitle">Click to play, then approve or reject. Summary exported at bottom.</p>
+
+    <div class="controls">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="blends">Blends</button>
+      <button class="filter-btn" data-filter="digraphs">Digraphs</button>
+      <button class="filter-btn" data-filter="r-controlled">R-Controlled</button>
+      <button class="filter-btn" data-filter="vowel-teams">Vowel Teams</button>
+      <button class="filter-btn" data-filter="unreviewed">Unreviewed</button>
+      <button class="filter-btn rejected-filter" data-filter="rejected">Needs Regen</button>
+    </div>
+
+    <div class="stats" id="stats">Loading...</div>
+    <div id="content"></div>
+
+    <div class="review-summary">
+      <h3>
+        <span>Review Summary</span>
+        <div class="actions" style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-sm btn-secondary" onclick="copyReview()">Copy</button>
+          <button class="btn btn-sm btn-secondary" onclick="openGitHubIssue()">Create GitHub Issue</button>
+          <button class="btn btn-sm btn-ghost" onclick="clearReviews()">Clear</button>
+        </div>
+      </h3>
+      <textarea id="reviewOutput" readonly placeholder="Rate sounds above to see summary..."></textarea>
+      <div class="timestamp" id="timestamp" style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 8px;"></div>
+    </div>
+  </div>
+
+  <script>
+    const PHONEMES = {
+      blends: {
+        title: "Consonant Blends",
+        items: [
+          { id: "bl", display: "bl", ipa: "/bl/", example: "blue" },
+          { id: "br", display: "br", ipa: "/bɹ/", example: "brown" },
+          { id: "cl", display: "cl", ipa: "/kl/", example: "clap" },
+          { id: "cr", display: "cr", ipa: "/kɹ/", example: "crab" },
+          { id: "dr", display: "dr", ipa: "/dɹ/", example: "drum" },
+          { id: "fl", display: "fl", ipa: "/fl/", example: "flag" },
+          { id: "fr", display: "fr", ipa: "/fɹ/", example: "frog" },
+          { id: "gl", display: "gl", ipa: "/ɡl/", example: "glass" },
+          { id: "gr", display: "gr", ipa: "/ɡɹ/", example: "green" },
+          { id: "pl", display: "pl", ipa: "/pl/", example: "plum" },
+          { id: "pr", display: "pr", ipa: "/pɹ/", example: "pretty" },
+          { id: "sk", display: "sk", ipa: "/sk/", example: "skip" },
+          { id: "sl", display: "sl", ipa: "/sl/", example: "sled" },
+          { id: "sm", display: "sm", ipa: "/sm/", example: "smile" },
+          { id: "sn", display: "sn", ipa: "/sn/", example: "snap" },
+          { id: "sp", display: "sp", ipa: "/sp/", example: "spin" },
+          { id: "st", display: "st", ipa: "/st/", example: "stop" },
+          { id: "sw", display: "sw", ipa: "/sw/", example: "swim" },
+          { id: "tr", display: "tr", ipa: "/tɹ/", example: "tree" },
+          { id: "tw", display: "tw", ipa: "/tw/", example: "twin" },
+        ]
+      },
+      digraphs: {
+        title: "Digraphs",
+        items: [
+          { id: "sh", display: "sh", ipa: "/ʃ/", example: "ship" },
+          { id: "ch", display: "ch", ipa: "/tʃ/", example: "chip" },
+          { id: "th_voiceless", display: "th", ipa: "/θ/", example: "thin" },
+          { id: "th_voiced", display: "th", ipa: "/ð/", example: "this" },
+          { id: "wh", display: "wh", ipa: "/w/", example: "what" },
+          { id: "ph", display: "ph", ipa: "/f/", example: "phone" },
+          { id: "ng", display: "ng", ipa: "/ŋ/", example: "ring" },
+          { id: "ck", display: "ck", ipa: "/k/", example: "duck" },
+        ]
+      },
+      "r-controlled": {
+        title: "R-Controlled Vowels",
+        items: [
+          { id: "ar", display: "ar", ipa: "/ɑɹ/", example: "car" },
+          { id: "er", display: "er", ipa: "/ɝ/", example: "her" },
+          { id: "ir", display: "ir", ipa: "/ɝ/", example: "bird" },
+          { id: "or", display: "or", ipa: "/ɔɹ/", example: "corn" },
+          { id: "ur", display: "ur", ipa: "/ɝ/", example: "burn" },
+        ]
+      },
+      "vowel-teams": {
+        title: "Vowel Teams",
+        items: [
+          { id: "ai", display: "ai", ipa: "/eɪ/", example: "rain" },
+          { id: "ay", display: "ay", ipa: "/eɪ/", example: "day" },
+          { id: "ea", display: "ea", ipa: "/i/", example: "read" },
+          { id: "ee", display: "ee", ipa: "/i/", example: "tree" },
+          { id: "oa", display: "oa", ipa: "/oʊ/", example: "boat" },
+          { id: "oo_long", display: "oo", ipa: "/u/", example: "moon" },
+          { id: "oo_short", display: "oo", ipa: "/ʊ/", example: "book" },
+          { id: "ou", display: "ou", ipa: "/aʊ/", example: "out" },
+          { id: "ow_long", display: "ow", ipa: "/oʊ/", example: "snow" },
+          { id: "ow_short", display: "ow", ipa: "/aʊ/", example: "cow" },
+        ]
+      }
+    };
+
+    const AUDIO_PATH = "/audio/phonemes";
+    const STORAGE_KEY = "phoneme-reviews-v2";
+    const GITHUB_REPO = "dereklomas/lilbookies";
+
+    let audioStatus = {};
+    let reviews = {};
+    let currentAudio = null;
+    let currentFilter = "all";
+    let lastUpdated = null;
+
+    function loadReviews() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const data = JSON.parse(saved);
+          if (data.reviews) {
+            reviews = data.reviews;
+            lastUpdated = data.lastUpdated || null;
+          } else {
+            reviews = data; // backwards compat
+          }
+        }
+      } catch (e) { reviews = {}; }
+    }
+
+    function saveReviews() {
+      lastUpdated = new Date().toISOString();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ reviews, lastUpdated }));
+      updateReviewOutput();
+    }
+
+    function formatTimestamp(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      return d.toLocaleString('en-US', {
+        year: 'numeric', month: 'short', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+      });
+    }
+
+    function openGitHubIssue() {
+      const title = encodeURIComponent(`Phoneme Sounds Review - ${new Date().toLocaleDateString()}`);
+      const body = encodeURIComponent(document.getElementById('reviewOutput').value);
+      const url = `https://github.com/${GITHUB_REPO}/issues/new?title=${title}&body=${body}&labels=review,audio`;
+      window.open(url, '_blank');
+    }
+
+    async function checkAudioFiles() {
+      const allItems = Object.values(PHONEMES).flatMap(cat => cat.items);
+      for (const item of allItems) {
+        const path = `${AUDIO_PATH}/${item.id}.mp3`;
+        try {
+          const response = await fetch(path, { method: 'HEAD' });
+          audioStatus[item.id] = response.ok;
+        } catch { audioStatus[item.id] = false; }
+      }
+      render();
+    }
+
+    function playSound(id, event) {
+      event.stopPropagation();
+      if (currentAudio) {
+        currentAudio.pause();
+        document.querySelectorAll('.card.playing').forEach(el => el.classList.remove('playing'));
+      }
+
+      const card = document.querySelector(`[data-id="${id}"]`);
+      if (!audioStatus[id]) {
+        card.style.animation = 'shake 0.3s';
+        setTimeout(() => card.style.animation = '', 300);
+        return;
+      }
+
+      currentAudio = new Audio(`${AUDIO_PATH}/${id}.mp3`);
+      card.classList.add('playing');
+      currentAudio.onended = () => { card.classList.remove('playing'); currentAudio = null; };
+      currentAudio.play().catch(() => card.classList.remove('playing'));
+    }
+
+    function rate(id, rating, event) {
+      event.stopPropagation();
+      if (reviews[id] === rating) delete reviews[id];
+      else reviews[id] = rating;
+      saveReviews();
+      render();
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filter);
+      });
+      render();
+    }
+
+    function getItemInfo(id) {
+      for (const cat of Object.values(PHONEMES)) {
+        const item = cat.items.find(i => i.id === id);
+        if (item) return { ...item, category: cat.title };
+      }
+      return null;
+    }
+
+    function updateReviewOutput() {
+      const approved = [], rejected = [];
+      for (const [id, rating] of Object.entries(reviews)) {
+        const info = getItemInfo(id);
+        if (!info) continue;
+        if (rating === 'approved') approved.push(`${info.display} (${info.example})`);
+        else rejected.push(`- [ ] ${info.id}: "${info.display}" as in "${info.example}"`);
+      }
+
+      const timestamp = lastUpdated ? formatTimestamp(lastUpdated) : 'Not yet saved';
+
+      let text = `# Phoneme Sounds Review\n`;
+      text += `**Reviewed:** ${timestamp}\n\n`;
+      text += `## Approved (${approved.length})\n${approved.join(', ') || '(none)'}\n\n`;
+      text += `## Needs Regeneration (${rejected.length})\n${rejected.join('\n') || '(none)'}`;
+      document.getElementById('reviewOutput').value = text;
+      document.getElementById('timestamp').textContent = lastUpdated
+        ? `Last updated: ${timestamp}`
+        : '';
+    }
+
+    function copyReview() {
+      const output = document.getElementById('reviewOutput');
+      output.select();
+      document.execCommand('copy');
+      alert('Copied to clipboard!');
+    }
+
+    function clearReviews() {
+      if (confirm('Clear all reviews?')) {
+        reviews = {};
+        saveReviews();
+        render();
+      }
+    }
+
+    function render() {
+      const content = document.getElementById('content');
+      const stats = document.getElementById('stats');
+
+      let found = 0, approvedCount = 0, rejectedCount = 0;
+      const allItems = Object.values(PHONEMES).flatMap(cat => cat.items);
+
+      for (const item of allItems) {
+        if (audioStatus[item.id]) found++;
+        if (reviews[item.id] === 'approved') approvedCount++;
+        if (reviews[item.id] === 'rejected') rejectedCount++;
+      }
+
+      let html = '';
+      for (const [key, category] of Object.entries(PHONEMES)) {
+        if (currentFilter !== 'all' && currentFilter !== key && currentFilter !== 'unreviewed' && currentFilter !== 'rejected') continue;
+
+        let items = category.items;
+        if (currentFilter === 'unreviewed') items = items.filter(i => audioStatus[i.id] && !reviews[i.id]);
+        if (currentFilter === 'rejected') items = items.filter(i => reviews[i.id] === 'rejected');
+        if (items.length === 0) continue;
+
+        html += `<div class="category"><h2>${category.title}</h2><div class="grid">`;
+        for (const item of items) {
+          const exists = audioStatus[item.id];
+          const review = reviews[item.id];
+          let cardClass = 'card';
+          if (!exists) cardClass += ' missing';
+          else if (review === 'approved') cardClass += ' approved';
+          else if (review === 'rejected') cardClass += ' rejected';
+
+          html += `
+            <div class="${cardClass}" data-id="${item.id}">
+              <div class="play-area" onclick="playSound('${item.id}', event)">
+                <div class="phoneme">${item.display}</div>
+                <div class="ipa">${item.ipa}</div>
+                <div class="example">${item.example}</div>
+              </div>
+              ${exists ? `
+              <div class="rating-buttons">
+                <button class="rating-btn approve ${review === 'approved' ? 'selected' : ''}" onclick="rate('${item.id}', 'approved', event)">👍</button>
+                <button class="rating-btn reject ${review === 'rejected' ? 'selected' : ''}" onclick="rate('${item.id}', 'rejected', event)">👎</button>
+              </div>` : '<div style="color: #999; font-size: 0.8rem;">Missing</div>'}
+            </div>`;
+        }
+        html += '</div></div>';
+      }
+
+      content.innerHTML = html;
+      stats.innerHTML = `<span class="found">Found: ${found}</span> <span class="approved-stat">Approved: ${approvedCount}</span> <span class="rejected-stat">Rejected: ${rejectedCount}</span> <span>Unreviewed: ${found - approvedCount - rejectedCount}</span>`;
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.addEventListener('click', () => setFilter(btn.dataset.filter)));
+    loadReviews();
+    updateReviewOutput();
+    checkAudioFiles();
+  </script>
+</body>
+</html>

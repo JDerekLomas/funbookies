@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Curriculum Review - FunBookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <style>
+        .review-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm) var(--space-md);
+            background: white;
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .review-nav-links { display: flex; gap: var(--space-xs); flex-wrap: wrap; }
+
+        .review-nav a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: var(--border-radius);
+            transition: all 0.2s;
+        }
+
+        .review-nav a:hover { background: var(--color-cream); color: var(--color-charcoal); }
+        .review-nav a.active { background: var(--color-sage-light); color: var(--color-sage-dark); font-weight: 600; }
+
+        .page-title { text-align: center; margin: var(--space-md) 0 var(--space-xs); }
+        .subtitle { text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-md); }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            border: 2px solid var(--color-border);
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .tab:hover { border-color: var(--color-sage); }
+        .tab.active { background: var(--color-sage); border-color: var(--color-sage); color: white; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 var(--space-md) var(--space-lg); }
+
+        /* Bands Overview */
+        .bands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .band-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .band-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .band-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .band-badge.A { background: #9c27b0; }
+        .band-badge.B { background: #2196f3; }
+        .band-badge.C { background: #4caf50; }
+        .band-badge.D { background: #ff9800; }
+
+        .band-meta {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .band-meta span { margin-right: 12px; }
+
+        .band-purpose {
+            font-size: 0.9rem;
+            color: var(--color-charcoal);
+            margin-bottom: var(--space-sm);
+            padding: var(--space-sm);
+            background: var(--color-cream);
+            border-radius: var(--border-radius);
+        }
+
+        .level-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .level-chip {
+            padding: 4px 10px;
+            background: var(--color-sage-light);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: var(--color-sage-dark);
+            font-weight: 600;
+        }
+
+        /* Levels Table */
+        .levels-table {
+            width: 100%;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .levels-table th, .levels-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+            font-size: 0.85rem;
+        }
+
+        .levels-table th {
+            background: var(--color-cream);
+            font-weight: 600;
+            color: var(--color-charcoal);
+            position: sticky;
+            top: 52px;
+        }
+
+        .levels-table tr:hover { background: var(--color-cream); }
+
+        .level-name { font-weight: 600; color: var(--color-sage-dark); }
+
+        .constraint-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--color-sage-light);
+            border-radius: 10px;
+            font-size: 0.75rem;
+            margin: 2px;
+        }
+
+        /* Books Progression */
+        .progression-timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .progression-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--color-border);
+        }
+
+        .progression-band {
+            margin-bottom: var(--space-lg);
+        }
+
+        .progression-band-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: var(--space-sm);
+            position: relative;
+        }
+
+        .progression-band-header::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--color-sage);
+        }
+
+        .progression-books {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-sm);
+        }
+
+        .progression-book {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: var(--space-sm);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progression-book-level {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--color-sage-dark);
+            background: var(--color-sage-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .progression-book-title {
+            font-size: 0.85rem;
+            color: var(--color-charcoal);
+        }
+
+        /* Phonics Progression */
+        .phonics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .phonics-level-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .phonics-level-card h4 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .phonics-level-card h4 span {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            background: var(--color-sage-light);
+            border-radius: 10px;
+            color: var(--color-sage-dark);
+        }
+
+        .pattern-list {
+            margin-bottom: var(--space-sm);
+        }
+
+        .pattern-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            margin-bottom: 4px;
+        }
+
+        .word-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .word-chip {
+            padding: 2px 8px;
+            background: var(--color-cream);
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-family: monospace;
+        }
+
+        .word-chip.sight { background: #e3f2fd; color: #1565c0; }
+
+        /* Stats */
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: white;
+            padding: var(--space-md);
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            min-width: 120px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-sage);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .loading { text-align: center; padding: 40px; color: var(--color-text-muted); }
+    </style>
+</head>
+<body>
+    <nav class="review-nav">
+        <a href="/review/" style="font-weight: 600;">&larr; Review Hub</a>
+        <div class="review-nav-links">
+            <a href="/review/books.html">Books</a>
+            <a href="/review/covers.html">Covers</a>
+            <a href="/review/references.html">References</a>
+            <a href="/review/curriculum.html" class="active">Curriculum</a>
+            <a href="/review/phoneme-sounds.html">Phonemes</a>
+            <a href="/review/letter-sounds.html">Letters</a>
+            <a href="/review/word-icons.html">Word Icons</a>
+            <a href="/review/activity-icons.html">Activity Icons</a>
+        </div>
+    </nav>
+
+    <h1 class="page-title">Curriculum Review</h1>
+    <p class="subtitle">Scope & sequence, level specifications, and phonics progression</p>
+
+    <div class="container">
+        <div class="stats-row" id="stats">
+            <div class="stat-card"><div class="stat-value" id="statBands">-</div><div class="stat-label">Bands</div></div>
+            <div class="stat-card"><div class="stat-value" id="statLevels">-</div><div class="stat-label">Levels</div></div>
+            <div class="stat-card"><div class="stat-value" id="statBooks">-</div><div class="stat-label">Books</div></div>
+            <div class="stat-card"><div class="stat-value" id="statWords">-</div><div class="stat-label">Phonics Words</div></div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="bands" onclick="setTab('bands')">Bands Overview</button>
+            <button class="tab" data-tab="levels" onclick="setTab('levels')">Level Details</button>
+            <button class="tab" data-tab="books" onclick="setTab('books')">Book Progression</button>
+            <button class="tab" data-tab="phonics" onclick="setTab('phonics')">Phonics by Level</button>
+        </div>
+
+        <!-- Bands Overview -->
+        <div class="tab-content active" id="tab-bands">
+            <div class="bands-grid" id="bandsGrid"></div>
+        </div>
+
+        <!-- Level Details -->
+        <div class="tab-content" id="tab-levels">
+            <table class="levels-table">
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Name</th>
+                        <th>Reader Can...</th>
+                        <th>Words/Page</th>
+                        <th>Sight Words</th>
+                        <th>Letters</th>
+                    </tr>
+                </thead>
+                <tbody id="levelsBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Book Progression -->
+        <div class="tab-content" id="tab-books">
+            <div class="progression-timeline" id="booksTimeline"></div>
+        </div>
+
+        <!-- Phonics by Level -->
+        <div class="tab-content" id="tab-phonics">
+            <div class="phonics-grid" id="phonicsGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        let levelSpecs = null;
+        let phonicsWords = null;
+        let manifest = [];
+        let currentTab = 'bands';
+
+        async function loadData() {
+            try {
+                const [specsRes, phonicsRes, manifestRes] = await Promise.all([
+                    fetch('/data/level-specs.json'),
+                    fetch('/data/phonics-words.json'),
+                    fetch('/books/manifest.json')
+                ]);
+
+                levelSpecs = await specsRes.json();
+                phonicsWords = await phonicsRes.json();
+                manifest = await manifestRes.json();
+
+                updateStats();
+                renderBands();
+                renderLevels();
+                renderBooks();
+                renderPhonics();
+            } catch (e) {
+                console.error('Error loading data:', e);
+                document.getElementById('bandsGrid').innerHTML = '<div class="loading">Error loading curriculum data</div>';
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('statBands').textContent = Object.keys(levelSpecs.bands || {}).length;
+            document.getElementById('statLevels').textContent = Object.keys(levelSpecs.levels || {}).length;
+            document.getElementById('statBooks').textContent = manifest.length;
+
+            let wordCount = 0;
+            Object.values(phonicsWords.levels || {}).forEach(level => {
+                wordCount += (level.words || []).length;
+            });
+            document.getElementById('statWords').textContent = wordCount;
+        }
+
+        function setTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === `tab-${tab}`));
+        }
+
+        function renderBands() {
+            const grid = document.getElementById('bandsGrid');
+            const bands = levelSpecs.bands || {};
+
+            grid.innerHTML = Object.entries(bands).map(([key, band]) => `
+                <div class="band-card">
+                    <h3>
+                        <span class="band-badge ${key}">${key}</span>
+                        ${band.name}
+                    </h3>
+                    <div class="band-meta">
+                        <span>Grades: ${band.grades || 'N/A'}</span>
+                        <span>Lexile: ${band.lexile || 'N/A'}</span>
+                        <span>Sight Words: ${band.sightWordCap || 0}</span>
+                    </div>
+                    <div class="band-purpose">${band.purpose}</div>
+                    <div class="level-chips">
+                        ${(band.levels || []).map(l => `<span class="level-chip">${l}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderLevels() {
+            const tbody = document.getElementById('levelsBody');
+            const levels = levelSpecs.levels || {};
+
+            tbody.innerHTML = Object.entries(levels).map(([key, level]) => {
+                const c = level.constraints || {};
+                return `
+                    <tr>
+                        <td><span class="level-name">${key}</span></td>
+                        <td>${level.name || ''}</td>
+                        <td style="max-width: 300px; font-size: 0.8rem;">${level.readerCan || ''}</td>
+                        <td>${c.wordsPerPage || '-'}</td>
+                        <td>${c.sightWordsCumulative || 0}</td>
+                        <td style="max-width: 200px;">
+                            ${(c.lettersAllowed || []).slice(0, 10).map(l =>
+                                `<span class="constraint-tag">${l}</span>`
+                            ).join('')}
+                            ${(c.lettersAllowed || []).length > 10 ? `<span class="constraint-tag">+${c.lettersAllowed.length - 10}</span>` : ''}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderBooks() {
+            const timeline = document.getElementById('booksTimeline');
+            const bands = {};
+
+            manifest.forEach(book => {
+                const band = (book.level || 'X')[0].toUpperCase();
+                if (!bands[band]) bands[band] = [];
+                bands[band].push(book);
+            });
+
+            // Sort books within each band
+            Object.values(bands).forEach(books => {
+                books.sort((a, b) => (a.level || '').localeCompare(b.level || ''));
+            });
+
+            timeline.innerHTML = Object.entries(bands).sort().map(([band, books]) => `
+                <div class="progression-band">
+                    <div class="progression-band-header">
+                        <span class="band-badge ${band}">${band}</span>
+                        <strong>Band ${band}</strong>
+                        <span style="color: var(--color-text-muted); font-size: 0.85rem;">(${books.length} books)</span>
+                    </div>
+                    <div class="progression-books">
+                        ${books.map(book => `
+                            <div class="progression-book">
+                                <span class="progression-book-level">${book.level || '?'}</span>
+                                <span class="progression-book-title">${book.title}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPhonics() {
+            const grid = document.getElementById('phonicsGrid');
+            const levels = phonicsWords.levels || {};
+
+            grid.innerHTML = Object.entries(levels).map(([key, level]) => {
+                const words = level.words || [];
+                const sightWords = level.sightWords || [];
+                const patterns = level.patterns || [];
+
+                if (words.length === 0 && sightWords.length === 0) return '';
+
+                return `
+                    <div class="phonics-level-card">
+                        <h4>
+                            ${key}: ${level.name || ''}
+                            <span>Band ${level.band || '?'}</span>
+                        </h4>
+                        ${patterns.length > 0 ? `
+                            <div class="pattern-list">
+                                <div class="pattern-label">Patterns</div>
+                                <div class="word-cloud">
+                                    ${patterns.slice(0, 8).map(p => `<span class="word-chip">${p}</span>`).join('')}
+                                    ${patterns.length > 8 ? `<span class="word-chip">+${patterns.length - 8}</span>` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+                        ${words.length > 0 ? `
+                            <div class="pattern-list">
+                                <div class="pattern-label">Decodable Words (${words.length})</div>
+                                <div class="word-cloud">
+                                    ${words.slice(0, 15).map(w => `<span class="word-chip">${w}</span>`).join('')}
+                                    ${words.length > 15 ? `<span class="word-chip">+${words.length - 15}</span>` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+                        ${sightWords.length > 0 ? `
+                            <div class="pattern-list">
+                                <div class="pattern-label">Sight Words</div>
+                                <div class="word-cloud">
+                                    ${sightWords.map(w => `<span class="word-chip sight">${w}</span>`).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        loadData();
+    </script>
+</body>
+</html>

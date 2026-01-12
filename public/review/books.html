@@ -159,25 +159,17 @@
         .page-view {
             flex: 1;
             display: flex;
-            align-items: stretch;
-            justify-content: center;
-            padding: var(--space-sm);
-            overflow: hidden;
-            gap: var(--space-sm);
-        }
-
-        .page-content {
-            display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            flex: 1;
-            min-width: 0;
+            justify-content: flex-start;
+            padding: var(--space-sm);
+            overflow-y: auto;
+            gap: 8px;
         }
 
         .page-image {
             max-width: 100%;
-            max-height: calc(100vh - 240px);
+            max-height: 45vh;
             border-radius: 8px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
             object-fit: contain;
@@ -188,37 +180,33 @@
             color: var(--color-charcoal);
             padding: 8px 16px;
             border-radius: 6px;
-            max-width: 500px;
+            max-width: 600px;
             text-align: center;
             font-size: 1rem;
             line-height: 1.4;
-            margin-top: 8px;
         }
 
-        .prompt-panel {
-            width: 280px;
+        .prompt-display {
             background: rgba(255,255,255,0.95);
             border-radius: 8px;
-            padding: var(--space-sm);
-            display: flex;
-            flex-direction: column;
-            max-height: calc(100vh - 140px);
-            overflow-y: auto;
+            padding: 12px 16px;
+            max-width: 600px;
+            width: 100%;
         }
 
-        .prompt-panel h4 {
-            font-size: 0.75rem;
+        .prompt-display h4 {
+            font-size: 0.7rem;
             color: var(--color-sage-dark);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 6px;
         }
 
-        .prompt-text {
-            font-size: 0.8rem;
+        .prompt-display p {
+            font-size: 0.85rem;
             line-height: 1.5;
             color: var(--color-charcoal);
-            flex: 1;
+            margin: 0;
         }
 
         .special-page {
@@ -630,17 +618,15 @@
             if (currentPage === -2) {
                 const bible = currentBook.story_bible || {};
                 pageView.innerHTML = `
-                    <div class="page-content">
-                        <div class="special-page">
-                            <h2>Creation Notes</h2>
-                            ${bible.premise ? `<h3>Premise</h3><p>${bible.premise}</p>` : ''}
-                            ${bible.themes ? `<h3>Themes</h3><p>${Array.isArray(bible.themes) ? bible.themes.join(', ') : bible.themes}</p>` : ''}
-                            ${bible.character_arcs ? `<h3>Character Arcs</h3>${Object.entries(bible.character_arcs).map(([c, a]) => `<p><strong>${c}:</strong> ${a}</p>`).join('')}` : ''}
-                            ${bible.setting ? `<h3>Setting</h3><p>${bible.setting}</p>` : ''}
-                            ${bible.visual_style ? `<h3>Visual Style</h3><p>${bible.visual_style}</p>` : ''}
-                            ${bible.emotional_beats ? `<h3>Emotional Beats</h3>${bible.emotional_beats.map(b => `<p><strong>Page ${b.page}:</strong> ${b.beat}</p>`).join('')}` : ''}
-                            ${Object.keys(bible).length === 0 ? '<p style="color: var(--color-text-muted);">No story bible available</p>' : ''}
-                        </div>
+                    <div class="special-page">
+                        <h2>Creation Notes</h2>
+                        ${bible.premise ? `<h3>Premise</h3><p>${bible.premise}</p>` : ''}
+                        ${bible.themes ? `<h3>Themes</h3><p>${Array.isArray(bible.themes) ? bible.themes.join(', ') : bible.themes}</p>` : ''}
+                        ${bible.character_arcs ? `<h3>Character Arcs</h3>${Object.entries(bible.character_arcs).map(([c, a]) => `<p><strong>${c}:</strong> ${a}</p>`).join('')}` : ''}
+                        ${bible.setting ? `<h3>Setting</h3><p>${bible.setting}</p>` : ''}
+                        ${bible.visual_style ? `<h3>Visual Style</h3><p>${bible.visual_style}</p>` : ''}
+                        ${bible.emotional_beats ? `<h3>Emotional Beats</h3>${bible.emotional_beats.map(b => `<p><strong>Page ${b.page}:</strong> ${b.beat}</p>`).join('')}` : ''}
+                        ${Object.keys(bible).length === 0 ? '<p style="color: var(--color-text-muted);">No story bible available</p>' : ''}
                     </div>
                 `;
                 updatePageInfo('Creation Notes', '-');
@@ -657,10 +643,8 @@
                     `/books/references/${currentBook.slug}_reference.png`
                 ];
                 pageView.innerHTML = `
-                    <div class="page-content">
-                        <img class="page-image" id="refPageImg" src="${refPaths[0]}" alt="Reference Sheet" onclick="openLightbox(this.src)"
-                            onerror="tryNextRef(this, ${JSON.stringify(refPaths).replace(/"/g, '&quot;')}, 1)">
-                    </div>
+                    <img class="page-image" id="refPageImg" src="${refPaths[0]}" alt="Reference Sheet" onclick="openLightbox(this.src)"
+                        onerror="tryNextRef(this, ${JSON.stringify(refPaths).replace(/"/g, '&quot;')}, 1)">
                 `;
                 updatePageInfo('Reference', '-');
                 updateFeedbackUI();
@@ -673,18 +657,16 @@
 
             const imgPath = `/books/images/${currentBook.slug}_page${String(currentPage + 1).padStart(2, '0')}.png`;
 
-            // Show image + text in main content, prompt in side panel within main area
+            // Show image, text, and prompt in vertical stack
             pageView.innerHTML = `
-                <div class="page-content">
-                    <img class="page-image" src="${imgPath}" alt="Page ${currentPage + 1}"
-                         onclick="openLightbox('${imgPath}')"
-                         onerror="this.style.opacity='0.3'">
-                    ${page.text ? `<div class="page-text-display">${page.text}</div>` : ''}
-                </div>
+                <img class="page-image" src="${imgPath}" alt="Page ${currentPage + 1}"
+                     onclick="openLightbox('${imgPath}')"
+                     onerror="this.style.opacity='0.3'">
+                ${page.text ? `<div class="page-text-display"><strong>Text:</strong> ${page.text}</div>` : ''}
                 ${page.scene ? `
-                <div class="prompt-panel">
-                    <h4>Scene Prompt (Page ${currentPage + 1})</h4>
-                    <div class="prompt-text">${page.scene}</div>
+                <div class="prompt-display">
+                    <h4>Scene Prompt</h4>
+                    <p>${page.scene}</p>
                 </div>
                 ` : ''}
             `;

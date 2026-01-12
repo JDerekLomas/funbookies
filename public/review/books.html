@@ -159,33 +159,66 @@
         .page-view {
             flex: 1;
             display: flex;
-            align-items: center;
+            align-items: stretch;
             justify-content: center;
             padding: var(--space-sm);
             overflow: hidden;
+            gap: var(--space-sm);
+        }
+
+        .page-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            min-width: 0;
         }
 
         .page-image {
             max-width: 100%;
-            max-height: calc(100vh - 200px);
+            max-height: calc(100vh - 240px);
             border-radius: 8px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
             object-fit: contain;
         }
 
-        .page-text-overlay {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.85);
-            color: white;
+        .page-text-display {
+            background: rgba(255,255,255,0.95);
+            color: var(--color-charcoal);
             padding: 8px 16px;
             border-radius: 6px;
-            max-width: 80%;
+            max-width: 500px;
             text-align: center;
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.4;
+            margin-top: 8px;
+        }
+
+        .prompt-panel {
+            width: 280px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 8px;
+            padding: var(--space-sm);
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+        }
+
+        .prompt-panel h4 {
+            font-size: 0.75rem;
+            color: var(--color-sage-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .prompt-text {
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: var(--color-charcoal);
+            flex: 1;
         }
 
         .special-page {
@@ -248,26 +281,6 @@
 
         .info-row label { color: var(--color-text-muted); }
         .info-row .value { color: var(--color-charcoal); font-weight: 500; }
-
-        .scene-prompt {
-            background: var(--color-cream);
-            padding: var(--space-sm);
-            border-radius: var(--border-radius);
-            font-size: 0.8rem;
-            line-height: 1.5;
-            color: var(--color-charcoal);
-            max-height: 200px;
-            overflow-y: auto;
-            border-left: 3px solid var(--color-sage);
-        }
-
-        .scene-prompt-label {
-            font-size: 0.7rem;
-            color: var(--color-sage-dark);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
 
         .feedback-buttons {
             display: flex;
@@ -388,11 +401,6 @@
                     <div class="info-row"><label>Level</label><span class="value">-</span></div>
                     <div class="info-row"><label>Page</label><span class="value">-</span></div>
                 </div>
-            </div>
-
-            <div class="panel-section" id="sceneSection" style="display: none;">
-                <h3>Scene Prompt <span id="scenePageLabel" style="font-weight: normal; color: var(--color-text-muted);"></span></h3>
-                <div class="scene-prompt" id="scenePrompt"></div>
             </div>
 
             <div class="panel-section">
@@ -611,7 +619,6 @@
         function renderPage() {
             const pageView = document.getElementById('pageView');
             const pageInfo = document.getElementById('pageInfo');
-            const sceneSection = document.getElementById('sceneSection');
             const storyPages = currentBook.pages?.filter(p => p.type === 'story' || p.type === 'cover') || [];
 
             // Update nav buttons
@@ -623,18 +630,19 @@
             if (currentPage === -2) {
                 const bible = currentBook.story_bible || {};
                 pageView.innerHTML = `
-                    <div class="special-page">
-                        <h2>Creation Notes</h2>
-                        ${bible.premise ? `<h3>Premise</h3><p>${bible.premise}</p>` : ''}
-                        ${bible.themes ? `<h3>Themes</h3><p>${Array.isArray(bible.themes) ? bible.themes.join(', ') : bible.themes}</p>` : ''}
-                        ${bible.character_arcs ? `<h3>Character Arcs</h3>${Object.entries(bible.character_arcs).map(([c, a]) => `<p><strong>${c}:</strong> ${a}</p>`).join('')}` : ''}
-                        ${bible.setting ? `<h3>Setting</h3><p>${bible.setting}</p>` : ''}
-                        ${bible.visual_style ? `<h3>Visual Style</h3><p>${bible.visual_style}</p>` : ''}
-                        ${bible.emotional_beats ? `<h3>Emotional Beats</h3>${bible.emotional_beats.map(b => `<p><strong>Page ${b.page}:</strong> ${b.beat}</p>`).join('')}` : ''}
-                        ${Object.keys(bible).length === 0 ? '<p style="color: var(--color-text-muted);">No story bible available</p>' : ''}
+                    <div class="page-content">
+                        <div class="special-page">
+                            <h2>Creation Notes</h2>
+                            ${bible.premise ? `<h3>Premise</h3><p>${bible.premise}</p>` : ''}
+                            ${bible.themes ? `<h3>Themes</h3><p>${Array.isArray(bible.themes) ? bible.themes.join(', ') : bible.themes}</p>` : ''}
+                            ${bible.character_arcs ? `<h3>Character Arcs</h3>${Object.entries(bible.character_arcs).map(([c, a]) => `<p><strong>${c}:</strong> ${a}</p>`).join('')}` : ''}
+                            ${bible.setting ? `<h3>Setting</h3><p>${bible.setting}</p>` : ''}
+                            ${bible.visual_style ? `<h3>Visual Style</h3><p>${bible.visual_style}</p>` : ''}
+                            ${bible.emotional_beats ? `<h3>Emotional Beats</h3>${bible.emotional_beats.map(b => `<p><strong>Page ${b.page}:</strong> ${b.beat}</p>`).join('')}` : ''}
+                            ${Object.keys(bible).length === 0 ? '<p style="color: var(--color-text-muted);">No story bible available</p>' : ''}
+                        </div>
                     </div>
                 `;
-                sceneSection.style.display = 'none';
                 updatePageInfo('Creation Notes', '-');
                 updateFeedbackUI();
                 return;
@@ -648,9 +656,12 @@
                     `/books/references/${currentBook.slug}_reference_v2.png`,
                     `/books/references/${currentBook.slug}_reference.png`
                 ];
-                pageView.innerHTML = `<img class="page-image" id="refPageImg" src="${refPaths[0]}" alt="Reference Sheet" onclick="openLightbox(this.src)"
-                    onerror="tryNextRef(this, ${JSON.stringify(refPaths).replace(/"/g, '&quot;')}, 1)">`;
-                sceneSection.style.display = 'none';
+                pageView.innerHTML = `
+                    <div class="page-content">
+                        <img class="page-image" id="refPageImg" src="${refPaths[0]}" alt="Reference Sheet" onclick="openLightbox(this.src)"
+                            onerror="tryNextRef(this, ${JSON.stringify(refPaths).replace(/"/g, '&quot;')}, 1)">
+                    </div>
+                `;
                 updatePageInfo('Reference', '-');
                 updateFeedbackUI();
                 return;
@@ -662,21 +673,21 @@
 
             const imgPath = `/books/images/${currentBook.slug}_page${String(currentPage + 1).padStart(2, '0')}.png`;
 
+            // Show image + text in main content, prompt in side panel within main area
             pageView.innerHTML = `
-                <img class="page-image" src="${imgPath}" alt="Page ${currentPage + 1}"
-                     onclick="openLightbox('${imgPath}')"
-                     onerror="this.style.opacity='0.3'">
-                ${page.text ? `<div class="page-text-overlay">${page.text}</div>` : ''}
+                <div class="page-content">
+                    <img class="page-image" src="${imgPath}" alt="Page ${currentPage + 1}"
+                         onclick="openLightbox('${imgPath}')"
+                         onerror="this.style.opacity='0.3'">
+                    ${page.text ? `<div class="page-text-display">${page.text}</div>` : ''}
+                </div>
+                ${page.scene ? `
+                <div class="prompt-panel">
+                    <h4>Scene Prompt (Page ${currentPage + 1})</h4>
+                    <div class="prompt-text">${page.scene}</div>
+                </div>
+                ` : ''}
             `;
-
-            // Scene prompt - show with page number label
-            if (page.scene) {
-                sceneSection.style.display = 'block';
-                document.getElementById('scenePageLabel').textContent = `(Page ${currentPage + 1})`;
-                document.getElementById('scenePrompt').textContent = page.scene;
-            } else {
-                sceneSection.style.display = 'none';
-            }
 
             updatePageInfo(`Page ${currentPage + 1}`, page.type || 'story');
             updateFeedbackUI();

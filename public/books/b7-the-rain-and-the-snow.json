@@ -357,5 +357,12 @@
       "question": "What adventure does Jean go on?",
       "answer": "The rain may come back, but the snow will too. Jean and Gray will play! Jean knows the best days are with her goat Gray, rain or snow."
     }
-  ]
+  ],
+  "cover_metadata": {
+    "generated_at": "2026-01-12T17:45:16.810137",
+    "model": "wan2.6-image",
+    "used_reference": true,
+    "reference_version": "v1",
+    "prompt": "Children's book cover illustration. A girl looking out a window at rain turning to snow, a gray goat visible outside. Warm watercolor style.\n\nStyle: Soft watercolor illustration, warm colors, cute whimsical style for young children aged 4-7.\n\nIMPORTANT: Do NOT include any text, titles, words, or letters in the image. Pure illustration only."
+  }
 }

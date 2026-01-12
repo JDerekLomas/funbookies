@@ -207,5 +207,12 @@
     "just",
     "must"
   ],
-  "summary": "Stomp! Stomp! Elephant is a story about Jump and Stomp and Ella. This book helps readers practice reading skills while enjoying an engaging adventure."
+  "summary": "Stomp! Stomp! Elephant is a story about Jump and Stomp and Ella. This book helps readers practice reading skills while enjoying an engaging adventure.",
+  "cover_metadata": {
+    "generated_at": "2026-01-12T17:47:41.082102",
+    "model": "wan2.6-image",
+    "used_reference": true,
+    "reference_version": "v1",
+    "prompt": "Children's book cover illustration. A big friendly elephant stomping with big feet, dust clouds rising. Energetic and fun.\n\nStyle: Soft watercolor illustration, warm colors, cute whimsical style for young children aged 4-7.\n\nIMPORTANT: Do NOT include any text, titles, words, or letters in the image. Pure illustration only."
+  }
 }

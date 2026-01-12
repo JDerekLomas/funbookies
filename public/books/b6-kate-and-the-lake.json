@@ -334,5 +334,12 @@
       "question": "What adventure does Kate go on?",
       "answer": "Duke came to Kate! Kate said, \"We are the same. We like the lake!\" Kate and Duke sat by the lake. It was a fine time and a safe place."
     }
-  ]
+  ],
+  "cover_metadata": {
+    "generated_at": "2026-01-12T17:44:04.953612",
+    "model": "wan2.6-image",
+    "used_reference": true,
+    "reference_version": "v1",
+    "prompt": "Children's book cover illustration. A smiling girl named Kate standing by a sparkling blue lake with a friendly mule nearby. Warm watercolor style.\n\nStyle: Soft watercolor illustration, warm colors, cute whimsical style for young children aged 4-7.\n\nIMPORTANT: Do NOT include any text, titles, words, or letters in the image. Pure illustration only."
+  }
 }

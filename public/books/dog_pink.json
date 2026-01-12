@@ -147,5 +147,12 @@
   ],
   "reference_prompt": "9-PANEL REFERENCE SHEET for \"No, No, Dog!\"\n\nSUMMARY: No, No, Dog! is a story about Dog and No. This book helps readers practice reading skills while enjoying an engaging adventure.\n\nKEY SCENES TO SHOW (visual moments only):\n  Panel 1: A cute fluffy brown dog with floppy ears and big eyes on the cover, looking play...\n  Panel 2: The brown dog jumping on a couch, cushions flying everywhere. Playful chaos.\n  Panel 3: The dog digging in a flower garden, dirt flying, flowers scattered. Naughty but ...\n  Panel 4: The dog splashing in a mud puddle, mud splatters everywhere. Joyful expression.\n  Panel 5: The dog running through the house with toilet paper trailing behind.\n  Panel 6: The dog knocking over a plant pot, soil spilling. Oops expression.\n\nTECHNICAL REQUIREMENTS:\n- CRITICAL: NO TEXT, NO WORDS, NO LETTERS, NO WRITING anywhere in the image\n- 9 panels in 3x3 grid layout\n- Consistent art style across all panels\n- Pure visual storytelling - show scenes through imagery only\n- REMINDER: This is a VISUAL ONLY reference sheet - absolutely no text or letters",
   "wordsearch_words": [],
-  "summary": "No, No, Dog! is a story about Dog and No. This book helps readers practice reading skills while enjoying an engaging adventure."
+  "summary": "No, No, Dog! is a story about Dog and No. This book helps readers practice reading skills while enjoying an engaging adventure.",
+  "cover_metadata": {
+    "generated_at": "2026-01-12T17:46:28.918905",
+    "model": "wan2.6-image",
+    "used_reference": true,
+    "reference_version": "v1",
+    "prompt": "Children's book cover illustration. A cute fluffy brown dog with floppy ears and big eyes on the cover, looking playfully guilty. Pink/orange accents.\n\nStyle: Soft watercolor illustration, warm colors, cute whimsical style for young children aged 4-7.\n\nIMPORTANT: Do NOT include any text, titles, words, or letters in the image. Pure illustration only."
+  }
 }

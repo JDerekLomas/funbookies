@@ -319,5 +319,12 @@
       "question": "What adventure does Rita go on?",
       "answer": "\"Let's go back!\" said Rita. And they did!"
     }
-  ]
+  ],
+  "cover_metadata": {
+    "generated_at": "2026-01-12T17:50:05.632841",
+    "model": "wan2.6-image",
+    "used_reference": true,
+    "reference_version": "v1",
+    "prompt": "Children's book cover illustration. A grand stone castle with tall towers and flags, medieval fantasy style.\n\nStyle: Soft watercolor illustration, warm colors, cute whimsical style for young children aged 4-7.\n\nIMPORTANT: Do NOT include any text, titles, words, or letters in the image. Pure illustration only."
+  }
 }

@@ -189,5 +189,12 @@
     "letterConstraints": "m, s, a, t, o, i, l, c, n, e, r, h",
     "caseConstraint": "Mostly lowercase"
   },
-  "reference_prompt": "9-PANEL REFERENCE SHEET for \"The Cat Is Here\"\n\nSUMMARY: A simple story about a cat exploring different spots, using simple declarative sentences with slight variation.\n\nKEY SCENES TO SHOW (visual moments only):\n  Panel 1: A friendly orange cat peeking around a corner. Warm watercolor style.\n  Panel 2: A cat standing in a room, looking at the viewer.\n  Panel 3: A child pointing at the cat with delight.\n  Panel 4: The cat sitting down on the floor.\n  Panel 5: The cat sitting on a colorful mat.\n  Panel 6: The cat running toward a child.\n\nTECHNICAL REQUIREMENTS:\n- CRITICAL: NO TEXT, NO WORDS, NO LETTERS, NO WRITING anywhere in the image\n- 9 panels in 3x3 grid layout\n- Consistent art style across all panels\n- Pure visual storytelling - show scenes through imagery only\n- REMINDER: This is a VISUAL ONLY reference sheet - absolutely no text or letters"
+  "reference_prompt": "9-PANEL REFERENCE SHEET for \"The Cat Is Here\"\n\nSUMMARY: A simple story about a cat exploring different spots, using simple declarative sentences with slight variation.\n\nKEY SCENES TO SHOW (visual moments only):\n  Panel 1: A friendly orange cat peeking around a corner. Warm watercolor style.\n  Panel 2: A cat standing in a room, looking at the viewer.\n  Panel 3: A child pointing at the cat with delight.\n  Panel 4: The cat sitting down on the floor.\n  Panel 5: The cat sitting on a colorful mat.\n  Panel 6: The cat running toward a child.\n\nTECHNICAL REQUIREMENTS:\n- CRITICAL: NO TEXT, NO WORDS, NO LETTERS, NO WRITING anywhere in the image\n- 9 panels in 3x3 grid layout\n- Consistent art style across all panels\n- Pure visual storytelling - show scenes through imagery only\n- REMINDER: This is a VISUAL ONLY reference sheet - absolutely no text or letters",
+  "cover_metadata": {
+    "generated_at": "2026-01-12T17:47:03.996814",
+    "model": "wan2.6-image",
+    "used_reference": true,
+    "reference_version": "v1",
+    "prompt": "Children's book cover illustration. A friendly orange cat peeking around a corner. Warm watercolor style.\n\nStyle: Soft watercolor illustration, warm colors, cute whimsical style for young children aged 4-7.\n\nIMPORTANT: Do NOT include any text, titles, words, or letters in the image. Pure illustration only."
+  }
 }

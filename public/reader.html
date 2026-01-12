@@ -2105,9 +2105,12 @@
             throw new Error('Timeout waiting for image generation');
         }
 
+        let lastGeneratedUrl = null;
+
         function showGeneratedImage(url, slug, pageNum) {
             const status = document.getElementById('generationStatus');
             const filename = `${slug}_page_${pageNum}.png`;
+            lastGeneratedUrl = url;
 
             status.className = 'generation-status success';
             status.innerHTML = `
@@ -2117,7 +2120,18 @@
                 <div style="margin-top: 8px;">
                     <img src="${url}" style="max-width: 200px; border-radius: 4px; cursor: pointer;" onclick="window.open('${url}', '_blank')">
                 </div>
+                <button onclick="saveGeneratedImage()" style="margin-top: 8px; padding: 6px 12px; background: var(--color-sage); color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Save & Replace Current Image
+                </button>
             `;
+        }
+
+        async function saveGeneratedImage() {
+            if (!lastGeneratedUrl) {
+                alert('No generated image to save');
+                return;
+            }
+            await replaceImageAndSave(lastGeneratedUrl);
         }
 
         async function savePromptToBook() {
@@ -2130,21 +2144,126 @@
                 return;
             }
 
-            // For now, just show instructions since we can't write to files from browser
             const slug = currentBook._slug || bookSlug;
             const pageNum = currentPage;
 
-            status.className = 'generation-status success';
-            if (pageNum === -1) {
-                status.textContent = `To save reference prompt, update "${slug}.json" reference_prompt field.`;
-            } else {
-                status.textContent = `To save, update page ${pageNum + 1} image_prompt in "${slug}.json".`;
+            status.className = 'generation-status';
+            status.textContent = 'Saving...';
+
+            try {
+                const response = await fetch('/api/save-book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        slug,
+                        pageIndex: pageNum,
+                        field: pageNum === -1 ? 'reference_prompt' : 'image_prompt',
+                        value: prompt
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    status.className = 'generation-status success';
+                    status.textContent = 'Prompt saved!';
+                    // Update local book data
+                    if (pageNum === -1) {
+                        currentBook.reference_prompt = prompt;
+                    } else if (currentBook.pages[pageNum]) {
+                        currentBook.pages[pageNum].image_prompt = prompt;
+                    }
+                } else if (result.readonly) {
+                    // Production environment - fallback to clipboard
+                    status.className = 'generation-status';
+                    status.textContent = 'Read-only mode. Copied to clipboard.';
+                    navigator.clipboard.writeText(prompt);
+                } else {
+                    throw new Error(result.error || 'Save failed');
+                }
+            } catch (error) {
+                status.className = 'generation-status error';
+                status.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        async function replaceImageAndSave(imageUrl) {
+            const status = document.getElementById('generationStatus');
+            const slug = currentBook._slug || bookSlug;
+            const pageNum = currentPage;
+            const page = currentBook.pages[pageNum];
+
+            if (!page || pageNum < 0) {
+                status.className = 'generation-status error';
+                status.textContent = 'Cannot save image for this page type';
+                return;
             }
 
-            // Copy to clipboard for convenience
-            navigator.clipboard.writeText(prompt).then(() => {
-                status.textContent += ' (Copied to clipboard!)';
-            });
+            const actualPageNum = page.page || pageNum + 1;
+
+            status.className = 'generation-status';
+            status.textContent = 'Downloading and saving image...';
+
+            try {
+                // First, download and save the actual image file
+                const imageResponse = await fetch('/api/save-image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        imageUrl,
+                        slug,
+                        pageNum: actualPageNum
+                    })
+                });
+
+                const imageResult = await imageResponse.json();
+
+                if (imageResult.readonly) {
+                    // Production - can't write files, show download link
+                    status.className = 'generation-status';
+                    status.innerHTML = `
+                        Read-only mode. <a href="${imageUrl}" download="${slug}_page${String(actualPageNum).padStart(2,'0')}.png" style="color: inherit; text-decoration: underline;">Download image</a>
+                        and save to public/books/images/${slug}/
+                    `;
+                    return;
+                }
+
+                if (!imageResult.success) {
+                    throw new Error(imageResult.error || 'Image download failed');
+                }
+
+                // Now update the book JSON with the image path
+                const bookResponse = await fetch('/api/save-book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        slug,
+                        pageIndex: pageNum,
+                        field: 'image',
+                        value: imageResult.imagePath
+                    })
+                });
+
+                const bookResult = await bookResponse.json();
+
+                if (bookResult.success) {
+                    // Update local book data
+                    currentBook.pages[pageNum].image = imageResult.imagePath;
+                    status.className = 'generation-status success';
+                    status.textContent = 'Image saved! Refreshing page...';
+
+                    // Refresh the page display to show new image
+                    setTimeout(() => {
+                        renderPages();
+                        navigateToPage(pageNum);
+                    }, 500);
+                } else {
+                    throw new Error(bookResult.error || 'Failed to update book');
+                }
+            } catch (error) {
+                status.className = 'generation-status error';
+                status.textContent = `Error: ${error.message}`;
+            }
         }
 
         function getImagePath(page) {

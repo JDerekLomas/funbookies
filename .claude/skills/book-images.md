@@ -35,9 +35,24 @@ Read the book from `/public/books/{slug}.json` and extract:
 - `story_elements` - When elements first appear (for negative prompts)
 - Reference image URL from `/public/books/references/{slug}_reference.png`
 
-### 2. Compute Negative Prompts
+### 2. Format Prompts to Prevent Grid Output
 
-Use `story_elements` to prevent future elements from appearing:
+**CRITICAL:** The reference image is a 9-panel grid. Without explicit instructions, wan2.6-image will generate grids instead of single scenes.
+
+**Prompt prefix:** Always start scene descriptions with:
+```
+Single scene illustration:
+```
+
+**Example:**
+```
+Single scene illustration: Tiia, a small blonde girl (5-6) in blue overalls,
+sits cross-legged in tall golden barley. Bright summer sun overhead...
+```
+
+### 3. Compute Negative Prompts
+
+Use `story_elements` to prevent future elements from appearing, plus **always include anti-grid terms**:
 
 ```python
 story_elements = {
@@ -47,7 +62,8 @@ story_elements = {
 }
 
 def get_negative_prompt(story_page):
-    base = "text, words, letters, writing, watermark"
+    # ALWAYS include anti-grid terms since reference is a 9-panel grid
+    base = "text, words, letters, writing, watermark, grid, panels, collage, multiple images, comic strip, split screen, photo montage"
     exclusions = []
 
     for element, intro_page in story_elements.items():
@@ -58,21 +74,21 @@ def get_negative_prompt(story_page):
         return f"{base}, {', '.join(exclusions)}"
     return base
 
-# Page 3: "text, words, letters, writing, watermark, airplane, farmhouse, clouds"
-# Page 6: "text, words, letters, writing, watermark, farmhouse, clouds"
-# Page 10: "text, words, letters, writing, watermark"
+# Page 3: "text, words, ..., grid, panels, ..., airplane, farmhouse, clouds"
+# Page 6: "text, words, ..., grid, panels, ..., farmhouse, clouds"
+# Page 10: "text, words, ..., grid, panels, ..."
 ```
 
-### 3. Generate Images with Wan2.6-Image
+### 4. Generate Images with Wan2.6-Image
 
 For each page, use image-to-image generation:
 
 ```bash
 cd /path/to/mulerouter-skills
 uv run python models/alibaba/wan2.6-image/generation.py \
-  --prompt '{scene_description}' \
+  --prompt 'Single scene illustration: {scene_description}' \
   --images '["https://...reference.png"]' \
-  --negative-prompt '{computed_negative_prompt}' \
+  --negative-prompt 'text, words, letters, watermark, grid, panels, collage, multiple images, comic strip, {story_exclusions}' \
   --size '1280*960' \
   --n 1
 ```
@@ -137,6 +153,14 @@ When user says "page 5 has an airplane but shouldn't":
 ```
 
 ## Common Issues
+
+### Grid/Panel Output Instead of Single Image
+**Problem:** Generated images come out as 9-panel grids like the reference
+**Cause:** Style transfer picks up the grid layout from the reference image
+**Solution:**
+1. Add "Single scene illustration:" prefix to every prompt
+2. Add to negative prompt: "grid, panels, collage, multiple images, comic strip, split screen"
+3. Both are required - prefix alone is not enough
 
 ### Content Contamination
 **Problem:** Airplane appears in tractor-only pages

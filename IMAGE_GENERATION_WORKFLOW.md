@@ -271,11 +271,84 @@ body = {
 | Drought | "Garden without water" | "Parched soil, wilted plants" |
 | Before storm | "Calm before rain" | "Still air, dark clouds gathering" |
 
+## Reference Image Content Contamination
+
+**Problem:** When using image-to-image (wan2.6-image) with a 9-panel reference sheet, the model doesn't just copy style—it also bleeds content from the reference into outputs.
+
+Example: If the reference shows airplanes in panels 5-7, airplane elements may appear in pages that should only show tractors.
+
+**Solutions:**
+
+### Option 1: Panel Extraction
+Extract relevant panels and use only those for each scene:
+```python
+# For tractor scenes (pages 1-5), use only panels 1-4 from reference
+# For airplane scenes (pages 6-10), use only panels 5-7 from reference
+reference_panel = extract_panel(reference_image, panel_number)
+```
+
+### Option 2: Style-Only Reference
+Create a reference image that captures ONLY style elements:
+- Color palette swatches
+- Brush texture samples
+- Character face studies (no story context)
+- No narrative scenes that could contaminate
+
+### Option 3: Text-to-Image for All Pages
+Use nano-banana-pro (text-to-image) for every page with detailed style description:
+```
+"[Scene description]. Warm watercolor style with soft edges, muted earthy
+palette (sage green, terracotta, warm cream), friendly rounded character
+shapes, gentle natural lighting."
+```
+
+## Story Progression-Aware Negative Prompts
+
+Compute negative prompts dynamically based on what appears LATER in the story:
+
+```python
+def get_negative_prompt(page_number, story_elements):
+    """
+    Exclude story elements that haven't been introduced yet.
+    """
+    negative = ["text", "words", "letters", "watermark"]
+
+    for element, intro_page in story_elements.items():
+        if page_number < intro_page:
+            negative.append(element)
+
+    return ", ".join(negative)
+
+# Example usage:
+story_elements = {
+    "airplane": 6,      # Airplane first appears on page 6
+    "flying": 6,
+    "clouds": 6,
+    "farmhouse": 10     # Farmhouse first appears on page 10
+}
+
+# For page 3: "text, words, letters, watermark, airplane, flying, clouds, farmhouse"
+# For page 7: "text, words, letters, watermark, farmhouse"
+```
+
+## Scene Description Quality Checklist
+
+Before generating, verify each scene description has:
+
+- [ ] **CHARACTER** with visual identifiers (age, hair, clothing)
+- [ ] **SETTING** with cultural specificity (not generic "farmhouse")
+- [ ] **ACTION** that matches the page text exactly
+- [ ] **CONTEXT** with only elements relevant to THIS page
+- [ ] **STYLE** instruction at the end
+- [ ] **NO** abstract/mood language ("dreamy", "magical feeling")
+- [ ] **NO** negations ("no airplane", "without the tractor")
+- [ ] **NO** future story references ("about to imagine")
+
 ## Current Status
 
 | Component | Status |
 |-----------|--------|
-| Book JSONs | 47 books with scene descriptions |
-| Reference Images | 46 generated |
-| Cover Images | 47 generated |
-| Page Images | 1 book fully generated (b8-the-day-the-rain-came) |
+| Book JSONs | 48 books with scene descriptions |
+| Reference Images | 47 generated |
+| Cover Images | 48 generated |
+| Page Images | 2 books fully generated |

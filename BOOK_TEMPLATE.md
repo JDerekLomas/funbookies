@@ -327,33 +327,97 @@ Marketing and identification.
 
 ## Image Prompt Guidelines
 
+### The Golden Rule: Concrete > Poetic
+
+Scene descriptions must describe **what a camera would see**, not how it feels.
+
+```
+BAD:  "The world around her starts to blur and shimmer. Dreamy atmosphere."
+GOOD: "Tiia, a blonde girl (5-6) in blue overalls, sits in tall golden grass.
+       A red tractor works in the muddy field behind her."
+```
+
+### Scene Description Template
+
+Every scene description must include these elements in order:
+
+```
+1. CHARACTER: Who is in the scene? Include defining visual features.
+   → "Tiia, a blonde girl (5-6) in blue overalls"
+
+2. SETTING: Where are they? Be specific, include cultural context.
+   → "sitting in tall golden grass beside an Estonian wooden farmhouse"
+
+3. ACTION: What are they doing? Must match the page text exactly.
+   → "eyes closed, peaceful smile, beginning to daydream"
+
+4. CONTEXT: What else is visible? Only include elements relevant to THIS page.
+   → "A red tractor works in the muddy field behind her"
+
+5. STYLE: End with style instruction.
+   → "Warm watercolor style."
+```
+
+**Combined result:**
+```
+"Tiia, a blonde girl (5-6) in blue overalls, sits in tall golden grass beside
+an Estonian wooden farmhouse. Eyes closed, peaceful smile. A red tractor works
+in the muddy field behind her. Warm watercolor style."
+```
+
+### What NOT To Do
+
+1. **Never use abstract/mood language:**
+   - ❌ "dreamy atmosphere"
+   - ❌ "magical feeling"
+   - ❌ "the world blurs and shimmers"
+   - ✅ Describe concrete visual elements only
+
+2. **Never mention what shouldn't be there:**
+   - ❌ "No airplane visible yet"
+   - ❌ "Without the tractor"
+   - ✅ Only describe what SHOULD appear (use negative_prompt parameter for exclusions)
+
+3. **Never describe future story events:**
+   - ❌ "She's about to imagine being a tractor"
+   - ✅ Only describe the current visual moment
+
+### Negative Prompts
+
+Exclusions belong in the `--negative-prompt` API parameter, NOT in the scene description.
+
+The scene description in JSON should be 100% positive. At generation time, compute negative prompts based on story progression:
+
+```python
+# Example: Page 2 is before airplane appears
+negative_prompt = "airplane, flying, sky, clouds" if page < airplane_intro_page else ""
+```
+
 ### Style Consistency
-End all prompts with: **"Warm soft watercolor style."**
+End all prompts with: **"Warm watercolor style."** or **"Warm soft watercolor style."**
 
 ### Character Consistency
-Create a character description and reference it:
+Define character once in book metadata, reference in every scene:
+
+```json
+{
+  "characters": {
+    "tiia": "Tiia, a blonde girl (5-6) with wispy hair, wearing blue overalls"
+  },
+  "setting_context": "Rural Estonia, traditional wooden farmhouses, golden fields"
+}
 ```
-Main character: "Rita, a small brown rat with a red bow"
-Use in prompts: "Rita (small brown rat with red bow) looking excited..."
+
+### Cultural/Setting Context
+
+Add a `setting_context` field to book metadata. Include in every scene description:
+
 ```
+Generic:  "A cozy farmhouse in the background"
+Specific: "A traditional Estonian wooden farmhouse with steep roof"
 
-### Scene Guidelines
-- Simple, uncluttered compositions
-- Warm, inviting colors (soft oranges, greens, blues)
-- Clear character expressions
-- Child-appropriate content
-- Consistent background style
-
-### Example Prompts
-```
-Cover:
-"Children's book cover: Two cute cartoon rats exploring a fairy tale castle. Warm watercolor style."
-
-Story page:
-"A small brown rat with a red bow discovering a jar of strawberry jam on a castle table. Warm soft watercolor style."
-
-Back cover:
-"Two cute cartoon rats waving goodbye, standing together happily. Simple composition, warm soft watercolor style."
+Generic:  "Rolling green hills"
+Specific: "Estonian countryside with birch forests and golden barley fields"
 ```
 
 ---

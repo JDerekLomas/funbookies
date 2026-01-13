@@ -173,6 +173,63 @@ After generating, show the user:
 - Create pages without clear visual content
 - Use complex sentence structures at low levels
 
+## The Craft: Write It, Don't Describe It
+
+**The most important rule:** Write *a* children's story, not *about* a children's story.
+
+Generic template-filling produces flat text:
+```
+I see a girl.
+She wishes.
+"I wish I were a tractor!"
+She dreams and dreams.
+```
+
+Actually inhabiting the story produces this:
+```
+Tiia sits in the hot sun.
+A red tractor digs in the mud.
+
+"If I could only be a red tractor!"
+Tiia shuts her eyes.
+
+RUM, RUM, RUM!
+She tugs a big log.
+
+She is strong! She is loud!
+Mud on her legs. Mud on her belly.
+```
+
+### What Makes the Difference
+
+| Flat | Alive |
+|------|-------|
+| "a girl" | "Tiia sits in the hot sun" (name, action, sensory detail) |
+| "She wishes" | "If I could only be" (longing lives in "only") |
+| "She dreams" | "RUM, RUM, RUM! She tugs a big log." (the dream has ACTION) |
+| Abstract concept | Sensory details ("Mud on her legs. Mud on her belly.") |
+| "The end" | "But part of her? Still up in the clouds." (emotionally true) |
+
+### Techniques That Work
+
+1. **Onomatopoeia** - "RUM, RUM, RUM!" and "ZIP!" Kids love sounds.
+
+2. **Rhythm and repetition** - "She tips left. She dips right." Singsong patterns.
+
+3. **Sensory specificity** - Not "she got muddy" but "Mud on her legs. Mud on her belly."
+
+4. **Action in fantasy** - The character DOES things in the daydream, not just imagines abstractly.
+
+5. **Emotionally true endings** - "But part of her? Still up in the clouds." That's what daydreaming actually feels like.
+
+6. **Let constraints help** - CVC words (sits, hot, mud, tugs, tips, dips, pop) have punch and texture. Don't fight the phonics level; let it shape the voice.
+
+### The Test
+
+Read it aloud. Does it have music? Would a child want to hear it again? Would YOU want to read it to a child?
+
+If it feels like filling in blanks, start over.
+
 ## Example Output
 
 For `/book-story "A girl daydreams about being a tractor" --level B2 --setting "rural Estonia"`:

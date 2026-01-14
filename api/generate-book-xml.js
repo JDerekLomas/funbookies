@@ -202,6 +202,14 @@ STORY STRUCTURES (use the one specified in concept, or choose best fit):
 
 Every page MUST have a clear emotional beat from the chosen arc.
 
+TEXT DENSITY BY BAND (keep it minimal!):
+- Band A: 1-4 words per page (labels, single words, very short phrases)
+- Band B: 1 line per page (one short sentence, 3-6 words)
+- Band C: 2-3 lines per page (1-2 sentences)
+- Band D: 4-8 lines per page (paragraph-level text)
+
+More white space = less overwhelming for young readers. When in doubt, use fewer words.
+
 BAND CHARACTERISTICS:
 - Band A (A0-A4): Pre-reading. Simple labels, pattern books. UPPERCASE early, then lowercase.
 - Band B (B1-B9): Phonics foundation. CVC → blends → digraphs → silent e → vowel teams → r-controlled.

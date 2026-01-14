@@ -82,6 +82,14 @@ STORY STRUCTURES (choose one that fits):
 
 Choose the structure that best fits the concept. Every page should have a clear emotional beat.
 
+TEXT DENSITY BY BAND (keep it minimal!):
+- Band A: 1-4 words per page (labels, single words, very short phrases)
+- Band B: 1 line per page (one short sentence, 3-6 words)
+- Band C: 2-3 lines per page (1-2 sentences)
+- Band D: 4-8 lines per page (paragraph-level text)
+
+More white space = less overwhelming for young readers. When in doubt, use fewer words.
+
 Be specific and practical. The output will be used to generate a complete book.`;
 
     const userPrompt = `Enhance this rough book concept for level ${level}:

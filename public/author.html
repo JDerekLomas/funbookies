@@ -458,6 +458,7 @@ Example: A cat gets lost at the mall and has to find his way back."></textarea>
             const level = document.getElementById('levelSelect').value;
             const status = document.getElementById('conceptStatus');
             const btn = document.getElementById('refineBtn');
+            const refinedTextarea = document.getElementById('refinedConcept');
 
             if (!concept) {
                 status.className = 'status error';
@@ -467,32 +468,62 @@ Example: A cat gets lost at the mall and has to find his way back."></textarea>
             }
 
             status.className = 'status loading';
-            status.textContent = 'Refining concept... This may take 15-30 seconds.';
+            status.textContent = 'Refining concept...';
             status.classList.remove('hidden');
             btn.disabled = true;
 
+            // Show refined section and clear it
+            refinedTextarea.value = '';
+            document.getElementById('refinedSection').classList.remove('hidden');
+
             try {
-                const response = await fetch('/api/refine-concept', {
+                // Use streaming endpoint
+                const response = await fetch(`/api/refine-concept?stream=true`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ concept, level })
                 });
 
-                const result = await response.json();
-
-                if (!result.success) {
-                    throw new Error(result.error || 'Refinement failed');
+                if (!response.ok) {
+                    throw new Error('API request failed');
                 }
 
-                // Show refined concept
-                document.getElementById('refinedConcept').value = result.refinedConcept;
-                document.getElementById('refinedSection').classList.remove('hidden');
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
 
-                status.className = 'status success';
-                status.textContent = 'Concept refined! Review and edit, then generate XML.';
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
 
-                // Update workflow
-                document.querySelector('.step[data-step="1"]').classList.add('completed');
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || '';
+
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            try {
+                                const data = JSON.parse(line.slice(6));
+                                if (data.error) {
+                                    throw new Error(data.error);
+                                }
+                                if (data.text) {
+                                    refinedTextarea.value += data.text;
+                                    refinedTextarea.scrollTop = refinedTextarea.scrollHeight;
+                                }
+                                if (data.done) {
+                                    status.className = 'status success';
+                                    status.textContent = 'Concept refined! Review and edit, then generate XML.';
+                                    document.querySelector('.step[data-step="1"]').classList.add('completed');
+                                }
+                            } catch (e) {
+                                if (e.message !== 'Unexpected end of JSON input') {
+                                    console.warn('Parse error:', e);
+                                }
+                            }
+                        }
+                    }
+                }
 
             } catch (error) {
                 status.className = 'status error';
@@ -511,6 +542,7 @@ Example: A cat gets lost at the mall and has to find his way back."></textarea>
             const level = document.getElementById('levelSelect').value;
             const status = document.getElementById('conceptStatus');
             const btn = document.getElementById('generateBtn');
+            const xmlEditor = document.getElementById('xmlEditor');
 
             if (!concept) {
                 status.className = 'status error';
@@ -520,39 +552,73 @@ Example: A cat gets lost at the mall and has to find his way back."></textarea>
             }
 
             status.className = 'status loading';
-            status.textContent = 'Generating book XML with story summary... This may take 60-90 seconds.';
+            status.textContent = 'Generating book XML...';
             status.classList.remove('hidden');
             btn.disabled = true;
 
+            // Clear XML editor
+            xmlEditor.value = '';
+
             try {
-                const response = await fetch('/api/generate-book-xml', {
+                // Use streaming endpoint
+                const response = await fetch(`/api/generate-book-xml?stream=true`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ concept, level })
                 });
 
-                const result = await response.json();
-
-                if (!result.success) {
-                    throw new Error(result.error || 'Generation failed');
+                if (!response.ok) {
+                    throw new Error('API request failed');
                 }
 
-                currentXML = result.xml;
-                document.getElementById('xmlEditor').value = result.xml;
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
 
-                status.className = 'status success';
-                status.textContent = 'XML generated! Preview structure, then save.';
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
 
-                // Enable buttons
-                document.getElementById('previewBtn').disabled = false;
-                document.getElementById('saveBtn').disabled = false;
-                document.getElementById('downloadBtn').disabled = false;
-                document.getElementById('generateRefBtn').disabled = false;
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || '';
 
-                // Update workflow steps
-                document.querySelector('.step[data-step="1"]').classList.add('completed');
-                document.querySelector('.step[data-step="2"]').classList.add('active', 'completed');
-                document.querySelector('.step[data-step="3"]').classList.add('active');
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            try {
+                                const data = JSON.parse(line.slice(6));
+                                if (data.error) {
+                                    throw new Error(data.error);
+                                }
+                                if (data.text) {
+                                    xmlEditor.value += data.text;
+                                    xmlEditor.scrollTop = xmlEditor.scrollHeight;
+                                }
+                                if (data.done) {
+                                    currentXML = xmlEditor.value;
+
+                                    status.className = 'status success';
+                                    status.textContent = 'XML generated! Preview structure, then save.';
+
+                                    // Enable buttons
+                                    document.getElementById('previewBtn').disabled = false;
+                                    document.getElementById('saveBtn').disabled = false;
+                                    document.getElementById('downloadBtn').disabled = false;
+                                    document.getElementById('generateRefBtn').disabled = false;
+
+                                    // Update workflow steps
+                                    document.querySelector('.step[data-step="1"]').classList.add('completed');
+                                    document.querySelector('.step[data-step="2"]').classList.add('active', 'completed');
+                                    document.querySelector('.step[data-step="3"]').classList.add('active');
+                                }
+                            } catch (e) {
+                                if (e.message !== 'Unexpected end of JSON input') {
+                                    console.warn('Parse error:', e);
+                                }
+                            }
+                        }
+                    }
+                }
 
             } catch (error) {
                 status.className = 'status error';

@@ -1,0 +1,207 @@
+{
+  "id": "b2-max-snow-pirate-hunt",
+  "title": "Max's Snow Pirate Hunt",
+  "slug": "max-snow-pirate-hunt",
+  "level": "B2",
+  "band": "B",
+  "targetPhonics": "Consonant blends, digraphs",
+  "wordFamilies": ["-un", "-ip", "-op", "-ig", "-ump", "-ick", "-est", "-ap"],
+  "skill": "Initial and final consonant blends, digraphs",
+  "skill_description": "Practice reading words with consonant blends (sn-, st-, tr-, cr-, fl-, bl-, gr-, sp-) and digraphs (ch-, sh-, th-). High-interest aspiration words: pirate, treasure, trampoline.",
+  "age_range": "K-1",
+  "created": "2026-01-14",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "It's Max's 7th birthday! Dad has a special surprise: a snow pirate treasure hunt with three clues hidden in the Amsterdam Zuid backyard. Max races through the snow to find a red flag by the tree, a black cloth on the hill, and finally a treasure chest under the trampoline filled with sweets. The adventure ends with a father-son bonfire ritual.",
+  "characters": {
+    "max": "Max, a 7-year-old Dutch boy with messy brown hair, rosy cheeks, wearing a puffy blue winter coat and red knit hat with pom-pom",
+    "dad": "Dad, a Dutch man in his early 40s with short brown hair, friendly stubble, wearing a dark green parka and grey beanie"
+  },
+  "setting_context": "Amsterdam Zuid, winter: Dutch brick row houses with large windows, wooden garden fences, snowy backyard with trampoline, bare elm tree, small hill with tree stump",
+  "word_list": {
+    "sound_out": ["Max", "six", "Dad", "box", "map", "let", "go", "step", "crunch", "first", "tree", "digs", "flag", "clue", "then", "hill", "runs", "fast", "spots", "stump", "cloth", "chest", "sweets", "snacks", "yes", "stack", "sticks", "snap", "crack", "pop", "best", "day"],
+    "sight": ["was", "now", "he", "is", "want", "to", "play", "hands", "a", "the", "into", "snow", "and", "red", "one", "up", "where", "black", "two", "so", "slips", "gets", "this", "it", "small", "they", "set", "on", "top", "ever"],
+    "heart": ["seven", "pirate", "treasure", "trampoline"]
+  },
+  "story_elements": {
+    "flag": 5,
+    "hill": 6,
+    "stump": 7,
+    "cloth": 8,
+    "trampoline": 9,
+    "chest": 10,
+    "candy": 11,
+    "fire": 13
+  },
+  "sightWordsUsed": ["was", "now", "he", "is", "want", "to", "play", "the", "a", "into", "and", "where", "so", "they", "on"],
+  "wordsearch_words": ["snow", "pirate", "clue", "flag", "hill", "chest", "sweets", "best"],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Max's Snow Pirate Hunt",
+      "image": "/images/covers/b2-max-snow-pirate-hunt.png"
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "Max was six.\nNow he is seven!",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page01.png"
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "\"Want to play snow pirates?\"\nDad hands Max a box.",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page02.png"
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "A map!\n\"Let's go!\"",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page03.png"
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "Crunch, crunch, crunch!\n\"First, the tree!\"",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page04.png"
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "Max digs and digs.\nA red flag!\n\"Clue one!\"",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page05.png"
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "\"Then, the hill!\"\nMax runs fast.",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page06.png"
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "\"Where is the clue?\"\nMax spots a stump.",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page07.png"
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "Max digs.\nA black cloth!\n\"Clue two!\"",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page08.png"
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "\"The trampoline!\"\nMax runs so fast he slips.",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page09.png"
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "Max digs.\nA chest!",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page10.png"
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "Sweets and snacks!\n\"YES!\"",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page11.png"
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "Dad and Max stack sticks.\nThey set the chest on top.",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page12.png"
+    },
+    {
+      "page": 18,
+      "story_page": 13,
+      "type": "story",
+      "text": "Snap! Crack! Pop!\nBest. Day. Ever.",
+      "image": "/books/images/b2-max-snow-pirate-hunt_page13.png"
+    },
+    {
+      "page": 19,
+      "type": "end",
+      "text": "The End"
+    },
+    {
+      "page": 20,
+      "type": "wordsearch"
+    },
+    {
+      "page": 21,
+      "type": "series_info"
+    },
+    {
+      "page": 22,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-14T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 72,
+    "decodabilityTarget": "85%+",
+    "storyPages": 13,
+    "heartWords": ["seven", "pirate", "treasure", "trampoline"]
+  },
+  "parent_tips": {
+    "before_reading": "Preview the cover together. Ask: What do you think this treasure hunt is about? Have you ever been on a treasure hunt? Look for our special 'heart words': pirate, treasure, trampoline.",
+    "during_reading": "Help your child with the aspiration words (pirate, treasure, trampoline) - these are special words kids know from life. Sound out the blend words: snow, crunch, stump, chest, snacks, sticks, snap, crack.",
+    "after_reading": "Discuss: What were the three clues Max found? Where was the treasure hidden? What did Max and Dad do at the end? Would you like a treasure hunt on your birthday?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "How old is Max now?",
+      "answer": "Seven years old"
+    },
+    {
+      "question": "What are the three places Max has to find clues?",
+      "answer": "The tree, the hill, and the trampoline"
+    },
+    {
+      "question": "What does Max find at the tree?",
+      "answer": "A red flag"
+    },
+    {
+      "question": "What is inside the treasure chest?",
+      "answer": "Sweets and snacks"
+    },
+    {
+      "question": "What do Max and Dad do with the chest at the end?",
+      "answer": "They burn it in a fire"
+    }
+  ]
+}

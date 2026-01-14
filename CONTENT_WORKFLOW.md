@@ -311,11 +311,37 @@ const advancedAssessments = {
 ### Decodability Score (Levels 0-12)
 
 ```
-decodability_score = (decodable_words + sight_words) / total_words * 100
+decodability_score = (decodable_words + sight_words + aspiration_words) / total_words * 100
 
 Target: 95%+ for levels 0-8
 Target: 90%+ for levels 9-12
 ```
+
+### Aspiration Words (High-Interest Vocabulary)
+
+Some words are **not yet decodable** at a given level but are **high-interest words that kids already know** from life experience. These are allowed when:
+
+1. **The word is concrete and labelable** - kids can point to it in real life or pictures
+2. **The word is high-motivation** - it's something kids find exciting or aspirational
+3. **The word appears with visual support** - the illustration clearly shows what it means
+
+**Examples by category:**
+
+| Category | Aspiration Words |
+|----------|------------------|
+| Vehicles | tractor, airplane, helicopter, submarine, motorcycle |
+| Animals | dinosaur, elephant, giraffe, penguin, crocodile |
+| Places | trampoline, playground, castle, spaceship |
+| Nature | volcano, rainbow, lightning, waterfall |
+| Objects | telescope, binoculars, treasure, pirate |
+
+**Key principle:** These words work because kids already have the concept - they've seen tractors, jumped on trampolines, pretended to be pirates. The word is a label for something they know, not a new concept to decode.
+
+**Usage guidelines:**
+- Limit to 1-3 aspiration words per book
+- Always pair with clear visual representation
+- Consider adding to word list with pronunciation support
+- Don't use aspiration words for abstract concepts
 
 ### Sentence Complexity Score
 

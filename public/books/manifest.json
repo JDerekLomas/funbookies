@@ -110,6 +110,16 @@
     "coverImg": "/images/covers/castle.png"
   },
   {
+    "slug": "rats-in-the-castle",
+    "jsonFile": "rats-in-the-castle.json",
+    "title": "Rats in the Castle",
+    "level": "B2",
+    "band": "B",
+    "color": "Orange",
+    "skill": "CVC + Digraphs",
+    "coverImg": "/images/covers/rats-in-the-castle.png"
+  },
+  {
     "slug": "fern_gust_orange",
     "jsonFile": "fern_gust_orange.json",
     "title": "Fern and the Gust",

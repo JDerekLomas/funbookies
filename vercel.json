@@ -8,26 +8,16 @@
       "maxDuration": 30
     }
   },
-  "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    { "src": "/api/check-status", "dest": "/api/check-status.js" },
-    { "src": "/api/generate-image", "dest": "/api/generate-image.js" },
-    { "src": "/api/generate-story", "dest": "/api/generate-story.js" },
-    { "src": "/api/evaluations", "dest": "/api/evaluations.js" },
-    { "src": "/api/feedback", "dest": "/api/feedback.js" },
-    { "src": "/api/validate-text", "dest": "/api/validate-text.js" },
-    { "src": "/api/update-book-github", "dest": "/api/update-book-github.js" },
-    { "src": "/api/upload-image", "dest": "/api/upload-image.js" },
-    { "src": "/api/save-book", "dest": "/api/save-book-supabase.js" },
-    { "src": "/(.*)", "dest": "/public/$1" }
+  "rewrites": [
+    { "source": "/api/check-status", "destination": "/api/check-status.js" },
+    { "source": "/api/generate-image", "destination": "/api/generate-image.js" },
+    { "source": "/api/generate-story", "destination": "/api/generate-story.js" },
+    { "source": "/api/evaluations", "destination": "/api/evaluations.js" },
+    { "source": "/api/feedback", "destination": "/api/feedback.js" },
+    { "source": "/api/validate-text", "destination": "/api/validate-text.js" },
+    { "source": "/api/update-book-github", "destination": "/api/update-book-github.js" },
+    { "source": "/api/upload-image", "destination": "/api/upload-image.js" },
+    { "source": "/api/save-book", "destination": "/api/save-book-supabase.js" },
+    { "source": "/(.*)", "destination": "/public/$1" }
   ]
 }

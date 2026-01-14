@@ -377,7 +377,7 @@ Or click "Edit" in the top-right corner of the reader.
 
 ### Image Versioning System
 
-When you generate and save images, each version is preserved:
+Images are **automatically saved** to Vercel Blob immediately after generation (no hotlinking to MuleRouter):
 
 ```
 Vercel Blob Storage:
@@ -404,9 +404,10 @@ books/{slug}/page01_v3.png
 1. Navigate to a page in edit mode
 2. Edit the prompt if needed
 3. Click "Regenerate" to generate a new image
-4. Click "Save as New Version" to save it
+4. Image is **automatically downloaded** from MuleRouter and saved to Vercel Blob
 5. The version appears in the "Page Image Versions" gallery
-6. Click any version thumbnail to make it the current page image
+6. Click "Use as Current Image" to set it as the active page image
+7. Click any version thumbnail to switch between versions
 
 ### Keyboard Shortcuts
 

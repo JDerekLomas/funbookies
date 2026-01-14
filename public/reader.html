@@ -3047,31 +3047,27 @@
 
                 case 'cover':
                     const coverImgPath = getImagePath(page);
-                    // Use title length as seed for consistent pattern per book
-                    const patternSeed = (currentBook.title || '').length;
-                    const patternSvg = generateCoverPattern(patternSeed);
                     const coverScene = page.scene || currentBook.summary || '';
                     const coverPlaceholderId = `cover-placeholder`;
                     const coverTitle = page.text || currentBook.title || 'Untitled';
+                    const authorName = currentBook.author || '';
                     bookPage.innerHTML = `
-                        <div class="page-cover">
+                        <div class="page-cover" style="display: block; position: relative;">
                             <div class="cover-corner-tab">
                                 <div class="corner-ribbon">
                                     <span class="brand-name">FunBookies</span>
                                     <span class="level-text">${colorDisplay} Level</span>
                                 </div>
                             </div>
-                            <div class="cover-image">
+                            <div class="cover-image" style="height: 100%;">
                                 <img src="${coverImgPath}" alt="${coverTitle}" decoding="async" fetchpriority="high" onerror="document.getElementById('${coverPlaceholderId}').style.display='flex'; this.style.display='none';">
                                 <div id="${coverPlaceholderId}" class="page-image-placeholder" style="display: none;">
                                     <div class="scene-icon">📚</div>
                                     ${coverScene ? `<div class="scene-text">${coverScene}</div>` : ''}
                                 </div>
-                            </div>
-                            <div class="cover-pattern-banner">
-                                <div class="cover-pattern">${patternSvg}</div>
-                                <div class="cover-title-frame">
+                                <div class="cover-title-overlay">
                                     <h1>${coverTitle}</h1>
+                                    ${authorName ? `<div class="author">by ${authorName}</div>` : ''}
                                 </div>
                             </div>
                         </div>

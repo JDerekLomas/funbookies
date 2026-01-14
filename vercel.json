@@ -6,6 +6,9 @@
     },
     "api/upload-image.js": {
       "maxDuration": 30
+    },
+    "api/generate-book-xml.js": {
+      "maxDuration": 120
     }
   },
   "rewrites": [

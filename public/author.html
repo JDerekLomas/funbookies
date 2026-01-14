@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Author - FunBookies</title>
+    <style>
+        :root {
+            --color-sage: #7fb08a;
+            --color-cream: #faf8f5;
+            --color-charcoal: #2d2d2d;
+            --color-border: #e0dcd4;
+            --color-dusty-blue: #6b8cae;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--color-cream);
+            color: var(--color-charcoal);
+            min-height: 100vh;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid var(--color-border);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            color: var(--color-sage);
+        }
+
+        header nav a {
+            color: var(--color-charcoal);
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .workflow-steps {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid var(--color-border);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .step.active {
+            background: var(--color-sage);
+            color: white;
+            border-color: var(--color-sage);
+        }
+
+        .step.completed {
+            background: #e8f5e9;
+            border-color: var(--color-sage);
+        }
+
+        .panels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .panels {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .panel h2 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: var(--color-charcoal);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel h2 .badge {
+            font-size: 0.7rem;
+            background: var(--color-sage);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+
+        textarea, select, input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        textarea.xml-editor {
+            min-height: 500px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--color-sage);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #6a9a75;
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: var(--color-dusty-blue);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a7c9e;
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid var(--color-border);
+            color: var(--color-charcoal);
+        }
+
+        .btn-outline:hover {
+            background: var(--color-cream);
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .status {
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 16px;
+            font-size: 0.85rem;
+        }
+
+        .status.loading {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .status.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .level-info {
+            background: var(--color-cream);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 0.8rem;
+        }
+
+        .level-info h4 {
+            margin-bottom: 8px;
+            color: var(--color-sage);
+        }
+
+        .level-info ul {
+            margin-left: 16px;
+        }
+
+        .level-info li {
+            margin-bottom: 4px;
+        }
+
+        .preview-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .preview-section h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .preview-page {
+            background: var(--color-cream);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+        }
+
+        .preview-page .page-num {
+            font-weight: 600;
+            color: var(--color-sage);
+            margin-bottom: 4px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Book Author</h1>
+        <nav>
+            <a href="/books/">Library</a>
+            <a href="/reader.html">Reader</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="workflow-steps">
+            <div class="step active" data-step="1">1. Concept</div>
+            <div class="step" data-step="2">2. Generate XML</div>
+            <div class="step" data-step="3">3. Edit & Refine</div>
+            <div class="step" data-step="4">4. Reference Image</div>
+            <div class="step" data-step="5">5. Page Images</div>
+            <div class="step" data-step="6">6. Publish</div>
+        </div>
+
+        <div class="panels">
+            <!-- Left Panel: Input -->
+            <div class="panel">
+                <h2>Concept <span class="badge">Step 1</span></h2>
+
+                <label for="levelSelect">Reading Level</label>
+                <select id="levelSelect" onchange="updateLevelInfo()">
+                    <optgroup label="Band A - Pre-Reading">
+                        <option value="A0">A0 - Concept of Print</option>
+                        <option value="A1">A1 - Letter Recognition</option>
+                        <option value="A2">A2 - CV/VC Words</option>
+                        <option value="A3">A3 - Mixed Case Sentences</option>
+                        <option value="A4">A4 - Emergent Bridge</option>
+                    </optgroup>
+                    <optgroup label="Band B - Phonics Foundation">
+                        <option value="B1">B1 - CVC Short a, i</option>
+                        <option value="B2">B2 - CVC Short o, u, e</option>
+                        <option value="B3" selected>B3 - Final Blends + FLOSS</option>
+                        <option value="B4">B4 - Initial Blends</option>
+                        <option value="B5">B5 - Digraphs</option>
+                        <option value="B6">B6 - Silent E (CVCe)</option>
+                        <option value="B7">B7 - Vowel Teams</option>
+                        <option value="B8">B8 - Diphthongs</option>
+                        <option value="B9">B9 - R-Controlled Vowels</option>
+                    </optgroup>
+                    <optgroup label="Band C - Word Study">
+                        <option value="C1">C1 - Silent Letters</option>
+                        <option value="C2">C2 - Soft C and G</option>
+                        <option value="C3">C3 - Two-Syllable Closed</option>
+                        <option value="C4">C4 - Two-Syllable Open</option>
+                        <option value="C5">C5 - Contractions</option>
+                        <option value="C6">C6 - Inflectional Endings</option>
+                        <option value="C7">C7 - Derivational Suffixes</option>
+                        <option value="C8">C8 - Prefixes</option>
+                    </optgroup>
+                    <optgroup label="Band D - Fluent Reading">
+                        <option value="D1">D1 - Sentence Variety</option>
+                        <option value="D2">D2 - Inference + Chapters</option>
+                        <option value="D3">D3 - Latin Roots</option>
+                        <option value="D4">D4 - Greek Roots</option>
+                        <option value="D5">D5 - Figurative Language</option>
+                        <option value="D6">D6 - Grade-Level Prose</option>
+                    </optgroup>
+                </select>
+
+                <div class="level-info" id="levelInfo">
+                    <!-- Populated by JS -->
+                </div>
+
+                <label for="conceptInput">Story Concept</label>
+                <textarea id="conceptInput" placeholder="Describe your book idea...
+
+Example: A story about a cat named Gus who gets lost at the mall. He must find his way back to his family by following familiar sounds and smells. Features lots of words with final blends (-nd, -st, -mp) like 'lost', 'must', 'find', 'jump'."></textarea>
+
+                <div class="button-row">
+                    <button class="btn btn-primary" onclick="generateXML()" id="generateBtn">
+                        Generate Book XML
+                    </button>
+                </div>
+
+                <div id="conceptStatus" class="status hidden"></div>
+            </div>
+
+            <!-- Right Panel: XML Output -->
+            <div class="panel">
+                <h2>Book XML <span class="badge">Step 2-3</span></h2>
+
+                <textarea id="xmlEditor" class="xml-editor" placeholder="Generated XML will appear here..."></textarea>
+
+                <div class="button-row">
+                    <button class="btn btn-secondary" onclick="parseAndPreview()" id="previewBtn" disabled>
+                        Preview Structure
+                    </button>
+                    <button class="btn btn-secondary" onclick="saveToSupabase()" id="saveBtn" disabled>
+                        Save to Supabase
+                    </button>
+                    <button class="btn btn-outline" onclick="downloadXML()" id="downloadBtn" disabled>
+                        Download XML
+                    </button>
+                </div>
+
+                <div id="xmlStatus" class="status hidden"></div>
+
+                <div class="preview-section hidden" id="previewSection">
+                    <h3>Story Preview</h3>
+                    <div class="preview-grid" id="previewGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let levelSpecs = null;
+        let currentXML = null;
+
+        // Load level specs on page load
+        async function loadLevelSpecs() {
+            try {
+                const response = await fetch('/data/level-specs.json');
+                levelSpecs = await response.json();
+                updateLevelInfo();
+            } catch (error) {
+                console.error('Failed to load level specs:', error);
+            }
+        }
+
+        function updateLevelInfo() {
+            const level = document.getElementById('levelSelect').value;
+            const infoDiv = document.getElementById('levelInfo');
+
+            if (!levelSpecs || !levelSpecs.levels[level]) {
+                infoDiv.innerHTML = '<p>Loading level info...</p>';
+                return;
+            }
+
+            const data = levelSpecs.levels[level];
+            const constraints = data.constraints || {};
+
+            infoDiv.innerHTML = `
+                <h4>${data.name}</h4>
+                <p><strong>Reader can:</strong> ${data.readerCan}</p>
+                <ul>
+                    <li><strong>Words/sentence:</strong> ${constraints.wordsPerSentence || constraints.maxWordsPerSentence || 'flexible'}</li>
+                    <li><strong>Pages:</strong> ${constraints.pages || '12-20'}</li>
+                    <li><strong>Decodability:</strong> ${constraints.decodability || '80%+'}</li>
+                    <li><strong>Fluency:</strong> ${data.fluencyTarget || 'N/A'}</li>
+                </ul>
+                <p><strong>Story guidance:</strong> ${data.storyGuidance || 'Age-appropriate narrative'}</p>
+            `;
+        }
+
+        async function generateXML() {
+            const concept = document.getElementById('conceptInput').value.trim();
+            const level = document.getElementById('levelSelect').value;
+            const status = document.getElementById('conceptStatus');
+            const btn = document.getElementById('generateBtn');
+
+            if (!concept) {
+                status.className = 'status error';
+                status.textContent = 'Please enter a story concept';
+                status.classList.remove('hidden');
+                return;
+            }
+
+            status.className = 'status loading';
+            status.textContent = 'Generating book XML... This may take 30-60 seconds.';
+            status.classList.remove('hidden');
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/api/generate-book-xml', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ concept, level })
+                });
+
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.error || 'Generation failed');
+                }
+
+                currentXML = result.xml;
+                document.getElementById('xmlEditor').value = result.xml;
+
+                status.className = 'status success';
+                status.textContent = 'XML generated successfully!';
+
+                // Enable buttons
+                document.getElementById('previewBtn').disabled = false;
+                document.getElementById('saveBtn').disabled = false;
+                document.getElementById('downloadBtn').disabled = false;
+
+                // Update workflow steps
+                document.querySelector('.step[data-step="1"]').classList.add('completed');
+                document.querySelector('.step[data-step="2"]').classList.add('active', 'completed');
+                document.querySelector('.step[data-step="3"]').classList.add('active');
+
+            } catch (error) {
+                status.className = 'status error';
+                status.textContent = `Error: ${error.message}`;
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        function parseAndPreview() {
+            const xml = document.getElementById('xmlEditor').value;
+            const status = document.getElementById('xmlStatus');
+            const previewSection = document.getElementById('previewSection');
+            const previewGrid = document.getElementById('previewGrid');
+
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(xml, 'text/xml');
+
+                // Check for parse errors
+                const parseError = doc.querySelector('parsererror');
+                if (parseError) {
+                    throw new Error('Invalid XML: ' + parseError.textContent.substring(0, 100));
+                }
+
+                // Extract pages
+                const pages = doc.querySelectorAll('page');
+                let html = '';
+
+                pages.forEach((page, i) => {
+                    const type = page.getAttribute('type') || 'story';
+                    const num = page.getAttribute('number') || (type === 'story' ? i : '');
+                    const text = page.querySelector('text')?.textContent || '';
+                    const scene = page.querySelector('scene')?.textContent || '';
+
+                    html += `
+                        <div class="preview-page">
+                            <div class="page-num">${type === 'story' ? 'Page ' + num : type}</div>
+                            <div>${text.replace(/<br\/>/g, ' ').substring(0, 60)}${text.length > 60 ? '...' : ''}</div>
+                        </div>
+                    `;
+                });
+
+                previewGrid.innerHTML = html;
+                previewSection.classList.remove('hidden');
+
+                status.className = 'status success';
+                status.textContent = `Valid XML with ${pages.length} pages`;
+                status.classList.remove('hidden');
+
+            } catch (error) {
+                status.className = 'status error';
+                status.textContent = error.message;
+                status.classList.remove('hidden');
+                previewSection.classList.add('hidden');
+            }
+        }
+
+        async function saveToSupabase() {
+            const xml = document.getElementById('xmlEditor').value;
+            const status = document.getElementById('xmlStatus');
+
+            status.className = 'status loading';
+            status.textContent = 'Saving to Supabase...';
+            status.classList.remove('hidden');
+
+            try {
+                // Parse XML to extract slug and convert to JSON
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(xml, 'text/xml');
+
+                const slug = doc.querySelector('slug')?.textContent;
+                if (!slug) {
+                    throw new Error('Missing slug in XML');
+                }
+
+                // Convert XML to book JSON format
+                const bookJson = xmlToBookJson(doc);
+
+                // Save to Supabase via save-book API
+                const response = await fetch('/api/save-book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        slug,
+                        fullBook: bookJson
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.error || 'Save failed');
+                }
+
+                status.className = 'status success';
+                status.textContent = `Saved! Open in reader: /reader.html?book=${slug}&mode=edit`;
+
+                // Update workflow
+                document.querySelector('.step[data-step="3"]').classList.add('completed');
+                document.querySelector('.step[data-step="4"]').classList.add('active');
+
+            } catch (error) {
+                status.className = 'status error';
+                status.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function xmlToBookJson(doc) {
+            // Extract metadata
+            const metadata = {
+                title: doc.querySelector('title')?.textContent || 'Untitled',
+                _slug: doc.querySelector('slug')?.textContent || 'untitled',
+                band: doc.querySelector('band')?.textContent || 'B',
+                level: doc.querySelector('level')?.textContent || 'B1'
+            };
+
+            // Extract story bible
+            const storyBible = {};
+            const sb = doc.querySelector('story_bible');
+            if (sb) {
+                storyBible.premise = sb.querySelector('premise')?.textContent;
+                storyBible.setting = sb.querySelector('setting')?.textContent;
+                storyBible.themes = Array.from(sb.querySelectorAll('theme')).map(t => t.textContent);
+
+                const characters = [];
+                sb.querySelectorAll('character').forEach(c => {
+                    characters.push({
+                        name: c.getAttribute('name'),
+                        role: c.getAttribute('role'),
+                        description: c.textContent.trim()
+                    });
+                });
+                storyBible.characters = characters;
+            }
+
+            // Extract reference prompt
+            const referencePrompt = doc.querySelector('reference_prompt')?.textContent?.trim();
+
+            // Extract pages
+            const pages = [];
+            doc.querySelectorAll('story > page').forEach((page, i) => {
+                const pageObj = {
+                    page: parseInt(page.getAttribute('number')) || i + 1,
+                    type: page.getAttribute('type') || 'story',
+                    text: page.querySelector('text')?.textContent || '',
+                    scene: page.querySelector('scene')?.textContent || '',
+                    image_prompt: page.querySelector('image_prompt')?.textContent?.trim() || '',
+                    shot_type: page.querySelector('shot_type')?.textContent || 'medium'
+                };
+
+                // Handle special page types
+                if (pageObj.type === 'wordlist') {
+                    pageObj.words = page.querySelector('words')?.textContent?.split(',').map(w => w.trim());
+                }
+
+                pages.push(pageObj);
+            });
+
+            return {
+                ...metadata,
+                story_bible: storyBible,
+                reference_prompt: referencePrompt,
+                pages: pages
+            };
+        }
+
+        function downloadXML() {
+            const xml = document.getElementById('xmlEditor').value;
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(xml, 'text/xml');
+            const slug = doc.querySelector('slug')?.textContent || 'book';
+
+            const blob = new Blob([xml], { type: 'application/xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${slug}.xml`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize
+        loadLevelSpecs();
+    </script>
+</body>
+</html>

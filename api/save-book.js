@@ -18,11 +18,43 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { slug, pageIndex, field, value } = req.body;
+    const { slug, pageIndex, field, value, fullBook } = req.body;
 
+    // Handle full book save (from author UI)
+    if (slug && fullBook) {
+      const upsertResponse = await fetch(
+        `${supabaseUrl}/rest/v1/books`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${supabaseKey}`,
+            'apikey': supabaseKey,
+            'Content-Type': 'application/json',
+            'Prefer': 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify({
+            slug: slug,
+            data: fullBook,
+            updated_at: new Date().toISOString()
+          })
+        }
+      );
+
+      if (!upsertResponse.ok) {
+        const error = await upsertResponse.text();
+        throw new Error(`Save failed: ${error}`);
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: `Saved full book to Supabase`
+      });
+    }
+
+    // Handle field update (existing behavior)
     if (!slug || pageIndex === undefined || !field || value === undefined) {
       return res.status(400).json({
-        error: 'Missing required fields: slug, pageIndex, field, value'
+        error: 'Missing required fields: slug, pageIndex, field, value (or slug + fullBook)'
       });
     }
 

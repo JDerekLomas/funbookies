@@ -2263,10 +2263,10 @@
             const actualPageNum = page.page || pageNum + 1;
 
             status.className = 'generation-status';
-            status.textContent = 'Uploading to Supabase...';
+            status.textContent = 'Uploading image...';
 
             try {
-                // 1. Upload image to Supabase Storage
+                // 1. Upload image to Vercel Blob Storage
                 const uploadResponse = await fetch('/api/upload-image', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -2283,18 +2283,18 @@
                     throw new Error(uploadResult.error || 'Upload failed');
                 }
 
-                const supabaseUrl = uploadResult.url;
-                status.textContent = 'Updating book...';
+                const blobUrl = uploadResult.url;
+                status.textContent = 'Saving to book...';
 
-                // 2. Save the Supabase URL to book JSON via GitHub API
-                const response = await fetch('/api/save-book', {
+                // 2. Save the Blob URL to book JSON via GitHub API
+                const response = await fetch('/api/update-book-github', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         slug,
                         pageIndex: pageNum,
                         field: 'image',
-                        value: supabaseUrl
+                        value: blobUrl
                     })
                 });
 
@@ -2302,7 +2302,7 @@
 
                 if (result.success) {
                     // Update local book data
-                    currentBook.pages[pageNum].image = supabaseUrl;
+                    currentBook.pages[pageNum].image = blobUrl;
                     status.className = 'generation-status success';
                     status.textContent = 'Image saved!';
 

@@ -1,8 +1,8 @@
 /**
- * Upload generated image to Supabase Storage
+ * Upload generated image to Vercel Blob Storage
  *
- * Downloads image from URL and uploads to Supabase Storage bucket.
- * Returns permanent Supabase URL.
+ * Downloads image from URL and uploads to Vercel Blob.
+ * Returns permanent Blob URL.
  */
 
 export default async function handler(req, res) {
@@ -10,11 +10,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+  const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
 
-  if (!supabaseUrl || !supabaseKey) {
-    return res.status(500).json({ error: 'Supabase not configured' });
+  if (!blobToken) {
+    return res.status(500).json({ error: 'Vercel Blob not configured. Add BLOB_READ_WRITE_TOKEN.' });
   }
 
   try {
@@ -34,17 +33,18 @@ export default async function handler(req, res) {
 
     const imageBuffer = await imageResponse.arrayBuffer();
     const pageNumStr = String(pageNum).padStart(2, '0');
-    const fileName = `${slug}/page${pageNumStr}.png`;
+    const fileName = `books/${slug}/page${pageNumStr}.png`;
 
-    // Upload to Supabase Storage
+    // Upload to Vercel Blob using REST API
     const uploadResponse = await fetch(
-      `${supabaseUrl}/storage/v1/object/book-images/${fileName}`,
+      `https://blob.vercel-storage.com/${fileName}`,
       {
-        method: 'POST',
+        method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${supabaseKey}`,
+          'Authorization': `Bearer ${blobToken}`,
           'Content-Type': 'image/png',
-          'x-upsert': 'true'  // Overwrite if exists
+          'x-api-version': '7',
+          'x-content-type': 'image/png'
         },
         body: imageBuffer
       }
@@ -55,13 +55,12 @@ export default async function handler(req, res) {
       throw new Error(`Upload failed: ${error}`);
     }
 
-    // Return public URL
-    const publicUrl = `${supabaseUrl}/storage/v1/object/public/book-images/${fileName}`;
+    const result = await uploadResponse.json();
 
     return res.status(200).json({
       success: true,
-      url: publicUrl,
-      message: 'Image uploaded to Supabase'
+      url: result.url,
+      message: 'Image uploaded to Vercel Blob'
     });
 
   } catch (error) {

@@ -2397,10 +2397,18 @@
         }
 
         async function useGeneratedImage() {
+            console.log('useGeneratedImage called, lastGeneratedBlobUrl:', lastGeneratedBlobUrl);
+            const status = document.getElementById('generationStatus');
+
             if (!lastGeneratedBlobUrl) {
-                alert('No saved image to use');
+                status.className = 'generation-status error';
+                status.textContent = 'No saved image to use';
                 return;
             }
+
+            status.className = 'generation-status loading';
+            status.textContent = 'Setting as current image...';
+
             await setImageAsCurrent(lastGeneratedBlobUrl);
         }
 
@@ -2410,43 +2418,51 @@
             const pageNum = currentPage;
             const page = currentBook.pages[pageNum];
 
+            console.log('setImageAsCurrent called:', { blobUrl, slug, pageNum, page: !!page });
+
             if (!page || pageNum < 0) {
                 status.className = 'generation-status error';
                 status.textContent = 'Cannot set image for this page type';
+                console.error('Invalid page for setImageAsCurrent:', { pageNum, page });
                 return;
             }
 
-            status.className = 'generation-status';
-            status.textContent = 'Setting as current image...';
+            status.className = 'generation-status loading';
+            status.textContent = 'Saving to Supabase...';
 
             try {
-                // Save both the current image and versions array
+                const payload = {
+                    slug,
+                    pageIndex: pageNum,
+                    field: 'image_with_versions',
+                    value: {
+                        image: blobUrl,
+                        image_versions: page.image_versions || []
+                    }
+                };
+                console.log('Sending to /api/save-book:', payload);
+
                 const response = await fetch('/api/save-book', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        slug,
-                        pageIndex: pageNum,
-                        field: 'image_with_versions',
-                        value: {
-                            image: blobUrl,
-                            image_versions: page.image_versions || []
-                        }
-                    })
+                    body: JSON.stringify(payload)
                 });
 
+                console.log('Response status:', response.status);
                 const result = await response.json();
+                console.log('Response body:', result);
 
                 if (result.success) {
                     page.image = blobUrl;
                     status.className = 'generation-status success';
-                    status.textContent = 'Image set as current!';
+                    status.textContent = 'Image saved and set as current!';
                     renderPage();
                     loadPageVersions();
                 } else {
                     throw new Error(result.error || 'Failed to update');
                 }
             } catch (error) {
+                console.error('setImageAsCurrent error:', error);
                 status.className = 'generation-status error';
                 status.textContent = `Error: ${error.message}`;
             }

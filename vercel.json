@@ -1,5 +1,13 @@
 {
   "version": 2,
+  "functions": {
+    "api/generate-image.js": {
+      "maxDuration": 60
+    },
+    "api/upload-image.js": {
+      "maxDuration": 30
+    }
+  },
   "builds": [
     {
       "src": "api/**/*.js",

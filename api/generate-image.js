@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { prompt, model, slug, page, reference } = req.body;
+    const { prompt, model, slug, page, reference, referenceIsUrl } = req.body;
 
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt is required' });
@@ -33,12 +33,14 @@ export default async function handler(req, res) {
       case 'wan2.6-image':
         // Image-to-image with reference
         endpoint = '/vendors/alibaba/v1/wan2.6-image/generation';
+        // MuleRouter accepts either URLs or base64 data URLs in the images array
         body = {
           prompt,
           images: reference ? [reference] : [],
           size: '1024*1024',
           n: 1
         };
+        console.log(`wan2.6-image request: referenceIsUrl=${referenceIsUrl}, reference length=${reference?.length || 0}`);
         break;
 
       case 'wan2.6-t2i':

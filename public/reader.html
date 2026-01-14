@@ -2030,16 +2030,17 @@
                 const slug = currentBook._slug || bookSlug;
                 const pageNum = currentPage === -1 ? 'reference' : currentPage;
 
-                // Prepare reference image data
+                // Prepare reference image - use URL for hosted images, base64 only for uploads
                 let referenceData = null;
+                let referenceIsUrl = false;
                 if (model === 'wan2.6-image') {
                     if (uploadedReferenceData) {
-                        referenceData = uploadedReferenceData;
+                        // Custom upload - compress and send as base64
+                        referenceData = await compressImageDataUrl(uploadedReferenceData, 512, 0.8);
                     } else if (selectedReference) {
-                        // Fetch the reference image and convert to base64
-                        const refResponse = await fetch(selectedReference);
-                        const refBlob = await refResponse.blob();
-                        referenceData = await blobToBase64(refBlob);
+                        // Hosted reference - send as full URL (much smaller payload)
+                        referenceData = window.location.origin + selectedReference;
+                        referenceIsUrl = true;
                     }
                 }
 
@@ -2052,7 +2053,8 @@
                         model,
                         slug,
                         page: pageNum,
-                        reference: referenceData
+                        reference: referenceData,
+                        referenceIsUrl: referenceIsUrl
                     })
                 });
 
@@ -2082,6 +2084,37 @@
                 reader.onloadend = () => resolve(reader.result);
                 reader.onerror = reject;
                 reader.readAsDataURL(blob);
+            });
+        }
+
+        // Compress image data URL to reduce payload size for uploads
+        function compressImageDataUrl(dataUrl, maxSize = 512, quality = 0.8) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    // Scale down if larger than maxSize
+                    if (width > maxSize || height > maxSize) {
+                        if (width > height) {
+                            height = Math.round(height * maxSize / width);
+                            width = maxSize;
+                        } else {
+                            width = Math.round(width * maxSize / height);
+                            height = maxSize;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    resolve(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.onerror = reject;
+                img.src = dataUrl;
             });
         }
 

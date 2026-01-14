@@ -9,15 +9,6 @@
     }
   },
   "rewrites": [
-    { "source": "/api/check-status", "destination": "/api/check-status.js" },
-    { "source": "/api/generate-image", "destination": "/api/generate-image.js" },
-    { "source": "/api/generate-story", "destination": "/api/generate-story.js" },
-    { "source": "/api/evaluations", "destination": "/api/evaluations.js" },
-    { "source": "/api/feedback", "destination": "/api/feedback.js" },
-    { "source": "/api/validate-text", "destination": "/api/validate-text.js" },
-    { "source": "/api/update-book-github", "destination": "/api/update-book-github.js" },
-    { "source": "/api/upload-image", "destination": "/api/upload-image.js" },
-    { "source": "/api/save-book", "destination": "/api/save-book-supabase.js" },
-    { "source": "/(.*)", "destination": "/public/$1" }
+    { "source": "/((?!api/).*)", "destination": "/public/$1" }
   ]
 }

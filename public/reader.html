@@ -2517,18 +2517,18 @@
         }
 
         function getImagePath(page) {
-            // For cover pages, use the cover image
-            if (page.type === 'cover' || (page.page === 1 && !page.type)) {
-                return getCoverImagePath();
-            }
-
-            // Use explicit image path if available in page data
+            // FIRST: Check if page has an explicit image URL saved (from regeneration)
             if (page.image) {
                 // Support both full URLs and relative paths
                 if (page.image.startsWith('http')) {
                     return page.image;
                 }
                 return `/books/${page.image}`;
+            }
+
+            // For cover pages without explicit image, use the cover image
+            if (page.type === 'cover' || (page.page === 1 && !page.type)) {
+                return getCoverImagePath();
             }
 
             const pageNum = String(page.page || currentPage + 1).padStart(2, '0');

@@ -352,3 +352,73 @@ Before generating, verify each scene description has:
 | Reference Images | 47 generated |
 | Cover Images | 48 generated |
 | Page Images | 2 books fully generated |
+
+## Edit Mode & Image Versioning
+
+The reader includes an edit mode for iterating on images directly in the browser.
+
+### Accessing Edit Mode
+
+```
+https://funbookies.com/reader.html?book={slug}&mode=edit
+```
+
+Or click "Edit" in the top-right corner of the reader.
+
+### Edit Mode Features
+
+1. **Prompt Editor** - Edit image prompts for any page
+2. **Reference Selection** - Choose between reference image versions (v1, v2, v3)
+3. **Model Selection** - Choose generation model:
+   - `wan2.6-image` - Image-to-image with reference (recommended)
+   - `wan2.6-t2i` - Text-to-image only
+   - `nano-banana-pro` - High-quality text-to-image
+4. **Image Versioning** - Save multiple versions and switch between them
+
+### Image Versioning System
+
+When you generate and save images, each version is preserved:
+
+```
+Vercel Blob Storage:
+books/{slug}/page01_v1.png
+books/{slug}/page01_v2.png
+books/{slug}/page01_v3.png
+```
+
+**Book JSON stores versions:**
+```json
+{
+  "pages": [{
+    "page": 1,
+    "image": "https://blob.vercel-storage.com/books/slug/page01_v2.png",
+    "image_versions": [
+      { "url": "..._v1.png", "version": 1, "created_at": "..." },
+      { "url": "..._v2.png", "version": 2, "created_at": "..." }
+    ]
+  }]
+}
+```
+
+**Workflow:**
+1. Navigate to a page in edit mode
+2. Edit the prompt if needed
+3. Click "Regenerate" to generate a new image
+4. Click "Save as New Version" to save it
+5. The version appears in the "Page Image Versions" gallery
+6. Click any version thumbnail to make it the current page image
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `←` / `→` | Navigate pages (disabled when editing text) |
+| `Esc` | Return to book list |
+
+### Data Storage
+
+| Data | Storage |
+|------|---------|
+| Book JSON (prompts, versions) | Supabase |
+| Generated images | Vercel Blob |
+| Static book files (fallback) | `/public/books/` |

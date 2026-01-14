@@ -344,18 +344,30 @@
                     <!-- Populated by JS -->
                 </div>
 
-                <label for="conceptInput">Story Concept</label>
-                <textarea id="conceptInput" placeholder="Describe your book idea...
+                <label for="conceptInput">Story Concept (rough idea)</label>
+                <textarea id="conceptInput" placeholder="Describe your rough book idea...
 
-Example: A story about a cat named Gus who gets lost at the mall. He must find his way back to his family by following familiar sounds and smells. Features lots of words with final blends (-nd, -st, -mp) like 'lost', 'must', 'find', 'jump'."></textarea>
+Example: A cat gets lost at the mall and has to find his way back."></textarea>
 
                 <div class="button-row">
-                    <button class="btn btn-primary" onclick="generateXML()" id="generateBtn">
-                        Generate Book XML
+                    <button class="btn btn-primary" onclick="refineConcept()" id="refineBtn">
+                        1. Refine Concept
                     </button>
                 </div>
 
                 <div id="conceptStatus" class="status hidden"></div>
+
+                <!-- Refined Concept Section -->
+                <div id="refinedSection" class="hidden" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--color-border);">
+                    <label for="refinedConcept">Refined Concept (edit as needed)</label>
+                    <textarea id="refinedConcept" style="min-height: 300px;"></textarea>
+
+                    <div class="button-row">
+                        <button class="btn btn-primary" onclick="generateXML()" id="generateBtn">
+                            2. Generate Full XML
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Right Panel: XML Output -->
@@ -374,6 +386,19 @@ Example: A story about a cat named Gus who gets lost at the mall. He must find h
                     <button class="btn btn-outline" onclick="downloadXML()" id="downloadBtn" disabled>
                         Download XML
                     </button>
+                </div>
+
+                <div class="button-row" style="margin-top: 12px;">
+                    <button class="btn btn-primary" onclick="generateReferenceImage()" id="generateRefBtn" disabled>
+                        3. Generate Reference Image
+                    </button>
+                </div>
+
+                <div id="referencePreview" class="hidden" style="margin-top: 16px;">
+                    <label>Reference Image</label>
+                    <div id="referenceImageContainer" style="margin-top: 8px;">
+                        <!-- Image will appear here -->
+                    </div>
                 </div>
 
                 <div id="xmlStatus" class="status hidden"></div>
@@ -428,8 +453,61 @@ Example: A story about a cat named Gus who gets lost at the mall. He must find h
             `;
         }
 
-        async function generateXML() {
+        async function refineConcept() {
             const concept = document.getElementById('conceptInput').value.trim();
+            const level = document.getElementById('levelSelect').value;
+            const status = document.getElementById('conceptStatus');
+            const btn = document.getElementById('refineBtn');
+
+            if (!concept) {
+                status.className = 'status error';
+                status.textContent = 'Please enter a story concept';
+                status.classList.remove('hidden');
+                return;
+            }
+
+            status.className = 'status loading';
+            status.textContent = 'Refining concept... This may take 15-30 seconds.';
+            status.classList.remove('hidden');
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/api/refine-concept', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ concept, level })
+                });
+
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.error || 'Refinement failed');
+                }
+
+                // Show refined concept
+                document.getElementById('refinedConcept').value = result.refinedConcept;
+                document.getElementById('refinedSection').classList.remove('hidden');
+
+                status.className = 'status success';
+                status.textContent = 'Concept refined! Review and edit, then generate XML.';
+
+                // Update workflow
+                document.querySelector('.step[data-step="1"]').classList.add('completed');
+
+            } catch (error) {
+                status.className = 'status error';
+                status.textContent = `Error: ${error.message}`;
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        async function generateXML() {
+            // Use refined concept if available, otherwise raw concept
+            const refinedConcept = document.getElementById('refinedConcept').value.trim();
+            const rawConcept = document.getElementById('conceptInput').value.trim();
+            const concept = refinedConcept || rawConcept;
+
             const level = document.getElementById('levelSelect').value;
             const status = document.getElementById('conceptStatus');
             const btn = document.getElementById('generateBtn');
@@ -442,7 +520,7 @@ Example: A story about a cat named Gus who gets lost at the mall. He must find h
             }
 
             status.className = 'status loading';
-            status.textContent = 'Generating book XML... This may take 30-60 seconds.';
+            status.textContent = 'Generating book XML with story summary... This may take 60-90 seconds.';
             status.classList.remove('hidden');
             btn.disabled = true;
 
@@ -463,12 +541,13 @@ Example: A story about a cat named Gus who gets lost at the mall. He must find h
                 document.getElementById('xmlEditor').value = result.xml;
 
                 status.className = 'status success';
-                status.textContent = 'XML generated successfully!';
+                status.textContent = 'XML generated! Preview structure, then save.';
 
                 // Enable buttons
                 document.getElementById('previewBtn').disabled = false;
                 document.getElementById('saveBtn').disabled = false;
                 document.getElementById('downloadBtn').disabled = false;
+                document.getElementById('generateRefBtn').disabled = false;
 
                 // Update workflow steps
                 document.querySelector('.step[data-step="1"]').classList.add('completed');
@@ -654,6 +733,115 @@ Example: A story about a cat named Gus who gets lost at the mall. He must find h
             a.download = `${slug}.xml`;
             a.click();
             URL.revokeObjectURL(url);
+        }
+
+        async function generateReferenceImage() {
+            const xml = document.getElementById('xmlEditor').value;
+            const status = document.getElementById('xmlStatus');
+            const btn = document.getElementById('generateRefBtn');
+            const container = document.getElementById('referenceImageContainer');
+            const preview = document.getElementById('referencePreview');
+
+            // Extract reference prompt and slug from XML
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(xml, 'text/xml');
+
+            const referencePrompt = doc.querySelector('reference_prompt')?.textContent?.trim();
+            const slug = doc.querySelector('slug')?.textContent;
+
+            if (!referencePrompt) {
+                status.className = 'status error';
+                status.textContent = 'No reference_prompt found in XML';
+                status.classList.remove('hidden');
+                return;
+            }
+
+            status.className = 'status loading';
+            status.textContent = 'Generating reference image... This may take 30-60 seconds.';
+            status.classList.remove('hidden');
+            btn.disabled = true;
+
+            try {
+                // Call generate-image API with nano-banana-pro model
+                const response = await fetch('/api/generate-image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        prompt: referencePrompt,
+                        model: 'nano-banana-pro',
+                        slug: slug || 'new-book',
+                        page: 'reference'
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.error || 'Generation failed');
+                }
+
+                // Handle async generation (polling)
+                if (result.pending && result.taskId) {
+                    status.textContent = 'Image generation started, polling for result...';
+                    const imageUrl = await pollForImage(result.taskId, result.statusEndpoint);
+                    showReferenceImage(imageUrl, slug, container, preview, status);
+                } else if (result.url) {
+                    showReferenceImage(result.url, slug, container, preview, status);
+                } else {
+                    throw new Error('No image URL returned');
+                }
+
+                // Update workflow
+                document.querySelector('.step[data-step="4"]').classList.add('active', 'completed');
+
+            } catch (error) {
+                status.className = 'status error';
+                status.textContent = `Error: ${error.message}`;
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        async function pollForImage(taskId, endpoint, maxWait = 120000) {
+            const startTime = Date.now();
+            const status = document.getElementById('xmlStatus');
+
+            while (Date.now() - startTime < maxWait) {
+                await new Promise(r => setTimeout(r, 3000));
+
+                const response = await fetch('/api/check-status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ taskId, endpoint })
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'succeeded' || result.status === 'completed' || result.status === 'SUCCEEDED') {
+                    return result.url;
+                }
+
+                if (result.status === 'failed' || result.status === 'FAILED') {
+                    throw new Error(result.error || 'Generation failed');
+                }
+
+                status.textContent = `Generating reference image... (${Math.round((Date.now() - startTime) / 1000)}s)`;
+            }
+
+            throw new Error('Timeout waiting for image');
+        }
+
+        function showReferenceImage(url, slug, container, preview, status) {
+            container.innerHTML = `
+                <img src="${url}" style="max-width: 100%; border-radius: 8px; cursor: pointer;" onclick="window.open('${url}', '_blank')">
+                <div style="margin-top: 8px;">
+                    <a href="${url}" target="_blank" style="color: var(--color-sage);">View full size</a> |
+                    <a href="${url}" download="${slug || 'book'}_reference.png" style="color: var(--color-sage);">Download</a>
+                </div>
+            `;
+            preview.classList.remove('hidden');
+            status.className = 'status success';
+            status.textContent = 'Reference image generated! Save the book, then open in reader to generate page images.';
         }
 
         // Initialize

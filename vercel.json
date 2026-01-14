@@ -9,6 +9,9 @@
     },
     "api/generate-book-xml.js": {
       "maxDuration": 120
+    },
+    "api/refine-concept.js": {
+      "maxDuration": 60
     }
   },
   "rewrites": [

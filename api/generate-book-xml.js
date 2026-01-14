@@ -90,6 +90,14 @@ function buildSystemPrompt(levelSpecs) {
 
 Your task is to generate a complete book in XML format following the FunBookies schema.
 
+CRITICAL PROCESS - Follow this order:
+1. First, write a detailed STORY SUMMARY in <story_summary> showing:
+   - Page-by-page breakdown (what happens on each page)
+   - Emotional arc progression
+   - Where target words appear
+   - Key visual moments
+2. Then write the actual story pages with text and prompts
+
 CRITICAL RULES:
 1. Follow the level constraints EXACTLY - word counts, sentence lengths, phonics patterns
 2. Target words must appear 4+ times for orthographic mapping
@@ -108,6 +116,8 @@ BAND CHARACTERISTICS:
 
 OUTPUT FORMAT:
 Return ONLY valid XML starting with <?xml version="1.0"?> and ending with </book>.
+Include <story_summary> BEFORE <story> with detailed page-by-page outline.
+End with complete <reference_prompt> for the 9-panel style sheet.
 Do not include any explanation or commentary outside the XML.`;
 }
 
@@ -132,20 +142,40 @@ CONSTRAINTS:
 
 STORY GUIDANCE: ${levelData.storyGuidance || 'Age-appropriate narrative with clear arc'}
 
-Generate the complete XML including:
+Generate the complete XML in this EXACT order:
+
 1. <metadata> - title, slug, band, level
 2. <level_constraints> - from the constraints above
-3. <targets> - phonics_focus, target_words (words featuring the phonics pattern), sight_words_used
-4. <story_bible> - premise, setting, characters (with visual descriptions), themes, emotional_arc
+3. <targets> - phonics_focus, target_words (8-12 words featuring the pattern), sight_words_used
+4. <story_bible> - premise, setting, characters (with DETAILED visual descriptions for illustration), themes, emotional_arc
 5. <author_notes> - phonics notes, pacing notes, style notes
-6. <reference_prompt> - complete 9-panel reference sheet prompt with style, all 9 panels described
-7. <story> - all pages with text, scene, image_prompt, shot_type
+
+6. <story_summary> - CRITICAL: Write a DETAILED page-by-page outline BEFORE the actual story:
+   - List each page number
+   - What happens on that page
+   - What target words appear
+   - The emotional beat (wonder, concern, joy, etc.)
+   - Key visual moment for illustration
+   This ensures story coherence before writing actual text.
+
+7. <story> - all pages with:
+   - text (using <br/> for line breaks)
+   - scene (brief description)
+   - image_prompt (full, detailed prompt for generation)
+   - shot_type (wide, medium, close, detail)
+
+8. <reference_prompt> - LAST: Complete 9-panel reference sheet prompt:
+   - Style description (colors, mood, art style)
+   - Panel 1-3: Main character in different poses/expressions
+   - Panel 4-6: Supporting characters and key objects
+   - Panel 7-9: Settings and key story moments
+   - End with "TECHNICAL: Pure visual reference only, NO TEXT anywhere in image."
 
 For image prompts:
-- Include character descriptions matching story_bible
+- Include character descriptions matching story_bible exactly
 - Include style description matching reference
 - Include shot type (wide, medium, close)
-- Always end with "NO TEXT in image"
+- Always end with "NO TEXT in image."
 
 Generate the full XML now:`;
 }

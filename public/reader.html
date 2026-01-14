@@ -1824,11 +1824,13 @@
             bookSlug = bookId;
 
             try {
-                // Try to load the book JSON directly by ID
-                const res = await fetch(`/books/${bookId}.json`);
+                // Try API which checks Supabase first, then falls back to static
+                const res = await fetch(`/api/get-book?slug=${bookId}`);
                 if (!res.ok) throw new Error('Failed to load book');
 
-                currentBook = await res.json();
+                const data = await res.json();
+                currentBook = data.book;
+                console.log(`Book loaded from ${data.source}`);
                 currentBook._slug = bookId;
                 // Use page from URL param, or default (edit mode: -2, read mode: 0)
                 if (pageParam !== null) {
@@ -2085,7 +2087,8 @@
                 }
 
                 if (!response.ok) {
-                    throw new Error(result.error || `Server error: ${response.status}`);
+                    const errMsg = typeof result.error === 'object' ? JSON.stringify(result.error) : result.error;
+                    throw new Error(errMsg || `Server error: ${response.status}`);
                 }
 
                 if (result.success && result.pending) {
@@ -2096,11 +2099,13 @@
                 } else if (result.success && result.url) {
                     showGeneratedImage(result.url, slug, pageNum);
                 } else {
-                    throw new Error(result.error || 'Generation failed');
+                    const errMsg = typeof result.error === 'object' ? JSON.stringify(result.error) : result.error;
+                    throw new Error(errMsg || 'Generation failed');
                 }
             } catch (error) {
                 status.className = 'generation-status error';
-                status.textContent = `Error: ${error.message}`;
+                const errText = error.message || (typeof error === 'object' ? JSON.stringify(error) : String(error));
+                status.textContent = `Error: ${errText}`;
             } finally {
                 btn.disabled = false;
             }
@@ -2162,7 +2167,8 @@
                 }
 
                 if (!result.success && result.error) {
-                    throw new Error(result.error);
+                    const errMsg = typeof result.error === 'object' ? JSON.stringify(result.error) : result.error;
+                    throw new Error(errMsg);
                 }
 
                 // Still pending, continue polling

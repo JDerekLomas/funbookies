@@ -1792,6 +1792,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const bookId = urlParams.get('book');
         const editMode = urlParams.get('mode') === 'edit';
+        const pageParam = urlParams.get('page');
 
         // Apply edit mode class to body
         if (editMode) {
@@ -1829,8 +1830,12 @@
 
                 currentBook = await res.json();
                 currentBook._slug = bookId;
-                // In edit mode, start at creation notes page (-2)
-                currentPage = editMode ? -2 : 0;
+                // Use page from URL param, or default (edit mode: -2, read mode: 0)
+                if (pageParam !== null) {
+                    currentPage = parseInt(pageParam, 10);
+                } else {
+                    currentPage = editMode ? -2 : 0;
+                }
 
                 document.getElementById('bookTitle').textContent = currentBook.title;
                 document.title = `${currentBook.title} - FunBookies${editMode ? ' (Edit)' : ''}`;
@@ -1864,10 +1869,10 @@
             const modeToggle = document.getElementById('modeToggle');
             if (editMode) {
                 modeToggle.textContent = 'Read';
-                modeToggle.href = `/reader.html?book=${slug}`;
+                modeToggle.href = `/reader.html?book=${slug}&page=${currentPage}`;
             } else {
                 modeToggle.textContent = 'Edit';
-                modeToggle.href = `/reader.html?book=${slug}&mode=edit`;
+                modeToggle.href = `/reader.html?book=${slug}&mode=edit&page=${currentPage}`;
             }
 
             // Set initial edit info
@@ -2941,6 +2946,17 @@
             document.getElementById('pageIndicator').textContent = pageText;
             const bottomIndicator = document.getElementById('bottomPageIndicator');
             if (bottomIndicator) bottomIndicator.textContent = pageText;
+
+            // Update mode toggle link to preserve current page
+            const modeToggle = document.getElementById('modeToggle');
+            const slug = currentBook?._slug || bookSlug;
+            if (modeToggle && slug) {
+                if (editMode) {
+                    modeToggle.href = `/reader.html?book=${slug}&page=${currentPage}`;
+                } else {
+                    modeToggle.href = `/reader.html?book=${slug}&mode=edit&page=${currentPage}`;
+                }
+            }
         }
 
         // Keyboard navigation

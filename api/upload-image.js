@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { imageUrl, slug, pageNum } = req.body;
+    const { imageUrl, slug, pageNum, version } = req.body;
 
     if (!imageUrl || !slug || pageNum === undefined) {
       return res.status(400).json({
@@ -33,7 +33,9 @@ export default async function handler(req, res) {
 
     const imageBuffer = await imageResponse.arrayBuffer();
     const pageNumStr = String(pageNum).padStart(2, '0');
-    const fileName = `books/${slug}/page${pageNumStr}.png`;
+    // Include version in filename if provided (e.g., page01_v2.png)
+    const versionSuffix = version ? `_v${version}` : '';
+    const fileName = `books/${slug}/page${pageNumStr}${versionSuffix}.png`;
 
     // Upload to Vercel Blob using REST API
     const uploadResponse = await fetch(

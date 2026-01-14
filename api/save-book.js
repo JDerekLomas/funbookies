@@ -57,13 +57,23 @@ export default async function handler(req, res) {
     if (pageIndex === -1) {
       book[field] = value;
     } else if (book.pages && book.pages[pageIndex]) {
-      book.pages[pageIndex][field] = value;
-
-      if (field === 'image') {
+      // Handle special case for saving image with versions
+      if (field === 'image_with_versions' && typeof value === 'object') {
+        book.pages[pageIndex].image = value.image;
+        book.pages[pageIndex].image_versions = value.image_versions;
         book.pages[pageIndex].generation_metadata = {
           generated_at: new Date().toISOString(),
           saved_via: 'supabase'
         };
+      } else {
+        book.pages[pageIndex][field] = value;
+
+        if (field === 'image') {
+          book.pages[pageIndex].generation_metadata = {
+            generated_at: new Date().toISOString(),
+            saved_via: 'supabase'
+          };
+        }
       }
     } else {
       return res.status(400).json({ error: `Invalid page index: ${pageIndex}` });

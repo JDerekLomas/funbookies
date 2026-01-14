@@ -615,10 +615,12 @@
             left: -35px;
             width: 170px;
             padding: 6px 0 4px;
-            background: var(--color-terracotta);
+            background: #FF8C00;
             transform: rotate(-45deg);
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            border-top: 2px solid #1a1a1a;
+            border-bottom: 2px solid #1a1a1a;
         }
 
         .corner-ribbon::before,
@@ -627,17 +629,17 @@
             position: absolute;
             bottom: -5px;
             border: 5px solid transparent;
-            border-top-color: #b86a4a;
+            border-top-color: #cc7000;
         }
 
         .corner-ribbon::before {
             left: 0;
-            border-left-color: #b86a4a;
+            border-left-color: #cc7000;
         }
 
         .corner-ribbon::after {
             right: 0;
-            border-right-color: #b86a4a;
+            border-right-color: #cc7000;
         }
 
         .corner-ribbon .brand-name {
@@ -915,8 +917,7 @@
         .keyboard-hint {
             position: fixed;
             bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 20px;
             color: rgba(255,255,255,0.5);
             font-size: 0.85rem;
         }

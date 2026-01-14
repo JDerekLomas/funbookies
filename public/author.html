@@ -274,6 +274,81 @@
         .hidden {
             display: none;
         }
+
+        .prompt-preview {
+            margin-top: 16px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .prompt-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--color-cream);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .prompt-toggle:hover {
+            background: #f0ede8;
+        }
+
+        .prompt-toggle .arrow {
+            transition: transform 0.2s;
+        }
+
+        .prompt-toggle.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .prompt-content {
+            display: none;
+            padding: 16px;
+            background: #f8f7f4;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .prompt-content.open {
+            display: block;
+        }
+
+        .prompt-content pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.75rem;
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--color-border);
+            margin-top: 8px;
+        }
+
+        .prompt-content h4 {
+            color: var(--color-sage);
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        .prompt-content .section {
+            margin-bottom: 16px;
+        }
+
+        .prompt-content .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .prompt-var {
+            color: var(--color-dusty-blue);
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -349,7 +424,87 @@
 
 Example: A cat gets lost at the mall and has to find his way back."></textarea>
 
-                <div class="button-row">
+                <!-- Prompt Preview for Refine Concept -->
+                <div class="prompt-preview">
+                    <div class="prompt-toggle" onclick="togglePrompt('refinePrompt')">
+                        <span>View Refine Concept Prompt Template</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="prompt-content" id="refinePromptContent">
+                        <div class="section">
+                            <h4>System Prompt (Role)</h4>
+                            <pre>You are a children's book development editor specializing in phonics-based decodable readers.
+
+Your task is to take a rough book concept and enhance it into a detailed, production-ready concept that:
+1. Aligns perfectly with the reading level constraints
+2. Identifies specific target words featuring the phonics pattern
+3. Develops memorable characters with clear visual descriptions
+4. Creates an engaging story arc appropriate for the age group
+5. Suggests specific scenes that will work well as illustrations
+
+Be specific and practical. The output will be used to generate a complete book.</pre>
+                        </div>
+                        <div class="section">
+                            <h4>User Prompt Template</h4>
+                            <pre>Enhance this rough book concept for level <span class="prompt-var">${level}</span>:
+
+ROUGH CONCEPT:
+<span class="prompt-var">${concept}</span>
+
+LEVEL: <span class="prompt-var">${level}</span> - <span class="prompt-var">${levelData.name}</span>
+BAND: <span class="prompt-var">${levelData.band}</span> - <span class="prompt-var">${bandData.name}</span>
+READER CAN: <span class="prompt-var">${levelData.readerCan}</span>
+
+CONSTRAINTS:
+- Words per sentence: <span class="prompt-var">${constraints.wordsPerSentence}</span>
+- Total pages: <span class="prompt-var">${constraints.pages}</span>
+- Decodability: <span class="prompt-var">${constraints.decodability}</span>
+- Phonics patterns to feature: <span class="prompt-var">${constraints.phonicsPatterns}</span>
+- Sight words allowed (cumulative): <span class="prompt-var">${constraints.sightWordsCumulative}</span>
+- Story guidance: <span class="prompt-var">${levelData.storyGuidance}</span>
+
+Please provide an ENHANCED CONCEPT with:
+
+## Title
+A catchy, level-appropriate title
+
+## Phonics Focus
+The specific phonics patterns this book will practice, with 8-12 target words
+
+## Premise
+One paragraph describing the story (who, what, where, why, conflict, resolution)
+
+## Main Character
+- Name
+- Age/type
+- Visual description (specific details for illustration consistency)
+- Personality traits
+
+## Supporting Characters (if any)
+Same details as main character
+
+## Setting
+Specific, visual description of the primary location(s)
+
+## Story Arc
+- Opening hook (page 1-2)
+- Rising action (what happens, what's the problem)
+- Climax (the turning point)
+- Resolution (how it ends)
+- Emotional journey (what the reader feels)
+
+## Scene Ideas
+List 6-8 key visual moments that would make great illustrations
+
+## Style Notes
+Art style suggestions (colors, mood, visual references)
+
+Be specific and creative while staying within the level constraints.</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-row" style="margin-top: 16px;">
                     <button class="btn btn-primary" onclick="refineConcept()" id="refineBtn">
                         1. Refine Concept
                     </button>
@@ -362,7 +517,110 @@ Example: A cat gets lost at the mall and has to find his way back."></textarea>
                     <label for="refinedConcept">Refined Concept (edit as needed)</label>
                     <textarea id="refinedConcept" style="min-height: 300px;"></textarea>
 
-                    <div class="button-row">
+                    <!-- Prompt Preview for XML Generation -->
+                    <div class="prompt-preview">
+                        <div class="prompt-toggle" onclick="togglePrompt('xmlPrompt')">
+                            <span>View XML Generation Prompt Template</span>
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="prompt-content" id="xmlPromptContent">
+                            <div class="section">
+                                <h4>System Prompt (Role)</h4>
+                                <pre>You are a children's book author specializing in phonics-based decodable readers. You create books that follow strict Science of Reading principles.
+
+Your task is to generate a complete book in XML format following the FunBookies schema.
+
+CRITICAL PROCESS - Follow this order:
+1. First, write a detailed STORY SUMMARY in &lt;story_summary&gt; showing:
+   - Page-by-page breakdown (what happens on each page)
+   - Emotional arc progression
+   - Where target words appear
+   - Key visual moments
+2. Then write the actual story pages with text and prompts
+
+CRITICAL RULES:
+1. Follow the level constraints EXACTLY - word counts, sentence lengths, phonics patterns
+2. Target words must appear 4+ times for orthographic mapping
+3. Text must be age-appropriate and engaging
+4. Use &lt;br/&gt; for line breaks within page text
+5. Each page should have scene description AND full image_prompt
+6. Reference prompt must describe a 9-panel reference sheet
+7. NO text should appear in images - prompts must say "NO TEXT"
+8. Story should have clear beginning, middle, end with emotional arc
+
+BAND CHARACTERISTICS:
+- Band A (A0-A4): Pre-reading. Simple labels, pattern books. UPPERCASE early, then lowercase.
+- Band B (B1-B9): Phonics foundation. CVC → blends → digraphs → silent e → vowel teams → r-controlled.
+- Band C (C1-C8): Word study. Syllabication, morphology, prefixes/suffixes.
+- Band D (D1-D6): Fluent reading. Complex sentences, dialogue, literary devices.
+
+OUTPUT FORMAT:
+Return ONLY valid XML starting with &lt;?xml version="1.0"?&gt; and ending with &lt;/book&gt;.
+Include &lt;story_summary&gt; BEFORE &lt;story&gt; with detailed page-by-page outline.
+End with complete &lt;reference_prompt&gt; for the 9-panel style sheet.
+Do not include any explanation or commentary outside the XML.</pre>
+                            </div>
+                            <div class="section">
+                                <h4>User Prompt Template</h4>
+                                <pre>Create a complete book XML for this concept:
+
+CONCEPT: <span class="prompt-var">${concept}</span>
+
+LEVEL: <span class="prompt-var">${level}</span> - <span class="prompt-var">${levelData.name}</span>
+BAND: <span class="prompt-var">${bandData.name}</span>
+READER CAN: <span class="prompt-var">${levelData.readerCan}</span>
+
+CONSTRAINTS:
+- Words per sentence: <span class="prompt-var">${constraints.wordsPerSentence}</span>
+- Pages: <span class="prompt-var">${constraints.pages}</span>
+- Decodability: <span class="prompt-var">${constraints.decodability}</span>
+- Phonics patterns: <span class="prompt-var">${constraints.phonicsPatterns}</span>
+- Sight words allowed: <span class="prompt-var">${constraints.sightWords}</span>
+- Fluency target: <span class="prompt-var">${levelData.fluencyTarget}</span>
+
+STORY GUIDANCE: <span class="prompt-var">${levelData.storyGuidance}</span>
+
+Generate the complete XML in this EXACT order:
+
+1. &lt;metadata&gt; - title, slug, band, level
+2. &lt;level_constraints&gt; - from the constraints above
+3. &lt;targets&gt; - phonics_focus, target_words (8-12 words featuring the pattern), sight_words_used
+4. &lt;story_bible&gt; - premise, setting, characters (with DETAILED visual descriptions for illustration), themes, emotional_arc
+5. &lt;author_notes&gt; - phonics notes, pacing notes, style notes
+
+6. &lt;story_summary&gt; - CRITICAL: Write a DETAILED page-by-page outline BEFORE the actual story:
+   - List each page number
+   - What happens on that page
+   - What target words appear
+   - The emotional beat (wonder, concern, joy, etc.)
+   - Key visual moment for illustration
+   This ensures story coherence before writing actual text.
+
+7. &lt;story&gt; - all pages with:
+   - text (using &lt;br/&gt; for line breaks)
+   - scene (brief description)
+   - image_prompt (full, detailed prompt for generation)
+   - shot_type (wide, medium, close, detail)
+
+8. &lt;reference_prompt&gt; - LAST: Complete 9-panel reference sheet prompt:
+   - Style description (colors, mood, art style)
+   - Panel 1-3: Main character in different poses/expressions
+   - Panel 4-6: Supporting characters and key objects
+   - Panel 7-9: Settings and key story moments
+   - End with "TECHNICAL: Pure visual reference only, NO TEXT anywhere in image."
+
+For image prompts:
+- Include character descriptions matching story_bible exactly
+- Include style description matching reference
+- Include shot type (wide, medium, close)
+- Always end with "NO TEXT in image."
+
+Generate the full XML now:</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-row" style="margin-top: 16px;">
                         <button class="btn btn-primary" onclick="generateXML()" id="generateBtn">
                             2. Generate Full XML
                         </button>
@@ -416,6 +674,14 @@ Example: A cat gets lost at the mall and has to find his way back."></textarea>
     <script>
         let levelSpecs = null;
         let currentXML = null;
+
+        // Toggle prompt preview visibility
+        function togglePrompt(id) {
+            const content = document.getElementById(id + 'Content');
+            const toggle = content.previousElementSibling;
+            content.classList.toggle('open');
+            toggle.classList.toggle('open');
+        }
 
         // Load level specs on page load
         async function loadLevelSpecs() {

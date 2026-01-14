@@ -673,14 +673,15 @@
             object-fit: cover;
         }
 
-        /* Title overlay on cover image - no background, strong drop shadow */
+        /* Title overlay on cover image - gradient fade for readability */
         .cover-title-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 20px;
+            padding: 40px 20px 20px;
             text-align: center;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 100%);
         }
 
         .cover-title-overlay h1 {

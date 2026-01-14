@@ -47,6 +47,12 @@ Your task is to take a rough book concept and enhance it into a detailed, produc
 4. Creates an engaging story arc appropriate for the age group
 5. Suggests specific scenes that will work well as illustrations
 
+CHARACTER RULES:
+- Maximum 2-3 recurring characters (ideally 2)
+- Each recurring character needs consistent, detailed visual description
+- One-off characters (appear in only 1 scene) don't count toward the limit
+- Fewer characters = better illustration consistency and reader focus
+
 Be specific and practical. The output will be used to generate a complete book.`;
 
     const userPrompt = `Enhance this rough book concept for level ${level}:
@@ -77,14 +83,14 @@ The specific phonics patterns this book will practice, with 8-12 target words
 ## Premise
 One paragraph describing the story (who, what, where, why, conflict, resolution)
 
-## Main Character
+## Characters (max 2-3 recurring, ideally 2)
+For EACH recurring character provide:
 - Name
-- Age/type
-- Visual description (specific details for illustration consistency)
-- Personality traits
+- Age/type (child, animal, creature, etc.)
+- Visual description (DETAILED: colors, clothing, distinctive features - must be consistent across all illustrations)
+- Personality traits (1-2 key traits)
 
-## Supporting Characters (if any)
-Same details as main character
+Note: One-off characters (appear once) don't need full descriptions.
 
 ## Setting
 Specific, visual description of the primary location(s)

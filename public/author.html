@@ -442,6 +442,12 @@ Your task is to take a rough book concept and enhance it into a detailed, produc
 4. Creates an engaging story arc appropriate for the age group
 5. Suggests specific scenes that will work well as illustrations
 
+CHARACTER RULES:
+- Maximum 2-3 recurring characters (ideally 2)
+- Each recurring character needs consistent, detailed visual description
+- One-off characters (appear in only 1 scene) don't count toward the limit
+- Fewer characters = better illustration consistency and reader focus
+
 Be specific and practical. The output will be used to generate a complete book.</pre>
                         </div>
                         <div class="section">
@@ -474,14 +480,14 @@ The specific phonics patterns this book will practice, with 8-12 target words
 ## Premise
 One paragraph describing the story (who, what, where, why, conflict, resolution)
 
-## Main Character
+## Characters (max 2-3 recurring, ideally 2)
+For EACH recurring character provide:
 - Name
-- Age/type
-- Visual description (specific details for illustration consistency)
-- Personality traits
+- Age/type (child, animal, creature, etc.)
+- Visual description (DETAILED: colors, clothing, distinctive features - must be consistent across all illustrations)
+- Personality traits (1-2 key traits)
 
-## Supporting Characters (if any)
-Same details as main character
+Note: One-off characters (appear once) don't need full descriptions.
 
 ## Setting
 Specific, visual description of the primary location(s)
@@ -548,6 +554,13 @@ CRITICAL RULES:
 7. NO text should appear in images - prompts must say "NO TEXT"
 8. Story should have clear beginning, middle, end with emotional arc
 
+CHARACTER RULES:
+- Maximum 2-3 recurring characters (ideally 2)
+- Each recurring character needs DETAILED, CONSISTENT visual description
+- One-off characters (appear in only 1 scene) don't count toward the limit
+- Fewer characters = better illustration consistency and reader focus
+- Character descriptions must include: colors, clothing, distinctive features
+
 BAND CHARACTERISTICS:
 - Band A (A0-A4): Pre-reading. Simple labels, pattern books. UPPERCASE early, then lowercase.
 - Band B (B1-B9): Phonics foundation. CVC → blends → digraphs → silent e → vowel teams → r-controlled.
@@ -585,7 +598,7 @@ Generate the complete XML in this EXACT order:
 1. &lt;metadata&gt; - title, slug, band, level
 2. &lt;level_constraints&gt; - from the constraints above
 3. &lt;targets&gt; - phonics_focus, target_words (8-12 words featuring the pattern), sight_words_used
-4. &lt;story_bible&gt; - premise, setting, characters (with DETAILED visual descriptions for illustration), themes, emotional_arc
+4. &lt;story_bible&gt; - premise, setting, characters (MAX 2-3 recurring, each with DETAILED visual descriptions: colors, clothing, distinctive features), themes, emotional_arc
 5. &lt;author_notes&gt; - phonics notes, pacing notes, style notes
 
 6. &lt;story_summary&gt; - CRITICAL: Write a DETAILED page-by-page outline BEFORE the actual story:

@@ -173,6 +173,13 @@ CRITICAL RULES:
 7. NO text should appear in images - prompts must say "NO TEXT"
 8. Story should have clear beginning, middle, end with emotional arc
 
+CHARACTER RULES:
+- Maximum 2-3 recurring characters (ideally 2)
+- Each recurring character needs DETAILED, CONSISTENT visual description
+- One-off characters (appear in only 1 scene) don't count toward the limit
+- Fewer characters = better illustration consistency and reader focus
+- Character descriptions must include: colors, clothing, distinctive features
+
 BAND CHARACTERISTICS:
 - Band A (A0-A4): Pre-reading. Simple labels, pattern books. UPPERCASE early, then lowercase.
 - Band B (B1-B9): Phonics foundation. CVC → blends → digraphs → silent e → vowel teams → r-controlled.
@@ -212,7 +219,7 @@ Generate the complete XML in this EXACT order:
 1. <metadata> - title, slug, band, level
 2. <level_constraints> - from the constraints above
 3. <targets> - phonics_focus, target_words (8-12 words featuring the pattern), sight_words_used
-4. <story_bible> - premise, setting, characters (with DETAILED visual descriptions for illustration), themes, emotional_arc
+4. <story_bible> - premise, setting, characters (MAX 2-3 recurring, each with DETAILED visual descriptions: colors, clothing, distinctive features), themes, emotional_arc
 5. <author_notes> - phonics notes, pacing notes, style notes
 
 6. <story_summary> - CRITICAL: Write a DETAILED page-by-page outline BEFORE the actual story:

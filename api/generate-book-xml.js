@@ -180,6 +180,28 @@ CHARACTER RULES:
 - Fewer characters = better illustration consistency and reader focus
 - Character descriptions must include: colors, clothing, distinctive features
 
+STORY STRUCTURES (use the one specified in concept, or choose best fit):
+
+1. MINI HERO'S JOURNEY: Ordinary world → Call to adventure → Challenge → Lowest moment → Discovery/help → Triumph → Return transformed
+   Emotions: comfort → excitement → worry → despair → hope → joy → satisfaction
+
+2. PROBLEM-SOLUTION: Has problem → Tries and fails → Tries differently → Succeeds
+   Emotions: frustration → determination → disappointment → persistence → relief/pride
+
+3. WISH FULFILLMENT: Wants something → Works for it → Almost gets it → Gets it (or better)
+   Emotions: longing → hope → anticipation → worry → joy
+
+4. FRIENDSHIP: Meet someone different → Misunderstanding → See their view → Become friends
+   Emotions: curiosity → confusion → hurt → understanding → warmth
+
+5. DISCOVERY: Encounter new thing → Fear/confusion → Explore → Understand and appreciate
+   Emotions: uncertainty → caution → curiosity → wonder → confidence
+
+6. HELPING OTHERS: See need → Decide to help → Difficulty → Succeed together
+   Emotions: concern → determination → struggle → teamwork → pride
+
+Every page MUST have a clear emotional beat from the chosen arc.
+
 BAND CHARACTERISTICS:
 - Band A (A0-A4): Pre-reading. Simple labels, pattern books. UPPERCASE early, then lowercase.
 - Band B (B1-B9): Phonics foundation. CVC → blends → digraphs → silent e → vowel teams → r-controlled.

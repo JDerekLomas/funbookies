@@ -53,6 +53,35 @@ CHARACTER RULES:
 - One-off characters (appear in only 1 scene) don't count toward the limit
 - Fewer characters = better illustration consistency and reader focus
 
+STORY STRUCTURES (choose one that fits):
+
+1. MINI HERO'S JOURNEY (most versatile)
+   - Ordinary world → Call to adventure → Challenge/obstacle →
+   - Lowest moment → Discovery/help → Triumph → Return transformed
+   - Emotional arc: comfort → excitement → worry → despair → hope → joy → satisfaction
+
+2. PROBLEM-SOLUTION
+   - Character has a problem → Tries and fails → Tries differently → Succeeds
+   - Emotional arc: frustration → determination → disappointment → persistence → relief/pride
+
+3. WISH FULFILLMENT
+   - Character wants something → Works/waits for it → Almost gets it → Gets it (or something better)
+   - Emotional arc: longing → hope → anticipation → worry → joy
+
+4. FRIENDSHIP STORY
+   - Meet someone different → Misunderstanding/conflict → See their perspective → Become friends
+   - Emotional arc: curiosity → confusion → hurt → understanding → warmth
+
+5. DISCOVERY/LEARNING
+   - Encounter something new → Fear or confusion → Explore carefully → Understand and appreciate
+   - Emotional arc: uncertainty → caution → curiosity → wonder → confidence
+
+6. HELPING OTHERS
+   - See someone in need → Decide to help → Face difficulty helping → Succeed together
+   - Emotional arc: concern → determination → struggle → teamwork → pride/gratitude
+
+Choose the structure that best fits the concept. Every page should have a clear emotional beat.
+
 Be specific and practical. The output will be used to generate a complete book.`;
 
     const userPrompt = `Enhance this rough book concept for level ${level}:
@@ -95,12 +124,16 @@ Note: One-off characters (appear once) don't need full descriptions.
 ## Setting
 Specific, visual description of the primary location(s)
 
-## Story Arc
-- Opening hook (page 1-2)
-- Rising action (what happens, what's the problem)
-- Climax (the turning point)
-- Resolution (how it ends)
-- Emotional journey (what the reader feels)
+## Story Structure
+Choose one: Mini Hero's Journey / Problem-Solution / Wish Fulfillment / Friendship / Discovery / Helping Others
+
+## Story Arc (following your chosen structure)
+- Opening hook (page 1-2): establish character + world + emotional starting point
+- Rising action: what happens, what's the challenge
+- Low point: the moment of maximum tension or doubt
+- Turning point: the breakthrough or realization
+- Resolution: how it ends, what changed
+- Emotional journey: list the emotional beats page by page
 
 ## Scene Ideas
 List 6-8 key visual moments that would make great illustrations

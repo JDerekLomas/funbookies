@@ -8,6 +8,16 @@
       "maxDuration": 30
     }
   },
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    }
+  ],
   "routes": [
     { "src": "/api/check-status", "dest": "/api/check-status.js" },
     { "src": "/api/generate-image", "dest": "/api/generate-image.js" },

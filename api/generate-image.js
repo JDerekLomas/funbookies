@@ -33,14 +33,33 @@ export default async function handler(req, res) {
       case 'wan2.6-image':
         // Image-to-image with reference
         endpoint = '/vendors/alibaba/v1/wan2.6-image/generation';
-        // MuleRouter accepts either URLs or base64 data URLs in the images array
+
+        // If reference is a URL, fetch it and convert to base64
+        let referenceBase64 = reference;
+        if (reference && referenceIsUrl) {
+          console.log(`Fetching reference image from URL: ${reference}`);
+          try {
+            const imgResponse = await fetch(reference);
+            if (!imgResponse.ok) {
+              throw new Error(`Failed to fetch reference image: ${imgResponse.status}`);
+            }
+            const imgBuffer = await imgResponse.arrayBuffer();
+            const base64 = Buffer.from(imgBuffer).toString('base64');
+            const contentType = imgResponse.headers.get('content-type') || 'image/png';
+            referenceBase64 = `data:${contentType};base64,${base64}`;
+            console.log(`Converted URL to base64, length: ${referenceBase64.length}`);
+          } catch (fetchError) {
+            console.error('Failed to fetch reference image:', fetchError);
+            throw new Error(`Could not fetch reference image: ${fetchError.message}`);
+          }
+        }
+
         body = {
           prompt,
-          images: reference ? [reference] : [],
+          images: referenceBase64 ? [referenceBase64] : [],
           size: '1024*1024',
           n: 1
         };
-        console.log(`wan2.6-image request: referenceIsUrl=${referenceIsUrl}, reference length=${reference?.length || 0}`);
         break;
 
       case 'wan2.6-t2i':
@@ -77,10 +96,19 @@ export default async function handler(req, res) {
       body: JSON.stringify(body)
     });
 
-    const submitResult = await submitResponse.json();
+    let submitResult;
+    try {
+      const responseText = await submitResponse.text();
+      if (!responseText) {
+        throw new Error(`MuleRouter returned empty response (status ${submitResponse.status})`);
+      }
+      submitResult = JSON.parse(responseText);
+    } catch (parseError) {
+      throw new Error(`MuleRouter response parse error: ${parseError.message}`);
+    }
 
     if (!submitResponse.ok) {
-      throw new Error(submitResult.error || submitResult.message || 'API request failed');
+      throw new Error(submitResult.error || submitResult.message || `MuleRouter error: ${submitResponse.status}`);
     }
 
     // For async APIs, poll for result

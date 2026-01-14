@@ -2058,7 +2058,21 @@
                     })
                 });
 
-                const result = await response.json();
+                // Handle non-JSON or empty responses
+                let result;
+                try {
+                    const text = await response.text();
+                    if (!text) {
+                        throw new Error(`Empty response from server (status ${response.status})`);
+                    }
+                    result = JSON.parse(text);
+                } catch (parseError) {
+                    throw new Error(`Server error (${response.status}): ${parseError.message}`);
+                }
+
+                if (!response.ok) {
+                    throw new Error(result.error || `Server error: ${response.status}`);
+                }
 
                 if (result.success && result.pending) {
                     // Poll for result

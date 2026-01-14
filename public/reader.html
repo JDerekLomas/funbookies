@@ -2217,7 +2217,7 @@
             status.textContent = 'Saving...';
 
             try {
-                const response = await fetch('/api/save-book', {
+                const response = await fetch('/api/update-book-github', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

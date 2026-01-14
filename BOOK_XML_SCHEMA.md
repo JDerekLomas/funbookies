@@ -2,6 +2,43 @@
 
 The XML format is the single source of truth for book creation. It's generated from a concept using AI, then edited and refined through the workflow.
 
+## Level Specifications
+
+Level specs are defined in `/public/data/level-specs.json`. The XML references these constraints.
+
+### Band Overview
+
+| Band | Levels | Focus | Sight Words | Lexile |
+|------|--------|-------|-------------|--------|
+| **A** | A0-A4 | Pre-reading, letter mastery | 0-9 | BR |
+| **B** | B1-B9 | Phonics foundation, decoding | 9-37 | BR-200L |
+| **C** | C1-C8 | Word study, morphology | 37-56 | 200L-450L |
+| **D** | D1-D6 | Fluency, comprehension | unlimited | 450L-800L |
+
+### Key Constraints by Level
+
+Each level in `level-specs.json` defines:
+- `wordsPerPage` / `wordsPerSentence` - Text length limits
+- `phonicsPatterns` - Allowed patterns (e.g., CVC, CVCe, digraphs)
+- `sightWords` / `sightWordsCumulative` - High-frequency words allowed
+- `decodability` - Percentage of words that must be decodable
+- `pages` - Expected page count
+- `fluencyTarget` - Target words per minute
+- `storyGuidance` - Narrative suggestions
+
+### Example: B3 Constraints
+
+```json
+{
+  "wordsPerSentence": "5-6",
+  "phonicsPatterns": ["-nd: and, hand", "-mp: jump, bump", "-st: best, fast", "FLOSS: ff, ll, ss, zz"],
+  "sightWordsCumulative": 19,
+  "pages": "14",
+  "decodability": "85%+",
+  "storyGuidance": "Action stories: jump, stomp, bump. Suspense: 'What was that?'"
+}
+```
+
 ## Full Schema
 
 ```xml
@@ -14,8 +51,30 @@ The XML format is the single source of truth for book creation. It's generated f
     <band>D</band>
     <level>D1</level>
     <author>FunBookies</author>
-    <target_words>lighthouse, keeper, summer, grandmother</target_words>
   </metadata>
+
+  <!-- LEVEL CONSTRAINTS (from level-specs.json, included for reference) -->
+  <level_constraints>
+    <words_per_sentence min="14" max="18" />
+    <total_pages min="26" max="30" />
+    <decodability>N/A for D-band</decodability>
+    <fluency_target>105-115 wpm with expression</fluency_target>
+    <sight_words>All previous levels</sight_words>
+    <phonics_patterns>
+      All patterns mastered. Focus on sentence variety and dialogue.
+    </phonics_patterns>
+    <story_guidance>
+      Character-driven with rich dialogue. Multiple speakers distinguished by voice.
+      Compound and complex sentences. Dialogue with varied tags.
+    </story_guidance>
+  </level_constraints>
+
+  <!-- TARGET PHONICS/VOCABULARY -->
+  <targets>
+    <phonics_focus>Compound-complex sentences, dialogue punctuation</phonics_focus>
+    <target_words>lighthouse, keeper, generations, responsibility, beacon</target_words>
+    <sight_words_used>there, where, through, thought, would, could</sight_words_used>
+  </targets>
 
   <!-- STORY BIBLE - Characters, setting, themes -->
   <story_bible>
@@ -160,7 +219,26 @@ TECHNICAL: Pure visual reference only, NO TEXT anywhere in image.
 | `band` | Yes | Reading band: A, B, C, D |
 | `level` | Yes | Specific level: A1, B3, D1, etc. |
 | `author` | No | Author name (default: FunBookies) |
-| `target_words` | No | Phonics focus words for this level |
+
+### `<level_constraints>`
+Auto-populated from `level-specs.json` based on selected level. Included in XML for reference.
+
+| Element | Description |
+|---------|-------------|
+| `words_per_sentence` | Min/max words per sentence for this level |
+| `total_pages` | Expected page count range |
+| `decodability` | Percentage of words that must be decodable |
+| `fluency_target` | Target reading speed (wpm) |
+| `sight_words` | Cumulative sight words allowed |
+| `phonics_patterns` | Phonics patterns introduced at this level |
+| `story_guidance` | Narrative suggestions for this level |
+
+### `<targets>`
+| Element | Required | Description |
+|---------|----------|-------------|
+| `phonics_focus` | Yes | Primary phonics skill being practiced |
+| `target_words` | Yes | Words featuring the target phonics pattern |
+| `sight_words_used` | No | High-frequency words used in this book |
 
 ### `<story_bible>`
 | Element | Required | Description |

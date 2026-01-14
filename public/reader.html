@@ -2217,7 +2217,7 @@
             status.textContent = 'Saving...';
 
             try {
-                const response = await fetch('/api/update-book-github', {
+                const response = await fetch('/api/save-book', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -2286,8 +2286,8 @@
                 const blobUrl = uploadResult.url;
                 status.textContent = 'Saving to book...';
 
-                // 2. Save the Blob URL to book JSON via GitHub API
-                const response = await fetch('/api/update-book-github', {
+                // 2. Save the Blob URL to book JSON via Supabase
+                const response = await fetch('/api/save-book', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

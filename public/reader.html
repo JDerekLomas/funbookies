@@ -1913,6 +1913,13 @@
                 promptEditor.value = currentPrompt;
             }
 
+            // Disable regenerate button on Creation Notes page
+            const regenerateBtn = document.getElementById('regenerateBtn');
+            if (regenerateBtn) {
+                regenerateBtn.disabled = currentPage === -2;
+                regenerateBtn.title = currentPage === -2 ? 'Navigate to a page to generate images' : '';
+            }
+
             // Load reference versions
             loadReferenceVersions();
 
@@ -2011,6 +2018,13 @@
         async function regenerateImage() {
             const status = document.getElementById('generationStatus');
             const btn = document.getElementById('regenerateBtn');
+
+            // Can't regenerate on Creation Notes page (story_bible editing)
+            if (currentPage === -2) {
+                status.className = 'generation-status error';
+                status.textContent = 'Navigate to a page or reference sheet to generate images';
+                return;
+            }
 
             const prompt = document.getElementById('promptEditor').value;
             const model = document.getElementById('modelSelect').value;

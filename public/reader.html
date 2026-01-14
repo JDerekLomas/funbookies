@@ -2150,49 +2150,12 @@
         async function selectPageVersion(url, element) {
             if (!currentBook || currentPage < 0) return;
 
-            const status = document.getElementById('generationStatus');
-            const page = currentBook.pages[currentPage];
-            if (!page) return;
-
             // Update UI immediately
             document.querySelectorAll('.page-version').forEach(el => el.classList.remove('active'));
             element.classList.add('active');
 
-            status.className = 'generation-status';
-            status.textContent = 'Updating page image...';
-
-            try {
-                const slug = currentBook._slug || bookSlug;
-
-                // Save the selected version as the current image
-                const response = await fetch('/api/save-book', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        slug,
-                        pageIndex: currentPage,
-                        field: 'image',
-                        value: url
-                    })
-                });
-
-                const result = await response.json();
-                if (!result.success) {
-                    throw new Error(result.error || 'Failed to update');
-                }
-
-                // Update local data
-                page.image = url;
-                status.className = 'generation-status success';
-                status.textContent = 'Page image updated!';
-
-                // Refresh display
-                renderPage();
-                loadPageVersions();
-            } catch (error) {
-                status.className = 'generation-status error';
-                status.textContent = `Error: ${error.message}`;
-            }
+            // Use shared function to set as current
+            await setImageAsCurrent(url);
         }
 
         function getNextVersionNumber() {
@@ -2365,32 +2328,128 @@
         }
 
         let lastGeneratedUrl = null;
+        let lastGeneratedBlobUrl = null;
 
-        function showGeneratedImage(url, slug, pageNum) {
+        async function showGeneratedImage(url, slug, pageNum) {
             const status = document.getElementById('generationStatus');
             const filename = `${slug}_page_${pageNum}.png`;
             lastGeneratedUrl = url;
 
-            status.className = 'generation-status success';
-            status.innerHTML = `
-                Image generated!<br>
-                <a href="${url}" target="_blank" style="color: inherit; text-decoration: underline;">View full size</a> |
-                <a href="${url}" download="${filename}" style="color: inherit; text-decoration: underline;">Download</a>
-                <div style="margin-top: 8px;">
-                    <img src="${url}" style="max-width: 200px; border-radius: 4px; cursor: pointer;" onclick="window.open('${url}', '_blank')">
-                </div>
-                <button onclick="saveGeneratedImage()" style="margin-top: 8px; padding: 6px 12px; background: var(--color-sage); color: white; border: none; border-radius: 4px; cursor: pointer;">
-                    Save as New Version
-                </button>
-            `;
+            // Immediately download from MuleRouter and save to Vercel Blob
+            // This avoids hotlinking and ensures we own the image
+            status.className = 'generation-status';
+            status.textContent = 'Downloading image to storage...';
+
+            try {
+                const versionNum = getNextVersionNumber();
+                const actualPageNum = currentPage >= 0 ? (currentBook.pages[currentPage]?.page || currentPage + 1) : pageNum;
+
+                const uploadResponse = await fetch('/api/upload-image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        imageUrl: url,
+                        slug,
+                        pageNum: actualPageNum,
+                        version: versionNum
+                    })
+                });
+
+                const uploadResult = await uploadResponse.json();
+
+                if (!uploadResult.success) {
+                    throw new Error(uploadResult.error || 'Upload failed');
+                }
+
+                lastGeneratedBlobUrl = uploadResult.url;
+
+                status.className = 'generation-status success';
+                status.innerHTML = `
+                    Image generated and saved (v${versionNum})!<br>
+                    <a href="${lastGeneratedBlobUrl}" target="_blank" style="color: inherit; text-decoration: underline;">View full size</a> |
+                    <a href="${lastGeneratedBlobUrl}" download="${filename}" style="color: inherit; text-decoration: underline;">Download</a>
+                    <div style="margin-top: 8px;">
+                        <img src="${lastGeneratedBlobUrl}" style="max-width: 200px; border-radius: 4px; cursor: pointer;" onclick="window.open('${lastGeneratedBlobUrl}', '_blank')">
+                    </div>
+                    <button onclick="useGeneratedImage()" style="margin-top: 8px; padding: 6px 12px; background: var(--color-sage); color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        Use as Current Image
+                    </button>
+                `;
+
+                // Add to versions array in local data (but don't set as current yet)
+                if (currentPage >= 0 && currentBook.pages[currentPage]) {
+                    const page = currentBook.pages[currentPage];
+                    if (!page.image_versions) page.image_versions = [];
+                    page.image_versions.push({
+                        url: lastGeneratedBlobUrl,
+                        version: versionNum,
+                        created_at: new Date().toISOString()
+                    });
+                    loadPageVersions();
+                }
+
+            } catch (error) {
+                status.className = 'generation-status error';
+                status.textContent = `Upload failed: ${error.message}`;
+                // Fall back to showing MuleRouter URL if upload fails
+                lastGeneratedBlobUrl = null;
+            }
         }
 
-        async function saveGeneratedImage() {
-            if (!lastGeneratedUrl) {
-                alert('No generated image to save');
+        async function useGeneratedImage() {
+            if (!lastGeneratedBlobUrl) {
+                alert('No saved image to use');
                 return;
             }
-            await replaceImageAndSave(lastGeneratedUrl);
+            await setImageAsCurrent(lastGeneratedBlobUrl);
+        }
+
+        async function setImageAsCurrent(blobUrl) {
+            const status = document.getElementById('generationStatus');
+            const slug = currentBook._slug || bookSlug;
+            const pageNum = currentPage;
+            const page = currentBook.pages[pageNum];
+
+            if (!page || pageNum < 0) {
+                status.className = 'generation-status error';
+                status.textContent = 'Cannot set image for this page type';
+                return;
+            }
+
+            status.className = 'generation-status';
+            status.textContent = 'Setting as current image...';
+
+            try {
+                // Save both the current image and versions array
+                const response = await fetch('/api/save-book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        slug,
+                        pageIndex: pageNum,
+                        field: 'image_with_versions',
+                        value: {
+                            image: blobUrl,
+                            image_versions: page.image_versions || []
+                        }
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    page.image = blobUrl;
+                    status.className = 'generation-status success';
+                    status.textContent = 'Image set as current!';
+                    renderPage();
+                    loadPageVersions();
+                } else {
+                    throw new Error(result.error || 'Failed to update');
+                }
+            } catch (error) {
+                status.className = 'generation-status error';
+                status.textContent = `Error: ${error.message}`;
+            }
         }
 
         async function savePromptToBook() {
@@ -2434,91 +2493,6 @@
                     }
                 } else {
                     throw new Error(result.error || 'Save failed');
-                }
-            } catch (error) {
-                status.className = 'generation-status error';
-                status.textContent = `Error: ${error.message}`;
-            }
-        }
-
-        async function replaceImageAndSave(imageUrl) {
-            const status = document.getElementById('generationStatus');
-            const slug = currentBook._slug || bookSlug;
-            const pageNum = currentPage;
-            const page = currentBook.pages[pageNum];
-
-            if (!page || pageNum < 0) {
-                status.className = 'generation-status error';
-                status.textContent = 'Cannot save image for this page type';
-                return;
-            }
-
-            const actualPageNum = page.page || pageNum + 1;
-            const versionNum = getNextVersionNumber();
-
-            status.className = 'generation-status';
-            status.textContent = `Uploading image (v${versionNum})...`;
-
-            try {
-                // 1. Upload image to Vercel Blob Storage with version number
-                const uploadResponse = await fetch('/api/upload-image', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        imageUrl,
-                        slug,
-                        pageNum: actualPageNum,
-                        version: versionNum
-                    })
-                });
-
-                const uploadResult = await uploadResponse.json();
-
-                if (!uploadResult.success) {
-                    throw new Error(uploadResult.error || 'Upload failed');
-                }
-
-                const blobUrl = uploadResult.url;
-                status.textContent = 'Saving to book...';
-
-                // 2. Build updated versions array
-                const existingVersions = page.image_versions || [];
-                const newVersion = {
-                    url: blobUrl,
-                    version: versionNum,
-                    created_at: new Date().toISOString()
-                };
-                const updatedVersions = [...existingVersions, newVersion];
-
-                // 3. Save both the current image and versions array
-                const response = await fetch('/api/save-book', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        slug,
-                        pageIndex: pageNum,
-                        field: 'image_with_versions',
-                        value: {
-                            image: blobUrl,
-                            image_versions: updatedVersions
-                        }
-                    })
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    // Update local book data
-                    currentBook.pages[pageNum].image = blobUrl;
-                    currentBook.pages[pageNum].image_versions = updatedVersions;
-                    status.className = 'generation-status success';
-                    status.textContent = `Image saved as v${versionNum}!`;
-
-                    // Refresh the page display and versions gallery
-                    renderPage();
-                    loadPageVersions();
-                } else {
-                    throw new Error(result.error || 'Failed to update book');
                 }
             } catch (error) {
                 status.className = 'generation-status error';

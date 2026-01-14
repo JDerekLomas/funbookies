@@ -1,0 +1,585 @@
+{
+  "title": "Rats in the Castle",
+  "slug": "rats-in-the-castle",
+  "level": "B2",
+  "band": "B",
+  "color": "Orange",
+  "skill": "CVC + Digraphs",
+  "skill_description": "Practice CVC words with digraphs like 'sh', 'th', and 'ch'.",
+  "age_range": "4-6",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Two hungry rats, Rita and Rico, explore a grand castle room by room until they find a delicious surprise.",
+  "characters": {
+    "rita": {
+      "name": "Rita",
+      "species": "rat",
+      "role": "protagonist",
+      "personality": "Bold, curious, impatient, adventurous",
+      "appearance": {
+        "body": "Tall and slender for a rat",
+        "fur_color": "Warm chestnut brown",
+        "distinguishing_mark": "White diamond-shaped patch on chest",
+        "ears": "Large, pointed, always alert and upright",
+        "eyes": "Bright black eyes, wide and eager",
+        "tail": "Long thin tail, usually held high",
+        "posture": "Upright and confident, leans forward when excited"
+      },
+      "visual_shorthand": "RITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high"
+    },
+    "rico": {
+      "name": "Rico",
+      "species": "rat",
+      "role": "protagonist",
+      "personality": "Cautious, worried, gentle, loyal",
+      "appearance": {
+        "body": "Short and round/chubby",
+        "fur_color": "Soft gray-brown (like a pebble)",
+        "distinguishing_mark": "White tip on tail",
+        "ears": "Rounder and smaller, often folded back nervously",
+        "eyes": "Soft dark eyes, often with worried brow",
+        "tail": "Shorter tail with white tip, usually curled close to body",
+        "posture": "Hunched, shoulders up, makes himself small when scared"
+      },
+      "visual_shorthand": "RICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture"
+    }
+  },
+  "story_bible": {
+    "premise": "Two small rats, Rita and Rico, live outside a grand castle. When hunger strikes, bold Rita convinces cautious Rico to explore the castle together. They journey through vast halls, climb spiral towers, and peek into mysterious rooms\u2014finally discovering a feast fit for kings.",
+    "themes": [
+      "Curiosity rewarded",
+      "Friendship and teamwork",
+      "Wonder in the everyday",
+      "Persistence"
+    ],
+    "character_arcs": {
+      "Rita": "Bold and impatient at the start, learns to appreciate Rico's caution while maintaining her adventurous spirit.",
+      "Rico": "Cautious and worried initially, discovers he's braver than he thought and gains confidence through the adventure."
+    },
+    "setting": "A medieval stone castle on a grassy hill. Vast halls with flagstone floors, dusty tapestries, spiral staircases, a kitchen with copper pots, and a dining hall with silver platters. The rats are tiny against enormous furniture and towering doorways.",
+    "visual_style": "William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.",
+    "emotional_beats": [
+      {
+        "page": 1,
+        "beat": "Contentment - peaceful moment in the sun"
+      },
+      {
+        "page": 2,
+        "beat": "Hunger/desire - stomachs growl"
+      },
+      {
+        "page": 3,
+        "beat": "Excitement - Rita spots the castle"
+      },
+      {
+        "page": 4,
+        "beat": "Hesitation - Rico's fear vs Rita's eagerness"
+      },
+      {
+        "page": 5,
+        "beat": "Determination - they enter together"
+      },
+      {
+        "page": 6,
+        "beat": "Awe/wonder - the hall is enormous"
+      },
+      {
+        "page": 7,
+        "beat": "Curiosity - exploring, searching"
+      },
+      {
+        "page": 8,
+        "beat": "Disappointment - kitchen has no food"
+      },
+      {
+        "page": 9,
+        "beat": "More searching - up the stairs"
+      },
+      {
+        "page": 10,
+        "beat": "Disappointment again - bathroom, no food"
+      },
+      {
+        "page": 11,
+        "beat": "Doubt - Rico wants to leave"
+      },
+      {
+        "page": 12,
+        "beat": "Persistence - Rita pushes on"
+      },
+      {
+        "page": 13,
+        "beat": "Discovery - they find the fish!"
+      },
+      {
+        "page": 14,
+        "beat": "Pure joy - feasting together"
+      },
+      {
+        "page": 15,
+        "beat": "Satisfaction - full and happy"
+      },
+      {
+        "page": 16,
+        "beat": "Contentment - sunset return, friendship affirmed"
+      }
+    ],
+    "key_vocabulary": [
+      "castle",
+      "rat",
+      "big",
+      "hall",
+      "kitchen",
+      "fish",
+      "sun",
+      "path",
+      "run",
+      "dish"
+    ]
+  },
+  "word_list": {
+    "sound_out": [
+      "sat",
+      "sun",
+      "big",
+      "ran",
+      "run",
+      "path",
+      "dish",
+      "fish",
+      "bath",
+      "tub",
+      "yum",
+      "back",
+      "did"
+    ],
+    "sight": [
+      "the",
+      "in",
+      "said",
+      "was",
+      "they",
+      "no",
+      "we",
+      "and",
+      "but",
+      "let's",
+      "go"
+    ],
+    "new": [
+      "castle",
+      "Rita",
+      "Rico",
+      "hall",
+      "kitchen"
+    ]
+  },
+  "wordsearch_words": [
+    "castle",
+    "rat",
+    "fish",
+    "dish",
+    "bath",
+    "path",
+    "sun",
+    "big",
+    "run"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Rats in the Castle",
+      "scene": "Two small round rats (Rita slightly taller, Rico rounder) peeking through a grand castle doorway, their tiny silhouettes against the massive stone entrance. Warm golden sunlight behind them. The castle looms large with towers and flags. William Steig style: loose ink lines, warm watercolor washes in ochre and sage green. The rats look curious and excited.",
+      "shot_type": "wide",
+      "image_prompt": "Two small round rats (Rita slightly taller, Rico rounder) peeking through a grand castle doorway, their tiny silhouettes against the massive stone entrance. Warm golden sunlight behind them. The castle looms large with towers and flags. William Steig style: loose ink lines, warm watercolor washes in ochre and sage green. The rats look curious and excited.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:08:43.502640",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "Rita and Rico sat in the sun.",
+      "scene": "Two small rats sitting contentedly on a grassy hill, eyes half-closed, soaking in warm sunshine. Rita (slightly taller, confident posture) and Rico (rounder, relaxed). Wildflowers around them. Soft golden light. William Steig style: loose ink outlines, warm watercolor wash in yellows and greens. Peaceful, cozy mood.",
+      "shot_type": "medium",
+      "image_prompt": "Two small rats sitting contentedly on a grassy hill, eyes half-closed, soaking in warm sunshine. Rita (slightly taller, confident posture) and Rico (rounder, relaxed). Wildflowers around them. Soft golden light. William Steig style: loose ink outlines, warm watercolor wash in yellows and greens. Peaceful, cozy mood.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:09:22.154481",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "\"I am so hungry,\" said Rita.",
+      "scene": "Close-up of Rita with her paw on her round tummy, mouth open speaking, eyebrows raised expressively. Rico beside her looking concerned. William Steig style: expressive ink lines capturing Rita's dramatic hunger, warm earthy colors. Her body language is emphatic.",
+      "shot_type": "close",
+      "image_prompt": "Close-up of Rita with her paw on her round tummy, mouth open speaking, eyebrows raised expressively. Rico beside her looking concerned. William Steig style: expressive ink lines capturing Rita's dramatic hunger, warm earthy colors. Her body language is emphatic.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page07.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:10:00.085052",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "Rico saw the big castle.",
+      "scene": "Rico pointing up at a grand medieval castle on a hill. The castle is HUGE compared to the tiny rat - towers, flags, stone walls. Rico's posture shows wonder, mouth slightly open. Rita looking where he points. William Steig style: castle rendered in warm browns and grays, loose crosshatching for stone texture. Lots of vertical space showing scale.",
+      "shot_type": "wide",
+      "image_prompt": "Rico pointing up at a grand medieval castle on a hill. The castle is HUGE compared to the tiny rat - towers, flags, stone walls. Rico's posture shows wonder, mouth slightly open. Rita looking where he points. William Steig style: castle rendered in warm browns and grays, loose crosshatching for stone texture. Lots of vertical space showing scale.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:10:38.955529",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "\"Let's go in!\" said Rita.",
+      "scene": "Rita gesturing eagerly toward the castle, tail up, eyes bright with excitement. Rico hanging back slightly, paws together nervously, ears down. The contrast between bold Rita and cautious Rico is clear. William Steig style: Rita's lines more dynamic, Rico's more hesitant. Warm dusty rose and ochre tones.",
+      "shot_type": "medium",
+      "image_prompt": "Rita gesturing eagerly toward the castle, tail up, eyes bright with excitement. Rico hanging back slightly, paws together nervously, ears down. The contrast between bold Rita and cautious Rico is clear. William Steig style: Rita's lines more dynamic, Rico's more hesitant. Warm dusty rose and ochre tones.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page09.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:11:17.939193",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "They ran up the path.",
+      "scene": "Both rats running up a winding stone path toward the castle entrance. Motion lines suggest speed. Rita in front, Rico following. The path is huge compared to them - each stone bigger than their bodies. Castle gate looming ahead. William Steig style: energetic loose lines, warm browns and sage greens. Sense of adventure.",
+      "shot_type": "wide",
+      "image_prompt": "Both rats running up a winding stone path toward the castle entrance. Motion lines suggest speed. Rita in front, Rico following. The path is huge compared to them - each stone bigger than their bodies. Castle gate looming ahead. William Steig style: energetic loose lines, warm browns and sage greens. Sense of adventure.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page10.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:11:56.585188",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "The hall was so big!",
+      "scene": "The two tiny rats standing in an ENORMOUS great hall, dwarfed by massive flagstone floors, towering walls, and a ceiling that disappears upward. A huge dusty tapestry on the wall. Their small figures create a sense of awe and wonder. William Steig style: rats tiny in the frame, lots of negative space, warm dusty colors with shadows in purple-browns. Cross-hatching on stone.",
+      "shot_type": "wide",
+      "image_prompt": "The two tiny rats standing in an ENORMOUS great hall, dwarfed by massive flagstone floors, towering walls, and a ceiling that disappears upward. A huge dusty tapestry on the wall. Their small figures create a sense of awe and wonder. William Steig style: rats tiny in the frame, lots of negative space, warm dusty colors with shadows in purple-browns. Cross-hatching on stone.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page11.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:12:34.485609",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "They ran past a big red rug.",
+      "scene": "The rats scurrying across an enormous ornate red rug with golden patterns. The rug's tassels are as tall as them. They're mid-run, looking around as they go. William Steig style: the red rug is a bold splash of color (dusty rose-red), contrasting with stone gray floors. Loose energetic movement lines.",
+      "shot_type": "medium",
+      "image_prompt": "The rats scurrying across an enormous ornate red rug with golden patterns. The rug's tassels are as tall as them. They're mid-run, looking around as they go. William Steig style: the red rug is a bold splash of color (dusty rose-red), contrasting with stone gray floors. Loose energetic movement lines.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page12.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:13:13.204181",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "They saw the kitchen. Pots and pans! But no food.",
+      "scene": "The rats peering into a castle kitchen with enormous copper pots and iron pans hanging from hooks. They're looking around, expressions hopeful turning disappointed. Empty counters, cold hearth. William Steig style: copper pots in warm orange-browns, kitchen rendered with crosshatching. Rats' body language shows deflation.",
+      "shot_type": "medium",
+      "image_prompt": "The rats peering into a castle kitchen with enormous copper pots and iron pans hanging from hooks. They're looking around, expressions hopeful turning disappointed. Empty counters, cold hearth. William Steig style: copper pots in warm orange-browns, kitchen rendered with crosshatching. Rats' body language shows deflation.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page13.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:13:52.156351",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "Up, up, up they ran.",
+      "scene": "The rats climbing an enormous spiral stone staircase, viewed from below looking up. The stairs seem to go forever. Rita leading, Rico puffing behind. Stone walls curve around them. William Steig style: dizzying vertical composition, warm gray stones with hints of green moss, rats small but determined. Loose spiral lines emphasize the climb.",
+      "shot_type": "wide",
+      "image_prompt": "The rats climbing an enormous spiral stone staircase, viewed from below looking up. The stairs seem to go forever. Rita leading, Rico puffing behind. Stone walls curve around them. William Steig style: dizzying vertical composition, warm gray stones with hints of green moss, rats small but determined. Loose spiral lines emphasize the climb.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page14.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:14:30.196215",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "A bath! A big tub! But no food.",
+      "scene": "An enormous ornate bathtub (like a small lake to the rats) in a castle bathroom. The rats stand at the edge, peering in, disappointed. Fancy tilework on walls. The tub is empty. William Steig style: the tub in creamy white with gold feet, blue-gray tiles, rats looking dejected with drooping ears and tails.",
+      "shot_type": "medium",
+      "image_prompt": "An enormous ornate bathtub (like a small lake to the rats) in a castle bathroom. The rats stand at the edge, peering in, disappointed. Fancy tilework on walls. The tub is empty. William Steig style: the tub in creamy white with gold feet, blue-gray tiles, rats looking dejected with drooping ears and tails.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page15.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:15:07.702889",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "\"Let's go back,\" said Rico.",
+      "scene": "Rico looking discouraged, gesturing back toward where they came, ears down, shoulders slumped. Rita pausing, considering, her expression conflicted. They're in a dim castle corridor. William Steig style: Rico's body language clearly defeated, muted colors suggesting his mood. Emotional close-up moment.",
+      "shot_type": "close",
+      "image_prompt": "Rico looking discouraged, gesturing back toward where they came, ears down, shoulders slumped. Rita pausing, considering, her expression conflicted. They're in a dim castle corridor. William Steig style: Rico's body language clearly defeated, muted colors suggesting his mood. Emotional close-up moment.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page16.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:15:46.974036",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "\"No! One more room,\" said Rita.",
+      "scene": "Rita standing firm, paw raised, expression determined. Her tail is up, ears forward. Rico looking uncertain but willing to follow. A doorway glows warmly ahead of them. William Steig style: Rita drawn with strong confident lines, warm light from the doorway in golden tones. A turning point moment.",
+      "shot_type": "medium",
+      "image_prompt": "Rita standing firm, paw raised, expression determined. Her tail is up, ears forward. Rico looking uncertain but willing to follow. A doorway glows warmly ahead of them. William Steig style: Rita drawn with strong confident lines, warm light from the doorway in golden tones. A turning point moment.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page17.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:16:25.444193",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 18,
+      "story_page": 13,
+      "type": "story",
+      "text": "A dish! With fish!",
+      "scene": "The rats' faces lit up with pure joy as they discover a beautiful silver dish with golden-brown cooked fish on a grand dining table. Their eyes are huge, mouths open in delight. The fish practically glows. William Steig style: warm golden light on the fish, the dish gleaming silver, rats' expressions of pure elation. This is the triumphant moment.",
+      "shot_type": "close",
+      "image_prompt": "The rats' faces lit up with pure joy as they discover a beautiful silver dish with golden-brown cooked fish on a grand dining table. Their eyes are huge, mouths open in delight. The fish practically glows. William Steig style: warm golden light on the fish, the dish gleaming silver, rats' expressions of pure elation. This is the triumphant moment.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page18.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:17:04.708159",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 19,
+      "story_page": 14,
+      "type": "story",
+      "text": "\"Yum! Yum! Yum!\" they said.",
+      "scene": "Both rats eating the fish with gusto, little bits around their mouths, eyes closed in bliss. They're sitting beside the dish, completely happy. William Steig style: joyful messy eating, warm oranges and golds, loose happy lines. Pure contentment and celebration.",
+      "shot_type": "medium",
+      "image_prompt": "Both rats eating the fish with gusto, little bits around their mouths, eyes closed in bliss. They're sitting beside the dish, completely happy. William Steig style: joyful messy eating, warm oranges and golds, loose happy lines. Pure contentment and celebration.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page19.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:17:43.312996",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 20,
+      "story_page": 15,
+      "type": "story",
+      "text": "The fish was so good.",
+      "scene": "The rats sitting back, round full tummies visible, satisfied expressions. The dish is now empty except for fish bones. They look at each other warmly. William Steig style: post-feast contentment, warm rosy cheeks, relaxed postures. The friendship between them is evident.",
+      "shot_type": "medium",
+      "image_prompt": "The rats sitting back, round full tummies visible, satisfied expressions. The dish is now empty except for fish bones. They look at each other warmly. William Steig style: post-feast contentment, warm rosy cheeks, relaxed postures. The friendship between them is evident.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page20.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:18:21.704541",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 21,
+      "story_page": 16,
+      "type": "story",
+      "text": "They ran back down the path.",
+      "scene": "The two rats waddling (too full to run fast) down the stone path away from the castle, sunset colors in the sky. They're side by side, happy. The castle is behind them, warm orange and pink sky. William Steig style: warm sunset palette, loose joyful movement, sense of homeward journey.",
+      "shot_type": "wide",
+      "image_prompt": "The two rats waddling (too full to run fast) down the stone path away from the castle, sunset colors in the sky. They're side by side, happy. The castle is behind them, warm orange and pink sky. William Steig style: warm sunset palette, loose joyful movement, sense of homeward journey.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page21.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:19:00.675722",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 22,
+      "story_page": 17,
+      "type": "story",
+      "text": "\"We did it!\" said Rita.",
+      "scene": "Rita and Rico giving each other a high-five or hug, celebrating outside the castle as the sun sets. Warm golden light, long shadows. Their expressions are triumphant and loving. William Steig style: the warmest colors of the book, friendship captured in their pose, loose celebratory lines.",
+      "shot_type": "medium",
+      "image_prompt": "Rita and Rico giving each other a high-five or hug, celebrating outside the castle as the sun sets. Warm golden light, long shadows. Their expressions are triumphant and loving. William Steig style: the warmest colors of the book, friendship captured in their pose, loose celebratory lines.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page22.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:19:38.641433",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 23,
+      "story_page": 18,
+      "type": "story",
+      "text": "And Rico said, \"Let's go back soon!\"",
+      "scene": "Rico speaking eagerly, a new confidence in his posture. He's pointing back at the castle with enthusiasm - a reversal from his earlier fear. Rita looks proudly at him. Sunset behind them. William Steig style: Rico's transformation visible in his body language - ears up, tail up, brave posture. Warm friendship moment.",
+      "shot_type": "close",
+      "image_prompt": "Rico speaking eagerly, a new confidence in his posture. He's pointing back at the castle with enthusiasm - a reversal from his earlier fear. Rita looks proudly at him. Sunset behind them. William Steig style: Rico's transformation visible in his body language - ears up, tail up, brave posture. Warm friendship moment.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page23.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:20:17.287877",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 24,
+      "type": "end",
+      "text": "The End",
+      "scene": "The two rats walking home together into the sunset, small silhouettes on the grassy hill, the castle tiny in the background. Warm orange and pink sky, long peaceful shadows. William Steig style: simple peaceful composition, warm nostalgic colors, a perfect ending to an adventure. The rats are closer together than at the start.",
+      "shot_type": "wide",
+      "image_prompt": "The two rats walking home together into the sunset, small silhouettes on the grassy hill, the castle tiny in the background. Warm orange and pink sky, long peaceful shadows. William Steig style: simple peaceful composition, warm nostalgic colors, a perfect ending to an adventure. The rats are closer together than at the start.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nSTYLE: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/rats-in-the-castle/page24.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-14T13:20:55.164312",
+        "model": "wan2.6-image",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 25,
+      "type": "wordsearch"
+    },
+    {
+      "page": 26,
+      "type": "series_info"
+    },
+    {
+      "page": 27,
+      "type": "back_cover",
+      "text": "Two hungry rats, Rita and Rico, explore a grand castle room by room until they find a delicious surprise."
+    }
+  ],
+  "parent_tips": {
+    "before_reading": "Preview 'Rats in the Castle' together. Ask: What do you think Rita and Rico will find? Look for digraph words like: path, dish, fish, bath.",
+    "during_reading": "Help your child sound out CVC words. Notice the 'sh' and 'th' sounds. Ask: How is Rico feeling? How is Rita feeling?",
+    "after_reading": "Discuss: How did Rico change from the beginning to the end? What was your favorite room in the castle? Would you explore a castle?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Why did Rita and Rico want to go into the castle?",
+      "answer": "They were hungry and looking for food."
+    },
+    {
+      "question": "How did Rico feel at first about going in?",
+      "answer": "He was scared and cautious."
+    },
+    {
+      "question": "What rooms did they find in the castle?",
+      "answer": "The hall, kitchen, stairs, and bathroom."
+    },
+    {
+      "question": "What did they finally find to eat?",
+      "answer": "Fish in a dish!"
+    },
+    {
+      "question": "How did Rico change by the end of the story?",
+      "answer": "He became braver and wanted to go back to the castle."
+    }
+  ],
+  "reference_prompt": "9-PANEL REFERENCE SHEET for 'Rats in the Castle' - William Steig Style\n\nCreate a 3x3 grid of panels establishing the visual style and key elements.\n\nSTYLE: William Steig (Shrek, Sylvester and the Magic Pebble, Doctor De Soto)\n- Loose, expressive pen/ink lines with warm watercolor washes\n- Slightly wobbly hand-drawn quality, not too clean or perfect\n- Cross-hatching for shadows and texture\n- Earthy palette: ochre, warm browns, sage green, dusty rose\n- Colors bleed slightly outside lines\n\nCHARACTERS (draw EXACTLY as described - they must be visually distinct):\n\nRITA: Tall slender female rat with WARM CHESTNUT BROWN fur. Has a WHITE DIAMOND-SHAPED PATCH on her chest (key identifier). Large POINTED EARS that stand straight up. Bright eager eyes. Long thin tail held HIGH. Confident upright posture, leans forward when excited.\n\nRICO: Short chubby male rat with SOFT GRAY-BROWN fur (like a pebble). Has a WHITE TIP on his tail (key identifier). ROUND EARS that fold back nervously. Soft worried eyes with furrowed brow. Shorter tail curled close to body. Hunched posture, makes himself small.\n\nPANEL LAYOUT:\nRow 1 - CHARACTER STUDIES:\n1. RITA alone: front view showing brown fur, white chest diamond, pointed ears up, confident stance\n2. RICO alone: front view showing gray-brown fur, white tail tip visible, round ears back, worried hunch\n3. RITA and RICO side by side: clear size/color/posture contrast between them\n\nRow 2 - SETTINGS:\n4. Castle exterior: grand medieval stone castle on a grassy hill, warm sunlight, towers and flags\n5. Great hall interior: enormous flagstone floor, towering walls, dusty tapestry, tiny rat scale\n6. Castle kitchen: copper pots and iron pans, stone hearth, empty but warm\n\nRow 3 - KEY MOMENTS:\n7. The spiral staircase: dizzying vertical stone stairs, moss on walls\n8. The discovery: silver dish with golden fish, warm glowing light\n9. Sunset ending: grassy hill, orange-pink sky, castle silhouette in distance\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+  "metadata": {
+    "created": "2026-01-14",
+    "workflow": "story_bible_first",
+    "visual_style": "William Steig",
+    "model": "pending"
+  },
+  "reference_metadata": {
+    "generated_at": "2026-01-14T13:07:18.176223",
+    "model": "nano-banana-pro",
+    "prompt": "9-PANEL REFERENCE SHEET for 'Rats in the Castle' - William Steig Style\n\nCreate a 3x3 grid of panels establishing the visual style and key elements.\n\nSTYLE: William Steig (Shrek, Sylvester and the Magic Pebble, Doctor De Soto)\n- Loose, expressive pen/ink lines with warm watercolor washes\n- Slightly wobbly hand-drawn quality, not too clean or perfect\n- Cross-hatching for shadows and texture\n- Earthy palette: ochre, warm browns, sage green, dusty rose\n- Colors bleed slightly outside lines\n\nCHARACTERS (draw EXACTLY as described - they must be visually distinct):\n\nRITA: Tall slender female rat with WARM CHESTNUT BROWN fur. Has a WHITE DIAMOND-SHAPED PATCH on her chest (key identifier). Large POINTED EARS that stand straight up. Bright eager eyes. Long thin tail held HIGH. Confident upright posture, leans forward when excited.\n\nRICO: Short chubby male rat with SOFT GRAY-BROWN fur (like a pebble). Has a WHITE TIP on his tail (key identifier). ROUND EARS that fold back nervously. Soft worried eyes with furrowed brow. Shorter tail curled close to body. Hunched posture, makes himself small.\n\nPANEL LAYOUT:\nRow 1 - CHARACTER STUDIES:\n1. RITA alone: front view showing brown fur, white chest diamond, pointed ears up, confident stance\n2. RICO alone: front view showing gray-brown fur, white tail tip visible, round ears back, worried hunch\n3. RITA and RICO side by side: clear size/color/posture contrast between them\n\nRow 2 - SETTINGS:\n4. Castle exterior: grand medieval stone castle on a grassy hill, warm sunlight, towers and flags\n5. Great hall interior: enormous flagstone floor, towering walls, dusty tapestry, tiny rat scale\n6. Castle kitchen: copper pots and iron pans, stone hearth, empty but warm\n\nRow 3 - KEY MOMENTS:\n7. The spiral staircase: dizzying vertical stone stairs, moss on walls\n8. The discovery: silver dish with golden fish, warm glowing light\n9. Sunset ending: grassy hill, orange-pink sky, castle silhouette in distance\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+    "output_path": "books/references/rats-in-the-castle_reference.png"
+  },
+  "cover_metadata": {
+    "generated_at": "2026-01-14T13:08:02.594545",
+    "model": "wan2.6-image",
+    "used_reference": true,
+    "reference_version": "v1",
+    "prompt": "Children's book cover illustration. Two small round rats (Rita slightly taller, Rico rounder) peeking through a grand castle doorway, their tiny silhouettes against the massive stone entrance. Warm golden sunlight behind them. The castle looms large with towers and flags. William Steig style: loose ink lines, warm watercolor washes in ochre and sage green. The rats look curious and excited.\n\nCHARACTERS (draw EXACTLY as described):\nRITA: Tall slender rat, warm brown fur, white diamond on chest, pointed ears up, tail high\nRICO: Short chubby rat, gray-brown fur, white-tipped tail, round ears folded back, hunched posture\n\nStyle: William Steig style: Loose, expressive pen/ink lines with warm watercolor washes. Earthy palette (ochre, warm browns, sage green, dusty rose). Characters are round and soft with big ears and expressive eyes. Slightly wobbly hand-drawn quality. Asymmetrical compositions showing scale. Nostalgic, cozy mood like a beloved old book.\n\nIMPORTANT: Do NOT include any text, titles, words, or letters in the image. Pure illustration only."
+  }
+}

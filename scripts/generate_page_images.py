@@ -43,30 +43,62 @@ def image_to_base64_uri(path: Path) -> str:
 
 
 def get_character_block(book: dict) -> str:
-    """Extract a consistent character description block."""
-    characters = book.get("character", {})
+    """Extract a consistent character description block.
+
+    Uses visual_shorthand from characters field for concise, consistent descriptions.
+    Falls back to building from appearance fields if shorthand not available.
+    """
+    # Try new schema first (characters plural)
+    characters = book.get("characters", {})
+
+    # Fall back to old schema (character singular)
+    if not characters:
+        characters = book.get("character", {})
 
     char_lines = []
-    for key, value in characters.items():
-        if isinstance(value, dict) and key not in ["names", "style_notes"]:
-            name = key.capitalize()
-            species = value.get("species", "")
-            color = value.get("color", "")
-            body = value.get("body", "")
-            distinguishing = value.get("distinguishing_feature", "")
+    for key, char_data in characters.items():
+        if isinstance(char_data, dict) and key not in ["names", "style_notes"]:
+            # Prefer visual_shorthand if available (new schema)
+            if char_data.get("visual_shorthand"):
+                char_lines.append(char_data["visual_shorthand"])
+            elif char_data.get("appearance"):
+                # Build from appearance (new schema)
+                app = char_data["appearance"]
+                name = char_data.get("name", key.capitalize())
+                parts = [f"{name}:"]
+                if app.get("body"):
+                    parts.append(app["body"])
+                if app.get("fur_color"):
+                    parts.append(f"with {app['fur_color']} fur")
+                if app.get("distinguishing_mark"):
+                    parts.append(f"- {app['distinguishing_mark']} (KEY FEATURE)")
+                if app.get("ears"):
+                    parts.append(f"- {app['ears']}")
+                if app.get("tail"):
+                    parts.append(f"- {app['tail']}")
+                if app.get("posture"):
+                    parts.append(f"- {app['posture']}")
+                char_lines.append(" ".join(parts))
+            else:
+                # Old schema fallback
+                name = key.capitalize()
+                species = char_data.get("species", "")
+                color = char_data.get("color", "")
+                body = char_data.get("body", "")
+                distinguishing = char_data.get("distinguishing_feature", "")
 
-            parts = []
-            if species:
-                parts.append(species)
-            if color:
-                parts.append(f"({color})")
-            if body:
-                parts.append(body)
-            if distinguishing:
-                parts.append(f"- {distinguishing}")
+                parts = []
+                if species:
+                    parts.append(species)
+                if color:
+                    parts.append(f"({color})")
+                if body:
+                    parts.append(body)
+                if distinguishing:
+                    parts.append(f"- {distinguishing}")
 
-            if parts:
-                char_lines.append(f"{name}: {' '.join(parts)}")
+                if parts:
+                    char_lines.append(f"{name}: {' '.join(parts)}")
 
     return "\n".join(char_lines)
 
@@ -78,18 +110,32 @@ def build_image_prompt(book: dict, page: dict) -> str:
     if not scene:
         return ""
 
-    # Get art style
+    # Get art style - priority: story_bible.visual_style > art_direction.style > default
+    story_bible = book.get("story_bible", {})
     art_dir = book.get("art_direction", {})
-    style = art_dir.get("style", "children's book illustration, simple shapes, bold outlines")
+
+    if story_bible.get("visual_style"):
+        style = story_bible["visual_style"]
+    elif art_dir.get("style"):
+        style = art_dir["style"]
+    else:
+        style = "children's book illustration, simple shapes, bold outlines"
 
     # Get character block for consistency
     char_block = get_character_block(book)
 
-    # Build simple prompt
-    prompt = f"""{scene}
+    # Build prompt with character block only if we have characters
+    if char_block:
+        prompt = f"""{scene}
 
-CHARACTERS (draw exactly as described):
+CHARACTERS (draw EXACTLY as described - these features are KEY for identification):
 {char_block}
+
+STYLE: {style}
+
+IMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."""
+    else:
+        prompt = f"""{scene}
 
 STYLE: {style}
 

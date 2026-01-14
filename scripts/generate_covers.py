@@ -50,6 +50,21 @@ def download_image(url: str, output_path: Path) -> bool:
         return False
 
 
+def get_character_block(book: dict) -> str:
+    """Extract character descriptions for cover prompt."""
+    characters = book.get("characters", {})
+    if not characters:
+        characters = book.get("character", {})
+
+    char_lines = []
+    for key, char_data in characters.items():
+        if isinstance(char_data, dict):
+            if char_data.get("visual_shorthand"):
+                char_lines.append(char_data["visual_shorthand"])
+
+    return "\n".join(char_lines)
+
+
 def get_cover_prompt(book_path: Path) -> str:
     """Extract cover scene description from book JSON.
 
@@ -69,10 +84,30 @@ def get_cover_prompt(book_path: Path) -> str:
     if not scene:
         scene = book.get("summary", "A charming scene")
 
-    # Build prompt WITHOUT any text/title instructions
-    return f"""Children's book cover illustration. {scene}
+    # Get art style from story_bible if available
+    story_bible = book.get("story_bible", {})
+    if story_bible.get("visual_style"):
+        style = story_bible["visual_style"]
+    else:
+        style = "Soft watercolor illustration, warm colors, cute whimsical style for young children aged 4-7"
 
-Style: Soft watercolor illustration, warm colors, cute whimsical style for young children aged 4-7.
+    # Get character block
+    char_block = get_character_block(book)
+
+    # Build prompt WITHOUT any text/title instructions
+    if char_block:
+        return f"""Children's book cover illustration. {scene}
+
+CHARACTERS (draw EXACTLY as described):
+{char_block}
+
+Style: {style}
+
+IMPORTANT: Do NOT include any text, titles, words, or letters in the image. Pure illustration only."""
+    else:
+        return f"""Children's book cover illustration. {scene}
+
+Style: {style}
 
 IMPORTANT: Do NOT include any text, titles, words, or letters in the image. Pure illustration only."""
 

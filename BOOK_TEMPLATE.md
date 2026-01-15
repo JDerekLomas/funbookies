@@ -79,6 +79,21 @@ Front cover with title and main illustration.
 }
 ```
 
+**Cover Title Display:**
+The reader displays the cover with a title overlay at the bottom:
+- Dark gradient fade (transparent → 60% black) behind text for readability
+- Title in white with text shadow/outline
+- Author name displayed as "by {author}" below the title (if `author` field exists)
+
+**Required book metadata for cover:**
+```json
+{
+  "title": "Book Title",
+  "author": "FunBookies",        // Required - displays "by FunBookies" on cover
+  "illustrator": "AI Generated"  // Required - used in copyright page
+}
+```
+
 ### 2. Copyright Page (`copyright`)
 Inside front cover with publishing information.
 
@@ -259,8 +274,8 @@ Marketing and identification.
   "age_range": "4-6",
   "created": "2025-01-05",
   "model": "wan2.6-t2i",
-  "author": "FunBookies",
-  "illustrator": "AI Generated",
+  "author": "FunBookies",              // Required - shown on cover as "by {author}"
+  "illustrator": "AI Generated",       // Required - used in copyright page
 
   "word_list": {
     "sound_out": ["cat", "sat", "mat"],

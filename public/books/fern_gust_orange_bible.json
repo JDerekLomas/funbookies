@@ -1,7 +1,6 @@
 {
   "title": "Fern and the Gust",
   "version": "2.0",
-
   "character": {
     "fern": {
       "one_line": "A small round brown mouse with big ears and a curly tail",
@@ -15,7 +14,6 @@
       "shown_by": "Swirling leaves, bending grass, motion lines, ruffled fur"
     }
   },
-
   "art_style": {
     "one_line": "Simple flat shapes with bold black outlines, like a modern picture book",
     "reference": "Dick Bruna (Miffy) meets Mo Willems - simple geometric shapes, bold outlines, flat colors",
@@ -23,7 +21,6 @@
     "lines": "Thick black outlines around everything",
     "colors": "Flat solid colors, no gradients or shading"
   },
-
   "palette": {
     "fern_brown": "#8B5A2B",
     "fern_cream": "#FFF8DC",
@@ -33,7 +30,6 @@
     "leaf_red": "#DC143C",
     "sun_yellow": "#FFD700"
   },
-
   "rules": {
     "always": [
       "Fern has the same simple round shape in every image",
@@ -50,9 +46,10 @@
       "NO complex backgrounds"
     ]
   },
-
   "scene_prompts": {
     "style_suffix": "Simple flat illustration style. Round shapes, thick black outlines, flat colors. Like Dick Bruna or Mo Willems. NO TEXT.",
     "character_prefix": "A small round brown mouse with big ears, cream tummy, and a curly tail"
-  }
+  },
+  "author": "FunBookies",
+  "illustrator": "AI Generated"
 }

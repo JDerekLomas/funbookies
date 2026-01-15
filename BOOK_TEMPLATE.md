@@ -342,42 +342,65 @@ Marketing and identification.
 
 ## Image Prompt Guidelines
 
-### The Golden Rule: Concrete > Poetic
+### The Golden Rule: Describe What the Model Will SEE
 
-Scene descriptions must describe **what a camera would see**, not how it feels.
+The image model only knows two things:
+1. **The reference sheet** (a 9-panel style guide)
+2. **Your scene prompt**
+
+It does NOT know character names, story context, or what happened on other pages. Every prompt must be a **complete visual description** that could stand alone.
+
+### Don't Use Character Names
+
+The model doesn't know who "Flicker" or "Tiia" is. Describe the visual appearance instead.
 
 ```
-BAD:  "The world around her starts to blur and shimmer. Dreamy atmosphere."
-GOOD: "Tiia, a blonde girl (5-6) in blue overalls, sits in tall golden grass.
-       A red tractor works in the muddy field behind her."
+BAD:  "Flicker looks sad while the other fireflies dance."
+GOOD: "A tiny firefly with big sad amber eyes and a dim golden glow hovers low
+       while brighter fireflies dance in the sky above her."
+
+BAD:  "Tiia daydreams in the field."
+GOOD: "A blonde girl (5-6) in blue overalls sits in tall golden grass, eyes
+       closed, peaceful smile. A red tractor works in the field behind her."
 ```
 
 ### Scene Description Template
 
-Every scene description must include these elements in order:
+Write a natural paragraph that covers these elements:
 
 ```
-1. CHARACTER: Who is in the scene? Include defining visual features.
-   → "Tiia, a blonde girl (5-6) in blue overalls"
+1. SUBJECT: Visual description of who/what is in the scene
+   → "A tiny firefly with big amber eyes and a soft dim glow"
+   → "A blonde girl (5-6) in blue overalls with wispy hair"
 
-2. SETTING: Where are they? Be specific, include cultural context.
-   → "sitting in tall golden grass beside an Estonian wooden farmhouse"
+2. SETTING: Where are they? Be specific and visual.
+   → "in a magical nighttime meadow with tall swaying grass"
+   → "beside a traditional Estonian wooden farmhouse"
 
-3. ACTION: What are they doing? Must match the page text exactly.
-   → "eyes closed, peaceful smile, beginning to daydream"
+3. ACTION: What are they doing? Describe the pose/expression.
+   → "hovers low, head bowed, watching her dim reflection in a dewdrop"
+   → "sits cross-legged, eyes closed, peaceful smile"
 
-4. CONTEXT: What else is visible? Only include elements relevant to THIS page.
+4. CONTEXT: What else is visible in THIS specific scene?
+   → "Brighter fireflies blaze brilliantly in the sky above"
    → "A red tractor works in the muddy field behind her"
 
-5. STYLE: End with style instruction.
-   → "Warm watercolor style."
+5. COMPOSITION: Shot type, camera angle, lighting notes.
+   → "Medium shot, subject in lower left, contrast between dim and bright"
+   → "Wide establishing shot, warm afternoon light"
+
+6. STYLE: Art style instruction.
+   → "Watercolor with soft edges, warm golden tones."
 ```
 
 **Combined result:**
 ```
-"Tiia, a blonde girl (5-6) in blue overalls, sits in tall golden grass beside
-an Estonian wooden farmhouse. Eyes closed, peaceful smile. A red tractor works
-in the muddy field behind her. Warm watercolor style."
+"A tiny firefly with big sad amber eyes and a dim golden glow hovers low in
+the foreground, head bowed. Behind and above her, three bright fireflies blaze
+brilliantly, zooming past confidently. Tall meadow grass reaches up around her,
+starry night sky above. Medium shot with the sad firefly large in lower left,
+bright fireflies smaller in upper right for contrast. Watercolor with soft
+edges, melancholy blue-purple tones with isolated golden warmth."
 ```
 
 ### What NOT To Do
@@ -409,30 +432,45 @@ negative_prompt = "airplane, flying, sky, clouds" if page < airplane_intro_page 
 ```
 
 ### Style Consistency
-End all prompts with: **"Warm watercolor style."** or **"Warm soft watercolor style."**
+End all prompts with the style instruction: **"Watercolor with soft edges."** or similar.
 
-### Character Consistency
-Define character once in book metadata, reference in every scene:
+### Character Consistency Through Visual Description
+
+The `characters` field in book metadata is for YOUR reference when writing prompts. Copy the visual description into EVERY scene prompt - don't reference by name.
 
 ```json
 {
   "characters": {
-    "tiia": "Tiia, a blonde girl (5-6) with wispy hair, wearing blue overalls"
+    "main": "A tiny firefly with a round body, big amber eyes, delicate translucent wings, and a soft dim golden glow from her tail",
+    "secondary": "A small fluffy gray moth with velvety wings, feathery white antennae, and big lavender eyes"
   },
-  "setting_context": "Rural Estonia, traditional wooden farmhouses, golden fields"
+  "setting_context": "Magical nighttime meadow with tall grass, purple wildflowers, deep blue-purple sky, twinkling stars"
 }
 ```
 
-### Cultural/Setting Context
+**When writing each scene prompt, paste the character description:**
+```
+"A tiny firefly with a round body, big amber eyes, and a soft dim golden glow
+hovers sadly in a magical nighttime meadow..."
+```
 
-Add a `setting_context` field to book metadata. Include in every scene description:
+NOT:
+```
+"Flicker hovers sadly in the meadow..."  ← Model doesn't know who Flicker is!
+```
+
+### Setting Consistency
+
+Use the `setting_context` field as a template. Include specific visual details in every scene:
 
 ```
-Generic:  "A cozy farmhouse in the background"
-Specific: "A traditional Estonian wooden farmhouse with steep roof"
+Generic:  "A meadow at night"
+Specific: "A magical nighttime meadow with tall swaying grass, purple wildflowers,
+          deep blue-purple sky filled with twinkling stars"
 
-Generic:  "Rolling green hills"
-Specific: "Estonian countryside with birch forests and golden barley fields"
+Generic:  "A forest"
+Specific: "Dark forest with gnarled tree trunks, twisted branches overhead,
+          moss and fallen leaves, cool blue-gray moonlight filtering through"
 ```
 
 ---

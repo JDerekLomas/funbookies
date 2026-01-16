@@ -38,6 +38,8 @@ export default async function handler(req, res) {
     let body;
 
     switch (model) {
+      case 'gemini-3-pro':
+        // Google Gemini 3 Pro Image (Nano Banana Pro) - newest, best quality
       case 'gemini-flash':
         // Google Gemini 2.5 Flash Image
         const googleApiKey = process.env.GOOGLE_AI_API_KEY;
@@ -65,10 +67,13 @@ export default async function handler(req, res) {
           imagenRef = imagenRef.split(',')[1];
         }
 
+        // Select model based on user choice
+        const geminiModel = model === 'gemini-3-pro' ? 'gemini-3-pro-image-preview' : 'gemini-2.5-flash-image';
+
         // Add reference image if provided (for style guidance in prompt)
         if (imagenRef) {
-          // Use Gemini 2.5 Flash Image for image-to-image with style reference
-          const geminiFlashUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${googleApiKey}`;
+          // Use selected Gemini model for image-to-image with style reference
+          const geminiFlashUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${googleApiKey}`;
 
           const flashBody = {
             contents: [{
@@ -121,8 +126,8 @@ export default async function handler(req, res) {
           throw new Error('No image in Gemini response');
         }
 
-        // No reference - use Gemini 2.5 Flash Image for text-to-image
-        const t2iUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${googleApiKey}`;
+        // No reference - use selected Gemini model for text-to-image
+        const t2iUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${googleApiKey}`;
         const t2iBody = {
           contents: [{
             parts: [{ text: prompt }]

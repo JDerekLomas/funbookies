@@ -38,6 +38,129 @@ export default async function handler(req, res) {
     let body;
 
     switch (model) {
+      case 'gemini-flash':
+        // Google Gemini 2.5 Flash Image
+        const googleApiKey = process.env.GOOGLE_AI_API_KEY;
+        if (!googleApiKey) {
+          return res.status(500).json({ error: 'Google API key not configured' });
+        }
+
+        // If reference is a URL, fetch it and convert to base64
+        let imagenRef = reference;
+        if (reference && referenceIsUrl) {
+          console.log(`Fetching reference image from URL for Imagen 3: ${reference}`);
+          try {
+            const imgResponse = await fetch(reference);
+            if (!imgResponse.ok) {
+              throw new Error(`Failed to fetch reference image: ${imgResponse.status}`);
+            }
+            const imgBuffer = await imgResponse.arrayBuffer();
+            imagenRef = Buffer.from(imgBuffer).toString('base64');
+          } catch (fetchError) {
+            console.error('Failed to fetch reference image:', fetchError);
+            throw new Error(`Could not fetch reference image: ${fetchError.message}`);
+          }
+        } else if (imagenRef && imagenRef.startsWith('data:')) {
+          // Strip data URL prefix for Gemini API
+          imagenRef = imagenRef.split(',')[1];
+        }
+
+        // Add reference image if provided (for style guidance in prompt)
+        if (imagenRef) {
+          // Use Gemini 2.5 Flash Image for image-to-image with style reference
+          const geminiFlashUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${googleApiKey}`;
+
+          const flashBody = {
+            contents: [{
+              parts: [
+                {
+                  inline_data: {
+                    mime_type: "image/png",
+                    data: imagenRef
+                  }
+                },
+                {
+                  text: `Based on the style of this reference image, generate a new image with this description: ${prompt}. Output only the generated image.`
+                }
+              ]
+            }],
+            generationConfig: {
+              responseModalities: ["image", "text"],
+              responseMimeType: "text/plain"
+            }
+          };
+
+          const flashResponse = await fetch(geminiFlashUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(flashBody)
+          });
+
+          const flashResult = await flashResponse.json();
+
+          if (!flashResponse.ok) {
+            throw new Error(flashResult.error?.message || `Gemini error: ${flashResponse.status}`);
+          }
+
+          // Extract image from response
+          const candidates = flashResult.candidates;
+          if (candidates && candidates[0]?.content?.parts) {
+            for (const part of candidates[0].content.parts) {
+              if (part.inlineData) {
+                // Return as data URL
+                const imageUrl = `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+                return res.status(200).json({
+                  success: true,
+                  url: imageUrl,
+                  path: `${slug}_page_${page}.png`,
+                  message: 'Image generated with Gemini Flash. Right-click to save.'
+                });
+              }
+            }
+          }
+          throw new Error('No image in Gemini response');
+        }
+
+        // No reference - use Gemini 2.5 Flash Image for text-to-image
+        const t2iUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${googleApiKey}`;
+        const t2iBody = {
+          contents: [{
+            parts: [{ text: prompt }]
+          }],
+          generationConfig: {
+            responseModalities: ["image", "text"]
+          }
+        };
+
+        const t2iResponse = await fetch(t2iUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(t2iBody)
+        });
+
+        const t2iResult = await t2iResponse.json();
+
+        if (!t2iResponse.ok) {
+          throw new Error(t2iResult.error?.message || `Gemini error: ${t2iResponse.status}`);
+        }
+
+        // Extract image from response
+        const t2iCandidates = t2iResult.candidates;
+        if (t2iCandidates && t2iCandidates[0]?.content?.parts) {
+          for (const part of t2iCandidates[0].content.parts) {
+            if (part.inlineData) {
+              const imageUrl = `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+              return res.status(200).json({
+                success: true,
+                url: imageUrl,
+                path: `${slug}_page_${page}.png`,
+                message: 'Image generated with Gemini 2.5 Flash. Right-click to save.'
+              });
+            }
+          }
+        }
+        throw new Error('No image in Gemini response');
+
       case 'wan2.6-image':
         // Image-to-image with reference
         endpoint = '/vendors/alibaba/v1/wan2.6-image/generation';
@@ -81,12 +204,66 @@ export default async function handler(req, res) {
         break;
 
       case 'nano-banana-pro':
-        // Reference sheet generation (Google Imagen)
-        endpoint = '/vendors/google/v1/nano-banana-pro/generation';
+        // Image-to-image with reference (softer, friendlier style)
+        endpoint = reference ? '/vendors/google/v1/nano-banana-pro/edit' : '/vendors/google/v1/nano-banana-pro/generation';
+
+        // If reference is a URL, fetch it and convert to base64
+        let nanoBananaRef = reference;
+        if (reference && referenceIsUrl) {
+          console.log(`Fetching reference image from URL for nano-banana: ${reference}`);
+          try {
+            const imgResponse = await fetch(reference);
+            if (!imgResponse.ok) {
+              throw new Error(`Failed to fetch reference image: ${imgResponse.status}`);
+            }
+            const imgBuffer = await imgResponse.arrayBuffer();
+            const base64 = Buffer.from(imgBuffer).toString('base64');
+            const contentType = imgResponse.headers.get('content-type') || 'image/png';
+            nanoBananaRef = `data:${contentType};base64,${base64}`;
+          } catch (fetchError) {
+            console.error('Failed to fetch reference image:', fetchError);
+            throw new Error(`Could not fetch reference image: ${fetchError.message}`);
+          }
+        }
+
         body = {
           prompt,
           aspect_ratio: '1:1',
-          number_of_images: 1
+          resolution: '2K'
+        };
+        if (nanoBananaRef) {
+          body.images = [nanoBananaRef];
+        }
+        break;
+
+      case 'wan2.5-i2i':
+        // Wan 2.5 Image-to-Image (preview model)
+        endpoint = '/vendors/alibaba/v1/wan2.5-i2i-preview/generation';
+
+        // If reference is a URL, fetch it and convert to base64
+        let wan25Ref = reference;
+        if (reference && referenceIsUrl) {
+          console.log(`Fetching reference image from URL for wan2.5: ${reference}`);
+          try {
+            const imgResponse = await fetch(reference);
+            if (!imgResponse.ok) {
+              throw new Error(`Failed to fetch reference image: ${imgResponse.status}`);
+            }
+            const imgBuffer = await imgResponse.arrayBuffer();
+            const base64 = Buffer.from(imgBuffer).toString('base64');
+            const contentType = imgResponse.headers.get('content-type') || 'image/png';
+            wan25Ref = `data:${contentType};base64,${base64}`;
+          } catch (fetchError) {
+            console.error('Failed to fetch reference image:', fetchError);
+            throw new Error(`Could not fetch reference image: ${fetchError.message}`);
+          }
+        }
+
+        body = {
+          prompt,
+          images: wan25Ref ? [wan25Ref] : [],
+          size: '1024*1024',
+          n: 1
         };
         break;
 

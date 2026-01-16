@@ -1264,6 +1264,22 @@
             background: var(--color-sage);
         }
 
+        .page-version[title]:not([title=""]):after {
+            content: 'ℹ';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 0.6rem;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .upload-reference:hover {
             border-color: var(--color-sage);
             color: var(--color-sage);
@@ -1293,6 +1309,90 @@
             display: block;
             background: #FFEBEE;
             color: #C62828;
+        }
+
+        /* Text Editor Panel Styles */
+        .text-editor-panel {
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--color-cream);
+            border-radius: 8px;
+        }
+
+        .text-editor-panel h4 {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: var(--color-charcoal);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .text-editor {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            resize: vertical;
+            margin-bottom: 12px;
+        }
+
+        .text-editor:focus {
+            outline: none;
+            border-color: var(--color-sage);
+        }
+
+        .text-editor-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .text-status,
+        .prompt-status {
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        .text-status.loading,
+        .prompt-status.loading {
+            display: block;
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        .text-status.success,
+        .prompt-status.success {
+            display: block;
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .text-status.error,
+        .prompt-status.error {
+            display: block;
+            background: #FFEBEE;
+            color: #C62828;
+        }
+
+        /* Prompt save row - always visible */
+        .prompt-save-row {
+            margin-top: 12px;
+            margin-bottom: 12px;
+        }
+
+        .save-prompt-btn {
+            background: var(--color-terracotta);
+            color: white;
+        }
+
+        .save-prompt-btn:hover {
+            background: #d88a6e;
         }
 
         /* Feedback Panel Styles */
@@ -1726,6 +1826,16 @@
                 <div style="margin-top: 8px;"><label>Current Page</label><span class="value" id="infoPage">-</span></div>
             </div>
 
+            <!-- Text Editor Panel -->
+            <div class="text-editor-panel" id="textEditorPanel">
+                <h4>Page Text <span style="font-weight: normal; font-size: 0.75rem; color: var(--color-text-muted);">Edit the story text</span></h4>
+                <textarea class="text-editor" id="textEditor" placeholder="Enter page text..."></textarea>
+                <div class="text-editor-controls">
+                    <button class="editor-btn primary" onclick="saveTextToBook()">Save Text</button>
+                </div>
+                <div class="text-status" id="textStatus"></div>
+            </div>
+
             <div class="image-editor-panel" id="imageEditorPanel">
                 <h4>Image Editor <span style="font-weight: normal; font-size: 0.75rem; color: var(--color-text-muted);">Edit & Regenerate</span></h4>
 
@@ -1734,16 +1844,18 @@
 
                 <div class="editor-controls">
                     <select class="editor-select" id="modelSelect">
-                        <option value="wan2.6-image">wan2.6-image (style transfer)</option>
-                        <option value="wan2.6-t2i">wan2.6-t2i (text only)</option>
-                        <option value="nano-banana-pro">nano-banana-pro (reference sheet)</option>
+                        <option value="gemini-flash">Gemini 2.5 Flash — $0.04</option>
+                        <option value="wan2.6-image">Wan 2.6 — ~$0.03</option>
+                        <option value="wan2.5-i2i">Wan 2.5 i2i — ~$0.03</option>
+                        <option value="wan2.6-t2i">Wan t2i (no ref) — ~$0.02</option>
                     </select>
                     <button class="editor-btn primary" id="regenerateBtn" onclick="regenerateImage()">
                         Regenerate
                     </button>
-                    <button class="editor-btn secondary" onclick="savePromptToBook()">
-                        Save Prompt
-                    </button>
+                </div>
+                <div class="prompt-save-row">
+                    <button class="editor-btn save-prompt-btn" onclick="savePromptToBook()">Save Prompt</button>
+                    <div class="prompt-status" id="promptStatus"></div>
                 </div>
 
                 <div class="reference-section">
@@ -1959,6 +2071,8 @@
             if (!editMode || !currentBook) return;
 
             let currentPrompt = '';
+            let currentText = '';
+            let showTextEditor = false;
 
             // Handle creation notes page (page -2)
             if (currentPage === -2) {
@@ -1978,6 +2092,14 @@
                 document.getElementById('infoPage').textContent = `${currentPage + 1} / ${currentBook.pages.length}`;
                 // Show image_prompt first, fall back to scene, then text
                 currentPrompt = page?.image_prompt || page?.scene || page?.text || 'No prompt available';
+
+                // Check if this is a story page (has text field or is a story type)
+                const pageType = page?.type;
+                const isStoryPage = !pageType || pageType === 'story' || pageType === 'synthetic_cover';
+                if (isStoryPage && pageType !== 'synthetic_cover') {
+                    showTextEditor = true;
+                    currentText = page?.text || '';
+                }
             }
 
             // Update prompt editor
@@ -1985,6 +2107,22 @@
             if (promptEditor) {
                 promptEditor.value = currentPrompt;
             }
+
+            // Update text editor
+            const textEditor = document.getElementById('textEditor');
+            const textEditorPanel = document.getElementById('textEditorPanel');
+            if (textEditor) {
+                textEditor.value = currentText;
+            }
+            if (textEditorPanel) {
+                textEditorPanel.style.display = showTextEditor ? 'block' : 'none';
+            }
+
+            // Clear status messages when navigating
+            const textStatus = document.getElementById('textStatus');
+            const promptStatus = document.getElementById('promptStatus');
+            if (textStatus) textStatus.className = 'text-status';
+            if (promptStatus) promptStatus.className = 'prompt-status';
 
             // Disable regenerate button on Creation Notes page
             const regenerateBtn = document.getElementById('regenerateBtn');
@@ -2121,10 +2259,30 @@
             section.style.display = 'block';
             container.innerHTML = '';
 
+            // Helper to format version metadata for tooltip
+            function formatVersionTooltip(v) {
+                const parts = [];
+                if (v.model) parts.push(`Model: ${v.model}`);
+                if (v.prompt) {
+                    const shortPrompt = v.prompt.length > 100 ? v.prompt.slice(0, 100) + '...' : v.prompt;
+                    parts.push(`Prompt: ${shortPrompt}`);
+                }
+                if (v.created_at) {
+                    const date = new Date(v.created_at);
+                    parts.push(`Created: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`);
+                }
+                return parts.join('\n');
+            }
+
+            // Find current version metadata (if current image matches a version)
+            const currentVersionData = versions.find(v => v.url === currentImage);
+
             // Add current image if it exists
             if (currentImage) {
                 const div = document.createElement('div');
                 div.className = 'page-version active';
+                const tooltip = currentVersionData ? formatVersionTooltip(currentVersionData) : 'Current image';
+                div.title = tooltip;
                 div.innerHTML = `
                     <img src="${currentImage}" alt="Current" onerror="this.parentElement.style.display='none'">
                     <span class="version-label current">current</span>
@@ -2133,16 +2291,21 @@
                 container.appendChild(div);
             }
 
-            // Add version history
-            versions.forEach((v, idx) => {
+            // Add version history (reverse order to show newest first)
+            const sortedVersions = [...versions].reverse();
+            sortedVersions.forEach((v, idx) => {
                 // Skip if this is already the current image
                 if (v.url === currentImage) return;
 
+                const versionNum = v.version || (versions.length - idx);
+                const tooltip = formatVersionTooltip(v);
+
                 const div = document.createElement('div');
                 div.className = 'page-version';
+                div.title = tooltip;
                 div.innerHTML = `
-                    <img src="${v.url}" alt="v${idx + 1}" onerror="this.parentElement.style.display='none'">
-                    <span class="version-label">v${idx + 1}</span>
+                    <img src="${v.url}" alt="v${versionNum}" onerror="this.parentElement.style.display='none'">
+                    <span class="version-label">v${versionNum}</span>
                 `;
                 div.onclick = () => selectPageVersion(v.url, div);
                 container.appendChild(div);
@@ -2199,9 +2362,11 @@
                 const pageNum = currentPage === -1 ? 'reference' : currentPage;
 
                 // Prepare reference image - use URL for hosted images, base64 only for uploads
+                // Models that use reference images for style transfer
+                const modelsWithReference = ['gemini-flash', 'wan2.6-image', 'wan2.5-i2i'];
                 let referenceData = null;
                 let referenceIsUrl = false;
-                if (model === 'wan2.6-image') {
+                if (modelsWithReference.includes(model)) {
                     if (uploadedReferenceData) {
                         // Custom upload - compress and send as base64
                         referenceData = await compressImageDataUrl(uploadedReferenceData, 512, 0.8);
@@ -2243,13 +2408,20 @@
                     throw new Error(errMsg || `Server error: ${response.status}`);
                 }
 
+                // Build metadata for this generation
+                const generationMetadata = {
+                    prompt,
+                    model,
+                    reference: selectedReference || (uploadedReferenceData ? 'custom_upload' : null)
+                };
+
                 if (result.success && result.pending) {
                     // Poll for result
                     status.textContent = 'Generation started. Polling for result...';
                     const imageUrl = await pollForImageResult(result.taskId, result.statusEndpoint);
-                    showGeneratedImage(imageUrl, slug, pageNum);
+                    showGeneratedImage(imageUrl, slug, pageNum, generationMetadata);
                 } else if (result.success && result.url) {
-                    showGeneratedImage(result.url, slug, pageNum);
+                    showGeneratedImage(result.url, slug, pageNum, generationMetadata);
                 } else {
                     const errMsg = typeof result.error === 'object' ? JSON.stringify(result.error) : result.error;
                     throw new Error(errMsg || 'Generation failed');
@@ -2331,8 +2503,9 @@
 
         let lastGeneratedUrl = null;
         let lastGeneratedBlobUrl = null;
+        let lastGenerationMetadata = null;
 
-        async function showGeneratedImage(url, slug, pageNum) {
+        async function showGeneratedImage(url, slug, pageNum, generationMetadata = {}) {
             const status = document.getElementById('generationStatus');
             const filename = `${slug}_page_${pageNum}.png`;
             lastGeneratedUrl = url;
@@ -2365,6 +2538,16 @@
 
                 lastGeneratedBlobUrl = uploadResult.url;
 
+                // Store version metadata for later persistence
+                lastGenerationMetadata = {
+                    url: lastGeneratedBlobUrl,
+                    version: versionNum,
+                    created_at: new Date().toISOString(),
+                    prompt: generationMetadata.prompt || '',
+                    model: generationMetadata.model || '',
+                    reference_used: generationMetadata.reference || null
+                };
+
                 status.className = 'generation-status success';
                 status.innerHTML = `
                     Image generated and saved (v${versionNum})!<br>
@@ -2378,17 +2561,8 @@
                     </button>
                 `;
 
-                // Add to versions array in local data (but don't set as current yet)
-                if (currentPage >= 0 && currentBook.pages[currentPage]) {
-                    const page = currentBook.pages[currentPage];
-                    if (!page.image_versions) page.image_versions = [];
-                    page.image_versions.push({
-                        url: lastGeneratedBlobUrl,
-                        version: versionNum,
-                        created_at: new Date().toISOString()
-                    });
-                    loadPageVersions();
-                }
+                // Store metadata locally (will be added to version history when set as current)
+                // We don't auto-save generations - only images that are actually used get saved
 
             } catch (error) {
                 status.className = 'generation-status error';
@@ -2433,13 +2607,52 @@
             status.textContent = 'Saving to Supabase...';
 
             try {
+                // Initialize versions array if needed
+                if (!page.image_versions) page.image_versions = [];
+
+                // Archive the OLD current image to version history (if it exists and isn't already in versions)
+                const oldImage = page.image;
+                if (oldImage && oldImage !== blobUrl) {
+                    const alreadyInVersions = page.image_versions.some(v => v.url === oldImage);
+                    if (!alreadyInVersions) {
+                        // Add old current image to version history with metadata
+                        const versionNum = page.image_versions.length + 1;
+                        page.image_versions.push({
+                            url: oldImage,
+                            version: versionNum,
+                            created_at: new Date().toISOString(),
+                            prompt: page.image_prompt || '',
+                            model: 'unknown (previous)',
+                            note: 'Archived when replaced'
+                        });
+                    }
+                }
+
+                // Add the NEW image to version history with its metadata
+                const newVersionNum = page.image_versions.length + 1;
+                const newVersionData = lastGenerationMetadata || {
+                    url: blobUrl,
+                    version: newVersionNum,
+                    created_at: new Date().toISOString(),
+                    prompt: document.getElementById('promptEditor')?.value || '',
+                    model: document.getElementById('modelSelect')?.value || 'unknown'
+                };
+                // Ensure URL is set correctly
+                newVersionData.url = blobUrl;
+                newVersionData.version = newVersionNum;
+
+                // Only add if not already in versions
+                if (!page.image_versions.some(v => v.url === blobUrl)) {
+                    page.image_versions.push(newVersionData);
+                }
+
                 const payload = {
                     slug,
                     pageIndex: pageNum,
                     field: 'image_with_versions',
                     value: {
                         image: blobUrl,
-                        image_versions: page.image_versions || []
+                        image_versions: page.image_versions
                     }
                 };
                 console.log('Sending to /api/save-book:', payload);
@@ -2470,12 +2683,60 @@
             }
         }
 
+        async function saveTextToBook() {
+            const text = document.getElementById('textEditor').value;
+            const status = document.getElementById('textStatus');
+
+            if (currentPage < 0) {
+                status.className = 'text-status error';
+                status.textContent = 'Cannot edit text on this page type';
+                return;
+            }
+
+            const slug = currentBook._slug || bookSlug;
+            const pageNum = currentPage;
+
+            status.className = 'text-status loading';
+            status.textContent = 'Saving...';
+
+            try {
+                const response = await fetch('/api/save-book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        slug,
+                        pageIndex: pageNum,
+                        field: 'text',
+                        value: text
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    status.className = 'text-status success';
+                    status.textContent = 'Text saved!';
+                    // Update local book data
+                    if (currentBook.pages[pageNum]) {
+                        currentBook.pages[pageNum].text = text;
+                    }
+                    // Re-render to show the change
+                    renderPage();
+                } else {
+                    throw new Error(result.error || 'Save failed');
+                }
+            } catch (error) {
+                status.className = 'text-status error';
+                status.textContent = `Error: ${error.message}`;
+            }
+        }
+
         async function savePromptToBook() {
             const prompt = document.getElementById('promptEditor').value;
-            const status = document.getElementById('generationStatus');
+            const status = document.getElementById('promptStatus');
 
             if (!prompt) {
-                status.className = 'generation-status error';
+                status.className = 'prompt-status error';
                 status.textContent = 'No prompt to save';
                 return;
             }
@@ -2483,7 +2744,7 @@
             const slug = currentBook._slug || bookSlug;
             const pageNum = currentPage;
 
-            status.className = 'generation-status';
+            status.className = 'prompt-status loading';
             status.textContent = 'Saving...';
 
             try {
@@ -2501,7 +2762,7 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    status.className = 'generation-status success';
+                    status.className = 'prompt-status success';
                     status.textContent = 'Prompt saved!';
                     // Update local book data
                     if (pageNum === -1) {
@@ -2513,7 +2774,7 @@
                     throw new Error(result.error || 'Save failed');
                 }
             } catch (error) {
-                status.className = 'generation-status error';
+                status.className = 'prompt-status error';
                 status.textContent = `Error: ${error.message}`;
             }
         }

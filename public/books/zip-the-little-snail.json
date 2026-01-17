@@ -1,0 +1,502 @@
+{
+  "id": "zip-the-little-snail",
+  "title": "Zip the Little Snail",
+  "slug": "zip-the-little-snail",
+  "level": "B5",
+  "band": "B",
+  "targetPhonics": "CVC short i and short u, consonant blends",
+  "skill": "CVC words with short i (Zip, big, hid, did) and short u (mud, run, fun, sun)",
+  "skill_description": "Practice reading CVC words with short i and short u sounds while enjoying a story about friendship",
+  "age_range": "4-6",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "created": "2026-01-17",
+  "story_bible": {
+    "premise": "Zip is a little purple snail who wishes he could move fast like his best friend Hop the frog. When a big storm rolls in and everyone rushes to find shelter, Zip worries he'll be left behind. But his slow, careful path leads him to discover the perfect cozy hiding spot\u2014and when Hop gets stuck in the mud, Zip's patient, steady help is exactly what saves the day.",
+    "themes": [
+      "self-acceptance",
+      "everyone moves at their own pace",
+      "slow and steady has value",
+      "true friendship",
+      "patience is a strength"
+    ],
+    "character_arcs": {
+      "Zip": "Wishes he was fast \u2192 Worries during the storm \u2192 Finds perfect hiding spot \u2192 Saves his friend \u2192 Realizes slow is just right",
+      "Hop": "Fast and carefree \u2192 Rushes in the storm \u2192 Gets stuck in mud \u2192 Grateful for Zip's help \u2192 Appreciates Zip's pace"
+    },
+    "setting": "A sunny meadow with a pond, tall grass, wildflowers, and a cozy forest edge. The story moves from bright sunshine to dramatic storm clouds to peaceful aftermath. Colors are warm greens, sunny yellows, stormy grays, and warm sunset oranges at the end.",
+    "plot_summary": "Zip the snail and Hop the frog are best friends, but Zip always feels slow compared to Hop who can jump and leap so fast. One sunny day, dark clouds roll in and a big storm is coming! All the animals rush to find shelter.\n\nHop zooms off toward the forest, but Zip can only inch along slowly. \"I am too slow!\" Zip thinks sadly. But as he moves carefully through the grass, Zip spots something the rushing animals missed\u2014a perfect cozy log, dry and safe!\n\nZip slides inside just as the rain begins. But then he hears a cry: \"Help! I am stuck!\" It's Hop! In his rush, Hop jumped right into thick mud and can't get out.\n\nZip inches back out into the rain. Slowly, patiently, he reaches Hop. \"Grab my shell,\" Zip says. Bit by bit, pull by pull, Zip helps Hop out of the mud. Together they slide into the cozy log.\n\n\"You saved me!\" Hop says. \"Your slow way was just right.\" Zip smiles. Maybe being slow isn't so bad after all. When the sun comes out, the two friends sit together, happy. Zip doesn't wish to be fast anymore. He's just right the way he is.",
+    "emotional_beats": [
+      {
+        "page": 1,
+        "beat": "Joy - Zip and Hop playing in the sunny meadow"
+      },
+      {
+        "page": 2,
+        "beat": "Longing - Zip watching Hop jump fast, wishing he could too"
+      },
+      {
+        "page": 3,
+        "beat": "Worry - Storm clouds rolling in, animals rushing"
+      },
+      {
+        "page": 4,
+        "beat": "Sadness - Zip left behind as others rush away"
+      },
+      {
+        "page": 5,
+        "beat": "Discovery - Zip finds the perfect cozy log"
+      },
+      {
+        "page": 6,
+        "beat": "Alarm - Hearing Hop cry for help"
+      },
+      {
+        "page": 7,
+        "beat": "Determination - Zip going back out into the rain"
+      },
+      {
+        "page": 8,
+        "beat": "Effort - Slowly, patiently pulling Hop from mud"
+      },
+      {
+        "page": 9,
+        "beat": "Relief - Both safe in the cozy log"
+      },
+      {
+        "page": 10,
+        "beat": "Gratitude - Hop thanking Zip"
+      },
+      {
+        "page": 11,
+        "beat": "Pride - Zip realizing his worth"
+      },
+      {
+        "page": 12,
+        "beat": "Contentment - Friends together in the sunshine"
+      }
+    ],
+    "level_adaptation": "Simplified to CVC words (Zip, hop, run, mud, hid, big, got, fun, sun) and short sentences. Key phonics: short i (Zip, big, hid, did, bit), short u (mud, run, fun, sun, stuck). Emotional complexity preserved through expressive illustrations.",
+    "visual_style": "Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.",
+    "key_vocabulary": [
+      "Zip",
+      "snail",
+      "Hop",
+      "frog",
+      "fast",
+      "slow",
+      "mud",
+      "run",
+      "hid",
+      "sun"
+    ]
+  },
+  "characters": {
+    "zip": {
+      "name": "Zip",
+      "visual_shorthand": "small purple snail with swirly orange shell, big hopeful dark eyes, gentle smile",
+      "distinctive_features": [
+        "purple body (KEY)",
+        "orange swirly shell (KEY)",
+        "small antenna with dots",
+        "leaves a sparkly silver trail"
+      ],
+      "personality": "gentle, patient, sometimes sad about being slow, kind heart"
+    },
+    "hop": {
+      "name": "Hop",
+      "visual_shorthand": "bright green frog with darker green spots, big cheerful yellow eyes, wide happy smile",
+      "distinctive_features": [
+        "bright green with spots (KEY)",
+        "yellow eyes (KEY)",
+        "long jumping legs",
+        "round friendly face"
+      ],
+      "personality": "energetic, fast, good friend, learns to appreciate Zip"
+    }
+  },
+  "word_list": {
+    "sound_out": [
+      "Zip",
+      "hop",
+      "run",
+      "mud",
+      "big",
+      "hid",
+      "got",
+      "fun",
+      "sun",
+      "bit",
+      "did",
+      "can",
+      "not"
+    ],
+    "sight": [
+      "the",
+      "is",
+      "a",
+      "I",
+      "to",
+      "and",
+      "was",
+      "his",
+      "my",
+      "you",
+      "he",
+      "she",
+      "too",
+      "out"
+    ],
+    "new": [
+      "snail",
+      "frog",
+      "fast",
+      "slow",
+      "storm",
+      "shell",
+      "stuck"
+    ]
+  },
+  "wordsearch_words": [
+    "zip",
+    "snail",
+    "hop",
+    "frog",
+    "mud",
+    "run",
+    "fast",
+    "slow",
+    "sun",
+    "fun"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Zip the Little Snail",
+      "scene": "Small purple snail with orange swirly shell smiling in sunny meadow. Green frog friend jumping nearby. Wildflowers, tall grass, blue sky with puffy clouds. Cheerful watercolor.",
+      "shot_type": "wide",
+      "image_prompt": "Generate an image using the style of image 1.\n\nSmall purple snail with orange swirly shell smiling in sunny meadow. Green frog friend jumping nearby. Wildflowers, tall grass, blue sky with puffy clouds. Cheerful watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:43:15.919421",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "Zip the snail and Hop the frog were pals. They had fun in the sun!",
+      "scene": "Purple snail with orange shell and green spotted frog playing together in sunny meadow. Yellow wildflowers, bright green grass, warm sunshine. Both smiling, happy. Watercolor.",
+      "shot_type": "wide",
+      "image_prompt": "Generate an image using the style of image 1.\n\nPurple snail with orange shell and green spotted frog playing together in sunny meadow. Yellow wildflowers, bright green grass, warm sunshine. Both smiling, happy. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:43:45.869759",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "Hop could run fast. He could hop, hop, hop! Zip was slow.",
+      "scene": "Green frog mid-jump, legs stretched, joyful expression. Purple snail watching from below, looking up with slightly sad eyes. Meadow setting, movement lines around frog. Watercolor.",
+      "shot_type": "medium",
+      "image_prompt": "Generate an image using the style of image 1.\n\nGreen frog mid-jump, legs stretched, joyful expression. Purple snail watching from below, looking up with slightly sad eyes. Meadow setting, movement lines around frog. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page07.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:44:17.865680",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "\"I wish I was fast,\" said Zip. But he was not.",
+      "scene": "Close-up of purple snail face looking wistful, big dark eyes gazing upward. Orange shell behind. Soft background of meadow grass. Gentle, slightly sad mood. Watercolor.",
+      "shot_type": "close",
+      "image_prompt": "Generate an image using the style of image 1.\n\nClose-up of purple snail face looking wistful, big dark eyes gazing upward. Orange shell behind. Soft background of meadow grass. Gentle, slightly sad mood. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:44:57.437641",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "Big gray clouds came. A storm! All the animals ran to hid.",
+      "scene": "Dark gray storm clouds rolling over meadow. Various small animals running - rabbit, mouse, bird flying. Wind blowing grass. Dramatic sky. Purple snail looking up worried. Watercolor.",
+      "shot_type": "wide",
+      "image_prompt": "Generate an image using the style of image 1.\n\nDark gray storm clouds rolling over meadow. Various small animals running - rabbit, mouse, bird flying. Wind blowing grass. Dramatic sky. Purple snail looking up worried. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page09.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:45:29.798024",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "Hop ran fast! \"Run, Zip! Run!\" But Zip could not run.",
+      "scene": "Green frog leaping away quickly toward forest edge. Purple snail left behind in grass, looking worried. Storm clouds above, first raindrops falling. Urgent mood. Watercolor.",
+      "shot_type": "medium",
+      "image_prompt": "Generate an image using the style of image 1.\n\nGreen frog leaping away quickly toward forest edge. Purple snail left behind in grass, looking worried. Storm clouds above, first raindrops falling. Urgent mood. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page10.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:46:06.468305",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "Zip went slow. Bit by bit. Then he saw it\u2014a big cozy log!",
+      "scene": "Purple snail slowly moving through grass, discovers hollow log entrance. Log looks warm and dry inside, surrounded by ferns. Rain starting. Hopeful moment. Watercolor.",
+      "shot_type": "medium",
+      "image_prompt": "Generate an image using the style of image 1.\n\nPurple snail slowly moving through grass, discovers hollow log entrance. Log looks warm and dry inside, surrounded by ferns. Rain starting. Hopeful moment. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page11.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:46:43.413598",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Zip hid in the log. It was dry! But then... \"Help! Help!\"",
+      "scene": "Purple snail inside cozy hollow log, dry and safe. Rain pouring outside. Snail's expression changes to alarm hearing cry. Dramatic lighting contrast. Watercolor.",
+      "shot_type": "medium",
+      "image_prompt": "Generate an image using the style of image 1.\n\nPurple snail inside cozy hollow log, dry and safe. Rain pouring outside. Snail's expression changes to alarm hearing cry. Dramatic lighting contrast. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page12.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:47:15.477583",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "It was Hop! He was stuck in the mud! \"I can not get out!\"",
+      "scene": "Green frog stuck in brown mud puddle, only upper body visible, panicked yellow eyes, reaching out. Heavy rain falling around. Distressed expression. Watercolor.",
+      "shot_type": "medium",
+      "image_prompt": "Generate an image using the style of image 1.\n\nGreen frog stuck in brown mud puddle, only upper body visible, panicked yellow eyes, reaching out. Heavy rain falling around. Distressed expression. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page13.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:47:47.893007",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "Zip went out into the rain. Slow and steady, he got to Hop.",
+      "scene": "Purple snail moving through rain toward stuck frog. Determined expression on snail. Silver trail behind. Rain falling, mud everywhere. Brave moment. Watercolor.",
+      "shot_type": "wide",
+      "image_prompt": "Generate an image using the style of image 1.\n\nPurple snail moving through rain toward stuck frog. Determined expression on snail. Silver trail behind. Rain falling, mud everywhere. Brave moment. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page14.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:48:20.197247",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "\"Grab my shell!\" said Zip. Bit by bit, pull by pull, Hop got out!",
+      "scene": "Frog holding onto snail's orange shell. Snail pulling with effort, determined face. Frog halfway out of mud. Rain falling. Teamwork moment. Watercolor.",
+      "shot_type": "close",
+      "image_prompt": "Generate an image using the style of image 1.\n\nFrog holding onto snail's orange shell. Snail pulling with effort, determined face. Frog halfway out of mud. Rain falling. Teamwork moment. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page15.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:48:55.016744",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "They hid in the cozy log. \"You did it, Zip! Your slow way was just right!\"",
+      "scene": "Purple snail and green frog together inside hollow log, both safe and smiling. Rain visible outside. Warm cozy lighting inside. Frog looking gratefully at snail. Watercolor.",
+      "shot_type": "medium",
+      "image_prompt": "Generate an image using the style of image 1.\n\nPurple snail and green frog together inside hollow log, both safe and smiling. Rain visible outside. Warm cozy lighting inside. Frog looking gratefully at snail. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page16.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:49:30.257265",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "The sun came out. Zip did not wish to be fast. He was just right!",
+      "scene": "Sunny meadow after storm. Purple snail and green frog sitting happily together on a rock. Rainbow in sky, everything fresh and bright. Both friends content and smiling. Watercolor.",
+      "shot_type": "wide",
+      "image_prompt": "Generate an image using the style of image 1.\n\nSunny meadow after storm. Purple snail and green frog sitting happily together on a rock. Rainbow in sky, everything fresh and bright. Both friends content and smiling. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page17.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:50:02.478341",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 18,
+      "type": "end",
+      "text": "The End",
+      "scene": "Purple snail with orange shell and green spotted frog sitting together watching sunset over meadow. Warm golden light, peaceful mood. Best friends. Watercolor.",
+      "shot_type": "wide",
+      "image_prompt": "Generate an image using the style of image 1.\n\nPurple snail with orange shell and green spotted frog sitting together watching sunset over meadow. Warm golden light, peaceful mood. Best friends. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/zip-the-little-snail/page18.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-17T11:50:35.204809",
+        "model": "wan2.6-image",
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v1",
+        "cost": "$0.03"
+      }
+    },
+    {
+      "page": 19,
+      "type": "wordsearch"
+    },
+    {
+      "page": 20,
+      "type": "series_info"
+    },
+    {
+      "page": 21,
+      "type": "back_cover",
+      "text": "Zip the snail wishes he could move fast like his friend Hop. But when a storm comes, Zip discovers that slow and steady is just right!"
+    }
+  ],
+  "parent_tips": {
+    "before_reading": "Look at the cover. Ask: What animals do you see? How do you think snails move? Have you ever felt like you couldn't keep up with others? This book practices short i and short u words.",
+    "during_reading": "Help your child sound out CVC words: Zip, hop, run, mud, big, hid, got, sun. Notice the difference between 'fast' and 'slow'. Use different voices for Zip and Hop!",
+    "after_reading": "Discuss: Why was Zip sad at first? How did being slow help Zip? What did Hop learn about his friend? What makes YOU special, even if it's different from others?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Why was Zip sad at the beginning?",
+      "answer": "He wished he could move fast like Hop"
+    },
+    {
+      "question": "What happened when the storm came?",
+      "answer": "All the animals ran to hide, but Zip was too slow"
+    },
+    {
+      "question": "What did Zip find because he was going slow?",
+      "answer": "A cozy log to hide in"
+    },
+    {
+      "question": "What happened to Hop?",
+      "answer": "He got stuck in the mud"
+    },
+    {
+      "question": "How did Zip help Hop?",
+      "answer": "He slowly and patiently pulled Hop out of the mud"
+    },
+    {
+      "question": "What did Zip learn at the end?",
+      "answer": "That being slow was just right - it helped him find shelter and save his friend"
+    }
+  ],
+  "summary": "Zip the snail wishes he could move fast like his friend Hop the frog. When a storm comes and Hop gets stuck in mud, Zip's slow and steady way saves the day!",
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book \"Zip the Little Snail\"\n\nRow 1 - MAIN CHARACTERS:\n[1] ZIP THE SNAIL: Small purple snail with bright orange swirly shell, big soulful dark eyes, gentle smile, tiny antenna with dots at tips. Soft, friendly design. Cream background.\n[2] ZIP EXPRESSIONS: Same purple snail showing three emotions - sad/wistful (looking up longingly), determined/brave (moving forward), happy/proud (big smile, content)\n[3] HOP THE FROG: Bright green frog with darker green spots, big cheerful yellow eyes, wide friendly smile, long jumping legs. Energetic pose mid-hop.\n\nRow 2 - CHARACTER INTERACTIONS AND KEY OBJECT:\n[4] HOP EXPRESSIONS: Same green frog showing - jumping joyfully, panicked/stuck (wide scared eyes, reaching out), grateful/happy (looking at friend warmly)\n[5] **CENTER HERO SHOT**: Zip the purple snail and Hop the green frog TOGETHER side by side - clear size contrast, both smiling, friendship moment. THE KEY IMAGE.\n[6] THE COZY LOG: Hollow log with rounded entrance, dry cozy inside with soft moss, surrounded by ferns and grass. Warm, safe feeling.\n\nRow 3 - SETTINGS:\n[7] SUNNY MEADOW: Bright cheerful meadow with tall green grass, yellow and white wildflowers, warm sunshine, blue sky with fluffy clouds. Happy, peaceful.\n[8] STORMY WEATHER: Same meadow but with dark gray storm clouds, rain falling, wind blowing grass, dramatic but not scary. Puddles and mud visible.\n[9] AFTER THE STORM: Golden sunset light over fresh meadow, rainbow in distance, everything glistening, peaceful warm mood. Hope and happiness.\n\nSTYLE: Cheerful watercolor illustration style. Soft edges, friendly rounded character shapes. Bright greens and yellows for happy scenes, dramatic grays for storm, warm golden tones for resolution. Child-friendly, gentle, expressive.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+  "metadata": {
+    "generatedAt": "2026-01-17",
+    "workflow": "story_bible_first",
+    "storyPages": 12,
+    "wordCount": 180
+  },
+  "cover_metadata": {
+    "generated_at": "2026-01-17T11:42:04.862599",
+    "model": "wan2.6-image",
+    "provider": "fal.ai",
+    "used_reference": true,
+    "reference_version": "v1",
+    "prompt": "Generate an image using the style of image 1.\n\nChildren's book cover illustration. Small purple snail with orange swirly shell smiling in sunny meadow. Green frog friend jumping nearby. Wildflowers, tall grass, blue sky with puffy clouds. Cheerful watercolor.\n\nCHARACTERS (draw EXACTLY as described):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nStyle: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: Do NOT include any text, titles, words, or letters in the image. Pure illustration only.",
+    "cost": "$0.03"
+  }
+}

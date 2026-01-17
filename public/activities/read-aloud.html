@@ -282,6 +282,7 @@
 <body>
   <script src="/js/data-service.js"></script>
   <script src="/js/student-picker.js"></script>
+  <script src="/js/toast.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -757,6 +758,7 @@
             });
           } catch (e) {
             console.error('Failed to save:', e);
+        Toast.error('Could not save progress. Please try again.');
           }
         }
 

@@ -39,26 +39,67 @@
       font-size: 0.85rem;
     }
 
-    .level-selector {
+    .band-progress {
       display: flex;
+      flex-direction: column;
       gap: 8px;
       margin-bottom: var(--space-md);
-      flex-wrap: wrap;
+      padding: var(--space-sm);
+      background: var(--color-cream);
+      border-radius: var(--border-radius);
     }
 
-    .level-group {
+    .band-row {
       display: flex;
-      gap: 4px;
       align-items: center;
+      gap: 10px;
     }
 
-    .level-group-label {
-      font-size: 0.75rem;
+    .band-label {
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--color-text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-right: 4px;
+      width: 55px;
+    }
+
+    .band-bar-container {
+      flex: 1;
+      background: var(--color-border);
+      border-radius: 4px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .band-bar {
+      height: 100%;
+      background: var(--color-sage);
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    .band-percent {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-sage-dark);
+      width: 35px;
+      text-align: right;
+    }
+
+    .current-band-indicator {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-sm);
+    }
+
+    .current-band-indicator span {
+      font-weight: 600;
+      color: var(--color-sage-dark);
+    }
+
+    .streak-display {
+      margin-left: 10px;
+      font-size: 0.85rem;
     }
 
     .flashcard-area {
@@ -258,34 +299,34 @@
         </div>
       </div>
 
-      <div class="level-selector" id="levelSelector">
-        <div class="level-group">
-          <span class="level-group-label">Band A:</span>
-          <button class="chip" data-level="A1">A1</button>
-          <button class="chip" data-level="A2">A2</button>
-          <button class="chip" data-level="A3">A3</button>
-          <button class="chip active" data-level="A4">A4</button>
+      <!-- Band Progress Display (replaces level selector) -->
+      <div class="band-progress" id="bandProgress">
+        <div class="band-row">
+          <span class="band-label">Band A</span>
+          <div class="band-bar-container">
+            <div class="band-bar" id="bandA" style="width: 0%"></div>
+          </div>
+          <span class="band-percent" id="bandAPercent">0%</span>
         </div>
-        <div class="level-group">
-          <span class="level-group-label">Band B:</span>
-          <button class="chip" data-level="B1">B1</button>
-          <button class="chip" data-level="B2">B2</button>
-          <button class="chip" data-level="B3">B3</button>
-          <button class="chip" data-level="B4">B4</button>
-          <button class="chip" data-level="B5">B5</button>
-          <button class="chip" data-level="B7">B7</button>
-          <button class="chip" data-level="B8">B8</button>
-          <button class="chip" data-level="B9">B9</button>
+        <div class="band-row">
+          <span class="band-label">Band B</span>
+          <div class="band-bar-container">
+            <div class="band-bar" id="bandB" style="width: 0%"></div>
+          </div>
+          <span class="band-percent" id="bandBPercent">0%</span>
         </div>
-        <div class="level-group">
-          <span class="level-group-label">Band C:</span>
-          <button class="chip" data-level="C1">C1</button>
-          <button class="chip" data-level="C2">C2</button>
-          <button class="chip" data-level="C3">C3</button>
-          <button class="chip" data-level="C4">C4</button>
-          <button class="chip" data-level="C7">C7</button>
-          <button class="chip" data-level="C8">C8</button>
+        <div class="band-row">
+          <span class="band-label">Band C</span>
+          <div class="band-bar-container">
+            <div class="band-bar" id="bandC" style="width: 0%"></div>
+          </div>
+          <span class="band-percent" id="bandCPercent">0%</span>
         </div>
+      </div>
+
+      <div class="current-band-indicator" id="currentBandIndicator">
+        Testing: <span id="currentBandDisplay">Band A</span>
+        <span class="streak-display" id="streakDisplay"></span>
       </div>
 
       <div class="flashcard-area" id="flashcardArea">
@@ -388,13 +429,42 @@
 
     // Word status: 0 = new, 1-2 = learning, 3+ = mastered
     let wordStatus = {};
-    let currentLevel = 'A4';
+    let currentBand = 'A';  // Start at Band A
     let currentWord = null;
+    let currentWordBand = 'A';
     let sessionWords = 0;
     let sessionCorrect = 0;
     let sessionStartTime = null;
     let queue = [];
     let currentStudent = null;
+    let correctStreak = 0;
+    let wrongStreak = 0;
+
+    // Band configuration
+    const bands = ['A', 'B', 'C'];
+    const bandLevels = {
+      'A': ['A1', 'A2', 'A3', 'A4'],
+      'B': ['B1', 'B2', 'B3', 'B4', 'B5', 'B7', 'B8', 'B9'],
+      'C': ['C1', 'C2', 'C3', 'C4', 'C7', 'C8']
+    };
+
+    // Get all words for a band
+    function getBandWords(band) {
+      const levels = bandLevels[band] || [];
+      let words = [];
+      levels.forEach(level => {
+        words = words.concat(sightWordsByLevel[level] || []);
+      });
+      return [...new Set(words)];
+    }
+
+    // Get band mastery percentage
+    function getBandMastery(band) {
+      const words = getBandWords(band);
+      if (words.length === 0) return 100;
+      const mastered = words.filter(w => getStatus(w) >= 3).length;
+      return Math.round((mastered / words.length) * 100);
+    }
 
     // Load from localStorage
     function loadProgress() {
@@ -420,7 +490,6 @@
     // Initialize with student picker
     document.addEventListener('DOMContentLoaded', async () => {
       loadProgress();
-      setupLevelButtons();
 
       // Show student picker
       const picker = new StudentPicker({
@@ -435,14 +504,11 @@
         badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
         badge.classList.remove('hidden');
 
-        // Auto-set level based on assessed level
+        // Auto-set starting band based on assessed level
         const level = await window.FunBookiesDB.getCurrentLevel(currentStudent.id);
-        if (level && sightWordsByLevel[level]) {
-          currentLevel = level;
-          // Update active button
-          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
-          const levelBtn = document.querySelector(`.chip[data-level="${level}"]`);
-          if (levelBtn) levelBtn.classList.add('active');
+        if (level) {
+          currentBand = level.charAt(0); // Get band letter from level
+          if (!bands.includes(currentBand)) currentBand = 'A';
         }
       }
 
@@ -450,26 +516,35 @@
       buildQueue();
       showNextWord();
       updateDisplay();
+      updateBandDisplay();
     });
 
-    function setupLevelButtons() {
-      document.querySelectorAll('.chip').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentLevel = btn.dataset.level;
-          sessionWords = 0;
-          document.getElementById('sessionCount').textContent = 0;
-          buildQueue();
-          showNextWord();
-          updateDisplay();
-        });
-      });
+    // Determine which band to pull next word from (adaptive)
+    function selectWordBand() {
+      // If doing well (3+ correct streak), try harder band
+      if (correctStreak >= 3 && currentBand !== 'C') {
+        const nextIdx = bands.indexOf(currentBand) + 1;
+        if (nextIdx < bands.length) {
+          return bands[nextIdx];
+        }
+      }
+
+      // If struggling (2+ wrong), go easier
+      if (wrongStreak >= 2 && currentBand !== 'A') {
+        const prevIdx = bands.indexOf(currentBand) - 1;
+        if (prevIdx >= 0) {
+          return bands[prevIdx];
+        }
+      }
+
+      // Otherwise stay at current band
+      return currentBand;
     }
 
     function buildQueue() {
-      // Use cumulative words for this level
-      const list = getCumulativeWords(currentLevel);
+      // Build queue from current band's words
+      const band = selectWordBand();
+      const list = getBandWords(band);
 
       if (list.length === 0) {
         queue = [];
@@ -488,10 +563,18 @@
       if (queue.length === 0) {
         queue = shuffle([...list]).slice(0, 10);
       }
+
+      // Tag queue items with their band
+      currentWordBand = band;
     }
 
     function showNextWord() {
-      const list = getCumulativeWords(currentLevel);
+      // Check if we need to rebuild queue (adaptive band change)
+      if (queue.length === 0) {
+        buildQueue();
+      }
+
+      const list = getBandWords(currentWordBand);
 
       if (list.length === 0) {
         document.getElementById('flashcardArea').classList.add('hidden');
@@ -501,10 +584,6 @@
       }
 
       document.getElementById('emptyState').classList.add('hidden');
-
-      if (queue.length === 0) {
-        buildQueue();
-      }
 
       if (sessionWords >= 15) {
         showSessionComplete();
@@ -516,8 +595,12 @@
       document.getElementById('flashcardArea').classList.remove('hidden');
       document.getElementById('sessionComplete').style.display = 'none';
 
-      // Auto-speak the word
-      setTimeout(() => speakWord(), 300);
+      // Update band indicator
+      document.getElementById('currentBandDisplay').textContent = `Band ${currentWordBand}`;
+      updateStreakDisplay();
+
+      // Don't auto-speak - let child try to read first
+      // They can tap the card to hear it if needed
     }
 
     function respond(known) {
@@ -526,16 +609,64 @@
       if (known) {
         setStatus(currentWord, Math.min(status + 1, 5));
         sessionCorrect++;
+        correctStreak++;
+        wrongStreak = 0;
+
+        // Check if should move up a band
+        if (correctStreak >= 3 && currentBand !== 'C') {
+          const nextIdx = bands.indexOf(currentBand) + 1;
+          if (nextIdx < bands.length) {
+            currentBand = bands[nextIdx];
+            correctStreak = 0;
+            queue = []; // Force rebuild with new band
+          }
+        }
       } else {
         setStatus(currentWord, Math.max(status - 1, 0));
+        wrongStreak++;
+        correctStreak = 0;
         // Add back to queue for review
         queue.push(currentWord);
+
+        // Check if should move down a band
+        if (wrongStreak >= 2 && currentBand !== 'A') {
+          const prevIdx = bands.indexOf(currentBand) - 1;
+          if (prevIdx >= 0) {
+            currentBand = bands[prevIdx];
+            wrongStreak = 0;
+            queue = []; // Force rebuild with new band
+          }
+        }
       }
 
       sessionWords++;
       document.getElementById('sessionCount').textContent = sessionWords;
       updateDisplay();
+      updateBandDisplay();
       showNextWord();
+    }
+
+    function updateStreakDisplay() {
+      const streakEl = document.getElementById('streakDisplay');
+      if (correctStreak >= 2) {
+        streakEl.textContent = `🔥 ${correctStreak} in a row!`;
+      } else if (wrongStreak >= 1) {
+        streakEl.textContent = '';
+      } else {
+        streakEl.textContent = '';
+      }
+    }
+
+    function updateBandDisplay() {
+      // Update band progress bars
+      bands.forEach(band => {
+        const mastery = getBandMastery(band);
+        document.getElementById(`band${band}`).style.width = `${mastery}%`;
+        document.getElementById(`band${band}Percent`).textContent = `${mastery}%`;
+      });
+
+      // Update current band indicator
+      document.getElementById('currentBandDisplay').textContent = `Band ${currentBand}`;
     }
 
     async function showSessionComplete() {
@@ -543,14 +674,18 @@
       document.getElementById('sessionComplete').style.display = 'block';
       document.getElementById('sessionScore').textContent = sessionWords;
 
-      const list = getCumulativeWords(currentLevel);
-      const mastered = list.filter(w => getStatus(w) >= 3).length;
-      const total = list.length;
+      // Calculate total mastery across all bands
+      const allWords = [...getBandWords('A'), ...getBandWords('B'), ...getBandWords('C')];
+      const totalMastered = allWords.filter(w => getStatus(w) >= 3).length;
 
-      if (total > 0 && mastered === total) {
-        document.getElementById('sessionMessage').textContent = 'Amazing! You mastered all words at this level!';
-      } else if (total > 0 && mastered > total * 0.7) {
-        document.getElementById('sessionMessage').textContent = 'Great progress! Almost there!';
+      const bandAMastery = getBandMastery('A');
+      const bandBMastery = getBandMastery('B');
+      const bandCMastery = getBandMastery('C');
+
+      if (bandAMastery === 100 && bandBMastery === 100 && bandCMastery === 100) {
+        document.getElementById('sessionMessage').textContent = 'Amazing! You mastered all sight words!';
+      } else if (bandAMastery === 100) {
+        document.getElementById('sessionMessage').textContent = `Band A complete! Working on Band ${currentBand}.`;
       } else {
         document.getElementById('sessionMessage').textContent = 'Keep practicing to master more words!';
       }
@@ -561,13 +696,16 @@
           await window.FunBookiesDB.saveActivity({
             studentId: currentStudent.id,
             type: 'sight-words',
-            level: currentLevel,
+            level: currentBand,  // Use band instead of level
             score: sessionCorrect,
             total: sessionWords,
             duration: Math.round((Date.now() - sessionStartTime) / 1000),
             details: {
-              masteredCount: mastered,
-              totalWords: total
+              bandAMastery,
+              bandBMastery,
+              bandCMastery,
+              totalMastered,
+              totalWords: allWords.length
             }
           });
         } catch (e) {
@@ -579,8 +717,11 @@
     function startNewSession() {
       sessionWords = 0;
       sessionCorrect = 0;
+      correctStreak = 0;
+      wrongStreak = 0;
       sessionStartTime = Date.now();
       document.getElementById('sessionCount').textContent = 0;
+      queue = [];  // Force rebuild
       buildQueue();
       document.getElementById('sessionComplete').style.display = 'none';
       document.getElementById('flashcardArea').classList.remove('hidden');
@@ -588,19 +729,23 @@
     }
 
     function updateDisplay() {
-      const list = getCumulativeWords(currentLevel);
-      const mastered = list.filter(w => getStatus(w) >= 3);
-      const learning = list.filter(w => getStatus(w) >= 1 && getStatus(w) < 3);
+      // Count total mastered across all bands
+      const allWords = [...getBandWords('A'), ...getBandWords('B'), ...getBandWords('C')];
+      const mastered = allWords.filter(w => getStatus(w) >= 3);
 
       document.getElementById('masteredCount').textContent = mastered.length;
-      document.getElementById('levelName').textContent = `${currentLevel} - ${levelNames[currentLevel] || currentLevel}`;
 
-      const percent = list.length > 0 ? Math.round((mastered.length / list.length) * 100) : 0;
+      // Update progress section to show current band words
+      const bandWords = getBandWords(currentBand);
+      const bandMastered = bandWords.filter(w => getStatus(w) >= 3);
+
+      const percent = bandWords.length > 0 ? Math.round((bandMastered.length / bandWords.length) * 100) : 0;
       document.getElementById('progressPercent').textContent = percent;
       document.getElementById('progressBar').style.width = percent + '%';
+      document.getElementById('levelName').textContent = `Band ${currentBand}`;
 
-      // Word status chips
-      const statusHtml = list.map(w => {
+      // Word status chips for current band
+      const statusHtml = bandWords.map(w => {
         const s = getStatus(w);
         const cls = s >= 3 ? 'mastered' : s >= 1 ? 'learning' : 'new';
         return `<span class="word-chip ${cls}" onclick="speakWordDirect('${w}')">${w}</span>`;

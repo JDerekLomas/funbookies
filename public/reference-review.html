@@ -271,40 +271,29 @@
     let currentBook = null;
     let currentSlug = null;
 
+    // Hardcoded book list (Vercel doesn't support directory listing)
+    const ALL_BOOKS = [
+      "a0-look", "a1-i-sit", "a2-i-see-it", "a3-the-cat-is-here", "a4-sam-and-the-hat",
+      "b1-sam-and-the-cat", "b2-if-i-could-only-be-a-red-tractor", "b2-max-snow-pirate-hunt",
+      "b2-pup-in-the-mud", "b3-jump-at-camp", "b3-pip-and-the-croc", "b4-frog-and-crab",
+      "b5-the-ship-in-the-shell", "b6-kate-and-the-lake", "b7-the-rain-and-the-snow",
+      "b8-the-day-the-rain-came", "b8-the-owl-and-the-boy", "b9-a-star-at-the-farm",
+      "c1_knight_quest", "c2_magic_city", "c3_kitten_adventure", "c4_robot_pilot",
+      "c5_treehouse_mystery", "c6_biggest_race", "c7_hopeless_garden", "c8_impossible_invention",
+      "clover-the-cloud", "d1-the-lighthouse-keeper", "d2-the-hidden-garden",
+      "d3-the-architects-secret", "d4-signals-from-kepler", "d5-the-winter-of-words",
+      "d6-the-bridge-between", "flicker-the-firefly", "pip-and-the-croc", "rats-in-the-castle",
+      "zip-the-little-snail"
+    ];
+
     // Load book list on start
     loadAllBooks();
 
     async function loadAllBooks() {
-      try {
-        // Fetch manifest or list books from /books/
-        const resp = await fetch('./books/');
-        const html = await resp.text();
-
-        // Parse book slugs from directory listing or manifest
-        const slugs = [];
-        const matches = html.matchAll(/href="([^"]+\.json)"/g);
-        for (const m of matches) {
-          const slug = m[1].replace('.json', '');
-          if (slug !== 'manifest') slugs.push(slug);
-        }
-
-        // Sort and populate select
-        slugs.sort();
-        const select = document.getElementById('bookSelect');
-        select.innerHTML = '<option value="">Select a book...</option>';
-        for (const slug of slugs) {
-          select.innerHTML += `<option value="${slug}">${slug}</option>`;
-        }
-      } catch (e) {
-        console.error('Error loading books:', e);
-        // Try alternate method - hardcode some known books for now
-        const select = document.getElementById('bookSelect');
-        select.innerHTML = `
-          <option value="">Select a book...</option>
-          <option value="flicker-the-firefly">flicker-the-firefly</option>
-          <option value="pip-and-the-croc">pip-and-the-croc</option>
-          <option value="rats-in-the-castle">rats-in-the-castle</option>
-        `;
+      const select = document.getElementById('bookSelect');
+      select.innerHTML = '<option value="">Select a book...</option>';
+      for (const slug of ALL_BOOKS) {
+        select.innerHTML += `<option value="${slug}">${slug}</option>`;
       }
     }
 

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reference Sheet Review</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #1a1a2e;
+      color: #eee;
+    }
+    h1 { color: #4ecdc4; margin-bottom: 10px; }
+    .container { max-width: 1400px; margin: 0 auto; }
+
+    /* Book selector */
+    .book-selector {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    select, button, input {
+      padding: 10px 15px;
+      border-radius: 6px;
+      border: 1px solid #333;
+      background: #2a2a4a;
+      color: #eee;
+      font-size: 14px;
+    }
+    select { min-width: 300px; }
+    button {
+      background: #4ecdc4;
+      color: #1a1a2e;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover { background: #3dbdb5; }
+    button.secondary { background: #666; color: #eee; }
+    button.danger { background: #e74c3c; }
+
+    /* Main layout */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 20px;
+    }
+
+    /* Reference image panel */
+    .image-panel {
+      background: #2a2a4a;
+      border-radius: 12px;
+      padding: 15px;
+    }
+    .image-panel img {
+      width: 100%;
+      border-radius: 8px;
+      background: #333;
+    }
+    .image-panel h3 { margin: 0 0 10px 0; color: #4ecdc4; }
+
+    /* Info panel */
+    .info-panel {
+      background: #2a2a4a;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+    }
+    .tab {
+      padding: 8px 16px;
+      background: transparent;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .tab.active { color: #4ecdc4; border-bottom: 2px solid #4ecdc4; margin-bottom: -12px; }
+
+    /* Tab content */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Characters */
+    .character-card {
+      background: #1a1a2e;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+    .character-card h4 { margin: 0 0 10px 0; color: #f9ca24; }
+    .character-card textarea {
+      width: 100%;
+      min-height: 60px;
+      background: #2a2a4a;
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: #eee;
+      padding: 10px;
+      font-family: inherit;
+      resize: vertical;
+    }
+    .add-character {
+      width: 100%;
+      padding: 15px;
+      background: transparent;
+      border: 2px dashed #444;
+      color: #666;
+      margin-top: 10px;
+    }
+    .add-character:hover { border-color: #4ecdc4; color: #4ecdc4; }
+
+    /* Prompt editor */
+    .prompt-section { margin-bottom: 20px; }
+    .prompt-section label {
+      display: block;
+      margin-bottom: 5px;
+      color: #4ecdc4;
+      font-weight: 600;
+    }
+    textarea.prompt-editor {
+      width: 100%;
+      min-height: 300px;
+      background: #1a1a2e;
+      border: 1px solid #444;
+      border-radius: 8px;
+      color: #eee;
+      padding: 15px;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      resize: vertical;
+    }
+
+    /* Style info */
+    .style-info {
+      background: #1a1a2e;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    .style-info label { color: #888; font-size: 12px; }
+    .style-info input {
+      width: 100%;
+      margin-top: 5px;
+      background: #2a2a4a;
+    }
+
+    /* Actions */
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+    }
+
+    /* Status */
+    .status {
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin-top: 15px;
+      display: none;
+    }
+    .status.success { display: block; background: #2ecc7133; border: 1px solid #2ecc71; }
+    .status.error { display: block; background: #e74c3c33; border: 1px solid #e74c3c; }
+    .status.loading { display: block; background: #3498db33; border: 1px solid #3498db; }
+
+    /* Preview */
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      margin-top: 15px;
+      background: #1a1a2e;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .preview-panel {
+      background: #2a2a4a;
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      min-height: 60px;
+    }
+    .preview-panel.center { background: #4ecdc433; border: 2px solid #4ecdc4; }
+    .preview-panel strong { color: #4ecdc4; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📚 Reference Sheet Review</h1>
+
+    <div class="book-selector">
+      <select id="bookSelect">
+        <option value="">Loading books...</option>
+      </select>
+      <button onclick="loadBook()">Load</button>
+      <button class="secondary" onclick="loadAllBooks()">Refresh List</button>
+    </div>
+
+    <div class="main-grid">
+      <!-- Left: Reference Image -->
+      <div class="image-panel">
+        <h3>Current Reference</h3>
+        <img id="refImage" src="" alt="Reference sheet" />
+        <div style="margin-top: 10px; font-size: 12px; color: #888;">
+          <span id="refMeta"></span>
+        </div>
+      </div>
+
+      <!-- Right: Info & Editor -->
+      <div class="info-panel">
+        <div class="tabs">
+          <button class="tab active" onclick="showTab('characters')">Characters</button>
+          <button class="tab" onclick="showTab('prompt')">Prompt</button>
+          <button class="tab" onclick="showTab('preview')">Preview</button>
+        </div>
+
+        <!-- Characters Tab -->
+        <div id="tab-characters" class="tab-content active">
+          <div class="style-info">
+            <label>Visual Style</label>
+            <input type="text" id="visualStyle" placeholder="e.g., Nighttime watercolor. Deep blues and purples..." />
+          </div>
+
+          <h4 style="color: #f9ca24; margin-bottom: 10px;">Characters</h4>
+          <div id="charactersList"></div>
+          <button class="add-character" onclick="addCharacter()">+ Add Character</button>
+        </div>
+
+        <!-- Prompt Tab -->
+        <div id="tab-prompt" class="tab-content">
+          <div class="prompt-section">
+            <label>Reference Prompt</label>
+            <textarea id="promptEditor" class="prompt-editor" placeholder="Enter your 9-panel reference prompt..."></textarea>
+          </div>
+          <button class="secondary" onclick="generatePrompt()">Auto-Generate from Characters</button>
+        </div>
+
+        <!-- Preview Tab -->
+        <div id="tab-preview" class="tab-content">
+          <h4 style="margin-bottom: 10px;">Panel Layout Preview</h4>
+          <div class="preview-grid" id="previewGrid">
+            <!-- Panels will be inserted here -->
+          </div>
+        </div>
+
+        <div class="actions">
+          <button onclick="saveToBook()">💾 Save to Book JSON</button>
+          <button onclick="generateReference()">🎨 Generate Reference ($0.15)</button>
+          <button class="secondary" onclick="copyPrompt()">📋 Copy Prompt</button>
+        </div>
+
+        <div id="status" class="status"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentBook = null;
+    let currentSlug = null;
+
+    // Load book list on start
+    loadAllBooks();
+
+    async function loadAllBooks() {
+      try {
+        // Fetch manifest or list books from /books/
+        const resp = await fetch('./books/');
+        const html = await resp.text();
+
+        // Parse book slugs from directory listing or manifest
+        const slugs = [];
+        const matches = html.matchAll(/href="([^"]+\.json)"/g);
+        for (const m of matches) {
+          const slug = m[1].replace('.json', '');
+          if (slug !== 'manifest') slugs.push(slug);
+        }
+
+        // Sort and populate select
+        slugs.sort();
+        const select = document.getElementById('bookSelect');
+        select.innerHTML = '<option value="">Select a book...</option>';
+        for (const slug of slugs) {
+          select.innerHTML += `<option value="${slug}">${slug}</option>`;
+        }
+      } catch (e) {
+        console.error('Error loading books:', e);
+        // Try alternate method - hardcode some known books for now
+        const select = document.getElementById('bookSelect');
+        select.innerHTML = `
+          <option value="">Select a book...</option>
+          <option value="flicker-the-firefly">flicker-the-firefly</option>
+          <option value="pip-and-the-croc">pip-and-the-croc</option>
+          <option value="rats-in-the-castle">rats-in-the-castle</option>
+        `;
+      }
+    }
+
+    async function loadBook() {
+      const slug = document.getElementById('bookSelect').value;
+      if (!slug) return;
+
+      currentSlug = slug;
+      showStatus('Loading...', 'loading');
+
+      try {
+        // Load book JSON
+        const resp = await fetch(`./books/${slug}.json`);
+        currentBook = await resp.json();
+
+        // Load reference image
+        const refImg = document.getElementById('refImage');
+        const refVersions = ['_v4', '_v3', '_v2', ''];
+        let refFound = false;
+        for (const v of refVersions) {
+          const refUrl = `./books/references/${slug}_reference${v}.png`;
+          try {
+            const imgResp = await fetch(refUrl, { method: 'HEAD' });
+            if (imgResp.ok) {
+              refImg.src = refUrl;
+              document.getElementById('refMeta').textContent = `Version: ${v || 'v1'}`;
+              refFound = true;
+              break;
+            }
+          } catch (e) {}
+        }
+        if (!refFound) {
+          refImg.src = '';
+          document.getElementById('refMeta').textContent = 'No reference image found';
+        }
+
+        // Populate style
+        const style = currentBook.story_bible?.visual_style || currentBook.art_direction?.style || '';
+        document.getElementById('visualStyle').value = style;
+
+        // Populate characters
+        renderCharacters();
+
+        // Populate prompt if saved
+        const savedPrompt = currentBook.reference_metadata?.prompt || '';
+        document.getElementById('promptEditor').value = savedPrompt;
+
+        // Update preview
+        updatePreview();
+
+        hideStatus();
+      } catch (e) {
+        showStatus('Error loading book: ' + e.message, 'error');
+      }
+    }
+
+    function renderCharacters() {
+      const container = document.getElementById('charactersList');
+      container.innerHTML = '';
+
+      const chars = currentBook.characters || {};
+
+      if (Object.keys(chars).length === 0) {
+        container.innerHTML = `
+          <div class="character-card" style="border: 2px dashed #e74c3c;">
+            <p style="color: #e74c3c; margin: 0;">⚠️ No characters defined. Add characters for better reference sheets.</p>
+          </div>
+        `;
+        return;
+      }
+
+      for (const [key, data] of Object.entries(chars)) {
+        if (typeof data !== 'object') continue;
+
+        const card = document.createElement('div');
+        card.className = 'character-card';
+        card.innerHTML = `
+          <h4>${data.name || key} <button class="secondary" style="float:right;padding:2px 8px;font-size:11px;" onclick="removeCharacter('${key}')">✕</button></h4>
+          <label style="font-size:12px;color:#888;">Visual Shorthand (key identifying features):</label>
+          <textarea id="char-${key}" placeholder="e.g., Small firefly with round body, amber eyes, golden glow...">${data.visual_shorthand || ''}</textarea>
+        `;
+        container.appendChild(card);
+      }
+    }
+
+    function addCharacter() {
+      const name = prompt('Character name (e.g., "flicker"):');
+      if (!name) return;
+
+      const key = name.toLowerCase().replace(/\s+/g, '_');
+      if (!currentBook.characters) currentBook.characters = {};
+
+      currentBook.characters[key] = {
+        name: name.charAt(0).toUpperCase() + name.slice(1),
+        visual_shorthand: ''
+      };
+
+      renderCharacters();
+    }
+
+    function removeCharacter(key) {
+      if (!confirm(`Remove character "${key}"?`)) return;
+      delete currentBook.characters[key];
+      renderCharacters();
+    }
+
+    function generatePrompt() {
+      // Collect character data from form
+      const chars = currentBook.characters || {};
+      for (const key of Object.keys(chars)) {
+        const textarea = document.getElementById(`char-${key}`);
+        if (textarea) {
+          chars[key].visual_shorthand = textarea.value;
+        }
+      }
+
+      const style = document.getElementById('visualStyle').value || 'Children\'s book illustration';
+      const title = currentBook.title || currentSlug;
+
+      // Build character section
+      let charSection = '';
+      const charNames = [];
+      if (Object.keys(chars).length > 0) {
+        charSection = '\nCHARACTERS (draw EXACTLY as described - must be visually distinct):\n\n';
+        for (const [key, data] of Object.entries(chars)) {
+          if (data.visual_shorthand) {
+            charSection += `${data.name || key}: ${data.visual_shorthand}\n\n`;
+            charNames.push(data.name || key);
+          }
+        }
+      }
+
+      // Build panels
+      let panels = [];
+
+      // Character panels (1-4)
+      for (let i = 0; i < Math.min(charNames.length, 2); i++) {
+        panels.push(`Panel ${panels.length + 1}: ${charNames[i]} alone - full body front view, all key features visible`);
+        panels.push(`Panel ${panels.length + 1}: ${charNames[i]} alone - different pose/angle`);
+      }
+
+      // Pad to 4 if needed
+      while (panels.length < 4) {
+        const scenes = (currentBook.pages || []).filter(p => p.scene);
+        if (scenes[panels.length]) {
+          panels.push(`Panel ${panels.length + 1}: ${scenes[panels.length].scene.slice(0, 80)}...`);
+        } else {
+          panels.push(`Panel ${panels.length + 1}: Setting or mood detail`);
+        }
+      }
+
+      // Panel 5 - Hero shot
+      if (charNames.length >= 2) {
+        panels.push(`Panel 5: **CENTER HERO SHOT** - ${charNames.join(' and ')} TOGETHER, side by side. THE KEY IMAGE.`);
+      } else if (charNames.length === 1) {
+        panels.push(`Panel 5: **CENTER HERO SHOT** - ${charNames[0]} in heroic pose, all features visible. THE KEY IMAGE.`);
+      } else {
+        panels.push(`Panel 5: **CENTER HERO SHOT** - Main scene from the story. THE KEY IMAGE.`);
+      }
+
+      // Panels 6-9 - Settings and scenes
+      const scenes = (currentBook.pages || []).filter(p => p.scene);
+      for (let i = 5; i < 9; i++) {
+        if (scenes[i]) {
+          panels.push(`Panel ${i + 1}: ${scenes[i].scene.slice(0, 80)}...`);
+        } else {
+          panels.push(`Panel ${i + 1}: Setting or mood detail`);
+        }
+      }
+
+      const prompt = `9-PANEL REFERENCE SHEET for '${title}'
+
+Create a 3x3 grid. PANEL 5 (CENTER) is the HERO SHOT - most important!
+
+Style: ${style}
+${charSection}
+PANEL LAYOUT:
+${panels.join('\n')}
+
+Consistent art style across all panels. Each panel is a square vignette.
+
+CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.`;
+
+      document.getElementById('promptEditor').value = prompt;
+      showTab('prompt');
+      updatePreview();
+    }
+
+    function updatePreview() {
+      const prompt = document.getElementById('promptEditor').value;
+      const grid = document.getElementById('previewGrid');
+      grid.innerHTML = '';
+
+      // Extract panels from prompt
+      const panelMatches = prompt.matchAll(/Panel (\d+):?\s*([^\n]+)/gi);
+      const panels = {};
+      for (const m of panelMatches) {
+        panels[parseInt(m[1])] = m[2].trim();
+      }
+
+      for (let i = 1; i <= 9; i++) {
+        const div = document.createElement('div');
+        div.className = 'preview-panel' + (i === 5 ? ' center' : '');
+        div.innerHTML = `<strong>Panel ${i}</strong><br>${panels[i] || '(not defined)'}`;
+        grid.appendChild(div);
+      }
+    }
+
+    function showTab(tabName) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+
+      document.querySelector(`.tab-content#tab-${tabName}`).classList.add('active');
+      document.querySelector(`.tab[onclick*="${tabName}"]`).classList.add('active');
+
+      if (tabName === 'preview') updatePreview();
+    }
+
+    async function saveToBook() {
+      if (!currentBook || !currentSlug) return;
+
+      // Update characters from form
+      const chars = currentBook.characters || {};
+      for (const key of Object.keys(chars)) {
+        const textarea = document.getElementById(`char-${key}`);
+        if (textarea) {
+          chars[key].visual_shorthand = textarea.value;
+        }
+      }
+      currentBook.characters = chars;
+
+      // Update style
+      if (!currentBook.story_bible) currentBook.story_bible = {};
+      currentBook.story_bible.visual_style = document.getElementById('visualStyle').value;
+
+      // Update prompt
+      if (!currentBook.reference_metadata) currentBook.reference_metadata = {};
+      currentBook.reference_metadata.prompt = document.getElementById('promptEditor').value;
+
+      showStatus('Saving... (copy JSON and save manually for now)', 'loading');
+
+      // For now, just copy to clipboard since we can't write directly
+      const json = JSON.stringify(currentBook, null, 2);
+      await navigator.clipboard.writeText(json);
+
+      showStatus('📋 Book JSON copied to clipboard! Paste into the .json file.', 'success');
+    }
+
+    function copyPrompt() {
+      const prompt = document.getElementById('promptEditor').value;
+      navigator.clipboard.writeText(prompt);
+      showStatus('Prompt copied to clipboard!', 'success');
+    }
+
+    async function generateReference() {
+      if (!confirm('Generate new reference image? Cost: $0.15')) return;
+      showStatus('Generating reference image... This may take 30-60 seconds.', 'loading');
+
+      // This would need a backend API endpoint
+      // For now, show instructions
+      setTimeout(() => {
+        const prompt = document.getElementById('promptEditor').value;
+        showStatus(`
+          To generate, run in terminal:<br><br>
+          <code style="background:#1a1a2e;padding:5px;">python scripts/generate_references.py --book ${currentSlug} --force</code>
+        `, 'success');
+      }, 1000);
+    }
+
+    function showStatus(msg, type) {
+      const el = document.getElementById('status');
+      el.innerHTML = msg;
+      el.className = 'status ' + type;
+    }
+
+    function hideStatus() {
+      document.getElementById('status').className = 'status';
+    }
+  </script>
+</body>
+</html>

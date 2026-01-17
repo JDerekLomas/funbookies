@@ -247,15 +247,15 @@
       "text": "\"I wish I was fast,\" said Zip. But he was not.",
       "scene": "Close-up of purple snail face looking wistful, big dark eyes gazing upward. Orange shell behind. Soft background of meadow grass. Gentle, slightly sad mood. Watercolor.",
       "shot_type": "close",
-      "image_prompt": "Generate an image using the style of image 1.\n\nClose-up of purple snail face looking wistful, big dark eyes gazing upward. Orange shell behind. Soft background of meadow grass. Gentle, slightly sad mood. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image_prompt": "Generate an image using the style of images 1 and 2.\n\nCLOSE-UP of Zip the snail looking wistful and longing. The purple snail with orange swirly shell gazes upward with big hopeful dark eyes. Expression is gentle longing - wanting to be fast like his friend. Soft meadow grass blurred in background.\n\nCHARACTER IN THIS SCENE:\nZip: small purple snail with orange swirly shell, big dark eyes looking upward wistfully\n\nCRITICAL - THIS IS A SOLO SHOT: NO FROG. Only Zip appears in this image. Hop must NOT be visible.\n\nSTYLE: Soft watercolor, gentle mood, close-up portrait composition.\n\nNO TEXT.",
       "image": "images/zip-the-little-snail/page08.png",
       "generation_metadata": {
-        "generated_at": "2026-01-17T11:44:57.437641",
         "model": "wan2.6-image",
-        "provider": "fal.ai",
-        "used_reference": true,
-        "reference_version": "v1",
-        "cost": "$0.03"
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "prompt_enhanced": true
       }
     },
     {
@@ -283,15 +283,15 @@
       "text": "Hop ran fast! \"Run, Zip! Run!\" But Zip could not run.",
       "scene": "Green frog leaping away quickly toward forest edge. Purple snail left behind in grass, looking worried. Storm clouds above, first raindrops falling. Urgent mood. Watercolor.",
       "shot_type": "medium",
-      "image_prompt": "Generate an image using the style of image 1.\n\nGreen frog leaping away quickly toward forest edge. Purple snail left behind in grass, looking worried. Storm clouds above, first raindrops falling. Urgent mood. Watercolor.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall purple snail with swirly orange shell, big hopeful dark eyes, gentle smile\nbright green frog with darker green spots, big cheerful yellow eyes, wide happy smile\n\nSTYLE: Cheerful watercolor illustration. Bright greens and sunny yellows for happy scenes, dramatic grays and blues for storm, warm golden sunset tones for ending. Soft edges, friendly character designs.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image_prompt": "Generate an image using the style of images 1 and 2.\n\nGreen frog LEAPING AWAY urgently toward the right, with worried/urgent expression (NOT happy). Frog's eyes are focused ahead, mouth slightly open with concern, body stretched in urgent leap. Purple snail left behind on the left side, looking worried and sad.\n\nCHARACTERS:\nHop: bright green frog with spots - URGENT expression, leaping RIGHT, worried face (reference: scared Hop from image 2 row 2)\nZip: purple snail with orange shell - on LEFT side, looking worried, watching Hop leave\n\nThis is a SEPARATION moment - Hop is fleeing the storm, leaving Zip behind. Both should look WORRIED, not happy.\n\nSTYLE: Dramatic stormy atmosphere, rain starting, dark clouds.\n\nNO TEXT.",
       "image": "images/zip-the-little-snail/page10.png",
       "generation_metadata": {
-        "generated_at": "2026-01-17T11:46:06.468305",
         "model": "wan2.6-image",
-        "provider": "fal.ai",
-        "used_reference": true,
-        "reference_version": "v1",
-        "cost": "$0.03"
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "prompt_enhanced": true
       }
     },
     {
@@ -352,13 +352,14 @@
       "text": "Zip went out into the rain. Slow and steady, he got to Hop.",
       "scene": "Purple snail moving through rain toward stuck frog. Determined expression on snail. Silver trail behind. Rain falling, mud everywhere. Brave moment. Watercolor.",
       "shot_type": "wide",
-      "image_prompt": "Generate an image using the style of image 1.\n\nSmall purple snail with orange swirly shell moving bravely through heavy rain TOWARD a green frog who is stuck in mud in the background. The snail is in the foreground, body stretched forward with determined expression - eyes focused ahead, mouth set firm. Silver sparkly trail behind the snail. In the background/distance, the green spotted frog is visible partially stuck in brown mud, arms reaching out. Rain falling heavily across entire scene. Muddy ground, gray stormy sky.\n\nCHARACTERS IN THIS SCENE:\nZip: small purple snail with swirly orange shell - in foreground, moving forward\nHop: bright green frog with spots - in background, stuck in mud\n\nSTYLE: Dramatic watercolor. This is the BRAVE RESCUE moment - show determination.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image_prompt": "Generate an image using the style of images 1 and 2.\n\nPurple snail moving FROM LEFT TOWARD RIGHT where green frog is stuck in mud. \n\nCOMPOSITION: Snail on LEFT side of frame, moving RIGHT. Frog on RIGHT side, stuck in mud.\n\nZip (snail): DETERMINED expression (reference: determined Zip from image 2 row 1) - eyes focused ahead, slight confident smile, body stretched forward moving right. Silver sparkly trail behind going left.\n\nHop (frog): STUCK and SCARED in brown mud on right side - only upper body visible, arms reaching toward snail, distressed expression (reference: scared Hop and mud Hop from image 2 row 2).\n\nThis is the BRAVE RESCUE moment. Zip is heroically going to save his friend.\n\nRain falling, muddy ground, stormy sky.\n\nNO TEXT.",
       "image": "images/zip-the-little-snail/page14.png",
       "generation_metadata": {
-        "generated_at": "2026-01-17T12:00:00",
         "model": "wan2.6-image",
-        "used_reference": true,
-        "reference_version": "v1",
+        "references": [
+          "v1",
+          "v2"
+        ],
         "prompt_enhanced": true
       }
     },

@@ -466,16 +466,38 @@
       return Math.round((mastered / words.length) * 100);
     }
 
-    // Load from localStorage
-    function loadProgress() {
-      const saved = localStorage.getItem('funbookies-sight-words-v2');
-      if (saved) {
-        wordStatus = JSON.parse(saved);
+    // Load progress from IndexedDB (per student)
+    async function loadProgress() {
+      if (!window.FunBookiesDB) return;
+
+      const studentKey = currentStudent ? `sight-words-${currentStudent.id}` : 'sight-words-guest';
+      try {
+        const saved = await window.FunBookiesDB.getSetting(studentKey);
+        if (saved) {
+          wordStatus = saved;
+        } else {
+          // Migrate from old localStorage if exists (one-time)
+          const legacy = localStorage.getItem('funbookies-sight-words-v2');
+          if (legacy) {
+            wordStatus = JSON.parse(legacy);
+            await saveProgress(); // Save to IndexedDB
+            localStorage.removeItem('funbookies-sight-words-v2'); // Clean up
+          }
+        }
+      } catch (e) {
+        console.error('Failed to load sight words progress:', e);
       }
     }
 
-    function saveProgress() {
-      localStorage.setItem('funbookies-sight-words-v2', JSON.stringify(wordStatus));
+    async function saveProgress() {
+      if (!window.FunBookiesDB) return;
+
+      const studentKey = currentStudent ? `sight-words-${currentStudent.id}` : 'sight-words-guest';
+      try {
+        await window.FunBookiesDB.setSetting(studentKey, wordStatus);
+      } catch (e) {
+        console.error('Failed to save sight words progress:', e);
+      }
     }
 
     function getStatus(word) {
@@ -489,14 +511,15 @@
 
     // Initialize with student picker
     document.addEventListener('DOMContentLoaded', async () => {
-      loadProgress();
-
       // Show student picker
       const picker = new StudentPicker({
         title: 'Who is practicing sight words?',
         allowSkip: true
       });
       currentStudent = await picker.show();
+
+      // Load progress after student selected (progress is per-student)
+      await loadProgress();
 
       if (currentStudent) {
         // Show student badge
@@ -556,8 +579,15 @@
       const newWords = list.filter(w => getStatus(w) === 0);
       const mastered = list.filter(w => getStatus(w) >= 3);
 
-      // Shuffle each group
-      const shuffle = arr => arr.sort(() => Math.random() - 0.5);
+      // Fisher-Yates shuffle (unbiased)
+      const shuffle = arr => {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      };
       queue = [...shuffle(learning), ...shuffle(newWords).slice(0, 5), ...shuffle(mastered).slice(0, 2)];
 
       if (queue.length === 0) {

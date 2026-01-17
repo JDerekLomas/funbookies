@@ -775,20 +775,15 @@
                 console.log('Assessment saved for', currentStudent.name);
             }
 
-            // Also save to localStorage for backwards compatibility
-            localStorage.setItem('funbookies-assessment', JSON.stringify({
-                date: new Date().toISOString(),
-                estimatedLevel,
-                stats,
-                history
-            }));
-            localStorage.setItem('funbookies-reading-level', estimatedLevel);
+            // NOTE: Removed localStorage writes - all data now in IndexedDB
+            // Legacy apps should use FunBookiesDB.getAssessments() instead
         }
 
         async function loadBookRecommendations(level) {
             try {
                 // Fetch the books manifest
                 const res = await fetch('/books/manifest.json');
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const books = await res.json();
 
                 // Find books at the estimated level and one level below (for confidence building)

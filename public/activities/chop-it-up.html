@@ -329,6 +329,29 @@
     let wordsCompleted = 0;
     let usedWords = new Set();
     let currentStudent = null;
+    let sessionStartTime = Date.now();
+
+    // Save activity when leaving page
+    window.addEventListener('beforeunload', () => {
+      saveActivity();
+    });
+
+    async function saveActivity() {
+      if (!currentStudent || wordsCompleted === 0) return;
+      try {
+        await window.FunBookiesDB.saveActivity({
+          studentId: currentStudent.id,
+          type: 'chop-it-up',
+          level: currentLevel,
+          score: wordsCompleted,
+          total: wordsCompleted,
+          duration: Math.round((Date.now() - sessionStartTime) / 1000),
+          details: { wordsChopped: wordsCompleted }
+        });
+      } catch (e) {
+        console.error('Failed to save activity:', e);
+      }
+    }
 
     document.addEventListener('DOMContentLoaded', async () => {
       setupLevelButtons();
@@ -366,7 +389,13 @@
 
     function setupLevelButtons() {
       document.querySelectorAll('.chip').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
+          // Save activity before changing levels
+          if (wordsCompleted > 0) {
+            await saveActivity();
+            wordsCompleted = 0;
+            sessionStartTime = Date.now();
+          }
           document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           currentLevel = btn.dataset.level;

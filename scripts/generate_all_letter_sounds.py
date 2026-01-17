@@ -1,19 +1,27 @@
 #!/usr/bin/env python3
 """Generate all letter sounds for both US and UK locales."""
 
+import os
 import requests
 from pathlib import Path
 from time import sleep
 
+from dotenv import load_dotenv
+
+# Load environment variables
+PROJECT_ROOT = Path(__file__).parent.parent
+load_dotenv(PROJECT_ROOT / ".env")
+load_dotenv(PROJECT_ROOT / ".env.local")
+
 # API Keys - set via environment variables
-import os
 OPENAI_KEY = os.environ.get("OPENAI_API_KEY", "")
 ELEVENLABS_KEY = os.environ.get("ELEVENLABS_API_KEY", "")
 
 # ElevenLabs voices
 ALICE_VOICE = "Xb7hH8MSUJpSbSDYk0k2"  # British educator
 
-OUTPUT_BASE = Path("/Users/dereklomas/lilbookies/public/activities/letter-sounds")
+# Use project-relative path
+OUTPUT_BASE = PROJECT_ROOT / "public/activities/letter-sounds"
 
 # Letter names - US vs UK differences
 LETTER_NAMES_US = {

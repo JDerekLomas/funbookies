@@ -1,109 +1,48 @@
 #!/usr/bin/env python3
-"""Generate page images for a book using MuleRouter API.
+"""Generate page images for a book.
 
-Uses nano-banana-pro with consistent character descriptions in every prompt
-to maintain visual coherence across the book.
+Supports two providers:
+- fal.ai (default): $0.03/image for wan2.6 I2I, $0.15 for nano-banana-pro
+- mulerouter: ~$0.10-0.15/image for wan2.6, $0.15 for nano-banana-pro
+
+Uses reference images for style consistency when available.
 
 Saves generation metadata for each image including:
 - generated_at: ISO timestamp
 - model: model used for generation
+- provider: fal or mulerouter
 - used_reference: whether style transfer was used
 - reference_version: which reference image version was used (if applicable)
 """
 
 import sys
+import os
 import json
 import time
-import base64
 import urllib.request
 from pathlib import Path
 from datetime import datetime
 
-# Add MuleRouter skills to path
-SKILL_DIR = Path("/Users/dereklomas/.claude/plugins/cache/mulerouter-skills/mulerouter-skills/1.0.0/skills/mulerouter-skills")
-sys.path.insert(0, str(SKILL_DIR))
-
+# Setup paths relative to project root
 from dotenv import load_dotenv
-load_dotenv(SKILL_DIR / ".env")
+PROJECT_ROOT = Path(__file__).parent.parent
+load_dotenv(PROJECT_ROOT / ".env")
+load_dotenv(PROJECT_ROOT / ".env.local")
 
-from core import APIClient, load_config, create_and_poll_task
+# For MuleRouter fallback - configurable via env var
+SKILL_DIR = Path(os.getenv("MULEROUTER_SKILL_DIR", str(Path.home() / ".claude/plugins/cache/mulerouter-skills/mulerouter-skills/1.0.0/skills/mulerouter-skills")))
 
-BOOKS_DIR = Path("/Users/dereklomas/lilbookies/public/books")
-REFS_DIR = BOOKS_DIR / "references"
-IMAGES_DIR = BOOKS_DIR / "images"
+# Import fal client
+from fal_client import FalClient
 
-
-def image_to_base64_uri(path: Path) -> str:
-    """Convert image file to data URI."""
-    with open(path, "rb") as f:
-        b64 = base64.b64encode(f.read()).decode()
-    ext = path.suffix.lower()
-    mime = "image/png" if ext == ".png" else "image/jpeg"
-    return f"data:{mime};base64,{b64}"
-
-
-def get_character_block(book: dict) -> str:
-    """Extract a consistent character description block.
-
-    Uses visual_shorthand from characters field for concise, consistent descriptions.
-    Falls back to building from appearance fields if shorthand not available.
-    """
-    # Try new schema first (characters plural)
-    characters = book.get("characters", {})
-
-    # Fall back to old schema (character singular)
-    if not characters:
-        characters = book.get("character", {})
-
-    char_lines = []
-    for key, char_data in characters.items():
-        if isinstance(char_data, dict) and key not in ["names", "style_notes"]:
-            # Prefer visual_shorthand if available (new schema)
-            if char_data.get("visual_shorthand"):
-                char_lines.append(char_data["visual_shorthand"])
-            elif char_data.get("appearance"):
-                # Build from appearance (new schema)
-                app = char_data["appearance"]
-                name = char_data.get("name", key.capitalize())
-                parts = [f"{name}:"]
-                if app.get("body"):
-                    parts.append(app["body"])
-                if app.get("fur_color"):
-                    parts.append(f"with {app['fur_color']} fur")
-                if app.get("distinguishing_mark"):
-                    parts.append(f"- {app['distinguishing_mark']} (KEY FEATURE)")
-                if app.get("ears"):
-                    parts.append(f"- {app['ears']}")
-                if app.get("tail"):
-                    parts.append(f"- {app['tail']}")
-                if app.get("posture"):
-                    parts.append(f"- {app['posture']}")
-                char_lines.append(" ".join(parts))
-            else:
-                # Old schema fallback
-                name = key.capitalize()
-                species = char_data.get("species", "")
-                color = char_data.get("color", "")
-                body = char_data.get("body", "")
-                distinguishing = char_data.get("distinguishing_feature", "")
-
-                parts = []
-                if species:
-                    parts.append(species)
-                if color:
-                    parts.append(f"({color})")
-                if body:
-                    parts.append(body)
-                if distinguishing:
-                    parts.append(f"- {distinguishing}")
-
-                if parts:
-                    char_lines.append(f"{name}: {' '.join(parts)}")
-
-    return "\n".join(char_lines)
+# Import shared utilities
+from image_utils import (
+    BOOKS_DIR, REFS_DIR, IMAGES_DIR,
+    image_to_base64_uri, find_reference_image, get_character_block
+)
 
 
-def build_image_prompt(book: dict, page: dict) -> str:
+def build_image_prompt(book: dict, page: dict, for_fal: bool = True) -> str:
     """Build a simple, focused image prompt."""
 
     scene = page.get("scene", "")
@@ -124,9 +63,12 @@ def build_image_prompt(book: dict, page: dict) -> str:
     # Get character block for consistency
     char_block = get_character_block(book)
 
+    # Add fal.ai style reference instruction if using reference
+    style_prefix = "Generate an image using the style of image 1.\n\n" if for_fal else ""
+
     # Build prompt with character block only if we have characters
     if char_block:
-        prompt = f"""{scene}
+        prompt = f"""{style_prefix}{scene}
 
 CHARACTERS (draw EXACTLY as described - these features are KEY for identification):
 {char_block}
@@ -135,7 +77,7 @@ STYLE: {style}
 
 IMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."""
     else:
-        prompt = f"""{scene}
+        prompt = f"""{style_prefix}{scene}
 
 STYLE: {style}
 
@@ -144,28 +86,100 @@ IMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.
     return prompt
 
 
-def find_reference_image(slug: str) -> tuple[str | None, str | None]:
-    """Find the reference image for a book, checking versioned files.
-
-    Returns: (path, version) or (None, None) if not found
-    """
-    versions = ["_v4", "_v3", "_v2", ""]
-    for version in versions:
-        suffix = f"_reference{version}.png"
-        path = REFS_DIR / f"{slug}{suffix}"
-        if path.exists():
-            version_str = version.replace("_", "") if version else "v1"
-            return str(path), version_str
-    return None, None
-
-
-def generate_image(prompt: str, slug: str, page_num: int, config, use_reference: bool = False) -> dict | None:
-    """Generate an image using nano-banana-pro or wan2.6-image with reference.
+def generate_image_fal(
+    prompt: str,
+    slug: str,
+    page_num: int,
+    fal_client: FalClient,
+    use_reference: bool = True
+) -> dict | None:
+    """Generate an image using fal.ai.
 
     Returns: dict with 'url', 'local_path', and 'metadata' or None on failure
     """
+    print(f"  Generating page {page_num} via fal.ai...")
 
-    print(f"  Generating page {page_num}...")
+    model = "nano-banana-pro"
+    ref_path, ref_version = None, None
+    cost = "$0.15"
+
+    if use_reference:
+        ref_path, ref_version = find_reference_image(slug)
+        if ref_path:
+            print(f"    Using reference: {ref_version}")
+            model = "wan2.6-image"
+            cost = "$0.03"
+        else:
+            print(f"    No reference found, using T2I")
+
+    # Generate based on model type
+    if model == "wan2.6-image" and ref_path:
+        result = fal_client.generate_with_reference(
+            prompt=prompt,
+            reference_images=[Path(ref_path)],
+            model=model,
+            size="1024x1024",
+            verbose=True,
+        )
+    else:
+        # Remove fal.ai style reference prefix for T2I
+        clean_prompt = prompt.replace("Generate an image using the style of image 1.\n\n", "")
+        result = fal_client.generate_image(
+            prompt=clean_prompt,
+            model=model,
+            size="square_hd",
+            verbose=True,
+        )
+
+    if result.success:
+        print(f"    Generated: {result.url[:60]}...")
+
+        # Save image locally
+        image_dir = IMAGES_DIR / slug
+        image_dir.mkdir(parents=True, exist_ok=True)
+        local_path = image_dir / f"page{page_num:02d}.png"
+
+        try:
+            urllib.request.urlretrieve(result.url, local_path)
+            print(f"    Saved: {local_path.name}")
+
+            # Path format for reader: "images/{slug}/page{nn}.png"
+            return {
+                "url": result.url,
+                "image_path": f"images/{slug}/page{page_num:02d}.png",
+                "metadata": {
+                    "generated_at": datetime.now().isoformat(),
+                    "model": model,
+                    "provider": "fal.ai",
+                    "used_reference": bool(ref_path and use_reference),
+                    "reference_version": ref_version if (ref_path and use_reference) else None,
+                    "cost": cost,
+                }
+            }
+        except Exception as e:
+            print(f"    Download error: {e}")
+            return None
+    else:
+        print(f"    Failed: {result.error}")
+        return None
+
+
+def generate_image_mulerouter(
+    prompt: str,
+    slug: str,
+    page_num: int,
+    config,
+    use_reference: bool = True
+) -> dict | None:
+    """Generate an image using MuleRouter API (fallback).
+
+    Returns: dict with 'url', 'local_path', and 'metadata' or None on failure
+    """
+    sys.path.insert(0, str(SKILL_DIR))
+    load_dotenv(SKILL_DIR / ".env")
+    from core import APIClient, create_and_poll_task
+
+    print(f"  Generating page {page_num} via MuleRouter...")
 
     model = "nano-banana-pro"
     ref_path, ref_version = None, None
@@ -178,12 +192,15 @@ def generate_image(prompt: str, slug: str, page_num: int, config, use_reference:
         else:
             print(f"    No reference found, using T2I")
 
+    # Clean prompt (remove fal.ai-specific prefix)
+    clean_prompt = prompt.replace("Generate an image using the style of image 1.\n\n", "")
+
     # Build request body based on model type
     if model == "wan2.6-image" and ref_path:
         # Image-to-image with reference
         ref_uri = image_to_base64_uri(Path(ref_path))
         body = {
-            "prompt": prompt,
+            "prompt": clean_prompt,
             "images": [ref_uri],
             "size": "1024*1024",
             "n": 1
@@ -192,7 +209,7 @@ def generate_image(prompt: str, slug: str, page_num: int, config, use_reference:
     else:
         # Text-to-image
         body = {
-            "prompt": prompt,
+            "prompt": clean_prompt,
             "size": "1024*1024",
             "n": 1
         }
@@ -230,6 +247,7 @@ def generate_image(prompt: str, slug: str, page_num: int, config, use_reference:
                     "metadata": {
                         "generated_at": datetime.now().isoformat(),
                         "model": model,
+                        "provider": "mulerouter",
                         "used_reference": bool(ref_path and use_reference),
                         "reference_version": ref_version if (ref_path and use_reference) else None,
                     }
@@ -249,7 +267,12 @@ def main():
     parser.add_argument("--pages", help="Comma-separated page numbers (default: all)")
     parser.add_argument("--dry-run", action="store_true", help="Show prompts only")
     parser.add_argument("--force", action="store_true", help="Regenerate even if image exists")
-    parser.add_argument("--use-reference", action="store_true", help="Use I2I with reference sheet")
+    parser.add_argument("--use-reference", action="store_true", default=True,
+                        help="Use I2I with reference sheet (default: True)")
+    parser.add_argument("--no-reference", action="store_true",
+                        help="Use T2I without reference (nano-banana-pro)")
+    parser.add_argument("--provider", choices=["fal", "mulerouter"], default="fal",
+                        help="API provider (default: fal - cheaper for I2I)")
     args = parser.parse_args()
 
     book_file = BOOKS_DIR / f"{args.slug}.json"
@@ -267,22 +290,43 @@ def main():
         page_nums = [int(p) for p in args.pages.split(",")]
         pages = [p for p in pages if p["page"] in page_nums]
 
-    print(f"Processing {len(pages)} pages for {args.slug}\n")
+    print(f"Processing {len(pages)} pages for {args.slug}")
+    print(f"Provider: {args.provider}")
 
-    # Load MuleRouter config
-    config = load_config()
-    print(f"Using API: {config.site}\n")
+    use_reference = args.use_reference and not args.no_reference
 
-    # Check for reference image
+    # Estimate costs
     ref_path, ref_version = find_reference_image(args.slug)
-    if ref_path:
-        print(f"Reference image found: {ref_version}")
+    if use_reference and ref_path:
+        cost_per_image = 0.03 if args.provider == "fal" else 0.12
+        print(f"Mode: Image-to-image (style transfer from {ref_version})")
     else:
-        print("No reference image found")
+        cost_per_image = 0.15
+        print(f"Mode: Text-to-image (nano-banana-pro)")
+
+    pages_to_generate = [p for p in pages if p.get("scene") and (args.force or not p.get("image"))]
+    print(f"Pages to generate: {len(pages_to_generate)}")
+    print(f"Estimated cost: ${len(pages_to_generate) * cost_per_image:.2f}\n")
+
+    # Initialize client
+    if args.provider == "fal":
+        try:
+            client = FalClient()
+            print(f"API key: {client.fal_key[:8]}...")
+        except ValueError as e:
+            print(f"Error: {e}")
+            return
+    else:
+        sys.path.insert(0, str(SKILL_DIR))
+        load_dotenv(SKILL_DIR / ".env")
+        from core import load_config
+        client = load_config()
+        print(f"API: {client.site}")
 
     # Show character block for reference
     char_block = get_character_block(book)
-    print(f"Character consistency block:\n{char_block}\n")
+    if char_block:
+        print(f"\nCharacter consistency block:\n{char_block}")
     print("-" * 50)
 
     updated = 0
@@ -301,7 +345,7 @@ def main():
             continue
 
         # Build prompt
-        prompt = build_image_prompt(book, page)
+        prompt = build_image_prompt(book, page, for_fal=(args.provider == "fal" and use_reference))
         page["image_prompt"] = prompt
 
         if args.dry_run:
@@ -311,7 +355,10 @@ def main():
             continue
 
         # Generate image with metadata
-        result = generate_image(prompt, args.slug, page_num, config, use_reference=args.use_reference)
+        if args.provider == "fal":
+            result = generate_image_fal(prompt, args.slug, page_num, client, use_reference=use_reference)
+        else:
+            result = generate_image_mulerouter(prompt, args.slug, page_num, client, use_reference=use_reference)
 
         if result:
             page["image"] = result["image_path"]
@@ -326,6 +373,9 @@ def main():
 
     if not args.dry_run:
         print(f"\nDone! Generated {updated} images.")
+        if args.provider == "fal":
+            actual_cost = updated * (0.03 if use_reference and ref_path else 0.15)
+            print(f"Total cost: ~${actual_cost:.2f}")
 
 
 if __name__ == "__main__":

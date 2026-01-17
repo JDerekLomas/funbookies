@@ -618,29 +618,11 @@
             background: #FF8C00;
             transform: rotate(-45deg);
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            border-top: 2px solid #1a1a1a;
-            border-bottom: 2px solid #1a1a1a;
+            border-top: 3px solid #1a1a1a;
+            border-bottom: 3px solid #1a1a1a;
         }
 
-        .corner-ribbon::before,
-        .corner-ribbon::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            border: 5px solid transparent;
-            border-top-color: #cc7000;
-        }
-
-        .corner-ribbon::before {
-            left: 0;
-            border-left-color: #cc7000;
-        }
-
-        .corner-ribbon::after {
-            right: 0;
-            border-right-color: #cc7000;
-        }
+        /* Removed folded corner effect - keeping plain band */
 
         .corner-ribbon .brand-name {
             font-family: var(--font-body);

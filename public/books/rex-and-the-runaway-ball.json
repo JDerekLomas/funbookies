@@ -1,0 +1,398 @@
+{
+  "id": "rex-and-the-runaway-ball",
+  "title": "Rex and the Runaway Ball",
+  "slug": "rex-and-the-runaway-ball",
+  "level": "B3",
+  "band": "B",
+  "targetPhonics": "CVC short e, consonant blends",
+  "skill": "CVC words with short e (Rex, red, get, wet) and blends (ball, roll, dark)",
+  "skill_description": "Practice reading CVC words with short e while learning about courage and friendship",
+  "age_range": "4-6",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "created": "2026-01-17",
+  "story_bible": {
+    "premise": "Rex is a small golden puppy who loves his red ball more than anything. One sunny day while playing with his friend Rosie the rabbit, the ball bounces away and rolls into a dark tunnel under the old stone bridge. Rex is scared of the dark, but with Rosie's encouragement, he finds the courage to go in alone and retrieve his beloved ball.",
+    "themes": [
+      "courage in the face of fear",
+      "friendship and encouragement",
+      "facing challenges",
+      "small acts of bravery"
+    ],
+    "character_arcs": {
+      "Rex": "Happy playing \u2192 Worried when ball rolls away \u2192 Scared of dark tunnel \u2192 Encouraged by friend \u2192 Bravely enters alone \u2192 Proud and happy",
+      "Rosie": "Playful friend \u2192 Supportive when Rex is scared \u2192 Cheers Rex on \u2192 Celebrates his success"
+    },
+    "setting": "A sunny meadow with an old stone bridge over a small stream. Under the bridge is a dark tunnel where the water flows through. The meadow has green grass, wildflowers, and a few trees. Weather is sunny and warm throughout.",
+    "plot_summary": "Rex the puppy and Rosie the rabbit are playing in a sunny meadow. Rex loves bouncing his red ball. But one big bounce sends the ball rolling away - right into the dark tunnel under the old stone bridge!\n\nRex runs to the tunnel entrance and looks in. It's so dark! He can see his red ball sitting in there, but he's too scared to go in. 'It's too dark!' Rex whimpers.\n\nRosie hops over. 'You can do it, Rex! You're brave!' she says. Rex looks at the tunnel, then at Rosie, then back at the tunnel. He takes a deep breath.\n\nSlowly, step by step, Rex walks into the dark tunnel. It's cold and dark, but he keeps going. He can see his red ball! He grabs it in his mouth and turns around.\n\nRex runs back out into the sunshine, ball in mouth, tail wagging proudly. 'I did it!' he barks. Rosie cheers. They play together, and Rex feels brave.",
+    "emotional_beats": [
+      {
+        "page": 1,
+        "beat": "Joy - Rex and Rosie playing happily in sunshine"
+      },
+      {
+        "page": 2,
+        "beat": "Fun - Rex bouncing his beloved red ball"
+      },
+      {
+        "page": 3,
+        "beat": "Surprise/worry - Ball bounces away toward tunnel"
+      },
+      {
+        "page": 4,
+        "beat": "Fear - Rex at tunnel entrance, scared of the dark"
+      },
+      {
+        "page": 5,
+        "beat": "Support - Rosie encouraging Rex"
+      },
+      {
+        "page": 6,
+        "beat": "Determination - Rex deciding to be brave"
+      },
+      {
+        "page": 7,
+        "beat": "Tension - Rex alone in dark tunnel"
+      },
+      {
+        "page": 8,
+        "beat": "Relief/triumph - Rex grabs the ball"
+      },
+      {
+        "page": 9,
+        "beat": "Pride/joy - Rex emerges victorious"
+      },
+      {
+        "page": 10,
+        "beat": "Celebration - Friends happy together"
+      }
+    ],
+    "visual_style": "Warm, cheerful watercolor illustration style. Golden yellows and warm greens for sunny outdoor scenes. Dark blues and grays for tunnel scenes with a spot of red (the ball) as focal point. Friendly, rounded character designs with expressive faces. Soft edges, gentle lighting."
+  },
+  "characters": {
+    "rex": {
+      "name": "Rex",
+      "visual_shorthand": "small fluffy golden puppy with floppy ears, big brown eyes, black nose, wagging tail",
+      "distinctive_features": [
+        "golden/yellow fluffy fur (KEY)",
+        "floppy ears (KEY)",
+        "big expressive brown eyes",
+        "small black nose",
+        "short wagging tail"
+      ],
+      "personality": "playful, loving, sometimes scared but learns to be brave"
+    },
+    "rosie": {
+      "name": "Rosie",
+      "visual_shorthand": "small white rabbit with pink inner ears, bright pink nose, fluffy cotton tail",
+      "distinctive_features": [
+        "white fluffy fur (KEY)",
+        "long upright ears with pink inside (KEY)",
+        "bright pink nose",
+        "round fluffy cotton tail"
+      ],
+      "personality": "supportive, encouraging, good friend"
+    }
+  },
+  "props": {
+    "ball": {
+      "name": "Red Ball",
+      "visual_shorthand": "bright red rubber ball, shiny, tennis-ball sized",
+      "distinctive_features": [
+        "bright cherry red color",
+        "round and shiny",
+        "small enough for puppy to carry in mouth"
+      ]
+    }
+  },
+  "word_list": {
+    "sound_out": [
+      "Rex",
+      "red",
+      "get",
+      "wet",
+      "ball",
+      "roll",
+      "run",
+      "sun",
+      "big",
+      "did",
+      "can",
+      "not"
+    ],
+    "sight": [
+      "the",
+      "is",
+      "a",
+      "I",
+      "to",
+      "and",
+      "it",
+      "in",
+      "my",
+      "you",
+      "go",
+      "too"
+    ],
+    "new": [
+      "tunnel",
+      "dark",
+      "brave",
+      "scared"
+    ]
+  },
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Rex and the Runaway Ball",
+      "scene": "Small fluffy golden puppy with floppy ears jumping happily in sunny meadow, chasing a bright red ball. Green grass, blue sky, wildflowers. Cheerful watercolor style.",
+      "image": "images/rex-and-the-runaway-ball/page01.png",
+      "generation_metadata": {
+        "model": "wan2.6-image",
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "dual_reference": true
+      }
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "Rex the pup and Rosie the rabbit were pals. They had fun in the sun!",
+      "scene": "Golden fluffy puppy and white rabbit playing together in sunny meadow. Both smiling, happy. Green grass, yellow wildflowers, warm sunshine, blue sky with fluffy clouds. Wide shot showing meadow setting.",
+      "image": "images/rex-and-the-runaway-ball/page06.png",
+      "generation_metadata": {
+        "model": "wan2.6-image",
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "dual_reference": true
+      }
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "Rex had a red ball. He loved his ball! Boing, boing, boing!",
+      "scene": "Golden puppy bouncing a bright red ball with his paw. Ball mid-bounce with motion lines. Puppy has joyful expression - mouth open in happy pant, tail wagging. Sunny meadow background.",
+      "image": "images/rex-and-the-runaway-ball/page07.png",
+      "generation_metadata": {
+        "model": "wan2.6-image",
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "dual_reference": true
+      }
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "One big boing! The ball went up, up, up... and then it rolled away!",
+      "scene": "Red ball bouncing high then rolling away toward an old stone bridge visible in background. Golden puppy watching with surprised expression - eyes wide, ears perked up. Motion lines showing ball trajectory.",
+      "image": "images/rex-and-the-runaway-ball/page08.png",
+      "generation_metadata": {
+        "model": "wan2.6-image",
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "dual_reference": true
+      }
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "The ball rolled into a dark tunnel. Rex ran to look. It was so dark!",
+      "scene": "Golden puppy at entrance of dark stone tunnel under old bridge. Puppy's body language shows fear - tail tucked, ears back, body low. Red ball visible as small bright spot inside the dark tunnel. Strong contrast between sunny outside and dark tunnel interior.",
+      "image": "images/rex-and-the-runaway-ball/page09.png",
+      "generation_metadata": {
+        "model": "wan2.6-image",
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "dual_reference": true
+      }
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "\"I can not go in. It is too dark!\" said Rex. He was scared.",
+      "scene": "Close-up of golden puppy's face showing fear. Eyes wide with worry, eyebrows raised, ears flattened back, mouth slightly open in worried expression. Dark tunnel entrance visible behind him. Puppy looking toward viewer with scared expression.",
+      "image": "images/rex-and-the-runaway-ball/page10.png",
+      "generation_metadata": {
+        "model": "wan2.6-image",
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "dual_reference": true
+      }
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "Rosie hopped over. \"You can do it, Rex! You are brave!\" she said.",
+      "scene": "White rabbit standing next to golden puppy near tunnel entrance. Rabbit has encouraging expression - eyes bright, slight smile. Rabbit's paw reaching toward puppy supportively. Puppy looking at rabbit with uncertain but hopeful expression.",
+      "image": "images/rex-and-the-runaway-ball/page11.png",
+      "generation_metadata": {
+        "model": "wan2.6-image",
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "dual_reference": true
+      }
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Rex took a big breath. He walked into the dark tunnel. Step, step, step.",
+      "scene": "Golden puppy walking INTO dark tunnel, seen from behind. Puppy silhouette against darkness, determined posture - head forward, moving steadily. Light from entrance behind him. Red ball visible ahead in the darkness. Brave moment.",
+      "image": "images/rex-and-the-runaway-ball/page12.png",
+      "generation_metadata": {
+        "model": "wan2.6-image",
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "dual_reference": true
+      }
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "It was dark and cold. But Rex kept going. He saw his red ball!",
+      "scene": "Inside dark tunnel. Golden puppy reaching toward bright red ball. Puppy's face showing determination mixed with relief - eyes focused on ball, ears forward. Dark blue-gray tunnel walls. Ball glowing red as focal point in darkness.",
+      "image": "images/rex-and-the-runaway-ball/page13.png",
+      "generation_metadata": {
+        "model": "wan2.6-image",
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "dual_reference": true
+      }
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "Rex got the ball! He ran back out into the sun. \"I did it!\"",
+      "scene": "Golden puppy running out of tunnel into bright sunshine, red ball in mouth. Triumphant expression - eyes happy, tail up and wagging. Transition from dark tunnel to bright sunny meadow. Joyful, victorious moment.",
+      "image": "images/rex-and-the-runaway-ball/page14.png",
+      "generation_metadata": {
+        "model": "wan2.6-image",
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "dual_reference": true
+      }
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "\"You are so brave!\" said Rosie. Rex wagged his tail. He felt big and brave!",
+      "scene": "Golden puppy and white rabbit together in sunny meadow. Puppy standing proud with red ball, tail wagging high. Rabbit looking at puppy with admiration. Both happy and smiling. Celebratory mood, warm golden lighting.",
+      "image": "images/rex-and-the-runaway-ball/page15.png",
+      "generation_metadata": {
+        "model": "wan2.6-image",
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "dual_reference": true
+      }
+    },
+    {
+      "page": 16,
+      "type": "end",
+      "text": "The End",
+      "scene": "Golden puppy and white rabbit sitting together watching sunset over meadow, red ball between them. Warm orange and pink sky. Peaceful, happy ending. Friends together.",
+      "image": "images/rex-and-the-runaway-ball/page16.png",
+      "generation_metadata": {
+        "model": "wan2.6-image",
+        "references": [
+          "v1",
+          "v2"
+        ],
+        "dual_reference": true
+      }
+    },
+    {
+      "page": 17,
+      "type": "wordsearch"
+    },
+    {
+      "page": 18,
+      "type": "series_info"
+    },
+    {
+      "page": 19,
+      "type": "back_cover",
+      "text": "Rex loves his red ball. But when it rolls into a dark scary tunnel, can Rex be brave enough to get it back?"
+    }
+  ],
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book \"Rex and the Runaway Ball\"\n\nSTYLE: Warm cheerful watercolor illustration. Soft edges, friendly rounded character shapes. Golden yellows, warm greens for sunny scenes. Dark blues/grays for tunnel. Bright red ball as accent.\n\nRow 1 - MAIN CHARACTERS:\n[1] REX THE PUPPY: Small fluffy golden/yellow puppy with floppy ears, big brown eyes, small black nose, short tail. Friendly rounded shape. Happy expression.\n[2] REX EXPRESSIONS: Same golden puppy showing three emotions - scared (ears back, eyes wide, tail tucked), brave/determined (ears forward, focused eyes), happy/proud (big smile, tail wagging)\n[3] ROSIE THE RABBIT: Small white rabbit with long upright ears (pink inside), bright pink nose, fluffy cotton tail. Friendly encouraging expression.\n\nRow 2 - KEY PROPS AND INTERACTIONS:\n[4] THE RED BALL: Bright cherry red rubber ball, shiny, round. Show ball bouncing with motion lines.\n[5] **CENTER HERO SHOT**: Rex (golden puppy) and Rosie (white rabbit) TOGETHER side by side in sunny meadow, both happy. THE KEY IMAGE.\n[6] REX WITH BALL: Golden puppy holding red ball in mouth, proud happy expression, tail wagging.\n\nRow 3 - SETTINGS:\n[7] SUNNY MEADOW: Bright cheerful meadow with green grass, yellow wildflowers, warm sunshine, blue sky with white clouds. Happy peaceful setting.\n[8] DARK TUNNEL: Old stone tunnel entrance under bridge. Dark interior with light at entrance. Moody, slightly scary but not terrifying.\n[9] TUNNEL EXIT: Puppy emerging from dark tunnel into bright sunshine. Strong light contrast. Triumphant moment.\n\nLAYOUT: 3x3 grid, thin white borders.\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS.",
+  "comprehension_questions": [
+    {
+      "question": "What did Rex love to play with?",
+      "answer": "His red ball"
+    },
+    {
+      "question": "Where did the ball roll?",
+      "answer": "Into a dark tunnel"
+    },
+    {
+      "question": "Why was Rex scared?",
+      "answer": "The tunnel was dark"
+    },
+    {
+      "question": "Who helped Rex feel brave?",
+      "answer": "Rosie the rabbit"
+    },
+    {
+      "question": "Did Rex get his ball back?",
+      "answer": "Yes, he was brave and got it!"
+    }
+  ],
+  "parent_tips": {
+    "before_reading": "Look at the cover. What animal do you see? What is he chasing? Have you ever been scared of something dark? This story is about being brave even when you're scared.",
+    "during_reading": "Help sound out: Rex, red, ball, run, sun. Notice how Rex feels at different points - happy, scared, brave, proud. Use different voices!",
+    "after_reading": "Talk about times your child felt scared but did something brave anyway. Discuss how friends can help us feel braver."
+  },
+  "metadata": {
+    "generatedAt": "2026-01-17",
+    "workflow": "improved_dual_reference"
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "id": "the-shell-switch",
+  "title": "The Shell Switch",
+  "slug": "the-shell-switch",
+  "level": "B5",
+  "band": "B",
+  "targetPhonics": "sh-, ch-, th-, wh-, -ck, -sh, -ch, -tch",
+  "wordFamilies": ["-ell", "-ick", "-ock", "-ush", "-ash"],
+  "skill": "Digraphs",
+  "skill_description": "Initial digraphs (sh-, ch-, th-, wh-) and final digraphs (-ck, -sh, -ch, -tch)",
+  "age_range": "K-1",
+  "created": "2026-01-18",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "A clever hermit crab solves a shell shortage by organizing a community shell swap",
+  "characters": {
+    "shelly": {
+      "name": "Shelly",
+      "visual_shorthand": "Tiny hermit crab with delicate legs, large expressive amber eyes, shell slightly too small, soft beige and pale orange tones",
+      "distinctive_features": ["large expressive eyes", "too-small shell", "pale orange coloring"]
+    },
+    "big_crab": {
+      "name": "Big Crab",
+      "visual_shorthand": "Large hermit crab with prominent black claws, dark shell, towering presence, deep marine blue tones",
+      "distinctive_features": ["black claws", "large size", "dark shell"]
+    }
+  },
+  "setting_context": "Tide pool at dawn, rocky coast with coral, wet stones, small marine life",
+  "word_list": {
+    "sound_out": ["shell", "Shelly", "thick", "much", "wish", "rush", "click", "back", "dash", "such", "check", "switch", "stretch", "chain", "sharp", "chip", "rich", "shack", "shine"],
+    "sight": ["the", "a", "is", "in", "on", "I", "to", "my", "me", "it", "was", "her", "she", "he", "said", "what", "if", "you", "could"],
+    "heart": []
+  },
+  "wordsearch_words": ["shell", "thick", "wish", "rush", "click", "dash", "check", "switch"],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "The Shell Switch",
+      "scene": "Small hermit crab Shelly looking up at a beautiful white conch shell on coral rocks. Dawn light casting warm orange glow over tide pool. Wet stones glisten. Eric Carle-inspired textured collage style with soft marine palette."
+    },
+    {"page": 2, "type": "copyright"},
+    {"page": 3, "type": "parent_guide"},
+    {"page": 4, "type": "level_info"},
+    {"page": 5, "type": "wordlist", "text": "Words to Know"},
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "Shelly the hermit crab was stuck in her shell. The thick walls pressed against her back and chin. She could not stretch much.\n\n\"This will not do,\" she said.",
+      "scene": "Small hermit crab Shelly hunched uncomfortably in a too-tight shell. Her large amber eyes show discomfort. Rocky tide pool background with soft morning mist. Eric Carle collage style, sage greens and sandy beiges."
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "When the sun came up, she went from rock to rock. The rush of waves made her shell shake. Salt drops hit her chin.\n\nThere! A white conch shell sat with the coral. It was big and thick—just what she wished for.",
+      "scene": "Shelly climbing over wet rocks toward a gleaming white conch shell nestled in coral. Gentle waves in background. Dawn light with pale oranges and ocean blues. Textured paper collage effect."
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "Shelly ran to get it.\n\nBut then the sand shifted. A big hermit crab came from back of the coral. He was much bigger than Shelly. His black claws went click, click, click.\n\n\"That shell is for me,\" he said. His voice was deep.",
+      "scene": "Large hermit crab with black claws emerging from behind coral, towering over small Shelly. Dramatic shadow cast. Deep marine blues contrast with Shelly's pale orange. Tense moment captured in collage style."
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "Shelly felt scared. The big crab made a long shadow. She could dash back to her old shell and hide.\n\nOr...\n\n\"What if we both look for shells?\" she said.",
+      "scene": "Shelly standing small but determined, looking up at the big crab's shadow. Her expression shows a spark of clever thinking. Soft tide pool background with anemones. Warm and cool tones contrasting."
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "\"You get the conch. I see a shell by that rock. And the crab there—she wants the shell by the thick weed.\"\n\nThe big crab looked where Shelly pointed.\n\n\"The green one by the sharp rocks?\"\n\n\"Yes! If you help her get that shell, she might give you hers. Then I could have yours, and you get the conch.\"",
+      "scene": "Shelly pointing with one leg toward distant rocks. Big crab looking curious. Wide view showing multiple shells scattered across tide pool landscape. Other small crabs visible in distance. Soft marine colors."
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "The big crab's claws went click, click on the wet rock. A bird sang. Waves whispered on the sand.\n\n\"Hm,\" he said. \"A shell chain.\"\n\nThey worked as the sun got higher. The big crab lifted shells from tight spots. Shelly went into small spaces to check if shells were empty.",
+      "scene": "Big crab and Shelly working together among the rocks. Big crab lifting a shell while Shelly inspects a crevice. Other hermit crabs joining in. Warm sunlight growing brighter. Collaborative atmosphere."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Soon, hermit crabs were switching shells.\n\nWhen they were done, Shelly stretched wide in her new shell. The walls were smooth and had just the right room. She could see the big crab happy in his conch.\n\nThe morning sun hit all the new shells and made them shine like gems on the rocks.",
+      "scene": "Multiple hermit crabs settled happily in new shells. Shelly stretching comfortably in her perfectly-fitting shell. Big crab content in white conch. Morning sunlight making all shells glisten like jewels. Peaceful, triumphant moment. Full-bleed illustration with warm sunrise colors."
+    },
+    {"page": 13, "type": "end", "text": "The End"},
+    {"page": 14, "type": "wordsearch"},
+    {"page": 15, "type": "series_info"},
+    {"page": 16, "type": "back_cover", "text": ""}
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-18T10:45:00.000000",
+    "levelSpecs": "v2",
+    "wordCount": 280,
+    "decodabilityTarget": "85%",
+    "storyPages": 7,
+    "pipeline": "C",
+    "mode": "narrative"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book\n\nFOCUS: Character design, tide pool setting elements, coastal color palette. Narrative style with naturalistic marine details.\n\nRow 1 - SHELLY (Small curious hermit crab):\n[1] Shelly front view: Tiny hermit crab with delicate legs, large expressive eyes, current shell slightly too small. Soft beige and pale orange tones. Slightly hunched posture. Sand-colored background.\n[2] Shelly expressions: Same character showing nervous/worried look, determined/clever smile, relieved/triumphant grin\n[3] Shelly in action: Carefully navigating between tide pool rocks, moving cautiously with shell partially extended\n\nRow 2 - SECONDARY ELEMENTS AND KEY MOMENT:\n[4] Big Hermit Crab: Large dark-shelled crab with prominent black claws, towering over smaller characters. Shadowy silhouette with deep marine blues\n[5] Tide Pool Environment: Intricate rocky landscape with coral fragments, wet stones, small marine details like starfish and anemones\n[6] KEY IMAGE: Multiple hermit crabs exchanging shells, sunlight glinting off shell surfaces, creating a collaborative moment\n\nRow 3 - SETTING:\n[7] Dawn Tide Pool: Soft morning light, misty blues and pale oranges, gentle wave shadows\n[8] Rock Textures: Detailed but stylized rocky surfaces with wet, glistening textures in muted greens and grays\n[9] Final Scene: Hermit crabs settled in new shells, morning sunlight making shells shine like jewels\n\nSTYLE: Dynamic Eric Carle-inspired illustration with simplified marine shapes. Textured paper collage effect. Soft marine color palette: sage greens, sandy beiges, ocean blues, sunrise oranges. Rounded but intentional shapes. Friendly and approachable marine ecosystem illustration.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: Pure illustration only.",
+  "parent_tips": {
+    "before_reading": "Look at the cover. What do you see? This book focuses on digraphs like sh-, ch-, and th-.",
+    "during_reading": "Listen for the 'sh' sound in words like shell, Shelly, and wish. Help your child find other sh words.",
+    "after_reading": "What problem did Shelly solve? How did she help everyone?"
+  },
+  "comprehension_questions": [
+    {"question": "Why was Shelly uncomfortable?", "answer": "Her shell was too small and pressed against her"},
+    {"question": "What was Shelly's clever idea?", "answer": "A shell chain where everyone trades shells"},
+    {"question": "How did the story end?", "answer": "All the crabs got new shells that fit perfectly"}
+  ]
+}

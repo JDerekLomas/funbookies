@@ -536,6 +536,7 @@
       animation-duration: 1s !important;
     }
   </style>
+  <script src="/js/audio-utils.js"></script>
 </head>
 <body>
   <a href="/games/" class="back-link">← Games</a>
@@ -760,15 +761,32 @@
     let shuffledWords = [];
     let displayedBlocks = []; // Track all displayed blocks (correct + distractors)
 
-    // Text-to-speech for word pronunciation
+    // Use AudioUtils for sounds (preloaded letter sounds + TTS fallback for words)
     function speakWord(word) {
-      if ('speechSynthesis' in window) {
+      // Use TTS for whole words (AudioUtils handles this with good fallback)
+      if (typeof AudioUtils !== 'undefined' && AudioUtils.speakTTS) {
+        AudioUtils.speakTTS(word, { rate: 0.8, pitch: 1.0 });
+      } else if ('speechSynthesis' in window) {
         speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(word);
         utterance.rate = 0.8;
         utterance.pitch = 1.0;
         speechSynthesis.speak(utterance);
       }
+    }
+
+    // Play individual phoneme/letter sound using ElevenLabs recordings
+    function playPhonemeSound(phoneme) {
+      if (typeof AudioUtils !== 'undefined') {
+        AudioUtils.playSound(phoneme).catch(() => {
+          // Silent fallback - the game effects provide feedback
+        });
+      }
+    }
+
+    // Preload letter sounds on page load
+    if (typeof AudioUtils !== 'undefined') {
+      AudioUtils.preloadLetters('sounds').catch(() => {});
     }
 
     // DOM elements
@@ -1109,6 +1127,9 @@
         correctTaps++;
         combo++;
         if (combo > maxCombo) maxCombo = combo;
+
+        // Play the phoneme sound using ElevenLabs recording
+        playPhonemeSound(blockData.phoneme);
 
         const rect = block.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;

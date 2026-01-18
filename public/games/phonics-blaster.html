@@ -463,6 +463,7 @@
       to { box-shadow: inset 0 0 150px rgba(255, 50, 0, 0.6); }
     }
   </style>
+  <script src="/js/audio-utils.js"></script>
 </head>
 <body>
   <a href="/games/" class="back-link">← Games</a>
@@ -671,19 +672,37 @@
       }
     }
 
-    // Speech synthesis for letter sounds
+    // Play letter/phoneme sounds using ElevenLabs recordings
     function speakSound(letter) {
       if (audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
 
-      // Use Web Speech API
-      const utterance = new SpeechSynthesisUtterance();
-      utterance.text = PHONEME_SOUNDS[letter] || letter;
-      utterance.rate = 0.8;
-      utterance.pitch = 1.2;
-      utterance.volume = 1;
-      speechSynthesis.speak(utterance);
+      // Use AudioUtils with pre-recorded sounds (fallback to TTS)
+      if (typeof AudioUtils !== 'undefined') {
+        AudioUtils.playSound(letter).catch(() => {
+          // Fallback to Web Speech API
+          const utterance = new SpeechSynthesisUtterance();
+          utterance.text = PHONEME_SOUNDS[letter] || letter;
+          utterance.rate = 0.8;
+          utterance.pitch = 1.2;
+          utterance.volume = 1;
+          speechSynthesis.speak(utterance);
+        });
+      } else {
+        // Fallback if AudioUtils not loaded
+        const utterance = new SpeechSynthesisUtterance();
+        utterance.text = PHONEME_SOUNDS[letter] || letter;
+        utterance.rate = 0.8;
+        utterance.pitch = 1.2;
+        utterance.volume = 1;
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    // Preload letter sounds on page load
+    if (typeof AudioUtils !== 'undefined') {
+      AudioUtils.preloadLetters('sounds').catch(() => {});
     }
 
     // DOM elements

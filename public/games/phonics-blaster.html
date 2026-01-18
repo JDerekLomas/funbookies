@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Phonics Blaster - FunBookies</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #000;
+      overflow: hidden;
+      user-select: none;
+      cursor: crosshair;
+    }
+
+    #gameCanvas {
+      display: block;
+    }
+
+    /* UI Overlay */
+    .ui-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .score-display {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    }
+
+    .lives-display {
+      display: flex;
+      gap: 8px;
+    }
+
+    .life {
+      font-size: 24px;
+      filter: drop-shadow(0 0 5px #0f0);
+      transition: all 0.3s ease;
+    }
+
+    .life.lost {
+      filter: grayscale(1) opacity(0.3);
+      transform: scale(0.8);
+    }
+
+    .combo-display {
+      position: fixed;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      font-weight: bold;
+      color: #ffd700;
+      text-shadow: 0 0 20px #ffd700;
+      opacity: 0;
+      transition: all 0.2s ease;
+      pointer-events: none;
+    }
+
+    .combo-display.active {
+      opacity: 1;
+    }
+
+    .combo-display.fire {
+      color: #ff4500;
+      text-shadow: 0 0 30px #ff4500, 0 0 60px #ff0000;
+      animation: fireGlow 0.3s ease infinite alternate;
+    }
+
+    @keyframes fireGlow {
+      from { filter: brightness(1); }
+      to { filter: brightness(1.5); }
+    }
+
+    /* Target sound display */
+    .target-sound {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 15px 40px;
+      background: rgba(0, 255, 255, 0.1);
+      border: 2px solid #0ff;
+      border-radius: 50px;
+      color: #0ff;
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 0 0 10px #0ff;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .target-sound .sound {
+      font-size: 32px;
+    }
+
+    .play-sound-btn {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 15px 40px;
+      background: linear-gradient(145deg, #0ff, #088);
+      border: none;
+      border-radius: 50px;
+      color: #000;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+      transition: all 0.2s ease;
+      pointer-events: all;
+    }
+
+    .play-sound-btn:hover {
+      transform: translateX(-50%) scale(1.05);
+      box-shadow: 0 0 50px rgba(0, 255, 255, 0.7);
+    }
+
+    .play-sound-btn:active {
+      transform: translateX(-50%) scale(0.95);
+    }
+
+    /* Level indicator */
+    .level-display {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      color: #888;
+      text-shadow: 0 0 10px #444;
+      pointer-events: none;
+    }
+
+    /* Start screen */
+    .start-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at center, #1a1a3e 0%, #0a0a1a 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      transition: opacity 0.5s ease;
+    }
+
+    .start-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .start-screen h1 {
+      font-size: 56px;
+      color: #0ff;
+      margin-bottom: 10px;
+      text-shadow: 0 0 30px #0ff, 0 0 60px #08f;
+      letter-spacing: 5px;
+    }
+
+    .start-screen .subtitle {
+      font-size: 20px;
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    .start-screen p {
+      font-size: 18px;
+      color: #aaa;
+      margin-bottom: 10px;
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .level-select {
+      display: flex;
+      gap: 15px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 500px;
+    }
+
+    .level-btn {
+      padding: 12px 24px;
+      font-size: 16px;
+      color: #0ff;
+      background: rgba(0, 255, 255, 0.1);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .level-btn:hover {
+      background: rgba(0, 255, 255, 0.2);
+      border-color: rgba(0, 255, 255, 0.6);
+    }
+
+    .level-btn.selected {
+      background: rgba(0, 255, 255, 0.3);
+      border-color: #0ff;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+
+    .start-btn {
+      padding: 20px 60px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #000;
+      background: linear-gradient(145deg, #0ff, #0aa);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+      transition: all 0.2s ease;
+      margin-top: 20px;
+    }
+
+    .start-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 60px rgba(0, 255, 255, 0.7);
+    }
+
+    .start-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Results screen */
+    .results-screen {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .results-screen.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .results-screen h2 {
+      font-size: 48px;
+      color: #0ff;
+      margin-bottom: 30px;
+      text-shadow: 0 0 30px #0ff;
+    }
+
+    .results-screen.game-over h2 {
+      color: #f44;
+      text-shadow: 0 0 30px #f44;
+    }
+
+    .results-stats {
+      font-size: 24px;
+      color: #fff;
+      text-align: center;
+      line-height: 2;
+    }
+
+    .results-stats .highlight {
+      color: #0ff;
+      font-weight: bold;
+    }
+
+    /* Announcement */
+    .announcement {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      font-size: 64px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 30px currentColor;
+      pointer-events: none;
+      z-index: 1001;
+      opacity: 0;
+    }
+
+    .announcement.show {
+      animation: announceIn 0.8s ease forwards;
+    }
+
+    @keyframes announceIn {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      20% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+      40% { transform: translate(-50%, -50%) scale(1); }
+      100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+    }
+
+    /* Boss health bar */
+    .boss-health {
+      position: fixed;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 20px;
+      background: rgba(255, 0, 0, 0.2);
+      border: 2px solid #f00;
+      border-radius: 10px;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 100;
+    }
+
+    .boss-health.active {
+      opacity: 1;
+    }
+
+    .boss-health-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #f00, #ff0);
+      transition: width 0.3s ease;
+    }
+
+    .boss-label {
+      position: fixed;
+      top: 75px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #f44;
+      font-size: 16px;
+      font-weight: bold;
+      text-shadow: 0 0 10px #f00;
+      opacity: 0;
+      z-index: 100;
+    }
+
+    .boss-label.active {
+      opacity: 1;
+    }
+
+    /* Power-up indicators */
+    .powerups {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .powerup {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      opacity: 0.3;
+      transition: all 0.2s ease;
+    }
+
+    .powerup.active {
+      opacity: 1;
+      animation: powerupPulse 0.5s ease infinite alternate;
+    }
+
+    @keyframes powerupPulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+
+    /* Screen effects */
+    .screen-flash {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .screen-flash.flash {
+      animation: flashAnim 0.1s ease;
+    }
+
+    @keyframes flashAnim {
+      0% { opacity: 0.6; }
+      100% { opacity: 0; }
+    }
+
+    .border-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 998;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .border-glow.active {
+      opacity: 1;
+      box-shadow: inset 0 0 100px rgba(0, 255, 255, 0.3);
+    }
+
+    .border-glow.fire {
+      animation: borderFire 0.5s ease infinite alternate;
+    }
+
+    @keyframes borderFire {
+      from { box-shadow: inset 0 0 100px rgba(255, 100, 0, 0.4); }
+      to { box-shadow: inset 0 0 150px rgba(255, 50, 0, 0.6); }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- UI Overlay -->
+  <div class="ui-overlay">
+    <div class="score-display">SCORE: <span id="score">0</span></div>
+    <div class="lives-display" id="lives">
+      <span class="life">🚀</span>
+      <span class="life">🚀</span>
+      <span class="life">🚀</span>
+    </div>
+  </div>
+
+  <div class="level-display" id="levelDisplay">LEVEL 1</div>
+  <div class="combo-display" id="combo">x3 COMBO!</div>
+
+  <button class="play-sound-btn" id="playSoundBtn">🔊 Hear Sound</button>
+
+  <!-- Boss health -->
+  <div class="boss-health" id="bossHealth">
+    <div class="boss-health-fill" id="bossHealthFill"></div>
+  </div>
+  <div class="boss-label" id="bossLabel">BOSS: Spell the word!</div>
+
+  <!-- Screen effects -->
+  <div class="screen-flash" id="screenFlash"></div>
+  <div class="border-glow" id="borderGlow"></div>
+
+  <!-- Announcement -->
+  <div class="announcement" id="announcement"></div>
+
+  <!-- Start Screen -->
+  <div class="start-screen" id="startScreen">
+    <h1>PHONICS BLASTER</h1>
+    <div class="subtitle">Shoot the letter that makes the sound!</div>
+
+    <p>Listen to the sound, then shoot the matching letter before it reaches the bottom!</p>
+
+    <div class="level-select">
+      <button class="level-btn selected" data-level="1">Level 1<br><small>s, a, t, p</small></button>
+      <button class="level-btn" data-level="2">Level 2<br><small>i, n, m, d</small></button>
+      <button class="level-btn" data-level="3">Level 3<br><small>All Phase 2</small></button>
+      <button class="level-btn" data-level="4">Level 4<br><small>Digraphs</small></button>
+      <button class="level-btn" data-level="5">Boss Mode<br><small>Spell words!</small></button>
+    </div>
+
+    <button class="start-btn" id="startBtn">LAUNCH!</button>
+  </div>
+
+  <!-- Results Screen -->
+  <div class="results-screen" id="resultsScreen">
+    <h2 id="resultsTitle">MISSION COMPLETE!</h2>
+    <div class="results-stats">
+      Letters Blasted: <span class="highlight" id="lettersBlasted">0</span><br>
+      Best Combo: <span class="highlight" id="bestCombo">0</span>x<br>
+      Accuracy: <span class="highlight" id="accuracy">0</span>%<br>
+      <br>
+      Final Score: <span class="highlight" id="finalScore">0</span>
+    </div>
+    <button class="start-btn" id="playAgainBtn" style="margin-top: 40px;">PLAY AGAIN</button>
+  </div>
+
+  <script>
+    // Canvas setup
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Level data
+    const LEVELS = {
+      1: { letters: ['s', 'a', 't', 'p'], speed: 1, spawnRate: 2000, name: 'Level 1' },
+      2: { letters: ['i', 'n', 'm', 'd', 'g', 'o'], speed: 1.2, spawnRate: 1800, name: 'Level 2' },
+      3: { letters: ['s', 'a', 't', 'p', 'i', 'n', 'm', 'd', 'g', 'o', 'c', 'k', 'e', 'u', 'r', 'h', 'b', 'f', 'l'], speed: 1.5, spawnRate: 1500, name: 'Level 3' },
+      4: { letters: ['sh', 'ch', 'th', 'ng', 'ck', 'wh'], speed: 1.3, spawnRate: 2000, name: 'Digraphs', isDigraph: true },
+      5: { words: ['cat', 'dog', 'pig', 'sun', 'hat', 'map', 'bed', 'cup', 'fox', 'bus'], speed: 1, spawnRate: 1500, name: 'Boss Mode', isBoss: true }
+    };
+
+    // Letter sounds (phonemes)
+    const PHONEME_SOUNDS = {
+      's': 'sss',
+      'a': 'aaa',
+      't': 'tuh',
+      'p': 'puh',
+      'i': 'ih',
+      'n': 'nnn',
+      'm': 'mmm',
+      'd': 'duh',
+      'g': 'guh',
+      'o': 'oh',
+      'c': 'kuh',
+      'k': 'kuh',
+      'e': 'eh',
+      'u': 'uh',
+      'r': 'rrr',
+      'h': 'huh',
+      'b': 'buh',
+      'f': 'fff',
+      'l': 'lll',
+      'sh': 'shh',
+      'ch': 'chuh',
+      'th': 'thh',
+      'ng': 'nng',
+      'ck': 'kuh',
+      'wh': 'wuh'
+    };
+
+    // Game state
+    let currentLevel = 1;
+    let score = 0;
+    let lives = 3;
+    let combo = 0;
+    let maxCombo = 0;
+    let lettersHit = 0;
+    let totalShots = 0;
+    let gameRunning = false;
+    let targetLetter = null;
+    let letters = [];
+    let bullets = [];
+    let particles = [];
+    let stars = [];
+    let explosions = [];
+    let spawnTimer = null;
+    let levelConfig = null;
+
+    // Boss mode state
+    let bossMode = false;
+    let bossWord = '';
+    let bossLetterIndex = 0;
+    let bossHealth = 0;
+    let bossMaxHealth = 0;
+
+    // Player cannon
+    const cannon = {
+      x: 0,
+      y: 0,
+      width: 60,
+      height: 80,
+      angle: 0
+    };
+
+    // Audio context
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playSound(frequency, type = 'sine', duration = 0.1, volume = 0.3) {
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      oscillator.frequency.value = frequency;
+      oscillator.type = type;
+
+      gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + duration);
+    }
+
+    function playShoot() {
+      playSound(800, 'square', 0.05, 0.15);
+      playSound(600, 'sawtooth', 0.08, 0.1);
+    }
+
+    function playHit() {
+      playSound(400, 'sine', 0.1, 0.2);
+      playSound(600, 'triangle', 0.15, 0.15);
+      playSound(200, 'square', 0.1, 0.1);
+    }
+
+    function playMiss() {
+      playSound(150, 'sawtooth', 0.2, 0.15);
+    }
+
+    function playExplosion() {
+      playSound(100, 'sawtooth', 0.3, 0.3);
+      playSound(80, 'square', 0.4, 0.2);
+      setTimeout(() => playSound(60, 'triangle', 0.3, 0.15), 50);
+    }
+
+    function playLetterReachBottom() {
+      playSound(200, 'square', 0.3, 0.2);
+      playSound(100, 'sawtooth', 0.4, 0.15);
+    }
+
+    function playComboSound() {
+      playSound(523, 'sine', 0.1, 0.2);
+      setTimeout(() => playSound(659, 'sine', 0.1, 0.2), 50);
+      setTimeout(() => playSound(784, 'sine', 0.15, 0.2), 100);
+    }
+
+    function playBossDefeat() {
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          playSound(200 + i * 100, 'sawtooth', 0.2, 0.2);
+        }, i * 100);
+      }
+    }
+
+    // Speech synthesis for letter sounds
+    function speakSound(letter) {
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      // Use Web Speech API
+      const utterance = new SpeechSynthesisUtterance();
+      utterance.text = PHONEME_SOUNDS[letter] || letter;
+      utterance.rate = 0.8;
+      utterance.pitch = 1.2;
+      utterance.volume = 1;
+      speechSynthesis.speak(utterance);
+    }
+
+    // DOM elements
+    const startScreen = document.getElementById('startScreen');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const playSoundBtn = document.getElementById('playSoundBtn');
+    const scoreEl = document.getElementById('score');
+    const livesEl = document.getElementById('lives');
+    const comboEl = document.getElementById('combo');
+    const levelDisplayEl = document.getElementById('levelDisplay');
+    const screenFlash = document.getElementById('screenFlash');
+    const borderGlow = document.getElementById('borderGlow');
+    const announcement = document.getElementById('announcement');
+    const bossHealthEl = document.getElementById('bossHealth');
+    const bossHealthFill = document.getElementById('bossHealthFill');
+    const bossLabel = document.getElementById('bossLabel');
+
+    // Initialize stars background
+    function initStars() {
+      stars = [];
+      for (let i = 0; i < 200; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2 + 0.5,
+          speed: Math.random() * 0.5 + 0.2,
+          brightness: Math.random()
+        });
+      }
+    }
+    initStars();
+
+    // Particle class
+    class Particle {
+      constructor(x, y, color, speedX, speedY, size, life) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.speedX = speedX;
+        this.speedY = speedY;
+        this.size = size;
+        this.life = life;
+        this.maxLife = life;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.life--;
+        this.speedX *= 0.98;
+        this.speedY *= 0.98;
+      }
+
+      draw() {
+        const alpha = this.life / this.maxLife;
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size * alpha, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // Create explosion particles
+    function createExplosion(x, y, color, count = 20) {
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 / count) * i + Math.random() * 0.5;
+        const speed = Math.random() * 8 + 4;
+        particles.push(new Particle(
+          x, y, color,
+          Math.cos(angle) * speed,
+          Math.sin(angle) * speed,
+          Math.random() * 6 + 2,
+          Math.random() * 30 + 20
+        ));
+      }
+    }
+
+    // Letter class
+    class Letter {
+      constructor(letter, x, speed) {
+        this.letter = letter;
+        this.x = x;
+        this.y = -50;
+        this.speed = speed;
+        this.size = letter.length > 1 ? 50 : 40;
+        this.rotation = 0;
+        this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+        this.wobble = Math.random() * Math.PI * 2;
+        this.wobbleSpeed = Math.random() * 0.03 + 0.01;
+        this.hit = false;
+        this.isTarget = letter === targetLetter;
+      }
+
+      update() {
+        this.y += this.speed;
+        this.rotation += this.rotationSpeed;
+        this.wobble += this.wobbleSpeed;
+        this.x += Math.sin(this.wobble) * 0.5;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+
+        // Glow effect
+        const glowColor = this.isTarget ? '#0f0' : '#0ff';
+        ctx.shadowColor = glowColor;
+        ctx.shadowBlur = 20;
+
+        // Letter bubble
+        ctx.fillStyle = this.isTarget ? 'rgba(0, 255, 0, 0.2)' : 'rgba(0, 255, 255, 0.15)';
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = this.isTarget ? '#0f0' : '#0ff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Letter text
+        ctx.fillStyle = '#fff';
+        ctx.font = `bold ${this.size * 0.8}px Arial`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(this.letter, 0, 0);
+
+        ctx.restore();
+      }
+    }
+
+    // Bullet class
+    class Bullet {
+      constructor(x, y, targetX, targetY) {
+        this.x = x;
+        this.y = y;
+        const angle = Math.atan2(targetY - y, targetX - x);
+        this.speedX = Math.cos(angle) * 15;
+        this.speedY = Math.sin(angle) * 15;
+        this.size = 6;
+        this.trail = [];
+      }
+
+      update() {
+        this.trail.push({ x: this.x, y: this.y });
+        if (this.trail.length > 10) this.trail.shift();
+
+        this.x += this.speedX;
+        this.y += this.speedY;
+      }
+
+      draw() {
+        // Trail
+        ctx.beginPath();
+        this.trail.forEach((point, i) => {
+          const alpha = i / this.trail.length;
+          ctx.strokeStyle = `rgba(0, 255, 255, ${alpha * 0.5})`;
+          ctx.lineWidth = this.size * alpha;
+          if (i === 0) {
+            ctx.moveTo(point.x, point.y);
+          } else {
+            ctx.lineTo(point.x, point.y);
+          }
+        });
+        ctx.stroke();
+
+        // Bullet
+        ctx.fillStyle = '#0ff';
+        ctx.shadowColor = '#0ff';
+        ctx.shadowBlur = 15;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Screen effects
+    function flashScreen() {
+      screenFlash.classList.remove('flash');
+      void screenFlash.offsetWidth;
+      screenFlash.classList.add('flash');
+    }
+
+    function updateBorderGlow() {
+      if (combo >= 8) {
+        borderGlow.classList.add('active', 'fire');
+      } else if (combo >= 5) {
+        borderGlow.classList.add('active');
+        borderGlow.classList.remove('fire');
+      } else {
+        borderGlow.classList.remove('active', 'fire');
+      }
+    }
+
+    function showAnnouncement(text, color = '#fff') {
+      announcement.textContent = text;
+      announcement.style.color = color;
+      announcement.classList.remove('show');
+      void announcement.offsetWidth;
+      announcement.classList.add('show');
+    }
+
+    function updateComboDisplay() {
+      if (combo >= 3) {
+        comboEl.textContent = `x${combo} COMBO!`;
+        comboEl.classList.add('active');
+        if (combo >= 8) {
+          comboEl.classList.add('fire');
+        } else {
+          comboEl.classList.remove('fire');
+        }
+      } else {
+        comboEl.classList.remove('active', 'fire');
+      }
+      updateBorderGlow();
+    }
+
+    function updateLives() {
+      const lifeEls = livesEl.querySelectorAll('.life');
+      lifeEls.forEach((el, i) => {
+        if (i >= lives) {
+          el.classList.add('lost');
+        } else {
+          el.classList.remove('lost');
+        }
+      });
+    }
+
+    // Spawn a new letter
+    function spawnLetter() {
+      if (!gameRunning) return;
+
+      const padding = 100;
+      const x = Math.random() * (canvas.width - padding * 2) + padding;
+
+      if (bossMode) {
+        // In boss mode, spawn the letters needed for the word
+        const neededLetter = bossWord[bossLetterIndex];
+        const wrongLetters = levelConfig.letters || LEVELS[3].letters;
+
+        // Spawn target letter
+        letters.push(new Letter(neededLetter, x, levelConfig.speed));
+
+        // Spawn some wrong letters
+        for (let i = 0; i < 2; i++) {
+          const wrongX = Math.random() * (canvas.width - padding * 2) + padding;
+          const wrongLetter = wrongLetters[Math.floor(Math.random() * wrongLetters.length)];
+          if (wrongLetter !== neededLetter) {
+            letters.push(new Letter(wrongLetter, wrongX, levelConfig.speed));
+          }
+        }
+
+        targetLetter = neededLetter;
+      } else {
+        // Normal mode - spawn random letters
+        const letter = levelConfig.letters[Math.floor(Math.random() * levelConfig.letters.length)];
+        letters.push(new Letter(letter, x, levelConfig.speed));
+      }
+
+      // Update target indicators
+      letters.forEach(l => l.isTarget = l.letter === targetLetter);
+    }
+
+    // Pick new target
+    function pickNewTarget() {
+      if (bossMode) {
+        if (bossLetterIndex < bossWord.length) {
+          targetLetter = bossWord[bossLetterIndex];
+          playSoundBtn.textContent = `🔊 /${targetLetter}/`;
+        }
+      } else {
+        targetLetter = levelConfig.letters[Math.floor(Math.random() * levelConfig.letters.length)];
+        playSoundBtn.textContent = `🔊 /${targetLetter}/`;
+      }
+
+      // Update existing letters
+      letters.forEach(l => l.isTarget = l.letter === targetLetter);
+
+      // Auto-play sound
+      setTimeout(() => speakSound(targetLetter), 300);
+    }
+
+    // Handle shooting
+    function shoot(targetX, targetY) {
+      if (!gameRunning) return;
+
+      const bulletX = cannon.x;
+      const bulletY = cannon.y - 30;
+
+      bullets.push(new Bullet(bulletX, bulletY, targetX, targetY));
+      playShoot();
+      totalShots++;
+    }
+
+    // Check collisions
+    function checkCollisions() {
+      bullets.forEach((bullet, bi) => {
+        letters.forEach((letter, li) => {
+          if (letter.hit) return;
+
+          const dx = bullet.x - letter.x;
+          const dy = bullet.y - letter.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < letter.size + bullet.size) {
+            // Hit!
+            letter.hit = true;
+
+            if (letter.letter === targetLetter) {
+              // Correct hit!
+              combo++;
+              if (combo > maxCombo) maxCombo = combo;
+              lettersHit++;
+
+              const baseScore = 100;
+              const comboBonus = Math.floor(baseScore * combo * 0.5);
+              score += baseScore + comboBonus;
+              scoreEl.textContent = score;
+
+              // Effects
+              createExplosion(letter.x, letter.y, '#0f0', 30);
+              createExplosion(letter.x, letter.y, '#ff0', 15);
+              playHit();
+              flashScreen();
+
+              // Combo announcements
+              if (combo === 5) showAnnouncement('NICE!', '#0ff');
+              else if (combo === 8) showAnnouncement('AWESOME!', '#ff0');
+              else if (combo === 11) {
+                showAnnouncement('ON FIRE!', '#f40');
+                playComboSound();
+              } else if (combo === 15) {
+                showAnnouncement('UNSTOPPABLE!', '#f0f');
+                playComboSound();
+              }
+
+              updateComboDisplay();
+
+              // Boss mode progress
+              if (bossMode) {
+                bossLetterIndex++;
+                bossHealth = ((bossWord.length - bossLetterIndex) / bossWord.length) * 100;
+                bossHealthFill.style.width = bossHealth + '%';
+
+                if (bossLetterIndex >= bossWord.length) {
+                  // Word complete!
+                  playBossDefeat();
+                  showAnnouncement(bossWord.toUpperCase() + '!', '#0f0');
+
+                  // Big explosion
+                  for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                      createExplosion(
+                        Math.random() * canvas.width,
+                        Math.random() * canvas.height * 0.5,
+                        ['#f00', '#ff0', '#0f0', '#0ff', '#f0f'][i],
+                        40
+                      );
+                    }, i * 100);
+                  }
+
+                  score += 500; // Boss bonus
+                  scoreEl.textContent = score;
+
+                  // Next word
+                  setTimeout(() => {
+                    startBossWord();
+                  }, 1500);
+                } else {
+                  pickNewTarget();
+                }
+              } else {
+                pickNewTarget();
+              }
+            } else {
+              // Wrong letter hit
+              createExplosion(letter.x, letter.y, '#f00', 15);
+              playMiss();
+              combo = 0;
+              updateComboDisplay();
+            }
+
+            // Remove bullet and letter
+            bullets.splice(bi, 1);
+            setTimeout(() => {
+              const idx = letters.indexOf(letter);
+              if (idx > -1) letters.splice(idx, 1);
+            }, 50);
+          }
+        });
+
+        // Remove bullets off screen
+        if (bullet.y < -50 || bullet.x < -50 || bullet.x > canvas.width + 50) {
+          bullets.splice(bi, 1);
+        }
+      });
+
+      // Check letters reaching bottom
+      letters.forEach((letter, i) => {
+        if (letter.y > canvas.height + 50) {
+          if (letter.letter === targetLetter && !letter.hit) {
+            // Lost a life!
+            lives--;
+            updateLives();
+            playLetterReachBottom();
+            combo = 0;
+            updateComboDisplay();
+
+            createExplosion(letter.x, canvas.height - 50, '#f00', 20);
+
+            if (lives <= 0) {
+              endGame(false);
+            } else {
+              pickNewTarget();
+            }
+          }
+          letters.splice(i, 1);
+        }
+      });
+    }
+
+    // Boss mode
+    function startBossWord() {
+      const words = levelConfig.words;
+      bossWord = words[Math.floor(Math.random() * words.length)];
+      bossLetterIndex = 0;
+      bossHealth = 100;
+      bossMaxHealth = bossWord.length;
+
+      bossHealthFill.style.width = '100%';
+      bossLabel.textContent = `SPELL: ${bossWord.toUpperCase()}`;
+
+      pickNewTarget();
+    }
+
+    // Draw cannon
+    function drawCannon() {
+      ctx.save();
+      ctx.translate(cannon.x, cannon.y);
+
+      // Cannon body
+      ctx.fillStyle = '#0aa';
+      ctx.shadowColor = '#0ff';
+      ctx.shadowBlur = 20;
+
+      // Base
+      ctx.fillRect(-30, 0, 60, 20);
+
+      // Barrel (rotates toward mouse)
+      ctx.rotate(cannon.angle);
+      ctx.fillStyle = '#0ff';
+      ctx.fillRect(-8, -50, 16, 50);
+
+      // Barrel tip glow
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(0, -50, 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    // Draw stars
+    function drawStars() {
+      stars.forEach(star => {
+        star.y += star.speed;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+
+        const flicker = 0.5 + Math.sin(Date.now() * 0.01 + star.brightness * 10) * 0.5;
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.brightness * flicker})`;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    // Main game loop
+    function gameLoop() {
+      // Clear
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Stars
+      drawStars();
+
+      // Update and draw particles
+      particles = particles.filter(p => p.life > 0);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      if (gameRunning) {
+        // Update letters
+        letters.forEach(l => {
+          l.update();
+          l.draw();
+        });
+
+        // Update bullets
+        bullets.forEach(b => {
+          b.update();
+          b.draw();
+        });
+
+        // Check collisions
+        checkCollisions();
+
+        // Draw cannon
+        drawCannon();
+      }
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    // Event listeners
+    canvas.addEventListener('click', (e) => {
+      if (!gameRunning) return;
+      shoot(e.clientX, e.clientY);
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      cannon.x = e.clientX;
+      cannon.y = canvas.height - 40;
+
+      // Angle cannon toward mouse
+      const dx = e.clientX - cannon.x;
+      const dy = e.clientY - cannon.y;
+      cannon.angle = Math.atan2(dy, dx) + Math.PI / 2;
+      cannon.angle = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, cannon.angle));
+    });
+
+    canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      cannon.x = touch.clientX;
+      cannon.y = canvas.height - 40;
+      shoot(touch.clientX, touch.clientY);
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      cannon.x = touch.clientX;
+    });
+
+    playSoundBtn.addEventListener('click', () => {
+      if (targetLetter) {
+        speakSound(targetLetter);
+      }
+    });
+
+    // Level selection
+    document.querySelectorAll('.level-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        currentLevel = parseInt(btn.dataset.level);
+      });
+    });
+
+    // Start game
+    document.getElementById('startBtn').addEventListener('click', startGame);
+    document.getElementById('playAgainBtn').addEventListener('click', startGame);
+
+    function startGame() {
+      // Reset state
+      score = 0;
+      lives = 3;
+      combo = 0;
+      maxCombo = 0;
+      lettersHit = 0;
+      totalShots = 0;
+      letters = [];
+      bullets = [];
+      particles = [];
+
+      levelConfig = LEVELS[currentLevel];
+      bossMode = levelConfig.isBoss || false;
+
+      // Update UI
+      scoreEl.textContent = '0';
+      updateLives();
+      updateComboDisplay();
+      levelDisplayEl.textContent = levelConfig.name;
+
+      // Boss mode setup
+      if (bossMode) {
+        bossHealthEl.classList.add('active');
+        bossLabel.classList.add('active');
+        startBossWord();
+      } else {
+        bossHealthEl.classList.remove('active');
+        bossLabel.classList.remove('active');
+        pickNewTarget();
+      }
+
+      // Position cannon
+      cannon.x = canvas.width / 2;
+      cannon.y = canvas.height - 40;
+
+      // Hide screens
+      startScreen.classList.add('hidden');
+      resultsScreen.classList.remove('show');
+
+      // Resume audio
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      // Start game
+      gameRunning = true;
+
+      // Spawn letters periodically
+      if (spawnTimer) clearInterval(spawnTimer);
+      spawnTimer = setInterval(spawnLetter, levelConfig.spawnRate);
+
+      // Initial spawn
+      setTimeout(spawnLetter, 500);
+    }
+
+    function endGame(victory = true) {
+      gameRunning = false;
+      if (spawnTimer) clearInterval(spawnTimer);
+
+      const accuracy = totalShots > 0 ? Math.round((lettersHit / totalShots) * 100) : 0;
+
+      document.getElementById('resultsTitle').textContent = victory ? 'MISSION COMPLETE!' : 'GAME OVER';
+      resultsScreen.classList.toggle('game-over', !victory);
+      document.getElementById('lettersBlasted').textContent = lettersHit;
+      document.getElementById('bestCombo').textContent = maxCombo;
+      document.getElementById('accuracy').textContent = accuracy;
+      document.getElementById('finalScore').textContent = score;
+
+      resultsScreen.classList.add('show');
+
+      // Celebration/explosion particles
+      if (victory) {
+        for (let i = 0; i < 10; i++) {
+          setTimeout(() => {
+            createExplosion(
+              Math.random() * canvas.width,
+              Math.random() * canvas.height * 0.6,
+              ['#0ff', '#0f0', '#ff0', '#f0f'][i % 4],
+              25
+            );
+          }, i * 150);
+        }
+      }
+    }
+
+    // Auto-end after certain score or time (for demo)
+    // In real game, would have level progression
+
+    // Start game loop
+    gameLoop();
+  </script>
+</body>
+</html>

@@ -130,9 +130,24 @@
       }, [playTone]);
 
       const playWrong = useCallback(() => {
-        playTone(200, 0.15, 'sawtooth');
-        setTimeout(() => playTone(150, 0.2, 'sawtooth'), 100);
-      }, [playTone]);
+        // Buzzer sound - louder and more noticeable
+        if (!audioContext.current) {
+          audioContext.current = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        const ctx = audioContext.current;
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        oscillator.type = 'square';
+        oscillator.frequency.setValueAtTime(150, ctx.currentTime);
+        oscillator.frequency.setValueAtTime(100, ctx.currentTime + 0.1);
+        oscillator.frequency.setValueAtTime(80, ctx.currentTime + 0.2);
+        gainNode.gain.setValueAtTime(0.4, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+        oscillator.start(ctx.currentTime);
+        oscillator.stop(ctx.currentTime + 0.35);
+      }, []);
 
       const playMunch = useCallback(() => {
         // Messy chomping sounds
@@ -764,7 +779,7 @@
           }, 450);
 
         } else {
-          playWrong();
+          // No sound on wrong - just visual feedback
           setStreak(0);
           setMonsterState('yuck');
 
@@ -839,11 +854,11 @@
             alignItems: 'center',
             marginBottom: '10px',
           }}>
-            <a href="/activities/" style={{
+            <a href="/games/" style={{
               fontSize: '0.9rem',
               color: '#558b2f',
               textDecoration: 'none',
-            }}>Back</a>
+            }}>← Games</a>
             <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
               <div style={{
                 background: '#fff9c4',

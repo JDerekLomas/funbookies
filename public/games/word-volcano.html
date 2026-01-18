@@ -4,7 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Word Volcano - FunBookies</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <style>
+        .back-link {
+            position: fixed;
+            top: 15px;
+            left: 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 200;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -399,6 +418,7 @@
     </style>
 </head>
 <body>
+    <a href="/games/" class="back-link">← Games</a>
     <div id="gameContainer">
         <canvas id="gameCanvas"></canvas>
 
@@ -887,9 +907,11 @@
             setupLetterDragging();
         }
 
-        // Letter dragging
+        // Letter dragging and tapping
         let draggedLetter = null;
         let dragOffset = { x: 0, y: 0 };
+        let dragStartPos = { x: 0, y: 0 };
+        let hasDragged = false;
 
         function setupLetterDragging() {
             const container = document.getElementById('fallingLetters');
@@ -898,16 +920,40 @@
             container.addEventListener('touchstart', startDrag);
         }
 
+        // Tap handler - places letter in next empty slot
+        function handleTap(letterEl) {
+            const letter = letterEl.dataset.letter;
+
+            // Find first empty slot that needs this letter
+            for (let i = 0; i < currentWord.letters.length; i++) {
+                if (!filledSlots[i] && currentWord.letters[i] === letter) {
+                    tryPlaceLetter(letter, i, letterEl);
+                    return;
+                }
+            }
+
+            // If no matching slot, try placing in any empty slot (will show wrong feedback)
+            for (let i = 0; i < currentWord.letters.length; i++) {
+                if (!filledSlots[i]) {
+                    tryPlaceLetter(letter, i, letterEl);
+                    return;
+                }
+            }
+        }
+
         function startDrag(e) {
             if (e.target.classList.contains('falling-letter')) {
                 initAudio();
                 draggedLetter = e.target;
                 draggedLetter.classList.add('dragging');
+                hasDragged = false;
 
                 const rect = draggedLetter.getBoundingClientRect();
                 const pos = e.touches ? e.touches[0] : e;
                 dragOffset.x = pos.clientX - rect.left - rect.width / 2;
                 dragOffset.y = pos.clientY - rect.top - rect.height / 2;
+                dragStartPos.x = pos.clientX;
+                dragStartPos.y = pos.clientY;
 
                 document.addEventListener('mousemove', moveDrag);
                 document.addEventListener('touchmove', moveDrag, { passive: false });
@@ -921,6 +967,14 @@
             e.preventDefault();
 
             const pos = e.touches ? e.touches[0] : e;
+
+            // Track if user has actually dragged (moved more than 10px)
+            const dx = pos.clientX - dragStartPos.x;
+            const dy = pos.clientY - dragStartPos.y;
+            if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+                hasDragged = true;
+            }
+
             draggedLetter.style.left = (pos.clientX - dragOffset.x - 30) + 'px';
             draggedLetter.style.top = (pos.clientY - dragOffset.y - 30) + 'px';
 
@@ -947,6 +1001,16 @@
             document.removeEventListener('touchmove', moveDrag);
             document.removeEventListener('mouseup', endDrag);
             document.removeEventListener('touchend', endDrag);
+
+            // If user didn't drag (just tapped), place in next available slot
+            if (!hasDragged) {
+                const letterEl = draggedLetter;
+                draggedLetter.classList.remove('dragging');
+                draggedLetter = null;
+                document.querySelectorAll('.letter-slot').forEach(s => s.classList.remove('highlight'));
+                handleTap(letterEl);
+                return;
+            }
 
             const pos = e.changedTouches ? e.changedTouches[0] : e;
             const letter = draggedLetter.dataset.letter;

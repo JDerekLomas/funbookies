@@ -4,7 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Smash Words - FunBookies</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
+    .back-link {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 200;
+      padding: 8px 12px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    .back-link:hover {
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+    }
     * {
       margin: 0;
       padding: 0;
@@ -79,18 +98,21 @@
     /* Word Display Area */
     .word-area {
       display: flex;
-      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
       margin-bottom: 40px;
       perspective: 1000px;
+      max-width: 600px;
     }
 
     .letter-block {
-      width: 80px;
-      height: 100px;
+      width: 70px;
+      height: 85px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 48px;
+      font-size: 40px;
       font-weight: bold;
       color: #1a1a2e;
       background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(200,220,255,0.9));
@@ -207,6 +229,28 @@
     .instruction .word {
       color: #ffd700;
       font-weight: bold;
+    }
+
+    .hear-word-btn {
+      background: rgba(255, 215, 0, 0.3);
+      border: 2px solid #ffd700;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      cursor: pointer;
+      margin-left: 15px;
+      vertical-align: middle;
+      transition: all 0.2s ease;
+    }
+
+    .hear-word-btn:hover {
+      background: rgba(255, 215, 0, 0.5);
+      transform: scale(1.1);
+    }
+
+    .hear-word-btn:active {
+      transform: scale(0.95);
     }
 
     /* Phoneme hints */
@@ -494,6 +538,8 @@
   </style>
 </head>
 <body>
+  <a href="/games/" class="back-link">← Games</a>
+
   <!-- Particle Canvas -->
   <canvas id="particles"></canvas>
 
@@ -533,7 +579,8 @@
     </div>
 
     <div class="instruction">
-      Smash each sound in "<span class="word" id="targetWord">cat</span>"
+      Tap sounds in order: "<span class="word" id="targetWord">cat</span>"
+      <button class="hear-word-btn" id="hearWordBtn" title="Hear the word">🔊</button>
     </div>
 
     <div class="word-area" id="wordArea"></div>
@@ -621,6 +668,83 @@
       ...WORD_DATA.cvce
     ];
 
+    // Confusable sounds for distractors - phonetically similar sounds
+    const CONFUSABLE_SOUNDS = {
+      // Consonants - voiced/unvoiced pairs and similar articulation
+      'b': ['p', 'd', 'g'],
+      'p': ['b', 't', 'k'],
+      'd': ['t', 'b', 'g'],
+      't': ['d', 'p', 'k'],
+      'g': ['k', 'd', 'b'],
+      'k': ['g', 't', 'p'],
+      'c': ['k', 'g', 's'],
+      'f': ['v', 'th', 'p'],
+      'v': ['f', 'b', 'w'],
+      's': ['z', 'sh', 'c'],
+      'z': ['s', 'j', 'th'],
+      'm': ['n', 'ng', 'b'],
+      'n': ['m', 'ng', 'd'],
+      'l': ['r', 'w', 'n'],
+      'r': ['l', 'w', 'y'],
+      'w': ['r', 'l', 'v'],
+      'h': ['f', 'w', 'y'],
+      'j': ['ch', 'g', 'y'],
+      'y': ['j', 'i', 'e'],
+      'x': ['s', 'z', 'k'],
+      // Digraphs
+      'sh': ['ch', 's', 'th'],
+      'ch': ['sh', 'j', 'tch'],
+      'th': ['f', 'v', 's'],
+      'ng': ['n', 'm', 'nk'],
+      'ck': ['k', 'c', 'g'],
+      'wh': ['w', 'h', 'hw'],
+      // Vowels - short vowels easily confused
+      'a': ['e', 'u', 'o'],
+      'e': ['i', 'a', 'u'],
+      'i': ['e', 'y', 'u'],
+      'o': ['u', 'a', 'aw'],
+      'u': ['o', 'a', 'e'],
+    };
+
+    // Get distractor sounds for a word's phonemes
+    function getDistractors(phonemes, count = 2) {
+      const distractors = new Set();
+      const phonemeSet = new Set(phonemes);
+
+      // Try to get confusable sounds for each phoneme
+      for (const phoneme of phonemes) {
+        const confusables = CONFUSABLE_SOUNDS[phoneme.toLowerCase()] || [];
+        for (const conf of confusables) {
+          if (!phonemeSet.has(conf) && !distractors.has(conf)) {
+            distractors.add(conf);
+            if (distractors.size >= count) break;
+          }
+        }
+        if (distractors.size >= count) break;
+      }
+
+      // If we need more, add random common letters
+      const commonLetters = ['s', 't', 'n', 'r', 'l', 'a', 'e', 'i', 'o', 'p'];
+      while (distractors.size < count) {
+        const letter = commonLetters[Math.floor(Math.random() * commonLetters.length)];
+        if (!phonemeSet.has(letter) && !distractors.has(letter)) {
+          distractors.add(letter);
+        }
+      }
+
+      return Array.from(distractors);
+    }
+
+    // Shuffle array helper
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
     // Game state
     let currentLevel = 'cvc';
     let currentWord = null;
@@ -634,6 +758,18 @@
     let wordsInRound = 10;
     let wordIndex = 0;
     let shuffledWords = [];
+    let displayedBlocks = []; // Track all displayed blocks (correct + distractors)
+
+    // Text-to-speech for word pronunciation
+    function speakWord(word) {
+      if ('speechSynthesis' in window) {
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.rate = 0.8;
+        utterance.pitch = 1.0;
+        speechSynthesis.speak(utterance);
+      }
+    }
 
     // DOM elements
     const startScreen = document.getElementById('startScreen');
@@ -858,6 +994,13 @@
     document.getElementById('startBtn').addEventListener('click', startGame);
     document.getElementById('playAgainBtn').addEventListener('click', startGame);
 
+    // Hear word button
+    document.getElementById('hearWordBtn').addEventListener('click', () => {
+      if (currentWord) {
+        speakWord(currentWord.word);
+      }
+    });
+
     function startGame() {
       // Reset state
       score = 0;
@@ -896,22 +1039,55 @@
 
       currentWord = shuffledWords[wordIndex];
       currentPhonemeIndex = 0;
+      displayedBlocks = [];
 
       // Update target word display
       targetWordEl.textContent = currentWord.word;
 
-      // Create letter blocks
-      wordArea.innerHTML = '';
+      // Speak the word so player knows what to spell
+      setTimeout(() => speakWord(currentWord.word), 200);
+
+      // Get distractor sounds (2-3 based on difficulty)
+      const numDistractors = currentLevel === 'cvc' ? 2 : 3;
+      const distractors = getDistractors(currentWord.phonemes, numDistractors);
+
+      // Create block data for correct phonemes
       currentWord.phonemes.forEach((phoneme, index) => {
-        const block = document.createElement('div');
-        block.className = `letter-block ${currentWord.material}`;
-        block.textContent = phoneme;
-        block.dataset.index = index;
-        block.addEventListener('click', () => handleTap(index, block));
-        wordArea.appendChild(block);
+        displayedBlocks.push({
+          phoneme: phoneme,
+          isCorrect: true,
+          correctIndex: index,
+          element: null
+        });
       });
 
-      // Create phoneme hints
+      // Add distractor blocks
+      distractors.forEach(phoneme => {
+        displayedBlocks.push({
+          phoneme: phoneme,
+          isCorrect: false,
+          correctIndex: -1,
+          element: null
+        });
+      });
+
+      // Shuffle all blocks
+      displayedBlocks = shuffleArray(displayedBlocks);
+
+      // Create letter blocks in shuffled order
+      wordArea.innerHTML = '';
+      displayedBlocks.forEach((blockData, displayIndex) => {
+        const block = document.createElement('div');
+        block.className = `letter-block ${currentWord.material}`;
+        block.textContent = blockData.phoneme;
+        block.dataset.displayIndex = displayIndex;
+        block.dataset.phoneme = blockData.phoneme;
+        block.addEventListener('click', () => handleTap(displayIndex, block));
+        wordArea.appendChild(block);
+        blockData.element = block;
+      });
+
+      // Create phoneme hints (shows correct sequence to tap)
       phonemeHints.innerHTML = '';
       currentWord.phonemes.forEach((phoneme, index) => {
         const hint = document.createElement('div');
@@ -921,10 +1097,14 @@
       });
     }
 
-    function handleTap(index, block) {
+    function handleTap(displayIndex, block) {
       totalTaps++;
 
-      if (index === currentPhonemeIndex) {
+      const blockData = displayedBlocks[displayIndex];
+      const expectedPhoneme = currentWord.phonemes[currentPhonemeIndex];
+
+      // Check if this block has the correct phoneme AND hasn't been used yet
+      if (blockData.phoneme === expectedPhoneme && blockData.isCorrect && !block.classList.contains('cracked') && !block.classList.contains('shattered')) {
         // Correct tap!
         correctTaps++;
         combo++;

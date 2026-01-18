@@ -22,27 +22,42 @@
       "path": "gpcs/english-gpcs.json",
       "description": "Grapheme-phoneme correspondence definitions"
     },
+    "alignmentMap": {
+      "path": "alignment-map.json",
+      "description": "Maps UK phases to FunBookies A-D band system"
+    },
     "lessons": {
       "phase2": {
         "path": "lessons/phase-2.json",
         "description": "Lessons 1-6: Single letter GPCs",
-        "lessonRange": [1, 6]
+        "lessonRange": [1, 6],
+        "bandRange": ["A1", "A2", "A3", "A4", "B1", "B2"]
       },
       "phase3": {
         "path": "lessons/phase-3.json",
         "description": "Lessons 7-12: Digraphs and vowel patterns",
-        "lessonRange": [7, 12]
+        "lessonRange": [7, 12],
+        "bandRange": ["B5", "B7", "B8", "B9"]
       },
       "phase4": {
         "path": "lessons/phase-4.json",
         "description": "Lessons 13-18: Adjacent consonants (CCVC, CVCC)",
         "lessonRange": [13, 18],
+        "bandRange": ["B3", "B4"],
         "status": "planned"
       },
       "phase5": {
         "path": "lessons/phase-5.json",
         "description": "Lessons 19-30: Alternative spellings and pronunciations",
         "lessonRange": [19, 30],
+        "bandRange": ["B6", "C1", "C2"],
+        "status": "planned"
+      },
+      "phase6": {
+        "path": "lessons/phase-6.json",
+        "description": "Lessons 31-38: Word study and morphology",
+        "lessonRange": [31, 38],
+        "bandRange": ["C3", "C4", "C5", "C6", "C7", "C8"],
         "status": "planned"
       }
     },
@@ -60,10 +75,27 @@
   },
   "phases": [
     {
+      "id": 1,
+      "name": "Phase 1",
+      "description": "Phonemic awareness - no letter instruction",
+      "lessons": [0],
+      "bands": ["A0"],
+      "gpcsIntroduced": 0,
+      "targetAge": "3-4",
+      "durationWeeks": "ongoing",
+      "standards": {
+        "ukLettersAndSounds": "Phase 1",
+        "commonCore": ["RF.K.1", "RF.K.2a", "RF.K.2b"],
+        "teks": ["K.2A"]
+      },
+      "status": "planned"
+    },
+    {
       "id": 2,
       "name": "Phase 2",
       "description": "Single letter GPCs with simple CVC words",
       "lessons": [1, 2, 3, 4, 5, 6],
+      "bands": ["A1", "A2", "A3", "A4", "B1", "B2"],
       "gpcsIntroduced": 23,
       "targetAge": "4-5",
       "durationWeeks": 6,
@@ -78,6 +110,7 @@
       "name": "Phase 3",
       "description": "Consonant digraphs and vowel patterns",
       "lessons": [7, 8, 9, 10, 11, 12],
+      "bands": ["B5", "B7", "B8", "B9"],
       "gpcsIntroduced": 25,
       "targetAge": "5-6",
       "durationWeeks": 12,
@@ -92,6 +125,7 @@
       "name": "Phase 4",
       "description": "Adjacent consonants (blends) - no new GPCs",
       "lessons": [13, 14, 15, 16, 17, 18],
+      "bands": ["B3", "B4"],
       "gpcsIntroduced": 0,
       "targetAge": "5-6",
       "durationWeeks": 4,
@@ -100,6 +134,7 @@
         "commonCore": ["RF.1.2b", "RF.1.3a"],
         "teks": ["1.2B", "1.2C"]
       },
+      "note": "In FunBookies progression, blends (B3-B4) come BEFORE digraphs (B5)",
       "status": "planned"
     },
     {
@@ -107,6 +142,7 @@
       "name": "Phase 5",
       "description": "Alternative spellings and pronunciations",
       "lessons": [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+      "bands": ["B6", "C1", "C2"],
       "gpcsIntroduced": 40,
       "targetAge": "6-7",
       "durationWeeks": 24,
@@ -114,6 +150,22 @@
         "ukLettersAndSounds": "Phase 5",
         "commonCore": ["RF.1.3", "RF.2.3"],
         "teks": ["1.2", "2.2"]
+      },
+      "status": "planned"
+    },
+    {
+      "id": 6,
+      "name": "Phase 6",
+      "description": "Fluency, spelling, and morphology",
+      "lessons": [31, 32, 33, 34, 35, 36, 37, 38],
+      "bands": ["C3", "C4", "C5", "C6", "C7", "C8"],
+      "gpcsIntroduced": 0,
+      "targetAge": "7-8",
+      "durationWeeks": 24,
+      "standards": {
+        "ukLettersAndSounds": "Phase 6",
+        "commonCore": ["RF.2.3", "RF.2.4", "L.2.4"],
+        "teks": ["2.2", "2.3"]
       },
       "status": "planned"
     }
@@ -245,24 +297,75 @@
     }
   },
   "bookIntegration": {
-    "description": "Map curriculum lessons to decodable books",
-    "decodableBooks": {
-      "phase2": [
-        {"lesson": 1, "books": ["d1-the-lighthouse-keeper"], "notes": "CVC with s,a,t,p"},
-        {"lesson": 2, "books": [], "notes": "CVC with i,n,m,d"},
-        {"lesson": 3, "books": [], "notes": "CVC with g,o,c,k,ck"},
-        {"lesson": 4, "books": [], "notes": "CVC with e,u,r"},
-        {"lesson": 5, "books": [], "notes": "CVC with h,b,f,ff"},
-        {"lesson": 6, "books": [], "notes": "CVC with l,ll,ss"}
-      ],
-      "phase3": [
-        {"lesson": 7, "books": [], "notes": "sh, ch digraphs"},
-        {"lesson": 8, "books": [], "notes": "th, ng digraphs"},
-        {"lesson": 9, "books": [], "notes": "ai, ee vowel patterns"},
-        {"lesson": 10, "books": [], "notes": "igh, oa vowel patterns"},
-        {"lesson": 11, "books": [], "notes": "oo (short/long) patterns"},
-        {"lesson": 12, "books": [], "notes": "ar, or, ur, er r-controlled"}
-      ]
+    "description": "Map curriculum lessons and bands to decodable books",
+    "byBand": {
+      "A": {
+        "description": "Pre-Reader / Emergent",
+        "books": [
+          {"slug": "a0-look", "level": "A0", "skill": "Concept of Print"},
+          {"slug": "a1-i-sit", "level": "A1", "skill": "Letter Recognition", "lesson": 1},
+          {"slug": "a2-i-see-it", "level": "A2", "skill": "CV/VC Words", "lesson": 2},
+          {"slug": "a3-the-cat-is-here", "level": "A3", "skill": "Mixed Case", "lesson": 3},
+          {"slug": "a4-sam-and-the-hat", "level": "A4", "skill": "Emergent Bridge", "lesson": 4}
+        ]
+      },
+      "B": {
+        "description": "Phonics Foundation",
+        "books": [
+          {"slug": "b1-sam-and-the-cat", "level": "B1", "skill": "CVC short a,i", "lesson": 5},
+          {"slug": "b2-pup-in-the-mud", "level": "B2", "skill": "CVC all short vowels", "lesson": 6},
+          {"slug": "volcano", "level": "B2", "skill": "CVC words"},
+          {"slug": "b3-jump-at-camp", "level": "B3", "skill": "Final Blends + FLOSS"},
+          {"slug": "b3-pip-and-the-croc", "level": "B3", "skill": "Consonant Blends"},
+          {"slug": "rex-and-the-runaway-ball", "level": "B3", "skill": "CVC + blends"},
+          {"slug": "b4-frog-and-crab", "level": "B4", "skill": "Initial Blends"},
+          {"slug": "flicker-the-firefly", "level": "B4", "skill": "fl/gl blends"},
+          {"slug": "b5-the-ship-in-the-shell", "level": "B5", "skill": "Digraphs", "lesson": 7},
+          {"slug": "b6-kate-and-the-lake", "level": "B6", "skill": "Silent E / Magic E"},
+          {"slug": "b7-the-rain-and-the-snow", "level": "B7", "skill": "Vowel Teams", "lesson": 9},
+          {"slug": "b8-the-day-the-rain-came", "level": "B8", "skill": "Vowel Teams (ai, ay, ea, ee, oa)", "lesson": 10},
+          {"slug": "b8-the-owl-and-the-boy", "level": "B9", "skill": "Diphthongs", "lesson": 11},
+          {"slug": "b9-a-star-at-the-farm", "level": "B9", "skill": "R-Controlled Vowels", "lesson": 12}
+        ]
+      },
+      "C": {
+        "description": "Word Study",
+        "books": [
+          {"slug": "c1_knight_quest", "level": "C1", "skill": "Silent Letters"},
+          {"slug": "c2_magic_city", "level": "C2", "skill": "Soft C and G"},
+          {"slug": "c3_kitten_adventure", "level": "C3", "skill": "Two-Syllable Closed"},
+          {"slug": "c4_robot_pilot", "level": "C4", "skill": "Two-Syllable Open"},
+          {"slug": "c5_treehouse_mystery", "level": "C5", "skill": "Contractions + Compounds"},
+          {"slug": "c6_biggest_race", "level": "C6", "skill": "Inflectional Endings"},
+          {"slug": "c7_hopeless_garden", "level": "C7", "skill": "Derivational Suffixes"},
+          {"slug": "c8_impossible_invention", "level": "C8", "skill": "Prefixes"}
+        ]
+      },
+      "D": {
+        "description": "Fluent Reading",
+        "books": [
+          {"slug": "d1-the-lighthouse-keeper", "level": "D1", "skill": "Sentence Variety + Dialogue"},
+          {"slug": "d2-the-hidden-garden", "level": "D2", "skill": "Inference + Chapter Books"},
+          {"slug": "d3-the-architects-secret", "level": "D3", "skill": "Latin Roots"},
+          {"slug": "d4-signals-from-kepler", "level": "D4", "skill": "Greek Roots"},
+          {"slug": "d5-the-winter-of-words", "level": "D5", "skill": "Figurative Language"},
+          {"slug": "d6-the-bridge-between", "level": "D6", "skill": "Grade-Level Prose"}
+        ]
+      }
+    },
+    "byLesson": {
+      "1": {"band": "A1", "books": ["a1-i-sit"], "gpcs": ["s", "a", "t", "p"]},
+      "2": {"band": "A2", "books": ["a2-i-see-it"], "gpcs": ["i", "n", "m", "d"]},
+      "3": {"band": "A3", "books": ["a3-the-cat-is-here"], "gpcs": ["g", "o", "c", "k", "ck"]},
+      "4": {"band": "A4", "books": ["a4-sam-and-the-hat"], "gpcs": ["e", "u", "r"]},
+      "5": {"band": "B1", "books": ["b1-sam-and-the-cat"], "gpcs": ["h", "b", "f", "ff"]},
+      "6": {"band": "B2", "books": ["b2-pup-in-the-mud", "volcano"], "gpcs": ["l", "ll", "ss"]},
+      "7": {"band": "B5", "books": ["b5-the-ship-in-the-shell"], "gpcs": ["sh", "ch"]},
+      "8": {"band": "B5", "books": [], "gpcs": ["th", "ng"]},
+      "9": {"band": "B7", "books": ["b7-the-rain-and-the-snow"], "gpcs": ["ai", "ee"]},
+      "10": {"band": "B8", "books": ["b8-the-day-the-rain-came"], "gpcs": ["igh", "oa"]},
+      "11": {"band": "B8", "books": ["b8-the-owl-and-the-boy"], "gpcs": ["oo"]},
+      "12": {"band": "B9", "books": ["b9-a-star-at-the-farm"], "gpcs": ["ar", "or", "ur", "er"]}
     }
   }
 }

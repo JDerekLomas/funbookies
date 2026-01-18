@@ -1,0 +1,397 @@
+{
+  "version": "1.0",
+  "description": "Maps UK Letters and Sounds phases to FunBookies A-D band system",
+  "note": "UK Phase order differs from band order - Phase 4 (blends) comes after Phase 3 (digraphs) in UK system, but blends (B3-B4) come before digraphs (B5) in band system",
+
+  "bandToPhase": {
+    "A0": {
+      "phase": 1,
+      "phaseName": "Phonemic Awareness",
+      "skill": "Concept of Print",
+      "gpcs": [],
+      "curriculum": null
+    },
+    "A1": {
+      "phase": 2,
+      "phaseName": "Phase 2 Early",
+      "skill": "Letter Recognition",
+      "gpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/", "i-/ɪ/", "n-/n/"],
+      "curriculumLesson": 1
+    },
+    "A2": {
+      "phase": 2,
+      "phaseName": "Phase 2 Early",
+      "skill": "CV/VC Words",
+      "gpcs": ["m-/m/", "d-/d/", "g-/g/", "o-/ɒ/"],
+      "curriculumLesson": 2
+    },
+    "A3": {
+      "phase": 2,
+      "phaseName": "Phase 2 Mid",
+      "skill": "Mixed Case Sentences",
+      "gpcs": ["c-/k/", "k-/k/", "ck-/k/", "e-/ɛ/"],
+      "curriculumLesson": 3
+    },
+    "A4": {
+      "phase": 2,
+      "phaseName": "Phase 2 Mid",
+      "skill": "Emergent Bridge",
+      "gpcs": ["u-/ʌ/", "r-/r/"],
+      "curriculumLesson": 4
+    },
+    "B1": {
+      "phase": 2,
+      "phaseName": "Phase 2 Late",
+      "skill": "CVC Short a, i",
+      "gpcs": ["h-/h/", "b-/b/", "f-/f/", "ff-/f/"],
+      "curriculumLesson": 5
+    },
+    "B2": {
+      "phase": 2,
+      "phaseName": "Phase 2 Complete",
+      "skill": "CVC All Short Vowels",
+      "gpcs": ["l-/l/", "ll-/l/", "ss-/s/"],
+      "curriculumLesson": 6
+    },
+    "B3": {
+      "phase": 4,
+      "phaseName": "Phase 4 (Adjacent Consonants)",
+      "skill": "Final Blends + FLOSS",
+      "gpcs": [],
+      "blendPatterns": ["-nd", "-mp", "-st", "-nt", "-nk", "-ft", "-lp"],
+      "curriculumLesson": null,
+      "note": "Phase 4 introduces no new GPCs, only blends"
+    },
+    "B4": {
+      "phase": 4,
+      "phaseName": "Phase 4 (Adjacent Consonants)",
+      "skill": "Initial Blends",
+      "gpcs": [],
+      "blendPatterns": ["bl-", "cl-", "fl-", "gl-", "pl-", "sl-", "br-", "cr-", "dr-", "fr-", "gr-", "pr-", "tr-", "sc-", "sk-", "sm-", "sn-", "sp-", "st-", "sw-"],
+      "curriculumLesson": null
+    },
+    "B5": {
+      "phase": 3,
+      "phaseName": "Phase 3 Early",
+      "skill": "Consonant Digraphs",
+      "gpcs": ["sh-/ʃ/", "ch-/tʃ/", "th-/θ/", "th-/ð/", "ng-/ŋ/"],
+      "curriculumLesson": 7
+    },
+    "B6": {
+      "phase": 5,
+      "phaseName": "Phase 5 (Alternative Spellings)",
+      "skill": "Silent E / Magic E",
+      "gpcs": ["a_e-/eɪ/", "i_e-/aɪ/", "o_e-/oʊ/", "u_e-/juː/"],
+      "curriculumLesson": null,
+      "note": "CVCe is Phase 5 in UK system"
+    },
+    "B7": {
+      "phase": 3,
+      "phaseName": "Phase 3 Mid",
+      "skill": "Vowel Teams",
+      "gpcs": ["ai-/eɪ/", "ee-/iː/", "oa-/oʊ/", "oo-/uː/"],
+      "curriculumLesson": 9
+    },
+    "B8": {
+      "phase": 3,
+      "phaseName": "Phase 3 Late",
+      "skill": "Diphthongs + Complex Vowels",
+      "gpcs": ["oi-/ɔɪ/", "oy-/ɔɪ/", "ou-/aʊ/", "ow-/aʊ/", "oo-/ʊ/", "aw-/ɔː/"],
+      "curriculumLesson": 10
+    },
+    "B9": {
+      "phase": 3,
+      "phaseName": "Phase 3 Complete",
+      "skill": "R-Controlled Vowels",
+      "gpcs": ["ar-/ɑː/", "or-/ɔː/", "er-/ɜː/", "ir-/ɜː/", "ur-/ɜː/"],
+      "curriculumLesson": 12
+    },
+    "C1": {
+      "phase": 5,
+      "phaseName": "Phase 5",
+      "skill": "Silent Letters",
+      "gpcs": ["kn-/n/", "wr-/r/", "gn-/n/", "mb-/m/"],
+      "curriculumLesson": null
+    },
+    "C2": {
+      "phase": 5,
+      "phaseName": "Phase 5",
+      "skill": "Soft C and G",
+      "gpcs": ["ce-/s/", "ci-/s/", "ge-/dʒ/", "gi-/dʒ/"],
+      "curriculumLesson": null
+    },
+    "C3": {
+      "phase": 6,
+      "phaseName": "Phase 6 (Fluency)",
+      "skill": "Two-Syllable Closed",
+      "gpcs": [],
+      "curriculumLesson": null
+    },
+    "C4": {
+      "phase": 6,
+      "phaseName": "Phase 6",
+      "skill": "Two-Syllable Open + Consonant-le",
+      "gpcs": [],
+      "curriculumLesson": null
+    },
+    "C5": {
+      "phase": 6,
+      "phaseName": "Phase 6",
+      "skill": "Contractions + Compounds",
+      "gpcs": [],
+      "curriculumLesson": null
+    },
+    "C6": {
+      "phase": 6,
+      "phaseName": "Phase 6",
+      "skill": "Inflectional Endings",
+      "gpcs": [],
+      "curriculumLesson": null
+    },
+    "C7": {
+      "phase": 6,
+      "phaseName": "Phase 6",
+      "skill": "Derivational Suffixes",
+      "gpcs": [],
+      "curriculumLesson": null
+    },
+    "C8": {
+      "phase": 6,
+      "phaseName": "Phase 6",
+      "skill": "Prefixes",
+      "gpcs": [],
+      "curriculumLesson": null
+    },
+    "D1": {
+      "phase": "beyond",
+      "phaseName": "Fluent Reading",
+      "skill": "Sentence Variety + Dialogue",
+      "gpcs": [],
+      "curriculumLesson": null
+    },
+    "D2": {
+      "phase": "beyond",
+      "phaseName": "Fluent Reading",
+      "skill": "Inference + Chapter Books",
+      "gpcs": [],
+      "curriculumLesson": null
+    },
+    "D3": {
+      "phase": "beyond",
+      "phaseName": "Fluent Reading",
+      "skill": "Latin Roots",
+      "gpcs": [],
+      "curriculumLesson": null
+    },
+    "D4": {
+      "phase": "beyond",
+      "phaseName": "Fluent Reading",
+      "skill": "Greek Roots",
+      "gpcs": [],
+      "curriculumLesson": null
+    },
+    "D5": {
+      "phase": "beyond",
+      "phaseName": "Fluent Reading",
+      "skill": "Figurative Language",
+      "gpcs": [],
+      "curriculumLesson": null
+    },
+    "D6": {
+      "phase": "beyond",
+      "phaseName": "Fluent Reading",
+      "skill": "Grade-Level Prose",
+      "gpcs": [],
+      "curriculumLesson": null
+    }
+  },
+
+  "lessonToBand": {
+    "1": {"band": "A1", "level": "A1", "skill": "s, a, t, p"},
+    "2": {"band": "A", "level": "A2", "skill": "i, n, m, d"},
+    "3": {"band": "A", "level": "A3", "skill": "g, o, c, k, ck"},
+    "4": {"band": "A", "level": "A4", "skill": "e, u, r"},
+    "5": {"band": "B", "level": "B1", "skill": "h, b, f, ff"},
+    "6": {"band": "B", "level": "B2", "skill": "l, ll, ss"},
+    "7": {"band": "B", "level": "B5", "skill": "sh, ch"},
+    "8": {"band": "B", "level": "B5", "skill": "th, ng"},
+    "9": {"band": "B", "level": "B7", "skill": "ai, ee"},
+    "10": {"band": "B", "level": "B7-B8", "skill": "igh, oa"},
+    "11": {"band": "B", "level": "B8", "skill": "oo (long/short)"},
+    "12": {"band": "B", "level": "B9", "skill": "ar, or, ur, er"}
+  },
+
+  "activityToBand": {
+    "letter-drill": {
+      "bands": ["A0", "A1", "A2", "A3", "A4", "B1", "B2"],
+      "phases": [1, 2],
+      "description": "Letter-sound correspondence practice"
+    },
+    "blend-it": {
+      "bands": ["A2", "A3", "A4", "B1", "B2", "B3", "B4", "B5"],
+      "phases": [2, 3, 4],
+      "description": "Sound blending for word reading"
+    },
+    "chop-it-up": {
+      "bands": ["A3", "A4", "B1", "B2", "B3", "B4"],
+      "phases": [2, 4],
+      "description": "Segmenting words into phonemes"
+    },
+    "word-builder": {
+      "bands": ["B1", "B2", "B3", "B4", "B5", "B6"],
+      "phases": [2, 3, 4, 5],
+      "description": "Build words from letter tiles"
+    },
+    "word-chains": {
+      "bands": ["B1", "B2", "B3", "B4", "B5"],
+      "phases": [2, 3, 4],
+      "description": "Change one sound to make new word"
+    },
+    "word-families": {
+      "bands": ["B1", "B2", "B3"],
+      "phases": [2],
+      "description": "Practice rhyming word patterns"
+    },
+    "sight-words": {
+      "bands": ["A2", "A3", "A4", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"],
+      "phases": [2, 3, 4, 5],
+      "description": "High-frequency word recognition"
+    },
+    "say-the-sound": {
+      "bands": ["A1", "A2", "A3", "A4", "B1", "B2", "B5"],
+      "phases": [2, 3],
+      "description": "Phoneme identification drill"
+    },
+    "sound-boxes": {
+      "bands": ["A3", "A4", "B1", "B2", "B3", "B4"],
+      "phases": [2, 4],
+      "description": "Elkonin boxes for phoneme counting"
+    },
+    "voice-blend": {
+      "bands": ["A2", "A3", "A4", "B1", "B2", "B3", "B4", "B5"],
+      "phases": [2, 3, 4],
+      "description": "Voice-activated blending practice"
+    },
+    "sentence-scramble": {
+      "bands": ["A4", "B1", "B2", "B3", "B4", "B5", "B6", "B7"],
+      "phases": [2, 3, 4, 5],
+      "description": "Unscramble words to form sentences"
+    },
+    "rhyme-match": {
+      "bands": ["A0", "A1", "A2", "A3", "B1", "B2"],
+      "phases": [1, 2],
+      "description": "Match rhyming words"
+    },
+    "read-aloud": {
+      "bands": ["A3", "A4", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "D1", "D2", "D3", "D4", "D5", "D6"],
+      "phases": [2, 3, 4, 5, 6, "beyond"],
+      "description": "Decodable text reading with support"
+    },
+    "phonics-assessment": {
+      "bands": ["all"],
+      "phases": ["all"],
+      "description": "Diagnostic assessment for placement"
+    }
+  },
+
+  "booksByBand": {
+    "A": {
+      "count": 5,
+      "books": ["a0-look", "a1-i-sit", "a2-i-see-it", "a3-the-cat-is-here", "a4-sam-and-the-hat"]
+    },
+    "B": {
+      "count": 35,
+      "levels": {
+        "B1": ["b1-sam-and-the-cat"],
+        "B2": ["b2-pup-in-the-mud", "b2-max-snow-pirate-hunt", "rats-in-the-castle", "volcano", "pig_mud"],
+        "B3": ["b3-jump-at-camp", "b3-pip-and-the-croc", "clover-the-cloud", "rex-and-the-runaway-ball"],
+        "B4": ["b4-frog-and-crab", "flicker-the-firefly"],
+        "B5": ["b5-the-ship-in-the-shell", "zip-the-little-snail"],
+        "B6": ["b6-kate-and-the-lake"],
+        "B7": ["b9-a-star-at-the-farm"],
+        "B8": ["b7-the-rain-and-the-snow", "b8-the-day-the-rain-came"],
+        "B9": ["b8-the-owl-and-the-boy"]
+      }
+    },
+    "C": {
+      "count": 8,
+      "levels": {
+        "C1": ["c1_knight_quest"],
+        "C2": ["c2_magic_city"],
+        "C3": ["c3_kitten_adventure"],
+        "C4": ["c4_robot_pilot"],
+        "C5": ["c5_treehouse_mystery"],
+        "C6": ["c6_biggest_race"],
+        "C7": ["c7_hopeless_garden"],
+        "C8": ["c8_impossible_invention"]
+      }
+    },
+    "D": {
+      "count": 6,
+      "levels": {
+        "D1": ["d1-the-lighthouse-keeper"],
+        "D2": ["d2-the-hidden-garden"],
+        "D3": ["d3-the-architects-secret"],
+        "D4": ["d4-signals-from-kepler"],
+        "D5": ["d5-the-winter-of-words"],
+        "D6": ["d6-the-bridge-between"]
+      }
+    }
+  },
+
+  "progressionPath": {
+    "description": "Recommended order combining both systems",
+    "sequence": [
+      {"step": 1, "band": "A0", "lesson": null, "phase": 1, "focus": "Print concepts, book handling"},
+      {"step": 2, "band": "A1", "lesson": 1, "phase": 2, "focus": "s, a, t, p - letter recognition"},
+      {"step": 3, "band": "A2", "lesson": 2, "phase": 2, "focus": "i, n, m, d - CV/VC words"},
+      {"step": 4, "band": "A3", "lesson": 3, "phase": 2, "focus": "g, o, c, k, ck - mixed case"},
+      {"step": 5, "band": "A4", "lesson": 4, "phase": 2, "focus": "e, u, r - emergent bridge"},
+      {"step": 6, "band": "B1", "lesson": 5, "phase": 2, "focus": "h, b, f, ff - CVC short a,i"},
+      {"step": 7, "band": "B2", "lesson": 6, "phase": 2, "focus": "l, ll, ss - all short vowels"},
+      {"step": 8, "band": "B3", "lesson": null, "phase": 4, "focus": "Final blends (-nd, -mp, -st)"},
+      {"step": 9, "band": "B4", "lesson": null, "phase": 4, "focus": "Initial blends (bl-, cr-, st-)"},
+      {"step": 10, "band": "B5", "lesson": 7, "phase": 3, "focus": "Digraphs (sh, ch, th, ng)"},
+      {"step": 11, "band": "B6", "lesson": null, "phase": 5, "focus": "Silent E / Magic E"},
+      {"step": 12, "band": "B7", "lesson": 9, "phase": 3, "focus": "Vowel teams (ai, ee, oa)"},
+      {"step": 13, "band": "B8", "lesson": 10, "phase": 3, "focus": "Diphthongs (oi, ou, oo)"},
+      {"step": 14, "band": "B9", "lesson": 12, "phase": 3, "focus": "R-controlled vowels"},
+      {"step": 15, "band": "C1", "lesson": null, "phase": 5, "focus": "Silent letters"},
+      {"step": 16, "band": "C2", "lesson": null, "phase": 5, "focus": "Soft c and g"},
+      {"step": 17, "band": "C3", "lesson": null, "phase": 6, "focus": "Two-syllable closed"},
+      {"step": 18, "band": "C4", "lesson": null, "phase": 6, "focus": "Two-syllable open"},
+      {"step": 19, "band": "C5", "lesson": null, "phase": 6, "focus": "Contractions"},
+      {"step": 20, "band": "C6", "lesson": null, "phase": 6, "focus": "Inflectional endings"},
+      {"step": 21, "band": "C7", "lesson": null, "phase": 6, "focus": "Derivational suffixes"},
+      {"step": 22, "band": "C8", "lesson": null, "phase": 6, "focus": "Prefixes"},
+      {"step": 23, "band": "D1", "lesson": null, "phase": "beyond", "focus": "Fluency + dialogue"},
+      {"step": 24, "band": "D2", "lesson": null, "phase": "beyond", "focus": "Inference"},
+      {"step": 25, "band": "D3", "lesson": null, "phase": "beyond", "focus": "Latin roots"},
+      {"step": 26, "band": "D4", "lesson": null, "phase": "beyond", "focus": "Greek roots"},
+      {"step": 27, "band": "D5", "lesson": null, "phase": "beyond", "focus": "Figurative language"},
+      {"step": 28, "band": "D6", "lesson": null, "phase": "beyond", "focus": "Grade-level prose"}
+    ]
+  },
+
+  "gapAnalysis": {
+    "curriculumGaps": [
+      {"band": "A0", "status": "no lesson", "need": "Create lesson 0 for print concepts"},
+      {"band": "B3", "status": "no lesson", "need": "Create lessons 13-14 for final blends"},
+      {"band": "B4", "status": "no lesson", "need": "Create lessons 15-16 for initial blends"},
+      {"band": "B6", "status": "no lesson", "need": "Create lessons 17-18 for CVCe"},
+      {"band": "C1-C8", "status": "no lessons", "need": "Create lessons 19-26 for word study"},
+      {"band": "D1-D6", "status": "no lessons", "need": "Create lessons 27-32 for fluency"}
+    ],
+    "bookGaps": [
+      {"level": "A0", "current": 1, "target": 3, "need": 2},
+      {"level": "B1", "current": 1, "target": 4, "need": 3},
+      {"level": "B7", "current": 1, "target": 4, "need": 3},
+      {"level": "B6", "current": 1, "target": 4, "need": 3}
+    ],
+    "activityGaps": [
+      {"activity": "digraph-sort", "status": "missing", "bands": ["B5"]},
+      {"activity": "syllable-sort", "status": "missing", "bands": ["C3", "C4"]},
+      {"activity": "morpheme-builder", "status": "missing", "bands": ["C6", "C7", "C8"]}
+    ]
+  }
+}

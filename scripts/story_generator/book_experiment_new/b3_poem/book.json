@@ -1,0 +1,326 @@
+{
+  "id": "splash-and-stomp",
+  "title": "Splash and Stomp",
+  "slug": "splash-and-stomp",
+  "level": "B3",
+  "band": "B",
+  "targetPhonics": "pl-, cr-, sn-, sp-, st-, -mp, -st, -nd",
+  "wordFamilies": [
+    "-ip",
+    "-op",
+    "-amp",
+    "-ust",
+    "-est"
+  ],
+  "skill": "Consonant Blends",
+  "skill_description": "Initial blends (pl-, cr-, sn-, sp-, st-) and final blends (-mp, -st, -nd)",
+  "age_range": "K-1",
+  "created": "2026-01-18",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Splashing in puddles - the physics of surface tension and droplets",
+  "characters": {},
+  "setting_context": "Playground at recess, spring day, puddles from rain",
+  "word_list": {
+    "sound_out": [
+      "plop",
+      "snap",
+      "snaps",
+      "spot",
+      "spots",
+      "stop",
+      "stomp",
+      "step",
+      "steps",
+      "croc",
+      "crisp",
+      "chomp",
+      "scrub",
+      "scrubs",
+      "grin",
+      "grins",
+      "glad",
+      "trust",
+      "best",
+      "must",
+      "just",
+      "rest",
+      "prop",
+      "drip",
+      "strip",
+      "stuck",
+      "plod",
+      "plan",
+      "spit",
+      "spin"
+    ],
+    "sight": [
+      "the",
+      "a",
+      "is",
+      "was",
+      "in",
+      "on",
+      "I",
+      "he",
+      "she",
+      "her",
+      "his",
+      "said",
+      "to",
+      "what",
+      "no",
+      "not",
+      "big",
+      "it",
+      "but",
+      "will",
+      "can",
+      "do",
+      "you",
+      "my",
+      "me"
+    ],
+    "heart": []
+  },
+  "sightWordsUsed": [
+    "the",
+    "a",
+    "is",
+    "was",
+    "in",
+    "on",
+    "I",
+    "he",
+    "she",
+    "her",
+    "his",
+    "said",
+    "to",
+    "what",
+    "no",
+    "not",
+    "big",
+    "it",
+    "but",
+    "will",
+    "can",
+    "do",
+    "you",
+    "my",
+    "me"
+  ],
+  "wordsearch_words": [
+    "plop",
+    "snap",
+    "snaps",
+    "spot",
+    "spots",
+    "stop",
+    "stomp",
+    "step"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Splash and Stomp",
+      "scene": "Cover illustration for 'Splash and Stomp'. Playground at recess, spring day, puddles from rain. Style matches the reference sheet."
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "I plod.",
+      "scene": "Illustration for: I plod...."
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "The sand is damp.",
+      "scene": "Illustration for: The sand is damp...."
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "I stop.",
+      "scene": "Illustration for: I stop...."
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "A still spot.",
+      "scene": "Illustration for: A still spot...."
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "Step.",
+      "scene": "Illustration for: Step...."
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "Step.",
+      "scene": "Illustration for: Step...."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Step.",
+      "scene": "Illustration for: Step...."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "Plop!",
+      "scene": "Illustration for: Plop!..."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "The water snaps.",
+      "scene": "Illustration for: The water snaps...."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "It spins in spots.",
+      "scene": "Illustration for: It spins in spots...."
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "A stomp.",
+      "scene": "Illustration for: A stomp...."
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "A chomp.",
+      "scene": "Illustration for: A chomp...."
+    },
+    {
+      "page": 18,
+      "story_page": 13,
+      "type": "story",
+      "text": "I am stuck.",
+      "scene": "Illustration for: I am stuck...."
+    },
+    {
+      "page": 19,
+      "story_page": 14,
+      "type": "story",
+      "text": "I stamp.",
+      "scene": "Illustration for: I stamp...."
+    },
+    {
+      "page": 20,
+      "story_page": 15,
+      "type": "story",
+      "text": "I snap.",
+      "scene": "Illustration for: I snap...."
+    },
+    {
+      "page": 21,
+      "story_page": 16,
+      "type": "story",
+      "text": "I grin.",
+      "scene": "Illustration for: I grin...."
+    },
+    {
+      "page": 22,
+      "story_page": 17,
+      "type": "story",
+      "text": "I am glad.",
+      "scene": "Illustration for: I am glad...."
+    },
+    {
+      "page": 23,
+      "story_page": 18,
+      "type": "story",
+      "text": "I rest on a",
+      "scene": "Illustration for: I rest on a..."
+    },
+    {
+      "page": 24,
+      "type": "end",
+      "text": "The End"
+    },
+    {
+      "page": 25,
+      "type": "wordsearch"
+    },
+    {
+      "page": 26,
+      "type": "series_info"
+    },
+    {
+      "page": 27,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-18T09:40:35.363419",
+    "levelSpecs": "v2",
+    "wordCount": 42,
+    "decodabilityTarget": "85%",
+    "storyPages": 18,
+    "pipeline": "A",
+    "mode": "poem"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book\n\nFOCUS: Character design, setting elements, color palette. Dreamy, atmospheric visual storytelling for a poem.\n\nRow 1 - THE ALLIGATOR (A friendly, green protagonist):\n[1] Alligator front view: Friendly bright green alligator with a pale yellow belly, big expressive eyes, short sturdy legs, and a long tail. Simple rounded shapes, soft textures. Off-white background.\n[2] Alligator expressions: Same alligator showing three faces - Focused (brows slightly knit), Surprised (eyes wide, mouth a small 'o'), and Wide Grin (eyes closed happily, showing a few blunt teeth).\n[3] Alligator in action: The alligator plodding slowly through damp, heavy sand, leaving deep, textured footprints behind.\n\nRow 2 - WATER AND ACTION:\n[4] The Prey: A small, vibrant blue dragonfly with translucent wings, hovering near the water's surface.\n[5] The Puddle: A clear blue puddle reflecting the sky, featuring concentric ripple circles and \"spinning\" spots of water.\n[6] KEY IMAGE: The Alligator mid-stomp in a large puddle, water splashing upward in soft blue watercolor arcs, mouth open in a playful \"snap\" and \"chomp.\"\n\nRow 3 - THE PLAYGROUND SETTING (simplified):\n[7] Playground Sand: Textured damp tan sand with scattered small pebbles and tiny tufts of bright green spring grass at the edges.\n[8] Spring Atmosphere: A soft pale blue sky with wispy white clouds and a gentle, hazy yellow sun, creating a fresh, post-rain mood.\n[9] Final scene: The alligator resting peacefully, belly-down on a smooth, sun-warmed grey rock next to the puddle, looking satisfied and glad.\n\nSTYLE: Dreamy and atmospheric with soft watercolor washes and gentle transitions. Simple stylized children's book illustration with soft edges. Palette of spring greens, watery blues, sandy tans, and soft yellows. Rounded shape language. Friendly and approachable. NOT realistic.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.",
+  "generation_artifacts": {
+    "draft": "The sand is damp.\nThe wind is crisp.\nA big, still spot.\nI stop.\n\nStep.\nStep.\nStep.\n\nPlop!\nThe water snaps.\nIt spins in spots.\nA stomp.\nA chomp.\nThe puddle is a croc;\nit grabs the boot.\n\nThe skin is thin.\nThe skin is tight.",
+    "critique": "This is a taut, percussive piece of writing. It understands the \"mouth-feel\" of a picture book\u2014the way consonants should click and pop against the teeth. However, it fluctuates between high-energy imagination and static, clinical observation.\n\n### **EVALUATION**\n\n**1. RHYTHM & SOUND PLEASURE: 5/5**\nThe phonics here are exceptional. You\u2019ve leaned heavily into plosives (Plop, spots, stomp) and sibilance (snaps, spins, skin). It feels like a drumbeat. The transition from the slow \"Step. Step. Step.\" to the frantic \"Plop!\" is masterclass pacing for a 32-page layout.\n\n**2. SENSORY GROUNDING: 4/5**\nThe reader is right there in the mud. The \"snap\" of the water and the \"grab\" of the boot are tactile and immediate. It loses a point only because the opening lines feel a bit like a weather report rather than a sensory immersion.\n\n**3. EMOTIONAL TRUTH: 4/5**\nThis perfectly captures the \"play-logic\" of a child. One moment it\u2019s a puddle; the next, it\u2019s a predator. The transition is seamless and lacks the condescension often found in \"imagination\" stories. It treats the croc as a real threat.\n\n**4. CHILD ENGAGEMENT: 4/5**\nA five-year-old will love the \"Stomp/Chomp\" sequence. It invites physical participation. The ending, however, takes a sharp turn into the abstract which might cause a \"Wait, what?\" moment rather than a \"Read it again!\" moment.\n\n**5. SHOW VS TELL: 3/5**\nThe middle is pure action. However, the line \"The puddle is a croc\" is a classic \"tell.\" You\u2019ve already shown us the chomp and the snap; telling us it\u2019s a croc undercuts the power of the child\u2019s imagination.\n\n***\n\n### **DEAD PHRASES**\n*   **\"The sand is damp. / The wind is crisp.\"** \u2014 These are \"placeholder\" lines. They provide information but no music. \"Crisp\" is a tired adjective that doesn't work as hard as \"snaps\" or \"chomp.\"\n*   **\"A big, still spot.\"** \u2014 \"Big\" is a flat word. \"Still spot\" is a bit of a tongue-twister that slows the momentum right before the \"Step. Step. Step.\" sequence.\n*   **\"The puddle is a croc;\"** \u2014 This is the editor\u2019s biggest grievance. Let the reader see the croc in the \"chomp.\" When you name it, the magic of the metaphor evaporates.\n\n### **LINES THAT SING**\n*   **\"The water snaps.\"** \u2014 Unexpected and violent. It gives the water a personality.\n*   **\"It spins in spots.\"** \u2014 Lovely sibilance. It captures the visual of a disturbed puddle perfectly.\n*   **\"A stomp. / A chomp.\"** \u2014 These are the heartbeat of the book. Protect these.\n*   **\"it grabs the boot.\"** \u2014 The personification of the puddle here is much stronger than the literal \"puddle is a croc\" line.\n\n### **WHAT\u2019S MISSING**\n*   **The \"Suction\":** You have the \"snap\" and the \"grab,\" but missing is the specific, muddy *sound* of a boot being stuck. That \"shloop\" or \"thwack\" would bridge the gap between the \"Step\" and the \"Chomp.\"\n*   **A Clearer Resolution:** The final two lines (\"The skin is thin. / The skin is tight.\") are evocative but confusing. Is this the skin of the croc? The skin of the child? The surface of the water? It shifts from a high-stakes \"attack\" to a biological observation, leaving the reader hanging in a way that feels unintentional rather than mysterious. It needs a sensory anchor to tell us where we are.",
+    "final": "I plod.\nThe sand is damp.\nI stop.\nA still spot.\n\nStep.\nStep.\nStep.\n\nPlop!\nThe water snaps.\nIt spins in spots.\nA stomp.\nA chomp.\nI am stuck.\n\nI stamp.\nI snap.\nI grin.\nI am glad.\nI rest on a"
+  },
+  "parent_tips": {
+    "before_reading": "Look at the cover of 'Splash and Stomp'. What do you see? This book focuses on Consonant Blends.",
+    "during_reading": "Help your child sound out words with pl-, cr-, sn- patterns.",
+    "after_reading": "What was your favorite part? Can you find words with our special sounds?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "What happens at the beginning?",
+      "answer": ""
+    },
+    {
+      "question": "What happens in the middle?",
+      "answer": ""
+    },
+    {
+      "question": "How does it end?",
+      "answer": ""
+    }
+  ]
+}

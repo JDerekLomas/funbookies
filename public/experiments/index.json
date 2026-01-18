@@ -1,6 +1,27 @@
 {
   "experiments": [
     {
+      "id": "books_20260118_103240",
+      "description": "C: All Claude Sonnet - balanced quality/cost",
+      "pipeline": "C",
+      "timestamp": "2026-01-18T10:35:44.904777",
+      "story_count": 4
+    },
+    {
+      "id": "books_20260118_103023",
+      "description": "C: All Claude Sonnet - balanced quality/cost",
+      "pipeline": "C",
+      "timestamp": "2026-01-18T10:32:07.974856",
+      "story_count": 0
+    },
+    {
+      "id": "books_20260118_102917",
+      "description": "C: All Claude Sonnet - balanced quality/cost",
+      "pipeline": "C",
+      "timestamp": "2026-01-18T10:30:05.902130",
+      "story_count": 0
+    },
+    {
       "id": "books_20260118_100655",
       "description": "A: All Gemini 3 Flash - cheapest option",
       "pipeline": "A",

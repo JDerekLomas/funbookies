@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Blind Evaluation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .instructions {
+            background: #e8f4fd;
+            border: 1px solid #b8daff;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+        }
+        .load-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .load-section input[type="file"] {
+            margin-right: 12px;
+        }
+        .story-card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        .blind-id {
+            font-size: 24px;
+            font-weight: bold;
+            color: #666;
+        }
+        .story-meta {
+            color: #888;
+            font-size: 14px;
+        }
+        .story-text {
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 16px;
+            font-family: Georgia, serif;
+            font-size: 18px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+        }
+        .rating-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .rating-group {
+            background: #f9f9f9;
+            padding: 16px;
+            border-radius: 8px;
+        }
+        .rating-group h4 {
+            margin: 0 0 12px 0;
+            color: #555;
+        }
+        .rating-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .rating-label {
+            font-size: 14px;
+            color: #666;
+        }
+        .rating-buttons {
+            display: flex;
+            gap: 4px;
+        }
+        .rating-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .rating-btn:hover {
+            background: #e8f4fd;
+            border-color: #b8daff;
+        }
+        .rating-btn.selected {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .pick-section {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #eee;
+        }
+        .pick-btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: 2px solid #28a745;
+            background: white;
+            color: #28a745;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pick-btn:hover {
+            background: #28a745;
+            color: white;
+        }
+        .pick-btn.picked {
+            background: #28a745;
+            color: white;
+        }
+        .notes-input {
+            width: 100%;
+            margin-top: 12px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .reveal-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-top: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .reveal-btn {
+            padding: 16px 32px;
+            font-size: 18px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .reveal-btn:hover {
+            background: #5a6268;
+        }
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .results-table th, .results-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        .results-table th {
+            background: #f5f5f5;
+        }
+        .winner {
+            background: #d4edda !important;
+        }
+        .hidden {
+            display: none;
+        }
+        .export-btn {
+            padding: 12px 24px;
+            font-size: 14px;
+            background: #17a2b8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Story Blind Evaluation</h1>
+
+    <div class="instructions">
+        <h3>Instructions</h3>
+        <ol>
+            <li>Load an experiment summary JSON file (e.g., <code>books_*_summary.json</code>)</li>
+            <li>Or load the full report markdown file</li>
+            <li>Rate each story on curricular and creative criteria (1-5)</li>
+            <li>Click "Pick as Winner" for your favorite(s)</li>
+            <li>Click "Reveal Results" to see which pipeline generated each story</li>
+        </ol>
+    </div>
+
+    <div class="load-section">
+        <h3>Load Experiment</h3>
+        <input type="file" id="fileInput" accept=".json,.md">
+        <button onclick="loadFile()">Load</button>
+        <span id="loadStatus"></span>
+    </div>
+
+    <div id="storiesContainer"></div>
+
+    <div id="revealSection" class="reveal-section hidden">
+        <button class="reveal-btn" onclick="revealResults()">Reveal Results</button>
+        <button class="export-btn" onclick="exportResults()">Export Ratings</button>
+        <div id="resultsContainer"></div>
+    </div>
+
+    <script>
+        let stories = [];
+        let answerKey = {};
+        let ratings = {};
+
+        function loadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a file');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const content = e.target.result;
+
+                if (file.name.endsWith('.json')) {
+                    parseJSON(content);
+                } else if (file.name.endsWith('.md')) {
+                    parseMarkdown(content);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function parseJSON(content) {
+            try {
+                const data = JSON.parse(content);
+
+                // Check if it's a summary file or full results
+                if (data.evaluations) {
+                    // Summary file format
+                    stories = data.evaluations.map((eval, idx) => ({
+                        id: eval.seed_id,
+                        title: eval.title,
+                        level: eval.level,
+                        mode: eval.mode,
+                        story: eval.story || `[Story text not in summary - load full results]`,
+                        pipeline: data.pipeline
+                    }));
+                }
+
+                shuffleAndDisplay();
+                document.getElementById('loadStatus').textContent = `Loaded ${stories.length} stories`;
+            } catch (err) {
+                alert('Error parsing JSON: ' + err.message);
+            }
+        }
+
+        function parseMarkdown(content) {
+            // Parse the report markdown format
+            const storyBlocks = content.split('---').filter(block => block.includes('### Story'));
+
+            stories = storyBlocks.map((block, idx) => {
+                const titleMatch = block.match(/## (.+)/);
+                const levelMatch = block.match(/\*\*Level:\*\* (\w+)/);
+                const modeMatch = block.match(/\*\*Mode:\*\* (\w+)/);
+                const storyMatch = block.match(/### Story\s+```\s*([\s\S]*?)\s*```/);
+
+                return {
+                    id: `story_${idx}`,
+                    title: titleMatch ? titleMatch[1].trim() : `Story ${idx + 1}`,
+                    level: levelMatch ? levelMatch[1] : 'Unknown',
+                    mode: modeMatch ? modeMatch[1] : 'Unknown',
+                    story: storyMatch ? storyMatch[1].trim() : '[Could not parse story]',
+                    pipeline: 'Unknown'
+                };
+            });
+
+            shuffleAndDisplay();
+            document.getElementById('loadStatus').textContent = `Loaded ${stories.length} stories from markdown`;
+        }
+
+        function shuffleAndDisplay() {
+            // Create blind IDs and shuffle
+            const blindIds = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta'];
+
+            // Shuffle stories
+            for (let i = stories.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [stories[i], stories[j]] = [stories[j], stories[i]];
+            }
+
+            // Assign blind IDs and build answer key
+            stories.forEach((story, idx) => {
+                story.blindId = blindIds[idx] || `Story ${idx + 1}`;
+                answerKey[story.blindId] = {
+                    title: story.title,
+                    level: story.level,
+                    mode: story.mode,
+                    pipeline: story.pipeline
+                };
+                ratings[story.blindId] = {
+                    curricular: {},
+                    creative: {},
+                    picked: false,
+                    notes: ''
+                };
+            });
+
+            renderStories();
+            document.getElementById('revealSection').classList.remove('hidden');
+        }
+
+        function renderStories() {
+            const container = document.getElementById('storiesContainer');
+            container.innerHTML = stories.map(story => `
+                <div class="story-card" data-id="${story.blindId}">
+                    <div class="story-header">
+                        <span class="blind-id">${story.blindId}</span>
+                        <span class="story-meta">Level: ${story.level} | Mode: ${story.mode}</span>
+                    </div>
+
+                    <div class="story-text">${escapeHtml(story.story)}</div>
+
+                    <div class="rating-section">
+                        <div class="rating-group">
+                            <h4>Curricular Criteria</h4>
+                            ${renderRatingRow(story.blindId, 'curricular', 'phonics', 'Phonics Prominence')}
+                            ${renderRatingRow(story.blindId, 'curricular', 'sentences', 'Sentence Complexity')}
+                            ${renderRatingRow(story.blindId, 'curricular', 'sightwords', 'Sight Words')}
+                            ${renderRatingRow(story.blindId, 'curricular', 'decodability', 'Decodability')}
+                            ${renderRatingRow(story.blindId, 'curricular', 'repetition', 'Word Repetition')}
+                        </div>
+
+                        <div class="rating-group">
+                            <h4>Creative Criteria</h4>
+                            ${renderRatingRow(story.blindId, 'creative', 'rhythm', 'Rhythm & Sound')}
+                            ${renderRatingRow(story.blindId, 'creative', 'sensory', 'Sensory Grounding')}
+                            ${renderRatingRow(story.blindId, 'creative', 'emotional', 'Emotional Truth')}
+                            ${renderRatingRow(story.blindId, 'creative', 'engagement', 'Child Engagement')}
+                            ${renderRatingRow(story.blindId, 'creative', 'showvstell', 'Show vs Tell')}
+                        </div>
+                    </div>
+
+                    <div class="pick-section">
+                        <button class="pick-btn" onclick="togglePick('${story.blindId}')">
+                            Pick as Winner
+                        </button>
+                        <input type="text" class="notes-input" placeholder="Notes about this story..."
+                               onchange="updateNotes('${story.blindId}', this.value)">
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderRatingRow(blindId, category, key, label) {
+            return `
+                <div class="rating-row">
+                    <span class="rating-label">${label}</span>
+                    <div class="rating-buttons">
+                        ${[1,2,3,4,5].map(n => `
+                            <button class="rating-btn" onclick="rate('${blindId}', '${category}', '${key}', ${n})">${n}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function rate(blindId, category, key, value) {
+            ratings[blindId][category][key] = value;
+
+            // Update button state
+            const card = document.querySelector(`.story-card[data-id="${blindId}"]`);
+            const group = card.querySelector(`.rating-group:${category === 'curricular' ? 'first' : 'last'}-child`);
+            const rows = group.querySelectorAll('.rating-row');
+
+            rows.forEach(row => {
+                if (row.querySelector('.rating-label').textContent === getLabel(key)) {
+                    row.querySelectorAll('.rating-btn').forEach(btn => {
+                        btn.classList.toggle('selected', parseInt(btn.textContent) === value);
+                    });
+                }
+            });
+        }
+
+        function getLabel(key) {
+            const labels = {
+                phonics: 'Phonics Prominence',
+                sentences: 'Sentence Complexity',
+                sightwords: 'Sight Words',
+                decodability: 'Decodability',
+                repetition: 'Word Repetition',
+                rhythm: 'Rhythm & Sound',
+                sensory: 'Sensory Grounding',
+                emotional: 'Emotional Truth',
+                engagement: 'Child Engagement',
+                showvstell: 'Show vs Tell'
+            };
+            return labels[key];
+        }
+
+        function togglePick(blindId) {
+            ratings[blindId].picked = !ratings[blindId].picked;
+            const btn = document.querySelector(`.story-card[data-id="${blindId}"] .pick-btn`);
+            btn.classList.toggle('picked', ratings[blindId].picked);
+            btn.textContent = ratings[blindId].picked ? 'Picked!' : 'Pick as Winner';
+        }
+
+        function updateNotes(blindId, notes) {
+            ratings[blindId].notes = notes;
+        }
+
+        function revealResults() {
+            const container = document.getElementById('resultsContainer');
+
+            // Calculate scores
+            const results = stories.map(story => {
+                const r = ratings[story.blindId];
+                const curricularScores = Object.values(r.curricular);
+                const creativeScores = Object.values(r.creative);
+
+                const curricularAvg = curricularScores.length > 0
+                    ? curricularScores.reduce((a,b) => a+b, 0) / curricularScores.length
+                    : 0;
+                const creativeAvg = creativeScores.length > 0
+                    ? creativeScores.reduce((a,b) => a+b, 0) / creativeScores.length
+                    : 0;
+
+                return {
+                    blindId: story.blindId,
+                    title: story.title,
+                    level: story.level,
+                    mode: story.mode,
+                    pipeline: story.pipeline,
+                    curricularAvg: curricularAvg.toFixed(1),
+                    creativeAvg: creativeAvg.toFixed(1),
+                    totalAvg: ((curricularAvg + creativeAvg) / 2).toFixed(1),
+                    picked: r.picked,
+                    notes: r.notes
+                };
+            });
+
+            // Sort by total score
+            results.sort((a, b) => parseFloat(b.totalAvg) - parseFloat(a.totalAvg));
+
+            container.innerHTML = `
+                <h3>Results Revealed</h3>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Blind ID</th>
+                            <th>Title</th>
+                            <th>Level</th>
+                            <th>Mode</th>
+                            <th>Pipeline</th>
+                            <th>Curricular</th>
+                            <th>Creative</th>
+                            <th>Total</th>
+                            <th>Picked?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${results.map((r, idx) => `
+                            <tr class="${r.picked ? 'winner' : ''}">
+                                <td>${r.blindId}</td>
+                                <td>${r.title}</td>
+                                <td>${r.level}</td>
+                                <td>${r.mode}</td>
+                                <td><strong>${r.pipeline}</strong></td>
+                                <td>${r.curricularAvg}</td>
+                                <td>${r.creativeAvg}</td>
+                                <td><strong>${r.totalAvg}</strong></td>
+                                <td>${r.picked ? 'Yes' : ''}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function exportResults() {
+            const exportData = {
+                timestamp: new Date().toISOString(),
+                ratings: ratings,
+                answerKey: answerKey,
+                stories: stories.map(s => ({
+                    blindId: s.blindId,
+                    title: s.title,
+                    level: s.level,
+                    mode: s.mode,
+                    pipeline: s.pipeline
+                }))
+            };
+
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `story_eval_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

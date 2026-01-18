@@ -1,0 +1,235 @@
+{
+  "id": "ox-and-the-big-hip",
+  "title": "Ox and the Big Hip",
+  "slug": "ox-and-the-big-hip",
+  "level": "B3",
+  "band": "B",
+  "targetPhonics": "pl-, cr-, sn-, sp-, st-, -mp, -st, -nd",
+  "wordFamilies": [
+    "-ip",
+    "-op",
+    "-amp",
+    "-ust",
+    "-est"
+  ],
+  "skill": "Consonant Blends",
+  "skill_description": "Initial blends (pl-, cr-, sn-, sp-, st-) and final blends (-mp, -st, -nd)",
+  "age_range": "K-1",
+  "created": "2026-01-18",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Oxpecker birds eating ticks from hippos (mutualism/symbiosis)",
+  "characters": {},
+  "setting_context": "African riverbank at midday, hot sand, slow green water, reeds rustling",
+  "word_list": {
+    "sound_out": [
+      "plop",
+      "snap",
+      "snaps",
+      "spot",
+      "spots",
+      "stop",
+      "stomp",
+      "step",
+      "steps",
+      "croc",
+      "crisp",
+      "chomp",
+      "scrub",
+      "scrubs",
+      "grin",
+      "grins",
+      "glad",
+      "trust",
+      "best",
+      "must",
+      "just",
+      "rest",
+      "prop",
+      "drip",
+      "strip",
+      "stuck",
+      "plod",
+      "plan",
+      "spit",
+      "spin"
+    ],
+    "sight": [
+      "the",
+      "a",
+      "is",
+      "was",
+      "in",
+      "on",
+      "I",
+      "he",
+      "she",
+      "her",
+      "his",
+      "said",
+      "to",
+      "what",
+      "no",
+      "not",
+      "big",
+      "it",
+      "but",
+      "will",
+      "can",
+      "do",
+      "you",
+      "my",
+      "me"
+    ],
+    "heart": []
+  },
+  "sightWordsUsed": [
+    "the",
+    "a",
+    "is",
+    "was",
+    "in",
+    "on",
+    "I",
+    "he",
+    "she",
+    "her",
+    "his",
+    "said",
+    "to",
+    "what",
+    "no",
+    "not",
+    "big",
+    "it",
+    "but",
+    "will",
+    "can",
+    "do",
+    "you",
+    "my",
+    "me"
+  ],
+  "wordsearch_words": [
+    "plop",
+    "snap",
+    "snaps",
+    "spot",
+    "spots",
+    "stop",
+    "stomp",
+    "step"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Ox and the Big Hip",
+      "scene": "Cover illustration for 'Ox and the Big Hip'. African riverbank at midday, hot sand, slow green water, reeds rustling. Style matches the reference sheet."
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "The sun is a hot stamp on the sand.\nThe mud is a still, green trap.",
+      "scene": "Illustration for: The sun is a hot stamp on the sand.\nThe mud is a still, green trap...."
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "A drip.\n*Plop.*",
+      "scene": "Illustration for: A drip.\n*Plop.*..."
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "Pip spots a hill in the mud.\nIt is not a hill.",
+      "scene": "Illustration for: Pip spots a hill in the mud.\nIt is not a hill...."
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "It is a grey stump. It is Hugo.",
+      "scene": "Illustration for: It is a grey stump. It is Hugo...."
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "Red spots on his back.\nThe spots itch. The spots crawl.",
+      "scene": "Illustration for: Red spots on his back.\nThe spots itch. The spots crawl...."
+    },
+    {
+      "page": 11,
+      "type": "end",
+      "text": "The End"
+    },
+    {
+      "page": 12,
+      "type": "wordsearch"
+    },
+    {
+      "page": 13,
+      "type": "series_info"
+    },
+    {
+      "page": 14,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-18T10:07:45.791768",
+    "levelSpecs": "v2",
+    "wordCount": 50,
+    "decodabilityTarget": "85%",
+    "storyPages": 5,
+    "pipeline": "A",
+    "mode": "narrative"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book\n\nFOCUS: Character design, setting elements, color palette. Dynamic, expressive narrative style.\n\nRow 1 - PIP (Small oxpecker bird):\n[1] Pip front view: Small, agile bird with brown feathers, a bright yellow and red beak, and large, curious expressive eyes. Simple geometric shapes. [Solid cream background]\n[2] Pip expressions: Same bird showing three faces - wide-eyed curiosity, startled surprise, and a helpful smile.\n[3] Pip in action: Pip mid-flight, wings spread, diving down toward the mud.\n\nRow 2 - HUGO AND THE ITCHY SPOTS:\n[4] Hugo the Hippo: A massive, grey, rounded hippo resembling a smooth river stone or stump. Small ears, sleepy eyes, thick textured skin.\n[5] The Red Spots: Close-up of Hugo\u2019s grey skin with tiny, bright red crawling insects grouped together.\n[6] KEY IMAGE: Pip the bird landing on Hugo\u2019s massive grey back which is poking out of thick green mud, under a large, vibrant yellow sun.\n\nRow 3 - THE RIVERBANK (simplified):\n[7] The Hot Sand: Textured, bright orange and yellow sand with a heavy, \"stamped\" sun icon in the corner.\n[8] The Green Mud: Thick, olive-green water and mud with tall, vertical reed shapes rustling in the background.\n[9] Resolution: Pip perched on Hugo's head, both looking peaceful. Hugo is submerged in the green water with only his eyes and Pip visible.\n\nSTYLE: Bold, textured collage style with hand-painted paper textures similar to Eric Carle and Leo Lionni. Saturated earth tones: ochre, olive green, slate grey, and pops of crimson red. Distinct, layered shapes with visible edges. Friendly and approachable. NOT realistic.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.",
+  "generation_artifacts": {
+    "draft": "The sun is a hot stamp on the sand. The river is slow. Green water. *Plop.*\n\nPip spots a hill in the mud. It is not a hill. It is Hugo. \nHugo is big. Hugo is grey. He has red spots on his back. The spots itch. The spots crawl. \n\nPip wants the snack. He must land.\n\nPip",
+    "critique": "This is a punchy, muscular start. You\u2019ve avoided the \"once upon a time\" fluff and gone straight for the jugular of the setting. However, there is a tension between the sophisticated imagery at the start and some very \"basal reader\" flatlines in the middle.\n\nHere is my evaluation:\n\n### **CRITERIA RATINGS**\n\n**1. RHYTHM & SOUND PLEASURE: 4/5**\nThe consonance here is delicious. *Stamp/sand*, *spots/snack*, *crawl/hill*. The \"st\" and \"sp\" sounds create a sharp, percussive texture that mimics the heat and the insects. The transition from the long \"o\" in *slow* to the abrupt *Plop* is excellent pacing.\n\n**2. SENSORY GROUNDING: 4/5**\nYou\u2019ve nailed the heat and the visual contrast (grey vs. red). I can feel the \"hot stamp\" of the sun. The \"crawl\" of the spots provides a physical reaction that most readers will feel in their own skin.\n\n**3. EMOTIONAL TRUTH: 3/5**\nIt feels honest in its biology\u2014hunger vs. irritation\u2014but the connection between Pip and Hugo is currently purely transactional. It lacks the \"wink\" to the reader that elevates a nature observation into a story.\n\n**4. CHILD ENGAGEMENT: 4/5**\nThe \"It is not a hill\" trope is a staple for a reason; five-year-olds love being \"in\" on the secret before the character is. The stakes (Pip needing to land on something that might move) are clear and immediate.\n\n**5. SHOW VS TELL: 2/5**\nThis is where the draft stumbles. You have brilliant \"showing\" at the beginning and end, but the middle section collapses into a list of \"is\" statements. You are explaining Hugo rather than letting us experience his \"Hugo-ness.\"\n\n***\n\n### **DEAD PHRASES: Lines to cut or rewrite**\n*   **\"The river is slow.\"** \u2014 This is a filler sentence. It lacks the heat and character of the \"hot stamp\" line. It tells us the speed without letting us see the sluggishness.\n*   **\"Hugo is big. Hugo is grey.\"** \u2014 This is \"Dick and Jane\" prose. It\u2019s dead on the page. We know he\u2019s big because Pip thinks he\u2019s a hill. We know he\u2019s grey because he\u2019s in the mud. These lines take the wind out of your rhythmic sails.\n*   **\"Pip wants the snack.\"** \u2014 \"Wants\" is a weak, internal verb. Show us the hunger or the fixated gaze.\n\n### **LINES THAT SING: Protect these at all costs**\n*   **\"The sun is a hot stamp on the sand.\"** \u2014 This is a world-class opening line. It\u2019s tactile, visual, and sets the stakes of the heat immediately.\n*   **\"The spots itch. The spots crawl.\"** \u2014 The repetition of \"The spots\" followed by two very different verbs creates a wonderful \"uh-oh\" moment. It turns a pattern into a living thing.\n*   **\"*Plop.*\"** \u2014 Perfect placement. It breaks the heat and provides a necessary sonic reset.\n\n### **WHAT\u2019S MISSING: To make it come alive**\n*   **The Scale Shift:** We need to feel just how tiny Pip is compared to the \"hill.\" Give us a sound or a movement that emphasizes the vastness of Hugo\u2019s back.\n*   **The \"Snack\" Identity:** Is the snack a fly? A beetle? \"The snack\" is a bit generic. A specific sound (a hum, a buzz, a click) would heighten the sensory tension before Pip lands.\n*   **The Mud\u2019s Texture:** You mention the river is green and the water goes *plop*, but the mud where Hugo sits is a missed opportunity for a \"squelch\" or a \"heavy\" sensory detail to ground the weight of the hippo.",
+    "final": "The sun is a hot stamp on the sand. \nThe mud is a still, green trap. \nA drip. \n*Plop.*\n\nPip spots a hill in the mud. \nIt is not a hill. \nIt is a grey stump. It is Hugo. \nRed spots on his back. \nThe spots itch. The spots crawl."
+  },
+  "parent_tips": {
+    "before_reading": "Look at the cover of 'Ox and the Big Hip'. What do you see? This book focuses on Consonant Blends.",
+    "during_reading": "Help your child sound out words with pl-, cr-, sn- patterns.",
+    "after_reading": "What was your favorite part? Can you find words with our special sounds?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "What happens at the beginning?",
+      "answer": ""
+    },
+    {
+      "question": "What happens in the middle?",
+      "answer": ""
+    },
+    {
+      "question": "How does it end?",
+      "answer": ""
+    }
+  ]
+}

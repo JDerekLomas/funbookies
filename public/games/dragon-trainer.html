@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Dragon Trainer - FunBookies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            overflow: hidden;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #gameCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* UI Overlay */
+        #ui {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .ui-box {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            padding: 10px 15px;
+            color: white;
+            backdrop-filter: blur(5px);
+            pointer-events: auto;
+        }
+
+        #dragonInfo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #dragonIcon {
+            font-size: 40px;
+        }
+
+        #dragonName {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #dragonLevel {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        #xpBar {
+            width: 120px;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        #xpFill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ff8c00);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        #stats {
+            text-align: right;
+        }
+
+        #score {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #streak {
+            font-size: 14px;
+            color: #ff6b6b;
+        }
+
+        /* Power meter */
+        #powerMeter {
+            position: absolute;
+            top: 80px;
+            right: 20px;
+            width: 50px;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 25px;
+            padding: 5px;
+            z-index: 10;
+        }
+
+        #powerFill {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            right: 5px;
+            height: 0%;
+            background: linear-gradient(180deg, #ff6b6b, #ffd700);
+            border-radius: 20px;
+            transition: height 0.3s ease;
+        }
+
+        #powerIcon {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+        }
+
+        /* Food tray */
+        #foodTray {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .food-item {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            cursor: grab;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            touch-action: none;
+        }
+
+        .food-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .food-item.dragging {
+            transform: scale(1.2);
+            opacity: 0.8;
+            cursor: grabbing;
+            z-index: 100;
+        }
+
+        .food-item.correct {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .food-item.wrong {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Target word */
+        #targetWord {
+            position: absolute;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            border-radius: 15px;
+            z-index: 10;
+        }
+
+        #targetWordDisplay {
+            display: flex;
+            gap: 5px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .letter-slot {
+            width: 45px;
+            height: 55px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .letter-slot.filled {
+            background: rgba(78, 205, 196, 0.5);
+            border: 2px solid #4ecdc4;
+        }
+
+        .letter-slot.current {
+            border-color: #ffd700;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.3); }
+        }
+
+        /* Prompt */
+        #prompt {
+            position: absolute;
+            bottom: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: white;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        /* Menu */
+        #menu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 100;
+        }
+
+        #menu h1 {
+            font-size: 48px;
+            color: white;
+            text-shadow: 0 0 30px rgba(255, 150, 50, 0.8);
+            margin-bottom: 10px;
+        }
+
+        #menu h2 {
+            font-size: 20px;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .menu-btn {
+            display: block;
+            width: 220px;
+            margin: 10px auto;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: bold;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-btn.play {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+            color: white;
+        }
+
+        .menu-btn.den {
+            background: linear-gradient(135deg, #a55eea, #8854d0);
+            color: white;
+        }
+
+        /* Dragon Den */
+        #dragonDen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #2d1b4e 0%, #1a1a2e 100%);
+            z-index: 100;
+            display: none;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        #denHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #denHeader h1 {
+            color: white;
+            font-size: 32px;
+        }
+
+        #closeBtn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #dragonGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            padding-bottom: 50px;
+        }
+
+        .dragon-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .dragon-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .dragon-card.locked {
+            opacity: 0.5;
+            filter: grayscale(1);
+        }
+
+        .dragon-card .icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        .dragon-card .name {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .dragon-card .level {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .dragon-card .evolution {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .evolution-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #333;
+        }
+
+        .evolution-dot.filled {
+            background: #ffd700;
+        }
+
+        /* Announcement */
+        #announcement {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 30px rgba(255, 200, 0, 0.8);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 50;
+        }
+
+        /* Level up animation */
+        #levelUp {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 100;
+            display: none;
+        }
+
+        #levelUp h1 {
+            font-size: 48px;
+            color: #ffd700;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            margin-bottom: 20px;
+        }
+
+        #levelUp .dragon-evolve {
+            font-size: 120px;
+            animation: bounce 0.5s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+
+        <div id="ui" class="hidden">
+            <div class="ui-box" id="dragonInfo">
+                <div id="dragonIcon">🔥</div>
+                <div>
+                    <div id="dragonName">Ember</div>
+                    <div id="dragonLevel">Level 1</div>
+                    <div id="xpBar"><div id="xpFill"></div></div>
+                </div>
+            </div>
+            <div class="ui-box" id="stats">
+                <div id="score">0</div>
+                <div id="streak"></div>
+            </div>
+        </div>
+
+        <div id="powerMeter" class="hidden">
+            <div id="powerIcon">🔥</div>
+            <div id="powerFill"></div>
+        </div>
+
+        <div id="prompt" class="hidden">Feed me the sound...</div>
+
+        <div id="targetWord" class="hidden">
+            <div id="targetWordDisplay"></div>
+        </div>
+
+        <div id="foodTray" class="hidden"></div>
+
+        <div id="menu">
+            <h1>🐉 DRAGON TRAINER</h1>
+            <h2>Feed your dragon sounds to grow stronger!</h2>
+            <button class="menu-btn play" onclick="startGame()">🎮 Play</button>
+            <button class="menu-btn den" onclick="showDen()">🏰 Dragon Den</button>
+        </div>
+
+        <div id="dragonDen">
+            <div id="denHeader">
+                <h1>🏰 Dragon Den</h1>
+                <button id="closeBtn" onclick="closeDen()">✕</button>
+            </div>
+            <div id="dragonGrid"></div>
+        </div>
+
+        <div id="levelUp">
+            <h1>LEVEL UP!</h1>
+            <div class="dragon-evolve">🐉</div>
+        </div>
+
+        <div id="announcement"></div>
+    </div>
+
+    <script>
+        // Canvas setup
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Dragon data
+        const DRAGONS = {
+            ember: {
+                id: 'ember',
+                name: 'Ember',
+                icon: '🔥',
+                element: 'fire',
+                color: '#ff6b6b',
+                band: 'A',
+                focus: 'Single letters',
+                letters: ['s', 'a', 't', 'p', 'i', 'n', 'm', 'd', 'g', 'o', 'c', 'k'],
+                words: ['sat', 'pat', 'tap', 'pin', 'tin', 'mat', 'mad', 'dog', 'cat', 'cot'],
+                unlockLevel: 0
+            },
+            splash: {
+                id: 'splash',
+                name: 'Splash',
+                icon: '🌊',
+                element: 'water',
+                color: '#48dbfb',
+                band: 'B1-B2',
+                focus: 'Short vowels',
+                letters: ['a', 'e', 'i', 'o', 'u'],
+                words: ['bed', 'red', 'pet', 'net', 'pen', 'pig', 'big', 'hit', 'cup', 'sun'],
+                unlockLevel: 3
+            },
+            bolt: {
+                id: 'bolt',
+                name: 'Bolt',
+                icon: '⚡',
+                element: 'lightning',
+                color: '#ffd700',
+                band: 'B3-B4',
+                focus: 'Blends',
+                letters: ['bl', 'cl', 'fl', 'br', 'cr', 'dr', 'st', 'sp', 'sn'],
+                words: ['stop', 'spin', 'snap', 'drop', 'clap', 'flag', 'frog', 'trip', 'grab'],
+                unlockLevel: 6
+            },
+            whisper: {
+                id: 'whisper',
+                name: 'Whisper',
+                icon: '💨',
+                element: 'wind',
+                color: '#a29bfe',
+                band: 'B5',
+                focus: 'Digraphs',
+                letters: ['sh', 'ch', 'th', 'wh', 'ng', 'ck'],
+                words: ['ship', 'shop', 'chat', 'chin', 'thin', 'that', 'when', 'ring', 'duck'],
+                unlockLevel: 9
+            },
+            shimmer: {
+                id: 'shimmer',
+                name: 'Shimmer',
+                icon: '✨',
+                element: 'sparkle',
+                color: '#fd79a8',
+                band: 'B6',
+                focus: 'Magic E',
+                letters: ['a_e', 'i_e', 'o_e', 'u_e', 'e_e'],
+                words: ['cake', 'make', 'bike', 'like', 'home', 'note', 'cute', 'tune'],
+                unlockLevel: 12
+            },
+            prism: {
+                id: 'prism',
+                name: 'Prism',
+                icon: '🌈',
+                element: 'rainbow',
+                color: '#00b894',
+                band: 'B7-B8',
+                focus: 'Vowel teams',
+                letters: ['ai', 'ay', 'ee', 'ea', 'oa', 'ow', 'ou'],
+                words: ['rain', 'play', 'tree', 'beat', 'boat', 'snow', 'loud'],
+                unlockLevel: 15
+            },
+            nova: {
+                id: 'nova',
+                name: 'Nova',
+                icon: '🌟',
+                element: 'star',
+                color: '#f9ca24',
+                band: 'B9',
+                focus: 'R-controlled',
+                letters: ['ar', 'er', 'ir', 'or', 'ur'],
+                words: ['car', 'star', 'her', 'fern', 'bird', 'girl', 'corn', 'burn'],
+                unlockLevel: 18
+            },
+            shadow: {
+                id: 'shadow',
+                name: 'Shadow',
+                icon: '👻',
+                element: 'stealth',
+                color: '#636e72',
+                band: 'C1-C2',
+                focus: 'Silent letters',
+                letters: ['kn', 'wr', 'gn', 'mb'],
+                words: ['know', 'knee', 'write', 'wrap', 'sign', 'lamb', 'climb'],
+                unlockLevel: 21
+            },
+            mystic: {
+                id: 'mystic',
+                name: 'Mystic',
+                icon: '🔮',
+                element: 'magic',
+                color: '#6c5ce7',
+                band: 'C3-C8',
+                focus: 'Morphology',
+                letters: ['un', 're', 'ed', 'ing', 'ly', 'ful'],
+                words: ['undo', 'redo', 'jumped', 'running', 'slowly', 'helpful'],
+                unlockLevel: 24
+            },
+            ancient: {
+                id: 'ancient',
+                name: 'Ancient',
+                icon: '👑',
+                element: 'all',
+                color: '#d63031',
+                band: 'D1-D6',
+                focus: 'Fluency Master',
+                letters: ['all'],
+                words: ['dragon', 'treasure', 'adventure', 'magical', 'powerful'],
+                unlockLevel: 30
+            }
+        };
+
+        // Word lists by type
+        const WORD_DATA = {
+            cvc: [
+                { word: 'cat', sounds: ['c', 'a', 't'] },
+                { word: 'dog', sounds: ['d', 'o', 'g'] },
+                { word: 'pig', sounds: ['p', 'i', 'g'] },
+                { word: 'sun', sounds: ['s', 'u', 'n'] },
+                { word: 'hat', sounds: ['h', 'a', 't'] },
+                { word: 'bed', sounds: ['b', 'e', 'd'] },
+                { word: 'cup', sounds: ['c', 'u', 'p'] },
+                { word: 'fox', sounds: ['f', 'o', 'x'] },
+                { word: 'bus', sounds: ['b', 'u', 's'] },
+                { word: 'map', sounds: ['m', 'a', 'p'] },
+                { word: 'pen', sounds: ['p', 'e', 'n'] },
+                { word: 'red', sounds: ['r', 'e', 'd'] },
+                { word: 'nut', sounds: ['n', 'u', 't'] },
+                { word: 'wet', sounds: ['w', 'e', 't'] },
+                { word: 'log', sounds: ['l', 'o', 'g'] },
+                { word: 'pan', sounds: ['p', 'a', 'n'] },
+                { word: 'tin', sounds: ['t', 'i', 'n'] },
+                { word: 'mop', sounds: ['m', 'o', 'p'] },
+            ],
+            ccvc: [
+                { word: 'stop', sounds: ['s', 't', 'o', 'p'] },
+                { word: 'frog', sounds: ['f', 'r', 'o', 'g'] },
+                { word: 'swim', sounds: ['s', 'w', 'i', 'm'] },
+                { word: 'plan', sounds: ['p', 'l', 'a', 'n'] },
+                { word: 'drip', sounds: ['d', 'r', 'i', 'p'] },
+                { word: 'clap', sounds: ['c', 'l', 'a', 'p'] },
+                { word: 'flag', sounds: ['f', 'l', 'a', 'g'] },
+                { word: 'grab', sounds: ['g', 'r', 'a', 'b'] },
+            ],
+            digraph: [
+                { word: 'ship', sounds: ['sh', 'i', 'p'] },
+                { word: 'chat', sounds: ['ch', 'a', 't'] },
+                { word: 'thin', sounds: ['th', 'i', 'n'] },
+                { word: 'fish', sounds: ['f', 'i', 'sh'] },
+                { word: 'ring', sounds: ['r', 'i', 'ng'] },
+                { word: 'much', sounds: ['m', 'u', 'ch'] },
+                { word: 'duck', sounds: ['d', 'u', 'ck'] },
+                { word: 'when', sounds: ['wh', 'e', 'n'] },
+            ],
+            cvce: [
+                { word: 'cake', sounds: ['c', 'a', 'k', 'e'] },
+                { word: 'bike', sounds: ['b', 'i', 'k', 'e'] },
+                { word: 'home', sounds: ['h', 'o', 'm', 'e'] },
+                { word: 'cute', sounds: ['c', 'u', 't', 'e'] },
+                { word: 'name', sounds: ['n', 'a', 'm', 'e'] },
+                { word: 'time', sounds: ['t', 'i', 'm', 'e'] },
+                { word: 'note', sounds: ['n', 'o', 't', 'e'] },
+                { word: 'rule', sounds: ['r', 'u', 'l', 'e'] },
+            ]
+        };
+
+        // Game state
+        let gameState = 'menu';
+        let currentDragon = null;
+        let score = 0;
+        let streak = 0;
+        let power = 0;
+        let currentWord = null;
+        let currentSoundIndex = 0;
+        let foodItems = [];
+        let particles = [];
+        let screenShake = { x: 0, y: 0, intensity: 0 };
+        let dragonY = 0;
+        let dragonFrame = 0;
+        let dragonState = 'idle'; // idle, eat, breathe
+        let breatheParticles = [];
+
+        // Save data
+        let saveData = {
+            dragons: {},
+            totalScore: 0,
+            wordsLearned: []
+        };
+
+        // Load save data
+        function loadSaveData() {
+            const saved = localStorage.getItem('dragonTrainerSave');
+            if (saved) {
+                saveData = JSON.parse(saved);
+            } else {
+                // Initialize with Ember unlocked
+                saveData.dragons = {
+                    ember: { level: 1, xp: 0, fed: 0, evolution: 1 }
+                };
+            }
+        }
+
+        function saveSaveData() {
+            localStorage.setItem('dragonTrainerSave', JSON.stringify(saveData));
+        }
+
+        // Audio
+        let audioContext = null;
+
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(type, freq = 440) {
+            if (!audioContext) return;
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            switch(type) {
+                case 'chomp':
+                    oscillator.type = 'square';
+                    oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.1);
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                    break;
+                case 'breathe':
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.5);
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                    break;
+                case 'wrong':
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(80, audioContext.currentTime + 0.2);
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.2);
+                    break;
+                case 'complete':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(523, audioContext.currentTime);
+                    oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.1);
+                    oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.2);
+                    oscillator.frequency.setValueAtTime(1047, audioContext.currentTime + 0.3);
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                    break;
+                case 'levelup':
+                    oscillator.type = 'sine';
+                    for (let i = 0; i < 5; i++) {
+                        oscillator.frequency.setValueAtTime(400 + i * 100, audioContext.currentTime + i * 0.1);
+                    }
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.6);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.6);
+                    break;
+            }
+        }
+
+        function speakSound(sound) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(sound);
+                utterance.rate = 0.8;
+                utterance.pitch = 1.2;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Particle system
+        function createParticles(x, y, color, count, type = 'burst') {
+            for (let i = 0; i < count; i++) {
+                const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
+                const speed = 3 + Math.random() * 5;
+                particles.push({
+                    x, y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed - (type === 'fire' ? 5 : 0),
+                    life: 1,
+                    color,
+                    size: 3 + Math.random() * 5,
+                    type
+                });
+            }
+        }
+
+        function createBreathParticles(element) {
+            const dragonX = canvas.width / 2;
+            const dragonTopY = canvas.height * 0.3;
+
+            let color = '#ff6b6b';
+            switch (element) {
+                case 'fire': color = '#ff6b6b'; break;
+                case 'water': color = '#48dbfb'; break;
+                case 'lightning': color = '#ffd700'; break;
+                case 'wind': color = '#a29bfe'; break;
+                case 'sparkle': color = '#fd79a8'; break;
+                case 'rainbow': color = `hsl(${Math.random() * 360}, 80%, 60%)`; break;
+                case 'star': color = '#f9ca24'; break;
+                case 'stealth': color = '#636e72'; break;
+                case 'magic': color = '#6c5ce7'; break;
+                case 'all': color = `hsl(${Math.random() * 360}, 80%, 60%)`; break;
+            }
+
+            for (let i = 0; i < 5; i++) {
+                breatheParticles.push({
+                    x: dragonX + (Math.random() - 0.5) * 30,
+                    y: dragonTopY + 50,
+                    vx: (Math.random() - 0.5) * 3,
+                    vy: 3 + Math.random() * 2,
+                    life: 1,
+                    color,
+                    size: 5 + Math.random() * 10
+                });
+            }
+        }
+
+        function updateParticles() {
+            particles = particles.filter(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += p.type === 'fire' ? -0.1 : 0.1;
+                p.life -= 0.02;
+                return p.life > 0;
+            });
+
+            breatheParticles = breatheParticles.filter(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= 0.03;
+                p.size *= 0.98;
+                return p.life > 0;
+            });
+        }
+
+        function drawParticles() {
+            particles.forEach(p => {
+                ctx.globalAlpha = p.life;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            breatheParticles.forEach(p => {
+                ctx.globalAlpha = p.life * 0.7;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            ctx.globalAlpha = 1;
+        }
+
+        // Screen shake
+        function triggerScreenShake(intensity) {
+            screenShake.intensity = Math.max(screenShake.intensity, intensity);
+        }
+
+        function updateScreenShake() {
+            if (screenShake.intensity > 0) {
+                screenShake.x = (Math.random() - 0.5) * screenShake.intensity;
+                screenShake.y = (Math.random() - 0.5) * screenShake.intensity;
+                screenShake.intensity *= 0.9;
+                if (screenShake.intensity < 0.5) {
+                    screenShake.intensity = 0;
+                    screenShake.x = 0;
+                    screenShake.y = 0;
+                }
+            }
+        }
+
+        // Dragon drawing
+        function drawDragon() {
+            const x = canvas.width / 2;
+            const baseY = canvas.height * 0.35;
+            const y = baseY + dragonY;
+
+            // Dragon body (simple but cute)
+            const dragon = DRAGONS[currentDragon.id];
+            const size = 80 + (currentDragon.evolution - 1) * 20;
+
+            // Glow effect
+            ctx.shadowColor = dragon.color;
+            ctx.shadowBlur = 30;
+
+            // Body
+            ctx.fillStyle = dragon.color;
+            ctx.beginPath();
+            ctx.ellipse(x, y, size, size * 0.8, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Belly
+            ctx.fillStyle = '#fff';
+            ctx.globalAlpha = 0.3;
+            ctx.beginPath();
+            ctx.ellipse(x, y + 10, size * 0.6, size * 0.5, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+
+            // Eyes
+            const eyeY = y - size * 0.2;
+            const eyeSpacing = size * 0.35;
+
+            // Eye whites
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.ellipse(x - eyeSpacing, eyeY, 15, 18, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(x + eyeSpacing, eyeY, 15, 18, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Pupils
+            ctx.fillStyle = '#333';
+            const pupilOffset = dragonState === 'eat' ? 5 : 0;
+            ctx.beginPath();
+            ctx.arc(x - eyeSpacing, eyeY + pupilOffset, 8, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(x + eyeSpacing, eyeY + pupilOffset, 8, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Mouth
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 3;
+            if (dragonState === 'eat') {
+                // Open mouth
+                ctx.fillStyle = '#800';
+                ctx.beginPath();
+                ctx.ellipse(x, y + size * 0.4, 25, 20, 0, 0, Math.PI * 2);
+                ctx.fill();
+            } else if (dragonState === 'breathe') {
+                // Breathing fire mouth
+                ctx.fillStyle = '#800';
+                ctx.beginPath();
+                ctx.ellipse(x, y + size * 0.4, 30, 25, 0, 0, Math.PI * 2);
+                ctx.fill();
+            } else {
+                // Happy smile
+                ctx.beginPath();
+                ctx.arc(x, y + size * 0.2, 20, 0.1 * Math.PI, 0.9 * Math.PI);
+                ctx.stroke();
+            }
+
+            // Wings
+            ctx.fillStyle = dragon.color;
+            ctx.globalAlpha = 0.7;
+            const wingFlap = Math.sin(Date.now() / 200) * 10;
+
+            // Left wing
+            ctx.beginPath();
+            ctx.moveTo(x - size * 0.5, y);
+            ctx.quadraticCurveTo(x - size * 1.5, y - 50 + wingFlap, x - size * 1.2, y + 30);
+            ctx.quadraticCurveTo(x - size * 0.8, y + 20, x - size * 0.5, y);
+            ctx.fill();
+
+            // Right wing
+            ctx.beginPath();
+            ctx.moveTo(x + size * 0.5, y);
+            ctx.quadraticCurveTo(x + size * 1.5, y - 50 + wingFlap, x + size * 1.2, y + 30);
+            ctx.quadraticCurveTo(x + size * 0.8, y + 20, x + size * 0.5, y);
+            ctx.fill();
+
+            ctx.globalAlpha = 1;
+
+            // Horns
+            ctx.fillStyle = '#333';
+            ctx.beginPath();
+            ctx.moveTo(x - size * 0.3, y - size * 0.6);
+            ctx.lineTo(x - size * 0.4, y - size * 1);
+            ctx.lineTo(x - size * 0.15, y - size * 0.6);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(x + size * 0.3, y - size * 0.6);
+            ctx.lineTo(x + size * 0.4, y - size * 1);
+            ctx.lineTo(x + size * 0.15, y - size * 0.6);
+            ctx.fill();
+
+            ctx.shadowBlur = 0;
+
+            // Evolution indicator
+            ctx.fillStyle = '#ffd700';
+            ctx.font = '24px system-ui';
+            ctx.textAlign = 'center';
+            const stars = '⭐'.repeat(currentDragon.evolution);
+            ctx.fillText(stars, x, y - size - 30);
+        }
+
+        // Update dragon animation
+        function updateDragon() {
+            // Idle bobbing
+            dragonY = Math.sin(Date.now() / 500) * 5;
+
+            // State transitions
+            if (dragonState === 'eat') {
+                dragonFrame++;
+                if (dragonFrame > 15) {
+                    dragonState = 'breathe';
+                    dragonFrame = 0;
+                    playSound('breathe');
+                }
+            } else if (dragonState === 'breathe') {
+                createBreathParticles(DRAGONS[currentDragon.id].element);
+                dragonFrame++;
+                if (dragonFrame > 30) {
+                    dragonState = 'idle';
+                    dragonFrame = 0;
+                }
+            }
+        }
+
+        // Food item dragging
+        let draggedFood = null;
+        let dragOffset = { x: 0, y: 0 };
+
+        function setupFoodDragging() {
+            const tray = document.getElementById('foodTray');
+
+            tray.addEventListener('mousedown', startDrag);
+            tray.addEventListener('touchstart', startDrag);
+            document.addEventListener('mousemove', moveDrag);
+            document.addEventListener('touchmove', moveDrag);
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchend', endDrag);
+        }
+
+        function startDrag(e) {
+            if (e.target.classList.contains('food-item')) {
+                initAudio();
+                draggedFood = e.target;
+                draggedFood.classList.add('dragging');
+
+                const rect = draggedFood.getBoundingClientRect();
+                const pos = e.touches ? e.touches[0] : e;
+                dragOffset.x = pos.clientX - rect.left - rect.width / 2;
+                dragOffset.y = pos.clientY - rect.top - rect.height / 2;
+
+                draggedFood.style.position = 'fixed';
+                moveDrag(e);
+            }
+        }
+
+        function moveDrag(e) {
+            if (!draggedFood) return;
+            e.preventDefault();
+
+            const pos = e.touches ? e.touches[0] : e;
+            draggedFood.style.left = (pos.clientX - dragOffset.x - 35) + 'px';
+            draggedFood.style.top = (pos.clientY - dragOffset.y - 35) + 'px';
+        }
+
+        function endDrag(e) {
+            if (!draggedFood) return;
+
+            const pos = e.changedTouches ? e.changedTouches[0] : e;
+            const dragonArea = {
+                x: canvas.width / 2 - 100,
+                y: canvas.height * 0.2,
+                width: 200,
+                height: 200
+            };
+
+            // Check if dropped on dragon
+            if (pos.clientX > dragonArea.x && pos.clientX < dragonArea.x + dragonArea.width &&
+                pos.clientY > dragonArea.y && pos.clientY < dragonArea.y + dragonArea.height) {
+
+                const sound = draggedFood.dataset.sound;
+                feedDragon(sound);
+            }
+
+            // Reset position
+            draggedFood.style.position = '';
+            draggedFood.style.left = '';
+            draggedFood.style.top = '';
+            draggedFood.classList.remove('dragging');
+            draggedFood = null;
+        }
+
+        function feedDragon(sound) {
+            const targetSound = currentWord.sounds[currentSoundIndex];
+
+            if (sound === targetSound) {
+                // Correct!
+                playSound('chomp');
+                dragonState = 'eat';
+                dragonFrame = 0;
+                streak++;
+                score += 10 * streak;
+
+                // Update XP
+                currentDragon.xp += 5;
+                currentDragon.fed++;
+                checkLevelUp();
+
+                // Mark letter slot as filled
+                updateTargetWord();
+                currentSoundIndex++;
+
+                // Power up
+                power = Math.min(100, power + 15);
+                updatePowerMeter();
+
+                // Particles
+                createParticles(canvas.width / 2, canvas.height * 0.35, DRAGONS[currentDragon.id].color, 15);
+
+                // Check if word complete
+                if (currentSoundIndex >= currentWord.sounds.length) {
+                    completeWord();
+                } else {
+                    // Prompt next sound
+                    setTimeout(() => promptNextSound(), 500);
+                }
+
+                // Update food tray highlight
+                highlightCorrectFood();
+
+            } else {
+                // Wrong!
+                playSound('wrong');
+                streak = 0;
+                power = Math.max(0, power - 10);
+                updatePowerMeter();
+
+                // Visual feedback
+                const foodEl = document.querySelector(`.food-item[data-sound="${sound}"]`);
+                if (foodEl) {
+                    foodEl.classList.add('wrong');
+                    setTimeout(() => foodEl.classList.remove('wrong'), 300);
+                }
+
+                triggerScreenShake(5);
+                showAnnouncement('Try again!');
+            }
+
+            updateUI();
+            saveSaveData();
+        }
+
+        function highlightCorrectFood() {
+            document.querySelectorAll('.food-item').forEach(el => {
+                el.classList.remove('correct');
+            });
+
+            if (currentSoundIndex < currentWord.sounds.length) {
+                const targetSound = currentWord.sounds[currentSoundIndex];
+                const correctEl = document.querySelector(`.food-item[data-sound="${targetSound}"]`);
+                // Don't highlight - that would give away the answer!
+            }
+        }
+
+        function completeWord() {
+            playSound('complete');
+            triggerScreenShake(10);
+            createParticles(canvas.width / 2, canvas.height * 0.5, '#ffd700', 30);
+
+            // Add to words learned
+            if (!saveData.wordsLearned.includes(currentWord.word)) {
+                saveData.wordsLearned.push(currentWord.word);
+            }
+
+            // Bonus XP for completing word
+            currentDragon.xp += 20;
+            score += 50;
+            checkLevelUp();
+
+            showAnnouncement('🎉 ' + currentWord.word.toUpperCase() + '! 🎉');
+
+            // Next word after delay
+            setTimeout(() => {
+                nextWord();
+            }, 1500);
+
+            updateUI();
+            saveSaveData();
+        }
+
+        function checkLevelUp() {
+            const xpNeeded = currentDragon.level * 50;
+            if (currentDragon.xp >= xpNeeded) {
+                currentDragon.xp -= xpNeeded;
+                currentDragon.level++;
+
+                // Check evolution
+                if (currentDragon.level % 5 === 0 && currentDragon.evolution < 3) {
+                    currentDragon.evolution++;
+                    showEvolution();
+                } else {
+                    playSound('levelup');
+                    showAnnouncement('⬆️ LEVEL ' + currentDragon.level + '! ⬆️');
+                }
+
+                // Check for unlocking new dragons
+                checkDragonUnlocks();
+            }
+
+            // Update save data
+            saveData.dragons[currentDragon.id] = {
+                level: currentDragon.level,
+                xp: currentDragon.xp,
+                fed: currentDragon.fed,
+                evolution: currentDragon.evolution
+            };
+            saveData.totalScore = score;
+        }
+
+        function showEvolution() {
+            playSound('levelup');
+            const levelUp = document.getElementById('levelUp');
+            levelUp.querySelector('.dragon-evolve').textContent = DRAGONS[currentDragon.id].icon;
+            levelUp.querySelector('h1').textContent = currentDragon.evolution === 2 ? 'EVOLVED!' : 'FINAL FORM!';
+            levelUp.style.display = 'block';
+
+            createParticles(canvas.width / 2, canvas.height / 2, '#ffd700', 50);
+            triggerScreenShake(15);
+
+            setTimeout(() => {
+                levelUp.style.display = 'none';
+            }, 2000);
+        }
+
+        function checkDragonUnlocks() {
+            Object.values(DRAGONS).forEach(dragon => {
+                if (!saveData.dragons[dragon.id] && currentDragon.level >= dragon.unlockLevel) {
+                    saveData.dragons[dragon.id] = { level: 1, xp: 0, fed: 0, evolution: 1 };
+                    showAnnouncement('🐉 ' + dragon.name + ' UNLOCKED! 🐉');
+                }
+            });
+        }
+
+        function promptNextSound() {
+            if (currentSoundIndex < currentWord.sounds.length) {
+                const sound = currentWord.sounds[currentSoundIndex];
+                document.getElementById('prompt').textContent = `Feed me the sound: "${sound}"`;
+                speakSound(sound);
+            }
+        }
+
+        function updateTargetWord() {
+            const display = document.getElementById('targetWordDisplay');
+            display.innerHTML = '';
+
+            currentWord.sounds.forEach((sound, i) => {
+                const slot = document.createElement('div');
+                slot.className = 'letter-slot';
+                if (i < currentSoundIndex) {
+                    slot.classList.add('filled');
+                    slot.textContent = sound;
+                } else if (i === currentSoundIndex) {
+                    slot.classList.add('current');
+                }
+                display.appendChild(slot);
+            });
+        }
+
+        function updatePowerMeter() {
+            document.getElementById('powerFill').style.height = power + '%';
+            document.getElementById('powerIcon').textContent = DRAGONS[currentDragon.id].icon;
+        }
+
+        function showAnnouncement(text) {
+            const el = document.getElementById('announcement');
+            el.textContent = text;
+            el.style.opacity = 1;
+            el.style.transform = 'translate(-50%, -50%) scale(1.5)';
+
+            setTimeout(() => {
+                el.style.transition = 'all 0.5s ease-out';
+                el.style.opacity = 0;
+                el.style.transform = 'translate(-50%, -50%) scale(0.5)';
+            }, 100);
+
+            setTimeout(() => {
+                el.style.transition = '';
+            }, 600);
+        }
+
+        function updateUI() {
+            document.getElementById('dragonIcon').textContent = DRAGONS[currentDragon.id].icon;
+            document.getElementById('dragonName').textContent = DRAGONS[currentDragon.id].name;
+            document.getElementById('dragonLevel').textContent = 'Level ' + currentDragon.level;
+
+            const xpNeeded = currentDragon.level * 50;
+            document.getElementById('xpFill').style.width = (currentDragon.xp / xpNeeded * 100) + '%';
+
+            document.getElementById('score').textContent = score.toLocaleString();
+            document.getElementById('streak').textContent = streak > 1 ? `🔥 ${streak} streak!` : '';
+        }
+
+        function nextWord() {
+            // Select word type based on dragon
+            const dragon = DRAGONS[currentDragon.id];
+            let wordList;
+
+            if (dragon.band === 'A') {
+                wordList = WORD_DATA.cvc;
+            } else if (dragon.band === 'B3-B4') {
+                wordList = WORD_DATA.ccvc;
+            } else if (dragon.band === 'B5') {
+                wordList = WORD_DATA.digraph;
+            } else if (dragon.band === 'B6') {
+                wordList = WORD_DATA.cvce;
+            } else {
+                // Mix all types for other dragons
+                wordList = [...WORD_DATA.cvc, ...WORD_DATA.ccvc, ...WORD_DATA.digraph, ...WORD_DATA.cvce];
+            }
+
+            currentWord = wordList[Math.floor(Math.random() * wordList.length)];
+            currentSoundIndex = 0;
+
+            // Set up food tray with sounds (including distractors)
+            setupFoodTray();
+            updateTargetWord();
+
+            setTimeout(() => promptNextSound(), 500);
+        }
+
+        function setupFoodTray() {
+            const tray = document.getElementById('foodTray');
+            tray.innerHTML = '';
+
+            // Get correct sounds
+            const correctSounds = [...new Set(currentWord.sounds)];
+
+            // Add some distractors
+            const allSounds = ['a', 'e', 'i', 'o', 'u', 's', 't', 'p', 'n', 'm', 'd', 'g', 'c', 'k', 'b', 'f', 'r', 'l', 'h', 'w'];
+            const distractors = allSounds.filter(s => !correctSounds.includes(s));
+            const numDistractors = Math.min(3, 6 - correctSounds.length);
+
+            const shuffledDistractors = distractors.sort(() => Math.random() - 0.5).slice(0, numDistractors);
+            const allFoodSounds = [...correctSounds, ...shuffledDistractors].sort(() => Math.random() - 0.5);
+
+            allFoodSounds.forEach(sound => {
+                const item = document.createElement('div');
+                item.className = 'food-item';
+                item.dataset.sound = sound;
+                item.textContent = sound;
+                tray.appendChild(item);
+            });
+        }
+
+        // Game functions
+        function startGame() {
+            initAudio();
+            loadSaveData();
+
+            // Use first unlocked dragon
+            const unlockedDragons = Object.keys(saveData.dragons);
+            const dragonId = unlockedDragons[0] || 'ember';
+            currentDragon = {
+                id: dragonId,
+                ...saveData.dragons[dragonId]
+            };
+
+            gameState = 'playing';
+            score = saveData.totalScore || 0;
+            streak = 0;
+            power = 0;
+
+            document.getElementById('menu').classList.add('hidden');
+            document.getElementById('dragonDen').style.display = 'none';
+            document.getElementById('ui').classList.remove('hidden');
+            document.getElementById('powerMeter').classList.remove('hidden');
+            document.getElementById('prompt').classList.remove('hidden');
+            document.getElementById('targetWord').classList.remove('hidden');
+            document.getElementById('foodTray').classList.remove('hidden');
+
+            updateUI();
+            updatePowerMeter();
+            nextWord();
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        function showDen() {
+            loadSaveData();
+            document.getElementById('menu').classList.add('hidden');
+            document.getElementById('dragonDen').style.display = 'block';
+
+            const grid = document.getElementById('dragonGrid');
+            grid.innerHTML = '';
+
+            Object.values(DRAGONS).forEach(dragon => {
+                const card = document.createElement('div');
+                card.className = 'dragon-card';
+
+                const isUnlocked = saveData.dragons[dragon.id];
+                if (!isUnlocked) {
+                    card.classList.add('locked');
+                }
+
+                const dragonData = saveData.dragons[dragon.id] || { level: 0, evolution: 0 };
+
+                card.innerHTML = `
+                    <div class="icon">${dragon.icon}</div>
+                    <div class="name">${dragon.name}</div>
+                    <div class="level">${isUnlocked ? 'Level ' + dragonData.level : 'Unlock at Level ' + dragon.unlockLevel}</div>
+                    <div class="evolution">
+                        ${[1, 2, 3].map(i => `<div class="evolution-dot ${i <= dragonData.evolution ? 'filled' : ''}"></div>`).join('')}
+                    </div>
+                `;
+
+                if (isUnlocked) {
+                    card.onclick = () => selectDragon(dragon.id);
+                }
+
+                grid.appendChild(card);
+            });
+        }
+
+        function selectDragon(dragonId) {
+            currentDragon = {
+                id: dragonId,
+                ...saveData.dragons[dragonId]
+            };
+            closeDen();
+            startGame();
+        }
+
+        function closeDen() {
+            document.getElementById('dragonDen').style.display = 'none';
+            document.getElementById('menu').classList.remove('hidden');
+        }
+
+        // Game loop
+        function gameLoop() {
+            if (gameState !== 'playing') return;
+
+            updateDragon();
+            updateParticles();
+            updateScreenShake();
+
+            // Clear and render
+            ctx.save();
+            ctx.translate(screenShake.x, screenShake.y);
+
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#1a1a2e');
+            gradient.addColorStop(0.5, '#16213e');
+            gradient.addColorStop(1, '#0f3460');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(-10, -10, canvas.width + 20, canvas.height + 20);
+
+            // Draw dragon
+            drawDragon();
+
+            // Draw particles
+            drawParticles();
+
+            ctx.restore();
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Initialize
+        loadSaveData();
+        setupFoodDragging();
+    </script>
+</body>
+</html>

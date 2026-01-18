@@ -309,6 +309,7 @@
             50% { box-shadow: 0 0 25px rgba(72, 219, 251, 0.8); }
         }
     </style>
+    <script src="/js/audio-utils.js"></script>
 </head>
 <body>
     <a href="/games/" class="back-link">← Games</a>
@@ -536,12 +537,28 @@
         }
 
         function speakPhoneme(phoneme) {
-            if ('speechSynthesis' in window) {
+            // Use AudioUtils for pre-recorded phoneme sounds
+            if (typeof AudioUtils !== 'undefined') {
+                AudioUtils.playSound(phoneme).catch(() => {
+                    // Fallback to TTS
+                    if ('speechSynthesis' in window) {
+                        const utterance = new SpeechSynthesisUtterance(phoneme);
+                        utterance.rate = 0.8;
+                        utterance.pitch = 1.2;
+                        speechSynthesis.speak(utterance);
+                    }
+                });
+            } else if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(phoneme);
                 utterance.rate = 0.8;
                 utterance.pitch = 1.2;
                 speechSynthesis.speak(utterance);
             }
+        }
+
+        // Preload letter sounds
+        if (typeof AudioUtils !== 'undefined') {
+            AudioUtils.preloadLetters('sounds').catch(() => {});
         }
 
         // Word class

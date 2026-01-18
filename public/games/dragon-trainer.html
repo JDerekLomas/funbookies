@@ -467,6 +467,7 @@
             display: none !important;
         }
     </style>
+    <script src="/js/audio-utils.js"></script>
 </head>
 <body>
     <a href="/games/" class="back-link">← Games</a>
@@ -825,12 +826,28 @@
         }
 
         function speakSound(sound) {
-            if ('speechSynthesis' in window) {
+            // Use AudioUtils for pre-recorded letter sounds
+            if (typeof AudioUtils !== 'undefined') {
+                AudioUtils.playSound(sound).catch(() => {
+                    // Fallback to TTS
+                    if ('speechSynthesis' in window) {
+                        const utterance = new SpeechSynthesisUtterance(sound);
+                        utterance.rate = 0.8;
+                        utterance.pitch = 1.2;
+                        speechSynthesis.speak(utterance);
+                    }
+                });
+            } else if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(sound);
                 utterance.rate = 0.8;
                 utterance.pitch = 1.2;
                 speechSynthesis.speak(utterance);
             }
+        }
+
+        // Preload letter sounds
+        if (typeof AudioUtils !== 'undefined') {
+            AudioUtils.preloadLetters('sounds').catch(() => {});
         }
 
         // Particle system

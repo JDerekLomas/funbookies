@@ -416,6 +416,7 @@
             display: none !important;
         }
     </style>
+    <script src="/js/audio-utils.js"></script>
 </head>
 <body>
     <a href="/games/" class="back-link">← Games</a>
@@ -1055,6 +1056,10 @@
             if (letter === expectedLetter && !filledSlots[slotIndex]) {
                 // Correct!
                 playSound('click');
+                // Play the letter sound
+                if (typeof AudioUtils !== 'undefined') {
+                    AudioUtils.playSound(letter).catch(() => {});
+                }
                 filledSlots[slotIndex] = letter;
 
                 const slot = document.querySelectorAll('.letter-slot')[slotIndex];
@@ -1180,6 +1185,11 @@
 
             // Setup UI
             document.getElementById('targetWordText').textContent = currentWord.word;
+
+            // Speak the word so player knows what to spell
+            if (typeof AudioUtils !== 'undefined' && AudioUtils.speakTTS) {
+                setTimeout(() => AudioUtils.speakTTS(currentWord.word, { rate: 0.8 }), 300);
+            }
 
             const slotsContainer = document.getElementById('letterSlots');
             slotsContainer.innerHTML = '';
@@ -1312,6 +1322,11 @@
         function startGame(levelId) {
             initAudio();
             loadSaveData();
+
+            // Preload letter sounds
+            if (typeof AudioUtils !== 'undefined') {
+                AudioUtils.preloadLetters('sounds').catch(() => {});
+            }
 
             currentLevel = LEVELS[levelId];
             gameState = 'playing';

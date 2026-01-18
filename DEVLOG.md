@@ -4,6 +4,25 @@ Development session notes and changes.
 
 ---
 
+## 2025-01-18: Cover and Back Cover Improvements
+
+**Commit:** `a95072b`
+
+### Changes
+
+**Cover Page**
+- Moved FunBookies logo from bottom right to top right
+
+**Back Cover**
+- Added tagline: *"Every child can learn to read."*
+- Added feature badges: Decodable • Phonics-based • Research-backed
+- Improved footer styling
+
+### Files Changed
+- `public/reader.html` - Cover and back cover layouts
+
+---
+
 ## 2025-01-18: Book Editor Improvements
 
 **Commit:** `6f79f9a`

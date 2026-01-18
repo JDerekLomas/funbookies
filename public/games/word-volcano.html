@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Word Volcano - FunBookies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background: #1a0a0a;
+            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            overflow: hidden;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #gameCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* UI */
+        #ui {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .ui-box {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            padding: 10px 15px;
+            color: white;
+            backdrop-filter: blur(5px);
+            pointer-events: auto;
+        }
+
+        #levelInfo {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #levelName {
+            color: #ff6b6b;
+        }
+
+        #scoreBox {
+            text-align: right;
+        }
+
+        #score {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #gems {
+            font-size: 16px;
+            color: #ffd700;
+            margin-top: 5px;
+        }
+
+        /* Pressure meter */
+        #pressureMeter {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 5px;
+            z-index: 10;
+        }
+
+        #pressureContainer {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #333;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        #pressureFill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 0%;
+            background: linear-gradient(180deg, #ff0000, #ff6b00, #ffcc00);
+            transition: height 0.3s ease;
+        }
+
+        #pressureLabel {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        #pressureIcon {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+        }
+
+        /* Word building area */
+        #wordArea {
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        #targetWord {
+            font-size: 24px;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        #letterSlots {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .letter-slot {
+            width: 60px;
+            height: 70px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 3px dashed rgba(255, 150, 50, 0.5);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .letter-slot.highlight {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .letter-slot.filled {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+            border: 3px solid #ff8888;
+        }
+
+        .letter-slot.correct {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            border-color: #2ecc71;
+        }
+
+        /* Falling letters */
+        #fallingLetters {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .falling-letter {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff9500, #ff6b00);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            cursor: grab;
+            pointer-events: auto;
+            box-shadow: 0 5px 20px rgba(255, 100, 0, 0.5);
+            transition: transform 0.1s ease;
+            touch-action: none;
+        }
+
+        .falling-letter:hover {
+            transform: scale(1.1);
+        }
+
+        .falling-letter.dragging {
+            cursor: grabbing;
+            transform: scale(1.2);
+            z-index: 100;
+            box-shadow: 0 10px 40px rgba(255, 100, 0, 0.8);
+        }
+
+        .falling-letter.wrong {
+            animation: repel 0.3s ease;
+        }
+
+        @keyframes repel {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-20px) rotate(-10deg); }
+            75% { transform: translateX(20px) rotate(10deg); }
+        }
+
+        /* Power-ups */
+        #powerups {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .powerup-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+        }
+
+        .powerup-btn:hover:not(.disabled) {
+            transform: scale(1.1);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .powerup-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .powerup-cost {
+            font-size: 10px;
+            color: #ffd700;
+        }
+
+        /* Menu */
+        #menu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 100;
+        }
+
+        #menu h1 {
+            font-size: 48px;
+            color: #ff6b6b;
+            text-shadow: 0 0 30px rgba(255, 100, 50, 0.8);
+            margin-bottom: 10px;
+        }
+
+        #menu h2 {
+            font-size: 20px;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .level-btn {
+            display: block;
+            width: 250px;
+            margin: 10px auto;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: bold;
+        }
+
+        .level-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .level-btn.calm {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+        }
+
+        .level-btn.rumble {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .level-btn.blaze {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+        }
+
+        .level-btn.chaos {
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            color: #ff6b6b;
+            border: 2px solid #ff6b6b;
+        }
+
+        /* Announcements */
+        #announcement {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 30px rgba(255, 100, 0, 0.8);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 50;
+        }
+
+        /* Game over */
+        #gameOver {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 100;
+            display: none;
+        }
+
+        #gameOver h1 {
+            font-size: 42px;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        #gameOver p {
+            color: #aaa;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        #finalStats {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        #finalStats div {
+            color: white;
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+
+        <div id="ui" class="hidden">
+            <div class="ui-box" id="levelInfo">
+                <span id="levelName">Calm Crater</span>
+                <div style="font-size: 14px; color: #aaa;">Word <span id="wordNum">1</span>/<span id="totalWords">10</span></div>
+            </div>
+            <div class="ui-box" id="scoreBox">
+                <div id="score">0</div>
+                <div id="gems">💎 0</div>
+            </div>
+        </div>
+
+        <div id="pressureMeter" class="hidden">
+            <div id="pressureLabel">PRESSURE</div>
+            <div id="pressureContainer">
+                <div id="pressureFill"></div>
+            </div>
+            <div id="pressureIcon">🌋</div>
+        </div>
+
+        <div id="wordArea" class="hidden">
+            <div id="targetWord">Build: <span id="targetWordText">cat</span></div>
+            <div id="letterSlots"></div>
+        </div>
+
+        <div id="fallingLetters"></div>
+
+        <div id="powerups" class="hidden">
+            <button class="powerup-btn" id="freezeBtn" title="Freeze pressure">
+                ❄️
+                <span class="powerup-cost">10💎</span>
+            </button>
+            <button class="powerup-btn" id="hintBtn" title="Show hint">
+                💡
+                <span class="powerup-cost">5💎</span>
+            </button>
+            <button class="powerup-btn" id="shuffleBtn" title="Shuffle letters">
+                🔀
+                <span class="powerup-cost">8💎</span>
+            </button>
+            <button class="powerup-btn" id="shieldBtn" title="Survive eruption">
+                🛡️
+                <span class="powerup-cost">15💎</span>
+            </button>
+        </div>
+
+        <div id="menu">
+            <h1>🌋 WORD VOLCANO 🌋</h1>
+            <h2>Build words before the volcano erupts!</h2>
+            <button class="level-btn calm" onclick="startGame('calm')">🏔️ Calm Crater (CVC)</button>
+            <button class="level-btn rumble" onclick="startGame('rumble')">⛰️ Rumbling Ridge (Blends)</button>
+            <button class="level-btn blaze" onclick="startGame('blaze')">🔥 Blazing Peak (Magic E)</button>
+            <button class="level-btn chaos" onclick="startGame('chaos')">💀 CHAOS MODE</button>
+        </div>
+
+        <div id="gameOver">
+            <h1>🌋 ERUPTION! 🌋</h1>
+            <p>The volcano couldn't hold back any longer!</p>
+            <div id="finalStats">
+                <div>Words Built: <span id="finalWords">0</span></div>
+                <div>Score: <span id="finalScore">0</span></div>
+                <div>Gems Earned: <span id="finalGems">0</span> 💎</div>
+            </div>
+            <button class="level-btn calm" onclick="showMenu()">Try Again</button>
+        </div>
+
+        <div id="announcement"></div>
+    </div>
+
+    <script>
+        // Canvas setup
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Word data
+        const WORD_DATA = {
+            cvc: [
+                { word: 'cat', letters: ['c', 'a', 't'] },
+                { word: 'dog', letters: ['d', 'o', 'g'] },
+                { word: 'pig', letters: ['p', 'i', 'g'] },
+                { word: 'sun', letters: ['s', 'u', 'n'] },
+                { word: 'hat', letters: ['h', 'a', 't'] },
+                { word: 'bed', letters: ['b', 'e', 'd'] },
+                { word: 'cup', letters: ['c', 'u', 'p'] },
+                { word: 'fox', letters: ['f', 'o', 'x'] },
+                { word: 'bus', letters: ['b', 'u', 's'] },
+                { word: 'map', letters: ['m', 'a', 'p'] },
+                { word: 'pen', letters: ['p', 'e', 'n'] },
+                { word: 'red', letters: ['r', 'e', 'd'] },
+                { word: 'nut', letters: ['n', 'u', 't'] },
+                { word: 'wet', letters: ['w', 'e', 't'] },
+                { word: 'log', letters: ['l', 'o', 'g'] },
+                { word: 'pan', letters: ['p', 'a', 'n'] },
+                { word: 'tin', letters: ['t', 'i', 'n'] },
+                { word: 'mop', letters: ['m', 'o', 'p'] },
+                { word: 'jug', letters: ['j', 'u', 'g'] },
+                { word: 'van', letters: ['v', 'a', 'n'] },
+            ],
+            blends: [
+                { word: 'stop', letters: ['s', 't', 'o', 'p'] },
+                { word: 'frog', letters: ['f', 'r', 'o', 'g'] },
+                { word: 'swim', letters: ['s', 'w', 'i', 'm'] },
+                { word: 'plan', letters: ['p', 'l', 'a', 'n'] },
+                { word: 'drip', letters: ['d', 'r', 'i', 'p'] },
+                { word: 'clap', letters: ['c', 'l', 'a', 'p'] },
+                { word: 'flag', letters: ['f', 'l', 'a', 'g'] },
+                { word: 'grab', letters: ['g', 'r', 'a', 'b'] },
+                { word: 'trip', letters: ['t', 'r', 'i', 'p'] },
+                { word: 'snap', letters: ['s', 'n', 'a', 'p'] },
+                { word: 'step', letters: ['s', 't', 'e', 'p'] },
+                { word: 'spin', letters: ['s', 'p', 'i', 'n'] },
+                { word: 'glad', letters: ['g', 'l', 'a', 'd'] },
+                { word: 'drum', letters: ['d', 'r', 'u', 'm'] },
+                { word: 'crop', letters: ['c', 'r', 'o', 'p'] },
+            ],
+            cvce: [
+                { word: 'cake', letters: ['c', 'a', 'k', 'e'] },
+                { word: 'bike', letters: ['b', 'i', 'k', 'e'] },
+                { word: 'home', letters: ['h', 'o', 'm', 'e'] },
+                { word: 'cute', letters: ['c', 'u', 't', 'e'] },
+                { word: 'name', letters: ['n', 'a', 'm', 'e'] },
+                { word: 'time', letters: ['t', 'i', 'm', 'e'] },
+                { word: 'note', letters: ['n', 'o', 't', 'e'] },
+                { word: 'rule', letters: ['r', 'u', 'l', 'e'] },
+                { word: 'make', letters: ['m', 'a', 'k', 'e'] },
+                { word: 'like', letters: ['l', 'i', 'k', 'e'] },
+                { word: 'hope', letters: ['h', 'o', 'p', 'e'] },
+                { word: 'tube', letters: ['t', 'u', 'b', 'e'] },
+                { word: 'wave', letters: ['w', 'a', 'v', 'e'] },
+                { word: 'pine', letters: ['p', 'i', 'n', 'e'] },
+                { word: 'rose', letters: ['r', 'o', 's', 'e'] },
+            ]
+        };
+
+        // Level configs
+        const LEVELS = {
+            calm: {
+                name: 'Calm Crater',
+                words: WORD_DATA.cvc,
+                pressureRate: 0.8,
+                wordsToWin: 10,
+                color: '#f39c12'
+            },
+            rumble: {
+                name: 'Rumbling Ridge',
+                words: WORD_DATA.blends,
+                pressureRate: 1.2,
+                wordsToWin: 8,
+                color: '#e74c3c'
+            },
+            blaze: {
+                name: 'Blazing Peak',
+                words: WORD_DATA.cvce,
+                pressureRate: 1.5,
+                wordsToWin: 8,
+                color: '#9b59b6'
+            },
+            chaos: {
+                name: 'CHAOS MODE',
+                words: [...WORD_DATA.cvc, ...WORD_DATA.blends, ...WORD_DATA.cvce],
+                pressureRate: 2.0,
+                wordsToWin: 15,
+                color: '#ff0000'
+            }
+        };
+
+        // Game state
+        let gameState = 'menu';
+        let currentLevel = null;
+        let score = 0;
+        let gems = 0;
+        let gemsEarned = 0;
+        let pressure = 0;
+        let pressureFrozen = false;
+        let hasShield = false;
+        let currentWord = null;
+        let wordIndex = 0;
+        let filledSlots = [];
+        let wrongAttempts = 0;
+        let fallingLetters = [];
+        let particles = [];
+        let lavaParticles = [];
+        let screenShake = { x: 0, y: 0, intensity: 0 };
+        let lastTime = 0;
+        let volcanoRumble = 0;
+
+        // Save data
+        let saveData = { gems: 0, highScores: {} };
+
+        function loadSaveData() {
+            const saved = localStorage.getItem('wordVolcanoSave');
+            if (saved) {
+                saveData = JSON.parse(saved);
+                gems = saveData.gems || 0;
+            }
+        }
+
+        function saveSaveData() {
+            saveData.gems = gems;
+            localStorage.setItem('wordVolcanoSave', JSON.stringify(saveData));
+        }
+
+        // Audio
+        let audioContext = null;
+
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(type) {
+            if (!audioContext) return;
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            switch(type) {
+                case 'click':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                    break;
+                case 'wrong':
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(80, audioContext.currentTime + 0.2);
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.2);
+                    break;
+                case 'complete':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(523, audioContext.currentTime);
+                    oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.1);
+                    oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.2);
+                    oscillator.frequency.setValueAtTime(1047, audioContext.currentTime + 0.3);
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                    break;
+                case 'eruption':
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(100, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(30, audioContext.currentTime + 1);
+                    gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 1);
+                    break;
+                case 'rumble':
+                    oscillator.type = 'triangle';
+                    oscillator.frequency.setValueAtTime(50 + Math.random() * 30, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.2);
+                    break;
+                case 'powerup':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.2);
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                    break;
+            }
+        }
+
+        // Particle system
+        function createParticles(x, y, color, count, type = 'burst') {
+            for (let i = 0; i < count; i++) {
+                const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
+                const speed = type === 'eruption' ? 10 + Math.random() * 15 : 3 + Math.random() * 5;
+                particles.push({
+                    x, y,
+                    vx: Math.cos(angle) * speed * (type === 'eruption' ? (Math.random() - 0.5) * 2 : 1),
+                    vy: type === 'eruption' ? -speed : Math.sin(angle) * speed,
+                    life: 1,
+                    color,
+                    size: type === 'eruption' ? 5 + Math.random() * 10 : 3 + Math.random() * 5,
+                    type
+                });
+            }
+        }
+
+        function createLavaParticle() {
+            const volcanoX = canvas.width / 2;
+            const volcanoTopY = canvas.height * 0.35;
+
+            lavaParticles.push({
+                x: volcanoX + (Math.random() - 0.5) * 60,
+                y: volcanoTopY,
+                vx: (Math.random() - 0.5) * 2,
+                vy: -2 - Math.random() * 3 * (1 + pressure / 50),
+                life: 1,
+                size: 3 + Math.random() * 5
+            });
+        }
+
+        function updateParticles(dt) {
+            particles = particles.filter(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += p.type === 'eruption' ? 0.5 : 0.2;
+                p.life -= 0.02;
+                return p.life > 0;
+            });
+
+            lavaParticles = lavaParticles.filter(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.1;
+                p.life -= 0.02;
+                return p.life > 0 && p.y < canvas.height;
+            });
+        }
+
+        function drawParticles() {
+            // Lava particles
+            lavaParticles.forEach(p => {
+                ctx.globalAlpha = p.life;
+                const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
+                gradient.addColorStop(0, '#ffff00');
+                gradient.addColorStop(0.5, '#ff6600');
+                gradient.addColorStop(1, '#ff0000');
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Other particles
+            particles.forEach(p => {
+                ctx.globalAlpha = p.life;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            ctx.globalAlpha = 1;
+        }
+
+        // Screen shake
+        function triggerScreenShake(intensity) {
+            screenShake.intensity = Math.max(screenShake.intensity, intensity);
+        }
+
+        function updateScreenShake() {
+            if (screenShake.intensity > 0) {
+                screenShake.x = (Math.random() - 0.5) * screenShake.intensity;
+                screenShake.y = (Math.random() - 0.5) * screenShake.intensity;
+                screenShake.intensity *= 0.9;
+                if (screenShake.intensity < 0.5) {
+                    screenShake.intensity = 0;
+                    screenShake.x = 0;
+                    screenShake.y = 0;
+                }
+            }
+
+            // Constant rumble based on pressure
+            volcanoRumble = Math.sin(Date.now() / 100) * (pressure / 100) * 3;
+        }
+
+        // Draw volcano
+        function drawVolcano() {
+            const volcanoX = canvas.width / 2;
+            const volcanoBaseY = canvas.height * 0.75;
+            const volcanoTopY = canvas.height * 0.35;
+            const volcanoWidth = 300;
+
+            // Background color based on pressure
+            const bgHue = 20 - pressure * 0.2;
+            const bgSat = 50 + pressure * 0.3;
+            ctx.fillStyle = `hsl(${bgHue}, ${bgSat}%, ${10 + pressure * 0.1}%)`;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Volcano body
+            const gradient = ctx.createLinearGradient(volcanoX - volcanoWidth, volcanoBaseY, volcanoX + volcanoWidth, volcanoTopY);
+            gradient.addColorStop(0, '#2c1810');
+            gradient.addColorStop(0.5, '#4a2c20');
+            gradient.addColorStop(1, '#3d2317');
+
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.moveTo(volcanoX - volcanoWidth, volcanoBaseY);
+            ctx.lineTo(volcanoX - 50, volcanoTopY);
+            ctx.lineTo(volcanoX + 50, volcanoTopY);
+            ctx.lineTo(volcanoX + volcanoWidth, volcanoBaseY);
+            ctx.closePath();
+            ctx.fill();
+
+            // Crater
+            ctx.fillStyle = '#1a0a05';
+            ctx.beginPath();
+            ctx.ellipse(volcanoX, volcanoTopY, 50, 15, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Lava in crater
+            const lavaHeight = 10 + (pressure / 100) * 20;
+            const lavaGradient = ctx.createRadialGradient(volcanoX, volcanoTopY, 0, volcanoX, volcanoTopY, 40);
+            lavaGradient.addColorStop(0, '#ffff00');
+            lavaGradient.addColorStop(0.3, '#ff9900');
+            lavaGradient.addColorStop(0.7, '#ff3300');
+            lavaGradient.addColorStop(1, '#990000');
+
+            ctx.fillStyle = lavaGradient;
+            ctx.beginPath();
+            ctx.ellipse(volcanoX, volcanoTopY + 5, 40, 10 + lavaHeight / 3, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Glow effect
+            ctx.shadowColor = '#ff6600';
+            ctx.shadowBlur = 30 + pressure * 0.5;
+            ctx.fillStyle = 'rgba(255, 100, 0, 0.3)';
+            ctx.beginPath();
+            ctx.ellipse(volcanoX, volcanoTopY, 60, 20, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Lava bubbles
+            if (Math.random() < 0.1 + pressure / 200) {
+                createLavaParticle();
+            }
+
+            // Random rumble sound
+            if (Math.random() < pressure / 500) {
+                playSound('rumble');
+            }
+        }
+
+        // Falling letters management
+        function createFallingLetters() {
+            const container = document.getElementById('fallingLetters');
+            container.innerHTML = '';
+            fallingLetters = [];
+
+            // Get correct letters plus distractors
+            const correctLetters = [...currentWord.letters];
+            const allLetters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+            const distractors = allLetters.filter(l => !correctLetters.includes(l));
+            const shuffledDistractors = distractors.sort(() => Math.random() - 0.5).slice(0, 3);
+
+            const allGameLetters = [...correctLetters, ...shuffledDistractors].sort(() => Math.random() - 0.5);
+
+            // Position letters around volcano top
+            const volcanoX = canvas.width / 2;
+            const volcanoTopY = canvas.height * 0.35;
+
+            allGameLetters.forEach((letter, i) => {
+                const angle = (Math.PI * 2 * i) / allGameLetters.length - Math.PI / 2;
+                const radius = 120 + Math.random() * 40;
+                const x = volcanoX + Math.cos(angle) * radius - 30;
+                const y = volcanoTopY + Math.sin(angle) * radius * 0.5 + 50;
+
+                const el = document.createElement('div');
+                el.className = 'falling-letter';
+                el.textContent = letter;
+                el.dataset.letter = letter;
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
+
+                container.appendChild(el);
+                fallingLetters.push({ el, letter, x, y, originalX: x, originalY: y });
+            });
+
+            setupLetterDragging();
+        }
+
+        // Letter dragging
+        let draggedLetter = null;
+        let dragOffset = { x: 0, y: 0 };
+
+        function setupLetterDragging() {
+            const container = document.getElementById('fallingLetters');
+
+            container.addEventListener('mousedown', startDrag);
+            container.addEventListener('touchstart', startDrag);
+        }
+
+        function startDrag(e) {
+            if (e.target.classList.contains('falling-letter')) {
+                initAudio();
+                draggedLetter = e.target;
+                draggedLetter.classList.add('dragging');
+
+                const rect = draggedLetter.getBoundingClientRect();
+                const pos = e.touches ? e.touches[0] : e;
+                dragOffset.x = pos.clientX - rect.left - rect.width / 2;
+                dragOffset.y = pos.clientY - rect.top - rect.height / 2;
+
+                document.addEventListener('mousemove', moveDrag);
+                document.addEventListener('touchmove', moveDrag, { passive: false });
+                document.addEventListener('mouseup', endDrag);
+                document.addEventListener('touchend', endDrag);
+            }
+        }
+
+        function moveDrag(e) {
+            if (!draggedLetter) return;
+            e.preventDefault();
+
+            const pos = e.touches ? e.touches[0] : e;
+            draggedLetter.style.left = (pos.clientX - dragOffset.x - 30) + 'px';
+            draggedLetter.style.top = (pos.clientY - dragOffset.y - 30) + 'px';
+
+            // Highlight slot if over it
+            highlightNearestSlot(pos.clientX, pos.clientY);
+        }
+
+        function highlightNearestSlot(x, y) {
+            const slots = document.querySelectorAll('.letter-slot:not(.filled)');
+            slots.forEach(slot => slot.classList.remove('highlight'));
+
+            slots.forEach(slot => {
+                const rect = slot.getBoundingClientRect();
+                if (x > rect.left && x < rect.right && y > rect.top && y < rect.bottom) {
+                    slot.classList.add('highlight');
+                }
+            });
+        }
+
+        function endDrag(e) {
+            if (!draggedLetter) return;
+
+            document.removeEventListener('mousemove', moveDrag);
+            document.removeEventListener('touchmove', moveDrag);
+            document.removeEventListener('mouseup', endDrag);
+            document.removeEventListener('touchend', endDrag);
+
+            const pos = e.changedTouches ? e.changedTouches[0] : e;
+            const letter = draggedLetter.dataset.letter;
+
+            // Check if dropped on a slot
+            const slots = document.querySelectorAll('.letter-slot:not(.filled)');
+            let dropped = false;
+
+            slots.forEach((slot, slotIndex) => {
+                const rect = slot.getBoundingClientRect();
+                if (pos.clientX > rect.left && pos.clientX < rect.right &&
+                    pos.clientY > rect.top && pos.clientY < rect.bottom) {
+
+                    // Find the actual slot index (accounting for filled slots)
+                    const allSlots = document.querySelectorAll('.letter-slot');
+                    let actualIndex = Array.from(allSlots).indexOf(slot);
+
+                    tryPlaceLetter(letter, actualIndex, draggedLetter);
+                    dropped = true;
+                }
+            });
+
+            if (!dropped) {
+                // Return to original position
+                const letterData = fallingLetters.find(l => l.el === draggedLetter);
+                if (letterData) {
+                    draggedLetter.style.left = letterData.originalX + 'px';
+                    draggedLetter.style.top = letterData.originalY + 'px';
+                }
+            }
+
+            draggedLetter.classList.remove('dragging');
+            draggedLetter = null;
+
+            // Clear highlights
+            document.querySelectorAll('.letter-slot').forEach(s => s.classList.remove('highlight'));
+        }
+
+        function tryPlaceLetter(letter, slotIndex, letterEl) {
+            const expectedLetter = currentWord.letters[slotIndex];
+
+            if (letter === expectedLetter && !filledSlots[slotIndex]) {
+                // Correct!
+                playSound('click');
+                filledSlots[slotIndex] = letter;
+
+                const slot = document.querySelectorAll('.letter-slot')[slotIndex];
+                slot.textContent = letter;
+                slot.classList.add('filled');
+
+                // Remove the letter element
+                letterEl.remove();
+                fallingLetters = fallingLetters.filter(l => l.el !== letterEl);
+
+                // Release pressure
+                pressure = Math.max(0, pressure - 15);
+                updatePressureMeter();
+
+                // Award points
+                score += 10;
+                updateUI();
+
+                // Create particles
+                const rect = slot.getBoundingClientRect();
+                createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, '#4ecdc4', 10);
+
+                // Check if word complete
+                if (filledSlots.filter(s => s).length === currentWord.letters.length) {
+                    completeWord();
+                }
+
+            } else {
+                // Wrong!
+                playSound('wrong');
+                wrongAttempts++;
+
+                letterEl.classList.add('wrong');
+                setTimeout(() => letterEl.classList.remove('wrong'), 300);
+
+                // Return letter to original position
+                const letterData = fallingLetters.find(l => l.el === letterEl);
+                if (letterData) {
+                    letterEl.style.left = letterData.originalX + 'px';
+                    letterEl.style.top = letterData.originalY + 'px';
+                }
+
+                // Increase pressure
+                pressure = Math.min(100, pressure + 10);
+                updatePressureMeter();
+                triggerScreenShake(5);
+
+                // Show hint after 2 wrong attempts
+                if (wrongAttempts >= 2) {
+                    showHint();
+                }
+            }
+        }
+
+        function showHint() {
+            // Find first unfilled slot
+            const firstEmpty = filledSlots.findIndex(s => !s);
+            if (firstEmpty >= 0) {
+                const correctLetter = currentWord.letters[firstEmpty];
+                const letterEl = fallingLetters.find(l => l.letter === correctLetter);
+                if (letterEl) {
+                    letterEl.el.style.boxShadow = '0 0 20px 5px #ffd700';
+                    setTimeout(() => {
+                        if (letterEl.el) letterEl.el.style.boxShadow = '';
+                    }, 2000);
+                }
+            }
+        }
+
+        function completeWord() {
+            playSound('complete');
+            triggerScreenShake(15);
+
+            // Big eruption effect
+            const volcanoX = canvas.width / 2;
+            const volcanoTopY = canvas.height * 0.35;
+            createParticles(volcanoX, volcanoTopY, '#ff6600', 50, 'eruption');
+            createParticles(volcanoX, volcanoTopY, '#ffcc00', 30, 'eruption');
+
+            // Mark slots as correct
+            document.querySelectorAll('.letter-slot').forEach(slot => {
+                slot.classList.add('correct');
+            });
+
+            // Award gems
+            const gemsAwarded = Math.ceil(currentWord.letters.length * (1 + (100 - pressure) / 100));
+            gems += gemsAwarded;
+            gemsEarned += gemsAwarded;
+            saveSaveData();
+
+            showAnnouncement('🎉 ' + currentWord.word.toUpperCase() + '! +' + gemsAwarded + '💎');
+
+            // Bonus points
+            score += 50 + Math.floor((100 - pressure) / 2);
+
+            // Next word
+            wordIndex++;
+
+            if (wordIndex >= currentLevel.wordsToWin) {
+                // Level complete!
+                setTimeout(() => {
+                    showAnnouncement('🏆 LEVEL COMPLETE! 🏆');
+                    setTimeout(() => showMenu(), 2000);
+                }, 1500);
+            } else {
+                setTimeout(() => {
+                    nextWord();
+                }, 1500);
+            }
+
+            updateUI();
+        }
+
+        function nextWord() {
+            // Reset state
+            pressure = 0;
+            wrongAttempts = 0;
+            filledSlots = [];
+
+            // Pick random word
+            const wordList = currentLevel.words;
+            currentWord = wordList[Math.floor(Math.random() * wordList.length)];
+
+            // Setup UI
+            document.getElementById('targetWordText').textContent = currentWord.word;
+
+            const slotsContainer = document.getElementById('letterSlots');
+            slotsContainer.innerHTML = '';
+            currentWord.letters.forEach(() => {
+                const slot = document.createElement('div');
+                slot.className = 'letter-slot';
+                slotsContainer.appendChild(slot);
+            });
+
+            filledSlots = new Array(currentWord.letters.length).fill(null);
+
+            createFallingLetters();
+            updateUI();
+            updatePressureMeter();
+        }
+
+        function updatePressureMeter() {
+            document.getElementById('pressureFill').style.height = pressure + '%';
+
+            // Change color based on pressure
+            const fill = document.getElementById('pressureFill');
+            if (pressure < 50) {
+                fill.style.background = 'linear-gradient(180deg, #ffcc00, #ff9900)';
+            } else if (pressure < 75) {
+                fill.style.background = 'linear-gradient(180deg, #ff6600, #ff3300)';
+            } else {
+                fill.style.background = 'linear-gradient(180deg, #ff0000, #cc0000)';
+            }
+        }
+
+        function showAnnouncement(text) {
+            const el = document.getElementById('announcement');
+            el.textContent = text;
+            el.style.opacity = 1;
+            el.style.transform = 'translate(-50%, -50%) scale(1.5)';
+
+            setTimeout(() => {
+                el.style.transition = 'all 0.5s ease-out';
+                el.style.opacity = 0;
+                el.style.transform = 'translate(-50%, -50%) scale(0.5)';
+            }, 100);
+
+            setTimeout(() => {
+                el.style.transition = '';
+            }, 600);
+        }
+
+        function updateUI() {
+            document.getElementById('levelName').textContent = currentLevel.name;
+            document.getElementById('wordNum').textContent = wordIndex + 1;
+            document.getElementById('totalWords').textContent = currentLevel.wordsToWin;
+            document.getElementById('score').textContent = score.toLocaleString();
+            document.getElementById('gems').textContent = '💎 ' + gems;
+
+            updatePowerupButtons();
+        }
+
+        function updatePowerupButtons() {
+            document.getElementById('freezeBtn').classList.toggle('disabled', gems < 10);
+            document.getElementById('hintBtn').classList.toggle('disabled', gems < 5);
+            document.getElementById('shuffleBtn').classList.toggle('disabled', gems < 8);
+            document.getElementById('shieldBtn').classList.toggle('disabled', gems < 15 || hasShield);
+        }
+
+        // Power-ups
+        document.getElementById('freezeBtn').addEventListener('click', () => {
+            if (gems >= 10 && gameState === 'playing') {
+                gems -= 10;
+                pressureFrozen = true;
+                playSound('powerup');
+                showAnnouncement('❄️ FROZEN! ❄️');
+
+                setTimeout(() => {
+                    pressureFrozen = false;
+                }, 10000);
+
+                saveSaveData();
+                updateUI();
+            }
+        });
+
+        document.getElementById('hintBtn').addEventListener('click', () => {
+            if (gems >= 5 && gameState === 'playing') {
+                gems -= 5;
+                playSound('powerup');
+                showHint();
+                saveSaveData();
+                updateUI();
+            }
+        });
+
+        document.getElementById('shuffleBtn').addEventListener('click', () => {
+            if (gems >= 8 && gameState === 'playing') {
+                gems -= 8;
+                playSound('powerup');
+
+                // Reposition letters
+                const volcanoX = canvas.width / 2;
+                const volcanoTopY = canvas.height * 0.35;
+
+                fallingLetters.forEach((letterData, i) => {
+                    const angle = (Math.PI * 2 * i) / fallingLetters.length - Math.PI / 2;
+                    const radius = 120 + Math.random() * 40;
+                    const x = volcanoX + Math.cos(angle) * radius - 30;
+                    const y = volcanoTopY + Math.sin(angle) * radius * 0.5 + 50;
+
+                    letterData.el.style.left = x + 'px';
+                    letterData.el.style.top = y + 'px';
+                    letterData.originalX = x;
+                    letterData.originalY = y;
+                });
+
+                saveSaveData();
+                updateUI();
+            }
+        });
+
+        document.getElementById('shieldBtn').addEventListener('click', () => {
+            if (gems >= 15 && gameState === 'playing' && !hasShield) {
+                gems -= 15;
+                hasShield = true;
+                playSound('powerup');
+                showAnnouncement('🛡️ SHIELDED! 🛡️');
+                saveSaveData();
+                updateUI();
+            }
+        });
+
+        // Game functions
+        function startGame(levelId) {
+            initAudio();
+            loadSaveData();
+
+            currentLevel = LEVELS[levelId];
+            gameState = 'playing';
+            score = 0;
+            gemsEarned = 0;
+            pressure = 0;
+            pressureFrozen = false;
+            hasShield = false;
+            wordIndex = 0;
+
+            document.getElementById('menu').classList.add('hidden');
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('ui').classList.remove('hidden');
+            document.getElementById('pressureMeter').classList.remove('hidden');
+            document.getElementById('wordArea').classList.remove('hidden');
+            document.getElementById('powerups').classList.remove('hidden');
+
+            nextWord();
+            lastTime = performance.now();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function eruption() {
+            if (hasShield) {
+                hasShield = false;
+                pressure = 50;
+                playSound('powerup');
+                showAnnouncement('🛡️ Shield saved you! 🛡️');
+                updateUI();
+                return;
+            }
+
+            gameState = 'gameover';
+            playSound('eruption');
+            triggerScreenShake(30);
+
+            // Massive eruption
+            const volcanoX = canvas.width / 2;
+            const volcanoTopY = canvas.height * 0.35;
+            for (let i = 0; i < 200; i++) {
+                setTimeout(() => {
+                    createParticles(volcanoX + (Math.random() - 0.5) * 100, volcanoTopY, '#ff6600', 5, 'eruption');
+                    createParticles(volcanoX + (Math.random() - 0.5) * 100, volcanoTopY, '#ffcc00', 3, 'eruption');
+                }, i * 10);
+            }
+
+            setTimeout(() => {
+                document.getElementById('ui').classList.add('hidden');
+                document.getElementById('pressureMeter').classList.add('hidden');
+                document.getElementById('wordArea').classList.add('hidden');
+                document.getElementById('powerups').classList.add('hidden');
+                document.getElementById('fallingLetters').innerHTML = '';
+
+                document.getElementById('finalWords').textContent = wordIndex;
+                document.getElementById('finalScore').textContent = score.toLocaleString();
+                document.getElementById('finalGems').textContent = gemsEarned;
+                document.getElementById('gameOver').style.display = 'block';
+            }, 2000);
+        }
+
+        function showMenu() {
+            gameState = 'menu';
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('ui').classList.add('hidden');
+            document.getElementById('pressureMeter').classList.add('hidden');
+            document.getElementById('wordArea').classList.add('hidden');
+            document.getElementById('powerups').classList.add('hidden');
+            document.getElementById('fallingLetters').innerHTML = '';
+            document.getElementById('menu').classList.remove('hidden');
+        }
+
+        // Game loop
+        function gameLoop(currentTime) {
+            const dt = currentTime - lastTime;
+            lastTime = currentTime;
+
+            if (gameState === 'playing') {
+                // Increase pressure over time
+                if (!pressureFrozen) {
+                    pressure += currentLevel.pressureRate * (dt / 1000);
+                    updatePressureMeter();
+
+                    if (pressure >= 100) {
+                        eruption();
+                    }
+                }
+
+                // Constant rumble based on pressure
+                if (pressure > 30) {
+                    screenShake.intensity = Math.max(screenShake.intensity, pressure / 50);
+                }
+            }
+
+            updateParticles(dt);
+            updateScreenShake();
+
+            // Render
+            ctx.save();
+            ctx.translate(screenShake.x + volcanoRumble, screenShake.y);
+
+            drawVolcano();
+            drawParticles();
+
+            ctx.restore();
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Initialize
+        loadSaveData();
+        document.getElementById('gems').textContent = '💎 ' + gems;
+    </script>
+</body>
+</html>

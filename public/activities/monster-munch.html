@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Monster Munch - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(180deg, #e8f5e9 0%, #c8e6c9 100%);
+      min-height: 100vh;
+      min-height: 100dvh;
+      touch-action: none;
+    }
+    #root {
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+    }
+
+    @keyframes headShake {
+      0%, 100% { transform: translateX(0) rotate(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-10px) rotate(-5deg); }
+      20%, 40%, 60%, 80% { transform: translateX(10px) rotate(5deg); }
+    }
+
+    @keyframes messyMunch {
+      0% { transform: rotate(0deg) scale(1); }
+      10% { transform: rotate(-8deg) scale(1.05); }
+      20% { transform: rotate(6deg) scale(0.95); }
+      30% { transform: rotate(-6deg) scale(1.08); }
+      40% { transform: rotate(8deg) scale(0.92); }
+      50% { transform: rotate(-4deg) scale(1.06); }
+      60% { transform: rotate(5deg) scale(0.94); }
+      70% { transform: rotate(-3deg) scale(1.04); }
+      80% { transform: rotate(2deg) scale(0.98); }
+      90% { transform: rotate(-1deg) scale(1.02); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+
+    @keyframes chomp {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(0.2); }
+    }
+
+    @keyframes gulp {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.15) translateY(5px); }
+      60% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes crumbFall {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--crumb-x), 80px) rotate(var(--crumb-rot));
+        opacity: 0;
+      }
+    }
+
+    @keyframes flyToMouth {
+      0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      40% {
+        transform: translate(calc(var(--dx) * 0.4), calc(var(--dy) * 0.6 - 30px)) scale(0.85) rotate(180deg);
+        opacity: 1;
+      }
+      80% {
+        transform: translate(calc(var(--dx) * 0.9), calc(var(--dy) * 0.95)) scale(0.4) rotate(320deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--dx), var(--dy)) scale(0) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes eyeSquint {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(0.3); }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useCallback, useRef } = React;
+
+    // Sound effects
+    const useSound = () => {
+      const audioContext = useRef(null);
+
+      const playTone = useCallback((frequency, duration, type = 'sine') => {
+        if (!audioContext.current) {
+          audioContext.current = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        const ctx = audioContext.current;
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        oscillator.frequency.value = frequency;
+        oscillator.type = type;
+        gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+        oscillator.start(ctx.currentTime);
+        oscillator.stop(ctx.currentTime + duration);
+      }, []);
+
+      const playCorrect = useCallback(() => {
+        playTone(523.25, 0.1);
+        setTimeout(() => playTone(659.25, 0.1), 100);
+        setTimeout(() => playTone(783.99, 0.15), 200);
+      }, [playTone]);
+
+      const playWrong = useCallback(() => {
+        playTone(200, 0.15, 'sawtooth');
+        setTimeout(() => playTone(150, 0.2, 'sawtooth'), 100);
+      }, [playTone]);
+
+      const playMunch = useCallback(() => {
+        // Messy chomping sounds
+        const times = [0, 60, 130, 190, 260, 320, 400];
+        times.forEach((delay) => {
+          setTimeout(() => {
+            playTone(80 + Math.random() * 60, 0.04 + Math.random() * 0.03);
+          }, delay);
+        });
+      }, [playTone]);
+
+      const playGulp = useCallback(() => {
+        playTone(300, 0.05);
+        setTimeout(() => playTone(200, 0.08), 50);
+        setTimeout(() => playTone(80, 0.12), 100);
+      }, [playTone]);
+
+      const playLevelUp = useCallback(() => {
+        [523, 587, 659, 698, 783, 880].forEach((freq, i) => {
+          setTimeout(() => playTone(freq, 0.12), i * 80);
+        });
+      }, [playTone]);
+
+      return { playCorrect, playWrong, playMunch, playGulp, playLevelUp };
+    };
+
+    // Word data
+    const wordData = {
+      initial: {
+        s: { target: ['sun', 'sat', 'sip', 'six', 'sad', 'sock', 'sand', 'sink'], distractors: ['cat', 'dog', 'hat', 'run', 'big', 'mom', 'cup', 'bed'] },
+        m: { target: ['mom', 'map', 'mat', 'mud', 'mop', 'men', 'mix', 'mill'], distractors: ['cat', 'dog', 'hat', 'run', 'big', 'sun', 'cup', 'bed'] },
+        b: { target: ['bat', 'bed', 'big', 'box', 'bus', 'bug', 'bun', 'bit'], distractors: ['cat', 'dog', 'hat', 'run', 'sun', 'mom', 'cup', 'sad'] },
+        c: { target: ['cat', 'cap', 'cup', 'cut', 'can', 'cob', 'cub', 'cod'], distractors: ['bat', 'dog', 'hat', 'run', 'sun', 'mom', 'bed', 'sad'] },
+        d: { target: ['dog', 'dad', 'dip', 'dot', 'dig', 'den', 'dug', 'dim'], distractors: ['cat', 'bat', 'hat', 'run', 'sun', 'mom', 'cup', 'bed'] },
+        f: { target: ['fan', 'fat', 'fig', 'fin', 'fog', 'fun', 'fit', 'fox'], distractors: ['cat', 'dog', 'hat', 'run', 'sun', 'mom', 'cup', 'bed'] },
+        h: { target: ['hat', 'ham', 'hen', 'hid', 'hip', 'hit', 'hop', 'hot'], distractors: ['cat', 'dog', 'bat', 'run', 'sun', 'mom', 'cup', 'bed'] },
+        p: { target: ['pan', 'pat', 'pen', 'pet', 'pig', 'pin', 'pit', 'pop'], distractors: ['cat', 'dog', 'hat', 'run', 'sun', 'mom', 'cup', 'bed'] },
+        r: { target: ['ran', 'rat', 'red', 'rib', 'rid', 'rig', 'rob', 'run'], distractors: ['cat', 'dog', 'hat', 'bat', 'sun', 'mom', 'cup', 'bed'] },
+        t: { target: ['tab', 'tag', 'tan', 'tap', 'ten', 'tin', 'tip', 'top'], distractors: ['cat', 'dog', 'hat', 'run', 'sun', 'mom', 'cup', 'bed'] },
+      },
+      final: {
+        t: { target: ['cat', 'bat', 'hat', 'mat', 'rat', 'sat', 'pat', 'hot'], distractors: ['can', 'bag', 'ham', 'map', 'ran', 'sad', 'pan', 'hop'] },
+        n: { target: ['can', 'fan', 'man', 'pan', 'ran', 'tan', 'sun', 'bun'], distractors: ['cat', 'fat', 'mat', 'pat', 'rat', 'tab', 'sub', 'bus'] },
+        g: { target: ['bag', 'big', 'bug', 'dig', 'dog', 'fog', 'hog', 'log'], distractors: ['bat', 'bit', 'but', 'dip', 'dot', 'fob', 'hop', 'lot'] },
+        p: { target: ['cap', 'cup', 'hop', 'map', 'mop', 'nap', 'tap', 'top'], distractors: ['cat', 'cut', 'hot', 'mat', 'mom', 'nab', 'tab', 'tot'] },
+        d: { target: ['bad', 'bed', 'bud', 'dad', 'did', 'had', 'mud', 'red'], distractors: ['bat', 'bet', 'but', 'dab', 'dip', 'hat', 'mug', 'ref'] },
+      },
+      medial: {
+        a: { target: ['cat', 'bat', 'hat', 'map', 'can', 'man', 'bag', 'sad'], distractors: ['cut', 'but', 'hut', 'mop', 'cup', 'mud', 'bug', 'sun'] },
+        i: { target: ['big', 'dig', 'fig', 'pig', 'bit', 'fit', 'hit', 'sit'], distractors: ['bag', 'dog', 'fog', 'peg', 'bat', 'fat', 'hat', 'sat'] },
+        o: { target: ['dog', 'fog', 'hog', 'log', 'dot', 'got', 'hot', 'pot'], distractors: ['dig', 'fig', 'hug', 'lug', 'dat', 'gut', 'hat', 'pat'] },
+        u: { target: ['bug', 'dug', 'hug', 'mug', 'but', 'cut', 'hut', 'nut'], distractors: ['bag', 'dog', 'hog', 'mop', 'bat', 'cat', 'hat', 'not'] },
+        e: { target: ['bed', 'fed', 'led', 'red', 'bet', 'get', 'let', 'pet'], distractors: ['bad', 'fad', 'lad', 'rad', 'bat', 'got', 'lot', 'pot'] },
+      }
+    };
+
+    const levelConfig = [
+      { position: 'initial', sound: 's', label: 'start with S' },
+      { position: 'initial', sound: 'm', label: 'start with M' },
+      { position: 'initial', sound: 'b', label: 'start with B' },
+      { position: 'final', sound: 't', label: 'end with T' },
+      { position: 'final', sound: 'n', label: 'end with N' },
+      { position: 'initial', sound: 'c', label: 'start with C' },
+      { position: 'initial', sound: 'd', label: 'start with D' },
+      { position: 'final', sound: 'g', label: 'end with G' },
+      { position: 'medial', sound: 'a', label: 'have A in the middle' },
+      { position: 'initial', sound: 'f', label: 'start with F' },
+      { position: 'medial', sound: 'i', label: 'have I in the middle' },
+      { position: 'initial', sound: 'h', label: 'start with H' },
+      { position: 'final', sound: 'p', label: 'end with P' },
+      { position: 'medial', sound: 'o', label: 'have O in the middle' },
+      { position: 'initial', sound: 'p', label: 'start with P' },
+      { position: 'medial', sound: 'u', label: 'have U in the middle' },
+      { position: 'initial', sound: 'r', label: 'start with R' },
+      { position: 'final', sound: 'd', label: 'end with D' },
+      { position: 'initial', sound: 't', label: 'start with T' },
+      { position: 'medial', sound: 'e', label: 'have E in the middle' },
+    ];
+
+    const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
+
+    const generateRound = (level) => {
+      const config = levelConfig[level % levelConfig.length];
+      const data = wordData[config.position][config.sound];
+      const targets = shuffle(data.target).slice(0, 3);
+      const distractors = shuffle(data.distractors).slice(0, 3);
+      const words = shuffle([
+        ...targets.map(w => ({ word: w, isTarget: true })),
+        ...distractors.map(w => ({ word: w, isTarget: false }))
+      ]).map((w, i) => ({ ...w, id: i }));
+      return { words, config, targetCount: targets.length };
+    };
+
+    // Crumb particle
+    const Crumb = ({ style }) => (
+      <div style={{
+        position: 'absolute',
+        width: 8 + Math.random() * 8,
+        height: 8 + Math.random() * 8,
+        background: ['#ffcc80', '#ffe0b2', '#ffab40', '#ffd180'][Math.floor(Math.random() * 4)],
+        borderRadius: '50%',
+        '--crumb-x': `${-40 + Math.random() * 80}px`,
+        '--crumb-rot': `${Math.random() * 720}deg`,
+        animation: 'crumbFall 0.6s ease-out forwards',
+        ...style,
+      }} />
+    );
+
+    // Monster component - no emoji, CSS eyes
+    const Monster = React.forwardRef(({ state, mouthOpen, isMunching, isGulping, showCrumbs }, ref) => {
+      const mouthRef = useRef(null);
+
+      const getEyeStyle = () => {
+        const base = {
+          width: '28px',
+          height: '28px',
+          background: 'white',
+          borderRadius: '50%',
+          position: 'relative',
+          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)',
+        };
+        return base;
+      };
+
+      const getPupilStyle = () => {
+        const base = {
+          width: '14px',
+          height: '14px',
+          background: '#1a1a1a',
+          borderRadius: '50%',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        };
+        if (state === 'happy') {
+          return { ...base, height: '4px', top: '55%', background: '#e91e63' };
+        }
+        if (state === 'yuck') {
+          return { ...base, transform: 'translate(-50%, -50%) rotate(45deg)', width: '16px', height: '4px', background: '#333' };
+        }
+        if (state === 'anticipating') {
+          return { ...base, width: '16px', height: '16px' };
+        }
+        return base;
+      };
+
+      const getColor = () => {
+        switch(state) {
+          case 'happy': return '#81c784';
+          case 'yuck': return '#90a4ae';
+          case 'excited': return '#fff59d';
+          default: return '#a5d6a7';
+        }
+      };
+
+      const getAnimation = () => {
+        if (state === 'yuck') return 'headShake 0.5s ease-in-out';
+        if (isMunching) return 'messyMunch 0.5s ease-in-out';
+        if (isGulping) return 'gulp 0.3s ease-in-out';
+        return 'none';
+      };
+
+      return (
+        <div
+          ref={ref}
+          style={{
+            position: 'relative',
+            width: '160px',
+            height: '180px',
+            margin: '0 auto',
+            animation: getAnimation(),
+          }}
+        >
+          {/* Crumbs */}
+          {showCrumbs && (
+            <div style={{ position: 'absolute', top: '100px', left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}>
+              {[...Array(8)].map((_, i) => (
+                <Crumb key={i} style={{ left: -20 + Math.random() * 40, top: Math.random() * 10 }} />
+              ))}
+            </div>
+          )}
+
+          {/* Body */}
+          <div style={{
+            width: '160px',
+            height: '160px',
+            background: getColor(),
+            borderRadius: '50% 50% 45% 45%',
+            position: 'relative',
+            boxShadow: '0 8px 0 rgba(0,0,0,0.1)',
+            transition: 'background 0.3s, transform 0.2s',
+            transform: state === 'happy' ? 'scale(1.05)' : 'scale(1)',
+          }}>
+            {/* Horns */}
+            <div style={{
+              position: 'absolute',
+              top: '-15px',
+              left: '25px',
+              width: '0',
+              height: '0',
+              borderLeft: '12px solid transparent',
+              borderRight: '12px solid transparent',
+              borderBottom: '25px solid #66bb6a',
+            }}/>
+            <div style={{
+              position: 'absolute',
+              top: '-15px',
+              right: '25px',
+              width: '0',
+              height: '0',
+              borderLeft: '12px solid transparent',
+              borderRight: '12px solid transparent',
+              borderBottom: '25px solid #66bb6a',
+            }}/>
+
+            {/* Eyes */}
+            <div style={{
+              position: 'absolute',
+              top: '35px',
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '30px',
+              animation: isMunching ? 'eyeSquint 0.15s ease-in-out infinite' : 'none',
+            }}>
+              <div style={getEyeStyle()}>
+                <div style={getPupilStyle()} />
+                {state === 'yuck' && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%) rotate(-45deg)',
+                    width: '16px',
+                    height: '4px',
+                    background: '#333',
+                  }} />
+                )}
+              </div>
+              <div style={getEyeStyle()}>
+                <div style={getPupilStyle()} />
+                {state === 'yuck' && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%) rotate(-45deg)',
+                    width: '16px',
+                    height: '4px',
+                    background: '#333',
+                  }} />
+                )}
+              </div>
+            </div>
+
+            {/* Mouth */}
+            <div
+              ref={mouthRef}
+              className="monster-mouth"
+              style={{
+                position: 'absolute',
+                top: mouthOpen ? '85px' : '95px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: mouthOpen ? '70px' : '40px',
+                height: mouthOpen ? '45px' : '12px',
+                background: mouthOpen ? '#b71c1c' : '#e57373',
+                borderRadius: mouthOpen ? '8px 8px 35px 35px' : '0 0 20px 20px',
+                transition: isMunching ? 'none' : 'all 0.1s ease-out',
+                overflow: 'hidden',
+                animation: isMunching ? 'chomp 0.1s ease-in-out infinite' : 'none',
+                transformOrigin: 'top center',
+              }}
+            >
+              {mouthOpen && (
+                <>
+                  {/* Upper teeth */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '0',
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    padding: '0 4px',
+                  }}>
+                    {[...Array(5)].map((_, i) => (
+                      <div key={i} style={{
+                        width: '9px',
+                        height: '11px',
+                        background: 'white',
+                        borderRadius: '0 0 4px 4px',
+                      }}/>
+                    ))}
+                  </div>
+                  {/* Tongue */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '-5px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '30px',
+                    height: '20px',
+                    background: '#f48fb1',
+                    borderRadius: '50% 50% 0 0',
+                  }}/>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Feet */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '40px',
+            marginTop: '-10px',
+          }}>
+            <div style={{ width: '35px', height: '20px', background: '#66bb6a', borderRadius: '50%' }}/>
+            <div style={{ width: '35px', height: '20px', background: '#66bb6a', borderRadius: '50%' }}/>
+          </div>
+        </div>
+      );
+    });
+
+    // Word bubble - supports drag and tap
+    const WordBubble = React.forwardRef(({ word, onFeed, disabled, hidden }, ref) => {
+      const [isDragging, setIsDragging] = useState(false);
+      const [dragPos, setDragPos] = useState(null);
+      const startPos = useRef(null);
+      const elRef = useRef(null);
+
+      // Combine refs
+      React.useImperativeHandle(ref, () => elRef.current);
+
+      const colors = ['#ffcdd2', '#f8bbd0', '#e1bee7', '#d1c4e9', '#c5cae9', '#bbdefb', '#b3e5fc', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#dcedc8', '#f0f4c3', '#fff9c4', '#ffecb3', '#ffe0b2', '#ffccbc'];
+      const color = colors[word.charCodeAt(0) % colors.length];
+
+      const handleStart = (clientX, clientY) => {
+        if (disabled) return;
+        startPos.current = { x: clientX, y: clientY };
+        setIsDragging(true);
+        setDragPos({ x: 0, y: 0 });
+      };
+
+      const handleMove = (clientX, clientY) => {
+        if (!isDragging || !startPos.current) return;
+        setDragPos({
+          x: clientX - startPos.current.x,
+          y: clientY - startPos.current.y,
+        });
+      };
+
+      const handleEnd = () => {
+        if (!isDragging) return;
+        const moved = dragPos && (Math.abs(dragPos.x) > 20 || Math.abs(dragPos.y) > 20);
+        setIsDragging(false);
+        setDragPos(null);
+        startPos.current = null;
+        // Feed on release (either tap or drag)
+        if (!disabled) {
+          onFeed();
+        }
+      };
+
+      const handleTouchStart = (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        handleStart(touch.clientX, touch.clientY);
+      };
+
+      const handleTouchMove = (e) => {
+        const touch = e.touches[0];
+        handleMove(touch.clientX, touch.clientY);
+      };
+
+      const handleMouseDown = (e) => {
+        handleStart(e.clientX, e.clientY);
+      };
+
+      const handleMouseMove = (e) => {
+        handleMove(e.clientX, e.clientY);
+      };
+
+      useEffect(() => {
+        if (isDragging) {
+          const onMouseMove = (e) => handleMouseMove(e);
+          const onMouseUp = () => handleEnd();
+          const onTouchMove = (e) => {
+            e.preventDefault();
+            handleTouchMove(e);
+          };
+          const onTouchEnd = () => handleEnd();
+
+          window.addEventListener('mousemove', onMouseMove);
+          window.addEventListener('mouseup', onMouseUp);
+          window.addEventListener('touchmove', onTouchMove, { passive: false });
+          window.addEventListener('touchend', onTouchEnd);
+
+          return () => {
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('mouseup', onMouseUp);
+            window.removeEventListener('touchmove', onTouchMove);
+            window.removeEventListener('touchend', onTouchEnd);
+          };
+        }
+      }, [isDragging, dragPos]);
+
+      return (
+        <div
+          ref={elRef}
+          onMouseDown={handleMouseDown}
+          onTouchStart={handleTouchStart}
+          style={{
+            padding: '16px 28px',
+            fontSize: '1.6rem',
+            fontFamily: 'Fraunces, serif',
+            fontWeight: '500',
+            background: hidden ? 'transparent' : color,
+            border: hidden ? '3px dashed #ccc' : '3px solid rgba(0,0,0,0.1)',
+            borderRadius: '20px',
+            cursor: disabled ? 'default' : 'grab',
+            userSelect: 'none',
+            transition: hidden ? 'opacity 0.2s, background 0.2s' : 'box-shadow 0.2s',
+            opacity: hidden ? 0.3 : 1,
+            boxShadow: isDragging ? '0 8px 20px rgba(0,0,0,0.2)' : (hidden ? 'none' : '0 4px 0 rgba(0,0,0,0.1)'),
+            minWidth: '100px',
+            textAlign: 'center',
+            visibility: hidden ? 'hidden' : 'visible',
+            transform: dragPos ? `translate(${dragPos.x}px, ${dragPos.y}px) scale(${isDragging ? 1.1 : 1})` : 'none',
+            zIndex: isDragging ? 100 : 1,
+            position: 'relative',
+          }}
+        >
+          {word}
+        </div>
+      );
+    });
+
+    // Flying word
+    const FlyingWord = ({ word, startPos, endPos, onComplete }) => {
+      const dx = endPos.x - startPos.x;
+      const dy = endPos.y - startPos.y;
+
+      useEffect(() => {
+        const timer = setTimeout(onComplete, 450);
+        return () => clearTimeout(timer);
+      }, [onComplete]);
+
+      const colors = ['#ffcdd2', '#f8bbd0', '#e1bee7', '#d1c4e9', '#c5cae9', '#bbdefb', '#b3e5fc', '#b2ebf2', '#b2dfdb', '#c8e6c9', '#dcedc8', '#f0f4c3', '#fff9c4', '#ffecb3', '#ffe0b2', '#ffccbc'];
+      const bgColor = colors[word.charCodeAt(0) % colors.length];
+
+      return (
+        <div
+          style={{
+            position: 'fixed',
+            left: startPos.x,
+            top: startPos.y,
+            padding: '16px 28px',
+            fontSize: '1.6rem',
+            fontFamily: 'Fraunces, serif',
+            fontWeight: '500',
+            background: bgColor,
+            border: '3px solid rgba(0,0,0,0.1)',
+            borderRadius: '20px',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+            zIndex: 1000,
+            pointerEvents: 'none',
+            '--dx': `${dx}px`,
+            '--dy': `${dy}px`,
+            animation: 'flyToMouth 0.45s ease-in forwards',
+          }}
+        >
+          {word}
+        </div>
+      );
+    };
+
+    // Speech bubble
+    const SpeechBubble = ({ text }) => (
+      <div style={{
+        background: 'white',
+        padding: '12px 20px',
+        borderRadius: '20px',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+        position: 'relative',
+        maxWidth: '280px',
+        margin: '0 auto 15px',
+      }}>
+        <div style={{
+          fontSize: '1.1rem',
+          fontWeight: '600',
+          color: '#2e7d32',
+          textAlign: 'center',
+        }}>
+          {text}
+        </div>
+        <div style={{
+          position: 'absolute',
+          bottom: '-10px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '0',
+          height: '0',
+          borderLeft: '10px solid transparent',
+          borderRight: '10px solid transparent',
+          borderTop: '10px solid white',
+        }}/>
+      </div>
+    );
+
+    // Main game
+    const MonsterMunch = () => {
+      const [level, setLevel] = useState(0);
+      const [score, setScore] = useState(0);
+      const [streak, setStreak] = useState(0);
+      const [round, setRound] = useState(() => generateRound(0));
+      const [eatenWords, setEatenWords] = useState(new Set());
+      const [monsterState, setMonsterState] = useState('normal');
+      const [mouthOpen, setMouthOpen] = useState(false);
+      const [isMunching, setIsMunching] = useState(false);
+      const [isGulping, setIsGulping] = useState(false);
+      const [showCrumbs, setShowCrumbs] = useState(false);
+      const [showLevelUp, setShowLevelUp] = useState(false);
+      const [gameStarted, setGameStarted] = useState(false);
+      const [flyingWord, setFlyingWord] = useState(null);
+      const [processingClick, setProcessingClick] = useState(false);
+
+      const correctInRound = useRef(0);
+      const monsterRef = useRef(null);
+      const wordRefs = useRef({});
+
+      const { playCorrect, playWrong, playMunch, playGulp, playLevelUp } = useSound();
+
+      const startGame = () => {
+        setGameStarted(true);
+        setLevel(0);
+        setScore(0);
+        setStreak(0);
+        setRound(generateRound(0));
+        setEatenWords(new Set());
+        correctInRound.current = 0;
+      };
+
+      const getMouthPosition = () => {
+        if (!monsterRef.current) return { x: window.innerWidth / 2, y: 200 };
+        const rect = monsterRef.current.getBoundingClientRect();
+        // Target the mouth area (center-bottom of monster face)
+        return {
+          x: rect.left + rect.width / 2 - 40,
+          y: rect.top + 95,
+        };
+      };
+
+      const getWordPosition = (id) => {
+        const el = wordRefs.current[id];
+        if (!el) return { x: 0, y: 0 };
+        const rect = el.getBoundingClientRect();
+        return { x: rect.left, y: rect.top };
+      };
+
+      const handleFeed = (wordObj) => {
+        if (eatenWords.has(wordObj.id) || processingClick) return;
+        setProcessingClick(true);
+
+        if (wordObj.isTarget) {
+          const startPos = getWordPosition(wordObj.id);
+          const endPos = getMouthPosition();
+
+          setEatenWords(prev => new Set([...prev, wordObj.id]));
+          setFlyingWord({ word: wordObj.word, startPos, endPos, id: wordObj.id });
+          setMonsterState('anticipating');
+          setMouthOpen(true);
+
+          // Word arrives at mouth
+          setTimeout(() => {
+            setFlyingWord(null);
+            setIsMunching(true);
+            setShowCrumbs(true);
+            playMunch();
+
+            // Messy munching
+            setTimeout(() => {
+              setIsMunching(false);
+              setShowCrumbs(false);
+              setMouthOpen(false);
+              setIsGulping(true);
+              playGulp();
+
+              setTimeout(() => {
+                setIsGulping(false);
+                setMonsterState('happy');
+                playCorrect();
+
+                setScore(s => s + (10 * (streak + 1)));
+                setStreak(s => s + 1);
+                correctInRound.current++;
+
+                setTimeout(() => {
+                  setMonsterState('normal');
+                  setProcessingClick(false);
+
+                  if (correctInRound.current >= round.targetCount) {
+                    setTimeout(() => {
+                      const nextLevel = level + 1;
+                      if (nextLevel % 3 === 0) {
+                        playLevelUp();
+                        setShowLevelUp(true);
+                        setMonsterState('excited');
+                        setTimeout(() => {
+                          setShowLevelUp(false);
+                          setMonsterState('normal');
+                          setLevel(nextLevel);
+                          setRound(generateRound(nextLevel));
+                          setEatenWords(new Set());
+                          correctInRound.current = 0;
+                        }, 1500);
+                      } else {
+                        setLevel(nextLevel);
+                        setRound(generateRound(nextLevel));
+                        setEatenWords(new Set());
+                        correctInRound.current = 0;
+                      }
+                    }, 300);
+                  }
+                }, 350);
+              }, 250);
+            }, 500);
+          }, 450);
+
+        } else {
+          playWrong();
+          setStreak(0);
+          setMonsterState('yuck');
+
+          setTimeout(() => {
+            setMonsterState('normal');
+            setProcessingClick(false);
+          }, 550);
+        }
+      };
+
+      if (!gameStarted) {
+        return (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            padding: '20px',
+            textAlign: 'center',
+          }}>
+            <Monster state="excited" mouthOpen={true} isMunching={false} isGulping={false} showCrumbs={false} />
+            <h1 style={{
+              fontFamily: 'Fraunces, serif',
+              fontSize: '2.5rem',
+              color: '#2e7d32',
+              margin: '20px 0 10px',
+            }}>
+              Monster Munch
+            </h1>
+            <p style={{
+              fontSize: '1.1rem',
+              color: '#558b2f',
+              marginBottom: '30px',
+              maxWidth: '300px',
+            }}>
+              Feed the hungry monster words with the right sounds!
+            </p>
+            <button
+              onClick={startGame}
+              style={{
+                padding: '16px 48px',
+                fontSize: '1.3rem',
+                fontWeight: '600',
+                background: '#66bb6a',
+                color: 'white',
+                border: 'none',
+                borderRadius: '30px',
+                cursor: 'pointer',
+                boxShadow: '0 4px 0 #43a047',
+              }}
+            >
+              Start Game
+            </button>
+          </div>
+        );
+      }
+
+      return (
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+          padding: '15px',
+          maxWidth: '500px',
+          margin: '0 auto',
+        }}>
+          {/* Header */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '10px',
+          }}>
+            <a href="/activities/" style={{
+              fontSize: '0.9rem',
+              color: '#558b2f',
+              textDecoration: 'none',
+            }}>Back</a>
+            <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+              <div style={{
+                background: '#fff9c4',
+                padding: '6px 14px',
+                borderRadius: '15px',
+                fontWeight: '600',
+                fontSize: '0.9rem',
+                color: '#f9a825',
+              }}>
+                Level {Math.floor(level / 3) + 1}
+              </div>
+              <div style={{
+                background: '#c8e6c9',
+                padding: '6px 14px',
+                borderRadius: '15px',
+                fontWeight: '600',
+                fontSize: '0.9rem',
+                color: '#2e7d32',
+              }}>
+                {score} pts
+              </div>
+            </div>
+          </div>
+
+          {/* Streak */}
+          {streak > 1 && (
+            <div style={{ textAlign: 'center', marginBottom: '5px' }}>
+              <span style={{
+                background: '#ff8a65',
+                color: 'white',
+                padding: '4px 12px',
+                borderRadius: '10px',
+                fontSize: '0.85rem',
+                fontWeight: '600',
+              }}>
+                {streak}x Streak!
+              </span>
+            </div>
+          )}
+
+          {/* Monster */}
+          <div style={{ marginBottom: '15px' }}>
+            <SpeechBubble text={`Feed me words that ${round.config.label}!`} />
+            <Monster
+              ref={monsterRef}
+              state={monsterState}
+              mouthOpen={mouthOpen}
+              isMunching={isMunching}
+              isGulping={isGulping}
+              showCrumbs={showCrumbs}
+            />
+          </div>
+
+          {/* Flying word */}
+          {flyingWord && (
+            <FlyingWord
+              word={flyingWord.word}
+              startPos={flyingWord.startPos}
+              endPos={flyingWord.endPos}
+              onComplete={() => {}}
+            />
+          )}
+
+          {/* Level up */}
+          {showLevelUp && (
+            <div style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(102, 187, 106, 0.9)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 50,
+            }}>
+              <div style={{ fontSize: '4rem', marginBottom: '10px' }}>Level Up!</div>
+              <div style={{
+                fontSize: '2rem',
+                fontWeight: '700',
+                color: 'white',
+                textShadow: '2px 2px 0 rgba(0,0,0,0.2)',
+              }}>
+                Level {Math.floor(level / 3) + 2}
+              </div>
+            </div>
+          )}
+
+          {/* Words */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '12px',
+            flex: 1,
+            alignContent: 'start',
+            paddingBottom: '20px',
+          }}>
+            {round.words.map(wordObj => (
+              <WordBubble
+                key={wordObj.id}
+                ref={el => wordRefs.current[wordObj.id] = el}
+                word={wordObj.word}
+                onFeed={() => handleFeed(wordObj)}
+                disabled={eatenWords.has(wordObj.id) || processingClick}
+                hidden={eatenWords.has(wordObj.id)}
+              />
+            ))}
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<MonsterMunch />);
+  </script>
+</body>
+</html>

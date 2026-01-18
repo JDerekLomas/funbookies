@@ -271,8 +271,8 @@
         names: '/activities/letter-sounds/openai-us/names'
       },
       'elevenlabs': {
-        sounds: '/activities/letter-sounds/elevenlabs/sounds',
-        names: '/activities/letter-sounds/elevenlabs/names'
+        sounds: '/activities/letter-sounds/elevenlabs-uk/sounds',
+        names: '/activities/letter-sounds/elevenlabs-uk/names'
       }
     };
 
@@ -341,7 +341,7 @@
       // Background check for actual file existence
       for (const letter of letters) {
         const soundPath = `${paths.sounds}/${letter}.mp3`;
-        const namePath = `${paths.names}/${letter.toUpperCase()}.mp3`;
+        const namePath = `${paths.names}/${letter}.mp3`;
 
         fetch(soundPath, { method: 'HEAD' })
           .then(res => { audioStatus.sounds[letter] = res.ok; render(); })
@@ -361,7 +361,7 @@
       }
 
       const paths = PATHS[currentSource];
-      const filename = type === 'sounds' ? letter : letter.toUpperCase();
+      const filename = letter;
       const path = `${paths[type]}/${filename}.mp3`;
 
       if (!audioStatus[type][letter]) return;

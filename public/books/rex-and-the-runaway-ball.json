@@ -178,17 +178,18 @@
       "page": 6,
       "story_page": 1,
       "type": "story",
-      "text": "Rex the pup and Rosie the rabbit were pals. They had fun in the sun!",
-      "scene": "Golden fluffy puppy and white rabbit playing together in sunny meadow. Both smiling, happy. Green grass, yellow wildflowers, warm sunshine, blue sky with fluffy clouds. Wide shot showing meadow setting.",
+      "text": "Rex the pup loved to play in the meadow. His pal Rosie hopped by to join him.",
+      "scene": "Golden fluffy puppy and white rabbit playing together in sunny meadow, bright red ball on grass nearby. Both smiling, happy. Green grass, yellow wildflowers, warm sunshine, blue sky with fluffy clouds. Wide shot showing meadow setting.",
       "image": "images/rex-and-the-runaway-ball/page06.png",
       "generation_metadata": {
+        "generated_at": "2026-01-17T17:27:58.350628",
         "model": "wan2.6-image",
-        "references": [
-          "v1",
-          "v2"
-        ],
-        "dual_reference": true
-      }
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v2",
+        "cost": "$0.03"
+      },
+      "image_prompt": "Generate an image using the style of image 1.\n\nGolden fluffy puppy and white rabbit playing together in sunny meadow, bright red ball on grass nearby. Both smiling, happy. Green grass, yellow wildflowers, warm sunshine, blue sky with fluffy clouds. Wide shot showing meadow setting.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall fluffy golden puppy with floppy ears, big brown eyes, black nose, wagging tail\nsmall white rabbit with pink inner ears, bright pink nose, fluffy cotton tail\n\nSTYLE: Warm, cheerful watercolor illustration style. Golden yellows and warm greens for sunny outdoor scenes. Dark blues and grays for tunnel scenes with a spot of red (the ball) as focal point. Friendly, rounded character designs with expressive faces. Soft edges, gentle lighting.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
     },
     {
       "page": 7,
@@ -243,32 +244,34 @@
       "story_page": 5,
       "type": "story",
       "text": "\"I can not go in. It is too dark!\" said Rex. He was scared.",
-      "scene": "Close-up of golden puppy's face showing fear. Eyes wide with worry, eyebrows raised, ears flattened back, mouth slightly open in worried expression. Dark tunnel entrance visible behind him. Puppy looking toward viewer with scared expression.",
+      "scene": "Close-up of golden puppy's face showing fear. Eyes wide with worry, eyebrows raised, ears flattened back, mouth slightly open in worried expression. Dark tunnel entrance visible behind him - completely black inside, ball NOT visible (too dark to see). Puppy looking toward viewer with scared expression.",
       "image": "images/rex-and-the-runaway-ball/page10.png",
       "generation_metadata": {
+        "generated_at": "2026-01-18T01:22:40.830123",
         "model": "wan2.6-image",
-        "references": [
-          "v1",
-          "v2"
-        ],
-        "dual_reference": true
-      }
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v2",
+        "cost": "$0.03"
+      },
+      "image_prompt": "Generate an image using the style of image 1.\n\nClose-up of golden puppy's face showing fear. Eyes wide with worry, eyebrows raised, ears flattened back, mouth slightly open in worried expression. Dark tunnel entrance visible behind him - completely black inside, ball NOT visible (too dark to see). Puppy looking toward viewer with scared expression.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall fluffy golden puppy with floppy ears, big brown eyes, black nose, wagging tail\nsmall white rabbit with pink inner ears, bright pink nose, fluffy cotton tail\n\nSTYLE: Warm, cheerful watercolor illustration style. Golden yellows and warm greens for sunny outdoor scenes. Dark blues and grays for tunnel scenes with a spot of red (the ball) as focal point. Friendly, rounded character designs with expressive faces. Soft edges, gentle lighting.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
     },
     {
       "page": 11,
       "story_page": 6,
       "type": "story",
       "text": "Rosie hopped over. \"You can do it, Rex! You are brave!\" she said.",
-      "scene": "White rabbit standing next to golden puppy near tunnel entrance. Rabbit has encouraging expression - eyes bright, slight smile. Rabbit's paw reaching toward puppy supportively. Puppy looking at rabbit with uncertain but hopeful expression.",
+      "scene": "White rabbit standing next to golden puppy near tunnel entrance. Dark tunnel behind them - completely black inside, ball NOT visible (too dark to see). Rabbit has encouraging expression - eyes bright, slight smile. Rabbit's paw reaching toward puppy supportively. Puppy looking at rabbit with uncertain but hopeful expression.",
       "image": "images/rex-and-the-runaway-ball/page11.png",
       "generation_metadata": {
+        "generated_at": "2026-01-18T01:24:08.423592",
         "model": "wan2.6-image",
-        "references": [
-          "v1",
-          "v2"
-        ],
-        "dual_reference": true
-      }
+        "provider": "fal.ai",
+        "used_reference": true,
+        "reference_version": "v2",
+        "cost": "$0.03"
+      },
+      "image_prompt": "Generate an image using the style of image 1.\n\nWhite rabbit standing next to golden puppy near tunnel entrance. Dark tunnel behind them - completely black inside, ball NOT visible (too dark to see). Rabbit has encouraging expression - eyes bright, slight smile. Rabbit's paw reaching toward puppy supportively. Puppy looking at rabbit with uncertain but hopeful expression.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall fluffy golden puppy with floppy ears, big brown eyes, black nose, wagging tail\nsmall white rabbit with pink inner ears, bright pink nose, fluffy cotton tail\n\nSTYLE: Warm, cheerful watercolor illustration style. Golden yellows and warm greens for sunny outdoor scenes. Dark blues and grays for tunnel scenes with a spot of red (the ball) as focal point. Friendly, rounded character designs with expressive faces. Soft edges, gentle lighting.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
     },
     {
       "page": 12,

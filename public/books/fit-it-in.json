@@ -1,0 +1,342 @@
+{
+  "id": "fit-it-in",
+  "title": "Fit It In",
+  "slug": "fit-it-in",
+  "level": "B1",
+  "band": "B",
+  "targetPhonics": "CVC-a, CVC-i",
+  "wordFamilies": [
+    "-at",
+    "-an",
+    "-am",
+    "-ap",
+    "-ad",
+    "-ag",
+    "-it",
+    "-in",
+    "-im",
+    "-ip",
+    "-id",
+    "-ig"
+  ],
+  "skill": "CVC Words (Short a, i)",
+  "skill_description": "Three-letter words with short a and short i vowels",
+  "age_range": "K-1",
+  "created": "2026-01-18",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "The rhythm of tidying up - putting things in their spots",
+  "characters": {},
+  "setting_context": "A child's bedroom, toys scattered, time for bed",
+  "word_list": {
+    "sound_out": [
+      "cat",
+      "bat",
+      "hat",
+      "mat",
+      "rat",
+      "sat",
+      "fat",
+      "pat",
+      "vat",
+      "can",
+      "man",
+      "pan",
+      "ran",
+      "tan",
+      "van",
+      "fan",
+      "Dan",
+      "ham",
+      "jam",
+      "ram",
+      "Sam",
+      "yam",
+      "cap",
+      "gap",
+      "lap",
+      "map",
+      "nap",
+      "tap",
+      "zap",
+      "bad"
+    ],
+    "sight": [
+      "the",
+      "a",
+      "is",
+      "I",
+      "to",
+      "and",
+      "it",
+      "in",
+      "on",
+      "my",
+      "see",
+      "he",
+      "she",
+      "we",
+      "be",
+      "me",
+      "no",
+      "go",
+      "so"
+    ],
+    "heart": []
+  },
+  "sightWordsUsed": [
+    "the",
+    "a",
+    "is",
+    "I",
+    "to",
+    "and",
+    "it",
+    "in",
+    "on",
+    "my",
+    "see",
+    "he",
+    "she",
+    "we",
+    "be",
+    "me",
+    "no",
+    "go",
+    "so"
+  ],
+  "wordsearch_words": [
+    "cat",
+    "bat",
+    "hat",
+    "mat",
+    "rat",
+    "sat",
+    "fat",
+    "pat"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Fit It In",
+      "scene": "Cover illustration for 'Fit It In'. A child's bedroom, toys scattered, time for bed. Style matches the reference sheet.",
+      "image_prompt": "Cover illustration for 'Fit It In'. A child's bedroom, toys scattered, time for bed. Style matches the reference sheet.\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "**Tidy Time**\nThe cat sits.",
+      "scene": "Illustration for: **Tidy Time**\nThe cat sits....",
+      "image_prompt": "Illustration for: **Tidy Time**\nThe cat sits....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:14:42.608709",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "The bat sits.",
+      "scene": "Illustration for: The bat sits....",
+      "image_prompt": "Illustration for: The bat sits....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page07.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:18:55.705738",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "The hat sits on the mat.",
+      "scene": "Illustration for: The hat sits on the mat....",
+      "image_prompt": "Illustration for: The hat sits on the mat....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:19:58.740286",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "Pat, pat, pat\u2014\nhands tap the rug.",
+      "scene": "Illustration for: Pat, pat, pat\u2014\nhands tap the rug...."
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "Pat, pat, pat\u2014\ntoys in the tub.",
+      "scene": "Illustration for: Pat, pat, pat\u2014\ntoys in the tub...."
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "Can in the pan,\nman by the van,",
+      "scene": "Illustration for: Can in the pan,\nman by the van,..."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Dan and his fan\nspin and spin.",
+      "scene": "Illustration for: Dan and his fan\nspin and spin...."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "Soft socks, warm socks,\ntick-tock clocks.",
+      "scene": "Illustration for: Soft socks, warm socks,\ntick-tock clocks...."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "The jam jar gleams,\nthe ram toy sits.",
+      "scene": "Illustration for: The jam jar gleams,\nthe ram toy sits...."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "Pat, pat, pat\u2014\nfeet on cool wood.",
+      "scene": "Illustration for: Pat, pat, pat\u2014\nfeet on cool wood...."
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "Pat, pat, pat\u2014\neverything good.",
+      "scene": "Illustration for: Pat, pat, pat\u2014\neverything good...."
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "The cat sits.",
+      "scene": "Illustration for: The cat sits...."
+    },
+    {
+      "page": 18,
+      "story_page": 13,
+      "type": "story",
+      "text": "The mat sits.",
+      "scene": "Illustration for: The mat sits...."
+    },
+    {
+      "page": 19,
+      "story_page": 14,
+      "type": "story",
+      "text": "The dim room\nstill.",
+      "scene": "Illustration for: The dim room\nstill...."
+    },
+    {
+      "page": 20,
+      "story_page": 15,
+      "type": "story",
+      "text": "Moonlight spills\nthrough windowsill,",
+      "scene": "Illustration for: Moonlight spills\nthrough windowsill,..."
+    },
+    {
+      "page": 21,
+      "story_page": 16,
+      "type": "story",
+      "text": "and I\nsit",
+      "scene": "Illustration for: and I\nsit..."
+    },
+    {
+      "page": 22,
+      "story_page": 17,
+      "type": "story",
+      "text": "too.",
+      "scene": "Illustration for: too...."
+    },
+    {
+      "page": 23,
+      "type": "end",
+      "text": "The End"
+    },
+    {
+      "page": 24,
+      "type": "wordsearch"
+    },
+    {
+      "page": 25,
+      "type": "series_info"
+    },
+    {
+      "page": 26,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-18T14:40:58.650438",
+    "levelSpecs": "v2",
+    "wordCount": 87,
+    "decodabilityTarget": "90%",
+    "storyPages": 17,
+    "pipeline": "C",
+    "mode": "poem"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book\n\nFOCUS: Character design, bedroom setting elements, nighttime color palette. [Poem-inspired soft style]\n\nRow 1 - DAN (young child tidying up):\n[1] Dan front view: Round-bodied child in soft pajamas, wide curious eyes, messy hair. Gentle blue-gray background.\n[2] Dan expressions: Same child showing calm concentration, sleepy smile, gentle contentment\n[3] Dan in action: Carefully placing toys into storage bin, hands mid-motion, soft movement lines\n\nRow 2 - SECONDARY ELEMENTS:\n[4] Playful Cat: Sitting quietly, curled shape, soft fur texture in muted gray tones\n[5] Scattered Toys: Random collection - bat, hat, ram toy, fan - arranged with dreamy randomness\n[6] KEY IMAGE: Moonlight spilling through windowsill, soft silver-blue light creating peaceful atmosphere\n\nRow 3 - BEDROOM SETTING:\n[7] Nighttime Bedroom: Soft shadowy corners, gentle wood floor texture in warm browns\n[8] Moonlit Window: Silvery light creating soft geometric shadows, quiet stillness\n[9] Final Scene: Dan sitting peacefully, cat nearby, toys neatly arranged, moonlight washing everything\n\nSTYLE: Soft watercolor with gentle edges like Jon Klassen. Muted nighttime palette of blues, grays, warm browns. Rounded shapes, minimal details, atmospheric. Friendly and approachable. NOT realistic.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.",
+  "generation_artifacts": {
+    "draft": "**Tidy Time**\n\nThe cat sits.\nThe bat sits.\nThe hat sits on the mat.\n\nPat, pat, pat\u2014\nhands tap the rug.\nPat, pat, pat\u2014\ntoys in the tub.\n\nCan in the pan,\nman by the van,\nDan and his fan\nspin, spin, span.\n\nSoft socks, warm socks,\ntick-tock clocks.\nThe jam jar gleams,\nthe ram toy dreams.\n\nPat, pat, pat\u2014\nfeet on cool wood.\nPat, pat, pat\u2014\neverything good.\n\nThe cat sits.\nThe mat sits.\nThe room sits\nstill.\n\nMoonlight spills\nthrough windowsill,\nand all\nis\ncalm.\n\n---\n\n*The poem captures the meditative rhythm of bedtime tidying through repetitive \"pat, pat, pat\" sounds and the gentle placement of toys. The CVC patterns create a lullaby-like cadence, while sensory details (cool wood, soft socks, moonlight) ground the experience in physical sensation rather than stated emotions.*",
+    "critique": "EVALUATION:\n\n1. RHYTHM & SOUND PLEASURE: 4.5/5\nExceptional phonetic musicality. The repetitive \"pat, pat, pat\" creates a percussion-like rhythm that mimics tidying motions. CVC words dance with percussive consonants. Brilliant sound design.\n\n2. SENSORY GROUNDING: 4/5\nStrong tactile elements: cool wood, soft socks, gleaming jam jar. The poem doesn't just describe tidying, it makes you FEEL tidying.\n\n3. EMOTIONAL TRUTH: 5/5\nCaptures the quiet satisfaction of bringing order to chaos. The ending's stillness feels profoundly authentic - not manufactured \"childhood\" but genuine child-like peace.\n\n4. CHILD ENGAGEMENT: 3.5/5\nPros: Musical, concrete imagery\nCons: Might be too meditative for high-energy 5-year-olds\n\n5. SHOW VS TELL: 4.5/5\nMasterful dramatization through action and sound. Each line is a tiny cinematic moment.\n\nDEAD PHRASES:\n- \"The room sits\" feels slightly forced\n- \"spin, spin, span\" is grammatically confusing\n- Last stanza (\"and all is calm\") slightly weakens the strong preceding rhythm\n\nLINES THAT SING (PROTECT AT ALL COSTS):\n- \"Pat, pat, pat\u2014 / hands tap the rug\"\n- \"Soft socks, warm socks, / tick-tock clocks\"\n- \"Moonlight spills / through windowsill\"\n\nWHAT'S MISSING:\n- Slightly more narrative arc\n- Perhaps one more sensory surprise\n- Potential for a more definitive emotional resolution\n\nOVERALL: A delicate, musically sophisticated piece with remarkable potential. Needs minor refinement, not reconstruction.",
+    "final": "**Tidy Time**\n\nThe cat sits.\nThe bat sits.\nThe hat sits on the mat.\n\nPat, pat, pat\u2014\nhands tap the rug.\nPat, pat, pat\u2014\ntoys in the tub.\n\nCan in the pan,\nman by the van,\nDan and his fan\nspin and spin.\n\nSoft socks, warm socks,\ntick-tock clocks.\nThe jam jar gleams,\nthe ram toy sits.\n\nPat, pat, pat\u2014\nfeet on cool wood.\nPat, pat, pat\u2014\neverything good.\n\nThe cat sits.\nThe mat sits.\nThe dim room\nstill.\n\nMoonlight spills\nthrough windowsill,\nand I\nsit\ntoo."
+  },
+  "parent_tips": {
+    "before_reading": "Look at the cover of 'Fit It In'. What do you see? This book focuses on CVC Words (Short a, i).",
+    "during_reading": "Help your child sound out words with CVC-a, CVC-i patterns.",
+    "after_reading": "What was your favorite part? Can you find words with our special sounds?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "What happens at the beginning?",
+      "answer": ""
+    },
+    {
+      "question": "What happens in the middle?",
+      "answer": ""
+    },
+    {
+      "question": "How does it end?",
+      "answer": ""
+    }
+  ]
+}

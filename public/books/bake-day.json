@@ -1,0 +1,456 @@
+{
+  "id": "bake-day",
+  "title": "Bake Day",
+  "slug": "bake-day",
+  "level": "B6",
+  "band": "B",
+  "targetPhonics": "a_e, i_e, o_e, u_e",
+  "wordFamilies": [
+    "-ake",
+    "-ame",
+    "-ade",
+    "-ate",
+    "-ave",
+    "-ike",
+    "-ide",
+    "-ine",
+    "-ite",
+    "-ome",
+    "-ope",
+    "-ote",
+    "-ube",
+    "-ule",
+    "-ute"
+  ],
+  "skill": "Magic E (CVCe)",
+  "skill_description": "Silent e makes the vowel say its name: a_e, i_e, o_e, u_e",
+  "age_range": "K-1",
+  "created": "2026-01-18",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "The chemistry of baking - how heat transforms dough into cake",
+  "characters": {},
+  "setting_context": "Grandma's kitchen, morning light, flour on the counter",
+  "word_list": {
+    "sound_out": [
+      "bake",
+      "cake",
+      "fake",
+      "lake",
+      "make",
+      "rake",
+      "take",
+      "wake",
+      "Jake",
+      "came",
+      "fame",
+      "game",
+      "name",
+      "same",
+      "tame",
+      "cave",
+      "gave",
+      "save",
+      "wave",
+      "brave",
+      "made",
+      "fade",
+      "wade",
+      "shade",
+      "grade",
+      "late",
+      "gate",
+      "date",
+      "mate",
+      "plate"
+    ],
+    "sight": [
+      "the",
+      "a",
+      "is",
+      "was",
+      "to",
+      "and",
+      "he",
+      "she",
+      "they",
+      "said",
+      "I",
+      "you",
+      "my",
+      "me",
+      "we",
+      "be",
+      "have",
+      "are",
+      "were",
+      "there",
+      "what",
+      "when",
+      "where",
+      "who",
+      "why",
+      "how",
+      "one",
+      "two"
+    ],
+    "heart": []
+  },
+  "sightWordsUsed": [
+    "the",
+    "a",
+    "is",
+    "was",
+    "to",
+    "and",
+    "he",
+    "she",
+    "they",
+    "said",
+    "I",
+    "you",
+    "my",
+    "me",
+    "we",
+    "be",
+    "have",
+    "are",
+    "were",
+    "there",
+    "what",
+    "when",
+    "where",
+    "who",
+    "why",
+    "how",
+    "one",
+    "two"
+  ],
+  "wordsearch_words": [
+    "bake",
+    "cake",
+    "fake",
+    "lake",
+    "make",
+    "rake",
+    "take",
+    "wake"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Bake Day",
+      "scene": "Cover illustration for 'Bake Day'. Grandma's kitchen, morning light, flour on the counter. Style matches the reference sheet.",
+      "image_prompt": "Cover illustration for 'Bake Day'. Grandma's kitchen, morning light, flour on the counter. Style matches the reference sheet.\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/bake-day/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:10:15.993219",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "**Morning Magic**\nWake, wake, wake\u2014",
+      "scene": "Illustration for: **Morning Magic**\nWake, wake, wake\u2014...",
+      "image_prompt": "Illustration for: **Morning Magic**\nWake, wake, wake\u2014...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/bake-day/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:13:38.732193",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "Grandma's hands take\nwhite dust from the cave",
+      "scene": "Illustration for: Grandma's hands take\nwhite dust from the cave...",
+      "image_prompt": "Illustration for: Grandma's hands take\nwhite dust from the cave...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "of her cupboard.",
+      "scene": "Illustration for: of her cupboard....",
+      "image_prompt": "Illustration for: of her cupboard....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/bake-day/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:18:55.780127",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "Same as always,\nsame as always\u2014",
+      "scene": "Illustration for: Same as always,\nsame as always\u2014...",
+      "image_prompt": "Illustration for: Same as always,\nsame as always\u2014...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/bake-day/page09.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:20:19.001264",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "the wooden spoon scrapes\nthe blue bowl's curve.",
+      "scene": "Illustration for: the wooden spoon scrapes\nthe blue bowl's curve...."
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "Heat waits brave\nbehind the oven door.",
+      "scene": "Illustration for: Heat waits brave\nbehind the oven door...."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Sweet crystals gave\ntheir fine names",
+      "scene": "Illustration for: Sweet crystals gave\ntheir fine names..."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "to butter's game\nof melting, melting.",
+      "scene": "Illustration for: to butter's game\nof melting, melting...."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "Crack. Crack.",
+      "scene": "Illustration for: Crack. Crack...."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "Eggs break their shells,\nmake yellow suns",
+      "scene": "Illustration for: Eggs break their shells,\nmake yellow suns..."
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "swim in white clouds.",
+      "scene": "Illustration for: swim in white clouds...."
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "Wire whisk sings its tune.",
+      "scene": "Illustration for: Wire whisk sings its tune...."
+    },
+    {
+      "page": 18,
+      "story_page": 13,
+      "type": "story",
+      "text": "Bubbles rise like tiny moons.",
+      "scene": "Illustration for: Bubbles rise like tiny moons...."
+    },
+    {
+      "page": 19,
+      "story_page": 14,
+      "type": "story",
+      "text": "The mix takes its name\nfrom nothing but",
+      "scene": "Illustration for: The mix takes its name\nfrom nothing but..."
+    },
+    {
+      "page": 20,
+      "story_page": 15,
+      "type": "story",
+      "text": "this dance of dust and flame.",
+      "scene": "Illustration for: this dance of dust and flame...."
+    },
+    {
+      "page": 21,
+      "story_page": 16,
+      "type": "story",
+      "text": "Tick. Tick.",
+      "scene": "Illustration for: Tick. Tick...."
+    },
+    {
+      "page": 22,
+      "story_page": 17,
+      "type": "story",
+      "text": "The timer's tame beat\ncounts the cave-dark oven's",
+      "scene": "Illustration for: The timer's tame beat\ncounts the cave-dark oven's..."
+    },
+    {
+      "page": 23,
+      "story_page": 18,
+      "type": "story",
+      "text": "secret work.",
+      "scene": "Illustration for: secret work...."
+    },
+    {
+      "page": 24,
+      "story_page": 19,
+      "type": "story",
+      "text": "What was wet\nbecomes cake.",
+      "scene": "Illustration for: What was wet\nbecomes cake...."
+    },
+    {
+      "page": 25,
+      "story_page": 20,
+      "type": "story",
+      "text": "What was cold\ngrows brave with warmth.",
+      "scene": "Illustration for: What was cold\ngrows brave with warmth...."
+    },
+    {
+      "page": 26,
+      "story_page": 21,
+      "type": "story",
+      "text": "What was just white dust\nwakes up golden,",
+      "scene": "Illustration for: What was just white dust\nwakes up golden,..."
+    },
+    {
+      "page": 27,
+      "story_page": 22,
+      "type": "story",
+      "text": "tall and wide.",
+      "scene": "Illustration for: tall and wide...."
+    },
+    {
+      "page": 28,
+      "story_page": 23,
+      "type": "story",
+      "text": "Steam escapes\nthe oven's mouth\u2014",
+      "scene": "Illustration for: Steam escapes\nthe oven's mouth\u2014..."
+    },
+    {
+      "page": 29,
+      "story_page": 24,
+      "type": "story",
+      "text": "sweet breath\nof transformation,",
+      "scene": "Illustration for: sweet breath\nof transformation,..."
+    },
+    {
+      "page": 30,
+      "story_page": 25,
+      "type": "story",
+      "text": "warm on my face\nlike summer rain",
+      "scene": "Illustration for: warm on my face\nlike summer rain..."
+    },
+    {
+      "page": 31,
+      "story_page": 26,
+      "type": "story",
+      "text": "from an inside lake.",
+      "scene": "Illustration for: from an inside lake...."
+    },
+    {
+      "page": 32,
+      "story_page": 27,
+      "type": "story",
+      "text": "Grandma's smile\nholds the same magic",
+      "scene": "Illustration for: Grandma's smile\nholds the same magic..."
+    },
+    {
+      "page": 33,
+      "story_page": 28,
+      "type": "story",
+      "text": "as her mixing bowl:\neverything plain",
+      "scene": "Illustration for: as her mixing bowl:\neverything plain..."
+    },
+    {
+      "page": 34,
+      "story_page": 29,
+      "type": "story",
+      "text": "can wake up\nquite fine.",
+      "scene": "Illustration for: can wake up\nquite fine...."
+    },
+    {
+      "page": 35,
+      "type": "end",
+      "text": "The End"
+    },
+    {
+      "page": 36,
+      "type": "wordsearch"
+    },
+    {
+      "page": 37,
+      "type": "series_info"
+    },
+    {
+      "page": 38,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-18T14:22:56.120311",
+    "levelSpecs": "v2",
+    "wordCount": 158,
+    "decodabilityTarget": "85%",
+    "storyPages": 29,
+    "pipeline": "C",
+    "mode": "poem"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book\n\nFOCUS: Warm, intimate kitchen scene with multi-generational baking moment. Soft, dreamy poetry-inspired illustration.\n\nRow 1 - GRANDMA (Loving elder baker with gentle magic):\n[1] Grandma front view: Round, soft-edged grandmother figure. Warm brown skin, silver hair in soft bun. Worn apron with faded floral pattern. Gentle smile, crinkly eyes. Soft cream background.\n[2] Grandma expressions: Same grandmother showing gentle concentration, warm smile, playful wink\n[3] Grandma in action: Hands mixing in blue ceramic bowl, flour dusting her fingers, movement lines suggesting rhythmic stirring\n\nRow 2 - BAKING TOOLS AND TRANSFORMATION:\n[4] Wooden Spoon: Vintage wooden utensil, smooth curved handle, slight wear marks suggesting history\n[5] Kitchen Counter: Pale flour-dusted surface, soft morning light creating gentle shadows\n[6] KEY IMAGE: Oven door opening, golden cake emerging, steam rising like magical transformation\n\nRow 3 - KITCHEN SETTING:\n[7] Morning Light: Soft yellow-white light filtering through kitchen window, dust motes floating\n[8] Mixing Bowl: Blue ceramic bowl with gentle curves, white interior showing cake batter\n[9] Final Scene: Grandma and child's hands together, cake in background, warm connection\n\nSTYLE: Soft watercolor with gentle edges like Marjorie Flack. Muted palette of cream, soft blues, golden yellows. Rounded, organic shapes. Dreamy, atmospheric. Edges blend like memory. Emphasis on texture and light.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.",
+  "generation_artifacts": {
+    "draft": "**Morning Magic**\n\nWake, wake, wake\u2014\nGrandma's hands take\nflour from the cave\nof her cupboard.\n\nWhite dust waves\nin golden light.\nSame as always,\nsame as always\u2014\nthe wooden spoon scrapes\nthe blue bowl's curve.\n\nHeat waits brave\nbehind the oven door.\nSugar crystals gave\ntheir sweet names\nto butter's game\nof melting, melting.\n\nCrack. Crack.\nEggs break their shells,\nmake yellow suns\nswim in white clouds.\n\nWhisk sings its wire song.\nBubbles rise like tiny moons.\nThe batter takes its name\nfrom nothing but\nthis dance of dust and flame.\n\nTick. Tick.\nThe timer's tame heartbeat\ncounts the cave-dark oven's\nsecret work.\n\nWhat was wet\nbecomes cake.\nWhat was cold\ngrows brave with warmth.\nWhat was just flour\nwakes up golden,\ntall and proud.\n\nSteam escapes\nthe oven's mouth\u2014\nsweet breath\nof transformation,\nwarm on my cheeks\nlike summer rain\nfrom an indoor lake.\n\nGrandma's smile\nholds the same magic\nas her mixing bowl:\neverything ordinary\ncan wake up\nextraordinary.",
+    "critique": "**EDITORIAL ASSESSMENT**\n\nSCORING:\n1. RHYTHM & SOUND PLEASURE: 4.5/5\n   Extraordinary phonetic musicality. The short lines, repeated sounds, and playful consonance (\"cave\" / \"gave\", \"dust\" / \"dance\") create a percussive, almost incantatory rhythm perfect for reading aloud.\n\n2. SENSORY GROUNDING: 5/5\n   Phenomenal sensory detail. You can literally FEEL the flour dust, hear the whisk, smell the cake baking. Visual metaphors like \"yellow suns / swim in white clouds\" are breathtaking.\n\n3. EMOTIONAL TRUTH: 5/5\n   Deeply authentic. This isn't a generic baking scene, but a specific intergenerational moment of culinary magic and transformation.\n\nDEAD PHRASES:\n- None, genuinely. Every line feels intentional.\n\nLINES THAT SING (PROTECT AT ALL COSTS):\n- \"Steam escapes / the oven's mouth\u2014 / sweet breath / of transformation\"\n- \"Grandma's smile / holds the same magic / as her mixing bowl: / everything ordinary / can wake up / extraordinary\"\n- \"What was wet / becomes cake. / What was cold / grows brave with warmth.\"\n\nWHAT'S MISSING:\nNothing substantial. This is a near-perfect children's poem about domestic alchemy.\n\nCHILD ENGAGEMENT: 4.5/5\nThe language is sophisticated but not opaque. A child will be drawn in by the sensory play and transformation metaphors.\n\nSHOW VS TELL: 5/5\nPure dramatization. No explaining, all experiencing.\n\nSUMMARY: This is exceptional work. A masterclass in children's poetry.",
+    "final": "**Morning Magic**\n\nWake, wake, wake\u2014\nGrandma's hands take\nwhite dust from the cave\nof her cupboard.\n\nSame as always,\nsame as always\u2014\nthe wooden spoon scrapes\nthe blue bowl's curve.\n\nHeat waits brave\nbehind the oven door.\nSweet crystals gave\ntheir fine names\nto butter's game\nof melting, melting.\n\nCrack. Crack.\nEggs break their shells,\nmake yellow suns\nswim in white clouds.\n\nWire whisk sings its tune.\nBubbles rise like tiny moons.\nThe mix takes its name\nfrom nothing but\nthis dance of dust and flame.\n\nTick. Tick.\nThe timer's tame beat\ncounts the cave-dark oven's\nsecret work.\n\nWhat was wet\nbecomes cake.\nWhat was cold\ngrows brave with warmth.\nWhat was just white dust\nwakes up golden,\ntall and wide.\n\nSteam escapes\nthe oven's mouth\u2014\nsweet breath\nof transformation,\nwarm on my face\nlike summer rain\nfrom an inside lake.\n\nGrandma's smile\nholds the same magic\nas her mixing bowl:\neverything plain\ncan wake up\nquite fine."
+  },
+  "parent_tips": {
+    "before_reading": "Look at the cover of 'Bake Day'. What do you see? This book focuses on Magic E (CVCe).",
+    "during_reading": "Help your child sound out words with a_e, i_e, o_e patterns.",
+    "after_reading": "What was your favorite part? Can you find words with our special sounds?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "What happens at the beginning?",
+      "answer": ""
+    },
+    {
+      "question": "What happens in the middle?",
+      "answer": ""
+    },
+    {
+      "question": "How does it end?",
+      "answer": ""
+    }
+  ]
+}

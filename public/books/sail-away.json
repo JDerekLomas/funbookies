@@ -1,0 +1,345 @@
+{
+  "id": "sail-away",
+  "title": "Sail Away",
+  "slug": "sail-away",
+  "level": "B7",
+  "band": "B",
+  "targetPhonics": "ai, ay, ee, ea, oa, ow",
+  "wordFamilies": [
+    "-ail",
+    "-ain",
+    "-ay",
+    "-eep",
+    "-eet",
+    "-ead",
+    "-eat",
+    "-oat",
+    "-oad",
+    "-ow"
+  ],
+  "skill": "Vowel Teams",
+  "skill_description": "Two vowels working together: ai/ay, ee/ea, oa/ow",
+  "age_range": "K-1",
+  "created": "2026-01-18",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "How sails catch wind to push boats (basic sailing physics)",
+  "characters": {},
+  "setting_context": "Calm bay at sunset, small sailboat, gentle waves, orange sky",
+  "word_list": {
+    "sound_out": [
+      "mail",
+      "nail",
+      "pail",
+      "rail",
+      "sail",
+      "tail",
+      "trail",
+      "snail",
+      "rain",
+      "brain",
+      "chain",
+      "drain",
+      "grain",
+      "main",
+      "pain",
+      "plain",
+      "Spain",
+      "stain",
+      "train",
+      "wait",
+      "bait",
+      "paid",
+      "maid",
+      "aid",
+      "laid",
+      "raid",
+      "bay",
+      "day",
+      "gay",
+      "hay"
+    ],
+    "sight": [
+      "the",
+      "a",
+      "is",
+      "was",
+      "to",
+      "and",
+      "he",
+      "she",
+      "they",
+      "said",
+      "I",
+      "you",
+      "my",
+      "me",
+      "we",
+      "be",
+      "have",
+      "are",
+      "were",
+      "there",
+      "what",
+      "when",
+      "where",
+      "who",
+      "one",
+      "two",
+      "do",
+      "does"
+    ],
+    "heart": []
+  },
+  "sightWordsUsed": [
+    "the",
+    "a",
+    "is",
+    "was",
+    "to",
+    "and",
+    "he",
+    "she",
+    "they",
+    "said",
+    "I",
+    "you",
+    "my",
+    "me",
+    "we",
+    "be",
+    "have",
+    "are",
+    "were",
+    "there",
+    "what",
+    "when",
+    "where",
+    "who",
+    "one",
+    "two",
+    "do",
+    "does"
+  ],
+  "wordsearch_words": [
+    "mail",
+    "nail",
+    "pail",
+    "rail",
+    "sail",
+    "tail",
+    "trail",
+    "snail"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Sail Away",
+      "scene": "Cover illustration for 'Sail Away'. Calm bay at sunset, small sailboat, gentle waves, orange sky. Style matches the reference sheet.",
+      "image_prompt": "Cover illustration for 'Sail Away'. Calm bay at sunset, small sailboat, gentle waves, orange sky. Style matches the reference sheet.\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "**Sail Day**\nWait... wait... wait...",
+      "scene": "Illustration for: **Sail Day**\nWait... wait... wait......",
+      "image_prompt": "Illustration for: **Sail Day**\nWait... wait... wait......\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:14:24.703486",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "The bay is slow and gray.",
+      "scene": "Illustration for: The bay is slow and gray....",
+      "image_prompt": "Illustration for: The bay is slow and gray....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "Then\u2014\nWind wakes!",
+      "scene": "Illustration for: Then\u2014\nWind wakes!...",
+      "image_prompt": "Illustration for: Then\u2014\nWind wakes!...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:19:25.951606",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "My sail grows fat with air,\npulls the boat ahead",
+      "scene": "Illustration for: My sail grows fat with air,\npulls the boat ahead...",
+      "image_prompt": "Illustration for: My sail grows fat with air,\npulls the boat ahead...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page09.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:20:16.785962",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "through water that goes\n*swish... swish... swish...*",
+      "scene": "Illustration for: through water that goes\n*swish... swish... swish...*..."
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "The chain clinks on the rail.",
+      "scene": "Illustration for: The chain clinks on the rail...."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Waves tap the bow like rain\non glass.",
+      "scene": "Illustration for: Waves tap the bow like rain\non glass...."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "Salt spray kisses my cheek.",
+      "scene": "Illustration for: Salt spray kisses my cheek...."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "Sail full, sail proud,\nlike a sheet on the line\u2014",
+      "scene": "Illustration for: Sail full, sail proud,\nlike a sheet on the line\u2014..."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "wind fills it up,\npushes me ahead.",
+      "scene": "Illustration for: wind fills it up,\npushes me ahead...."
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "The boat cuts a trail\nthrough the green bay.",
+      "scene": "Illustration for: The boat cuts a trail\nthrough the green bay...."
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "Wind sings low and sweet.",
+      "scene": "Illustration for: Wind sings low and sweet...."
+    },
+    {
+      "page": 18,
+      "story_page": 13,
+      "type": "story",
+      "text": "I float past the coast,\npast the beach,",
+      "scene": "Illustration for: I float past the coast,\npast the beach,..."
+    },
+    {
+      "page": 19,
+      "story_page": 14,
+      "type": "story",
+      "text": "while my white sail\ntakes me far.",
+      "scene": "Illustration for: while my white sail\ntakes me far...."
+    },
+    {
+      "page": 20,
+      "story_page": 15,
+      "type": "story",
+      "text": "*Swish... swish... swish...*\nThe bay breathes slow.",
+      "scene": "Illustration for: *Swish... swish... swish...*\nThe bay breathes slow...."
+    },
+    {
+      "page": 21,
+      "type": "end",
+      "text": "The End"
+    },
+    {
+      "page": 22,
+      "type": "wordsearch"
+    },
+    {
+      "page": 23,
+      "type": "series_info"
+    },
+    {
+      "page": 24,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-18T14:31:25.404295",
+    "levelSpecs": "v2",
+    "wordCount": 103,
+    "decodabilityTarget": "85%",
+    "storyPages": 15,
+    "pipeline": "C",
+    "mode": "poem"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book\n\nFOCUS: Character design, setting elements, color palette. Poetic watercolor style.\n\nRow 1 - SAILOR (Young adventurer, undefined gender):\n[1] Sailor front view: Small, compact figure in simple sailing outfit. Wearing soft blue-gray shorts, light windbreaker. Big curious eyes, wind-tousled hair. Bare feet. Warm orange-gray background.\n[2] Sailor expressions: Three faces - Anticipation (slight lean forward), Joy (wide smile), Peaceful contemplation (soft gaze)\n[3] Sailor in action: Leaning into wind, hand on boat rail, sail billowing behind, body showing forward momentum\n\nRow 2 - SAILING ELEMENTS:\n[4] Sailboat: Small wooden vessel, clean lines. White sail with soft folds, hints of wind movement. Gentle curve of hull.\n[5] Wind character: Translucent swirling shapes in muted oranges/grays, suggesting movement and breath\n[6] KEY IMAGE: Boat cutting through green-blue bay, white sail full, horizon line soft and dreamy\n\nRow 3 - SETTING:\n[7] Bay landscape: Gentle shoreline, muted green-gray colors, soft horizon blend\n[8] Sunset atmosphere: Orange-gray sky with watercolor wash, hints of cloud shapes\n[9] Final scene: Boat small against vast bay, sense of peaceful adventure\n\nSTYLE: Soft watercolor with gentle edges like Molly Bang. Muted sunset palette - oranges, grays, greens. Organic curved shapes. Fluid, dreamy transitions. Friendly and approachable. Impressionistic rather than detailed.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.",
+  "generation_artifacts": {
+    "draft": "**Salt Wind Song**\n\nWait... wait... wait...\nThe bay breathes slow.\n\nOrange sky melts,\ndrips gold on gray waves.\nSail hangs like a plain white sheet\non the line of evening.\n\nThen\u2014\nWind wakes.\n\nSail swells, grows fat with air,\npulls the boat forward\nthrough water that whispers\n*swish... swish... swish...*\n\nThe chain clinks soft against the rail.\nWaves tap the bow like rain\non a window.\nSalt spray kisses cheeks.\n\nSail full, sail proud,\ncatching wind like a cupped hand\ncatches water\u2014\ninvisible push,\nreal as stone.\n\nThe boat cuts a silver trail\nthrough the darkening bay.\nWind sings in the rigging,\nlow and sweet.\n\nStars peek out,\none by one,\nwhile the sail carries them\ntoward tomorrow.\n\n*Swish... swish... swish...*\n\nThe bay breathes slow.\n\n---\n\n*Author's note: This poem celebrates the simple physics of sailing\u2014how wind fills a sail to create forward motion\u2014while capturing the peaceful rhythm of evening on the water.*",
+    "critique": "EVALUATION SCORECARD:\n\n1. RHYTHM & SOUND PLEASURE: 4.5/5\n   Exceptional phonetic musicality. The repeated \"swish\" creates a literal wave sound. Short lines with varied lengths mimic ocean movement. Soft consonants (s, l, w) feel like wind and water.\n\n2. SENSORY GROUNDING: 5/5\n   Extraordinary sensory detail. I can smell salt, feel spray, hear wave-sounds. Visual imagery is precise: \"Orange sky melts\", \"sail hangs like a plain white sheet\".\n\n3. EMOTIONAL TRUTH: 4/5\n   Genuine sense of quiet wonder. Captures the meditative quality of being on water. Feels like a lived experience, not a constructed narrative.\n\n4. CHILD ENGAGEMENT: 3.5/5\n   Strengths: Rhythmic sounds, visual drama. Potential weakness: Might be too contemplative for very young children. Best for slightly older kids (7-10) who can appreciate subtlety.\n\n5. SHOW VS TELL: 5/5\n   Pure dramatization. Zero explanation. Every line is a vivid action or sensory impression.\n\nDEAD PHRASES:\n- None detected. Every line serves the poem's musicality and imagery.\n\nLINES THAT SING (PROTECT AT ALL COSTS):\n- \"Sail hangs like a plain white sheet / on the line of evening.\"\n- \"Wind sings in the rigging, / low and sweet.\"\n- \"Salt spray kisses cheeks.\"\n\nWHAT'S MISSING:\n- Slightly more narrative tension might help younger readers\n- Consider a more explicit emotional arc\n- Potential for a subtle metaphor about journey/growth\n\nOVERALL: A lyrical, sensory poem with exceptional sound and imagery. Needs minor tuning for younger audience engagement.",
+    "final": "**Sail Day**\n\nWait... wait... wait...\nThe bay is slow and gray.\n\nThen\u2014\nWind wakes!\n\nMy sail grows fat with air,\npulls the boat ahead\nthrough water that goes\n*swish... swish... swish...*\n\nThe chain clinks on the rail.\nWaves tap the bow like rain\non glass.\nSalt spray kisses my cheek.\n\nSail full, sail proud,\nlike a sheet on the line\u2014\nwind fills it up,\npushes me ahead.\n\nThe boat cuts a trail\nthrough the green bay.\nWind sings low and sweet.\n\nI float past the coast,\npast the beach,\nwhile my white sail\ntakes me far.\n\n*Swish... swish... swish...*\n\nThe bay breathes slow."
+  },
+  "parent_tips": {
+    "before_reading": "Look at the cover of 'Sail Away'. What do you see? This book focuses on Vowel Teams.",
+    "during_reading": "Help your child sound out words with ai, ay, ee patterns.",
+    "after_reading": "What was your favorite part? Can you find words with our special sounds?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "What happens at the beginning?",
+      "answer": ""
+    },
+    {
+      "question": "What happens in the middle?",
+      "answer": ""
+    },
+    {
+      "question": "How does it end?",
+      "answer": ""
+    }
+  ]
+}

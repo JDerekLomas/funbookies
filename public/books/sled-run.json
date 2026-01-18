@@ -1,0 +1,433 @@
+{
+  "id": "sled-run",
+  "title": "Sled Run",
+  "slug": "sled-run",
+  "level": "B4",
+  "band": "B",
+  "targetPhonics": "bl-, cl-, fl-, gl-, pl-, sl-, br-, cr-, dr-, fr-, gr-, pr-, tr-, sc-, sk-, sm-, sn-, sp-, st-, sw-",
+  "wordFamilies": [
+    "-ap",
+    "-ip",
+    "-op",
+    "-ot",
+    "-ug",
+    "-um",
+    "-an",
+    "-in",
+    "-ock",
+    "-ick"
+  ],
+  "skill": "Initial Consonant Blends",
+  "skill_description": "Two consonants blended together at the start: L-blends, R-blends, S-blends",
+  "age_range": "K-1",
+  "created": "2026-01-18",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Physics of sledding - friction, gravity, momentum",
+  "characters": {},
+  "setting_context": "Snowy hill at twilight, fresh powder, cold air, sleds",
+  "word_list": {
+    "sound_out": [
+      "black",
+      "blink",
+      "block",
+      "blob",
+      "clap",
+      "clip",
+      "clock",
+      "club",
+      "clam",
+      "flag",
+      "flat",
+      "flip",
+      "flop",
+      "fled",
+      "glad",
+      "glen",
+      "glum",
+      "glob",
+      "plan",
+      "plot",
+      "plop",
+      "plug",
+      "plum",
+      "slam",
+      "slap",
+      "slid",
+      "slim",
+      "slip",
+      "slot",
+      "slug"
+    ],
+    "sight": [
+      "the",
+      "a",
+      "is",
+      "was",
+      "in",
+      "on",
+      "I",
+      "he",
+      "she",
+      "her",
+      "his",
+      "said",
+      "to",
+      "what",
+      "no",
+      "not",
+      "it",
+      "but",
+      "will",
+      "can",
+      "do",
+      "you",
+      "my",
+      "me",
+      "from",
+      "there",
+      "they",
+      "come"
+    ],
+    "heart": []
+  },
+  "sightWordsUsed": [
+    "the",
+    "a",
+    "is",
+    "was",
+    "in",
+    "on",
+    "I",
+    "he",
+    "she",
+    "her",
+    "his",
+    "said",
+    "to",
+    "what",
+    "no",
+    "not",
+    "it",
+    "but",
+    "will",
+    "can",
+    "do",
+    "you",
+    "my",
+    "me",
+    "from",
+    "there",
+    "they",
+    "come"
+  ],
+  "wordsearch_words": [
+    "black",
+    "blink",
+    "block",
+    "blob",
+    "clap",
+    "clip",
+    "clock",
+    "club"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Sled Run",
+      "scene": "Cover illustration for 'Sled Run'. Snowy hill at twilight, fresh powder, cold air, sleds. Style matches the reference sheet.",
+      "image_prompt": "Cover illustration for 'Sled Run'. Snowy hill at twilight, fresh powder, cold air, sleds. Style matches the reference sheet.\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:09:45.314996",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "**Slip and Swish**\nBlack sled,",
+      "scene": "Illustration for: **Slip and Swish**\nBlack sled,...",
+      "image_prompt": "Illustration for: **Slip and Swish**\nBlack sled,...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:11:15.578094",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "slick track,\nsteep slope\u2014",
+      "scene": "Illustration for: slick track,\nsteep slope\u2014...",
+      "image_prompt": "Illustration for: slick track,\nsteep slope\u2014...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page07.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:14:27.925491",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "*stop?*\nNo.",
+      "scene": "Illustration for: *stop?*\nNo....",
+      "image_prompt": "Illustration for: *stop?*\nNo....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:15:59.454666",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "Gravity grabs,\npulls, tugs,",
+      "scene": "Illustration for: Gravity grabs,\npulls, tugs,...",
+      "image_prompt": "Illustration for: Gravity grabs,\npulls, tugs,...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page09.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:16:51.583794",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "drags the sled\ndown, down, down.",
+      "scene": "Illustration for: drags the sled\ndown, down, down....",
+      "image_prompt": "Illustration for: drags the sled\ndown, down, down....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page10.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:17:35.475381",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "Fresh flakes fly.",
+      "scene": "Illustration for: Fresh flakes fly...."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Cold crystals cling\nto pink cheeks,",
+      "scene": "Illustration for: Cold crystals cling\nto pink cheeks,..."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "frost breath.",
+      "scene": "Illustration for: frost breath...."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "*Swish-swish-swish*\ngoes the blade",
+      "scene": "Illustration for: *Swish-swish-swish*\ngoes the blade..."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "on the snow,\ncutting clean.",
+      "scene": "Illustration for: on the snow,\ncutting clean...."
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "Faster, faster\u2014\ntrees blur,",
+      "scene": "Illustration for: Faster, faster\u2014\ntrees blur,..."
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "ground blurs,\nsky spins.",
+      "scene": "Illustration for: ground blurs,\nsky spins...."
+    },
+    {
+      "page": 18,
+      "story_page": 13,
+      "type": "story",
+      "text": "The sled skips,\nbumps,",
+      "scene": "Illustration for: The sled skips,\nbumps,..."
+    },
+    {
+      "page": 19,
+      "story_page": 14,
+      "type": "story",
+      "text": "drops\u2014\nthen glides.",
+      "scene": "Illustration for: drops\u2014\nthen glides...."
+    },
+    {
+      "page": 20,
+      "story_page": 15,
+      "type": "story",
+      "text": "Smooth as glass,\nswift as wind,",
+      "scene": "Illustration for: Smooth as glass,\nswift as wind,..."
+    },
+    {
+      "page": 21,
+      "story_page": 16,
+      "type": "story",
+      "text": "straight to the glen\nwhere snowdrifts drift.",
+      "scene": "Illustration for: straight to the glen\nwhere snowdrifts drift...."
+    },
+    {
+      "page": 22,
+      "story_page": 17,
+      "type": "story",
+      "text": "*Crunch.*\nStill.",
+      "scene": "Illustration for: *Crunch.*\nStill...."
+    },
+    {
+      "page": 23,
+      "story_page": 18,
+      "type": "story",
+      "text": "Stars blink\nfrom black sky.",
+      "scene": "Illustration for: Stars blink\nfrom black sky...."
+    },
+    {
+      "page": 24,
+      "story_page": 19,
+      "type": "story",
+      "text": "Breath clouds bloom,\nthen blow away.",
+      "scene": "Illustration for: Breath clouds bloom,\nthen blow away...."
+    },
+    {
+      "page": 25,
+      "story_page": 20,
+      "type": "story",
+      "text": "Up the slope,\nstep by step,",
+      "scene": "Illustration for: Up the slope,\nstep by step,..."
+    },
+    {
+      "page": 26,
+      "story_page": 21,
+      "type": "story",
+      "text": "drag the sled,\nclimb the track.",
+      "scene": "Illustration for: drag the sled,\nclimb the track...."
+    },
+    {
+      "page": 27,
+      "story_page": 22,
+      "type": "story",
+      "text": "The hill grins.",
+      "scene": "Illustration for: The hill grins...."
+    },
+    {
+      "page": 28,
+      "story_page": 23,
+      "type": "story",
+      "text": "Fresh snow gleams.",
+      "scene": "Illustration for: Fresh snow gleams...."
+    },
+    {
+      "page": 29,
+      "story_page": 24,
+      "type": "story",
+      "text": "Swift wind calls\u2014\n*Come.*",
+      "scene": "Illustration for: Swift wind calls\u2014\n*Come.*..."
+    },
+    {
+      "page": 30,
+      "type": "end",
+      "text": "The End"
+    },
+    {
+      "page": 31,
+      "type": "wordsearch"
+    },
+    {
+      "page": 32,
+      "type": "series_info"
+    },
+    {
+      "page": 33,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-18T14:28:42.903652",
+    "levelSpecs": "v2",
+    "wordCount": 104,
+    "decodabilityTarget": "85%",
+    "storyPages": 24,
+    "pipeline": "C",
+    "mode": "poem"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book\n\nFOCUS: Sledding action, winter landscape, dynamic movement. \n\nRow 1 - SLEDDER:\n[1] Sledder front view: Young child (8-10), bundled in puffy winter coat, rosy cheeks, bright knit hat. Lean, dynamic body posture. Soft winter blue-white background.\n[2] Sledder expressions: Same child showing anticipation (wide eyes, slight smile), concentration (furrowed brow), pure joy (open-mouthed laugh)\n[3] Sledder in action: Mid-sled run, body leaning forward, wind whipping coat, sense of speed and motion\n\nRow 2 - SLED AND LANDSCAPE:\n[4] Black sled: Sleek, curved runner design, hints of metallic shine, simple aerodynamic shape\n[5] Twilight snow landscape: Blurred tree silhouettes, soft purple-blue shadows, sparkling snow crystals\n[6] KEY IMAGE: Sled mid-descent, fresh powder spraying, trees blurring, sense of exhilarating movement\n\nRow 3 - WINTER SETTING:\n[7] Snowy hill: Gentle slope, untouched powder, soft gradient of evening colors\n[8] Night sky: Dark blue-black backdrop, first stars emerging, soft cloud wisps\n[9] Final scene: Sledder at bottom of hill, breath cloud, peaceful twilight moment\n\nSTYLE: Soft watercolor with fluid motion lines, dreamlike Eric Carle-inspired shapes. Palette of icy blues, soft purples, white, hints of pink. Loose, expressive brushstrokes. Emphasis on movement and feeling over precise details.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.",
+  "generation_artifacts": {
+    "draft": "**Slip and Swish**\n\nBlack sled,\nslick track,\nsteep slope\u2014\n*stop?*\n\nNo.\n\nGravity grabs,\npulls, tugs,\ndrags the sled\ndown, down, down.\n\nFresh flakes fly.\nCold crystals cling\nto pink cheeks,\nfrost breath.\n\n*Swish-swish-swish*\ngoes the blade\non the snow,\ncutting clean.\n\nFaster, faster\u2014\ntrees blur,\nground blurs,\nsky spins.\n\nThe sled skips,\nbumps,\ndrops\u2014\nthen glides.\n\nSmooth as glass,\nswift as wind,\nstraight to the glen\nwhere snowdrifts drift.\n\n*Crunch.*\n\nStill.\n\nStars blink\nfrom black sky.\nBreath clouds bloom,\nthen blow away.\n\nUp the slope,\nstep by step,\ndrag the sled,\nclimb again.\n\nThe hill waits.\nThe track gleams.\nFresh powder calls\u2014\n\n*Come.*",
+    "critique": "EVALUATION:\n\n1. RHYTHM & SOUND PLEASURE: 5/5\nAbsolutely stellar phonetic musicality. The consonant clusters (bl-, sl-, fl-, cr-) create a percussive, kinetic feel that mimics sledding. The short, punchy lines and strategic line breaks sound like the rhythm of sliding - bump, glide, skip.\n\n2. SENSORY GROUNDING: 4/5\nExtremely vivid sensory details: \n- \"Cold crystals cling to pink cheeks\"\n- \"Breath clouds bloom\"\n- \"Fresh powder calls\"\nThese aren't generic descriptions but precise, tactile moments.\n\n3. EMOTIONAL TRUTH: 5/5\nThis captures the pure, elemental joy of childhood adventure - risk, speed, solitude, repetition. The internal questioning (\"stop?\") and the final \"Come\" feel authentically childlike.\n\n4. CHILD ENGAGEMENT: 5/5\nA 5-year-old would be utterly captivated. The physical momentum, the sound effects, the sense of small-scale epic adventure are perfectly calibrated.\n\n5. SHOW VS TELL: 5/5\nPure dramatization. Zero explanation. Every line is an immediate sensory experience.\n\nDEAD PHRASES:\n- None detected. Each line serves a precise purpose.\n\nLINES THAT SING (PROTECT AT ALL COSTS):\n- \"Gravity grabs, / pulls, tugs, / drags the sled / down, down, down.\"\n- \"Cold crystals cling / to pink cheeks, / frost breath.\"\n- \"Smooth as glass, / swift as wind\"\n\nWHAT'S MISSING:\nNothing substantial. This is a near-perfect piece of children's poetry.\n\nSubtle suggestion: Consider whether the last stanza (\"The hill waits...\") needs one more beat of kinetic energy before the final \"Come.\"\n\nOVERALL: Exceptional work. This isn't just a poem about sledding; it IS sledding.",
+    "final": "**Slip and Swish**\n\nBlack sled,\nslick track,\nsteep slope\u2014\n*stop?*\n\nNo.\n\nGravity grabs,\npulls, tugs,\ndrags the sled\ndown, down, down.\n\nFresh flakes fly.\nCold crystals cling\nto pink cheeks,\nfrost breath.\n\n*Swish-swish-swish*\ngoes the blade\non the snow,\ncutting clean.\n\nFaster, faster\u2014\ntrees blur,\nground blurs,\nsky spins.\n\nThe sled skips,\nbumps,\ndrops\u2014\nthen glides.\n\nSmooth as glass,\nswift as wind,\nstraight to the glen\nwhere snowdrifts drift.\n\n*Crunch.*\n\nStill.\n\nStars blink\nfrom black sky.\nBreath clouds bloom,\nthen blow away.\n\nUp the slope,\nstep by step,\ndrag the sled,\nclimb the track.\n\nThe hill grins.\nFresh snow gleams.\nSwift wind calls\u2014\n\n*Come.*"
+  },
+  "parent_tips": {
+    "before_reading": "Look at the cover of 'Sled Run'. What do you see? This book focuses on Initial Consonant Blends.",
+    "during_reading": "Help your child sound out words with bl-, cl-, fl- patterns.",
+    "after_reading": "What was your favorite part? Can you find words with our special sounds?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "What happens at the beginning?",
+      "answer": ""
+    },
+    {
+      "question": "What happens in the middle?",
+      "answer": ""
+    },
+    {
+      "question": "How does it end?",
+      "answer": ""
+    }
+  ]
+}

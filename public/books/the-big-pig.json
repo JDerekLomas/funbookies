@@ -1,0 +1,307 @@
+{
+  "id": "the-big-pig",
+  "title": "The Big Pig",
+  "slug": "the-big-pig",
+  "level": "B1",
+  "band": "B",
+  "targetPhonics": "CVC-a, CVC-i",
+  "wordFamilies": [
+    "-at",
+    "-an",
+    "-am",
+    "-ap",
+    "-ad",
+    "-ag",
+    "-it",
+    "-in",
+    "-im",
+    "-ip",
+    "-id",
+    "-ig"
+  ],
+  "skill": "CVC Words (Short a, i)",
+  "skill_description": "Three-letter words with short a and short i vowels",
+  "age_range": "K-1",
+  "created": "2026-01-18",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Why pigs roll in mud to cool down (they can't sweat)",
+  "characters": {},
+  "setting_context": "A muddy farm, a pig pen, a boy named Tim",
+  "word_list": {
+    "sound_out": [
+      "cat",
+      "bat",
+      "hat",
+      "mat",
+      "rat",
+      "sat",
+      "fat",
+      "pat",
+      "vat",
+      "can",
+      "man",
+      "pan",
+      "ran",
+      "tan",
+      "van",
+      "fan",
+      "Dan",
+      "ham",
+      "jam",
+      "ram",
+      "Sam",
+      "yam",
+      "cap",
+      "gap",
+      "lap",
+      "map",
+      "nap",
+      "tap",
+      "zap",
+      "bad"
+    ],
+    "sight": [
+      "the",
+      "a",
+      "is",
+      "I",
+      "to",
+      "and",
+      "it",
+      "in",
+      "on",
+      "my",
+      "see",
+      "he",
+      "she",
+      "we",
+      "be",
+      "me",
+      "no",
+      "go",
+      "so"
+    ],
+    "heart": []
+  },
+  "sightWordsUsed": [
+    "the",
+    "a",
+    "is",
+    "I",
+    "to",
+    "and",
+    "it",
+    "in",
+    "on",
+    "my",
+    "see",
+    "he",
+    "she",
+    "we",
+    "be",
+    "me",
+    "no",
+    "go",
+    "so"
+  ],
+  "wordsearch_words": [
+    "cat",
+    "bat",
+    "hat",
+    "mat",
+    "rat",
+    "sat",
+    "fat",
+    "pat"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "The Big Pig",
+      "scene": "Cover illustration for 'The Big Pig'. A muddy farm, a pig pen, a boy named Tim. Style matches the reference sheet.",
+      "image_prompt": "Cover illustration for 'The Big Pig'. A muddy farm, a pig pen, a boy named Tim. Style matches the reference sheet.\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/the-big-pig/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:09:25.093460",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "**Tim and the Hot Pig**\nHot, hot, hot.\nTim ran to the big pig. She sat and sat. The pig had no zip.",
+      "scene": "Illustration for: **Tim and the Hot Pig**\nHot, hot, hot.\nTim ran to the big pig. She sat and sat. The pig had no zip....",
+      "image_prompt": "Illustration for: **Tim and the Hot Pig**\nHot, hot, hot.\nTim ran to the big pig. She sat and sat. The pig had no zip....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/the-big-pig/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:10:42.152437",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "Tim got his pan. He got the hose. Water hit the dirt.",
+      "scene": "Illustration for: Tim got his pan. He got the hose. Water hit the dirt....",
+      "image_prompt": "Illustration for: Tim got his pan. He got the hose. Water hit the dirt....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/the-big-pig/page07.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:11:32.832267",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "The dirt got wet. Mud! Lots of mud!",
+      "scene": "Illustration for: The dirt got wet. Mud! Lots of mud!...",
+      "image_prompt": "Illustration for: The dirt got wet. Mud! Lots of mud!...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/the-big-pig/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:17:01.902713",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "The pig saw the mud. She got up. Step, step, step.",
+      "scene": "Illustration for: The pig saw the mud. She got up. Step, step, step....",
+      "image_prompt": "Illustration for: The pig saw the mud. She got up. Step, step, step....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/the-big-pig/page09.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:18:29.397076",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "SPLASH!\nThe pig hit the mud. Mud went everywhere!",
+      "scene": "Illustration for: SPLASH!\nThe pig hit the mud. Mud went everywhere!...",
+      "image_prompt": "Illustration for: SPLASH!\nThe pig hit the mud. Mud went everywhere!...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/the-big-pig/page10.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:19:25.940179",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "The pig dug in the mud. She rolled and rolled. The mud was cool on her hot skin.",
+      "scene": "Illustration for: The pig dug in the mud. She rolled and rolled. The mud was cool on her hot skin....",
+      "image_prompt": "Illustration for: The pig dug in the mud. She rolled and rolled. The mud was cool on her hot skin....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/the-big-pig/page11.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:20:10.461172",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Tim grinned. The pig was happy.",
+      "scene": "Illustration for: Tim grinned. The pig was happy...."
+    },
+    {
+      "page": 13,
+      "type": "end",
+      "text": "The End"
+    },
+    {
+      "page": 14,
+      "type": "wordsearch"
+    },
+    {
+      "page": 15,
+      "type": "series_info"
+    },
+    {
+      "page": 16,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-18T14:40:22.482446",
+    "levelSpecs": "v2",
+    "wordCount": 87,
+    "decodabilityTarget": "90%",
+    "storyPages": 7,
+    "pipeline": "C",
+    "mode": "narrative"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book\n\nFOCUS: Character design, farm setting, warm summer color palette. Narrative style with dynamic action.\n\nRow 1 - TIM (young boy helping pig):\n[1] Tim front view: Round-faced boy, overalls, sun hat, freckles, eager expression. Soft peach skin, denim blue overalls. Warm yellow background.\n[2] Tim expressions: Same character showing curious look, determined grin, happy smile with wide eyes.\n[3] Tim in action: Holding garden hose, water spraying, leaning forward with excitement.\n\nRow 2 - PIG AND FARM ELEMENTS:\n[4] Pig character: Plump pink pig with expressive eyes, slightly droopy ears, round body. Soft pink and warm tan colors.\n[5] Farm hose: Coiled green garden hose, water droplets, curved shape suggesting movement.\n[6] KEY IMAGE: Pig mid-splash in muddy puddle, mud flying, dramatic action pose with dynamic motion lines.\n\nRow 3 - FARM SETTING:\n[7] Pig pen: Wooden fence, dusty ground, hints of grass and summer heat. Warm ochre and soft green tones.\n[8] Mud puddle: Rich brown mud, water reflections, splashing edges with circular motion.\n[9] Resolution scene: Tim and pig together, both grinning, summer farm landscape behind them.\n\nSTYLE: Eric Carle inspired collage technique. Bold graphic shapes, layered textures. Warm summer palette of peach, yellow, soft green, dusty brown. Simplified forms with high energy. Friendly, playful illustration approach.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.",
+  "generation_artifacts": {
+    "draft": "**Tim and the Hot Pig**\n\nThe sun beat down. Hot, hot, hot.\n\nTim ran to the pig pen with a pan of water. The big pig sat in the corner, panting. Her pink skin turned red.\n\n\"She can't cool down,\" Tim said. He set the pan near the fence.\n\nThe pig did not drink. She just sat there, breathing fast. Tim could see her chest go up and down, up and down.\n\n\"What can I do?\" Tim asked himself.\n\nThen he saw the mud. Thick, brown mud by the fence. It looked cool and wet.\n\nTim got an idea.\n\nHe ran to get the hose. Water sprayed everywhere - on his hat, on the fence, on the dry dirt. The water mixed with the dust and made more mud. Lots of mud.\n\nThe pig lifted her head. She sniffed the air.\n\nSlowly, she got up. Her legs were shaky. Step by step, she walked to the new mud.\n\nThen - SPLASH!\n\nShe flopped right in. Mud went everywhere. On Tim's pants, on the fence, even on a fat cat who was watching.\n\nThe pig rolled left. She rolled right. The cool mud covered her back, her legs, her big round belly.\n\nTim could hear her breathing slow down. Soft and easy now.\n\nShe looked at Tim with muddy eyes and made a happy grunt.\n\nTim grinned and wiped mud off his chin.\n\nThe pig was cool at last.",
+    "critique": "EVALUATION:\n\n1. RHYTHM & SOUND PLEASURE: 3/5\n   - Some nice short punchy sentences create good rhythm\n   - Repetition of \"up and down\" feels mechanical\n   - Lacks consistent sonic musicality\n\n2. SENSORY GROUNDING: 4/5\n   - Strong tactile descriptions (mud everywhere!)\n   - Vivid temperature sensations\n   - Physical movement feels authentic\n\n3. EMOTIONAL TRUTH: 4/5\n   - Genuine moment of problem-solving\n   - Tim's care for the pig feels sincere\n   - Lacks deeper emotional complexity\n\n4. CHILD ENGAGEMENT: 5/5\n   - Mud! Splash! Action!\n   - Kid-level problem solving\n   - Immediate, visceral storytelling\n\n5. SHOW VS TELL: 4/5\n   - Mostly action-driven\n   - Minimal explanatory text\n   - Some telling (\"Tim could see...\")\n\nDEAD PHRASES:\n- \"Tim said\" (unnecessary dialogue tag)\n- \"She just sat there, breathing fast\" (flat description)\n- \"Tim could see her chest go up and down\" (tells instead of shows)\n\nLINES THAT SING:\n- \"Hot, hot, hot.\" (Perfect child-like emphasis)\n- \"SPLASH!\" (Onomatopoeia gold)\n- \"Mud went everywhere.\" (Delightful kid energy)\n\nWHAT'S MISSING:\n- More specific pig personality\n- Slightly more context about Tim/farm\n- Deeper sensory mud description\n- Maybe a hint of Tim's internal thought process\n\nOverall: A solid draft with genuine kid-appeal. Needs polish, not reconstruction.",
+    "final": "**Tim and the Hot Pig**\n\nHot, hot, hot.\n\nTim ran to the big pig. She sat and sat. The pig had no zip.\n\nTim got his pan. He got the hose. Water hit the dirt. \n\nThe dirt got wet. Mud! Lots of mud!\n\nThe pig saw the mud. She got up. Step, step, step.\n\nSPLASH!\n\nThe pig hit the mud. Mud went everywhere! \n\nThe pig dug in the mud. She rolled and rolled. The mud was cool on her hot skin.\n\nTim grinned. The pig was happy."
+  },
+  "parent_tips": {
+    "before_reading": "Look at the cover of 'The Big Pig'. What do you see? This book focuses on CVC Words (Short a, i).",
+    "during_reading": "Help your child sound out words with CVC-a, CVC-i patterns.",
+    "after_reading": "What was your favorite part? Can you find words with our special sounds?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "What happens at the beginning?",
+      "answer": ""
+    },
+    {
+      "question": "What happens in the middle?",
+      "answer": ""
+    },
+    {
+      "question": "How does it end?",
+      "answer": ""
+    }
+  ]
+}

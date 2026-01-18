@@ -1,0 +1,344 @@
+{
+  "id": "crab-grab",
+  "title": "Crab Grab",
+  "slug": "crab-grab",
+  "level": "B4",
+  "band": "B",
+  "targetPhonics": "bl-, cl-, fl-, gl-, pl-, sl-, br-, cr-, dr-, fr-, gr-, pr-, tr-, sc-, sk-, sm-, sn-, sp-, st-, sw-",
+  "wordFamilies": [
+    "-ap",
+    "-ip",
+    "-op",
+    "-ot",
+    "-ug",
+    "-um",
+    "-an",
+    "-in",
+    "-ock",
+    "-ick"
+  ],
+  "skill": "Initial Consonant Blends",
+  "skill_description": "Two consonants blended together at the start: L-blends, R-blends, S-blends",
+  "age_range": "K-1",
+  "created": "2026-01-18",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "How crabs walk sideways to move faster and see better",
+  "characters": {},
+  "setting_context": "Rocky beach at low tide, crabs, seaweed, tide pools",
+  "word_list": {
+    "sound_out": [
+      "black",
+      "blink",
+      "block",
+      "blob",
+      "clap",
+      "clip",
+      "clock",
+      "club",
+      "clam",
+      "flag",
+      "flat",
+      "flip",
+      "flop",
+      "fled",
+      "glad",
+      "glen",
+      "glum",
+      "glob",
+      "plan",
+      "plot",
+      "plop",
+      "plug",
+      "plum",
+      "slam",
+      "slap",
+      "slid",
+      "slim",
+      "slip",
+      "slot",
+      "slug"
+    ],
+    "sight": [
+      "the",
+      "a",
+      "is",
+      "was",
+      "in",
+      "on",
+      "I",
+      "he",
+      "she",
+      "her",
+      "his",
+      "said",
+      "to",
+      "what",
+      "no",
+      "not",
+      "it",
+      "but",
+      "will",
+      "can",
+      "do",
+      "you",
+      "my",
+      "me",
+      "from",
+      "there",
+      "they",
+      "come"
+    ],
+    "heart": []
+  },
+  "sightWordsUsed": [
+    "the",
+    "a",
+    "is",
+    "was",
+    "in",
+    "on",
+    "I",
+    "he",
+    "she",
+    "her",
+    "his",
+    "said",
+    "to",
+    "what",
+    "no",
+    "not",
+    "it",
+    "but",
+    "will",
+    "can",
+    "do",
+    "you",
+    "my",
+    "me",
+    "from",
+    "there",
+    "they",
+    "come"
+  ],
+  "wordsearch_words": [
+    "black",
+    "blink",
+    "block",
+    "blob",
+    "clap",
+    "clip",
+    "clock",
+    "club"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Crab Grab",
+      "scene": "Cover illustration for 'Crab Grab'. Rocky beach at low tide, crabs, seaweed, tide pools. Style matches the reference sheet.",
+      "image_prompt": "Cover illustration for 'Crab Grab'. Rocky beach at low tide, crabs, seaweed, tide pools. Style matches the reference sheet.\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/crab-grab/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:10:05.278697",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "# The Sideways Sprint\nClara pressed her toes into the cold, slick rocks. The tide had fled hours ago, leaving black pools that blinked in the sunlight. She spotted what she'd come for\u2014a small spiral shell stuck in a crack.",
+      "scene": "Illustration for: # The Sideways Sprint\nClara pressed her toes into the cold, slick rocks. The tide had fled hours ago...",
+      "image_prompt": "Illustration for: # The Sideways Sprint\nClara pressed her toes into the cold, slick rocks. The tide had fled hours ago...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/crab-grab/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:11:11.086478",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "\"There you are,\" she said.\nBut as Clara stepped close, the shell moved.",
+      "scene": "Illustration for: \"There you are,\" she said.\nBut as Clara stepped close, the shell moved....",
+      "image_prompt": "Illustration for: \"There you are,\" she said.\nBut as Clara stepped close, the shell moved....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/crab-grab/page07.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:16:14.901486",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "A swift crab no bigger than her thumb shot out, gripping the shell tight. Its small claws clicked on the wet rock. The crab stopped. It swung its black eyes toward Clara.",
+      "scene": "Illustration for: A swift crab no bigger than her thumb shot out, gripping the shell tight. Its small claws clicked on...",
+      "image_prompt": "Illustration for: A swift crab no bigger than her thumb shot out, gripping the shell tight. Its small claws clicked on...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/crab-grab/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:16:56.905834",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "Then it did something odd. The crab turned sideways and began to skitter left, then right, skating on the slick stones. Clara blinked. The crab was *fast* when it moved that way.",
+      "scene": "Illustration for: Then it did something odd. The crab turned sideways and began to skitter left, then right, skating o...",
+      "image_prompt": "Illustration for: Then it did something odd. The crab turned sideways and began to skitter left, then right, skating o...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/crab-grab/page09.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:17:52.218963",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "\"Smart,\" Clara said, dropping to her knees.\nThe crab froze. Clara could smell the fresh, salty kelp and hear waves crash on distant rocks. She reached out slow.",
+      "scene": "Illustration for: \"Smart,\" Clara said, dropping to her knees.\nThe crab froze. Clara could smell the fresh, salty kelp ...",
+      "image_prompt": "Illustration for: \"Smart,\" Clara said, dropping to her knees.\nThe crab froze. Clara could smell the fresh, salty kelp ...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/crab-grab/page10.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:18:39.481852",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "*Skitter-skitter-skitter.*\nSideways again. The crab zipped past two tide pools, shell still gripped tight.",
+      "scene": "Illustration for: *Skitter-skitter-skitter.*\nSideways again. The crab zipped past two tide pools, shell still gripped ...",
+      "image_prompt": "Illustration for: *Skitter-skitter-skitter.*\nSideways again. The crab zipped past two tide pools, shell still gripped ...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/crab-grab/page11.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T15:19:58.430296",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Clara grinned and tried it too. She planted her hands on the smooth stone and crab-walked sideways. Her wet palms slapped the rock, but she could see *everything*\u2014the whole tide pool world spread out beside her.",
+      "scene": "Illustration for: Clara grinned and tried it too. She planted her hands on the smooth stone and crab-walked sideways. ..."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "\"You're right,\" she called to the crab. \"This is much better.\"",
+      "scene": "Illustration for: \"You're right,\" she called to the crab. \"This is much better.\"..."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "The crab stopped at a dark pool filled with green kelp. It turned those small eyes toward Clara, then gently set the shell on the rock.",
+      "scene": "Illustration for: The crab stopped at a dark pool filled with green kelp. It turned those small eyes toward Clara, the..."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "Clara smiled and left it there.\nThe waves whispered against distant stones as she crab-walked home across the glistening rocks, seeing the whole bright world slip past.",
+      "scene": "Illustration for: Clara smiled and left it there.\nThe waves whispered against distant stones as she crab-walked home a..."
+    },
+    {
+      "page": 16,
+      "type": "end",
+      "text": "The End"
+    },
+    {
+      "page": 17,
+      "type": "wordsearch"
+    },
+    {
+      "page": 18,
+      "type": "series_info"
+    },
+    {
+      "page": 19,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-18T14:29:39.609484",
+    "levelSpecs": "v2",
+    "wordCount": 259,
+    "decodabilityTarget": "85%",
+    "storyPages": 10,
+    "pipeline": "C",
+    "mode": "narrative"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book\n\nFOCUS: Character design, tide pool ecosystem, oceanic color palette. Narrative style.\n\nRow 1 - CLARA (Curious young girl exploring tide pools):\n[1] Clara front view: Bright raincoat, rolled-up pants, barefoot. Round face, windblown hair, wide curious eyes. Warm sandy background.\n[2] Clara expressions: Same girl showing wonder, concentration, playful excitement\n[3] Clara in action: Crab-walking sideways across slick rocks, hands splayed, body low\n\nRow 2 - SECONDARY ELEMENTS:\n[4] Tiny Crab: Miniature creature with spiral shell, black eyes, delicate legs. Positioned sideways with dynamic posture.\n[5] Tide Pool: Dark green kelp, reflective water surface, smooth black rocks with moisture\n[6] KEY IMAGE: Clara and crab mirroring each other's sideways movement, connected by shared discovery\n\nRow 3 - SETTING:\n[7] Rocky Shoreline: Smooth stones in grays, blues, deep greens. Misty morning light.\n[8] Ocean Horizon: Soft blue-gray waves, distant rocky coastline, hint of sunlight\n[9] Resolution: Clara walking away, crab watching, tide pools glistening\n\nSTYLE: Eric Carle-inspired cut-paper collage with soft edges. Muted oceanic palette: slate blues, moss greens, sandy neutrals. Simplified organic shapes. Dynamic movement. Friendly, curious texture.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.",
+  "generation_artifacts": {
+    "draft": "# The Sideways Sprint\n\nClara pressed her toes into the cold, slippery rocks. The tide had fled hours ago, leaving black pools that blinked in the sunlight. She spotted what she'd come for\u2014a perfect spiral shell glinting from a crack between two gray stones.\n\n\"There you are,\" she whispered.\n\nBut as Clara stepped closer, the shell... moved.\n\nA sleek crab no bigger than a bottle cap scuttled out, clutching the shell like a prize. Its tiny claws clicked against the wet rock. The crab stopped. Swiveled its grape-sized eyes toward Clara.\n\nThen it did something strange. Instead of backing away, it turned sideways and began to skitter left, then right, like it was skating on the slick stones. Clara blinked. The crab was *fast* when it moved that way\u2014much faster than going straight.\n\n\"Clever,\" Clara said, dropping to her knees. The barnacles scraped rough against her skin.\n\nThe crab froze again. Clara could smell the sharp, salty tang of seaweed and hear the distant crash of waves beyond the rocks. She reached out slowly.\n\n*Skitter-skitter-skitter.*\n\nSideways again. The crab zipped between two tide pools, spiral shell still clutched tight.\n\nClara grinned and tried it herself. She planted her hands on the smooth stone and crab-walked sideways across the rock. Her wet palms slapped against the surface, but she could see *everything*\u2014the whole tide pool world spread out beside her instead of just what lay straight ahead.\n\n\"You're right,\" she called to the crab. \"This is much better.\"\n\nThe crab stopped at the edge of a dark pool filled with swaying green ribbons of kelp. It turned those globe eyes toward Clara one more time, then gently placed the shell on the rock between them.\n\nClara smiled and left it there.\n\nThe waves whispered against distant stones as she crab-walked her way home across the glistening rocks, seeing the whole bright world sliding past.",
+    "critique": "EVALUATION SCORES:\n\n1. RHYTHM & SOUND PLEASURE: 4/5\nExceptional phonetic play! The consonant clusters (sk-, cr-, sl-) create a delightful sonic landscape that mimics the crab's movement. Words like \"skitter-skitter\" and phrases like \"glistening rocks\" have a musical quality that would be wonderful read aloud.\n\n2. SENSORY GROUNDING: 5/5\nAbsolutely stellar sensory detail. The reader can feel the cold rocks, smell the seaweed, hear the waves. Specific details like \"barnacles scraped rough against her skin\" and \"sharp, salty tang of seaweed\" make the environment visceral and immediate.\n\n3. EMOTIONAL TRUTH: 4.5/5\nThis feels authentically childlike - the wonder of discovery, the mimicry of a small creature, the joy of a new perspective. Clara's curiosity and playfulness ring true.\n\n4. CHILD ENGAGEMENT: 4/5\nThe personified crab, the sense of adventure, the tactile exploration will absolutely captivate a young reader. The story has mystery, movement, and a sense of quiet magic.\n\n5. SHOW VS TELL: 5/5\nPure dramatization. Every moment is experienced, not explained. The narrative unfolds through action and sensory perception.\n\nDEAD PHRASES:\n- None significant. This draft is remarkably clean.\n\nLINES THAT SING (PROTECT!):\n- \"The tide had fled hours ago, leaving black pools that blinked in the sunlight.\"\n- \"Skitter-skitter-skitter.\"\n- \"The waves whispered against distant stones\"\n\nWHAT'S MISSING:\n- Potentially a slightly clearer sense of Clara's age/context\n- Maybe one more beat of connection between Clara and the crab\n- Could hint at why she's so fascinated by shells/tide pools\n\nOVERALL: This is a gorgeous, lyrical piece with remarkable sensitivity to a child's perceptual world. The language is precise without being precious, and the story feels like a moment of pure discovery.\n\nMinor suggestion: Consider whether the ending feels slightly abrupt - the crab's final gesture of placing the shell feels symbolic but could use a breath more explanation.",
+    "final": "# The Sideways Sprint\n\nClara pressed her toes into the cold, slick rocks. The tide had fled hours ago, leaving black pools that blinked in the sunlight. She spotted what she'd come for\u2014a small spiral shell stuck in a crack.\n\n\"There you are,\" she said.\n\nBut as Clara stepped close, the shell moved.\n\nA swift crab no bigger than her thumb shot out, gripping the shell tight. Its small claws clicked on the wet rock. The crab stopped. It swung its black eyes toward Clara.\n\nThen it did something odd. The crab turned sideways and began to skitter left, then right, skating on the slick stones. Clara blinked. The crab was *fast* when it moved that way.\n\n\"Smart,\" Clara said, dropping to her knees.\n\nThe crab froze. Clara could smell the fresh, salty kelp and hear waves crash on distant rocks. She reached out slow.\n\n*Skitter-skitter-skitter.*\n\nSideways again. The crab zipped past two tide pools, shell still gripped tight.\n\nClara grinned and tried it too. She planted her hands on the smooth stone and crab-walked sideways. Her wet palms slapped the rock, but she could see *everything*\u2014the whole tide pool world spread out beside her.\n\n\"You're right,\" she called to the crab. \"This is much better.\"\n\nThe crab stopped at a dark pool filled with green kelp. It turned those small eyes toward Clara, then gently set the shell on the rock.\n\nClara smiled and left it there.\n\nThe waves whispered against distant stones as she crab-walked home across the glistening rocks, seeing the whole bright world slip past."
+  },
+  "parent_tips": {
+    "before_reading": "Look at the cover of 'Crab Grab'. What do you see? This book focuses on Initial Consonant Blends.",
+    "during_reading": "Help your child sound out words with bl-, cl-, fl- patterns.",
+    "after_reading": "What was your favorite part? Can you find words with our special sounds?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "What happens at the beginning?",
+      "answer": ""
+    },
+    {
+      "question": "What happens in the middle?",
+      "answer": ""
+    },
+    {
+      "question": "How does it end?",
+      "answer": ""
+    }
+  ]
+}

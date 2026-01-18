@@ -1,0 +1,538 @@
+{
+  "phase": 3,
+  "name": "Digraphs",
+  "description": "Consonant and vowel digraphs - two letters representing one sound",
+  "gradeLevel": "K-1",
+  "standards": {
+    "commonCore": ["RF.K.3a", "RF.1.3a", "RF.1.3c"],
+    "teks": ["K.2B", "1.2A(ii)", "1.2A(v)"],
+    "ukPhase": 3
+  },
+  "lessons": [
+    {
+      "id": 7,
+      "name": "sh, ch",
+      "gpcs": ["sh-/ʃ/", "ch-/tʃ/"],
+      "newGpcs": ["sh-/ʃ/", "ch-/tʃ/"],
+      "previousGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/", "i-/ɪ/", "n-/n/", "m-/m/", "d-/d/", "g-/g/", "o-/ɒ/", "c-/k/", "k-/k/", "ck-/k/", "e-/ɛ/", "u-/ʌ/", "r-/r/", "h-/h/", "b-/b/", "f-/f/", "l-/l/", "ss-/s/", "ff-/f/", "ll-/l/", "zz-/z/", "j-/dʒ/", "v-/v/", "w-/w/", "x-/ks/", "y-/j/", "z-/z/", "qu-/kw/"],
+      "words": [
+        {"word": "ship", "gpcs": ["sh-/ʃ/", "i-/ɪ/", "p-/p/"], "type": "cvc"},
+        {"word": "shop", "gpcs": ["sh-/ʃ/", "o-/ɒ/", "p-/p/"], "type": "cvc"},
+        {"word": "fish", "gpcs": ["f-/f/", "i-/ɪ/", "sh-/ʃ/"], "type": "cvc"},
+        {"word": "dish", "gpcs": ["d-/d/", "i-/ɪ/", "sh-/ʃ/"], "type": "cvc"},
+        {"word": "wish", "gpcs": ["w-/w/", "i-/ɪ/", "sh-/ʃ/"], "type": "cvc"},
+        {"word": "shed", "gpcs": ["sh-/ʃ/", "e-/ɛ/", "d-/d/"], "type": "cvc"},
+        {"word": "shut", "gpcs": ["sh-/ʃ/", "u-/ʌ/", "t-/t/"], "type": "cvc"},
+        {"word": "shell", "gpcs": ["sh-/ʃ/", "e-/ɛ/", "ll-/l/"], "type": "cvcc"},
+        {"word": "shin", "gpcs": ["sh-/ʃ/", "i-/ɪ/", "n-/n/"], "type": "cvc"},
+        {"word": "shot", "gpcs": ["sh-/ʃ/", "o-/ɒ/", "t-/t/"], "type": "cvc"},
+        {"word": "shock", "gpcs": ["sh-/ʃ/", "o-/ɒ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "shack", "gpcs": ["sh-/ʃ/", "a-/æ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "rash", "gpcs": ["r-/r/", "a-/æ/", "sh-/ʃ/"], "type": "cvc"},
+        {"word": "rush", "gpcs": ["r-/r/", "u-/ʌ/", "sh-/ʃ/"], "type": "cvc"},
+        {"word": "cash", "gpcs": ["c-/k/", "a-/æ/", "sh-/ʃ/"], "type": "cvc"},
+        {"word": "mash", "gpcs": ["m-/m/", "a-/æ/", "sh-/ʃ/"], "type": "cvc"},
+        {"word": "chip", "gpcs": ["ch-/tʃ/", "i-/ɪ/", "p-/p/"], "type": "cvc"},
+        {"word": "chop", "gpcs": ["ch-/tʃ/", "o-/ɒ/", "p-/p/"], "type": "cvc"},
+        {"word": "chat", "gpcs": ["ch-/tʃ/", "a-/æ/", "t-/t/"], "type": "cvc"},
+        {"word": "chin", "gpcs": ["ch-/tʃ/", "i-/ɪ/", "n-/n/"], "type": "cvc"},
+        {"word": "chug", "gpcs": ["ch-/tʃ/", "u-/ʌ/", "g-/g/"], "type": "cvc"},
+        {"word": "check", "gpcs": ["ch-/tʃ/", "e-/ɛ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "chess", "gpcs": ["ch-/tʃ/", "e-/ɛ/", "ss-/s/"], "type": "cvcc"},
+        {"word": "chill", "gpcs": ["ch-/tʃ/", "i-/ɪ/", "ll-/l/"], "type": "cvcc"},
+        {"word": "much", "gpcs": ["m-/m/", "u-/ʌ/", "ch-/tʃ/"], "type": "cvc"},
+        {"word": "rich", "gpcs": ["r-/r/", "i-/ɪ/", "ch-/tʃ/"], "type": "cvc"},
+        {"word": "such", "gpcs": ["s-/s/", "u-/ʌ/", "ch-/tʃ/"], "type": "cvc"},
+        {"word": "bench", "gpcs": ["b-/b/", "e-/ɛ/", "n-/n/", "ch-/tʃ/"], "type": "cvcc"},
+        {"word": "lunch", "gpcs": ["l-/l/", "u-/ʌ/", "n-/n/", "ch-/tʃ/"], "type": "cvcc"}
+      ],
+      "sightWords": ["she"],
+      "sentences": [
+        "She got a fish.",
+        "A ship can shop.",
+        "I wish for a shell.",
+        "Chop and chip it!",
+        "Much chat on a bench.",
+        "Shut the shed and rush!"
+      ],
+      "activities": [
+        {
+          "type": "letter-drill",
+          "required": true,
+          "config": {
+            "digraphs": ["sh", "ch"],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "say-the-sound",
+          "required": true,
+          "config": {
+            "gpcs": ["sh-/ʃ/", "ch-/tʃ/"],
+            "confusionPairs": [["sh-/ʃ/", "s-/s/"], ["ch-/tʃ/", "c-/k/"]],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "blend-it",
+          "required": true,
+          "config": {
+            "words": ["ship", "fish", "shop", "chip", "chat", "much", "shell"],
+            "rounds": 7
+          }
+        },
+        {
+          "type": "word-builder",
+          "required": true,
+          "config": {
+            "words": ["ship", "fish", "chip", "much", "shell"],
+            "distractorGpcs": ["sh-/ʃ/", "ch-/tʃ/", "i-/ɪ/", "p-/p/", "f-/f/", "m-/m/", "u-/ʌ/", "e-/ɛ/", "ll-/l/"]
+          }
+        },
+        {
+          "type": "word-chains",
+          "required": false,
+          "config": {
+            "chains": [
+              ["ship", "shop", "chop", "chip", "chin"],
+              ["dish", "fish", "wish", "wash", "mash", "rash", "rush"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "th, ng, nk",
+      "gpcs": ["th-/θ/", "th-/ð/", "ng-/ŋ/", "nk-/ŋk/"],
+      "newGpcs": ["th-/θ/", "th-/ð/", "ng-/ŋ/", "nk-/ŋk/"],
+      "words": [
+        {"word": "thin", "gpcs": ["th-/θ/", "i-/ɪ/", "n-/n/"], "type": "cvc"},
+        {"word": "thick", "gpcs": ["th-/θ/", "i-/ɪ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "bath", "gpcs": ["b-/b/", "a-/æ/", "th-/θ/"], "type": "cvc"},
+        {"word": "math", "gpcs": ["m-/m/", "a-/æ/", "th-/θ/"], "type": "cvc"},
+        {"word": "path", "gpcs": ["p-/p/", "a-/æ/", "th-/θ/"], "type": "cvc"},
+        {"word": "moth", "gpcs": ["m-/m/", "o-/ɒ/", "th-/θ/"], "type": "cvc"},
+        {"word": "this", "gpcs": ["th-/ð/", "i-/ɪ/", "s-/s/"], "type": "cvc"},
+        {"word": "that", "gpcs": ["th-/ð/", "a-/æ/", "t-/t/"], "type": "cvc"},
+        {"word": "them", "gpcs": ["th-/ð/", "e-/ɛ/", "m-/m/"], "type": "cvc"},
+        {"word": "then", "gpcs": ["th-/ð/", "e-/ɛ/", "n-/n/"], "type": "cvc"},
+        {"word": "with", "gpcs": ["w-/w/", "i-/ɪ/", "th-/ð/"], "type": "cvc"},
+        {"word": "king", "gpcs": ["k-/k/", "i-/ɪ/", "ng-/ŋ/"], "type": "cvc"},
+        {"word": "sing", "gpcs": ["s-/s/", "i-/ɪ/", "ng-/ŋ/"], "type": "cvc"},
+        {"word": "ring", "gpcs": ["r-/r/", "i-/ɪ/", "ng-/ŋ/"], "type": "cvc"},
+        {"word": "bang", "gpcs": ["b-/b/", "a-/æ/", "ng-/ŋ/"], "type": "cvc"},
+        {"word": "hang", "gpcs": ["h-/h/", "a-/æ/", "ng-/ŋ/"], "type": "cvc"},
+        {"word": "gang", "gpcs": ["g-/g/", "a-/æ/", "ng-/ŋ/"], "type": "cvc"},
+        {"word": "lung", "gpcs": ["l-/l/", "u-/ʌ/", "ng-/ŋ/"], "type": "cvc"},
+        {"word": "hung", "gpcs": ["h-/h/", "u-/ʌ/", "ng-/ŋ/"], "type": "cvc"},
+        {"word": "sang", "gpcs": ["s-/s/", "a-/æ/", "ng-/ŋ/"], "type": "cvc"},
+        {"word": "song", "gpcs": ["s-/s/", "o-/ɒ/", "ng-/ŋ/"], "type": "cvc"},
+        {"word": "long", "gpcs": ["l-/l/", "o-/ɒ/", "ng-/ŋ/"], "type": "cvc"},
+        {"word": "sink", "gpcs": ["s-/s/", "i-/ɪ/", "nk-/ŋk/"], "type": "cvcc"},
+        {"word": "bank", "gpcs": ["b-/b/", "a-/æ/", "nk-/ŋk/"], "type": "cvcc"},
+        {"word": "think", "gpcs": ["th-/θ/", "i-/ɪ/", "nk-/ŋk/"], "type": "cvcc"},
+        {"word": "tank", "gpcs": ["t-/t/", "a-/æ/", "nk-/ŋk/"], "type": "cvcc"},
+        {"word": "link", "gpcs": ["l-/l/", "i-/ɪ/", "nk-/ŋk/"], "type": "cvcc"},
+        {"word": "pink", "gpcs": ["p-/p/", "i-/ɪ/", "nk-/ŋk/"], "type": "cvcc"},
+        {"word": "wink", "gpcs": ["w-/w/", "i-/ɪ/", "nk-/ŋk/"], "type": "cvcc"},
+        {"word": "rink", "gpcs": ["r-/r/", "i-/ɪ/", "nk-/ŋk/"], "type": "cvcc"},
+        {"word": "honk", "gpcs": ["h-/h/", "o-/ɒ/", "nk-/ŋk/"], "type": "cvcc"},
+        {"word": "bunk", "gpcs": ["b-/b/", "u-/ʌ/", "nk-/ŋk/"], "type": "cvcc"},
+        {"word": "junk", "gpcs": ["j-/dʒ/", "u-/ʌ/", "nk-/ŋk/"], "type": "cvcc"}
+      ],
+      "sightWords": ["the", "with"],
+      "sentences": [
+        "The king can sing a song.",
+        "I think this path is long.",
+        "A moth is thin.",
+        "Hang that on the bank.",
+        "They sang and then sat.",
+        "A pink ring is in the sink."
+      ],
+      "activities": [
+        {
+          "type": "letter-drill",
+          "required": true,
+          "config": {
+            "digraphs": ["th", "ng", "nk"],
+            "rounds": 12
+          }
+        },
+        {
+          "type": "say-the-sound",
+          "required": true,
+          "config": {
+            "gpcs": ["th-/θ/", "th-/ð/", "ng-/ŋ/", "nk-/ŋk/"],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "blend-it",
+          "required": true,
+          "config": {
+            "words": ["thin", "this", "king", "sing", "think", "bank", "with"],
+            "rounds": 7
+          }
+        },
+        {
+          "type": "word-builder",
+          "required": true,
+          "config": {
+            "words": ["thin", "king", "sing", "think", "bank"],
+            "distractorGpcs": ["th-/θ/", "i-/ɪ/", "n-/n/", "k-/k/", "ng-/ŋ/", "s-/s/", "nk-/ŋk/", "b-/b/", "a-/æ/"]
+          }
+        },
+        {
+          "type": "word-chains",
+          "required": false,
+          "config": {
+            "chains": [
+              ["sing", "ring", "king", "king", "ping", "pink", "sink", "wink"],
+              ["bath", "math", "path", "path"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "ai, ee",
+      "gpcs": ["ai-/eɪ/", "ee-/iː/"],
+      "newGpcs": ["ai-/eɪ/", "ee-/iː/"],
+      "words": [
+        {"word": "rain", "gpcs": ["r-/r/", "ai-/eɪ/", "n-/n/"], "type": "cvc"},
+        {"word": "tail", "gpcs": ["t-/t/", "ai-/eɪ/", "l-/l/"], "type": "cvc"},
+        {"word": "wait", "gpcs": ["w-/w/", "ai-/eɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "main", "gpcs": ["m-/m/", "ai-/eɪ/", "n-/n/"], "type": "cvc"},
+        {"word": "sail", "gpcs": ["s-/s/", "ai-/eɪ/", "l-/l/"], "type": "cvc"},
+        {"word": "pail", "gpcs": ["p-/p/", "ai-/eɪ/", "l-/l/"], "type": "cvc"},
+        {"word": "fail", "gpcs": ["f-/f/", "ai-/eɪ/", "l-/l/"], "type": "cvc"},
+        {"word": "mail", "gpcs": ["m-/m/", "ai-/eɪ/", "l-/l/"], "type": "cvc"},
+        {"word": "paid", "gpcs": ["p-/p/", "ai-/eɪ/", "d-/d/"], "type": "cvc"},
+        {"word": "pain", "gpcs": ["p-/p/", "ai-/eɪ/", "n-/n/"], "type": "cvc"},
+        {"word": "gain", "gpcs": ["g-/g/", "ai-/eɪ/", "n-/n/"], "type": "cvc"},
+        {"word": "chain", "gpcs": ["ch-/tʃ/", "ai-/eɪ/", "n-/n/"], "type": "cvc"},
+        {"word": "train", "gpcs": ["t-/t/", "r-/r/", "ai-/eɪ/", "n-/n/"], "type": "ccvc"},
+        {"word": "see", "gpcs": ["s-/s/", "ee-/iː/"], "type": "cv"},
+        {"word": "bee", "gpcs": ["b-/b/", "ee-/iː/"], "type": "cv"},
+        {"word": "feet", "gpcs": ["f-/f/", "ee-/iː/", "t-/t/"], "type": "cvc"},
+        {"word": "keep", "gpcs": ["k-/k/", "ee-/iː/", "p-/p/"], "type": "cvc"},
+        {"word": "week", "gpcs": ["w-/w/", "ee-/iː/", "k-/k/"], "type": "cvc"},
+        {"word": "seek", "gpcs": ["s-/s/", "ee-/iː/", "k-/k/"], "type": "cvc"},
+        {"word": "seed", "gpcs": ["s-/s/", "ee-/iː/", "d-/d/"], "type": "cvc"},
+        {"word": "feed", "gpcs": ["f-/f/", "ee-/iː/", "d-/d/"], "type": "cvc"},
+        {"word": "need", "gpcs": ["n-/n/", "ee-/iː/", "d-/d/"], "type": "cvc"},
+        {"word": "tree", "gpcs": ["t-/t/", "r-/r/", "ee-/iː/"], "type": "ccv"},
+        {"word": "free", "gpcs": ["f-/f/", "r-/r/", "ee-/iː/"], "type": "ccv"},
+        {"word": "green", "gpcs": ["g-/g/", "r-/r/", "ee-/iː/", "n-/n/"], "type": "ccvc"},
+        {"word": "sleep", "gpcs": ["s-/s/", "l-/l/", "ee-/iː/", "p-/p/"], "type": "ccvc"},
+        {"word": "sheep", "gpcs": ["sh-/ʃ/", "ee-/iː/", "p-/p/"], "type": "cvc"},
+        {"word": "deep", "gpcs": ["d-/d/", "ee-/iː/", "p-/p/"], "type": "cvc"},
+        {"word": "jeep", "gpcs": ["j-/dʒ/", "ee-/iː/", "p-/p/"], "type": "cvc"},
+        {"word": "teeth", "gpcs": ["t-/t/", "ee-/iː/", "th-/θ/"], "type": "cvc"}
+      ],
+      "sightWords": ["said"],
+      "sentences": [
+        "I see a bee in a tree.",
+        "The rain fell on the sail.",
+        "She said, 'Wait for me!'",
+        "A sheep can sleep in the rain.",
+        "I need to feed the green frog.",
+        "Keep the mail in the pail."
+      ],
+      "activities": [
+        {
+          "type": "letter-drill",
+          "required": true,
+          "config": {
+            "digraphs": ["ai", "ee"],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "say-the-sound",
+          "required": true,
+          "config": {
+            "gpcs": ["ai-/eɪ/", "ee-/iː/"],
+            "confusionPairs": [["ai-/eɪ/", "a-/æ/"], ["ee-/iː/", "e-/ɛ/"]],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "blend-it",
+          "required": true,
+          "config": {
+            "words": ["rain", "tail", "see", "feet", "tree", "sleep", "chain"],
+            "rounds": 7
+          }
+        },
+        {
+          "type": "word-builder",
+          "required": true,
+          "config": {
+            "words": ["rain", "tail", "see", "feet", "green"],
+            "distractorGpcs": ["r-/r/", "ai-/eɪ/", "n-/n/", "t-/t/", "l-/l/", "s-/s/", "ee-/iː/", "f-/f/", "g-/g/"]
+          }
+        },
+        {
+          "type": "word-chains",
+          "required": false,
+          "config": {
+            "chains": [
+              ["rain", "main", "mail", "tail", "sail", "pail", "fail"],
+              ["see", "bee", "fee", "feet", "feed", "seed", "need"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "igh, oa",
+      "gpcs": ["igh-/aɪ/", "oa-/oʊ/"],
+      "newGpcs": ["igh-/aɪ/", "oa-/oʊ/"],
+      "words": [
+        {"word": "high", "gpcs": ["h-/h/", "igh-/aɪ/"], "type": "cv"},
+        {"word": "night", "gpcs": ["n-/n/", "igh-/aɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "light", "gpcs": ["l-/l/", "igh-/aɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "right", "gpcs": ["r-/r/", "igh-/aɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "fight", "gpcs": ["f-/f/", "igh-/aɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "might", "gpcs": ["m-/m/", "igh-/aɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "sight", "gpcs": ["s-/s/", "igh-/aɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "tight", "gpcs": ["t-/t/", "igh-/aɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "bright", "gpcs": ["b-/b/", "r-/r/", "igh-/aɪ/", "t-/t/"], "type": "ccvc"},
+        {"word": "flight", "gpcs": ["f-/f/", "l-/l/", "igh-/aɪ/", "t-/t/"], "type": "ccvc"},
+        {"word": "thigh", "gpcs": ["th-/θ/", "igh-/aɪ/"], "type": "cv"},
+        {"word": "sigh", "gpcs": ["s-/s/", "igh-/aɪ/"], "type": "cv"},
+        {"word": "boat", "gpcs": ["b-/b/", "oa-/oʊ/", "t-/t/"], "type": "cvc"},
+        {"word": "coat", "gpcs": ["c-/k/", "oa-/oʊ/", "t-/t/"], "type": "cvc"},
+        {"word": "road", "gpcs": ["r-/r/", "oa-/oʊ/", "d-/d/"], "type": "cvc"},
+        {"word": "toad", "gpcs": ["t-/t/", "oa-/oʊ/", "d-/d/"], "type": "cvc"},
+        {"word": "load", "gpcs": ["l-/l/", "oa-/oʊ/", "d-/d/"], "type": "cvc"},
+        {"word": "goal", "gpcs": ["g-/g/", "oa-/oʊ/", "l-/l/"], "type": "cvc"},
+        {"word": "foam", "gpcs": ["f-/f/", "oa-/oʊ/", "m-/m/"], "type": "cvc"},
+        {"word": "roam", "gpcs": ["r-/r/", "oa-/oʊ/", "m-/m/"], "type": "cvc"},
+        {"word": "soak", "gpcs": ["s-/s/", "oa-/oʊ/", "k-/k/"], "type": "cvc"},
+        {"word": "oak", "gpcs": ["oa-/oʊ/", "k-/k/"], "type": "vc"},
+        {"word": "soap", "gpcs": ["s-/s/", "oa-/oʊ/", "p-/p/"], "type": "cvc"},
+        {"word": "float", "gpcs": ["f-/f/", "l-/l/", "oa-/oʊ/", "t-/t/"], "type": "ccvc"},
+        {"word": "throat", "gpcs": ["th-/θ/", "r-/r/", "oa-/oʊ/", "t-/t/"], "type": "ccvc"},
+        {"word": "groan", "gpcs": ["g-/g/", "r-/r/", "oa-/oʊ/", "n-/n/"], "type": "ccvc"}
+      ],
+      "sightWords": ["night", "light"],
+      "sentences": [
+        "I see a boat on the road.",
+        "The light is bright at night.",
+        "A toad might float in a boat.",
+        "She put on her coat.",
+        "It is right to fight for what is right.",
+        "The goat can roam on the high hill."
+      ],
+      "activities": [
+        {
+          "type": "letter-drill",
+          "required": true,
+          "config": {
+            "trigraphs": ["igh"],
+            "digraphs": ["oa"],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "say-the-sound",
+          "required": true,
+          "config": {
+            "gpcs": ["igh-/aɪ/", "oa-/oʊ/"],
+            "confusionPairs": [["igh-/aɪ/", "i-/ɪ/"], ["oa-/oʊ/", "o-/ɒ/"]],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "blend-it",
+          "required": true,
+          "config": {
+            "words": ["high", "night", "light", "boat", "coat", "road", "goal"],
+            "rounds": 7
+          }
+        },
+        {
+          "type": "word-builder",
+          "required": true,
+          "config": {
+            "words": ["night", "light", "boat", "coat", "road"],
+            "distractorGpcs": ["n-/n/", "igh-/aɪ/", "t-/t/", "l-/l/", "b-/b/", "oa-/oʊ/", "c-/k/", "r-/r/", "d-/d/"]
+          }
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "oo (long), oo (short)",
+      "gpcs": ["oo-/uː/", "oo-/ʊ/"],
+      "newGpcs": ["oo-/uː/", "oo-/ʊ/"],
+      "words": [
+        {"word": "moon", "gpcs": ["m-/m/", "oo-/uː/", "n-/n/"], "type": "cvc"},
+        {"word": "food", "gpcs": ["f-/f/", "oo-/uː/", "d-/d/"], "type": "cvc"},
+        {"word": "zoo", "gpcs": ["z-/z/", "oo-/uː/"], "type": "cv"},
+        {"word": "too", "gpcs": ["t-/t/", "oo-/uː/"], "type": "cv"},
+        {"word": "room", "gpcs": ["r-/r/", "oo-/uː/", "m-/m/"], "type": "cvc"},
+        {"word": "soon", "gpcs": ["s-/s/", "oo-/uː/", "n-/n/"], "type": "cvc"},
+        {"word": "cool", "gpcs": ["c-/k/", "oo-/uː/", "l-/l/"], "type": "cvc"},
+        {"word": "pool", "gpcs": ["p-/p/", "oo-/uː/", "l-/l/"], "type": "cvc"},
+        {"word": "tool", "gpcs": ["t-/t/", "oo-/uː/", "l-/l/"], "type": "cvc"},
+        {"word": "boot", "gpcs": ["b-/b/", "oo-/uː/", "t-/t/"], "type": "cvc"},
+        {"word": "root", "gpcs": ["r-/r/", "oo-/uː/", "t-/t/"], "type": "cvc"},
+        {"word": "hoop", "gpcs": ["h-/h/", "oo-/uː/", "p-/p/"], "type": "cvc"},
+        {"word": "loop", "gpcs": ["l-/l/", "oo-/uː/", "p-/p/"], "type": "cvc"},
+        {"word": "roof", "gpcs": ["r-/r/", "oo-/uː/", "f-/f/"], "type": "cvc"},
+        {"word": "tooth", "gpcs": ["t-/t/", "oo-/uː/", "th-/θ/"], "type": "cvc"},
+        {"word": "spoon", "gpcs": ["s-/s/", "p-/p/", "oo-/uː/", "n-/n/"], "type": "ccvc"},
+        {"word": "book", "gpcs": ["b-/b/", "oo-/ʊ/", "k-/k/"], "type": "cvc"},
+        {"word": "look", "gpcs": ["l-/l/", "oo-/ʊ/", "k-/k/"], "type": "cvc"},
+        {"word": "good", "gpcs": ["g-/g/", "oo-/ʊ/", "d-/d/"], "type": "cvc"},
+        {"word": "cook", "gpcs": ["c-/k/", "oo-/ʊ/", "k-/k/"], "type": "cvc"},
+        {"word": "took", "gpcs": ["t-/t/", "oo-/ʊ/", "k-/k/"], "type": "cvc"},
+        {"word": "hook", "gpcs": ["h-/h/", "oo-/ʊ/", "k-/k/"], "type": "cvc"},
+        {"word": "foot", "gpcs": ["f-/f/", "oo-/ʊ/", "t-/t/"], "type": "cvc"},
+        {"word": "wood", "gpcs": ["w-/w/", "oo-/ʊ/", "d-/d/"], "type": "cvc"},
+        {"word": "hood", "gpcs": ["h-/h/", "oo-/ʊ/", "d-/d/"], "type": "cvc"},
+        {"word": "shook", "gpcs": ["sh-/ʃ/", "oo-/ʊ/", "k-/k/"], "type": "cvc"},
+        {"word": "stood", "gpcs": ["s-/s/", "t-/t/", "oo-/ʊ/", "d-/d/"], "type": "ccvc"}
+      ],
+      "sightWords": ["too", "good"],
+      "sentences": [
+        "Look at the moon!",
+        "A good book is cool.",
+        "The cook took food to the room.",
+        "I stood by the pool.",
+        "She put on her boot and hood.",
+        "Too soon! Wait for the spoon."
+      ],
+      "activities": [
+        {
+          "type": "letter-drill",
+          "required": true,
+          "config": {
+            "digraphs": ["oo"],
+            "notes": "oo has two sounds: long (moon) and short (book)",
+            "rounds": 10
+          }
+        },
+        {
+          "type": "say-the-sound",
+          "required": true,
+          "config": {
+            "gpcs": ["oo-/uː/", "oo-/ʊ/"],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "blend-it",
+          "required": true,
+          "config": {
+            "words": ["moon", "food", "pool", "book", "look", "good", "foot"],
+            "rounds": 7
+          }
+        },
+        {
+          "type": "word-builder",
+          "required": true,
+          "config": {
+            "words": ["moon", "food", "book", "look", "good"],
+            "distractorGpcs": ["m-/m/", "oo-/uː/", "oo-/ʊ/", "n-/n/", "f-/f/", "d-/d/", "b-/b/", "k-/k/", "l-/l/", "g-/g/"]
+          }
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "ar, or, ur, er",
+      "gpcs": ["ar-/ɑːr/", "or-/ɔːr/", "ur-/ɜːr/", "er-/ər/"],
+      "newGpcs": ["ar-/ɑːr/", "or-/ɔːr/", "ur-/ɜːr/", "er-/ər/"],
+      "words": [
+        {"word": "car", "gpcs": ["c-/k/", "ar-/ɑːr/"], "type": "cv"},
+        {"word": "star", "gpcs": ["s-/s/", "t-/t/", "ar-/ɑːr/"], "type": "ccv"},
+        {"word": "far", "gpcs": ["f-/f/", "ar-/ɑːr/"], "type": "cv"},
+        {"word": "bar", "gpcs": ["b-/b/", "ar-/ɑːr/"], "type": "cv"},
+        {"word": "jar", "gpcs": ["j-/dʒ/", "ar-/ɑːr/"], "type": "cv"},
+        {"word": "farm", "gpcs": ["f-/f/", "ar-/ɑːr/", "m-/m/"], "type": "cvc"},
+        {"word": "hard", "gpcs": ["h-/h/", "ar-/ɑːr/", "d-/d/"], "type": "cvc"},
+        {"word": "park", "gpcs": ["p-/p/", "ar-/ɑːr/", "k-/k/"], "type": "cvc"},
+        {"word": "dark", "gpcs": ["d-/d/", "ar-/ɑːr/", "k-/k/"], "type": "cvc"},
+        {"word": "card", "gpcs": ["c-/k/", "ar-/ɑːr/", "d-/d/"], "type": "cvc"},
+        {"word": "part", "gpcs": ["p-/p/", "ar-/ɑːr/", "t-/t/"], "type": "cvc"},
+        {"word": "start", "gpcs": ["s-/s/", "t-/t/", "ar-/ɑːr/", "t-/t/"], "type": "ccvc"},
+        {"word": "shark", "gpcs": ["sh-/ʃ/", "ar-/ɑːr/", "k-/k/"], "type": "cvc"},
+        {"word": "for", "gpcs": ["f-/f/", "or-/ɔːr/"], "type": "cv"},
+        {"word": "or", "gpcs": ["or-/ɔːr/"], "type": "v"},
+        {"word": "short", "gpcs": ["sh-/ʃ/", "or-/ɔːr/", "t-/t/"], "type": "cvc"},
+        {"word": "horn", "gpcs": ["h-/h/", "or-/ɔːr/", "n-/n/"], "type": "cvc"},
+        {"word": "born", "gpcs": ["b-/b/", "or-/ɔːr/", "n-/n/"], "type": "cvc"},
+        {"word": "corn", "gpcs": ["c-/k/", "or-/ɔːr/", "n-/n/"], "type": "cvc"},
+        {"word": "torn", "gpcs": ["t-/t/", "or-/ɔːr/", "n-/n/"], "type": "cvc"},
+        {"word": "storm", "gpcs": ["s-/s/", "t-/t/", "or-/ɔːr/", "m-/m/"], "type": "ccvc"},
+        {"word": "sort", "gpcs": ["s-/s/", "or-/ɔːr/", "t-/t/"], "type": "cvc"},
+        {"word": "sport", "gpcs": ["s-/s/", "p-/p/", "or-/ɔːr/", "t-/t/"], "type": "ccvc"},
+        {"word": "pork", "gpcs": ["p-/p/", "or-/ɔːr/", "k-/k/"], "type": "cvc"},
+        {"word": "fork", "gpcs": ["f-/f/", "or-/ɔːr/", "k-/k/"], "type": "cvc"},
+        {"word": "turn", "gpcs": ["t-/t/", "ur-/ɜːr/", "n-/n/"], "type": "cvc"},
+        {"word": "hurt", "gpcs": ["h-/h/", "ur-/ɜːr/", "t-/t/"], "type": "cvc"},
+        {"word": "burn", "gpcs": ["b-/b/", "ur-/ɜːr/", "n-/n/"], "type": "cvc"},
+        {"word": "curl", "gpcs": ["c-/k/", "ur-/ɜːr/", "l-/l/"], "type": "cvc"},
+        {"word": "surf", "gpcs": ["s-/s/", "ur-/ɜːr/", "f-/f/"], "type": "cvc"},
+        {"word": "fur", "gpcs": ["f-/f/", "ur-/ɜːr/"], "type": "cv"},
+        {"word": "her", "gpcs": ["h-/h/", "er-/ər/"], "type": "cv"},
+        {"word": "fern", "gpcs": ["f-/f/", "er-/ər/", "n-/n/"], "type": "cvc"},
+        {"word": "term", "gpcs": ["t-/t/", "er-/ər/", "m-/m/"], "type": "cvc"},
+        {"word": "herd", "gpcs": ["h-/h/", "er-/ər/", "d-/d/"], "type": "cvc"},
+        {"word": "verb", "gpcs": ["v-/v/", "er-/ər/", "b-/b/"], "type": "cvc"},
+        {"word": "perch", "gpcs": ["p-/p/", "er-/ər/", "ch-/tʃ/"], "type": "cvc"}
+      ],
+      "sightWords": ["are", "or", "her", "for"],
+      "sentences": [
+        "A star is far from the car.",
+        "The shark is in the dark park.",
+        "Turn and burn!",
+        "Her fur is soft.",
+        "A short storm hit the farm.",
+        "I hurt my arm on the hard part."
+      ],
+      "activities": [
+        {
+          "type": "letter-drill",
+          "required": true,
+          "config": {
+            "digraphs": ["ar", "or", "ur", "er"],
+            "notes": "r-controlled vowels",
+            "rounds": 12
+          }
+        },
+        {
+          "type": "say-the-sound",
+          "required": true,
+          "config": {
+            "gpcs": ["ar-/ɑːr/", "or-/ɔːr/", "ur-/ɜːr/", "er-/ər/"],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "blend-it",
+          "required": true,
+          "config": {
+            "words": ["car", "star", "for", "short", "turn", "hurt", "her"],
+            "rounds": 7
+          }
+        },
+        {
+          "type": "word-builder",
+          "required": true,
+          "config": {
+            "words": ["car", "star", "short", "turn", "her"],
+            "distractorGpcs": ["c-/k/", "ar-/ɑːr/", "s-/s/", "t-/t/", "sh-/ʃ/", "or-/ɔːr/", "ur-/ɜːr/", "n-/n/", "h-/h/", "er-/ər/"]
+          }
+        }
+      ]
+    }
+  ]
+}

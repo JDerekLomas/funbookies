@@ -1,0 +1,268 @@
+{
+  "version": "1.0",
+  "name": "FunBookies English Phonics Curriculum",
+  "description": "Research-backed systematic synthetic phonics curriculum based on Stanislas Dehaene's neuroscience principles and aligned to UK Letters and Sounds, US Common Core, and Texas TEKS standards",
+  "language": "en-US",
+  "lastUpdated": "2025-01-18",
+  "sources": {
+    "pedagogical": [
+      "Stanislas Dehaene - Reading in the Brain",
+      "Kalulu Reading Program (4 Pillars of Learning)",
+      "UK Letters and Sounds Framework",
+      "National Reading Panel Report"
+    ],
+    "standards": [
+      "UK Letters and Sounds Phases 1-6",
+      "US Common Core State Standards RF.K-RF.2",
+      "Texas Essential Knowledge and Skills (TEKS)"
+    ]
+  },
+  "dataFiles": {
+    "gpcs": {
+      "path": "gpcs/english-gpcs.json",
+      "description": "Grapheme-phoneme correspondence definitions"
+    },
+    "lessons": {
+      "phase2": {
+        "path": "lessons/phase-2.json",
+        "description": "Lessons 1-6: Single letter GPCs",
+        "lessonRange": [1, 6]
+      },
+      "phase3": {
+        "path": "lessons/phase-3.json",
+        "description": "Lessons 7-12: Digraphs and vowel patterns",
+        "lessonRange": [7, 12]
+      },
+      "phase4": {
+        "path": "lessons/phase-4.json",
+        "description": "Lessons 13-18: Adjacent consonants (CCVC, CVCC)",
+        "lessonRange": [13, 18],
+        "status": "planned"
+      },
+      "phase5": {
+        "path": "lessons/phase-5.json",
+        "description": "Lessons 19-30: Alternative spellings and pronunciations",
+        "lessonRange": [19, 30],
+        "status": "planned"
+      }
+    },
+    "words": {
+      "sightWords": {
+        "path": "words/sight-words.json",
+        "description": "High-frequency and tricky words by phase"
+      },
+      "decodableWords": {
+        "path": "words/decodable-words.json",
+        "description": "All decodable words organized by lesson",
+        "status": "planned"
+      }
+    }
+  },
+  "phases": [
+    {
+      "id": 2,
+      "name": "Phase 2",
+      "description": "Single letter GPCs with simple CVC words",
+      "lessons": [1, 2, 3, 4, 5, 6],
+      "gpcsIntroduced": 23,
+      "targetAge": "4-5",
+      "durationWeeks": 6,
+      "standards": {
+        "ukLettersAndSounds": "Phase 2",
+        "commonCore": ["RF.K.1d", "RF.K.2d", "RF.K.3a"],
+        "teks": ["K.2A", "K.2B"]
+      }
+    },
+    {
+      "id": 3,
+      "name": "Phase 3",
+      "description": "Consonant digraphs and vowel patterns",
+      "lessons": [7, 8, 9, 10, 11, 12],
+      "gpcsIntroduced": 25,
+      "targetAge": "5-6",
+      "durationWeeks": 12,
+      "standards": {
+        "ukLettersAndSounds": "Phase 3",
+        "commonCore": ["RF.K.3a", "RF.K.3b", "RF.1.2a"],
+        "teks": ["K.2B", "K.2C", "1.2A"]
+      }
+    },
+    {
+      "id": 4,
+      "name": "Phase 4",
+      "description": "Adjacent consonants (blends) - no new GPCs",
+      "lessons": [13, 14, 15, 16, 17, 18],
+      "gpcsIntroduced": 0,
+      "targetAge": "5-6",
+      "durationWeeks": 4,
+      "standards": {
+        "ukLettersAndSounds": "Phase 4",
+        "commonCore": ["RF.1.2b", "RF.1.3a"],
+        "teks": ["1.2B", "1.2C"]
+      },
+      "status": "planned"
+    },
+    {
+      "id": 5,
+      "name": "Phase 5",
+      "description": "Alternative spellings and pronunciations",
+      "lessons": [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+      "gpcsIntroduced": 40,
+      "targetAge": "6-7",
+      "durationWeeks": 24,
+      "standards": {
+        "ukLettersAndSounds": "Phase 5",
+        "commonCore": ["RF.1.3", "RF.2.3"],
+        "teks": ["1.2", "2.2"]
+      },
+      "status": "planned"
+    }
+  ],
+  "progressionRules": {
+    "unlockLesson": {
+      "description": "Requirements to unlock the next lesson",
+      "rules": [
+        "Complete all required activities in current lesson",
+        "Achieve 80% accuracy on letter-drill",
+        "Achieve 70% accuracy on blending activities",
+        "Read at least 3 decodable sentences"
+      ]
+    },
+    "masteryThresholds": {
+      "gpc": {
+        "isolated": 0.9,
+        "inWord": 0.8,
+        "description": "90% isolated recognition, 80% in word context"
+      },
+      "word": {
+        "accuracy": 0.85,
+        "fluency": 2000,
+        "description": "85% accuracy, under 2 seconds response time"
+      },
+      "lesson": {
+        "accuracy": 0.75,
+        "completion": 1.0,
+        "description": "75% overall accuracy, 100% activity completion"
+      }
+    }
+  },
+  "adaptiveLearning": {
+    "description": "Based on Kalulu's Four Pillars of Learning",
+    "remediationEngine": {
+      "enabled": true,
+      "scoreRange": [-3, 0],
+      "threshold": -2,
+      "correctDelta": 1,
+      "incorrectDelta": -1
+    },
+    "confusionMatrix": {
+      "enabled": true,
+      "historySize": 5,
+      "targetGroups": ["visually-similar", "phonetically-similar"]
+    },
+    "difficultyAdjustment": {
+      "enabled": true,
+      "levels": 5,
+      "promotionThreshold": 2,
+      "demotionThreshold": 2
+    },
+    "stimulusMix": {
+      "currentLesson": 0.7,
+      "review": 0.3,
+      "description": "70% current lesson, 30% review items"
+    }
+  },
+  "activityTypes": {
+    "letterDrill": {
+      "name": "Letter Drill",
+      "description": "Identify letters by sound",
+      "pillar": "active-engagement",
+      "phases": [2, 3, 4, 5]
+    },
+    "soundMatching": {
+      "name": "Sound Matching",
+      "description": "Match sounds to letters/graphemes",
+      "pillar": "attention",
+      "phases": [2, 3]
+    },
+    "blending": {
+      "name": "Blending",
+      "description": "Blend sounds to read words",
+      "pillar": "active-engagement",
+      "phases": [2, 3, 4, 5]
+    },
+    "segmenting": {
+      "name": "Segmenting",
+      "description": "Break words into sounds",
+      "pillar": "active-engagement",
+      "phases": [2, 3, 4, 5]
+    },
+    "wordChains": {
+      "name": "Word Chains",
+      "description": "Transform words by changing one sound",
+      "pillar": "error-feedback",
+      "phases": [2, 3, 4]
+    },
+    "sentenceReading": {
+      "name": "Sentence Reading",
+      "description": "Read decodable sentences",
+      "pillar": "consolidation",
+      "phases": [2, 3, 4, 5]
+    },
+    "sightWordDrill": {
+      "name": "Sight Word Drill",
+      "description": "Practice high-frequency tricky words",
+      "pillar": "consolidation",
+      "phases": [2, 3, 4, 5]
+    },
+    "bookReading": {
+      "name": "Book Reading",
+      "description": "Read decodable books",
+      "pillar": "consolidation",
+      "phases": [2, 3, 4, 5]
+    }
+  },
+  "audioAssets": {
+    "phonemes": {
+      "basePath": "/audio/phonemes/",
+      "format": "mp3",
+      "source": "ElevenLabs IPA"
+    },
+    "letterSounds": {
+      "basePath": "/activities/letter-sounds/openai-us/sounds/",
+      "format": "mp3",
+      "source": "OpenAI TTS"
+    },
+    "letterNames": {
+      "basePath": "/activities/letter-sounds/openai-us/names/",
+      "format": "mp3",
+      "source": "OpenAI TTS"
+    },
+    "instructions": {
+      "basePath": "/audio/instructions/",
+      "format": "mp3",
+      "source": "OpenAI TTS"
+    }
+  },
+  "bookIntegration": {
+    "description": "Map curriculum lessons to decodable books",
+    "decodableBooks": {
+      "phase2": [
+        {"lesson": 1, "books": ["d1-the-lighthouse-keeper"], "notes": "CVC with s,a,t,p"},
+        {"lesson": 2, "books": [], "notes": "CVC with i,n,m,d"},
+        {"lesson": 3, "books": [], "notes": "CVC with g,o,c,k,ck"},
+        {"lesson": 4, "books": [], "notes": "CVC with e,u,r"},
+        {"lesson": 5, "books": [], "notes": "CVC with h,b,f,ff"},
+        {"lesson": 6, "books": [], "notes": "CVC with l,ll,ss"}
+      ],
+      "phase3": [
+        {"lesson": 7, "books": [], "notes": "sh, ch digraphs"},
+        {"lesson": 8, "books": [], "notes": "th, ng digraphs"},
+        {"lesson": 9, "books": [], "notes": "ai, ee vowel patterns"},
+        {"lesson": 10, "books": [], "notes": "igh, oa vowel patterns"},
+        {"lesson": 11, "books": [], "notes": "oo (short/long) patterns"},
+        {"lesson": 12, "books": [], "notes": "ar, or, ur, er r-controlled"}
+      ]
+    }
+  }
+}

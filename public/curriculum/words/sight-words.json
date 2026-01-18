@@ -1,0 +1,397 @@
+{
+  "version": "1.0",
+  "description": "High-frequency and sight words organized by phase and frequency",
+  "sources": [
+    "UK Letters and Sounds 'Tricky Words'",
+    "Dolch Sight Words",
+    "Fry's First 100 Words"
+  ],
+  "phases": {
+    "2": {
+      "name": "Phase 2 Tricky Words",
+      "description": "Common words introduced alongside Phase 2 GPCs (s,a,t,p,i,n,m,d,g,o,c,k,ck,e,u,r,h,b,f,ff,l,ll,ss)",
+      "words": [
+        {
+          "word": "the",
+          "phonemes": ["/ð/", "/ə/"],
+          "ipa": "ðə",
+          "irregularPart": "th makes /ð/, e makes /ə/",
+          "frequency": 1,
+          "notes": "Most common English word"
+        },
+        {
+          "word": "to",
+          "phonemes": ["/t/", "/uː/"],
+          "ipa": "tuː",
+          "irregularPart": "o makes /uː/",
+          "frequency": 4
+        },
+        {
+          "word": "I",
+          "phonemes": ["/aɪ/"],
+          "ipa": "aɪ",
+          "irregularPart": "I makes /aɪ/ (long i)",
+          "frequency": 10
+        },
+        {
+          "word": "no",
+          "phonemes": ["/n/", "/oʊ/"],
+          "ipa": "noʊ",
+          "irregularPart": "o makes /oʊ/ (long o)",
+          "frequency": 26
+        },
+        {
+          "word": "go",
+          "phonemes": ["/g/", "/oʊ/"],
+          "ipa": "goʊ",
+          "irregularPart": "o makes /oʊ/ (long o)",
+          "frequency": 57
+        },
+        {
+          "word": "into",
+          "phonemes": ["/ɪ/", "/n/", "/t/", "/uː/"],
+          "ipa": "ˈɪntuː",
+          "irregularPart": "o makes /uː/",
+          "frequency": 35
+        }
+      ]
+    },
+    "3": {
+      "name": "Phase 3 Tricky Words",
+      "description": "Common words introduced alongside Phase 3 GPCs (digraphs and vowel patterns)",
+      "words": [
+        {
+          "word": "he",
+          "phonemes": ["/h/", "/iː/"],
+          "ipa": "hiː",
+          "irregularPart": "e makes /iː/ (long e)",
+          "frequency": 9
+        },
+        {
+          "word": "she",
+          "phonemes": ["/ʃ/", "/iː/"],
+          "ipa": "ʃiː",
+          "irregularPart": "e makes /iː/ (long e)",
+          "frequency": 15
+        },
+        {
+          "word": "we",
+          "phonemes": ["/w/", "/iː/"],
+          "ipa": "wiː",
+          "irregularPart": "e makes /iː/ (long e)",
+          "frequency": 14
+        },
+        {
+          "word": "me",
+          "phonemes": ["/m/", "/iː/"],
+          "ipa": "miː",
+          "irregularPart": "e makes /iː/ (long e)",
+          "frequency": 24
+        },
+        {
+          "word": "be",
+          "phonemes": ["/b/", "/iː/"],
+          "ipa": "biː",
+          "irregularPart": "e makes /iː/ (long e)",
+          "frequency": 20
+        },
+        {
+          "word": "was",
+          "phonemes": ["/w/", "/ɒ/", "/z/"],
+          "ipa": "wɒz",
+          "irregularPart": "a makes /ɒ/, s makes /z/",
+          "frequency": 8
+        },
+        {
+          "word": "you",
+          "phonemes": ["/j/", "/uː/"],
+          "ipa": "juː",
+          "irregularPart": "ou makes /uː/",
+          "frequency": 7
+        },
+        {
+          "word": "they",
+          "phonemes": ["/ð/", "/eɪ/"],
+          "ipa": "ðeɪ",
+          "irregularPart": "th makes /ð/, ey makes /eɪ/",
+          "frequency": 12
+        },
+        {
+          "word": "all",
+          "phonemes": ["/ɔː/", "/l/"],
+          "ipa": "ɔːl",
+          "irregularPart": "a makes /ɔː/",
+          "frequency": 23
+        },
+        {
+          "word": "are",
+          "phonemes": ["/ɑː/"],
+          "ipa": "ɑː",
+          "irregularPart": "Silent e, are makes /ɑː/",
+          "frequency": 16
+        },
+        {
+          "word": "my",
+          "phonemes": ["/m/", "/aɪ/"],
+          "ipa": "maɪ",
+          "irregularPart": "y makes /aɪ/",
+          "frequency": 25
+        },
+        {
+          "word": "her",
+          "phonemes": ["/h/", "/ɜː/"],
+          "ipa": "hɜː",
+          "irregularPart": "er makes /ɜː/",
+          "frequency": 22
+        }
+      ]
+    },
+    "4": {
+      "name": "Phase 4 Tricky Words",
+      "description": "Words with adjacent consonants and common irregular spellings",
+      "words": [
+        {
+          "word": "said",
+          "phonemes": ["/s/", "/ɛ/", "/d/"],
+          "ipa": "sɛd",
+          "irregularPart": "ai makes /ɛ/",
+          "frequency": 17
+        },
+        {
+          "word": "have",
+          "phonemes": ["/h/", "/æ/", "/v/"],
+          "ipa": "hæv",
+          "irregularPart": "Silent e (not magic e)",
+          "frequency": 11
+        },
+        {
+          "word": "like",
+          "phonemes": ["/l/", "/aɪ/", "/k/"],
+          "ipa": "laɪk",
+          "irregularPart": "None - magic e pattern",
+          "frequency": 28,
+          "decodable": true
+        },
+        {
+          "word": "so",
+          "phonemes": ["/s/", "/oʊ/"],
+          "ipa": "soʊ",
+          "irregularPart": "o makes /oʊ/",
+          "frequency": 29
+        },
+        {
+          "word": "do",
+          "phonemes": ["/d/", "/uː/"],
+          "ipa": "duː",
+          "irregularPart": "o makes /uː/",
+          "frequency": 33
+        },
+        {
+          "word": "some",
+          "phonemes": ["/s/", "/ʌ/", "/m/"],
+          "ipa": "sʌm",
+          "irregularPart": "o makes /ʌ/, silent e",
+          "frequency": 30
+        },
+        {
+          "word": "come",
+          "phonemes": ["/k/", "/ʌ/", "/m/"],
+          "ipa": "kʌm",
+          "irregularPart": "o makes /ʌ/, silent e",
+          "frequency": 40
+        },
+        {
+          "word": "were",
+          "phonemes": ["/w/", "/ɜː/"],
+          "ipa": "wɜː",
+          "irregularPart": "ere makes /ɜː/",
+          "frequency": 27
+        },
+        {
+          "word": "there",
+          "phonemes": ["/ð/", "/ɛ/", "/ə/"],
+          "ipa": "ðɛə",
+          "irregularPart": "th makes /ð/, ere makes /ɛə/",
+          "frequency": 18
+        },
+        {
+          "word": "little",
+          "phonemes": ["/l/", "/ɪ/", "/t/", "/əl/"],
+          "ipa": "ˈlɪtəl",
+          "irregularPart": "le makes /əl/",
+          "frequency": 44
+        },
+        {
+          "word": "one",
+          "phonemes": ["/w/", "/ʌ/", "/n/"],
+          "ipa": "wʌn",
+          "irregularPart": "o makes /w/ + /ʌ/",
+          "frequency": 19
+        },
+        {
+          "word": "when",
+          "phonemes": ["/w/", "/ɛ/", "/n/"],
+          "ipa": "wɛn",
+          "irregularPart": "None - decodable with wh",
+          "frequency": 31,
+          "decodable": true
+        },
+        {
+          "word": "out",
+          "phonemes": ["/aʊ/", "/t/"],
+          "ipa": "aʊt",
+          "irregularPart": "None - decodable with ou",
+          "frequency": 37,
+          "decodable": true
+        },
+        {
+          "word": "what",
+          "phonemes": ["/w/", "/ɒ/", "/t/"],
+          "ipa": "wɒt",
+          "irregularPart": "a makes /ɒ/",
+          "frequency": 32
+        }
+      ]
+    },
+    "5": {
+      "name": "Phase 5 Tricky Words",
+      "description": "Words with alternative pronunciations and spellings",
+      "words": [
+        {
+          "word": "oh",
+          "phonemes": ["/oʊ/"],
+          "ipa": "oʊ",
+          "irregularPart": "oh makes /oʊ/",
+          "frequency": 61
+        },
+        {
+          "word": "their",
+          "phonemes": ["/ð/", "/ɛ/", "/ə/"],
+          "ipa": "ðɛə",
+          "irregularPart": "th makes /ð/, eir makes /ɛə/",
+          "frequency": 21
+        },
+        {
+          "word": "people",
+          "phonemes": ["/p/", "/iː/", "/p/", "/əl/"],
+          "ipa": "ˈpiːpəl",
+          "irregularPart": "eo makes /iː/",
+          "frequency": 42
+        },
+        {
+          "word": "Mr",
+          "phonemes": ["/m/", "/ɪ/", "/s/", "/t/", "/ə/"],
+          "ipa": "ˈmɪstə",
+          "irregularPart": "Abbreviation",
+          "frequency": 75
+        },
+        {
+          "word": "Mrs",
+          "phonemes": ["/m/", "/ɪ/", "/s/", "/ɪ/", "/z/"],
+          "ipa": "ˈmɪsɪz",
+          "irregularPart": "Abbreviation",
+          "frequency": 96
+        },
+        {
+          "word": "looked",
+          "phonemes": ["/l/", "/ʊ/", "/k/", "/t/"],
+          "ipa": "lʊkt",
+          "irregularPart": "-ed makes /t/",
+          "frequency": 48,
+          "decodable": true
+        },
+        {
+          "word": "called",
+          "phonemes": ["/k/", "/ɔː/", "/l/", "/d/"],
+          "ipa": "kɔːld",
+          "irregularPart": "a makes /ɔː/",
+          "frequency": 51
+        },
+        {
+          "word": "asked",
+          "phonemes": ["/ɑː/", "/s/", "/k/", "/t/"],
+          "ipa": "ɑːskt",
+          "irregularPart": "-ed makes /t/",
+          "frequency": 53,
+          "decodable": true
+        },
+        {
+          "word": "could",
+          "phonemes": ["/k/", "/ʊ/", "/d/"],
+          "ipa": "kʊd",
+          "irregularPart": "ou makes /ʊ/, silent l",
+          "frequency": 36
+        },
+        {
+          "word": "would",
+          "phonemes": ["/w/", "/ʊ/", "/d/"],
+          "ipa": "wʊd",
+          "irregularPart": "ou makes /ʊ/, silent l",
+          "frequency": 34
+        },
+        {
+          "word": "should",
+          "phonemes": ["/ʃ/", "/ʊ/", "/d/"],
+          "ipa": "ʃʊd",
+          "irregularPart": "ou makes /ʊ/, silent l",
+          "frequency": 47
+        }
+      ]
+    }
+  },
+  "byFrequency": {
+    "description": "Top 100 high-frequency words sorted by usage frequency",
+    "top25": [
+      "the", "of", "and", "to", "a", "in", "you", "was", "he", "I",
+      "have", "they", "it", "for", "she", "are", "said", "there", "one", "be",
+      "their", "her", "all", "me", "my"
+    ],
+    "next25": [
+      "no", "were", "like", "so", "some", "when", "what", "do", "would", "into",
+      "could", "out", "at", "this", "with", "people", "from", "little", "by", "had",
+      "should", "looked", "but", "not", "called"
+    ]
+  },
+  "teachingStrategies": {
+    "introduction": [
+      "Say the word clearly",
+      "Point out the tricky part",
+      "Explain why it's tricky (e.g., 'the a says /ɒ/ instead of /æ/')",
+      "Have child repeat the word",
+      "Write the word together, naming each letter"
+    ],
+    "practice": [
+      "Flashcard drill (whole word recognition)",
+      "Find the tricky word in sentences",
+      "Write the word from memory",
+      "Use in context (read sentences containing the word)",
+      "Word hunts in books"
+    ],
+    "review": [
+      "Mix tricky words with decodable words",
+      "Cumulative review (add new words, keep reviewing old)",
+      "Speed reading games",
+      "Sentence dictation with tricky words"
+    ]
+  },
+  "activityConfigs": {
+    "flashcardDrill": {
+      "description": "Quick recognition practice",
+      "wordsPerSession": 5,
+      "newWordsPerSession": 2,
+      "targetResponseTime": 2000,
+      "masteryThreshold": 3
+    },
+    "sentenceReading": {
+      "description": "Read sight words in context",
+      "wordsPerSentence": 5,
+      "targetSightWords": 2,
+      "decodableWordsOnly": true
+    },
+    "wordSort": {
+      "description": "Sort words by pattern or regularity",
+      "categories": ["decodable", "tricky"],
+      "wordsPerSort": 8
+    }
+  }
+}

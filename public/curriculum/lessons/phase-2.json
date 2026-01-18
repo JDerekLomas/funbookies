@@ -1,0 +1,544 @@
+{
+  "phase": 2,
+  "name": "Foundation",
+  "description": "Single letter GPCs - the most frequent and consistent letter-sound correspondences",
+  "gradeLevel": "K",
+  "standards": {
+    "commonCore": ["RF.K.1d", "RF.K.2d", "RF.K.3a", "RF.K.3b"],
+    "teks": ["K.2A", "K.2B"],
+    "ukPhase": 2
+  },
+  "lessons": [
+    {
+      "id": 1,
+      "name": "s, a, t, p",
+      "gpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/"],
+      "newGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/"],
+      "cumulativeGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/"],
+      "words": [
+        {"word": "at", "gpcs": ["a-/æ/", "t-/t/"], "type": "cvc"},
+        {"word": "sat", "gpcs": ["s-/s/", "a-/æ/", "t-/t/"], "type": "cvc"},
+        {"word": "pat", "gpcs": ["p-/p/", "a-/æ/", "t-/t/"], "type": "cvc"},
+        {"word": "tap", "gpcs": ["t-/t/", "a-/æ/", "p-/p/"], "type": "cvc"},
+        {"word": "sap", "gpcs": ["s-/s/", "a-/æ/", "p-/p/"], "type": "cvc"},
+        {"word": "as", "gpcs": ["a-/æ/", "s-/s/"], "type": "vc"},
+        {"word": "a", "gpcs": ["a-/æ/"], "type": "v"}
+      ],
+      "sightWords": ["a", "the"],
+      "sentences": [
+        "Pat sat.",
+        "A tap.",
+        "Tap, tap, tap.",
+        "Pat a sat."
+      ],
+      "activities": [
+        {
+          "type": "letter-drill",
+          "required": true,
+          "config": {
+            "letters": ["s", "a", "t", "p"],
+            "rounds": 12
+          }
+        },
+        {
+          "type": "say-the-sound",
+          "required": true,
+          "config": {
+            "gpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/"],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "blend-it",
+          "required": true,
+          "config": {
+            "words": ["at", "sat", "pat", "tap", "sap"],
+            "rounds": 5
+          }
+        },
+        {
+          "type": "word-builder",
+          "required": true,
+          "config": {
+            "words": ["sat", "pat", "tap"],
+            "distractorGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/"]
+          }
+        },
+        {
+          "type": "sound-boxes",
+          "required": false,
+          "config": {
+            "words": ["at", "sat", "pat", "tap"],
+            "maxBoxes": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "i, n, m, d",
+      "gpcs": ["i-/ɪ/", "n-/n/", "m-/m/", "d-/d/"],
+      "newGpcs": ["i-/ɪ/", "n-/n/", "m-/m/", "d-/d/"],
+      "cumulativeGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/", "i-/ɪ/", "n-/n/", "m-/m/", "d-/d/"],
+      "words": [
+        {"word": "in", "gpcs": ["i-/ɪ/", "n-/n/"], "type": "vc"},
+        {"word": "it", "gpcs": ["i-/ɪ/", "t-/t/"], "type": "vc"},
+        {"word": "is", "gpcs": ["i-/ɪ/", "s-/s/"], "type": "vc"},
+        {"word": "an", "gpcs": ["a-/æ/", "n-/n/"], "type": "vc"},
+        {"word": "and", "gpcs": ["a-/æ/", "n-/n/", "d-/d/"], "type": "vcc"},
+        {"word": "nap", "gpcs": ["n-/n/", "a-/æ/", "p-/p/"], "type": "cvc"},
+        {"word": "nit", "gpcs": ["n-/n/", "i-/ɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "tin", "gpcs": ["t-/t/", "i-/ɪ/", "n-/n/"], "type": "cvc"},
+        {"word": "tan", "gpcs": ["t-/t/", "a-/æ/", "n-/n/"], "type": "cvc"},
+        {"word": "pin", "gpcs": ["p-/p/", "i-/ɪ/", "n-/n/"], "type": "cvc"},
+        {"word": "pan", "gpcs": ["p-/p/", "a-/æ/", "n-/n/"], "type": "cvc"},
+        {"word": "pit", "gpcs": ["p-/p/", "i-/ɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "tip", "gpcs": ["t-/t/", "i-/ɪ/", "p-/p/"], "type": "cvc"},
+        {"word": "sip", "gpcs": ["s-/s/", "i-/ɪ/", "p-/p/"], "type": "cvc"},
+        {"word": "sit", "gpcs": ["s-/s/", "i-/ɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "man", "gpcs": ["m-/m/", "a-/æ/", "n-/n/"], "type": "cvc"},
+        {"word": "mat", "gpcs": ["m-/m/", "a-/æ/", "t-/t/"], "type": "cvc"},
+        {"word": "map", "gpcs": ["m-/m/", "a-/æ/", "p-/p/"], "type": "cvc"},
+        {"word": "mad", "gpcs": ["m-/m/", "a-/æ/", "d-/d/"], "type": "cvc"},
+        {"word": "dim", "gpcs": ["d-/d/", "i-/ɪ/", "m-/m/"], "type": "cvc"},
+        {"word": "dip", "gpcs": ["d-/d/", "i-/ɪ/", "p-/p/"], "type": "cvc"},
+        {"word": "did", "gpcs": ["d-/d/", "i-/ɪ/", "d-/d/"], "type": "cvc"},
+        {"word": "dad", "gpcs": ["d-/d/", "a-/æ/", "d-/d/"], "type": "cvc"},
+        {"word": "sad", "gpcs": ["s-/s/", "a-/æ/", "d-/d/"], "type": "cvc"},
+        {"word": "ant", "gpcs": ["a-/æ/", "n-/n/", "t-/t/"], "type": "vcc"}
+      ],
+      "sightWords": ["I"],
+      "sentences": [
+        "I sat.",
+        "A man sat.",
+        "Pam did tap.",
+        "Dad is mad.",
+        "Tim and Sam sit.",
+        "An ant sat in a pan."
+      ],
+      "activities": [
+        {
+          "type": "letter-drill",
+          "required": true,
+          "config": {
+            "letters": ["i", "n", "m", "d"],
+            "reviewLetters": ["s", "a", "t", "p"],
+            "rounds": 12
+          }
+        },
+        {
+          "type": "say-the-sound",
+          "required": true,
+          "config": {
+            "gpcs": ["i-/ɪ/", "n-/n/", "m-/m/", "d-/d/"],
+            "reviewGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/"],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "blend-it",
+          "required": true,
+          "config": {
+            "words": ["in", "an", "man", "tin", "dim", "nap", "sit"],
+            "rounds": 7
+          }
+        },
+        {
+          "type": "word-builder",
+          "required": true,
+          "config": {
+            "words": ["man", "tin", "dim", "sit", "mad"],
+            "distractorGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/", "i-/ɪ/", "n-/n/", "m-/m/", "d-/d/"]
+          }
+        },
+        {
+          "type": "word-chains",
+          "required": false,
+          "config": {
+            "chains": [
+              ["sat", "sit", "sip", "tip", "tin"],
+              ["man", "mat", "map", "tap", "tan"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "g, o, c, k",
+      "gpcs": ["g-/g/", "o-/ɒ/", "c-/k/", "k-/k/"],
+      "newGpcs": ["g-/g/", "o-/ɒ/", "c-/k/", "k-/k/"],
+      "cumulativeGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/", "i-/ɪ/", "n-/n/", "m-/m/", "d-/d/", "g-/g/", "o-/ɒ/", "c-/k/", "k-/k/"],
+      "words": [
+        {"word": "got", "gpcs": ["g-/g/", "o-/ɒ/", "t-/t/"], "type": "cvc"},
+        {"word": "gap", "gpcs": ["g-/g/", "a-/æ/", "p-/p/"], "type": "cvc"},
+        {"word": "gas", "gpcs": ["g-/g/", "a-/æ/", "s-/s/"], "type": "cvc"},
+        {"word": "gag", "gpcs": ["g-/g/", "a-/æ/", "g-/g/"], "type": "cvc"},
+        {"word": "pig", "gpcs": ["p-/p/", "i-/ɪ/", "g-/g/"], "type": "cvc"},
+        {"word": "dig", "gpcs": ["d-/d/", "i-/ɪ/", "g-/g/"], "type": "cvc"},
+        {"word": "dog", "gpcs": ["d-/d/", "o-/ɒ/", "g-/g/"], "type": "cvc"},
+        {"word": "on", "gpcs": ["o-/ɒ/", "n-/n/"], "type": "vc"},
+        {"word": "not", "gpcs": ["n-/n/", "o-/ɒ/", "t-/t/"], "type": "cvc"},
+        {"word": "pot", "gpcs": ["p-/p/", "o-/ɒ/", "t-/t/"], "type": "cvc"},
+        {"word": "top", "gpcs": ["t-/t/", "o-/ɒ/", "p-/p/"], "type": "cvc"},
+        {"word": "cot", "gpcs": ["c-/k/", "o-/ɒ/", "t-/t/"], "type": "cvc"},
+        {"word": "can", "gpcs": ["c-/k/", "a-/æ/", "n-/n/"], "type": "cvc"},
+        {"word": "cap", "gpcs": ["c-/k/", "a-/æ/", "p-/p/"], "type": "cvc"},
+        {"word": "cop", "gpcs": ["c-/k/", "o-/ɒ/", "p-/p/"], "type": "cvc"},
+        {"word": "cod", "gpcs": ["c-/k/", "o-/ɒ/", "d-/d/"], "type": "cvc"},
+        {"word": "cat", "gpcs": ["c-/k/", "a-/æ/", "t-/t/"], "type": "cvc"},
+        {"word": "kit", "gpcs": ["k-/k/", "i-/ɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "kid", "gpcs": ["k-/k/", "i-/ɪ/", "d-/d/"], "type": "cvc"},
+        {"word": "kin", "gpcs": ["k-/k/", "i-/ɪ/", "n-/n/"], "type": "cvc"}
+      ],
+      "sightWords": ["to", "no", "go"],
+      "sentences": [
+        "A cat got a mat.",
+        "A pig can dig.",
+        "Go to a cot.",
+        "Dad got a dog.",
+        "A cop can not nap.",
+        "Kim got a kit."
+      ],
+      "activities": [
+        {
+          "type": "letter-drill",
+          "required": true,
+          "config": {
+            "letters": ["g", "o", "c", "k"],
+            "reviewLetters": ["s", "a", "t", "p", "i", "n", "m", "d"],
+            "rounds": 12
+          }
+        },
+        {
+          "type": "say-the-sound",
+          "required": true,
+          "config": {
+            "gpcs": ["g-/g/", "o-/ɒ/", "c-/k/", "k-/k/"],
+            "reviewGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/", "i-/ɪ/", "n-/n/", "m-/m/", "d-/d/"],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "blend-it",
+          "required": true,
+          "config": {
+            "words": ["got", "pig", "dog", "pot", "cat", "kit", "can"],
+            "rounds": 7
+          }
+        },
+        {
+          "type": "word-builder",
+          "required": true,
+          "config": {
+            "words": ["cat", "dog", "pot", "dig", "got"],
+            "distractorGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/", "i-/ɪ/", "n-/n/", "m-/m/", "d-/d/", "g-/g/", "o-/ɒ/", "c-/k/", "k-/k/"]
+          }
+        },
+        {
+          "type": "word-chains",
+          "required": false,
+          "config": {
+            "chains": [
+              ["cat", "can", "cap", "cop", "cot"],
+              ["pot", "pit", "pig", "dig", "dog"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "ck, e, u, r",
+      "gpcs": ["ck-/k/", "e-/ɛ/", "u-/ʌ/", "r-/r/"],
+      "newGpcs": ["ck-/k/", "e-/ɛ/", "u-/ʌ/", "r-/r/"],
+      "cumulativeGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/", "i-/ɪ/", "n-/n/", "m-/m/", "d-/d/", "g-/g/", "o-/ɒ/", "c-/k/", "k-/k/", "ck-/k/", "e-/ɛ/", "u-/ʌ/", "r-/r/"],
+      "words": [
+        {"word": "duck", "gpcs": ["d-/d/", "u-/ʌ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "kick", "gpcs": ["k-/k/", "i-/ɪ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "sock", "gpcs": ["s-/s/", "o-/ɒ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "rock", "gpcs": ["r-/r/", "o-/ɒ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "pack", "gpcs": ["p-/p/", "a-/æ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "rack", "gpcs": ["r-/r/", "a-/æ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "tack", "gpcs": ["t-/t/", "a-/æ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "neck", "gpcs": ["n-/n/", "e-/ɛ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "peck", "gpcs": ["p-/p/", "e-/ɛ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "deck", "gpcs": ["d-/d/", "e-/ɛ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "egg", "gpcs": ["e-/ɛ/", "g-/g/", "g-/g/"], "type": "vcc"},
+        {"word": "pen", "gpcs": ["p-/p/", "e-/ɛ/", "n-/n/"], "type": "cvc"},
+        {"word": "ten", "gpcs": ["t-/t/", "e-/ɛ/", "n-/n/"], "type": "cvc"},
+        {"word": "red", "gpcs": ["r-/r/", "e-/ɛ/", "d-/d/"], "type": "cvc"},
+        {"word": "get", "gpcs": ["g-/g/", "e-/ɛ/", "t-/t/"], "type": "cvc"},
+        {"word": "pet", "gpcs": ["p-/p/", "e-/ɛ/", "t-/t/"], "type": "cvc"},
+        {"word": "net", "gpcs": ["n-/n/", "e-/ɛ/", "t-/t/"], "type": "cvc"},
+        {"word": "set", "gpcs": ["s-/s/", "e-/ɛ/", "t-/t/"], "type": "cvc"},
+        {"word": "up", "gpcs": ["u-/ʌ/", "p-/p/"], "type": "vc"},
+        {"word": "cup", "gpcs": ["c-/k/", "u-/ʌ/", "p-/p/"], "type": "cvc"},
+        {"word": "cut", "gpcs": ["c-/k/", "u-/ʌ/", "t-/t/"], "type": "cvc"},
+        {"word": "run", "gpcs": ["r-/r/", "u-/ʌ/", "n-/n/"], "type": "cvc"},
+        {"word": "rug", "gpcs": ["r-/r/", "u-/ʌ/", "g-/g/"], "type": "cvc"},
+        {"word": "rip", "gpcs": ["r-/r/", "i-/ɪ/", "p-/p/"], "type": "cvc"},
+        {"word": "rag", "gpcs": ["r-/r/", "a-/æ/", "g-/g/"], "type": "cvc"},
+        {"word": "rat", "gpcs": ["r-/r/", "a-/æ/", "t-/t/"], "type": "cvc"},
+        {"word": "mud", "gpcs": ["m-/m/", "u-/ʌ/", "d-/d/"], "type": "cvc"},
+        {"word": "dug", "gpcs": ["d-/d/", "u-/ʌ/", "g-/g/"], "type": "cvc"},
+        {"word": "sun", "gpcs": ["s-/s/", "u-/ʌ/", "n-/n/"], "type": "cvc"},
+        {"word": "mug", "gpcs": ["m-/m/", "u-/ʌ/", "g-/g/"], "type": "cvc"}
+      ],
+      "sightWords": ["he", "me", "we", "be"],
+      "sentences": [
+        "A duck can run.",
+        "Get a red cup.",
+        "A rat sat on a rug.",
+        "He can kick a rock.",
+        "We got ten eggs.",
+        "Get up and run!"
+      ],
+      "activities": [
+        {
+          "type": "letter-drill",
+          "required": true,
+          "config": {
+            "letters": ["e", "u", "r"],
+            "digraphs": ["ck"],
+            "rounds": 12
+          }
+        },
+        {
+          "type": "say-the-sound",
+          "required": true,
+          "config": {
+            "gpcs": ["ck-/k/", "e-/ɛ/", "u-/ʌ/", "r-/r/"],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "blend-it",
+          "required": true,
+          "config": {
+            "words": ["duck", "sock", "pen", "red", "cup", "run", "get"],
+            "rounds": 7
+          }
+        },
+        {
+          "type": "word-builder",
+          "required": true,
+          "config": {
+            "words": ["duck", "rock", "pen", "run", "cup"],
+            "distractorGpcs": ["d-/d/", "u-/ʌ/", "ck-/k/", "r-/r/", "o-/ɒ/", "p-/p/", "e-/ɛ/", "n-/n/", "c-/k/"]
+          }
+        },
+        {
+          "type": "word-chains",
+          "required": false,
+          "config": {
+            "chains": [
+              ["duck", "deck", "peck", "pack", "rack", "rock"],
+              ["cup", "cut", "cat", "can", "ran", "run"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "h, b, f, l",
+      "gpcs": ["h-/h/", "b-/b/", "f-/f/", "l-/l/"],
+      "newGpcs": ["h-/h/", "b-/b/", "f-/f/", "l-/l/"],
+      "cumulativeGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/", "i-/ɪ/", "n-/n/", "m-/m/", "d-/d/", "g-/g/", "o-/ɒ/", "c-/k/", "k-/k/", "ck-/k/", "e-/ɛ/", "u-/ʌ/", "r-/r/", "h-/h/", "b-/b/", "f-/f/", "l-/l/"],
+      "words": [
+        {"word": "hat", "gpcs": ["h-/h/", "a-/æ/", "t-/t/"], "type": "cvc"},
+        {"word": "hop", "gpcs": ["h-/h/", "o-/ɒ/", "p-/p/"], "type": "cvc"},
+        {"word": "him", "gpcs": ["h-/h/", "i-/ɪ/", "m-/m/"], "type": "cvc"},
+        {"word": "hit", "gpcs": ["h-/h/", "i-/ɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "hug", "gpcs": ["h-/h/", "u-/ʌ/", "g-/g/"], "type": "cvc"},
+        {"word": "hot", "gpcs": ["h-/h/", "o-/ɒ/", "t-/t/"], "type": "cvc"},
+        {"word": "hen", "gpcs": ["h-/h/", "e-/ɛ/", "n-/n/"], "type": "cvc"},
+        {"word": "bad", "gpcs": ["b-/b/", "a-/æ/", "d-/d/"], "type": "cvc"},
+        {"word": "bat", "gpcs": ["b-/b/", "a-/æ/", "t-/t/"], "type": "cvc"},
+        {"word": "big", "gpcs": ["b-/b/", "i-/ɪ/", "g-/g/"], "type": "cvc"},
+        {"word": "bed", "gpcs": ["b-/b/", "e-/ɛ/", "d-/d/"], "type": "cvc"},
+        {"word": "bit", "gpcs": ["b-/b/", "i-/ɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "bud", "gpcs": ["b-/b/", "u-/ʌ/", "d-/d/"], "type": "cvc"},
+        {"word": "bug", "gpcs": ["b-/b/", "u-/ʌ/", "g-/g/"], "type": "cvc"},
+        {"word": "but", "gpcs": ["b-/b/", "u-/ʌ/", "t-/t/"], "type": "cvc"},
+        {"word": "fat", "gpcs": ["f-/f/", "a-/æ/", "t-/t/"], "type": "cvc"},
+        {"word": "fun", "gpcs": ["f-/f/", "u-/ʌ/", "n-/n/"], "type": "cvc"},
+        {"word": "fit", "gpcs": ["f-/f/", "i-/ɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "fig", "gpcs": ["f-/f/", "i-/ɪ/", "g-/g/"], "type": "cvc"},
+        {"word": "fog", "gpcs": ["f-/f/", "o-/ɒ/", "g-/g/"], "type": "cvc"},
+        {"word": "fed", "gpcs": ["f-/f/", "e-/ɛ/", "d-/d/"], "type": "cvc"},
+        {"word": "leg", "gpcs": ["l-/l/", "e-/ɛ/", "g-/g/"], "type": "cvc"},
+        {"word": "lip", "gpcs": ["l-/l/", "i-/ɪ/", "p-/p/"], "type": "cvc"},
+        {"word": "lot", "gpcs": ["l-/l/", "o-/ɒ/", "t-/t/"], "type": "cvc"},
+        {"word": "led", "gpcs": ["l-/l/", "e-/ɛ/", "d-/d/"], "type": "cvc"},
+        {"word": "let", "gpcs": ["l-/l/", "e-/ɛ/", "t-/t/"], "type": "cvc"},
+        {"word": "lit", "gpcs": ["l-/l/", "i-/ɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "lap", "gpcs": ["l-/l/", "a-/æ/", "p-/p/"], "type": "cvc"},
+        {"word": "lock", "gpcs": ["l-/l/", "o-/ɒ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "lick", "gpcs": ["l-/l/", "i-/ɪ/", "ck-/k/"], "type": "cvcc"},
+        {"word": "luck", "gpcs": ["l-/l/", "u-/ʌ/", "ck-/k/"], "type": "cvcc"}
+      ],
+      "sightWords": ["of", "for"],
+      "sentences": [
+        "A hen sat on a bed.",
+        "He got a big hat.",
+        "A bat can hop.",
+        "Let him hit it.",
+        "A fat bug sat on a log.",
+        "He had a lot of fun."
+      ],
+      "activities": [
+        {
+          "type": "letter-drill",
+          "required": true,
+          "config": {
+            "letters": ["h", "b", "f", "l"],
+            "rounds": 12
+          }
+        },
+        {
+          "type": "say-the-sound",
+          "required": true,
+          "config": {
+            "gpcs": ["h-/h/", "b-/b/", "f-/f/", "l-/l/"],
+            "rounds": 10
+          }
+        },
+        {
+          "type": "blend-it",
+          "required": true,
+          "config": {
+            "words": ["hat", "big", "fun", "leg", "bed", "hop", "lock"],
+            "rounds": 7
+          }
+        },
+        {
+          "type": "word-builder",
+          "required": true,
+          "config": {
+            "words": ["hat", "big", "fun", "leg", "bed"],
+            "distractorGpcs": ["h-/h/", "a-/æ/", "t-/t/", "b-/b/", "i-/ɪ/", "g-/g/", "f-/f/", "u-/ʌ/", "n-/n/", "l-/l/", "e-/ɛ/", "d-/d/"]
+          }
+        },
+        {
+          "type": "word-chains",
+          "required": false,
+          "config": {
+            "chains": [
+              ["hat", "bat", "bit", "hit", "hot", "lot"],
+              ["bed", "bad", "bud", "bug", "hug", "hut"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "ss, ff, ll, zz + j, v, w, x, y, z, qu",
+      "gpcs": ["ss-/s/", "ff-/f/", "ll-/l/", "zz-/z/", "j-/dʒ/", "v-/v/", "w-/w/", "x-/ks/", "y-/j/", "z-/z/", "qu-/kw/"],
+      "newGpcs": ["ss-/s/", "ff-/f/", "ll-/l/", "zz-/z/", "j-/dʒ/", "v-/v/", "w-/w/", "x-/ks/", "y-/j/", "z-/z/", "qu-/kw/"],
+      "cumulativeGpcs": ["s-/s/", "a-/æ/", "t-/t/", "p-/p/", "i-/ɪ/", "n-/n/", "m-/m/", "d-/d/", "g-/g/", "o-/ɒ/", "c-/k/", "k-/k/", "ck-/k/", "e-/ɛ/", "u-/ʌ/", "r-/r/", "h-/h/", "b-/b/", "f-/f/", "l-/l/", "ss-/s/", "ff-/f/", "ll-/l/", "zz-/z/", "j-/dʒ/", "v-/v/", "w-/w/", "x-/ks/", "y-/j/", "z-/z/", "qu-/kw/"],
+      "words": [
+        {"word": "miss", "gpcs": ["m-/m/", "i-/ɪ/", "ss-/s/"], "type": "cvcc"},
+        {"word": "boss", "gpcs": ["b-/b/", "o-/ɒ/", "ss-/s/"], "type": "cvcc"},
+        {"word": "kiss", "gpcs": ["k-/k/", "i-/ɪ/", "ss-/s/"], "type": "cvcc"},
+        {"word": "mess", "gpcs": ["m-/m/", "e-/ɛ/", "ss-/s/"], "type": "cvcc"},
+        {"word": "less", "gpcs": ["l-/l/", "e-/ɛ/", "ss-/s/"], "type": "cvcc"},
+        {"word": "off", "gpcs": ["o-/ɒ/", "ff-/f/"], "type": "vcc"},
+        {"word": "puff", "gpcs": ["p-/p/", "u-/ʌ/", "ff-/f/"], "type": "cvcc"},
+        {"word": "huff", "gpcs": ["h-/h/", "u-/ʌ/", "ff-/f/"], "type": "cvcc"},
+        {"word": "cuff", "gpcs": ["c-/k/", "u-/ʌ/", "ff-/f/"], "type": "cvcc"},
+        {"word": "doll", "gpcs": ["d-/d/", "o-/ɒ/", "ll-/l/"], "type": "cvcc"},
+        {"word": "bill", "gpcs": ["b-/b/", "i-/ɪ/", "ll-/l/"], "type": "cvcc"},
+        {"word": "bell", "gpcs": ["b-/b/", "e-/ɛ/", "ll-/l/"], "type": "cvcc"},
+        {"word": "fill", "gpcs": ["f-/f/", "i-/ɪ/", "ll-/l/"], "type": "cvcc"},
+        {"word": "full", "gpcs": ["f-/f/", "u-/ʌ/", "ll-/l/"], "type": "cvcc"},
+        {"word": "tell", "gpcs": ["t-/t/", "e-/ɛ/", "ll-/l/"], "type": "cvcc"},
+        {"word": "will", "gpcs": ["w-/w/", "i-/ɪ/", "ll-/l/"], "type": "cvcc"},
+        {"word": "well", "gpcs": ["w-/w/", "e-/ɛ/", "ll-/l/"], "type": "cvcc"},
+        {"word": "buzz", "gpcs": ["b-/b/", "u-/ʌ/", "zz-/z/"], "type": "cvcc"},
+        {"word": "fizz", "gpcs": ["f-/f/", "i-/ɪ/", "zz-/z/"], "type": "cvcc"},
+        {"word": "jazz", "gpcs": ["j-/dʒ/", "a-/æ/", "zz-/z/"], "type": "cvcc"},
+        {"word": "jug", "gpcs": ["j-/dʒ/", "u-/ʌ/", "g-/g/"], "type": "cvc"},
+        {"word": "jam", "gpcs": ["j-/dʒ/", "a-/æ/", "m-/m/"], "type": "cvc"},
+        {"word": "jet", "gpcs": ["j-/dʒ/", "e-/ɛ/", "t-/t/"], "type": "cvc"},
+        {"word": "jog", "gpcs": ["j-/dʒ/", "o-/ɒ/", "g-/g/"], "type": "cvc"},
+        {"word": "job", "gpcs": ["j-/dʒ/", "o-/ɒ/", "b-/b/"], "type": "cvc"},
+        {"word": "van", "gpcs": ["v-/v/", "a-/æ/", "n-/n/"], "type": "cvc"},
+        {"word": "vet", "gpcs": ["v-/v/", "e-/ɛ/", "t-/t/"], "type": "cvc"},
+        {"word": "win", "gpcs": ["w-/w/", "i-/ɪ/", "n-/n/"], "type": "cvc"},
+        {"word": "wet", "gpcs": ["w-/w/", "e-/ɛ/", "t-/t/"], "type": "cvc"},
+        {"word": "wag", "gpcs": ["w-/w/", "a-/æ/", "g-/g/"], "type": "cvc"},
+        {"word": "web", "gpcs": ["w-/w/", "e-/ɛ/", "b-/b/"], "type": "cvc"},
+        {"word": "wig", "gpcs": ["w-/w/", "i-/ɪ/", "g-/g/"], "type": "cvc"},
+        {"word": "fox", "gpcs": ["f-/f/", "o-/ɒ/", "x-/ks/"], "type": "cvcc"},
+        {"word": "box", "gpcs": ["b-/b/", "o-/ɒ/", "x-/ks/"], "type": "cvcc"},
+        {"word": "six", "gpcs": ["s-/s/", "i-/ɪ/", "x-/ks/"], "type": "cvcc"},
+        {"word": "mix", "gpcs": ["m-/m/", "i-/ɪ/", "x-/ks/"], "type": "cvcc"},
+        {"word": "wax", "gpcs": ["w-/w/", "a-/æ/", "x-/ks/"], "type": "cvcc"},
+        {"word": "yes", "gpcs": ["y-/j/", "e-/ɛ/", "s-/s/"], "type": "cvc"},
+        {"word": "yet", "gpcs": ["y-/j/", "e-/ɛ/", "t-/t/"], "type": "cvc"},
+        {"word": "yap", "gpcs": ["y-/j/", "a-/æ/", "p-/p/"], "type": "cvc"},
+        {"word": "yam", "gpcs": ["y-/j/", "a-/æ/", "m-/m/"], "type": "cvc"},
+        {"word": "zip", "gpcs": ["z-/z/", "i-/ɪ/", "p-/p/"], "type": "cvc"},
+        {"word": "zap", "gpcs": ["z-/z/", "a-/æ/", "p-/p/"], "type": "cvc"},
+        {"word": "quit", "gpcs": ["qu-/kw/", "i-/ɪ/", "t-/t/"], "type": "cvc"},
+        {"word": "quiz", "gpcs": ["qu-/kw/", "i-/ɪ/", "z-/z/"], "type": "cvcc"}
+      ],
+      "sightWords": ["was", "you", "they", "all", "are", "my", "her"],
+      "sentences": [
+        "A fox is in a box.",
+        "I will tell you a joke.",
+        "Yes, we can win!",
+        "A vet can fix a dog.",
+        "Jill will fill a jug.",
+        "Buzz! A big bug is on my jam!",
+        "The queen will quit."
+      ],
+      "activities": [
+        {
+          "type": "letter-drill",
+          "required": true,
+          "config": {
+            "letters": ["j", "v", "w", "x", "y", "z"],
+            "digraphs": ["ss", "ff", "ll", "zz", "qu"],
+            "rounds": 14
+          }
+        },
+        {
+          "type": "say-the-sound",
+          "required": true,
+          "config": {
+            "gpcs": ["ss-/s/", "ff-/f/", "ll-/l/", "zz-/z/", "j-/dʒ/", "v-/v/", "w-/w/", "x-/ks/", "y-/j/", "z-/z/", "qu-/kw/"],
+            "rounds": 12
+          }
+        },
+        {
+          "type": "blend-it",
+          "required": true,
+          "config": {
+            "words": ["miss", "bell", "buzz", "jam", "van", "fox", "yes", "zip", "quit"],
+            "rounds": 9
+          }
+        },
+        {
+          "type": "word-builder",
+          "required": true,
+          "config": {
+            "words": ["bell", "fox", "jam", "win", "quiz"],
+            "distractorGpcs": ["b-/b/", "e-/ɛ/", "ll-/l/", "f-/f/", "o-/ɒ/", "x-/ks/", "j-/dʒ/", "a-/æ/", "m-/m/", "w-/w/", "i-/ɪ/", "n-/n/", "qu-/kw/", "z-/z/"]
+          }
+        },
+        {
+          "type": "sight-words",
+          "required": true,
+          "config": {
+            "words": ["was", "you", "they", "all", "are", "my", "her", "a", "the", "I", "to", "no", "go", "he", "me", "we", "be", "of", "for"],
+            "rounds": 19
+          }
+        }
+      ]
+    }
+  ]
+}

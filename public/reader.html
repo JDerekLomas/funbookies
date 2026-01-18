@@ -151,6 +151,24 @@
             letter-spacing: 1px;
         }
 
+        /* Watermark logo for story pages */
+        .page-watermark {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+            z-index: 5;
+            opacity: 0.85;
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3));
+        }
+
+        .page-watermark img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
         /* Text section takes bottom 20% */
         .page-text {
             position: absolute;
@@ -254,61 +272,116 @@
             text-align: center;
         }
 
-        .page-copyright .logo {
+        .page-copyright .copyright-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 16px;
+        }
+
+        .page-copyright .copyright-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .page-copyright .brand-wordmark {
             font-family: var(--font-display);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 600;
             color: var(--color-terracotta);
-            margin-bottom: 24px;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .page-copyright .copyright-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-sage), transparent);
+            margin-bottom: 20px;
         }
 
         .page-copyright .copyright-text {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--color-text-muted);
-            line-height: 1.6;
-            max-width: 280px;
+            line-height: 1.8;
+            max-width: 260px;
+        }
+
+        .page-copyright .copyright-text strong {
+            color: var(--color-charcoal);
+        }
+
+        .page-copyright .book-id {
+            margin-top: 20px;
+            font-size: 0.65rem;
+            color: var(--color-text-muted);
+            font-family: monospace;
+            opacity: 0.7;
         }
 
         /* Parent guide page */
         .page-parent-guide {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-cream) 100%);
+            background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-sage-light) 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-            text-align: center;
+            justify-content: flex-start;
+            padding: 24px 20px;
+            overflow-y: auto;
+        }
+
+        .page-parent-guide .guide-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .page-parent-guide .guide-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+        .page-parent-guide .guide-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .page-parent-guide h3 {
             font-family: var(--font-display);
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             color: var(--color-soft-black);
-            margin-bottom: 20px;
+            margin: 0;
         }
 
         .parent-intro {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: var(--color-charcoal);
             line-height: 1.5;
             max-width: 320px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            text-align: center;
         }
 
         .tips-box {
             background: var(--color-white);
-            padding: 16px 20px;
+            padding: 14px 16px;
             border-radius: 10px;
             text-align: left;
-            max-width: 320px;
+            max-width: 340px;
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         .tips-box h4 {
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             color: var(--color-soft-black);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .tips-box ul {
@@ -318,11 +391,12 @@
         }
 
         .tips-box li {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--color-charcoal);
-            padding: 4px 0;
+            padding: 3px 0;
             padding-left: 16px;
             position: relative;
+            line-height: 1.4;
         }
 
         .tips-box li::before {
@@ -364,56 +438,110 @@
         .level-badge.green { background: #E8F5E9; color: #388E3C; }
         .level-badge.gold { background: #FFF8E1; color: #F9A825; }
 
+        .page-level-info .level-header {
+            margin-bottom: 20px;
+        }
+
         .page-level-info h3 {
             font-family: var(--font-display);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--color-soft-black);
-            margin-bottom: 8px;
+            margin-top: 8px;
+            margin-bottom: 0;
+        }
+
+        .page-level-info .skill-card {
+            background: var(--color-white);
+            padding: 16px 20px;
+            border-radius: 12px;
+            max-width: 280px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .page-level-info .skill-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-sage);
+            margin-bottom: 6px;
+        }
+
+        .page-level-info .skill-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--color-charcoal);
+            margin-bottom: 10px;
+            line-height: 1.3;
         }
 
         .page-level-info .skill-desc {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--color-text-muted);
-            max-width: 260px;
+            line-height: 1.5;
+        }
+
+        .page-level-info .ready-text {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--color-charcoal);
+        }
+
+        .page-level-info .ready-text strong {
+            color: var(--color-terracotta);
         }
 
         /* Word search page */
         .page-wordsearch {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--color-cream);
+            background: linear-gradient(180deg, #FFF9E6 0%, var(--color-cream) 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
+        }
+
+        .page-wordsearch .ws-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .page-wordsearch .ws-icon {
+            font-size: 1.5rem;
         }
 
         .page-wordsearch h3 {
             font-family: var(--font-display);
             font-size: 1.2rem;
             color: var(--color-soft-black);
-            margin-bottom: 12px;
+            margin: 0;
         }
 
         .wordsearch-grid {
             display: grid;
-            gap: 2px;
+            gap: 3px;
             background: var(--color-white);
-            padding: 8px;
-            border-radius: 8px;
-            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .wordsearch-grid span {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 1rem;
             text-transform: uppercase;
+            color: var(--color-charcoal);
+            background: var(--color-sage-light);
+            border-radius: 4px;
         }
 
         .word-bank {
@@ -421,22 +549,24 @@
             flex-wrap: wrap;
             gap: 8px;
             justify-content: center;
-            max-width: 280px;
+            max-width: 300px;
         }
 
         .word-bank span {
-            font-size: 0.85rem;
-            padding: 4px 10px;
+            font-size: 0.9rem;
+            padding: 6px 12px;
             background: var(--color-white);
-            border-radius: 4px;
-            font-weight: 500;
+            border-radius: 16px;
+            font-weight: 600;
+            color: var(--color-charcoal);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         /* Series info page */
         .page-series-info {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(180deg, var(--color-sage-light) 0%, var(--color-cream) 100%);
+            background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-sage-light) 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -445,35 +575,175 @@
             text-align: center;
         }
 
-        .page-series-info h3 {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            color: var(--color-soft-black);
+        .page-series-info .series-logo {
+            width: 70px;
+            height: 70px;
             margin-bottom: 12px;
         }
 
-        .page-series-info p {
+        .page-series-info .series-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .page-series-info h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--color-terracotta);
+            margin-bottom: 6px;
+        }
+
+        .page-series-info .tagline {
             font-size: 0.85rem;
             color: var(--color-text-muted);
-            max-width: 260px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .level-ladder {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
             margin-bottom: 16px;
         }
 
-        .level-chart {
+        .level-rung {
             display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .level-rung .rung-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .level-rung .rung-arrow {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+        }
+
+        .level-rung.current .rung-badge {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .level-rung.current .rung-arrow {
+            color: var(--color-terracotta);
+            font-weight: bold;
+        }
+
+        .series-cta {
+            margin-top: 16px;
+            padding: 12px 20px;
+            background: var(--color-white);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--color-charcoal);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .series-cta strong {
+            color: var(--color-terracotta);
+        }
+
+        /* End page - celebration! */
+        .page-end {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .page-end .end-image {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-end .end-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .page-end .end-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.3) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
         }
 
-        .level-chip {
-            font-size: 0.7rem;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: 600;
+        .page-end .end-text {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-weight: 700;
+            color: white;
+            text-shadow:
+                3px 3px 0 #000,
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                0 4px 8px rgba(0,0,0,0.4);
+            letter-spacing: 2px;
         }
 
-        /* Back cover - redesigned with image */
+        .page-end .end-star {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            animation: starPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes starPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .page-end .end-actions {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 0 20px;
+        }
+
+        .page-end .end-btn {
+            background: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-charcoal);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .page-end .end-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        .page-end .end-btn.primary {
+            background: var(--color-terracotta);
+            color: white;
+        }
+
+        /* Back cover - redesigned */
         .page-back-cover {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -483,8 +753,9 @@
         }
 
         .back-cover-image {
-            height: 45%;
+            height: 40%;
             overflow: hidden;
+            position: relative;
             background: linear-gradient(90deg, var(--color-sage-light) 25%, #d4e8d9 50%, var(--color-sage-light) 75%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
@@ -496,99 +767,164 @@
             object-fit: cover;
         }
 
+        .back-cover-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, var(--color-cream));
+        }
+
         .back-cover-content {
             flex: 1;
-            padding: 12px 16px;
+            padding: 16px 20px;
             display: flex;
             flex-direction: column;
         }
 
-        .back-cover-row {
+        .back-cover-header {
             display: flex;
+            align-items: flex-start;
             gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .back-cover-header .bc-logo {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+        }
+
+        .back-cover-header .bc-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .back-cover-header .bc-info {
             flex: 1;
         }
 
-        .back-cover-left {
-            flex: 1;
-        }
-
-        .back-cover-left h4 {
+        .back-cover-header .bc-title {
             font-family: var(--font-display);
-            font-size: 0.95rem;
+            font-size: 1rem;
+            font-weight: 600;
             color: var(--color-soft-black);
+            line-height: 1.2;
             margin-bottom: 4px;
         }
 
-        .back-cover-left p {
-            font-size: 0.7rem;
-            color: var(--color-text-muted);
-            line-height: 1.35;
+        .back-cover-blurb {
+            font-size: 0.8rem;
+            color: var(--color-charcoal);
+            line-height: 1.5;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .back-cover-words {
+            background: var(--color-white);
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: auto;
+        }
+
+        .back-cover-words h5 {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-sage);
             margin-bottom: 6px;
         }
 
-        .skill-examples {
-            font-size: 0.65rem;
+        .back-cover-words .word-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .back-cover-words .word-chip {
+            font-size: 0.75rem;
+            font-weight: 600;
             color: var(--color-charcoal);
-            background: var(--color-white);
-            padding: 6px 8px;
+            background: var(--color-sage-light);
+            padding: 3px 8px;
             border-radius: 4px;
-            line-height: 1.4;
         }
 
-        .back-cover-right {
-            width: 70px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .back-cover-qr {
-            width: 60px;
-            height: 60px;
-            background: var(--color-white);
-            border: 1px solid var(--color-border);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.5rem;
-            color: var(--color-text-muted);
+        .back-cover-tagline {
             text-align: center;
+            padding: 12px 0;
+            margin-top: auto;
         }
 
-        .back-cover-bottom {
+        .back-cover-tagline .tagline {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--color-sage);
+        }
+
+        .back-cover-tagline .features {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 8px;
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+        }
+
+        .back-cover-tagline .feature {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .back-cover-tagline .feature-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--color-sage);
+            border-radius: 50%;
+        }
+
+        .back-cover-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 8px;
+            padding: 10px 0 0;
             border-top: 1px solid var(--color-border);
-            margin-top: 8px;
         }
 
-        .back-cover-about {
-            flex: 1;
-            font-size: 0.6rem;
-            color: var(--color-text-muted);
-            line-height: 1.3;
-            padding-right: 10px;
+        .back-cover-footer .bc-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .back-cover-meta {
-            text-align: right;
+        .back-cover-footer .bc-brand-logo {
+            width: 28px;
+            height: 28px;
         }
 
-        .back-cover-logo {
+        .back-cover-footer .bc-brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .back-cover-footer .bc-brand-text {
             font-family: var(--font-display);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--color-terracotta);
         }
 
-        .back-cover-url {
-            font-size: 0.55rem;
+        .back-cover-footer .bc-url {
+            font-size: 0.75rem;
             color: var(--color-text-muted);
+            font-weight: 500;
         }
 
         /* Cover page styling */
@@ -604,16 +940,16 @@
             top: 0;
             left: 0;
             z-index: 10;
-            width: 130px;
-            height: 130px;
+            width: 200px;
+            height: 200px;
             overflow: hidden;
         }
 
         .corner-ribbon {
             position: absolute;
-            top: 28px;
-            left: -35px;
-            width: 170px;
+            top: 38px;
+            left: -70px;
+            width: 280px;
             padding: 6px 0 4px;
             background: #FF8C00;
             transform: rotate(-45deg);
@@ -631,6 +967,7 @@
             color: white;
             letter-spacing: 0.5px;
             display: block;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
         .corner-ribbon .level-text {
@@ -688,6 +1025,23 @@
             color: white;
             margin-top: 8px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .cover-logo {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 48px;
+            height: 48px;
+            z-index: 5;
+            opacity: 0.9;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .cover-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .cover-pattern-banner {
@@ -3102,6 +3456,9 @@
                                     <span class="level-text">${currentBook.level || ''} Level</span>
                                 </div>
                             </div>
+                            <div class="cover-logo">
+                                <img src="/images/funbookies_icon.png" alt="FunBookies">
+                            </div>
                             <div class="cover-image">
                                 <div class="page-image-placeholder" style="display: flex;">
                                     <div class="scene-icon">📖</div>
@@ -3119,16 +3476,23 @@
                     break;
 
                 case 'copyright':
+                    const copyrightYear = currentBook.created ? currentBook.created.split('-')[0] : new Date().getFullYear();
+                    const bookSlug = currentBook.slug || currentBook.id || '';
                     bookPage.innerHTML = `
                         <div class="page-copyright">
-                            <div class="logo">FunBookies</div>
+                            <div class="copyright-logo">
+                                <img src="/images/funbookies_icon.png" alt="FunBookies">
+                            </div>
+                            <div class="brand-wordmark">FunBookies</div>
+                            <div class="copyright-divider"></div>
                             <div class="copyright-text">
-                                Text & illustrations copyright © 2025 FunBookies LLC<br>
+                                <strong>${currentBook.title || 'Untitled'}</strong><br><br>
+                                Text & illustrations © ${copyrightYear} FunBookies<br>
                                 All rights reserved.<br><br>
                                 Published by FunBookies<br>
-                                funbookies.com<br><br>
-                                First Edition, 2025
+                                <strong>funbookies.com</strong>
                             </div>
+                            ${bookSlug ? `<div class="book-id">${bookSlug}</div>` : ''}
                         </div>
                     `;
                     break;
@@ -3139,24 +3503,29 @@
                         // Book-specific parent tips
                         bookPage.innerHTML = `
                             <div class="page-parent-guide">
-                                <h3>Reading Tips</h3>
-                                <div class="tips-box" style="max-width: 340px;">
+                                <div class="guide-header">
+                                    <div class="guide-icon">
+                                        <img src="/images/funbookies_icon.png" alt="">
+                                    </div>
+                                    <h3>Reading Tips</h3>
+                                </div>
+                                <div class="tips-box">
                                     ${tips.before_reading ? `
-                                        <div style="margin-bottom: 12px;">
-                                            <h4 style="color: var(--color-sage); font-size: 0.75rem; margin-bottom: 4px;">Before Reading</h4>
-                                            <p style="font-size: 0.85rem; color: var(--color-charcoal); line-height: 1.4;">${tips.before_reading}</p>
+                                        <div style="margin-bottom: 10px;">
+                                            <h4 style="color: var(--color-sage);">📖 Before Reading</h4>
+                                            <p style="font-size: 0.8rem; color: var(--color-charcoal); line-height: 1.4; margin: 0;">${tips.before_reading}</p>
                                         </div>
                                     ` : ''}
                                     ${tips.during_reading ? `
-                                        <div style="margin-bottom: 12px;">
-                                            <h4 style="color: var(--color-terracotta); font-size: 0.75rem; margin-bottom: 4px;">During Reading</h4>
-                                            <p style="font-size: 0.85rem; color: var(--color-charcoal); line-height: 1.4;">${tips.during_reading}</p>
+                                        <div style="margin-bottom: 10px;">
+                                            <h4 style="color: var(--color-terracotta);">📚 During Reading</h4>
+                                            <p style="font-size: 0.8rem; color: var(--color-charcoal); line-height: 1.4; margin: 0;">${tips.during_reading}</p>
                                         </div>
                                     ` : ''}
                                     ${tips.after_reading ? `
                                         <div>
-                                            <h4 style="color: var(--color-sage); font-size: 0.75rem; margin-bottom: 4px;">After Reading</h4>
-                                            <p style="font-size: 0.85rem; color: var(--color-charcoal); line-height: 1.4;">${tips.after_reading}</p>
+                                            <h4 style="color: var(--color-sage);">💬 After Reading</h4>
+                                            <p style="font-size: 0.8rem; color: var(--color-charcoal); line-height: 1.4; margin: 0;">${tips.after_reading}</p>
                                         </div>
                                     ` : ''}
                                 </div>
@@ -3166,19 +3535,23 @@
                         // Generic tips fallback
                         bookPage.innerHTML = `
                             <div class="page-parent-guide">
-                                <h3>Read Together!</h3>
+                                <div class="guide-header">
+                                    <div class="guide-icon">
+                                        <img src="/images/funbookies_icon.png" alt="">
+                                    </div>
+                                    <h3>Read Together!</h3>
+                                </div>
                                 <p class="parent-intro">
                                     Reading with your child is one of the most valuable things you can do.
-                                    This book is designed so your child can succeed. Be patient, be encouraging,
-                                    and most importantly—have fun!
+                                    Be patient, be encouraging, and have fun!
                                 </p>
                                 <div class="tips-box">
-                                    <h4>A few tips:</h4>
+                                    <h4>Quick Tips</h4>
                                     <ul>
                                         <li>Point to each word as you read</li>
-                                        <li>Give your child time to sound out words</li>
-                                        <li>Praise effort, not just correct answers</li>
-                                        <li>Reading the same book again builds confidence</li>
+                                        <li>Give time to sound out words</li>
+                                        <li>Praise effort, not just answers</li>
+                                        <li>Re-reading builds confidence</li>
                                         <li>Keep it short and positive</li>
                                     </ul>
                                 </div>
@@ -3189,16 +3562,21 @@
 
                 case 'level_info':
                     const lvlInfo = levelReadiness[color] || levelReadiness['orange'];
+                    const targetPhonics = currentBook.targetPhonics || currentBook.skill || 'Reading practice';
+                    const skillDesc = currentBook.skill_description || lvlInfo.forKids || '';
                     bookPage.innerHTML = `
                         <div class="page-level-info">
-                            <span class="level-badge ${color}">${colorDisplay}</span>
-                            <h3>In this book you'll practice:</h3>
-                            <p class="skill-desc" style="margin-bottom: 16px;">${currentBook.skill || 'Reading Skills'}</p>
-                            <div style="background: var(--color-white); padding: 12px 16px; border-radius: 8px; max-width: 260px;">
-                                <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-sage); margin-bottom: 6px;">You'll learn</div>
-                                <div style="font-size: 0.8rem; color: var(--color-charcoal); line-height: 1.5;">
-                                    ${lvlInfo.learns.join(' • ')}
-                                </div>
+                            <div class="level-header">
+                                <span class="level-badge ${color}">${colorDisplay} Level</span>
+                                <h3>Get Ready to Read!</h3>
+                            </div>
+                            <div class="skill-card">
+                                <div class="skill-label">This book focuses on</div>
+                                <div class="skill-title">${targetPhonics}</div>
+                                ${skillDesc ? `<div class="skill-desc">${skillDesc}</div>` : ''}
+                            </div>
+                            <div class="ready-text">
+                                Let's read <strong>${currentBook.title}</strong>!
                             </div>
                         </div>
                     `;
@@ -3235,12 +3613,17 @@
                     break;
 
                 case 'wordsearch':
-                    const wsWords = currentBook.wordsearch_words || page.words || ['cat', 'sat', 'mat'];
-                    const gridSize = (currentBook.level || 0) <= 3 ? 8 : 10;
+                    // Use sound_out words from word_list if available
+                    const wsWordList = currentBook.word_list?.sound_out || [];
+                    const wsWords = wsWordList.length > 0 ? wsWordList.slice(0, 6) : (currentBook.wordsearch_words || page.words || ['cat', 'sat', 'mat']);
+                    const gridSize = wsWords.length <= 4 ? 6 : 8;
                     const grid = generateWordsearchGrid(wsWords, gridSize);
                     bookPage.innerHTML = `
                         <div class="page-wordsearch">
-                            <h3>Find the Words!</h3>
+                            <div class="ws-header">
+                                <span class="ws-icon">🔍</span>
+                                <h3>Find the Words!</h3>
+                            </div>
                             <div class="wordsearch-grid" style="grid-template-columns: repeat(${gridSize}, 1fr);">
                                 ${grid.flat().map(letter => `<span>${letter}</span>`).join('')}
                             </div>
@@ -3251,56 +3634,101 @@
                     `;
                     break;
 
+                case 'end':
+                    const endImgPath = getImagePath(page);
+                    const endText = page.text || 'The End';
+                    bookPage.innerHTML = `
+                        <div class="page-end">
+                            <div class="end-image">
+                                <img src="${endImgPath}" alt="${endText}" decoding="async">
+                                <div class="end-overlay">
+                                    <div class="end-star">⭐</div>
+                                    <div class="end-text">${endText}</div>
+                                </div>
+                            </div>
+                            <div class="end-actions">
+                                <button class="end-btn" onclick="goToPage(0)">Read Again</button>
+                                <button class="end-btn primary" onclick="window.location.href='/books/'">More Books</button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
                 case 'series_info':
+                    const levels = ['pink', 'yellow', 'orange', 'red', 'purple', 'blue', 'green', 'gold'];
+                    const levelNames = ['Pink', 'Yellow', 'Orange', 'Red', 'Purple', 'Blue', 'Green', 'Gold'];
+                    const currentLevelIdx = levels.indexOf(color);
                     bookPage.innerHTML = `
                         <div class="page-series-info">
-                            <h3>About FunBookies</h3>
-                            <p>Decodable books that grow with your reader. Each level builds on the last, making reading fun and achievable!</p>
-                            <div class="level-chart">
-                                <span class="level-chip level-badge pink">Pink</span>
-                                <span class="level-chip level-badge yellow">Yellow</span>
-                                <span class="level-chip level-badge orange">Orange</span>
-                                <span class="level-chip level-badge red">Red</span>
-                                <span class="level-chip level-badge purple">Purple</span>
-                                <span class="level-chip level-badge blue">Blue</span>
-                                <span class="level-chip level-badge green">Green</span>
-                                <span class="level-chip level-badge gold">Gold</span>
+                            <div class="series-logo">
+                                <img src="/images/funbookies_icon.png" alt="FunBookies">
+                            </div>
+                            <h3>FunBookies</h3>
+                            <div class="tagline">Books that grow with your reader</div>
+                            <div class="level-ladder">
+                                ${levels.slice(0, 5).map((lvl, i) => `
+                                    <div class="level-rung ${lvl === color ? 'current' : ''}">
+                                        <span class="rung-badge level-badge ${lvl}">${levelNames[i]}</span>
+                                        ${lvl === color ? '<span class="rung-arrow">← You are here!</span>' : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="series-cta">
+                                Find more books at <strong>funbookies.com</strong>
                             </div>
                         </div>
                     `;
                     break;
 
                 case 'back_cover':
-                    const lvlData = levelReadiness[color] || levelReadiness['orange'];
-                    const backImgPath = getImagePath(page);
+                    // Use back cover image, or fall back to cover image
+                    const backImgPath = page.image ? getImagePath(page) : getCoverImagePath();
+                    // Use book-specific blurb from back_cover page, or summary, or generate from premise
+                    const backBlurb = page.text || currentBook.summary ||
+                        (currentBook.story_bible?.premise ? currentBook.story_bible.premise.split('.')[0] + '.' : 'A fun story for beginning readers!');
+                    // Get actual words from this book's word list
+                    const bcWordList = currentBook.word_list || {};
+                    const bcWords = [...(bcWordList.sound_out || []).slice(0, 6), ...(bcWordList.new || []).slice(0, 2)];
                     bookPage.innerHTML = `
                         <div class="page-back-cover">
                             <div class="back-cover-image">
-                                <img src="${backImgPath}" alt="" decoding="async" onerror="this.style.display='none'">
+                                <img src="${backImgPath}" alt="" decoding="async">
                             </div>
                             <div class="back-cover-content">
-                                <div class="back-cover-row">
-                                    <div class="back-cover-left">
-                                        <span class="level-badge ${color}" style="font-size: 0.6rem; padding: 3px 8px; margin-bottom: 6px; display: inline-block;">${colorDisplay} Level</span>
-                                        <h4>${currentBook.title}</h4>
-                                        <p>${lvlData.forKids}</p>
-                                        <div class="skill-examples">
-                                            <strong>Practice words like:</strong><br>
-                                            ${lvlData.examples.replace('Words like: ', '')}
-                                        </div>
+                                <div class="back-cover-header">
+                                    <div class="bc-logo">
+                                        <img src="/images/funbookies_icon.png" alt="FunBookies">
                                     </div>
-                                    <div class="back-cover-right">
-                                        <div class="back-cover-qr">Scan for<br>reading<br>quiz</div>
+                                    <div class="bc-info">
+                                        <div class="bc-title">${currentBook.title}</div>
+                                        <span class="level-badge ${color}" style="font-size: 0.55rem; padding: 2px 8px;">${colorDisplay} Level</span>
                                     </div>
                                 </div>
-                                <div class="back-cover-bottom">
-                                    <div class="back-cover-about">
-                                        <strong>FunBookies</strong> are decodable books designed to help children succeed at reading. Each level builds skills step-by-step.
+                                <div class="back-cover-blurb">${backBlurb}</div>
+                                ${bcWords.length > 0 ? `
+                                    <div class="back-cover-words">
+                                        <h5>Words in this book</h5>
+                                        <div class="word-chips">
+                                            ${bcWords.map(w => `<span class="word-chip">${w}</span>`).join('')}
+                                        </div>
                                     </div>
-                                    <div class="back-cover-meta">
-                                        <div class="back-cover-logo">FunBookies</div>
-                                        <div class="back-cover-url">funbookies.com</div>
+                                ` : ''}
+                                <div class="back-cover-tagline">
+                                    <div class="tagline">"Every child can learn to read."</div>
+                                    <div class="features">
+                                        <span class="feature"><span class="feature-dot"></span> Decodable</span>
+                                        <span class="feature"><span class="feature-dot"></span> Phonics-based</span>
+                                        <span class="feature"><span class="feature-dot"></span> Research-backed</span>
                                     </div>
+                                </div>
+                                <div class="back-cover-footer">
+                                    <div class="bc-brand">
+                                        <div class="bc-brand-logo">
+                                            <img src="/images/funbookies_icon.png" alt="">
+                                        </div>
+                                        <span class="bc-brand-text">FunBookies</span>
+                                    </div>
+                                    <span class="bc-url">funbookies.com</span>
                                 </div>
                             </div>
                         </div>
@@ -3320,6 +3748,9 @@
                                     <span class="brand-name">FunBookies</span>
                                     <span class="level-text">${colorDisplay} Level</span>
                                 </div>
+                            </div>
+                            <div class="cover-logo">
+                                <img src="/images/funbookies_icon.png" alt="FunBookies">
                             </div>
                             <div class="cover-image" style="height: 100%;">
                                 <img src="${coverImgPath}" alt="${coverTitle}" decoding="async" fetchpriority="high" onerror="document.getElementById('${coverPlaceholderId}').style.display='flex'; this.style.display='none';">
@@ -3349,6 +3780,9 @@
                         // Long-form layout for C/D band: text left, image right
                         bookPage.classList.add('long-form');
                         bookPage.innerHTML = `
+                            <div class="page-watermark">
+                                <img src="/images/funbookies_icon.png" alt="">
+                            </div>
                             <div class="page-long-form">
                                 <div class="long-form-text">
                                     <p>${page.text || ''}</p>
@@ -3367,6 +3801,9 @@
                         // Standard layout for A/B band: image top, text bottom
                         bookPage.classList.remove('long-form');
                         bookPage.innerHTML = `
+                            <div class="page-watermark">
+                                <img src="/images/funbookies_icon.png" alt="">
+                            </div>
                             <div class="page-image">
                                 <img src="${storyImgPath}" alt="" decoding="async" fetchpriority="high" onerror="document.getElementById('${placeholderId}').style.display='flex'; this.style.display='none';">
                                 <div id="${placeholderId}" class="page-image-placeholder" style="display: none;">

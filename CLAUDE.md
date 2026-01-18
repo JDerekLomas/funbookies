@@ -1,5 +1,14 @@
 # Claude Code Instructions for LilBookies
 
+## Session Documentation
+
+After completing work, document changes in `DEVLOG.md` with:
+- Date and brief title
+- Commit hash
+- What was changed and why
+- Files affected
+- Any relevant notes for future sessions
+
 ## Links and File Access
 
 When providing links to the user:

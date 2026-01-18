@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Experiments | FunBookies</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #333;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        h1 { margin: 0; color: #495057; }
+        .back-link {
+            color: #6c757d;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        /* Experiment List */
+        .experiment-list {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .experiment-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 16px;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
+        }
+        .experiment-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        .experiment-card.selected {
+            border-color: #007bff;
+            background: #f8f9ff;
+        }
+        .experiment-info h3 {
+            margin: 0 0 8px 0;
+            color: #212529;
+        }
+        .experiment-meta {
+            display: flex;
+            gap: 16px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .experiment-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .tag-pipeline { background: #e7f5ff; color: #1971c2; }
+        .tag-count { background: #f3f0ff; color: #7048e8; }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        .btn-primary:hover { background: #0056b3; }
+        .btn-secondary {
+            background: #e9ecef;
+            color: #495057;
+        }
+        .btn-secondary:hover { background: #dee2e6; }
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        .btn-success:hover { background: #1e7e34; }
+
+        /* Compare bar */
+        .compare-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #212529;
+            color: white;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            z-index: 100;
+        }
+        .compare-bar.visible {
+            transform: translateY(0);
+        }
+        .compare-bar .selected-count {
+            font-size: 16px;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+        .empty-state h2 { color: #495057; }
+
+        /* Review Panel */
+        #reviewPanel {
+            display: none;
+        }
+        #reviewPanel.active {
+            display: block;
+        }
+        #experimentList.hidden {
+            display: none;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .panel-header h2 { margin: 0; }
+
+        /* Story cards in review */
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        .story-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        .blind-id {
+            font-size: 28px;
+            font-weight: bold;
+            color: #495057;
+        }
+        .story-tags {
+            display: flex;
+            gap: 8px;
+        }
+        .story-text {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: Georgia, serif;
+            font-size: 17px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Rating */
+        .rating-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .rating-group h4 {
+            margin: 0 0 12px 0;
+            font-size: 14px;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .rating-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+        }
+        .rating-label {
+            font-size: 13px;
+            color: #495057;
+        }
+        .rating-buttons {
+            display: flex;
+            gap: 4px;
+        }
+        .rating-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #dee2e6;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.15s;
+        }
+        .rating-btn:hover {
+            background: #e7f5ff;
+            border-color: #74c0fc;
+        }
+        .rating-btn.selected {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .pick-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .pick-btn {
+            flex: 1;
+        }
+        .pick-btn.picked {
+            background: #28a745;
+        }
+        .notes-input {
+            flex: 2;
+            padding: 10px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        /* Reveal section */
+        .reveal-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .reveal-section h3 {
+            margin: 0 0 16px 0;
+        }
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .results-table th,
+        .results-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .results-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+        .results-table tr.winner {
+            background: #d3f9d8;
+        }
+        .results-table tr.winner td:first-child::before {
+            content: "🏆 ";
+        }
+
+        /* Comparison view */
+        .comparison-header {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .comparison-exp {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .comparison-exp .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Story Experiments</h1>
+        <a href="/" class="back-link">Back to FunBookies</a>
+    </header>
+
+    <div id="experimentList">
+        <div class="action-buttons" style="margin-bottom: 16px;">
+            <button class="btn btn-success" onclick="compareSelected()">Compare Selected</button>
+            <span style="color: #6c757d; margin-left: 8px;" id="selectedCount">0 selected</span>
+        </div>
+
+        <div class="experiment-list" id="experiments">
+            <div class="empty-state">
+                <h2>No experiments yet</h2>
+                <p>Run the story generator to create experiments:</p>
+                <code>python run_book_experiment.py --config A --save-to-vercel</code>
+            </div>
+        </div>
+    </div>
+
+    <div id="reviewPanel">
+        <div class="panel-header">
+            <div>
+                <button class="btn btn-secondary" onclick="backToList()">Back to List</button>
+                <h2 style="display: inline; margin-left: 16px;" id="reviewTitle">Reviewing Experiment</h2>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="revealResults()">Reveal Results</button>
+                <button class="btn btn-secondary" onclick="exportRatings()">Export</button>
+            </div>
+        </div>
+
+        <div class="story-grid" id="storyGrid"></div>
+
+        <div class="reveal-section" id="revealSection" style="display: none;">
+            <h3>Results</h3>
+            <table class="results-table" id="resultsTable"></table>
+        </div>
+    </div>
+
+    <div class="compare-bar" id="compareBar">
+        <span class="selected-count">2 experiments selected</span>
+        <button class="btn btn-primary" onclick="compareSelected()">Compare Now</button>
+    </div>
+
+    <script>
+        let experiments = [];
+        let selectedExperiments = new Set();
+        let currentExperiment = null;
+        let stories = [];
+        let ratings = {};
+
+        const BLIND_IDS = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa'];
+        const COLORS = ['#e64980', '#7950f2', '#15aabf', '#40c057', '#fab005', '#fd7e14'];
+
+        async function init() {
+            try {
+                const response = await fetch('/experiments/index.json');
+                const data = await response.json();
+                experiments = data.experiments || [];
+                renderExperimentList();
+            } catch (err) {
+                console.error('Failed to load experiments:', err);
+            }
+        }
+
+        function renderExperimentList() {
+            const container = document.getElementById('experiments');
+
+            if (experiments.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h2>No experiments yet</h2>
+                        <p>Run the story generator to create experiments:</p>
+                        <code>python run_book_experiment.py --config A</code>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = experiments.map(exp => `
+                <div class="experiment-card ${selectedExperiments.has(exp.id) ? 'selected' : ''}"
+                     data-id="${exp.id}"
+                     onclick="toggleSelect('${exp.id}', event)">
+                    <div class="experiment-info">
+                        <h3>${exp.description || exp.id}</h3>
+                        <div class="experiment-meta">
+                            <span>${formatDate(exp.timestamp)}</span>
+                            <span class="tag tag-pipeline">${exp.pipeline}</span>
+                            <span class="tag tag-count">${exp.story_count} stories</span>
+                        </div>
+                    </div>
+                    <div class="action-buttons" onclick="event.stopPropagation()">
+                        <button class="btn btn-primary" onclick="reviewExperiment('${exp.id}')">Review</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatDate(timestamp) {
+            if (!timestamp) return '';
+            const date = new Date(timestamp);
+            return date.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function toggleSelect(id, event) {
+            if (event.target.closest('.action-buttons')) return;
+
+            if (selectedExperiments.has(id)) {
+                selectedExperiments.delete(id);
+            } else {
+                selectedExperiments.add(id);
+            }
+
+            renderExperimentList();
+            updateCompareBar();
+        }
+
+        function updateCompareBar() {
+            const bar = document.getElementById('compareBar');
+            const count = document.getElementById('selectedCount');
+            count.textContent = `${selectedExperiments.size} selected`;
+
+            if (selectedExperiments.size >= 2) {
+                bar.classList.add('visible');
+            } else {
+                bar.classList.remove('visible');
+            }
+        }
+
+        async function reviewExperiment(id) {
+            try {
+                const response = await fetch(`/experiments/${id}.json`);
+                currentExperiment = await response.json();
+
+                // Shuffle stories and assign blind IDs
+                stories = [...currentExperiment.stories];
+                shuffleArray(stories);
+                stories.forEach((story, idx) => {
+                    story.blindId = BLIND_IDS[idx] || `Story ${idx + 1}`;
+                    ratings[story.blindId] = {
+                        curricular: {},
+                        creative: {},
+                        picked: false,
+                        notes: ''
+                    };
+                });
+
+                document.getElementById('experimentList').classList.add('hidden');
+                document.getElementById('reviewPanel').classList.add('active');
+                document.getElementById('reviewTitle').textContent = currentExperiment.description || currentExperiment.id;
+                document.getElementById('revealSection').style.display = 'none';
+
+                renderStories();
+            } catch (err) {
+                console.error('Failed to load experiment:', err);
+                alert('Failed to load experiment');
+            }
+        }
+
+        function renderStories() {
+            const grid = document.getElementById('storyGrid');
+            grid.innerHTML = stories.map(story => `
+                <div class="story-card" data-blind-id="${story.blindId}">
+                    <div class="story-header">
+                        <span class="blind-id">${story.blindId}</span>
+                        <div class="story-tags">
+                            <span class="tag tag-pipeline">${story.level}</span>
+                            <span class="tag tag-count">${story.mode}</span>
+                        </div>
+                    </div>
+
+                    <div class="story-text">${escapeHtml(story.story)}</div>
+
+                    <div class="rating-section">
+                        <div class="rating-group">
+                            <h4>Curricular</h4>
+                            ${renderRating(story.blindId, 'curricular', 'phonics', 'Phonics')}
+                            ${renderRating(story.blindId, 'curricular', 'sentences', 'Sentences')}
+                            ${renderRating(story.blindId, 'curricular', 'decodability', 'Decodability')}
+                        </div>
+                        <div class="rating-group">
+                            <h4>Creative</h4>
+                            ${renderRating(story.blindId, 'creative', 'rhythm', 'Rhythm')}
+                            ${renderRating(story.blindId, 'creative', 'sensory', 'Sensory')}
+                            ${renderRating(story.blindId, 'creative', 'engagement', 'Engagement')}
+                        </div>
+                    </div>
+
+                    <div class="pick-section">
+                        <button class="btn btn-success pick-btn" onclick="togglePick('${story.blindId}')">
+                            Pick Winner
+                        </button>
+                        <input type="text" class="notes-input" placeholder="Notes..."
+                               onchange="updateNotes('${story.blindId}', this.value)">
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderRating(blindId, category, key, label) {
+            return `
+                <div class="rating-row">
+                    <span class="rating-label">${label}</span>
+                    <div class="rating-buttons">
+                        ${[1,2,3,4,5].map(n => `
+                            <button class="rating-btn" onclick="rate('${blindId}', '${category}', '${key}', ${n})">${n}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function rate(blindId, category, key, value) {
+            ratings[blindId][category][key] = value;
+
+            // Update UI
+            const card = document.querySelector(`.story-card[data-blind-id="${blindId}"]`);
+            const buttons = card.querySelectorAll(`.rating-group:${category === 'curricular' ? 'first' : 'last'}-child .rating-row`);
+
+            buttons.forEach(row => {
+                if (row.querySelector('.rating-label').textContent === key.charAt(0).toUpperCase() + key.slice(1) ||
+                    row.querySelector('.rating-label').textContent === label) {
+                    row.querySelectorAll('.rating-btn').forEach(btn => {
+                        btn.classList.toggle('selected', parseInt(btn.textContent) === value);
+                    });
+                }
+            });
+
+            // Re-render to update button states properly
+            const group = card.querySelector(`.rating-group:${category === 'curricular' ? 'first' : 'last'}-child`);
+            const rows = group.querySelectorAll('.rating-row');
+            rows.forEach(row => {
+                const labelText = row.querySelector('.rating-label').textContent.toLowerCase();
+                if (labelText === key || labelText === key.replace('_', ' ')) {
+                    row.querySelectorAll('.rating-btn').forEach(btn => {
+                        btn.classList.toggle('selected', parseInt(btn.textContent) === value);
+                    });
+                }
+            });
+        }
+
+        function togglePick(blindId) {
+            ratings[blindId].picked = !ratings[blindId].picked;
+            const card = document.querySelector(`.story-card[data-blind-id="${blindId}"]`);
+            const btn = card.querySelector('.pick-btn');
+            btn.classList.toggle('picked', ratings[blindId].picked);
+            btn.textContent = ratings[blindId].picked ? 'Picked!' : 'Pick Winner';
+        }
+
+        function updateNotes(blindId, notes) {
+            ratings[blindId].notes = notes;
+        }
+
+        function revealResults() {
+            const section = document.getElementById('revealSection');
+            const table = document.getElementById('resultsTable');
+
+            // Calculate scores
+            const results = stories.map(story => {
+                const r = ratings[story.blindId];
+                const curricularVals = Object.values(r.curricular);
+                const creativeVals = Object.values(r.creative);
+
+                const curricularAvg = curricularVals.length ?
+                    curricularVals.reduce((a,b) => a+b, 0) / curricularVals.length : 0;
+                const creativeAvg = creativeVals.length ?
+                    creativeVals.reduce((a,b) => a+b, 0) / creativeVals.length : 0;
+
+                return {
+                    blindId: story.blindId,
+                    title: story.title,
+                    level: story.level,
+                    mode: story.mode,
+                    pipeline: story.pipeline || currentExperiment.pipeline,
+                    curricularAvg,
+                    creativeAvg,
+                    total: (curricularAvg + creativeAvg) / 2,
+                    picked: r.picked
+                };
+            }).sort((a, b) => b.total - a.total);
+
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Blind ID</th>
+                        <th>Title</th>
+                        <th>Level</th>
+                        <th>Mode</th>
+                        <th>Curricular</th>
+                        <th>Creative</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${results.map(r => `
+                        <tr class="${r.picked ? 'winner' : ''}">
+                            <td>${r.blindId}</td>
+                            <td>${r.title}</td>
+                            <td>${r.level}</td>
+                            <td>${r.mode}</td>
+                            <td>${r.curricularAvg.toFixed(1)}</td>
+                            <td>${r.creativeAvg.toFixed(1)}</td>
+                            <td><strong>${r.total.toFixed(1)}</strong></td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
+
+            section.style.display = 'block';
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function exportRatings() {
+            const data = {
+                experiment_id: currentExperiment.id,
+                timestamp: new Date().toISOString(),
+                ratings,
+                stories: stories.map(s => ({
+                    blindId: s.blindId,
+                    title: s.title,
+                    level: s.level,
+                    mode: s.mode
+                }))
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ratings_${currentExperiment.id}.json`;
+            a.click();
+        }
+
+        function backToList() {
+            document.getElementById('experimentList').classList.remove('hidden');
+            document.getElementById('reviewPanel').classList.remove('active');
+            currentExperiment = null;
+            stories = [];
+            ratings = {};
+        }
+
+        function compareSelected() {
+            if (selectedExperiments.size < 2) {
+                alert('Select at least 2 experiments to compare');
+                return;
+            }
+            // TODO: Implement comparison view
+            alert('Comparison view coming soon! Selected: ' + [...selectedExperiments].join(', '));
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
+        }
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>

@@ -183,6 +183,23 @@ public/
 | Covers | `wan2.6-image` | Image-to-Image | Uses reference as style input |
 | Pages | `wan2.6-image` | Image-to-Image | Uses reference as style input |
 
+### Available I2I Models (via fal.ai)
+
+| Model | Price | Max Refs | Best For |
+|-------|-------|----------|----------|
+| `wan2.6-image` | $0.03/img | 3 | Budget style transfer |
+| `flux-dev-i2i` | $0.03/MP | 1 | Strength control |
+| `flux-kontext-pro` | $0.04/img | 1 | Natural language edits |
+| `flux-kontext-max` | $0.08/img | 3 | Premium quality |
+| `gemini-2.5-flash` | $0.039/img | 3 | Fast, good quality |
+| `gemini-3-pro` | $0.15/img | **14** | Best character consistency |
+| `z-image-turbo` | $0.005/MP | 1 | Bulk budget generation |
+
+**Recommendation:**
+- Use `wan2.6-image` for most pages (80% cheaper than alternatives)
+- Use `gemini-3-pro` when character consistency is critical (complex multi-character scenes)
+- Use `z-image-turbo` for draft/preview generation
+
 ### Model Selection Rationale
 
 **High-Quality T2I for References** (`nano-banana-pro` or `gpt-image-1`):
@@ -238,38 +255,58 @@ uv run python scripts/generate_pages.py
 
 ## Prompt Writing Best Practices
 
-### Avoid Negation - Describe What IS There
+### Single Image Output (Critical for I2I)
 
-Text-to-image models attend to concepts even when negated. Saying "no rain" activates "rain" in the model's attention and often produces rain.
+When using image-to-image with a 9-panel reference sheet, models often copy the grid layout into outputs. **Strongly emphasize single-image composition:**
 
-**Bad (mentions unwanted concept):**
-- "Nature is alive even without rain"
-- "No rain falling"
-- "Sky with no clouds"
-
-**Good (describes desired state):**
-- "Dry dirt trail under overcast gray sky"
-- "Parched garden bed, dusty soil"
-- "Clear blue sky"
-
-### Use Negative Prompts for Exclusions
-
-If the model supports a `negative_prompt` field, put unwanted elements there instead of in the main prompt:
-
-```python
-body = {
-    "prompt": "Girl standing in garden, gray overcast sky",
-    "negative_prompt": "rain, water drops, wet, puddles"
-}
+**Add to EVERY page/cover prompt:**
+```
+COMPOSITION: One cohesive illustration filling the entire canvas.
+Full-bleed image with the scene filling edge to edge.
 ```
 
-### Weather Description Examples
+**Example page prompt:**
+```
+A small hermit crab discovers a glowing white shell in a tide pool at dawn.
 
-| Story Context | Bad Prompt | Good Prompt |
-|--------------|------------|-------------|
-| Waiting for rain | "No rain yet" | "Dry overcast day, gray clouds" |
-| Drought | "Garden without water" | "Parched soil, wilted plants" |
-| Before storm | "Calm before rain" | "Still air, dark clouds gathering" |
+Style: Match the reference image - soft watercolor, rounded shapes,
+warm dawn palette.
+
+COMPOSITION: Single full-bleed illustration, scene fills the entire canvas.
+```
+
+**Why this happens:** The I2I model attends to structural elements in the reference image. A 3x3 grid becomes a strong compositional prior. Emphasizing "full-bleed" and "fills entire canvas" helps override this.
+
+---
+
+### Never Mention Unwanted Concepts
+
+Text-to-image models attend to concepts even when negated. Saying "no ball" makes the model MORE likely to generate a ball - the word "ball" activates that concept regardless of negation.
+
+**The rule: If you don't want it, don't mention it at all.**
+
+**Bad (mentions unwanted concept):**
+- "Child playing, no ball" → will likely include a ball
+- "Nature is alive even without rain" → will likely show rain
+- "Clear sky with no clouds" → will likely show clouds
+- "Single image, not a grid" → may still create a grid
+
+**Good (describes only what you want):**
+- "Child playing with a kite"
+- "Dry dirt trail under overcast gray sky"
+- "Clear blue sky"
+- "One cohesive illustration filling the entire canvas"
+
+**Note:** Our models do not support a `negative_prompt` parameter. The only solution is to describe what IS there, never what isn't.
+
+### Examples
+
+| What You Want | Bad Prompt | Good Prompt |
+|---------------|------------|-------------|
+| Dry weather | "No rain" | "Dry overcast day, gray clouds" |
+| Single scene | "Not a grid" | "One illustration filling the frame" |
+| Empty hands | "No ball in hands" | "Hands at sides" |
+| Calm water | "No waves" | "Still, glassy water" |
 
 ## Reference Image Content Contamination
 
@@ -343,6 +380,131 @@ Before generating, verify each scene description has:
 - [ ] **NO** abstract/mood language ("dreamy", "magical feeling")
 - [ ] **NO** negations ("no airplane", "without the tractor")
 - [ ] **NO** future story references ("about to imagine")
+
+## Character Consistency Techniques
+
+For books with recurring characters, maintaining visual consistency is critical. Different models offer varying capabilities.
+
+### Model Comparison for Character Consistency
+
+| Model | Max Refs | Best For |
+|-------|----------|----------|
+| `gemini-3-pro` | 14 | Multi-character books, complex scenes |
+| `wan2.6-image` | 3 | Simple style transfer, single character |
+| `flux-kontext-max` | 3 | Natural language edits |
+| `gemini-2.5-flash` | 3 | Budget option with good consistency |
+
+### Multi-Reference Strategy (Gemini 3 Pro)
+
+Gemini 3 Pro / Nano Banana Pro supports up to **14 reference images** with role-based assignments:
+
+```
+Recommended allocation:
+├── Images 1-5:  Character references (poses, expressions, angles)
+├── Images 6-8:  Object/prop references (recurring items)
+├── Images 9-11: Environment references (settings)
+└── Images 12-14: Style references (color palette, mood)
+```
+
+### Prompting for Character Consistency
+
+**1. Reference-Based Prompting:**
+```
+Draw [CHARACTER NAME] EXACTLY as shown in Image 1.
+[Character] has [DISTINCTIVE FEATURES - be specific].
+The character MUST have [KEY FEATURE] in every frame.
+```
+
+**2. Visual Shorthand in Book JSON:**
+```json
+{
+  "characters": {
+    "flicker": {
+      "name": "Flicker",
+      "visual_shorthand": "tiny golden-green firefly with bright amber glow, friendly expression",
+      "distinctive_features": ["amber light (KEY)", "tiny size fits in palm", "translucent wings"]
+    }
+  }
+}
+```
+
+**3. Layered Prompt Structure:**
+```
+SCENE: [What's happening in this page]
+
+CHARACTERS (CRITICAL - draw EXACTLY as described):
+- Flicker: tiny golden-green firefly with amber glow | MUST HAVE: amber light, tiny size
+
+STYLE: warm watercolor, soft edges, children's book
+
+CONSTRAINTS: No text, maintain character proportions from reference
+```
+
+### Identity Anchoring Technique
+
+For maximum consistency across pages:
+
+1. **Create a character reference sheet** with:
+   - Front view, 3/4 view, profile
+   - Key expressions (happy, sad, surprised)
+   - Size reference (next to common objects)
+
+2. **Use explicit size relationships:**
+   - "Flicker is tiny, fits in a child's palm"
+   - "The mouse is small enough to sit on a leaf"
+
+3. **Reference previous pages:**
+   - "Character appears exactly as in page 3"
+
+### Batch Experiment for Model Comparison
+
+Use `batch_experiment.py` to compare model output across a full book:
+
+```bash
+# Compare default models
+python scripts/batch_experiment.py flicker-the-firefly
+
+# Include premium models
+python scripts/batch_experiment.py flicker-the-firefly --include-premium
+
+# Test specific pages
+python scripts/batch_experiment.py flicker-the-firefly --pages 1,5,10
+
+# Dry run to preview
+python scripts/batch_experiment.py flicker-the-firefly --dry-run
+```
+
+Results are saved to `experiments/{book}/{timestamp}/` with:
+- Side-by-side comparison HTML
+- Per-model cost breakdown
+- Generation timing data
+
+### Character Consistency Helper
+
+Use the helper function in `fal_client.py`:
+
+```python
+from fal_client import build_character_consistent_prompt, ImageClient
+
+prompt = build_character_consistent_prompt(
+    scene="Flicker flies over the moonlit pond",
+    characters={
+        "Flicker": {
+            "visual_shorthand": "tiny golden-green firefly with bright amber glow",
+            "distinctive_features": ["amber light (KEY)", "tiny size", "friendly expression"],
+        }
+    },
+    style="warm watercolor, soft edges, children's book",
+    reference_assignments={"Flicker": 1}  # Image 1 is Flicker's reference
+)
+
+client = ImageClient()
+result = client.generate_with_reference(
+    prompt=prompt,
+    reference_images=["ref_flicker_front.png", "ref_flicker_side.png", "ref_style.png"],
+    model="gemini-3-pro",
+)
+```
 
 ## Current Status
 

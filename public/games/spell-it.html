@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Spell It! - FunBookies</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    .back-link {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 200;
+      padding: 8px 12px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    .back-link:hover {
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #1a2e1a 0%, #163e2a 50%, #0f604a 100%);
+      min-height: 100vh;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .game-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* Header */
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .score-display {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .streak-display {
+      font-size: 20px;
+      font-weight: bold;
+      color: #7dff7d;
+      text-shadow: 0 0 20px #7dff7d;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.2s ease;
+    }
+
+    .streak-display.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Word display at top - spelled letters go here */
+    .spell-area {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      min-height: 90px;
+      margin-bottom: 30px;
+      perspective: 1000px;
+    }
+
+    .spell-slot {
+      width: 65px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      font-weight: bold;
+      color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.05);
+      border: 3px dashed rgba(255,255,255,0.2);
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .spell-slot.filled {
+      background: linear-gradient(145deg, rgba(125,255,125,0.9), rgba(80,200,80,0.9));
+      border: 3px solid rgba(255,255,255,0.5);
+      color: #1a2e1a;
+      box-shadow: 0 4px 15px rgba(125,255,125,0.4);
+      animation: slotFill 0.3s ease;
+    }
+
+    .spell-slot.wrong {
+      background: linear-gradient(145deg, rgba(255,100,100,0.9), rgba(200,50,50,0.9));
+      border-color: #ff6666;
+      animation: wrongShake 0.4s ease;
+    }
+
+    @keyframes slotFill {
+      0% { transform: scale(0.8); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes wrongShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+
+    /* Hear word button */
+    .hear-btn {
+      background: rgba(255, 215, 0, 0.3);
+      border: 2px solid #ffd700;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 28px;
+      cursor: pointer;
+      margin-bottom: 30px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hear-btn:hover {
+      background: rgba(255, 215, 0, 0.5);
+      transform: scale(1.1);
+    }
+
+    .hear-btn:active {
+      transform: scale(0.95);
+    }
+
+    .hear-btn.playing {
+      animation: pulse 0.5s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,0,0.5); }
+      50% { box-shadow: 0 0 0 15px rgba(255,215,0,0); }
+    }
+
+    /* Letter tiles area */
+    .letter-area {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      max-width: 400px;
+      perspective: 1000px;
+    }
+
+    .letter-tile {
+      width: 70px;
+      height: 85px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: bold;
+      color: #1a2e1a;
+      background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(200,255,220,0.9));
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease, opacity 0.3s ease;
+      box-shadow:
+        0 4px 15px rgba(0,0,0,0.3),
+        inset 0 2px 10px rgba(255,255,255,0.8),
+        inset 0 -2px 10px rgba(0,0,0,0.1);
+      text-transform: lowercase;
+    }
+
+    .letter-tile::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      right: 30px;
+      height: 15px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), transparent);
+      border-radius: 50%;
+    }
+
+    .letter-tile:hover {
+      transform: scale(1.05) translateY(-3px);
+    }
+
+    .letter-tile:active {
+      transform: scale(0.95);
+    }
+
+    .letter-tile.used {
+      opacity: 0.3;
+      pointer-events: none;
+      transform: scale(0.9);
+    }
+
+    .letter-tile.wrong {
+      animation: tileWrong 0.4s ease;
+      background: linear-gradient(145deg, rgba(255,180,180,0.95), rgba(255,150,150,0.9));
+    }
+
+    @keyframes tileWrong {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      20% { transform: translateX(-10px) rotate(-5deg); }
+      40% { transform: translateX(10px) rotate(5deg); }
+      60% { transform: translateX(-5px) rotate(-2deg); }
+      80% { transform: translateX(5px) rotate(2deg); }
+    }
+
+    /* Progress dots */
+    .progress {
+      position: absolute;
+      bottom: 40px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .progress-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .progress-dot.complete {
+      background: #7dff7d;
+      box-shadow: 0 0 10px #7dff7d;
+    }
+
+    .progress-dot.current {
+      background: #ffd700;
+      box-shadow: 0 0 10px #ffd700;
+      transform: scale(1.3);
+    }
+
+    /* Start screen */
+    .start-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #1a2e1a 0%, #163e2a 50%, #0f604a 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      transition: opacity 0.5s ease;
+    }
+
+    .start-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .start-screen h1 {
+      font-size: 56px;
+      color: #fff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 30px rgba(125,255,125,0.5);
+    }
+
+    .start-screen p {
+      font-size: 20px;
+      color: #aaa;
+      margin-bottom: 40px;
+      text-align: center;
+      max-width: 300px;
+    }
+
+    .start-btn {
+      padding: 20px 60px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #1a2e1a;
+      background: linear-gradient(145deg, #7dff7d, #4dcc4d);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(125,255,125,0.3);
+      transition: all 0.2s ease;
+    }
+
+    .start-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(125,255,125,0.4);
+    }
+
+    .start-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Level select */
+    .level-select {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 400px;
+    }
+
+    .level-btn {
+      padding: 12px 24px;
+      font-size: 16px;
+      color: #fff;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .level-btn:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    .level-btn.selected {
+      background: rgba(125,255,125,0.3);
+      border-color: #7dff7d;
+      color: #7dff7d;
+    }
+
+    /* Results screen */
+    .results-screen {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .results-screen.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .results-screen h2 {
+      font-size: 48px;
+      color: #7dff7d;
+      margin-bottom: 30px;
+    }
+
+    .results-stats {
+      font-size: 24px;
+      color: #fff;
+      text-align: center;
+      line-height: 2;
+    }
+
+    .results-stats .highlight {
+      color: #7dff7d;
+      font-weight: bold;
+    }
+
+    /* Celebration particles */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* Success animation */
+    .word-complete {
+      animation: wordComplete 0.6s ease;
+    }
+
+    @keyframes wordComplete {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.1); }
+      60% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+
+    /* Flash overlay */
+    .flash-overlay {
+      position: fixed;
+      inset: 0;
+      background: #7dff7d;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .flash-overlay.flash {
+      animation: flashAnim 0.15s ease;
+    }
+
+    @keyframes flashAnim {
+      0% { opacity: 0.4; }
+      100% { opacity: 0; }
+    }
+
+    /* Hint text */
+    .hint-text {
+      position: absolute;
+      bottom: 100px;
+      color: rgba(255,255,255,0.5);
+      font-size: 16px;
+      text-align: center;
+    }
+  </style>
+  <script src="/js/audio-utils.js"></script>
+</head>
+<body>
+  <a href="/games/" class="back-link">← Games</a>
+
+  <!-- Particle Canvas -->
+  <canvas id="particles"></canvas>
+
+  <!-- Flash Overlay -->
+  <div class="flash-overlay" id="flash"></div>
+
+  <!-- Start Screen -->
+  <div class="start-screen" id="startScreen">
+    <h1>SPELL IT!</h1>
+    <p>Listen to the word and tap letters to spell it correctly</p>
+
+    <div class="level-select">
+      <button class="level-btn selected" data-level="cvc">CVC Words</button>
+      <button class="level-btn" data-level="ccvc">Blends</button>
+      <button class="level-btn" data-level="digraph">Digraphs</button>
+      <button class="level-btn" data-level="cvce">Magic E</button>
+      <button class="level-btn" data-level="mixed">Mixed</button>
+    </div>
+
+    <button class="start-btn" id="startBtn">START!</button>
+  </div>
+
+  <!-- Game Container -->
+  <div class="game-container" id="gameContainer">
+    <div class="header">
+      <div class="score-display">Score: <span id="score">0</span></div>
+      <div class="streak-display" id="streak">3 in a row!</div>
+    </div>
+
+    <div class="spell-area" id="spellArea"></div>
+
+    <button class="hear-btn" id="hearBtn" title="Hear the word">🔊</button>
+
+    <div class="letter-area" id="letterArea"></div>
+
+    <div class="progress" id="progress"></div>
+
+    <div class="hint-text">Tap letters in order to spell the word</div>
+  </div>
+
+  <!-- Results Screen -->
+  <div class="results-screen" id="resultsScreen">
+    <h2>GREAT SPELLING!</h2>
+    <div class="results-stats">
+      Words Spelled: <span class="highlight" id="wordsSpelled">0</span><br>
+      Best Streak: <span class="highlight" id="bestStreak">0</span><br>
+      Accuracy: <span class="highlight" id="accuracy">0</span>%<br>
+      <br>
+      Final Score: <span class="highlight" id="finalScore">0</span>
+    </div>
+    <button class="start-btn" id="playAgainBtn" style="margin-top: 40px;">SPELL AGAIN!</button>
+  </div>
+
+  <script>
+    // Word data organized by type
+    const WORD_DATA = {
+      cvc: [
+        { word: 'cat', letters: ['c', 'a', 't'] },
+        { word: 'dog', letters: ['d', 'o', 'g'] },
+        { word: 'pig', letters: ['p', 'i', 'g'] },
+        { word: 'sun', letters: ['s', 'u', 'n'] },
+        { word: 'bed', letters: ['b', 'e', 'd'] },
+        { word: 'cup', letters: ['c', 'u', 'p'] },
+        { word: 'hat', letters: ['h', 'a', 't'] },
+        { word: 'map', letters: ['m', 'a', 'p'] },
+        { word: 'pen', letters: ['p', 'e', 'n'] },
+        { word: 'fox', letters: ['f', 'o', 'x'] },
+        { word: 'bug', letters: ['b', 'u', 'g'] },
+        { word: 'log', letters: ['l', 'o', 'g'] },
+        { word: 'net', letters: ['n', 'e', 't'] },
+        { word: 'rug', letters: ['r', 'u', 'g'] },
+        { word: 'van', letters: ['v', 'a', 'n'] },
+        { word: 'jet', letters: ['j', 'e', 't'] },
+        { word: 'wet', letters: ['w', 'e', 't'] },
+        { word: 'zip', letters: ['z', 'i', 'p'] },
+      ],
+      ccvc: [
+        { word: 'stop', letters: ['s', 't', 'o', 'p'] },
+        { word: 'frog', letters: ['f', 'r', 'o', 'g'] },
+        { word: 'swim', letters: ['s', 'w', 'i', 'm'] },
+        { word: 'grab', letters: ['g', 'r', 'a', 'b'] },
+        { word: 'trip', letters: ['t', 'r', 'i', 'p'] },
+        { word: 'snap', letters: ['s', 'n', 'a', 'p'] },
+        { word: 'clap', letters: ['c', 'l', 'a', 'p'] },
+        { word: 'drop', letters: ['d', 'r', 'o', 'p'] },
+        { word: 'spin', letters: ['s', 'p', 'i', 'n'] },
+        { word: 'grin', letters: ['g', 'r', 'i', 'n'] },
+        { word: 'drum', letters: ['d', 'r', 'u', 'm'] },
+        { word: 'flag', letters: ['f', 'l', 'a', 'g'] },
+        { word: 'plan', letters: ['p', 'l', 'a', 'n'] },
+        { word: 'stem', letters: ['s', 't', 'e', 'm'] },
+      ],
+      digraph: [
+        { word: 'ship', letters: ['s', 'h', 'i', 'p'] },
+        { word: 'chat', letters: ['c', 'h', 'a', 't'] },
+        { word: 'thin', letters: ['t', 'h', 'i', 'n'] },
+        { word: 'shop', letters: ['s', 'h', 'o', 'p'] },
+        { word: 'much', letters: ['m', 'u', 'c', 'h'] },
+        { word: 'fish', letters: ['f', 'i', 's', 'h'] },
+        { word: 'with', letters: ['w', 'i', 't', 'h'] },
+        { word: 'when', letters: ['w', 'h', 'e', 'n'] },
+        { word: 'then', letters: ['t', 'h', 'e', 'n'] },
+        { word: 'chop', letters: ['c', 'h', 'o', 'p'] },
+        { word: 'bash', letters: ['b', 'a', 's', 'h'] },
+        { word: 'path', letters: ['p', 'a', 't', 'h'] },
+      ],
+      cvce: [
+        { word: 'cake', letters: ['c', 'a', 'k', 'e'] },
+        { word: 'bike', letters: ['b', 'i', 'k', 'e'] },
+        { word: 'home', letters: ['h', 'o', 'm', 'e'] },
+        { word: 'time', letters: ['t', 'i', 'm', 'e'] },
+        { word: 'lake', letters: ['l', 'a', 'k', 'e'] },
+        { word: 'bone', letters: ['b', 'o', 'n', 'e'] },
+        { word: 'rope', letters: ['r', 'o', 'p', 'e'] },
+        { word: 'pine', letters: ['p', 'i', 'n', 'e'] },
+        { word: 'note', letters: ['n', 'o', 't', 'e'] },
+        { word: 'cube', letters: ['c', 'u', 'b', 'e'] },
+        { word: 'tune', letters: ['t', 'u', 'n', 'e'] },
+        { word: 'make', letters: ['m', 'a', 'k', 'e'] },
+        { word: 'ride', letters: ['r', 'i', 'd', 'e'] },
+        { word: 'wave', letters: ['w', 'a', 'v', 'e'] },
+      ],
+      mixed: []
+    };
+
+    // Populate mixed
+    WORD_DATA.mixed = [
+      ...WORD_DATA.cvc,
+      ...WORD_DATA.ccvc,
+      ...WORD_DATA.digraph,
+      ...WORD_DATA.cvce
+    ];
+
+    // Confusable sounds for distractors
+    const CONFUSABLE_SOUNDS = {
+      'b': ['p', 'd', 'g'],
+      'p': ['b', 't', 'k'],
+      'd': ['t', 'b', 'g'],
+      't': ['d', 'p', 'k'],
+      'g': ['k', 'd', 'b'],
+      'k': ['g', 't', 'p'],
+      'c': ['k', 'g', 's'],
+      'f': ['v', 'p', 's'],
+      'v': ['f', 'b', 'w'],
+      's': ['z', 'c', 'x'],
+      'z': ['s', 'j', 'x'],
+      'm': ['n', 'b', 'w'],
+      'n': ['m', 'd', 'l'],
+      'l': ['r', 'w', 'n'],
+      'r': ['l', 'w', 'y'],
+      'w': ['r', 'l', 'v'],
+      'h': ['f', 'w', 'y'],
+      'j': ['g', 'y', 'z'],
+      'y': ['j', 'i', 'e'],
+      'x': ['s', 'z', 'k'],
+      'a': ['e', 'u', 'o'],
+      'e': ['i', 'a', 'u'],
+      'i': ['e', 'y', 'u'],
+      'o': ['u', 'a', 'e'],
+      'u': ['o', 'a', 'e'],
+    };
+
+    // Get distractor letters
+    function getDistractors(letters, count = 3) {
+      const distractors = new Set();
+      const letterSet = new Set(letters);
+
+      for (const letter of letters) {
+        const confusables = CONFUSABLE_SOUNDS[letter.toLowerCase()] || [];
+        for (const conf of confusables) {
+          if (!letterSet.has(conf) && !distractors.has(conf)) {
+            distractors.add(conf);
+            if (distractors.size >= count) break;
+          }
+        }
+        if (distractors.size >= count) break;
+      }
+
+      const commonLetters = ['s', 't', 'n', 'r', 'l', 'a', 'e', 'i', 'o', 'p'];
+      while (distractors.size < count) {
+        const letter = commonLetters[Math.floor(Math.random() * commonLetters.length)];
+        if (!letterSet.has(letter) && !distractors.has(letter)) {
+          distractors.add(letter);
+        }
+      }
+
+      return Array.from(distractors);
+    }
+
+    // Shuffle array
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Game state
+    let currentLevel = 'cvc';
+    let currentWord = null;
+    let currentLetterIndex = 0;
+    let score = 0;
+    let streak = 0;
+    let bestStreak = 0;
+    let wordsCompleted = 0;
+    let totalTaps = 0;
+    let correctTaps = 0;
+    let wordsInRound = 10;
+    let wordIndex = 0;
+    let shuffledWords = [];
+
+    // Audio functions
+    function speakWord(word) {
+      if (typeof AudioUtils !== 'undefined' && AudioUtils.speakTTS) {
+        AudioUtils.speakTTS(word, { rate: 0.8, pitch: 1.0 });
+      } else if ('speechSynthesis' in window) {
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.rate = 0.8;
+        utterance.pitch = 1.0;
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    function playLetterSound(letter) {
+      if (typeof AudioUtils !== 'undefined') {
+        AudioUtils.playSound(letter).catch(() => {});
+      }
+    }
+
+    // Preload letter sounds
+    if (typeof AudioUtils !== 'undefined') {
+      AudioUtils.preloadLetters('sounds').catch(() => {});
+    }
+
+    // DOM elements
+    const startScreen = document.getElementById('startScreen');
+    const gameContainer = document.getElementById('gameContainer');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const spellArea = document.getElementById('spellArea');
+    const letterArea = document.getElementById('letterArea');
+    const hearBtn = document.getElementById('hearBtn');
+    const progressEl = document.getElementById('progress');
+    const scoreEl = document.getElementById('score');
+    const streakEl = document.getElementById('streak');
+    const flash = document.getElementById('flash');
+
+    // Particle system
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.size = Math.random() * 10 + 3;
+        this.speedX = (Math.random() - 0.5) * 15;
+        this.speedY = (Math.random() - 0.5) * 15 - 5;
+        this.gravity = 0.3;
+        this.life = 1;
+        this.decay = Math.random() * 0.02 + 0.01;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.speedY += this.gravity;
+        this.life -= this.decay;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.life;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function createParticles(x, y, color, count = 15) {
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle(x, y, color));
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles = particles.filter(p => p.life > 0);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // Level selection
+    document.querySelectorAll('.level-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        currentLevel = btn.dataset.level;
+      });
+    });
+
+    // Start game
+    document.getElementById('startBtn').addEventListener('click', startGame);
+    document.getElementById('playAgainBtn').addEventListener('click', startGame);
+
+    function startGame() {
+      score = 0;
+      streak = 0;
+      bestStreak = 0;
+      wordsCompleted = 0;
+      totalTaps = 0;
+      correctTaps = 0;
+      wordIndex = 0;
+      scoreEl.textContent = '0';
+      streakEl.classList.remove('active');
+
+      shuffledWords = shuffleArray(WORD_DATA[currentLevel]).slice(0, wordsInRound);
+
+      startScreen.classList.add('hidden');
+      resultsScreen.classList.remove('show');
+
+      updateProgress();
+      loadWord();
+    }
+
+    function updateProgress() {
+      progressEl.innerHTML = '';
+      for (let i = 0; i < wordsInRound; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'progress-dot';
+        if (i < wordsCompleted) dot.classList.add('complete');
+        if (i === wordsCompleted) dot.classList.add('current');
+        progressEl.appendChild(dot);
+      }
+    }
+
+    function loadWord() {
+      if (wordIndex >= shuffledWords.length) {
+        endGame();
+        return;
+      }
+
+      currentWord = shuffledWords[wordIndex];
+      currentLetterIndex = 0;
+
+      // Create spell slots
+      spellArea.innerHTML = '';
+      currentWord.letters.forEach(() => {
+        const slot = document.createElement('div');
+        slot.className = 'spell-slot';
+        slot.textContent = '_';
+        spellArea.appendChild(slot);
+      });
+
+      // Create letter tiles (word letters + distractors, shuffled)
+      const distractors = getDistractors(currentWord.letters, 3);
+      const allLetters = shuffleArray([...currentWord.letters, ...distractors]);
+
+      letterArea.innerHTML = '';
+      allLetters.forEach((letter, i) => {
+        const tile = document.createElement('div');
+        tile.className = 'letter-tile';
+        tile.textContent = letter;
+        tile.dataset.letter = letter;
+        tile.dataset.index = i;
+        tile.addEventListener('click', () => handleTap(tile));
+        letterArea.appendChild(tile);
+      });
+
+      // Play word automatically
+      setTimeout(() => {
+        speakWord(currentWord.word);
+        hearBtn.classList.add('playing');
+        setTimeout(() => hearBtn.classList.remove('playing'), 500);
+      }, 300);
+    }
+
+    function handleTap(tile) {
+      if (tile.classList.contains('used')) return;
+
+      totalTaps++;
+      const letter = tile.dataset.letter;
+      const expectedLetter = currentWord.letters[currentLetterIndex];
+
+      if (letter === expectedLetter) {
+        // Correct!
+        correctTaps++;
+        tile.classList.add('used');
+
+        // Fill the slot
+        const slots = spellArea.querySelectorAll('.spell-slot');
+        const slot = slots[currentLetterIndex];
+        slot.textContent = letter;
+        slot.classList.add('filled');
+
+        // Play letter sound
+        playLetterSound(letter);
+
+        // Create particles at tile position
+        const rect = tile.getBoundingClientRect();
+        createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, '#7dff7d');
+
+        // Update score
+        score += 10 * (streak + 1);
+        scoreEl.textContent = score;
+
+        currentLetterIndex++;
+
+        // Check if word complete
+        if (currentLetterIndex >= currentWord.letters.length) {
+          wordComplete();
+        }
+      } else {
+        // Wrong!
+        tile.classList.add('wrong');
+        setTimeout(() => tile.classList.remove('wrong'), 400);
+
+        // Show wrong in current slot briefly
+        const slots = spellArea.querySelectorAll('.spell-slot');
+        const slot = slots[currentLetterIndex];
+        slot.classList.add('wrong');
+        setTimeout(() => slot.classList.remove('wrong'), 400);
+
+        // Reset streak
+        streak = 0;
+        streakEl.classList.remove('active');
+      }
+    }
+
+    function wordComplete() {
+      wordsCompleted++;
+      streak++;
+      if (streak > bestStreak) bestStreak = streak;
+
+      // Show streak
+      if (streak >= 2) {
+        streakEl.textContent = `${streak} in a row!`;
+        streakEl.classList.add('active');
+      }
+
+      // Flash and celebrate
+      flash.classList.add('flash');
+      setTimeout(() => flash.classList.remove('flash'), 150);
+
+      spellArea.classList.add('word-complete');
+      setTimeout(() => spellArea.classList.remove('word-complete'), 600);
+
+      // Bonus points for streak
+      score += 50 * streak;
+      scoreEl.textContent = score;
+
+      // Create celebration particles
+      const rect = spellArea.getBoundingClientRect();
+      for (let i = 0; i < 3; i++) {
+        createParticles(
+          rect.left + Math.random() * rect.width,
+          rect.top + rect.height / 2,
+          ['#7dff7d', '#ffd700', '#7df7ff'][i]
+        );
+      }
+
+      // Next word
+      updateProgress();
+      wordIndex++;
+      setTimeout(loadWord, 800);
+    }
+
+    function endGame() {
+      document.getElementById('wordsSpelled').textContent = wordsCompleted;
+      document.getElementById('bestStreak').textContent = bestStreak;
+      document.getElementById('accuracy').textContent = totalTaps > 0
+        ? Math.round((correctTaps / totalTaps) * 100)
+        : 0;
+      document.getElementById('finalScore').textContent = score;
+      resultsScreen.classList.add('show');
+    }
+
+    // Hear button
+    hearBtn.addEventListener('click', () => {
+      if (currentWord) {
+        speakWord(currentWord.word);
+        hearBtn.classList.add('playing');
+        setTimeout(() => hearBtn.classList.remove('playing'), 500);
+      }
+    });
+  </script>
+</body>
+</html>

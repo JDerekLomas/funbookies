@@ -11,6 +11,7 @@ A detailed plan for completing the curriculum across all 28 levels.
 | Lessons | 12 | 21 | 33 |
 | Books | 55 | 25+ | 80+ |
 | Activities | 14 | 3 | 17 |
+| Games | 0 | 5 | 5 |
 | GPC Audio | ~46 | ~20 | ~66 |
 
 ---
@@ -620,6 +621,430 @@ Gameplay:
   - Player builds: un + happy = unhappy
   - Extend: unhappy + -ness = unhappiness
 ```
+
+---
+
+## Game Development
+
+### Design Philosophy: "Juice" Mechanics
+
+Add these satisfying feedback mechanics to ALL activities and games:
+
+| Mechanic | Implementation | Trigger |
+|----------|----------------|---------|
+| **Screen Shake** | 5-10px random offset, 100-200ms | Correct answer, explosions |
+| **Particle Burst** | 15-30 particles, radial spread | Letter/word completion |
+| **Combo Counter** | Flaming text, size scales with streak | 3+ correct in a row |
+| **Slow-Motion** | 0.3x speed for 500ms | Perfect timing, boss defeat |
+| **Sound Design** | Layered: pop + sparkle + whoosh | Every interaction |
+| **Streak Rewards** | Mini firework show | 5 correct = bronze, 10 = silver, 15 = gold |
+| **Near-Miss Feedback** | Encouraging wobble + "Almost!" | Wrong but close |
+| **Impact Flash** | White flash 50ms | Big explosions |
+| **Camera Zoom** | Punch-in 1.1x on impact | Word completion |
+| **Haptic Feedback** | Short vibration (mobile) | Correct answers |
+
+#### Combo System
+```
+Streak 1-2:   Normal feedback
+Streak 3-4:   + Fire trail on letters
+Streak 5-7:   + Screen border glow
+Streak 8-10:  + Background particles
+Streak 11+:   + "ON FIRE!" announcement + bonus points
+```
+
+#### Explosion Types
+```
+Small Pop:     Correct letter tap (10 particles, 200ms)
+Medium Burst:  Word complete (25 particles, 400ms)
+Big Explosion: Level complete (50 particles, 800ms, screen shake)
+MEGA BLAST:    Perfect round (100 particles, slow-mo, camera zoom)
+```
+
+---
+
+### Top 5 Games to Build
+
+#### 1. Phonics Blaster (Priority: HIGH)
+
+**Genre:** Space shooter / Asteroids style
+**Bands:** A1-B5 (letter sounds through digraphs)
+**Phonics Skills:** Sound-letter correspondence, phoneme isolation
+
+```
+GAMEPLAY:
+┌─────────────────────────────────────┐
+│  ★    [m]        [s]    ★          │
+│         ↓    [a]   ↓               │
+│    [t]   ↓    ↓                    │
+│           ↓                        │
+│              ↓     [p]             │
+│                                    │
+│           ▲                        │
+│          /█\      ← Player cannon  │
+│         /███\                      │
+│    ═══════════════════════════     │
+│  ♪ "What sound does this make?"    │
+│    [Speaker plays: /s/]            │
+└─────────────────────────────────────┘
+
+MECHANICS:
+- Letters/graphemes float down from top (like asteroids)
+- Audio plays target sound: "Shoot the letter that makes /s/"
+- Player aims and fires at correct letter
+- HIT: Letter EXPLODES (particles + screen shake + points)
+- MISS: Bullet passes through, small penalty
+- Letter reaches bottom: Lose a life
+
+LEVELS:
+- Level 1-5: Single letters (s, a, t, p, i, n)
+- Level 6-10: All Phase 2 letters
+- Level 11-15: Digraphs (sh, ch, th, etc.)
+- Boss Battles: Blend 3 sounds to defeat boss
+  - Boss shows word "cat"
+  - Shoot c, then a, then t in order
+  - Each hit = boss takes damage + explosion
+  - Final hit = MASSIVE explosion + victory
+
+POWER-UPS:
+- Multi-shot: Fire 3 bullets at once
+- Slow-mo: Letters descend at 0.5x speed
+- Bomb: Destroy all wrong letters on screen
+- Shield: Protect from one mistake
+
+PROGRESSION:
+- Stars (1-3) based on accuracy
+- Unlock new cannon skins
+- Leaderboard for each level
+```
+
+**Technical Notes:**
+- Canvas-based rendering for smooth animation
+- Collision detection: circle-circle for bullets/letters
+- Particle system: reusable pool of 100 particles
+- Sound: Web Audio API for low-latency
+
+---
+
+#### 2. Smash Words (Priority: HIGH)
+
+**Genre:** Destruction / Whack-a-mole
+**Bands:** A2-B6 (CVC through CVCe)
+**Phonics Skills:** Segmenting, phoneme order, blending
+
+```
+GAMEPLAY:
+┌─────────────────────────────────────┐
+│                                     │
+│      ╔═══╗  ╔═══╗  ╔═══╗           │
+│      ║ C ║  ║ A ║  ║ T ║  ← Glass  │
+│      ╚═══╝  ╚═══╝  ╚═══╝    letters│
+│                                     │
+│            🔨                       │
+│         SMASH!                      │
+│                                     │
+│  ♪ "Smash each sound in 'cat'"     │
+│     [c] - [a] - [t]                │
+└─────────────────────────────────────┘
+
+MECHANICS:
+- Word displayed as glass/crystal letter blocks
+- Audio: "Smash each sound in [word]"
+- Tap/click letters in phoneme order
+- Correct order:
+  1. First tap: Letter CRACKS (small particles)
+  2. Second tap: Letter SHATTERS (medium explosion)
+  3. Final letter: WHOLE WORD EXPLODES (mega blast + slow-mo)
+- Wrong order: Hammer bounces off with "bonk!" sound
+
+WORD TYPES:
+- CVC: cat, dog, pig, sun, bed (3 smashes)
+- CCVC: stop, frog, swim (4 smashes)
+- CVCC: jump, desk, milk (4 smashes)
+- CVCe: cake, bike, home (4 smashes, magic e = sparkle)
+- Digraphs: ship, chat, ring (3 smashes, digraph = single block)
+
+COMBO SYSTEM:
+- Perfect order + fast timing = "PERFECT!" + 2x points
+- 3 perfect words in a row = "SMASH STREAK!" + 3x points
+- All glass letters have subtle idle animation (shimmer)
+
+MATERIALS TO SMASH:
+- Glass (default) → shatters into shards
+- Ice (digraphs) → cracks then explodes into snow
+- Crystal (vowel teams) → rainbow explosion
+- Obsidian (tricky words) → dramatic dark explosion
+
+SLOW-MO REPLAY:
+- On perfect smash, 0.3x speed replay of destruction
+- Camera zooms to exploding word
+- Particles fly toward camera
+```
+
+**Technical Notes:**
+- Pre-render crack animations (3 stages per letter)
+- Particle types: shards, dust, sparkles
+- Sound layers: crack + shatter + whoosh + chime
+
+---
+
+#### 3. Ninja Word Slice (Priority: HIGH)
+
+**Genre:** Fruit Ninja style
+**Bands:** A3-B9 (CVC through r-controlled)
+**Phonics Skills:** Segmenting, onset-rime, phoneme manipulation
+
+```
+GAMEPLAY:
+┌─────────────────────────────────────┐
+│            [cat]                    │
+│               ↗                     │
+│    [dog] ↗        [sun] ↗          │
+│       ↗              ↗              │
+│                                     │
+│         ╱ SLICE! ╱                  │
+│        ╱        ╱                   │
+│                                     │
+│  SCORE: 2450    COMBO: x3          │
+│  ███████░░░ (streak meter)          │
+└─────────────────────────────────────┘
+
+MECHANICS:
+- Words pop up from bottom (fruit ninja style)
+- Swipe to slice words into phonemes
+- Slice direction matters:
+  - Horizontal: onset-rime split (c | at)
+  - Vertical: full segment (c | a | t)
+  - Diagonal: syllable split (for 2-syllable)
+
+SLICE RESULTS:
+- Correct slice: Word splits with satisfying cut effect
+  - Each piece shows phoneme (/k/ | /æt/)
+  - Pieces fly apart with juice splash
+  - Audio plays each phoneme
+- Wrong slice: Word wobbles, doesn't split, "try again" hint
+- Miss completely: Word falls, lose points
+
+SPECIAL WORDS:
+- 🍎 Regular words: Normal slice
+- 💣 Tricky words (sight words): DON'T SLICE! Tap instead
+  - Slicing bomb = explosion + lose combo
+  - Tapping = defuse animation + bonus points
+- ⭐ Golden words: Bonus points, require perfect slice
+- 🔥 Fire words: Quick! Slice before they burn out
+
+MODES:
+- Classic: 60 seconds, max points
+- Zen: No timer, practice mode
+- Arcade: Lives system, increasing speed
+- Challenge: Specific phonics patterns only
+
+POWER-UPS (earned through combos):
+- Freeze: Slow all words for 5 seconds
+- Frenzy: 2x words, 2x points for 10 seconds
+- Bomb Defuser: Auto-tap all bombs on screen
+```
+
+**Technical Notes:**
+- Touch/mouse gesture recognition for swipe direction
+- Trail renderer for slice visual
+- Physics for word piece trajectories
+- Juice splash: 20 small particles in cut direction
+
+---
+
+#### 4. Dragon Trainer (Priority: MEDIUM)
+
+**Genre:** Collection / Evolution / RPG-lite
+**Bands:** All (A0-D6, different dragons per band)
+**Phonics Skills:** All - gamified progression system
+
+```
+GAMEPLAY:
+┌─────────────────────────────────────┐
+│  🔥 EMBER (Level 3)     ❤️❤️❤️     │
+│     [Dragon sprite]                 │
+│        🐲                           │
+│       /  \      "Feed me sounds!"   │
+│                                     │
+│  ┌─────┬─────┬─────┬─────┐         │
+│  │  s  │  a  │  t  │  p  │ ← Food  │
+│  └─────┴─────┴─────┴─────┘         │
+│                                     │
+│  ♪ "Feed the sound /s/"            │
+│                                     │
+│  [🎯 Target: sat]  Progress: ██░░░  │
+└─────────────────────────────────────┘
+
+MECHANICS:
+- Dragon asks for sounds (audio plays phoneme)
+- Drag correct letter/grapheme to dragon's mouth
+- Correct: Dragon chomps happily, BREATHES FIRE
+  - Fire illuminates target word letter
+  - Fill word to complete challenge
+- Wrong: Dragon makes disgusted face, spits it out
+
+DRAGON TYPES (unlock by band mastery):
+┌────────────────────────────────────────────────┐
+│ Dragon      │ Band  │ Focus           │ Power  │
+├────────────────────────────────────────────────┤
+│ 🔥 Ember    │ A1-A4 │ Single letters  │ Fire   │
+│ 🌊 Splash   │ B1-B2 │ Short vowels    │ Water  │
+│ ⚡ Bolt     │ B3-B4 │ Blends          │ Lightning│
+│ 💨 Whisper  │ B5    │ Digraphs        │ Wind   │
+│ ✨ Shimmer  │ B6    │ Magic E         │ Sparkle│
+│ 🌈 Prism    │ B7-B8 │ Vowel teams     │ Rainbow│
+│ 🌟 Nova     │ B9    │ R-controlled    │ Star   │
+│ 👻 Shadow   │ C1-C2 │ Silent/soft     │ Stealth│
+│ 🔮 Mystic   │ C3-C8 │ Morphology      │ Magic  │
+│ 👑 Ancient  │ D1-D6 │ Fluency         │ All    │
+└────────────────────────────────────────────────┘
+
+EVOLUTION:
+- Each dragon has 3 evolution stages
+- Evolution requires:
+  - Feed 50 correct sounds
+  - Complete 5 challenges
+  - Find 3 treasure pieces
+
+DRAGON POWERS:
+- Fire breath: Reveals hint on wrong answer
+- Water splash: Clears wrong letters
+- Lightning: Auto-completes one letter
+- Powers recharge with correct answers
+
+COLLECTION:
+- Dragon den shows all dragons
+- Tap dragon for stats: accuracy, words learned
+- Dragon happiness based on daily practice
+- Idle animation: dragons play in den
+
+MINI-GAMES (once dragon is fed):
+- Dragon race: Read words fast to fly faster
+- Treasure hunt: Find words hidden in scene
+- Boss battle: Spell words to defeat villain
+```
+
+**Technical Notes:**
+- Sprite animation: 4-frame idle, 4-frame eat, 8-frame breathe fire
+- Save system: LocalStorage for dragon progress
+- Particle system for each breath type
+
+---
+
+#### 5. Word Volcano (Priority: MEDIUM)
+
+**Genre:** Pressure puzzle / Timed building
+**Bands:** B1-B6 (CVC through CVCe)
+**Phonics Skills:** Blending, word building, spelling
+
+```
+GAMEPLAY:
+┌─────────────────────────────────────┐
+│        🌋 WORD VOLCANO 🌋           │
+│           ╱    ╲                    │
+│          ╱      ╲                   │
+│         ╱ ░░░░░░ ╲  ← Lava rising! │
+│        ╱ ░░░░░░░░ ╲                 │
+│       ╱ ░░░░░░░░░░ ╲                │
+│      ╱______________╲               │
+│                                     │
+│   Falling: [c] [t] [a]              │
+│                                     │
+│   Build: [___] [___] [___]          │
+│          "cat"                      │
+│                                     │
+│   🔥🔥🔥🔥🔥░░░░░ Pressure: 60%     │
+└─────────────────────────────────────┘
+
+MECHANICS:
+- Volcano rumbles (screen shake increases over time)
+- Letter chunks fall/erupt from volcano
+- Target word shown at bottom
+- Drag letters to slots in correct order
+- Pressure meter fills over time
+
+CORRECT BUILD:
+1. Letters lock in with satisfying "click"
+2. Pressure releases slightly
+3. Final letter → MASSIVE ERUPTION!
+   - Lava explodes upward
+   - Coins/gems fly out
+   - Screen shake + particle explosion
+   - Slow-mo of eruption
+
+WRONG BUILD:
+- Letters don't fit (magnetic repel effect)
+- Pressure increases faster
+- Hint after 2 wrong attempts
+
+PRESSURE SYSTEM:
+- Meter fills over time (30 seconds to full)
+- Wrong answers: +10% pressure
+- Correct answers: Reset pressure
+- Full pressure: Volcano EXPLODES (lose round, but dramatic)
+  - Not punishing - "The volcano erupted! Try again!"
+  - Spectacular explosion animation
+
+POWER-UPS (earned gems spend here):
+- Freeze: Stop pressure for 10 seconds
+- Hint: Highlight correct first letter
+- Shuffle: Re-drop letters in helpful order
+- Shield: Survive one eruption
+
+LEVELS:
+- Calm Crater: CVC, slow pressure (A2-B2)
+- Rumbling Ridge: CCVC/CVCC, medium pressure (B3-B4)
+- Blazing Peak: CVCe, fast pressure (B6)
+- CHAOS MODE: Random patterns, maximum pressure
+
+VISUAL PROGRESSION:
+- Background: Calm orange → Angry red as pressure rises
+- Volcano: Small rumbles → Violent shaking
+- Music: Calm percussion → Intense drums
+- Lava: Slow bubble → Rapid churning
+```
+
+**Technical Notes:**
+- Pressure as game state that affects all visuals
+- Drag-and-drop with snap-to-slot
+- Eruption: 200 particles, camera shake, audio crescendo
+- Gems currency stored in LocalStorage
+
+---
+
+### Game Development Timeline
+
+| Game | Priority | Complexity | Est. Time | Dependencies |
+|------|----------|------------|-----------|--------------|
+| Phonics Blaster | HIGH | Medium | 2-3 weeks | Particle system, audio |
+| Smash Words | HIGH | Low | 1-2 weeks | Particle system |
+| Ninja Word Slice | HIGH | Medium | 2-3 weeks | Gesture recognition |
+| Dragon Trainer | MEDIUM | High | 4-6 weeks | Save system, sprites |
+| Word Volcano | MEDIUM | Medium | 2-3 weeks | Pressure system |
+
+### Shared Systems to Build First
+
+1. **Particle System** (1 week)
+   - Reusable across all games
+   - Pool of 200 particles
+   - Types: spark, shard, dust, star, coin
+
+2. **Juice Manager** (3 days)
+   - Screen shake utility
+   - Slow-mo controller
+   - Combo tracker
+   - Flash effects
+
+3. **Audio Manager** (3 days)
+   - Sound pooling for rapid fire
+   - Music ducking on events
+   - Phoneme playback queue
+
+4. **Curriculum Connector** (1 week)
+   - Pull words from curriculum JSON
+   - Filter by band/lesson
+   - Track mastery per word
+   - Feed confusion matrix
 
 ---
 

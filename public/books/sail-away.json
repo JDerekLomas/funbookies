@@ -137,7 +137,15 @@
       "type": "cover",
       "text": "Sail Away",
       "scene": "Cover illustration for 'Sail Away'. Calm bay at sunset, small sailboat, gentle waves, orange sky. Style matches the reference sheet.",
-      "image_prompt": "Cover illustration for 'Sail Away'. Calm bay at sunset, small sailboat, gentle waves, orange sky. Style matches the reference sheet.\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
+      "image_prompt": "Cover illustration for 'Sail Away'. Calm bay at sunset, small sailboat, gentle waves, orange sky. Style matches the reference sheet.\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:28:07.317563",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 2,
@@ -178,7 +186,15 @@
       "type": "story",
       "text": "The bay is slow and gray.",
       "scene": "Illustration for: The bay is slow and gray....",
-      "image_prompt": "Illustration for: The bay is slow and gray....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
+      "image_prompt": "Illustration for: The bay is slow and gray....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page07.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:28:50.218578",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 8,
@@ -217,77 +233,176 @@
       "story_page": 5,
       "type": "story",
       "text": "through water that goes\n*swish... swish... swish...*",
-      "scene": "Illustration for: through water that goes\n*swish... swish... swish...*..."
+      "scene": "Illustration for: through water that goes\n*swish... swish... swish...*...",
+      "image_prompt": "Illustration for: through water that goes\n*swish... swish... swish...*...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page10.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:29:40.398517",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 11,
       "story_page": 6,
       "type": "story",
       "text": "The chain clinks on the rail.",
-      "scene": "Illustration for: The chain clinks on the rail...."
+      "scene": "Illustration for: The chain clinks on the rail....",
+      "image_prompt": "Illustration for: The chain clinks on the rail....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page11.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:30:27.365437",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 12,
       "story_page": 7,
       "type": "story",
       "text": "Waves tap the bow like rain\non glass.",
-      "scene": "Illustration for: Waves tap the bow like rain\non glass...."
+      "scene": "Illustration for: Waves tap the bow like rain\non glass....",
+      "image_prompt": "Illustration for: Waves tap the bow like rain\non glass....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page12.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:31:10.392350",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 13,
       "story_page": 8,
       "type": "story",
       "text": "Salt spray kisses my cheek.",
-      "scene": "Illustration for: Salt spray kisses my cheek...."
+      "scene": "Illustration for: Salt spray kisses my cheek....",
+      "image_prompt": "Illustration for: Salt spray kisses my cheek....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page13.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:46:18.965445",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 14,
       "story_page": 9,
       "type": "story",
       "text": "Sail full, sail proud,\nlike a sheet on the line\u2014",
-      "scene": "Illustration for: Sail full, sail proud,\nlike a sheet on the line\u2014..."
+      "scene": "Illustration for: Sail full, sail proud,\nlike a sheet on the line\u2014...",
+      "image_prompt": "Illustration for: Sail full, sail proud,\nlike a sheet on the line\u2014...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page14.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:47:01.982691",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 15,
       "story_page": 10,
       "type": "story",
       "text": "wind fills it up,\npushes me ahead.",
-      "scene": "Illustration for: wind fills it up,\npushes me ahead...."
+      "scene": "Illustration for: wind fills it up,\npushes me ahead....",
+      "image_prompt": "Illustration for: wind fills it up,\npushes me ahead....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page15.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:49:09.697926",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 16,
       "story_page": 11,
       "type": "story",
       "text": "The boat cuts a trail\nthrough the green bay.",
-      "scene": "Illustration for: The boat cuts a trail\nthrough the green bay...."
+      "scene": "Illustration for: The boat cuts a trail\nthrough the green bay....",
+      "image_prompt": "Illustration for: The boat cuts a trail\nthrough the green bay....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page16.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:49:58.331632",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 17,
       "story_page": 12,
       "type": "story",
       "text": "Wind sings low and sweet.",
-      "scene": "Illustration for: Wind sings low and sweet...."
+      "scene": "Illustration for: Wind sings low and sweet....",
+      "image_prompt": "Illustration for: Wind sings low and sweet....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page17.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:50:46.655690",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 18,
       "story_page": 13,
       "type": "story",
       "text": "I float past the coast,\npast the beach,",
-      "scene": "Illustration for: I float past the coast,\npast the beach,..."
+      "scene": "Illustration for: I float past the coast,\npast the beach,...",
+      "image_prompt": "Illustration for: I float past the coast,\npast the beach,...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page18.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:53:03.852832",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 19,
       "story_page": 14,
       "type": "story",
       "text": "while my white sail\ntakes me far.",
-      "scene": "Illustration for: while my white sail\ntakes me far...."
+      "scene": "Illustration for: while my white sail\ntakes me far....",
+      "image_prompt": "Illustration for: while my white sail\ntakes me far....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page19.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:58:40.805051",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 20,
       "story_page": 15,
       "type": "story",
       "text": "*Swish... swish... swish...*\nThe bay breathes slow.",
-      "scene": "Illustration for: *Swish... swish... swish...*\nThe bay breathes slow...."
+      "scene": "Illustration for: *Swish... swish... swish...*\nThe bay breathes slow....",
+      "image_prompt": "Illustration for: *Swish... swish... swish...*\nThe bay breathes slow....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sail-away/page20.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:02:38.415383",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 21,

@@ -249,133 +249,304 @@
       "story_page": 6,
       "type": "story",
       "text": "Fresh flakes fly.",
-      "scene": "Illustration for: Fresh flakes fly...."
+      "scene": "Illustration for: Fresh flakes fly....",
+      "image_prompt": "Illustration for: Fresh flakes fly....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page11.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:28:08.458450",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 12,
       "story_page": 7,
       "type": "story",
       "text": "Cold crystals cling\nto pink cheeks,",
-      "scene": "Illustration for: Cold crystals cling\nto pink cheeks,..."
+      "scene": "Illustration for: Cold crystals cling\nto pink cheeks,...",
+      "image_prompt": "Illustration for: Cold crystals cling\nto pink cheeks,...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page12.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:28:53.764089",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 13,
       "story_page": 8,
       "type": "story",
       "text": "frost breath.",
-      "scene": "Illustration for: frost breath...."
+      "scene": "Illustration for: frost breath....",
+      "image_prompt": "Illustration for: frost breath....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page13.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:29:41.170169",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 14,
       "story_page": 9,
       "type": "story",
       "text": "*Swish-swish-swish*\ngoes the blade",
-      "scene": "Illustration for: *Swish-swish-swish*\ngoes the blade..."
+      "scene": "Illustration for: *Swish-swish-swish*\ngoes the blade...",
+      "image_prompt": "Illustration for: *Swish-swish-swish*\ngoes the blade...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page14.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:49:58.597258",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 15,
       "story_page": 10,
       "type": "story",
       "text": "on the snow,\ncutting clean.",
-      "scene": "Illustration for: on the snow,\ncutting clean...."
+      "scene": "Illustration for: on the snow,\ncutting clean....",
+      "image_prompt": "Illustration for: on the snow,\ncutting clean....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page15.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:30:57.046450",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 16,
       "story_page": 11,
       "type": "story",
       "text": "Faster, faster\u2014\ntrees blur,",
-      "scene": "Illustration for: Faster, faster\u2014\ntrees blur,..."
+      "scene": "Illustration for: Faster, faster\u2014\ntrees blur,...",
+      "image_prompt": "Illustration for: Faster, faster\u2014\ntrees blur,...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page16.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:31:41.888244",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 17,
       "story_page": 12,
       "type": "story",
       "text": "ground blurs,\nsky spins.",
-      "scene": "Illustration for: ground blurs,\nsky spins...."
+      "scene": "Illustration for: ground blurs,\nsky spins....",
+      "image_prompt": "Illustration for: ground blurs,\nsky spins....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page17.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:33:33.268809",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 18,
       "story_page": 13,
       "type": "story",
       "text": "The sled skips,\nbumps,",
-      "scene": "Illustration for: The sled skips,\nbumps,..."
+      "scene": "Illustration for: The sled skips,\nbumps,...",
+      "image_prompt": "Illustration for: The sled skips,\nbumps,...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page18.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:56:09.709212",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 19,
       "story_page": 14,
       "type": "story",
       "text": "drops\u2014\nthen glides.",
-      "scene": "Illustration for: drops\u2014\nthen glides...."
+      "scene": "Illustration for: drops\u2014\nthen glides....",
+      "image_prompt": "Illustration for: drops\u2014\nthen glides....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page19.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:00:10.742092",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 20,
       "story_page": 15,
       "type": "story",
       "text": "Smooth as glass,\nswift as wind,",
-      "scene": "Illustration for: Smooth as glass,\nswift as wind,..."
+      "scene": "Illustration for: Smooth as glass,\nswift as wind,...",
+      "image_prompt": "Illustration for: Smooth as glass,\nswift as wind,...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page20.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:03:06.074916",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 21,
       "story_page": 16,
       "type": "story",
       "text": "straight to the glen\nwhere snowdrifts drift.",
-      "scene": "Illustration for: straight to the glen\nwhere snowdrifts drift...."
+      "scene": "Illustration for: straight to the glen\nwhere snowdrifts drift....",
+      "image_prompt": "Illustration for: straight to the glen\nwhere snowdrifts drift....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page21.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:05:20.860347",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 22,
       "story_page": 17,
       "type": "story",
       "text": "*Crunch.*\nStill.",
-      "scene": "Illustration for: *Crunch.*\nStill...."
+      "scene": "Illustration for: *Crunch.*\nStill....",
+      "image_prompt": "Illustration for: *Crunch.*\nStill....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page22.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:07:01.535053",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 23,
       "story_page": 18,
       "type": "story",
       "text": "Stars blink\nfrom black sky.",
-      "scene": "Illustration for: Stars blink\nfrom black sky...."
+      "scene": "Illustration for: Stars blink\nfrom black sky....",
+      "image_prompt": "Illustration for: Stars blink\nfrom black sky....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page23.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:08:02.886437",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 24,
       "story_page": 19,
       "type": "story",
       "text": "Breath clouds bloom,\nthen blow away.",
-      "scene": "Illustration for: Breath clouds bloom,\nthen blow away...."
+      "scene": "Illustration for: Breath clouds bloom,\nthen blow away....",
+      "image_prompt": "Illustration for: Breath clouds bloom,\nthen blow away....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page24.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:09:58.861643",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 25,
       "story_page": 20,
       "type": "story",
       "text": "Up the slope,\nstep by step,",
-      "scene": "Illustration for: Up the slope,\nstep by step,..."
+      "scene": "Illustration for: Up the slope,\nstep by step,...",
+      "image_prompt": "Illustration for: Up the slope,\nstep by step,...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page25.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:12:34.912190",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 26,
       "story_page": 21,
       "type": "story",
       "text": "drag the sled,\nclimb the track.",
-      "scene": "Illustration for: drag the sled,\nclimb the track...."
+      "scene": "Illustration for: drag the sled,\nclimb the track....",
+      "image_prompt": "Illustration for: drag the sled,\nclimb the track....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page26.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:14:55.156598",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 27,
       "story_page": 22,
       "type": "story",
       "text": "The hill grins.",
-      "scene": "Illustration for: The hill grins...."
+      "scene": "Illustration for: The hill grins....",
+      "image_prompt": "Illustration for: The hill grins....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page27.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:34:42.801645",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 28,
       "story_page": 23,
       "type": "story",
       "text": "Fresh snow gleams.",
-      "scene": "Illustration for: Fresh snow gleams...."
+      "scene": "Illustration for: Fresh snow gleams....",
+      "image_prompt": "Illustration for: Fresh snow gleams....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page28.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:17:06.332675",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 29,
       "story_page": 24,
       "type": "story",
       "text": "Swift wind calls\u2014\n*Come.*",
-      "scene": "Illustration for: Swift wind calls\u2014\n*Come.*..."
+      "scene": "Illustration for: Swift wind calls\u2014\n*Come.*...",
+      "image_prompt": "Illustration for: Swift wind calls\u2014\n*Come.*...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/sled-run/page29.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:40:53.897129",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 30,

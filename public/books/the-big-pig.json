@@ -249,7 +249,16 @@
       "story_page": 7,
       "type": "story",
       "text": "Tim grinned. The pig was happy.",
-      "scene": "Illustration for: Tim grinned. The pig was happy...."
+      "scene": "Illustration for: Tim grinned. The pig was happy....",
+      "image_prompt": "Illustration for: Tim grinned. The pig was happy....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/the-big-pig/page12.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:28:11.649131",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 13,

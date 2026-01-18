@@ -121,7 +121,15 @@
       "type": "cover",
       "text": "Fit It In",
       "scene": "Cover illustration for 'Fit It In'. A child's bedroom, toys scattered, time for bed. Style matches the reference sheet.",
-      "image_prompt": "Cover illustration for 'Fit It In'. A child's bedroom, toys scattered, time for bed. Style matches the reference sheet.\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
+      "image_prompt": "Cover illustration for 'Fit It In'. A child's bedroom, toys scattered, time for bed. Style matches the reference sheet.\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:28:23.476561",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 2,
@@ -193,98 +201,224 @@
       "story_page": 4,
       "type": "story",
       "text": "Pat, pat, pat\u2014\nhands tap the rug.",
-      "scene": "Illustration for: Pat, pat, pat\u2014\nhands tap the rug...."
+      "scene": "Illustration for: Pat, pat, pat\u2014\nhands tap the rug....",
+      "image_prompt": "Illustration for: Pat, pat, pat\u2014\nhands tap the rug....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page09.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:29:06.294787",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 10,
       "story_page": 5,
       "type": "story",
       "text": "Pat, pat, pat\u2014\ntoys in the tub.",
-      "scene": "Illustration for: Pat, pat, pat\u2014\ntoys in the tub...."
+      "scene": "Illustration for: Pat, pat, pat\u2014\ntoys in the tub....",
+      "image_prompt": "Illustration for: Pat, pat, pat\u2014\ntoys in the tub....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page10.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:29:47.817534",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 11,
       "story_page": 6,
       "type": "story",
       "text": "Can in the pan,\nman by the van,",
-      "scene": "Illustration for: Can in the pan,\nman by the van,..."
+      "scene": "Illustration for: Can in the pan,\nman by the van,...",
+      "image_prompt": "Illustration for: Can in the pan,\nman by the van,...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page11.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:53:03.850372",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 12,
       "story_page": 7,
       "type": "story",
       "text": "Dan and his fan\nspin and spin.",
-      "scene": "Illustration for: Dan and his fan\nspin and spin...."
+      "scene": "Illustration for: Dan and his fan\nspin and spin....",
+      "image_prompt": "Illustration for: Dan and his fan\nspin and spin....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page12.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:30:53.520639",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 13,
       "story_page": 8,
       "type": "story",
       "text": "Soft socks, warm socks,\ntick-tock clocks.",
-      "scene": "Illustration for: Soft socks, warm socks,\ntick-tock clocks...."
+      "scene": "Illustration for: Soft socks, warm socks,\ntick-tock clocks....",
+      "image_prompt": "Illustration for: Soft socks, warm socks,\ntick-tock clocks....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page13.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T17:57:42.861975",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 14,
       "story_page": 9,
       "type": "story",
       "text": "The jam jar gleams,\nthe ram toy sits.",
-      "scene": "Illustration for: The jam jar gleams,\nthe ram toy sits...."
+      "scene": "Illustration for: The jam jar gleams,\nthe ram toy sits....",
+      "image_prompt": "Illustration for: The jam jar gleams,\nthe ram toy sits....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page14.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:00:05.128713",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 15,
       "story_page": 10,
       "type": "story",
       "text": "Pat, pat, pat\u2014\nfeet on cool wood.",
-      "scene": "Illustration for: Pat, pat, pat\u2014\nfeet on cool wood...."
+      "scene": "Illustration for: Pat, pat, pat\u2014\nfeet on cool wood....",
+      "image_prompt": "Illustration for: Pat, pat, pat\u2014\nfeet on cool wood....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page15.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:02:56.443796",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 16,
       "story_page": 11,
       "type": "story",
       "text": "Pat, pat, pat\u2014\neverything good.",
-      "scene": "Illustration for: Pat, pat, pat\u2014\neverything good...."
+      "scene": "Illustration for: Pat, pat, pat\u2014\neverything good....",
+      "image_prompt": "Illustration for: Pat, pat, pat\u2014\neverything good....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page16.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:05:28.407035",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 17,
       "story_page": 12,
       "type": "story",
       "text": "The cat sits.",
-      "scene": "Illustration for: The cat sits...."
+      "scene": "Illustration for: The cat sits....",
+      "image_prompt": "Illustration for: The cat sits....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page17.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:06:15.627929",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 18,
       "story_page": 13,
       "type": "story",
       "text": "The mat sits.",
-      "scene": "Illustration for: The mat sits...."
+      "scene": "Illustration for: The mat sits....",
+      "image_prompt": "Illustration for: The mat sits....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page18.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:08:02.905890",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 19,
       "story_page": 14,
       "type": "story",
       "text": "The dim room\nstill.",
-      "scene": "Illustration for: The dim room\nstill...."
+      "scene": "Illustration for: The dim room\nstill....",
+      "image_prompt": "Illustration for: The dim room\nstill....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page19.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:08:58.289468",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 20,
       "story_page": 15,
       "type": "story",
       "text": "Moonlight spills\nthrough windowsill,",
-      "scene": "Illustration for: Moonlight spills\nthrough windowsill,..."
+      "scene": "Illustration for: Moonlight spills\nthrough windowsill,...",
+      "image_prompt": "Illustration for: Moonlight spills\nthrough windowsill,...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page20.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:09:50.888343",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 21,
       "story_page": 16,
       "type": "story",
       "text": "and I\nsit",
-      "scene": "Illustration for: and I\nsit..."
+      "scene": "Illustration for: and I\nsit...",
+      "image_prompt": "Illustration for: and I\nsit...\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page21.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:33:45.179047",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 22,
       "story_page": 17,
       "type": "story",
       "text": "too.",
-      "scene": "Illustration for: too...."
+      "scene": "Illustration for: too....",
+      "image_prompt": "Illustration for: too....\n\nSTYLE: children's book illustration, simple shapes, bold outlines\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only.",
+      "image": "images/fit-it-in/page22.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-18T18:15:25.004823",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
       "page": 23,

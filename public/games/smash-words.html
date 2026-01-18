@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Smash Words - FunBookies</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .game-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Header */
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .score-display {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .combo-display {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffd700;
+      text-shadow: 0 0 20px #ffd700;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.2s ease;
+    }
+
+    .combo-display.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .combo-display.fire {
+      color: #ff4500;
+      text-shadow: 0 0 30px #ff4500, 0 0 60px #ff0000;
+      animation: fireGlow 0.3s ease infinite alternate;
+    }
+
+    @keyframes fireGlow {
+      from { filter: brightness(1); }
+      to { filter: brightness(1.3); }
+    }
+
+    /* Word Display Area */
+    .word-area {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 40px;
+      perspective: 1000px;
+    }
+
+    .letter-block {
+      width: 80px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      font-weight: bold;
+      color: #1a1a2e;
+      background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(200,220,255,0.9));
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease;
+      box-shadow:
+        0 4px 15px rgba(0,0,0,0.3),
+        inset 0 2px 10px rgba(255,255,255,0.8),
+        inset 0 -2px 10px rgba(0,0,0,0.1);
+      text-transform: lowercase;
+    }
+
+    .letter-block::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      right: 30px;
+      height: 15px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), transparent);
+      border-radius: 50%;
+    }
+
+    .letter-block:hover {
+      transform: scale(1.05);
+    }
+
+    .letter-block:active {
+      transform: scale(0.95);
+    }
+
+    /* Glass material types */
+    .letter-block.glass {
+      background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(200,220,255,0.9));
+    }
+
+    .letter-block.ice {
+      background: linear-gradient(145deg, rgba(200,240,255,0.95), rgba(150,200,255,0.9));
+      box-shadow:
+        0 4px 15px rgba(100,200,255,0.4),
+        inset 0 2px 10px rgba(255,255,255,0.8);
+    }
+
+    .letter-block.crystal {
+      background: linear-gradient(145deg, rgba(255,200,255,0.95), rgba(200,150,255,0.9));
+      box-shadow:
+        0 4px 15px rgba(200,100,255,0.4),
+        inset 0 2px 10px rgba(255,255,255,0.8);
+    }
+
+    .letter-block.obsidian {
+      background: linear-gradient(145deg, rgba(60,60,80,0.95), rgba(30,30,50,0.9));
+      color: #fff;
+      box-shadow:
+        0 4px 15px rgba(100,0,150,0.4),
+        inset 0 2px 10px rgba(100,100,120,0.3);
+    }
+
+    /* Cracked states */
+    .letter-block.cracked {
+      animation: crack 0.15s ease;
+    }
+
+    .letter-block.cracked::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0 L45 30 L20 25 L35 50 L10 60 L40 70 L30 100 M50 0 L55 25 L80 20 L65 45 L90 55 L60 65 L70 100' stroke='%23333' stroke-width='2' fill='none' opacity='0.3'/%3E%3C/svg%3E");
+      background-size: cover;
+      pointer-events: none;
+    }
+
+    @keyframes crack {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.1) rotate(-2deg); }
+      75% { transform: scale(0.95) rotate(2deg); }
+    }
+
+    .letter-block.shattered {
+      animation: shatter 0.4s ease forwards;
+    }
+
+    @keyframes shatter {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(0); opacity: 0; }
+    }
+
+    /* Wrong tap feedback */
+    .letter-block.wrong {
+      animation: wrongBounce 0.4s ease;
+    }
+
+    @keyframes wrongBounce {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      20% { transform: translateX(-10px) rotate(-5deg); }
+      40% { transform: translateX(10px) rotate(5deg); }
+      60% { transform: translateX(-5px) rotate(-2deg); }
+      80% { transform: translateX(5px) rotate(2deg); }
+    }
+
+    /* Instruction text */
+    .instruction {
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 30px;
+      text-align: center;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .instruction .word {
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    /* Phoneme hints */
+    .phoneme-hints {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .phoneme-hint {
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      color: #aaa;
+      font-size: 18px;
+      transition: all 0.2s ease;
+    }
+
+    .phoneme-hint.completed {
+      background: rgba(100,255,100,0.2);
+      color: #7f7;
+    }
+
+    .phoneme-hint.current {
+      background: rgba(255,215,0,0.3);
+      color: #ffd700;
+      transform: scale(1.1);
+    }
+
+    /* Particle canvas */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* Screen shake */
+    .shake {
+      animation: screenShake 0.15s ease;
+    }
+
+    @keyframes screenShake {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-5px, 5px); }
+      50% { transform: translate(5px, -5px); }
+      75% { transform: translate(-3px, -3px); }
+    }
+
+    .shake-big {
+      animation: screenShakeBig 0.3s ease;
+    }
+
+    @keyframes screenShakeBig {
+      0%, 100% { transform: translate(0, 0); }
+      10% { transform: translate(-10px, 10px); }
+      20% { transform: translate(10px, -10px); }
+      30% { transform: translate(-8px, -8px); }
+      40% { transform: translate(8px, 8px); }
+      50% { transform: translate(-6px, 6px); }
+      60% { transform: translate(6px, -6px); }
+      70% { transform: translate(-4px, -4px); }
+      80% { transform: translate(4px, 4px); }
+      90% { transform: translate(-2px, 2px); }
+    }
+
+    /* Flash overlay */
+    .flash-overlay {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .flash-overlay.flash {
+      animation: flashAnim 0.1s ease;
+    }
+
+    @keyframes flashAnim {
+      0% { opacity: 0.7; }
+      100% { opacity: 0; }
+    }
+
+    /* Announcement */
+    .announcement {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      font-size: 64px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 30px currentColor;
+      pointer-events: none;
+      z-index: 1001;
+      opacity: 0;
+    }
+
+    .announcement.show {
+      animation: announceIn 0.8s ease forwards;
+    }
+
+    @keyframes announceIn {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      20% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+      40% { transform: translate(-50%, -50%) scale(1); }
+      100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+    }
+
+    /* Start screen */
+    .start-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      transition: opacity 0.5s ease;
+    }
+
+    .start-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .start-screen h1 {
+      font-size: 56px;
+      color: #fff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 30px rgba(255,215,0,0.5);
+    }
+
+    .start-screen p {
+      font-size: 20px;
+      color: #aaa;
+      margin-bottom: 40px;
+    }
+
+    .start-btn {
+      padding: 20px 60px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #1a1a2e;
+      background: linear-gradient(145deg, #ffd700, #ffaa00);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(255,215,0,0.3);
+      transition: all 0.2s ease;
+    }
+
+    .start-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(255,215,0,0.4);
+    }
+
+    .start-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Level select */
+    .level-select {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 400px;
+    }
+
+    .level-btn {
+      padding: 12px 24px;
+      font-size: 16px;
+      color: #fff;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .level-btn:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    .level-btn.selected {
+      background: rgba(255,215,0,0.3);
+      border-color: #ffd700;
+      color: #ffd700;
+    }
+
+    /* Border glow for streaks */
+    .border-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 998;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .border-glow.active {
+      opacity: 1;
+      box-shadow: inset 0 0 100px rgba(255,100,0,0.5);
+    }
+
+    .border-glow.fire {
+      animation: borderFire 0.5s ease infinite alternate;
+    }
+
+    @keyframes borderFire {
+      from { box-shadow: inset 0 0 100px rgba(255,100,0,0.5); }
+      to { box-shadow: inset 0 0 150px rgba(255,50,0,0.7); }
+    }
+
+    /* Hammer cursor */
+    .hammer-cursor {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      pointer-events: none;
+      z-index: 1002;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      transition: transform 0.05s ease;
+      font-size: 48px;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .hammer-cursor.smashing {
+      transform: translate(-50%, -50%) rotate(15deg) scale(1.2);
+    }
+
+    /* Results screen */
+    .results-screen {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .results-screen.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .results-screen h2 {
+      font-size: 48px;
+      color: #ffd700;
+      margin-bottom: 30px;
+    }
+
+    .results-stats {
+      font-size: 24px;
+      color: #fff;
+      text-align: center;
+      line-height: 2;
+    }
+
+    .results-stats .highlight {
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    /* Slow motion */
+    .slow-mo .word-area,
+    .slow-mo .letter-block {
+      transition-duration: 0.8s !important;
+      animation-duration: 1s !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle Canvas -->
+  <canvas id="particles"></canvas>
+
+  <!-- Flash Overlay -->
+  <div class="flash-overlay" id="flash"></div>
+
+  <!-- Border Glow -->
+  <div class="border-glow" id="borderGlow"></div>
+
+  <!-- Hammer Cursor -->
+  <div class="hammer-cursor" id="hammer">🔨</div>
+
+  <!-- Announcement -->
+  <div class="announcement" id="announcement"></div>
+
+  <!-- Start Screen -->
+  <div class="start-screen" id="startScreen">
+    <h1>SMASH WORDS</h1>
+    <p>Tap letters in the right order to SMASH them!</p>
+
+    <div class="level-select">
+      <button class="level-btn selected" data-level="cvc">CVC Words</button>
+      <button class="level-btn" data-level="ccvc">Blends</button>
+      <button class="level-btn" data-level="digraph">Digraphs</button>
+      <button class="level-btn" data-level="cvce">Magic E</button>
+      <button class="level-btn" data-level="mixed">Mixed</button>
+    </div>
+
+    <button class="start-btn" id="startBtn">SMASH!</button>
+  </div>
+
+  <!-- Game Container -->
+  <div class="game-container" id="gameContainer">
+    <div class="header">
+      <div class="score-display">Score: <span id="score">0</span></div>
+      <div class="combo-display" id="combo">x2 COMBO!</div>
+    </div>
+
+    <div class="instruction">
+      Smash each sound in "<span class="word" id="targetWord">cat</span>"
+    </div>
+
+    <div class="word-area" id="wordArea"></div>
+
+    <div class="phoneme-hints" id="phonemeHints"></div>
+  </div>
+
+  <!-- Results Screen -->
+  <div class="results-screen" id="resultsScreen">
+    <h2>SMASHING!</h2>
+    <div class="results-stats">
+      Words Smashed: <span class="highlight" id="wordsSmashed">0</span><br>
+      Best Combo: <span class="highlight" id="bestCombo">0</span>x<br>
+      Accuracy: <span class="highlight" id="accuracy">0</span>%<br>
+      <br>
+      Final Score: <span class="highlight" id="finalScore">0</span>
+    </div>
+    <button class="start-btn" id="playAgainBtn" style="margin-top: 40px;">SMASH AGAIN!</button>
+  </div>
+
+  <script>
+    // Word data organized by type
+    const WORD_DATA = {
+      cvc: [
+        { word: 'cat', phonemes: ['c', 'a', 't'], material: 'glass' },
+        { word: 'dog', phonemes: ['d', 'o', 'g'], material: 'glass' },
+        { word: 'pig', phonemes: ['p', 'i', 'g'], material: 'glass' },
+        { word: 'sun', phonemes: ['s', 'u', 'n'], material: 'glass' },
+        { word: 'bed', phonemes: ['b', 'e', 'd'], material: 'glass' },
+        { word: 'cup', phonemes: ['c', 'u', 'p'], material: 'glass' },
+        { word: 'hat', phonemes: ['h', 'a', 't'], material: 'glass' },
+        { word: 'map', phonemes: ['m', 'a', 'p'], material: 'glass' },
+        { word: 'pen', phonemes: ['p', 'e', 'n'], material: 'glass' },
+        { word: 'fox', phonemes: ['f', 'o', 'x'], material: 'glass' },
+        { word: 'bug', phonemes: ['b', 'u', 'g'], material: 'glass' },
+        { word: 'log', phonemes: ['l', 'o', 'g'], material: 'glass' },
+        { word: 'net', phonemes: ['n', 'e', 't'], material: 'glass' },
+        { word: 'rug', phonemes: ['r', 'u', 'g'], material: 'glass' },
+        { word: 'van', phonemes: ['v', 'a', 'n'], material: 'glass' },
+      ],
+      ccvc: [
+        { word: 'stop', phonemes: ['s', 't', 'o', 'p'], material: 'glass' },
+        { word: 'frog', phonemes: ['f', 'r', 'o', 'g'], material: 'glass' },
+        { word: 'swim', phonemes: ['s', 'w', 'i', 'm'], material: 'glass' },
+        { word: 'grab', phonemes: ['g', 'r', 'a', 'b'], material: 'glass' },
+        { word: 'trip', phonemes: ['t', 'r', 'i', 'p'], material: 'glass' },
+        { word: 'snap', phonemes: ['s', 'n', 'a', 'p'], material: 'glass' },
+        { word: 'clap', phonemes: ['c', 'l', 'a', 'p'], material: 'glass' },
+        { word: 'drop', phonemes: ['d', 'r', 'o', 'p'], material: 'glass' },
+        { word: 'spin', phonemes: ['s', 'p', 'i', 'n'], material: 'glass' },
+        { word: 'grin', phonemes: ['g', 'r', 'i', 'n'], material: 'glass' },
+      ],
+      digraph: [
+        { word: 'ship', phonemes: ['sh', 'i', 'p'], material: 'ice' },
+        { word: 'chat', phonemes: ['ch', 'a', 't'], material: 'ice' },
+        { word: 'ring', phonemes: ['r', 'i', 'ng'], material: 'ice' },
+        { word: 'thin', phonemes: ['th', 'i', 'n'], material: 'ice' },
+        { word: 'shop', phonemes: ['sh', 'o', 'p'], material: 'ice' },
+        { word: 'much', phonemes: ['m', 'u', 'ch'], material: 'ice' },
+        { word: 'fish', phonemes: ['f', 'i', 'sh'], material: 'ice' },
+        { word: 'with', phonemes: ['w', 'i', 'th'], material: 'ice' },
+        { word: 'bang', phonemes: ['b', 'a', 'ng'], material: 'ice' },
+        { word: 'king', phonemes: ['k', 'i', 'ng'], material: 'ice' },
+      ],
+      cvce: [
+        { word: 'cake', phonemes: ['c', 'a', 'k', 'e'], material: 'crystal' },
+        { word: 'bike', phonemes: ['b', 'i', 'k', 'e'], material: 'crystal' },
+        { word: 'home', phonemes: ['h', 'o', 'm', 'e'], material: 'crystal' },
+        { word: 'time', phonemes: ['t', 'i', 'm', 'e'], material: 'crystal' },
+        { word: 'lake', phonemes: ['l', 'a', 'k', 'e'], material: 'crystal' },
+        { word: 'bone', phonemes: ['b', 'o', 'n', 'e'], material: 'crystal' },
+        { word: 'rope', phonemes: ['r', 'o', 'p', 'e'], material: 'crystal' },
+        { word: 'mule', phonemes: ['m', 'u', 'l', 'e'], material: 'crystal' },
+        { word: 'pine', phonemes: ['p', 'i', 'n', 'e'], material: 'crystal' },
+        { word: 'note', phonemes: ['n', 'o', 't', 'e'], material: 'crystal' },
+      ],
+      mixed: [] // Will be populated from all types
+    };
+
+    // Populate mixed
+    WORD_DATA.mixed = [
+      ...WORD_DATA.cvc,
+      ...WORD_DATA.ccvc,
+      ...WORD_DATA.digraph,
+      ...WORD_DATA.cvce
+    ];
+
+    // Game state
+    let currentLevel = 'cvc';
+    let currentWord = null;
+    let currentPhonemeIndex = 0;
+    let score = 0;
+    let combo = 0;
+    let maxCombo = 0;
+    let wordsCompleted = 0;
+    let totalTaps = 0;
+    let correctTaps = 0;
+    let wordsInRound = 10;
+    let wordIndex = 0;
+    let shuffledWords = [];
+
+    // DOM elements
+    const startScreen = document.getElementById('startScreen');
+    const gameContainer = document.getElementById('gameContainer');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const wordArea = document.getElementById('wordArea');
+    const targetWordEl = document.getElementById('targetWord');
+    const phonemeHints = document.getElementById('phonemeHints');
+    const scoreEl = document.getElementById('score');
+    const comboEl = document.getElementById('combo');
+    const flash = document.getElementById('flash');
+    const borderGlow = document.getElementById('borderGlow');
+    const hammer = document.getElementById('hammer');
+    const announcement = document.getElementById('announcement');
+
+    // Particle system
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+      constructor(x, y, color, type = 'shard') {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.type = type;
+        this.size = type === 'shard' ? Math.random() * 15 + 5 : Math.random() * 8 + 2;
+        this.speedX = (Math.random() - 0.5) * 20;
+        this.speedY = (Math.random() - 0.5) * 20 - 5;
+        this.gravity = 0.5;
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotationSpeed = (Math.random() - 0.5) * 0.3;
+        this.life = 1;
+        this.decay = Math.random() * 0.02 + 0.01;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.speedY += this.gravity;
+        this.rotation += this.rotationSpeed;
+        this.life -= this.decay;
+        this.speedX *= 0.99;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.globalAlpha = this.life;
+
+        if (this.type === 'shard') {
+          ctx.fillStyle = this.color;
+          ctx.beginPath();
+          ctx.moveTo(0, -this.size);
+          ctx.lineTo(this.size * 0.5, this.size * 0.3);
+          ctx.lineTo(-this.size * 0.5, this.size * 0.5);
+          ctx.closePath();
+          ctx.fill();
+        } else if (this.type === 'sparkle') {
+          ctx.fillStyle = this.color;
+          ctx.beginPath();
+          ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (this.type === 'dust') {
+          ctx.fillStyle = this.color;
+          ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+        }
+
+        ctx.restore();
+      }
+    }
+
+    function createExplosion(x, y, count, colors, type = 'shard') {
+      for (let i = 0; i < count; i++) {
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        particles.push(new Particle(x, y, color, type));
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles = particles.filter(p => p.life > 0);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // Audio system
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playSound(frequency, type = 'sine', duration = 0.1, volume = 0.3) {
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      oscillator.frequency.value = frequency;
+      oscillator.type = type;
+
+      gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + duration);
+    }
+
+    function playCrack() {
+      playSound(200, 'sawtooth', 0.1, 0.2);
+      playSound(150, 'square', 0.05, 0.1);
+    }
+
+    function playShatter() {
+      playSound(300, 'sawtooth', 0.15, 0.3);
+      playSound(400, 'triangle', 0.1, 0.2);
+      playSound(100, 'square', 0.2, 0.2);
+    }
+
+    function playMegaShatter() {
+      playSound(150, 'sawtooth', 0.3, 0.4);
+      playSound(200, 'square', 0.25, 0.3);
+      playSound(80, 'triangle', 0.4, 0.3);
+      setTimeout(() => playSound(250, 'sine', 0.2, 0.2), 100);
+      setTimeout(() => playSound(300, 'triangle', 0.15, 0.2), 200);
+    }
+
+    function playWrong() {
+      playSound(150, 'square', 0.15, 0.2);
+      playSound(100, 'sawtooth', 0.1, 0.15);
+    }
+
+    function playCombo() {
+      playSound(523, 'sine', 0.1, 0.2);
+      setTimeout(() => playSound(659, 'sine', 0.1, 0.2), 50);
+      setTimeout(() => playSound(784, 'sine', 0.15, 0.2), 100);
+    }
+
+    // Screen effects
+    function screenShake(intensity = 'normal') {
+      gameContainer.classList.remove('shake', 'shake-big');
+      void gameContainer.offsetWidth; // Reflow
+      gameContainer.classList.add(intensity === 'big' ? 'shake-big' : 'shake');
+    }
+
+    function screenFlash() {
+      flash.classList.remove('flash');
+      void flash.offsetWidth;
+      flash.classList.add('flash');
+    }
+
+    function showAnnouncement(text, color = '#fff') {
+      announcement.textContent = text;
+      announcement.style.color = color;
+      announcement.classList.remove('show');
+      void announcement.offsetWidth;
+      announcement.classList.add('show');
+    }
+
+    function updateBorderGlow() {
+      if (combo >= 8) {
+        borderGlow.classList.add('active', 'fire');
+      } else if (combo >= 5) {
+        borderGlow.classList.add('active');
+        borderGlow.classList.remove('fire');
+      } else {
+        borderGlow.classList.remove('active', 'fire');
+      }
+    }
+
+    function updateComboDisplay() {
+      if (combo >= 3) {
+        comboEl.textContent = `x${combo} COMBO!`;
+        comboEl.classList.add('active');
+        if (combo >= 8) {
+          comboEl.classList.add('fire');
+        } else {
+          comboEl.classList.remove('fire');
+        }
+      } else {
+        comboEl.classList.remove('active', 'fire');
+      }
+      updateBorderGlow();
+    }
+
+    // Hammer cursor
+    document.addEventListener('mousemove', (e) => {
+      hammer.style.left = e.clientX + 'px';
+      hammer.style.top = e.clientY + 'px';
+    });
+
+    document.addEventListener('mousedown', () => {
+      hammer.classList.add('smashing');
+    });
+
+    document.addEventListener('mouseup', () => {
+      hammer.classList.remove('smashing');
+    });
+
+    // Level selection
+    document.querySelectorAll('.level-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        currentLevel = btn.dataset.level;
+      });
+    });
+
+    // Start game
+    document.getElementById('startBtn').addEventListener('click', startGame);
+    document.getElementById('playAgainBtn').addEventListener('click', startGame);
+
+    function startGame() {
+      // Reset state
+      score = 0;
+      combo = 0;
+      maxCombo = 0;
+      wordsCompleted = 0;
+      totalTaps = 0;
+      correctTaps = 0;
+      wordIndex = 0;
+
+      // Shuffle words
+      shuffledWords = [...WORD_DATA[currentLevel]].sort(() => Math.random() - 0.5).slice(0, wordsInRound);
+
+      // Update UI
+      scoreEl.textContent = '0';
+      updateComboDisplay();
+
+      // Hide start/results, show game
+      startScreen.classList.add('hidden');
+      resultsScreen.classList.remove('show');
+
+      // Resume audio context if suspended
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      // Load first word
+      loadWord();
+    }
+
+    function loadWord() {
+      if (wordIndex >= shuffledWords.length) {
+        endGame();
+        return;
+      }
+
+      currentWord = shuffledWords[wordIndex];
+      currentPhonemeIndex = 0;
+
+      // Update target word display
+      targetWordEl.textContent = currentWord.word;
+
+      // Create letter blocks
+      wordArea.innerHTML = '';
+      currentWord.phonemes.forEach((phoneme, index) => {
+        const block = document.createElement('div');
+        block.className = `letter-block ${currentWord.material}`;
+        block.textContent = phoneme;
+        block.dataset.index = index;
+        block.addEventListener('click', () => handleTap(index, block));
+        wordArea.appendChild(block);
+      });
+
+      // Create phoneme hints
+      phonemeHints.innerHTML = '';
+      currentWord.phonemes.forEach((phoneme, index) => {
+        const hint = document.createElement('div');
+        hint.className = 'phoneme-hint' + (index === 0 ? ' current' : '');
+        hint.textContent = `/${phoneme}/`;
+        phonemeHints.appendChild(hint);
+      });
+    }
+
+    function handleTap(index, block) {
+      totalTaps++;
+
+      if (index === currentPhonemeIndex) {
+        // Correct tap!
+        correctTaps++;
+        combo++;
+        if (combo > maxCombo) maxCombo = combo;
+
+        const rect = block.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Get colors based on material
+        let colors;
+        switch (currentWord.material) {
+          case 'ice':
+            colors = ['#aaddff', '#88ccff', '#66bbff', '#fff'];
+            break;
+          case 'crystal':
+            colors = ['#ffaaff', '#ff88ff', '#dd66ff', '#fff', '#ffddff'];
+            break;
+          case 'obsidian':
+            colors = ['#6633aa', '#442288', '#331166', '#888'];
+            break;
+          default:
+            colors = ['#cceeff', '#aaddee', '#88ccdd', '#fff'];
+        }
+
+        const isLastPhoneme = currentPhonemeIndex === currentWord.phonemes.length - 1;
+
+        if (isLastPhoneme) {
+          // Final letter - mega explosion!
+          block.classList.add('shattered');
+          playMegaShatter();
+          screenShake('big');
+          screenFlash();
+
+          // Lots of particles
+          createExplosion(centerX, centerY, 50, colors, 'shard');
+          createExplosion(centerX, centerY, 30, ['#ffd700', '#ffaa00', '#fff'], 'sparkle');
+
+          // Add score with combo bonus
+          const baseScore = 100;
+          const comboBonus = Math.floor(baseScore * (combo * 0.5));
+          score += baseScore + comboBonus;
+          scoreEl.textContent = score;
+
+          // Combo announcements
+          if (combo >= 11) {
+            showAnnouncement('ON FIRE!', '#ff4400');
+            playCombo();
+          } else if (combo >= 8) {
+            showAnnouncement('INCREDIBLE!', '#ff8800');
+            playCombo();
+          } else if (combo >= 5) {
+            showAnnouncement('AWESOME!', '#ffaa00');
+            playCombo();
+          } else if (combo >= 3) {
+            showAnnouncement('NICE!', '#ffd700');
+          }
+
+          wordsCompleted++;
+          wordIndex++;
+
+          // Slow-mo effect
+          document.body.classList.add('slow-mo');
+          setTimeout(() => {
+            document.body.classList.remove('slow-mo');
+            loadWord();
+          }, 500);
+
+        } else {
+          // Not last - crack effect
+          block.classList.add('cracked');
+          playCrack();
+          screenShake();
+
+          // Medium particles
+          createExplosion(centerX, centerY, 15, colors, 'shard');
+          createExplosion(centerX, centerY, 10, ['#fff'], 'dust');
+
+          // Update phoneme hints
+          const hints = phonemeHints.children;
+          hints[currentPhonemeIndex].classList.remove('current');
+          hints[currentPhonemeIndex].classList.add('completed');
+          if (hints[currentPhonemeIndex + 1]) {
+            hints[currentPhonemeIndex + 1].classList.add('current');
+          }
+
+          // Add smaller score
+          score += 25 * Math.min(combo, 5);
+          scoreEl.textContent = score;
+
+          currentPhonemeIndex++;
+        }
+
+        updateComboDisplay();
+
+      } else {
+        // Wrong tap
+        combo = 0;
+        updateComboDisplay();
+
+        block.classList.add('wrong');
+        playWrong();
+
+        setTimeout(() => {
+          block.classList.remove('wrong');
+        }, 400);
+      }
+    }
+
+    function endGame() {
+      const accuracy = totalTaps > 0 ? Math.round((correctTaps / totalTaps) * 100) : 0;
+
+      document.getElementById('wordsSmashed').textContent = wordsCompleted;
+      document.getElementById('bestCombo').textContent = maxCombo;
+      document.getElementById('accuracy').textContent = accuracy;
+      document.getElementById('finalScore').textContent = score;
+
+      resultsScreen.classList.add('show');
+
+      // Celebration particles
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          createExplosion(
+            Math.random() * window.innerWidth,
+            Math.random() * window.innerHeight * 0.5,
+            30,
+            ['#ffd700', '#ff6600', '#ff00ff', '#00ffff', '#fff'],
+            'sparkle'
+          );
+        }, i * 200);
+      }
+    }
+
+    // Prevent context menu on right click
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Handle touch events for mobile
+    document.addEventListener('touchstart', (e) => {
+      const touch = e.touches[0];
+      hammer.style.left = touch.clientX + 'px';
+      hammer.style.top = touch.clientY + 'px';
+      hammer.classList.add('smashing');
+    });
+
+    document.addEventListener('touchend', () => {
+      hammer.classList.remove('smashing');
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      const touch = e.touches[0];
+      hammer.style.left = touch.clientX + 'px';
+      hammer.style.top = touch.clientY + 'px';
+    });
+  </script>
+</body>
+</html>

@@ -85,23 +85,79 @@
       transform: scale(1);
     }
 
+    /* Word icon display */
+    .word-icon-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .word-icon {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .word-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .hear-btn {
+      background: rgba(255, 215, 0, 0.3);
+      border: 2px solid #ffd700;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hear-btn:hover {
+      background: rgba(255, 215, 0, 0.5);
+      transform: scale(1.1);
+    }
+
+    .hear-btn:active {
+      transform: scale(0.95);
+    }
+
+    .hear-btn.playing {
+      animation: pulse 0.5s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,0,0.5); }
+      50% { box-shadow: 0 0 0 15px rgba(255,215,0,0); }
+    }
+
     /* Word display at top - spelled letters go here */
     .spell-area {
       display: flex;
       gap: 8px;
       justify-content: center;
-      min-height: 90px;
-      margin-bottom: 30px;
+      min-height: 80px;
+      margin-bottom: 25px;
       perspective: 1000px;
     }
 
     .spell-slot {
-      width: 65px;
-      height: 80px;
+      width: 60px;
+      height: 72px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 36px;
+      font-size: 34px;
       font-weight: bold;
       color: rgba(255,255,255,0.3);
       background: rgba(255,255,255,0.05);
@@ -138,57 +194,23 @@
       80% { transform: translateX(4px); }
     }
 
-    /* Hear word button */
-    .hear-btn {
-      background: rgba(255, 215, 0, 0.3);
-      border: 2px solid #ffd700;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 28px;
-      cursor: pointer;
-      margin-bottom: 30px;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hear-btn:hover {
-      background: rgba(255, 215, 0, 0.5);
-      transform: scale(1.1);
-    }
-
-    .hear-btn:active {
-      transform: scale(0.95);
-    }
-
-    .hear-btn.playing {
-      animation: pulse 0.5s ease infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,0,0.5); }
-      50% { box-shadow: 0 0 0 15px rgba(255,215,0,0); }
-    }
-
     /* Letter tiles area */
     .letter-area {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 12px;
-      max-width: 400px;
+      gap: 10px;
+      max-width: 380px;
       perspective: 1000px;
     }
 
     .letter-tile {
-      width: 70px;
-      height: 85px;
+      width: 64px;
+      height: 78px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 40px;
+      font-size: 36px;
       font-weight: bold;
       color: #1a2e1a;
       background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(200,255,220,0.9));
@@ -245,7 +267,7 @@
     /* Progress dots */
     .progress {
       position: absolute;
-      bottom: 40px;
+      bottom: 30px;
       display: flex;
       gap: 8px;
     }
@@ -439,9 +461,9 @@
     /* Hint text */
     .hint-text {
       position: absolute;
-      bottom: 100px;
+      bottom: 70px;
       color: rgba(255,255,255,0.5);
-      font-size: 16px;
+      font-size: 14px;
       text-align: center;
     }
   </style>
@@ -459,7 +481,7 @@
   <!-- Start Screen -->
   <div class="start-screen" id="startScreen">
     <h1>SPELL IT!</h1>
-    <p>Listen to the word and tap letters to spell it correctly</p>
+    <p>Look at the picture and tap letters to spell the word</p>
 
     <div class="level-select">
       <button class="level-btn selected" data-level="cvc">CVC Words</button>
@@ -479,15 +501,18 @@
       <div class="streak-display" id="streak">3 in a row!</div>
     </div>
 
-    <div class="spell-area" id="spellArea"></div>
+    <div class="word-icon-area">
+      <img class="word-icon" id="wordIcon" src="" alt="">
+      <button class="hear-btn" id="hearBtn" title="Hear the word">🔊</button>
+    </div>
 
-    <button class="hear-btn" id="hearBtn" title="Hear the word">🔊</button>
+    <div class="spell-area" id="spellArea"></div>
 
     <div class="letter-area" id="letterArea"></div>
 
     <div class="progress" id="progress"></div>
 
-    <div class="hint-text">Tap letters in order to spell the word</div>
+    <div class="hint-text">Tap letters in order to spell what you see</div>
   </div>
 
   <!-- Results Screen -->
@@ -504,73 +529,111 @@
   </div>
 
   <script>
-    // Word data organized by type
+    // Word data - only words that have icons in /activities/word-icons/
     const WORD_DATA = {
       cvc: [
-        { word: 'cat', letters: ['c', 'a', 't'] },
-        { word: 'dog', letters: ['d', 'o', 'g'] },
-        { word: 'pig', letters: ['p', 'i', 'g'] },
-        { word: 'sun', letters: ['s', 'u', 'n'] },
+        { word: 'bat', letters: ['b', 'a', 't'] },
         { word: 'bed', letters: ['b', 'e', 'd'] },
-        { word: 'cup', letters: ['c', 'u', 'p'] },
-        { word: 'hat', letters: ['h', 'a', 't'] },
-        { word: 'map', letters: ['m', 'a', 'p'] },
-        { word: 'pen', letters: ['p', 'e', 'n'] },
-        { word: 'fox', letters: ['f', 'o', 'x'] },
         { word: 'bug', letters: ['b', 'u', 'g'] },
+        { word: 'bus', letters: ['b', 'u', 's'] },
+        { word: 'cat', letters: ['c', 'a', 't'] },
+        { word: 'cot', letters: ['c', 'o', 't'] },
+        { word: 'cup', letters: ['c', 'u', 'p'] },
+        { word: 'dig', letters: ['d', 'i', 'g'] },
+        { word: 'dog', letters: ['d', 'o', 'g'] },
+        { word: 'dot', letters: ['d', 'o', 't'] },
+        { word: 'fan', letters: ['f', 'a', 'n'] },
+        { word: 'fig', letters: ['f', 'i', 'g'] },
+        { word: 'fin', letters: ['f', 'i', 'n'] },
+        { word: 'fox', letters: ['f', 'o', 'x'] },
+        { word: 'hat', letters: ['h', 'a', 't'] },
+        { word: 'hen', letters: ['h', 'e', 'n'] },
+        { word: 'hot', letters: ['h', 'o', 't'] },
+        { word: 'hug', letters: ['h', 'u', 'g'] },
+        { word: 'jug', letters: ['j', 'u', 'g'] },
         { word: 'log', letters: ['l', 'o', 'g'] },
+        { word: 'man', letters: ['m', 'a', 'n'] },
+        { word: 'map', letters: ['m', 'a', 'p'] },
+        { word: 'mat', letters: ['m', 'a', 't'] },
+        { word: 'mop', letters: ['m', 'o', 'p'] },
+        { word: 'mug', letters: ['m', 'u', 'g'] },
         { word: 'net', letters: ['n', 'e', 't'] },
+        { word: 'pan', letters: ['p', 'a', 'n'] },
+        { word: 'pen', letters: ['p', 'e', 'n'] },
+        { word: 'pig', letters: ['p', 'i', 'g'] },
+        { word: 'pin', letters: ['p', 'i', 'n'] },
+        { word: 'pot', letters: ['p', 'o', 't'] },
+        { word: 'rat', letters: ['r', 'a', 't'] },
+        { word: 'red', letters: ['r', 'e', 'd'] },
         { word: 'rug', letters: ['r', 'u', 'g'] },
+        { word: 'run', letters: ['r', 'u', 'n'] },
+        { word: 'sat', letters: ['s', 'a', 't'] },
+        { word: 'sit', letters: ['s', 'i', 't'] },
+        { word: 'sun', letters: ['s', 'u', 'n'] },
+        { word: 'top', letters: ['t', 'o', 'p'] },
+        { word: 'tub', letters: ['t', 'u', 'b'] },
         { word: 'van', letters: ['v', 'a', 'n'] },
-        { word: 'jet', letters: ['j', 'e', 't'] },
-        { word: 'wet', letters: ['w', 'e', 't'] },
-        { word: 'zip', letters: ['z', 'i', 'p'] },
+        { word: 'web', letters: ['w', 'e', 'b'] },
+        { word: 'wig', letters: ['w', 'i', 'g'] },
       ],
       ccvc: [
-        { word: 'stop', letters: ['s', 't', 'o', 'p'] },
-        { word: 'frog', letters: ['f', 'r', 'o', 'g'] },
-        { word: 'swim', letters: ['s', 'w', 'i', 'm'] },
-        { word: 'grab', letters: ['g', 'r', 'a', 'b'] },
-        { word: 'trip', letters: ['t', 'r', 'i', 'p'] },
-        { word: 'snap', letters: ['s', 'n', 'a', 'p'] },
         { word: 'clap', letters: ['c', 'l', 'a', 'p'] },
+        { word: 'crab', letters: ['c', 'r', 'a', 'b'] },
+        { word: 'crib', letters: ['c', 'r', 'i', 'b'] },
         { word: 'drop', letters: ['d', 'r', 'o', 'p'] },
-        { word: 'spin', letters: ['s', 'p', 'i', 'n'] },
-        { word: 'grin', letters: ['g', 'r', 'i', 'n'] },
         { word: 'drum', letters: ['d', 'r', 'u', 'm'] },
         { word: 'flag', letters: ['f', 'l', 'a', 'g'] },
-        { word: 'plan', letters: ['p', 'l', 'a', 'n'] },
-        { word: 'stem', letters: ['s', 't', 'e', 'm'] },
+        { word: 'frog', letters: ['f', 'r', 'o', 'g'] },
+        { word: 'grin', letters: ['g', 'r', 'i', 'n'] },
+        { word: 'plum', letters: ['p', 'l', 'u', 'm'] },
+        { word: 'sled', letters: ['s', 'l', 'e', 'd'] },
+        { word: 'snap', letters: ['s', 'n', 'a', 'p'] },
+        { word: 'spin', letters: ['s', 'p', 'i', 'n'] },
+        { word: 'step', letters: ['s', 't', 'e', 'p'] },
+        { word: 'stop', letters: ['s', 't', 'o', 'p'] },
+        { word: 'swim', letters: ['s', 'w', 'i', 'm'] },
+        { word: 'trip', letters: ['t', 'r', 'i', 'p'] },
       ],
       digraph: [
-        { word: 'ship', letters: ['s', 'h', 'i', 'p'] },
+        { word: 'bath', letters: ['b', 'a', 't', 'h'] },
         { word: 'chat', letters: ['c', 'h', 'a', 't'] },
-        { word: 'thin', letters: ['t', 'h', 'i', 'n'] },
-        { word: 'shop', letters: ['s', 'h', 'o', 'p'] },
-        { word: 'much', letters: ['m', 'u', 'c', 'h'] },
-        { word: 'fish', letters: ['f', 'i', 's', 'h'] },
-        { word: 'with', letters: ['w', 'i', 't', 'h'] },
-        { word: 'when', letters: ['w', 'h', 'e', 'n'] },
-        { word: 'then', letters: ['t', 'h', 'e', 'n'] },
+        { word: 'chin', letters: ['c', 'h', 'i', 'n'] },
+        { word: 'chip', letters: ['c', 'h', 'i', 'p'] },
         { word: 'chop', letters: ['c', 'h', 'o', 'p'] },
-        { word: 'bash', letters: ['b', 'a', 's', 'h'] },
+        { word: 'dish', letters: ['d', 'i', 's', 'h'] },
+        { word: 'fish', letters: ['f', 'i', 's', 'h'] },
+        { word: 'math', letters: ['m', 'a', 't', 'h'] },
         { word: 'path', letters: ['p', 'a', 't', 'h'] },
+        { word: 'ship', letters: ['s', 'h', 'i', 'p'] },
+        { word: 'shop', letters: ['s', 'h', 'o', 'p'] },
+        { word: 'thin', letters: ['t', 'h', 'i', 'n'] },
+        { word: 'with', letters: ['w', 'i', 't', 'h'] },
       ],
       cvce: [
-        { word: 'cake', letters: ['c', 'a', 'k', 'e'] },
+        { word: 'bake', letters: ['b', 'a', 'k', 'e'] },
         { word: 'bike', letters: ['b', 'i', 'k', 'e'] },
-        { word: 'home', letters: ['h', 'o', 'm', 'e'] },
-        { word: 'time', letters: ['t', 'i', 'm', 'e'] },
-        { word: 'lake', letters: ['l', 'a', 'k', 'e'] },
         { word: 'bone', letters: ['b', 'o', 'n', 'e'] },
-        { word: 'rope', letters: ['r', 'o', 'p', 'e'] },
-        { word: 'pine', letters: ['p', 'i', 'n', 'e'] },
-        { word: 'note', letters: ['n', 'o', 't', 'e'] },
+        { word: 'cake', letters: ['c', 'a', 'k', 'e'] },
+        { word: 'cone', letters: ['c', 'o', 'n', 'e'] },
         { word: 'cube', letters: ['c', 'u', 'b', 'e'] },
-        { word: 'tune', letters: ['t', 'u', 'n', 'e'] },
+        { word: 'cute', letters: ['c', 'u', 't', 'e'] },
+        { word: 'hike', letters: ['h', 'i', 'k', 'e'] },
+        { word: 'home', letters: ['h', 'o', 'm', 'e'] },
+        { word: 'hope', letters: ['h', 'o', 'p', 'e'] },
+        { word: 'hose', letters: ['h', 'o', 's', 'e'] },
+        { word: 'kite', letters: ['k', 'i', 't', 'e'] },
+        { word: 'lake', letters: ['l', 'a', 'k', 'e'] },
+        { word: 'like', letters: ['l', 'i', 'k', 'e'] },
         { word: 'make', letters: ['m', 'a', 'k', 'e'] },
-        { word: 'ride', letters: ['r', 'i', 'd', 'e'] },
-        { word: 'wave', letters: ['w', 'a', 'v', 'e'] },
+        { word: 'mule', letters: ['m', 'u', 'l', 'e'] },
+        { word: 'name', letters: ['n', 'a', 'm', 'e'] },
+        { word: 'nose', letters: ['n', 'o', 's', 'e'] },
+        { word: 'pine', letters: ['p', 'i', 'n', 'e'] },
+        { word: 'rope', letters: ['r', 'o', 'p', 'e'] },
+        { word: 'rose', letters: ['r', 'o', 's', 'e'] },
+        { word: 'time', letters: ['t', 'i', 'm', 'e'] },
+        { word: 'tube', letters: ['t', 'u', 'b', 'e'] },
+        { word: 'vine', letters: ['v', 'i', 'n', 'e'] },
       ],
       mixed: []
     };
@@ -582,6 +645,9 @@
       ...WORD_DATA.digraph,
       ...WORD_DATA.cvce
     ];
+
+    // Icon path
+    const ICON_PATH = '/activities/word-icons/';
 
     // Confusable sounds for distractors
     const CONFUSABLE_SOUNDS = {
@@ -693,6 +759,7 @@
     const resultsScreen = document.getElementById('resultsScreen');
     const spellArea = document.getElementById('spellArea');
     const letterArea = document.getElementById('letterArea');
+    const wordIcon = document.getElementById('wordIcon');
     const hearBtn = document.getElementById('hearBtn');
     const progressEl = document.getElementById('progress');
     const scoreEl = document.getElementById('score');
@@ -811,6 +878,10 @@
 
       currentWord = shuffledWords[wordIndex];
       currentLetterIndex = 0;
+
+      // Show word icon
+      wordIcon.src = ICON_PATH + currentWord.word + '.png';
+      wordIcon.alt = currentWord.word;
 
       // Create spell slots
       spellArea.innerHTML = '';

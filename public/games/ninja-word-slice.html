@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Ninja Word Slice - FunBookies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+        }
+
+        body {
+            background: linear-gradient(180deg, #1a0a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            overflow: hidden;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #gameCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #sliceCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        #ui {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .ui-box {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            padding: 10px 15px;
+            color: white;
+            backdrop-filter: blur(5px);
+        }
+
+        #score {
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 0 2px 10px rgba(255, 200, 0, 0.5);
+        }
+
+        #combo {
+            font-size: 18px;
+            color: #ff6b6b;
+            margin-top: 5px;
+        }
+
+        #timer {
+            font-size: 32px;
+            font-weight: bold;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        #timer.warning {
+            color: #ff6b6b;
+            animation: pulse 0.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        #streakMeter {
+            width: 150px;
+        }
+
+        #streakBar {
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        #streakFill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb);
+            transition: width 0.3s ease;
+        }
+
+        #lives {
+            display: flex;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .life {
+            font-size: 20px;
+        }
+
+        #menu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 100;
+        }
+
+        #menu h1 {
+            font-size: 48px;
+            color: white;
+            text-shadow: 0 0 30px rgba(255, 100, 100, 0.8);
+            margin-bottom: 10px;
+        }
+
+        #menu h2 {
+            font-size: 24px;
+            color: #aaa;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+
+        .menu-btn {
+            display: block;
+            width: 200px;
+            margin: 10px auto;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: bold;
+            pointer-events: auto;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-btn:active {
+            transform: scale(0.95);
+        }
+
+        .menu-btn.classic {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+            color: white;
+        }
+
+        .menu-btn.zen {
+            background: linear-gradient(135deg, #48dbfb, #0abde3);
+            color: white;
+        }
+
+        .menu-btn.arcade {
+            background: linear-gradient(135deg, #feca57, #ff9f43);
+            color: #333;
+        }
+
+        .menu-btn.challenge {
+            background: linear-gradient(135deg, #a55eea, #8854d0);
+            color: white;
+        }
+
+        #instructions {
+            color: #888;
+            font-size: 14px;
+            margin-top: 30px;
+            max-width: 300px;
+        }
+
+        #gameOver {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 100;
+            display: none;
+        }
+
+        #gameOver h1 {
+            font-size: 48px;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        #finalScore {
+            font-size: 64px;
+            color: #feca57;
+            text-shadow: 0 0 30px rgba(254, 202, 87, 0.5);
+            margin-bottom: 10px;
+        }
+
+        #stats {
+            color: #aaa;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        #announcement {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 30px rgba(255, 200, 0, 0.8);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 50;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #powerups {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .powerup-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+        }
+
+        .powerup-btn:hover:not(.disabled) {
+            transform: scale(1.1);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .powerup-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .powerup-btn.ready {
+            border-color: #48dbfb;
+            box-shadow: 0 0 15px rgba(72, 219, 251, 0.5);
+            animation: glow 1s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(72, 219, 251, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(72, 219, 251, 0.8); }
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <canvas id="sliceCanvas"></canvas>
+
+        <div id="ui" class="hidden">
+            <div class="ui-box">
+                <div id="score">0</div>
+                <div id="combo"></div>
+            </div>
+            <div class="ui-box" id="timerBox">
+                <div id="timer">60</div>
+            </div>
+            <div class="ui-box" id="streakMeter">
+                <div>STREAK</div>
+                <div id="streakBar"><div id="streakFill"></div></div>
+                <div id="lives"></div>
+            </div>
+        </div>
+
+        <div id="powerups" class="hidden">
+            <button class="powerup-btn disabled" id="freezeBtn" title="Freeze (slow words)">❄️</button>
+            <button class="powerup-btn disabled" id="frenzyBtn" title="Frenzy (2x points)">🔥</button>
+            <button class="powerup-btn disabled" id="defuseBtn" title="Defuse all bombs">💣</button>
+        </div>
+
+        <div id="menu">
+            <h1>🗡️ NINJA WORD SLICE</h1>
+            <h2>Slice words into sounds!</h2>
+            <button class="menu-btn classic" onclick="startGame('classic')">⚔️ Classic</button>
+            <button class="menu-btn zen" onclick="startGame('zen')">🧘 Zen</button>
+            <button class="menu-btn arcade" onclick="startGame('arcade')">🎮 Arcade</button>
+            <button class="menu-btn challenge" onclick="startGame('challenge')">🎯 Challenge</button>
+            <p id="instructions">
+                Swipe to slice words into sounds!<br>
+                ↔️ Horizontal = onset-rime (c|at)<br>
+                ↕️ Vertical = full segment (c|a|t)<br>
+                💣 Tap bombs - don't slice!
+            </p>
+        </div>
+
+        <div id="gameOver">
+            <h1>GAME OVER</h1>
+            <div id="finalScore">0</div>
+            <div id="stats"></div>
+            <button class="menu-btn classic" onclick="showMenu()">Play Again</button>
+        </div>
+
+        <div id="announcement"></div>
+    </div>
+
+    <script>
+        // Canvas setup
+        const gameCanvas = document.getElementById('gameCanvas');
+        const gameCtx = gameCanvas.getContext('2d');
+        const sliceCanvas = document.getElementById('sliceCanvas');
+        const sliceCtx = sliceCanvas.getContext('2d');
+
+        function resizeCanvas() {
+            gameCanvas.width = window.innerWidth;
+            gameCanvas.height = window.innerHeight;
+            sliceCanvas.width = window.innerWidth;
+            sliceCanvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Word data with phoneme splits
+        const WORD_DATA = {
+            cvc: [
+                { word: 'cat', phonemes: ['c', 'a', 't'], onset: 'c', rime: 'at' },
+                { word: 'dog', phonemes: ['d', 'o', 'g'], onset: 'd', rime: 'og' },
+                { word: 'pig', phonemes: ['p', 'i', 'g'], onset: 'p', rime: 'ig' },
+                { word: 'sun', phonemes: ['s', 'u', 'n'], onset: 's', rime: 'un' },
+                { word: 'hat', phonemes: ['h', 'a', 't'], onset: 'h', rime: 'at' },
+                { word: 'bed', phonemes: ['b', 'e', 'd'], onset: 'b', rime: 'ed' },
+                { word: 'cup', phonemes: ['c', 'u', 'p'], onset: 'c', rime: 'up' },
+                { word: 'fox', phonemes: ['f', 'o', 'x'], onset: 'f', rime: 'ox' },
+                { word: 'bus', phonemes: ['b', 'u', 's'], onset: 'b', rime: 'us' },
+                { word: 'map', phonemes: ['m', 'a', 'p'], onset: 'm', rime: 'ap' },
+                { word: 'pen', phonemes: ['p', 'e', 'n'], onset: 'p', rime: 'en' },
+                { word: 'red', phonemes: ['r', 'e', 'd'], onset: 'r', rime: 'ed' },
+                { word: 'nut', phonemes: ['n', 'u', 't'], onset: 'n', rime: 'ut' },
+                { word: 'wet', phonemes: ['w', 'e', 't'], onset: 'w', rime: 'et' },
+                { word: 'log', phonemes: ['l', 'o', 'g'], onset: 'l', rime: 'og' },
+            ],
+            ccvc: [
+                { word: 'stop', phonemes: ['s', 't', 'o', 'p'], onset: 'st', rime: 'op' },
+                { word: 'frog', phonemes: ['f', 'r', 'o', 'g'], onset: 'fr', rime: 'og' },
+                { word: 'swim', phonemes: ['s', 'w', 'i', 'm'], onset: 'sw', rime: 'im' },
+                { word: 'plan', phonemes: ['p', 'l', 'a', 'n'], onset: 'pl', rime: 'an' },
+                { word: 'drip', phonemes: ['d', 'r', 'i', 'p'], onset: 'dr', rime: 'ip' },
+                { word: 'crop', phonemes: ['c', 'r', 'o', 'p'], onset: 'cr', rime: 'op' },
+                { word: 'grip', phonemes: ['g', 'r', 'i', 'p'], onset: 'gr', rime: 'ip' },
+                { word: 'slip', phonemes: ['s', 'l', 'i', 'p'], onset: 'sl', rime: 'ip' },
+            ],
+            digraph: [
+                { word: 'ship', phonemes: ['sh', 'i', 'p'], onset: 'sh', rime: 'ip' },
+                { word: 'chat', phonemes: ['ch', 'a', 't'], onset: 'ch', rime: 'at' },
+                { word: 'thin', phonemes: ['th', 'i', 'n'], onset: 'th', rime: 'in' },
+                { word: 'fish', phonemes: ['f', 'i', 'sh'], onset: 'f', rime: 'ish' },
+                { word: 'ring', phonemes: ['r', 'i', 'ng'], onset: 'r', rime: 'ing' },
+                { word: 'much', phonemes: ['m', 'u', 'ch'], onset: 'm', rime: 'uch' },
+                { word: 'path', phonemes: ['p', 'a', 'th'], onset: 'p', rime: 'ath' },
+                { word: 'when', phonemes: ['wh', 'e', 'n'], onset: 'wh', rime: 'en' },
+            ],
+            cvce: [
+                { word: 'cake', phonemes: ['c', 'a', 'k', 'e'], onset: 'c', rime: 'ake' },
+                { word: 'bike', phonemes: ['b', 'i', 'k', 'e'], onset: 'b', rime: 'ike' },
+                { word: 'home', phonemes: ['h', 'o', 'm', 'e'], onset: 'h', rime: 'ome' },
+                { word: 'cute', phonemes: ['c', 'u', 't', 'e'], onset: 'c', rime: 'ute' },
+                { word: 'name', phonemes: ['n', 'a', 'm', 'e'], onset: 'n', rime: 'ame' },
+                { word: 'time', phonemes: ['t', 'i', 'm', 'e'], onset: 't', rime: 'ime' },
+                { word: 'note', phonemes: ['n', 'o', 't', 'e'], onset: 'n', rime: 'ote' },
+                { word: 'rule', phonemes: ['r', 'u', 'l', 'e'], onset: 'r', rime: 'ule' },
+            ],
+            sightWords: [
+                { word: 'the' }, { word: 'said' }, { word: 'was' },
+                { word: 'you' }, { word: 'are' }, { word: 'they' },
+                { word: 'come' }, { word: 'some' }, { word: 'have' },
+            ]
+        };
+
+        // Game state
+        let gameState = 'menu';
+        let gameMode = 'classic';
+        let score = 0;
+        let combo = 0;
+        let maxCombo = 0;
+        let wordsSliced = 0;
+        let perfectSlices = 0;
+        let timeLeft = 60;
+        let lives = 3;
+        let words = [];
+        let particles = [];
+        let sliceTrail = [];
+        let isSlicing = false;
+        let sliceStart = null;
+        let lastTime = 0;
+        let spawnTimer = 0;
+        let freezeActive = false;
+        let frenzyActive = false;
+        let freezeCharge = 0;
+        let frenzyCharge = 0;
+        let defuseCharge = 0;
+        let screenShake = { x: 0, y: 0, intensity: 0 };
+        let announcements = [];
+
+        // Audio context
+        let audioContext = null;
+
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(type, freq = 440) {
+            if (!audioContext) return;
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            switch(type) {
+                case 'slice':
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.15);
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.15);
+                    break;
+                case 'perfect':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(523, audioContext.currentTime);
+                    oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.1);
+                    oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.2);
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.4);
+                    break;
+                case 'bomb':
+                    oscillator.type = 'square';
+                    oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(30, audioContext.currentTime + 0.5);
+                    gainNode.gain.setValueAtTime(0.4, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                    break;
+                case 'defuse':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.2);
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                    break;
+                case 'miss':
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.2);
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.2);
+                    break;
+                case 'combo':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                    break;
+            }
+        }
+
+        function speakPhoneme(phoneme) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(phoneme);
+                utterance.rate = 0.8;
+                utterance.pitch = 1.2;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Word class
+        class Word {
+            constructor(data, type) {
+                this.data = data;
+                this.type = type;
+                this.word = data.word;
+                this.x = Math.random() * (gameCanvas.width - 150) + 75;
+                this.y = gameCanvas.height + 50;
+
+                // Physics
+                const angle = (Math.random() * 60 - 30) * Math.PI / 180;
+                const speed = 8 + Math.random() * 4;
+                this.vx = Math.sin(angle) * speed * (freezeActive ? 0.3 : 1);
+                this.vy = -speed * (freezeActive ? 0.3 : 1);
+                this.gravity = 0.15 * (freezeActive ? 0.3 : 1);
+                this.rotation = 0;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.1;
+
+                // Visual
+                this.width = this.word.length * 40 + 30;
+                this.height = 60;
+                this.alpha = 1;
+                this.sliced = false;
+                this.pieces = [];
+
+                // Special types
+                this.isBomb = type === 'bomb';
+                this.isGolden = !this.isBomb && Math.random() < 0.1;
+                this.isFire = !this.isBomb && !this.isGolden && Math.random() < 0.08;
+                this.fireTimer = this.isFire ? 3 : 0;
+
+                // Colors
+                if (this.isBomb) {
+                    this.color = '#333';
+                    this.glowColor = '#ff0000';
+                } else if (this.isGolden) {
+                    this.color = '#ffd700';
+                    this.glowColor = '#ffaa00';
+                } else if (this.isFire) {
+                    this.color = '#ff4444';
+                    this.glowColor = '#ff8800';
+                } else {
+                    this.color = '#4ecdc4';
+                    this.glowColor = '#45b7aa';
+                }
+            }
+
+            update(dt) {
+                if (this.sliced) {
+                    // Update pieces
+                    this.pieces.forEach(piece => {
+                        piece.x += piece.vx;
+                        piece.y += piece.vy;
+                        piece.vy += 0.3;
+                        piece.rotation += piece.rotationSpeed;
+                        piece.alpha -= 0.02;
+                    });
+                    this.pieces = this.pieces.filter(p => p.alpha > 0);
+                    return this.pieces.length === 0;
+                }
+
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += this.gravity;
+                this.rotation += this.rotationSpeed;
+
+                // Fire countdown
+                if (this.isFire) {
+                    this.fireTimer -= dt / 1000;
+                    if (this.fireTimer <= 0) {
+                        // Burned up - missed
+                        createExplosion(this.x, this.y, '#ff4400', 15);
+                        return true;
+                    }
+                }
+
+                // Off screen
+                return this.y > gameCanvas.height + 100;
+            }
+
+            draw(ctx) {
+                if (this.sliced) {
+                    // Draw pieces
+                    this.pieces.forEach(piece => {
+                        ctx.save();
+                        ctx.translate(piece.x, piece.y);
+                        ctx.rotate(piece.rotation);
+                        ctx.globalAlpha = piece.alpha;
+
+                        ctx.fillStyle = piece.color;
+                        ctx.shadowColor = piece.glowColor;
+                        ctx.shadowBlur = 10;
+
+                        const metrics = ctx.measureText(piece.text);
+                        const w = metrics.width + 20;
+                        const h = 50;
+
+                        ctx.beginPath();
+                        ctx.roundRect(-w/2, -h/2, w, h, 10);
+                        ctx.fill();
+
+                        ctx.shadowBlur = 0;
+                        ctx.fillStyle = 'white';
+                        ctx.font = 'bold 32px system-ui';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(piece.text, 0, 0);
+
+                        ctx.restore();
+                    });
+                    return;
+                }
+
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.globalAlpha = this.alpha;
+
+                // Glow
+                ctx.shadowColor = this.glowColor;
+                ctx.shadowBlur = this.isGolden ? 25 : 15;
+
+                // Background
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.roundRect(-this.width/2, -this.height/2, this.width, this.height, 15);
+                ctx.fill();
+
+                // Fire effect
+                if (this.isFire) {
+                    const flicker = Math.sin(Date.now() / 50) * 5;
+                    ctx.shadowBlur = 20 + flicker;
+                }
+
+                // Bomb icon
+                if (this.isBomb) {
+                    ctx.fillStyle = '#ff4444';
+                    ctx.font = '24px system-ui';
+                    ctx.textAlign = 'right';
+                    ctx.fillText('💣', this.width/2 - 5, 0);
+                }
+
+                // Golden sparkle
+                if (this.isGolden) {
+                    ctx.fillStyle = '#fff';
+                    ctx.font = '20px system-ui';
+                    ctx.textAlign = 'right';
+                    ctx.fillText('⭐', this.width/2 - 5, -15);
+                }
+
+                // Fire timer
+                if (this.isFire) {
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 14px system-ui';
+                    ctx.textAlign = 'right';
+                    ctx.fillText(this.fireTimer.toFixed(1), this.width/2 - 5, -20);
+                }
+
+                // Text
+                ctx.shadowBlur = 0;
+                ctx.fillStyle = this.isBomb ? '#fff' : '#fff';
+                ctx.font = 'bold 36px system-ui';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(this.word, 0, 0);
+
+                ctx.restore();
+            }
+
+            containsPoint(x, y) {
+                const dx = x - this.x;
+                const dy = y - this.y;
+                // Rotate point back
+                const cos = Math.cos(-this.rotation);
+                const sin = Math.sin(-this.rotation);
+                const rx = dx * cos - dy * sin;
+                const ry = dx * sin + dy * cos;
+                return Math.abs(rx) < this.width/2 && Math.abs(ry) < this.height/2;
+            }
+
+            slice(direction) {
+                if (this.isBomb) {
+                    // Bomb exploded!
+                    playSound('bomb');
+                    createExplosion(this.x, this.y, '#ff0000', 50);
+                    triggerScreenShake(15);
+                    combo = 0;
+                    if (gameMode === 'arcade') {
+                        lives--;
+                        updateLives();
+                        if (lives <= 0) {
+                            endGame();
+                        }
+                    } else {
+                        score = Math.max(0, score - 100);
+                    }
+                    this.sliced = true;
+                    return;
+                }
+
+                this.sliced = true;
+                playSound('slice');
+
+                let splitParts;
+                let isPerfect = false;
+
+                if (direction === 'horizontal') {
+                    // Onset-rime split
+                    splitParts = [this.data.onset, this.data.rime];
+                    isPerfect = true;
+                } else {
+                    // Full phoneme split
+                    splitParts = this.data.phonemes;
+                    isPerfect = true;
+                }
+
+                // Create pieces
+                const totalWidth = splitParts.reduce((sum, p) => sum + p.length * 25 + 20, 0);
+                let offsetX = -totalWidth / 2;
+
+                splitParts.forEach((part, i) => {
+                    const pieceWidth = part.length * 25 + 20;
+                    const piece = {
+                        text: part,
+                        x: this.x + offsetX + pieceWidth/2,
+                        y: this.y,
+                        vx: (i - splitParts.length/2) * 8 + (Math.random() - 0.5) * 4,
+                        vy: -5 - Math.random() * 5,
+                        rotation: this.rotation,
+                        rotationSpeed: (Math.random() - 0.5) * 0.3,
+                        alpha: 1,
+                        color: this.color,
+                        glowColor: this.glowColor
+                    };
+                    this.pieces.push(piece);
+                    offsetX += pieceWidth + 5;
+
+                    // Speak phoneme
+                    setTimeout(() => speakPhoneme(part), i * 200);
+                });
+
+                // Particles
+                createExplosion(this.x, this.y, this.isGolden ? '#ffd700' : '#4ecdc4', 25);
+
+                // Scoring
+                let points = 10 * splitParts.length;
+                if (this.isGolden) points *= 3;
+                if (this.isFire) points *= 2;
+                if (frenzyActive) points *= 2;
+
+                combo++;
+                if (combo > maxCombo) maxCombo = combo;
+                wordsSliced++;
+
+                if (isPerfect) {
+                    perfectSlices++;
+                    points += 20;
+                    playSound('perfect');
+                }
+
+                // Combo bonuses
+                if (combo >= 3) {
+                    points *= (1 + combo * 0.1);
+                    playSound('combo', 400 + combo * 50);
+                }
+
+                if (combo === 5) showAnnouncement('NICE! x5');
+                if (combo === 10) showAnnouncement('AWESOME! x10');
+                if (combo === 15) showAnnouncement('🔥 ON FIRE! 🔥');
+                if (combo === 20) showAnnouncement('⚡ LEGENDARY! ⚡');
+
+                score += Math.floor(points);
+
+                // Charge powerups
+                freezeCharge = Math.min(100, freezeCharge + 10);
+                frenzyCharge = Math.min(100, frenzyCharge + 8);
+                defuseCharge = Math.min(100, defuseCharge + 5);
+                updatePowerups();
+
+                triggerScreenShake(5);
+            }
+
+            tap() {
+                if (this.isBomb) {
+                    // Defused!
+                    playSound('defuse');
+                    createExplosion(this.x, this.y, '#48dbfb', 30);
+                    showAnnouncement('DEFUSED! +50');
+                    score += 50;
+                    combo++;
+                    this.sliced = true;
+                    this.pieces = []; // No pieces, just disappear
+
+                    // Charge powerups
+                    defuseCharge = Math.min(100, defuseCharge + 20);
+                    updatePowerups();
+                } else {
+                    // Wrong! Should slice regular words
+                    playSound('miss');
+                    triggerScreenShake(3);
+                }
+            }
+        }
+
+        // Particle system
+        function createExplosion(x, y, color, count) {
+            for (let i = 0; i < count; i++) {
+                const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
+                const speed = 3 + Math.random() * 5;
+                particles.push({
+                    x, y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    life: 1,
+                    color,
+                    size: 3 + Math.random() * 5
+                });
+            }
+        }
+
+        function updateParticles() {
+            particles = particles.filter(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.1;
+                p.life -= 0.02;
+                return p.life > 0;
+            });
+        }
+
+        function drawParticles(ctx) {
+            particles.forEach(p => {
+                ctx.globalAlpha = p.life;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.globalAlpha = 1;
+        }
+
+        // Screen shake
+        function triggerScreenShake(intensity) {
+            screenShake.intensity = Math.max(screenShake.intensity, intensity);
+        }
+
+        function updateScreenShake() {
+            if (screenShake.intensity > 0) {
+                screenShake.x = (Math.random() - 0.5) * screenShake.intensity;
+                screenShake.y = (Math.random() - 0.5) * screenShake.intensity;
+                screenShake.intensity *= 0.9;
+                if (screenShake.intensity < 0.5) {
+                    screenShake.intensity = 0;
+                    screenShake.x = 0;
+                    screenShake.y = 0;
+                }
+            }
+        }
+
+        // Announcements
+        function showAnnouncement(text) {
+            const el = document.getElementById('announcement');
+            el.textContent = text;
+            el.style.opacity = 1;
+            el.style.transform = 'translate(-50%, -50%) scale(1.5)';
+
+            setTimeout(() => {
+                el.style.transition = 'all 0.5s ease-out';
+                el.style.opacity = 0;
+                el.style.transform = 'translate(-50%, -50%) scale(0.5)';
+            }, 100);
+
+            setTimeout(() => {
+                el.style.transition = '';
+            }, 600);
+        }
+
+        // Slice trail
+        function drawSliceTrail(ctx) {
+            if (sliceTrail.length < 2) return;
+
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            ctx.shadowColor = '#48dbfb';
+            ctx.shadowBlur = 15;
+
+            ctx.beginPath();
+            ctx.moveTo(sliceTrail[0].x, sliceTrail[0].y);
+
+            for (let i = 1; i < sliceTrail.length; i++) {
+                ctx.lineTo(sliceTrail[i].x, sliceTrail[i].y);
+            }
+
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+
+            // Fade trail
+            sliceTrail = sliceTrail.filter(p => {
+                p.alpha -= 0.1;
+                return p.alpha > 0;
+            });
+        }
+
+        // Input handling
+        function getEventPos(e) {
+            if (e.touches) {
+                return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+            return { x: e.clientX, y: e.clientY };
+        }
+
+        function handleStart(e) {
+            e.preventDefault();
+            initAudio();
+
+            if (gameState !== 'playing') return;
+
+            const pos = getEventPos(e);
+            isSlicing = true;
+            sliceStart = pos;
+            sliceTrail = [{ ...pos, alpha: 1 }];
+
+            // Check for tap on bombs
+            for (let word of words) {
+                if (!word.sliced && word.containsPoint(pos.x, pos.y)) {
+                    word.tap();
+                    isSlicing = false;
+                    break;
+                }
+            }
+        }
+
+        function handleMove(e) {
+            e.preventDefault();
+
+            if (!isSlicing || gameState !== 'playing') return;
+
+            const pos = getEventPos(e);
+            sliceTrail.push({ ...pos, alpha: 1 });
+
+            // Keep trail manageable
+            if (sliceTrail.length > 20) {
+                sliceTrail.shift();
+            }
+
+            // Check for slice collision with words
+            if (sliceStart) {
+                const dx = pos.x - sliceStart.x;
+                const dy = pos.y - sliceStart.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist > 50) { // Minimum slice length
+                    // Determine slice direction
+                    const angle = Math.atan2(dy, dx);
+                    const isHorizontal = Math.abs(Math.cos(angle)) > 0.7;
+                    const direction = isHorizontal ? 'horizontal' : 'vertical';
+
+                    for (let word of words) {
+                        if (!word.sliced && !word.isBomb && word.containsPoint(pos.x, pos.y)) {
+                            word.slice(direction);
+                        }
+                    }
+
+                    sliceStart = pos;
+                }
+            }
+        }
+
+        function handleEnd(e) {
+            e.preventDefault();
+            isSlicing = false;
+            sliceStart = null;
+        }
+
+        gameCanvas.addEventListener('mousedown', handleStart);
+        gameCanvas.addEventListener('mousemove', handleMove);
+        gameCanvas.addEventListener('mouseup', handleEnd);
+        gameCanvas.addEventListener('mouseleave', handleEnd);
+        gameCanvas.addEventListener('touchstart', handleStart);
+        gameCanvas.addEventListener('touchmove', handleMove);
+        gameCanvas.addEventListener('touchend', handleEnd);
+
+        // Powerups
+        function updatePowerups() {
+            const freezeBtn = document.getElementById('freezeBtn');
+            const frenzyBtn = document.getElementById('frenzyBtn');
+            const defuseBtn = document.getElementById('defuseBtn');
+
+            freezeBtn.classList.toggle('ready', freezeCharge >= 100);
+            freezeBtn.classList.toggle('disabled', freezeCharge < 100);
+
+            frenzyBtn.classList.toggle('ready', frenzyCharge >= 100);
+            frenzyBtn.classList.toggle('disabled', frenzyCharge < 100);
+
+            defuseBtn.classList.toggle('ready', defuseCharge >= 100);
+            defuseBtn.classList.toggle('disabled', defuseCharge < 100);
+        }
+
+        document.getElementById('freezeBtn').addEventListener('click', () => {
+            if (freezeCharge >= 100 && gameState === 'playing') {
+                freezeCharge = 0;
+                freezeActive = true;
+                showAnnouncement('❄️ FREEZE! ❄️');
+
+                // Slow all words
+                words.forEach(w => {
+                    w.vx *= 0.3;
+                    w.vy *= 0.3;
+                    w.gravity *= 0.3;
+                });
+
+                setTimeout(() => {
+                    freezeActive = false;
+                }, 5000);
+
+                updatePowerups();
+            }
+        });
+
+        document.getElementById('frenzyBtn').addEventListener('click', () => {
+            if (frenzyCharge >= 100 && gameState === 'playing') {
+                frenzyCharge = 0;
+                frenzyActive = true;
+                showAnnouncement('🔥 FRENZY! 2x POINTS! 🔥');
+
+                setTimeout(() => {
+                    frenzyActive = false;
+                }, 10000);
+
+                updatePowerups();
+            }
+        });
+
+        document.getElementById('defuseBtn').addEventListener('click', () => {
+            if (defuseCharge >= 100 && gameState === 'playing') {
+                defuseCharge = 0;
+
+                // Defuse all bombs
+                let defused = 0;
+                words.forEach(w => {
+                    if (w.isBomb && !w.sliced) {
+                        w.tap();
+                        defused++;
+                    }
+                });
+
+                if (defused > 0) {
+                    showAnnouncement(`💣 ${defused} BOMBS DEFUSED! 💣`);
+                }
+
+                updatePowerups();
+            }
+        });
+
+        // Game functions
+        function spawnWord() {
+            // Select word type based on challenge mode or random
+            let wordTypes = ['cvc', 'ccvc', 'digraph', 'cvce'];
+            let type = wordTypes[Math.floor(Math.random() * wordTypes.length)];
+
+            // Sometimes spawn a bomb (sight word)
+            if (Math.random() < 0.15) {
+                const data = WORD_DATA.sightWords[Math.floor(Math.random() * WORD_DATA.sightWords.length)];
+                words.push(new Word(data, 'bomb'));
+                return;
+            }
+
+            const wordList = WORD_DATA[type];
+            const data = wordList[Math.floor(Math.random() * wordList.length)];
+            words.push(new Word(data, type));
+        }
+
+        function updateUI() {
+            document.getElementById('score').textContent = score.toLocaleString();
+            document.getElementById('combo').textContent = combo > 1 ? `x${combo} COMBO` : '';
+
+            if (gameMode !== 'zen') {
+                document.getElementById('timer').textContent = Math.ceil(timeLeft);
+                document.getElementById('timer').classList.toggle('warning', timeLeft <= 10);
+            }
+
+            // Streak meter
+            const streakPercent = Math.min(100, (combo / 15) * 100);
+            document.getElementById('streakFill').style.width = streakPercent + '%';
+        }
+
+        function updateLives() {
+            const livesEl = document.getElementById('lives');
+            livesEl.innerHTML = '';
+            for (let i = 0; i < 3; i++) {
+                const life = document.createElement('span');
+                life.className = 'life';
+                life.textContent = i < lives ? '❤️' : '🖤';
+                livesEl.appendChild(life);
+            }
+        }
+
+        function startGame(mode) {
+            initAudio();
+            gameMode = mode;
+            gameState = 'playing';
+            score = 0;
+            combo = 0;
+            maxCombo = 0;
+            wordsSliced = 0;
+            perfectSlices = 0;
+            words = [];
+            particles = [];
+            freezeCharge = 0;
+            frenzyCharge = 0;
+            defuseCharge = 0;
+            freezeActive = false;
+            frenzyActive = false;
+
+            document.getElementById('menu').classList.add('hidden');
+            document.getElementById('gameOver').classList.add('hidden');
+            document.getElementById('ui').classList.remove('hidden');
+            document.getElementById('powerups').classList.remove('hidden');
+
+            // Mode-specific setup
+            switch(mode) {
+                case 'classic':
+                    timeLeft = 60;
+                    lives = 3;
+                    document.getElementById('timerBox').classList.remove('hidden');
+                    break;
+                case 'zen':
+                    timeLeft = Infinity;
+                    lives = Infinity;
+                    document.getElementById('timerBox').classList.add('hidden');
+                    break;
+                case 'arcade':
+                    timeLeft = Infinity;
+                    lives = 3;
+                    document.getElementById('timerBox').classList.add('hidden');
+                    break;
+                case 'challenge':
+                    timeLeft = 90;
+                    lives = 3;
+                    document.getElementById('timerBox').classList.remove('hidden');
+                    break;
+            }
+
+            updateLives();
+            updatePowerups();
+
+            lastTime = performance.now();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function endGame() {
+            gameState = 'gameover';
+
+            document.getElementById('ui').classList.add('hidden');
+            document.getElementById('powerups').classList.add('hidden');
+            document.getElementById('gameOver').classList.remove('hidden');
+
+            document.getElementById('finalScore').textContent = score.toLocaleString();
+            document.getElementById('stats').innerHTML = `
+                Words Sliced: ${wordsSliced}<br>
+                Perfect Slices: ${perfectSlices}<br>
+                Max Combo: ${maxCombo}
+            `;
+        }
+
+        function showMenu() {
+            gameState = 'menu';
+            document.getElementById('gameOver').classList.add('hidden');
+            document.getElementById('menu').classList.remove('hidden');
+        }
+
+        // Game loop
+        function gameLoop(currentTime) {
+            if (gameState !== 'playing') return;
+
+            const dt = currentTime - lastTime;
+            lastTime = currentTime;
+
+            // Update timer
+            if (gameMode === 'classic' || gameMode === 'challenge') {
+                timeLeft -= dt / 1000;
+                if (timeLeft <= 0) {
+                    endGame();
+                    return;
+                }
+            }
+
+            // Spawn words
+            spawnTimer += dt;
+            const spawnRate = 1500 - Math.min(score / 10, 800); // Speeds up with score
+            if (spawnTimer > spawnRate) {
+                spawnWord();
+                spawnTimer = 0;
+            }
+
+            // Update words
+            words = words.filter(word => {
+                const remove = word.update(dt);
+                if (remove && !word.sliced && !word.isBomb) {
+                    // Missed a word
+                    combo = 0;
+                    if (gameMode === 'arcade') {
+                        lives--;
+                        updateLives();
+                        playSound('miss');
+                        if (lives <= 0) {
+                            endGame();
+                        }
+                    }
+                }
+                return !remove;
+            });
+
+            updateParticles();
+            updateScreenShake();
+            updateUI();
+
+            // Render
+            gameCtx.save();
+            gameCtx.translate(screenShake.x, screenShake.y);
+
+            // Clear
+            gameCtx.fillStyle = '#1a0a2e';
+            gameCtx.fillRect(-10, -10, gameCanvas.width + 20, gameCanvas.height + 20);
+
+            // Draw words
+            words.forEach(word => word.draw(gameCtx));
+
+            // Draw particles
+            drawParticles(gameCtx);
+
+            gameCtx.restore();
+
+            // Draw slice trail (on separate canvas, no shake)
+            sliceCtx.clearRect(0, 0, sliceCanvas.width, sliceCanvas.height);
+            drawSliceTrail(sliceCtx);
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Initialize
+        updatePowerups();
+    </script>
+</body>
+</html>

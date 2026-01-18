@@ -42,8 +42,37 @@ from image_utils import (
 )
 
 
+def validate_scene(scene: str, page_num: int) -> list:
+    """Check scene description for common problems. Returns list of warnings."""
+    warnings = []
+
+    if not scene:
+        warnings.append(f"Page {page_num}: No scene description")
+        return warnings
+
+    if scene.startswith("Illustration for:"):
+        warnings.append(f"Page {page_num}: PLACEHOLDER scene - run generate_scene_descriptions.py first")
+
+    if len(scene) < 80:
+        warnings.append(f"Page {page_num}: Scene too short ({len(scene)} chars)")
+
+    # Check for negations (these cause the model to generate the unwanted thing)
+    negation_words = ["no ", "not ", "without ", "don't ", "doesn't ", "isn't ", "never "]
+    scene_lower = scene.lower()
+    for neg in negation_words:
+        if neg in scene_lower and "no text" not in scene_lower[scene_lower.find(neg):scene_lower.find(neg)+20]:
+            warnings.append(f"Page {page_num}: Contains '{neg.strip()}' - models generate what you mention even when negated")
+
+    return warnings
+
+
 def build_image_prompt(book: dict, page: dict, for_fal: bool = True) -> str:
-    """Build a simple, focused image prompt."""
+    """Build a complete image prompt with anti-grid composition instructions.
+
+    CRITICAL: This function adds the necessary instructions to prevent
+    the model from generating 9-panel grids (which it will do if it
+    sees the 9-panel reference without explicit single-image instructions).
+    """
 
     scene = page.get("scene", "")
     if not scene:
@@ -63,25 +92,37 @@ def build_image_prompt(book: dict, page: dict, for_fal: bool = True) -> str:
     # Get character block for consistency
     char_block = get_character_block(book)
 
-    # Add fal.ai style reference instruction if using reference
-    style_prefix = "Generate an image using the style of image 1.\n\n" if for_fal else ""
+    # CRITICAL: Add single-scene prefix to prevent grid output
+    # The reference image is a 9-panel grid, and without this instruction
+    # the model will generate grids instead of single scenes.
+    single_scene_prefix = "Single scene illustration: "
 
-    # Build prompt with character block only if we have characters
+    # Add fal.ai style reference instruction if using reference
+    style_ref = "Generate an image using the style of image 1.\n\n" if for_fal else ""
+
+    # CRITICAL: Composition instruction to prevent grid layout
+    composition = """
+COMPOSITION: One cohesive illustration filling the entire canvas.
+Full-bleed image with the scene filling edge to edge."""
+
+    # Build prompt with all required elements
     if char_block:
-        prompt = f"""{style_prefix}{scene}
+        prompt = f"""{style_ref}{single_scene_prefix}{scene}
 
 CHARACTERS (draw EXACTLY as described - these features are KEY for identification):
 {char_block}
+{composition}
 
 STYLE: {style}
 
-IMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."""
+CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only."""
     else:
-        prompt = f"""{style_prefix}{scene}
+        prompt = f"""{style_ref}{single_scene_prefix}{scene}
+{composition}
 
 STYLE: {style}
 
-IMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."""
+CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only."""
 
     return prompt
 
@@ -284,6 +325,41 @@ def main():
         book = json.load(f)
 
     pages = book.get("pages", [])
+
+    # Validate scenes before generating images
+    print(f"\n{'='*50}")
+    print("PRE-FLIGHT VALIDATION")
+    print(f"{'='*50}")
+
+    all_warnings = []
+    story_pages = [p for p in pages if p.get("type") == "story"]
+
+    for page in story_pages:
+        scene = page.get("scene", "")
+        pnum = page.get("page", "?")
+        warnings = validate_scene(scene, pnum)
+        all_warnings.extend(warnings)
+
+    if all_warnings:
+        print(f"\n⚠️  WARNINGS ({len(all_warnings)}):")
+        for w in all_warnings:
+            print(f"   • {w}")
+
+        # Check for critical errors (placeholder scenes)
+        placeholder_count = sum(1 for w in all_warnings if "PLACEHOLDER" in w)
+        if placeholder_count > 0:
+            print(f"\n❌ {placeholder_count} pages have placeholder scenes!")
+            print("   Run: python scripts/generate_scene_descriptions.py", args.slug)
+            print("   Then re-run this script.")
+            if not args.force:
+                print("\n   Use --force to generate anyway (not recommended)")
+                return
+            else:
+                print("\n   --force specified, proceeding anyway...")
+    else:
+        print("✅ All scenes validated")
+
+    print(f"{'='*50}\n")
 
     # Filter pages if specified
     if args.pages:

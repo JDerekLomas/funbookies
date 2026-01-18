@@ -39,7 +39,48 @@ Always prefer giving the user clickable links rather than just file paths.
 - `/public/images/covers/` - Cover images
 - `/scripts/` - Python generation scripts
 
-## Image Generation Workflow
+## Book Creation Process
+
+**CRITICAL: Read `BOOK_CREATION_PROCESS.md` before creating any book images.**
+
+The process has 4 checkpoints - NEVER skip them:
+
+```
+Story → Scene Descriptions → Reference Image → Page Images
+          ↓                      ↓                 ↓
+      CHECKPOINT 2          CHECKPOINT 3      CHECKPOINT 4
+```
+
+### Common Mistakes to Avoid
+
+1. **Placeholder scenes** - Never run image generation if scenes say "Illustration for:"
+   - Fix with: `python scripts/generate_scene_descriptions.py <slug>`
+   - Validate with: `python scripts/validate_book_for_images.py <slug>`
+
+2. **Grid output** - Reference is 9-panel, model will copy layout without instructions
+   - `generate_page_images.py` now adds "Single scene illustration" automatically
+   - Never say "not a grid" (activates "grid") - say "one cohesive illustration"
+
+3. **Negations** - Don't say what ISN'T there
+   - "no ball" → model generates a ball
+   - Only describe what you WANT to see
+
+4. **Missing character details** - Scene must include WHO/WHERE/WHAT/STYLE
+
+### Book Image Generation Commands
+
+```bash
+# 1. After story generation, create proper scene descriptions
+python scripts/generate_scene_descriptions.py the-big-pig
+
+# 2. Validate before spending credits
+python scripts/validate_book_for_images.py the-big-pig
+
+# 3. Generate images (runs validation first)
+python scripts/generate_page_images.py the-big-pig --provider mulerouter
+```
+
+## Image Generation Technical Details
 
 See `IMAGE_GENERATION_WORKFLOW.md` for the full pipeline:
 1. Reference sheets (nano-banana-pro) → style guide

@@ -189,13 +189,18 @@ def generate_book_json(
     ]
 
     # Add story pages
+    # NOTE: Scene descriptions are PLACEHOLDERS and must be regenerated
+    # before image generation. Run: python scripts/generate_scene_descriptions.py <slug>
     for i, text in enumerate(story_pages, 1):
         pages.append({
             "page": 5 + i,
             "story_page": i,
             "type": "story",
             "text": text,
-            "scene": f"Illustration for: {text[:100]}..."
+            # PLACEHOLDER - must be replaced with proper scene description before images
+            # Proper scenes need: WHO/WHERE/WHAT/COMPOSITION/STYLE
+            # Run generate_scene_descriptions.py to fix
+            "scene": f"[PLACEHOLDER - run generate_scene_descriptions.py] {text[:80]}..."
         })
 
     # Add end matter

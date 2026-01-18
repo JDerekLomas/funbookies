@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - FunBookies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        header {
+            padding: 30px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            color: #aaa;
+            font-size: 18px;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .game-icon {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.3;
+        }
+
+        .game-card.smash .game-icon {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        }
+
+        .game-card.blaster .game-icon {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .game-card.ninja .game-icon {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .game-card.dragon .game-icon {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+        }
+
+        .game-card.volcano .game-icon {
+            background: linear-gradient(135deg, #f39c12, #e74c3c);
+        }
+
+        .game-content {
+            padding: 25px;
+        }
+
+        .game-content h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .game-content p {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .game-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .tag.skill {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ecdc4;
+        }
+
+        .play-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .game-card:hover .play-btn {
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #4ecdc4;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .game-icon span {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .game-card:nth-child(2) .game-icon span { animation-delay: 0.2s; }
+        .game-card:nth-child(3) .game-icon span { animation-delay: 0.4s; }
+        .game-card:nth-child(4) .game-icon span { animation-delay: 0.6s; }
+        .game-card:nth-child(5) .game-icon span { animation-delay: 0.8s; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 32px;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .game-icon {
+                height: 150px;
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="back-link">← Back to FunBookies</a>
+        <h1>🎮 Games</h1>
+        <p>Learn phonics through play!</p>
+    </header>
+
+    <main>
+        <div class="games-grid">
+            <a href="smash-words.html" class="game-card smash">
+                <div class="game-icon">
+                    <span>🔨</span>
+                </div>
+                <div class="game-content">
+                    <h2>Smash Words</h2>
+                    <p>Smash glass letter blocks in the correct phoneme order! Watch words shatter with satisfying explosions as you tap through each sound.</p>
+                    <div class="game-tags">
+                        <span class="tag skill">Segmenting</span>
+                        <span class="tag skill">Phoneme Order</span>
+                        <span class="tag">CVC → CVCe</span>
+                    </div>
+                    <div class="play-btn">▶ Play Now</div>
+                </div>
+            </a>
+
+            <a href="phonics-blaster.html" class="game-card blaster">
+                <div class="game-icon">
+                    <span>🚀</span>
+                </div>
+                <div class="game-content">
+                    <h2>Phonics Blaster</h2>
+                    <p>Space shooter action! Aim your cannon and blast the letters that match the target sound. Battle through levels from single letters to boss mode word spelling.</p>
+                    <div class="game-tags">
+                        <span class="tag skill">Sound Recognition</span>
+                        <span class="tag skill">Letter-Sound</span>
+                        <span class="tag">Letters → Digraphs</span>
+                    </div>
+                    <div class="play-btn">▶ Play Now</div>
+                </div>
+            </a>
+
+            <a href="ninja-word-slice.html" class="game-card ninja">
+                <div class="game-icon">
+                    <span>🗡️</span>
+                </div>
+                <div class="game-content">
+                    <h2>Ninja Word Slice</h2>
+                    <p>Fruit Ninja meets phonics! Swipe to slice words into sounds. Horizontal cuts split onset-rime, vertical cuts segment all phonemes. Watch out for bombs!</p>
+                    <div class="game-tags">
+                        <span class="tag skill">Onset-Rime</span>
+                        <span class="tag skill">Segmenting</span>
+                        <span class="tag">CVC → R-controlled</span>
+                    </div>
+                    <div class="play-btn">▶ Play Now</div>
+                </div>
+            </a>
+
+            <a href="dragon-trainer.html" class="game-card dragon">
+                <div class="game-icon">
+                    <span>🐉</span>
+                </div>
+                <div class="game-content">
+                    <h2>Dragon Trainer</h2>
+                    <p>Collect and evolve dragons by feeding them sounds! Drag the correct letters to your dragon's mouth and watch them breathe elemental powers.</p>
+                    <div class="game-tags">
+                        <span class="tag skill">Sound Matching</span>
+                        <span class="tag skill">Word Building</span>
+                        <span class="tag">10 Dragons to Collect</span>
+                    </div>
+                    <div class="play-btn">▶ Play Now</div>
+                </div>
+            </a>
+
+            <a href="word-volcano.html" class="game-card volcano">
+                <div class="game-icon">
+                    <span>🌋</span>
+                </div>
+                <div class="game-content">
+                    <h2>Word Volcano</h2>
+                    <p>Race against the rising pressure! Drag letters to build words before the volcano erupts. Use power-ups wisely and earn gems for each word.</p>
+                    <div class="game-tags">
+                        <span class="tag skill">Word Building</span>
+                        <span class="tag skill">Spelling</span>
+                        <span class="tag">4 Difficulty Levels</span>
+                    </div>
+                    <div class="play-btn">▶ Play Now</div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Part of <a href="/">FunBookies</a> - Learning to read through play</p>
+    </footer>
+</body>
+</html>

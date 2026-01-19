@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Letter Sounds Experiment - FunBookies</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .experiment-header {
+      text-align: center;
+      padding: var(--space-lg) 0;
+    }
+
+    .experiment-header h1 {
+      font-family: var(--font-display);
+      margin-bottom: var(--space-xs);
+    }
+
+    .experiment-header p {
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--color-cream);
+      border-radius: 4px;
+      margin: var(--space-md) 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--color-sage);
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    .comparison-card {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      max-width: 600px;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .letter-display {
+      text-align: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .letter-big {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: bold;
+      color: var(--color-charcoal);
+    }
+
+    .letter-context {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .options-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+
+    .option-card {
+      background: var(--color-cream);
+      border: 3px solid transparent;
+      border-radius: var(--border-radius);
+      padding: var(--space-md);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .option-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .option-card.playing {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .option-card.selected {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .option-label {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .play-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      background: var(--color-sage);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 8px;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.1);
+      background: var(--color-sage-dark);
+    }
+
+    .option-hint {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .vote-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+    }
+
+    .vote-btn {
+      padding: var(--space-sm) var(--space-md);
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius);
+      background: white;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .vote-btn:hover {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .vote-btn.voted {
+      border-color: var(--color-sage);
+      background: var(--color-sage);
+      color: white;
+    }
+
+    .skip-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: var(--space-sm);
+      padding: 8px;
+      color: var(--color-text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .skip-btn:hover {
+      color: var(--color-charcoal);
+    }
+
+    .results-section {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .results-section h2 {
+      margin-bottom: var(--space-md);
+    }
+
+    .voice-result {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .voice-result:last-child {
+      border-bottom: none;
+    }
+
+    .voice-name {
+      width: 150px;
+      font-weight: 600;
+    }
+
+    .voice-bar-container {
+      flex: 1;
+      height: 24px;
+      background: var(--color-cream);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 0 12px;
+    }
+
+    .voice-bar {
+      height: 100%;
+      background: var(--color-sage);
+      transition: width 0.5s ease;
+    }
+
+    .voice-count {
+      width: 60px;
+      text-align: right;
+      color: var(--color-text-muted);
+    }
+
+    .complete-message {
+      text-align: center;
+      padding: var(--space-xl);
+    }
+
+    .complete-message h2 {
+      font-family: var(--font-display);
+      color: var(--color-sage-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="experiment-header">
+      <h1>Letter Sounds Experiment</h1>
+      <p>Help us find the best voices for teaching letter sounds! Listen to two options and pick the one that sounds clearer and more natural.</p>
+    </header>
+
+    <div id="experiment-container">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-text" id="progress-text">Loading...</div>
+
+      <div class="comparison-card" id="comparison-card">
+        <div class="letter-display">
+          <div class="letter-big" id="current-letter">c</div>
+          <div class="letter-context">Which sounds better for the /<span id="letter-sound">k</span>/ sound?</div>
+        </div>
+
+        <div class="options-container">
+          <div class="option-card" id="option-a" onclick="playOption('A')">
+            <div class="option-label">A</div>
+            <button class="play-btn" onclick="event.stopPropagation(); playOption('A')">▶</button>
+            <div class="option-hint">Click to play</div>
+          </div>
+          <div class="option-card" id="option-b" onclick="playOption('B')">
+            <div class="option-label">B</div>
+            <button class="play-btn" onclick="event.stopPropagation(); playOption('B')">▶</button>
+            <div class="option-hint">Click to play</div>
+          </div>
+        </div>
+
+        <div class="vote-buttons">
+          <button class="vote-btn" id="vote-a" onclick="vote('A')">A is better</button>
+          <button class="vote-btn" id="vote-b" onclick="vote('B')">B is better</button>
+        </div>
+
+        <button class="skip-btn" onclick="skip()">Can't decide / Skip</button>
+      </div>
+    </div>
+
+    <div class="complete-message hidden" id="complete-message">
+      <h2>🎉 Thank you!</h2>
+      <p>You've completed all comparisons. Your feedback helps us create better learning experiences!</p>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="showResults()">View Results</button>
+        <button class="btn btn-secondary" onclick="resetExperiment()">Start Over</button>
+      </div>
+    </div>
+
+    <div class="results-section hidden" id="results-section">
+      <h2>Results</h2>
+      <div id="results-list"></div>
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="copyResults()">Copy Results</button>
+        <button class="btn btn-ghost" onclick="hideResults()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'letter-sounds-experiment-v1';
+    const AUDIO_BASE = '/experiments/letter-sounds/audio';
+
+    let experimentData = null;
+    let comparisons = [];
+    let currentIndex = 0;
+    let currentComparison = null;
+    let currentAudio = null;
+    let results = {};
+    let playedA = false;
+    let playedB = false;
+
+    // Sound descriptions for each letter
+    const SOUND_DESCRIPTIONS = {
+      c: 'k', e: 'e', f: 'f', i: 'i', l: 'l', p: 'p', r: 'r', v: 'v', z: 'z'
+    };
+
+    async function loadExperiment() {
+      try {
+        const res = await fetch('/experiments/letter-sounds/experiment.json');
+        experimentData = await res.json();
+        generateComparisons();
+        loadProgress();
+        showComparison();
+      } catch (err) {
+        console.error('Failed to load experiment:', err);
+        document.getElementById('progress-text').textContent = 'Failed to load experiment data';
+      }
+    }
+
+    function generateComparisons() {
+      // Generate all pairwise comparisons for each letter
+      const voices = Object.keys(experimentData.voices);
+      comparisons = [];
+
+      for (const letter of experimentData.letters) {
+        // Create pairs of voices for this letter
+        for (let i = 0; i < voices.length; i++) {
+          for (let j = i + 1; j < voices.length; j++) {
+            comparisons.push({
+              letter,
+              voiceA: voices[i],
+              voiceB: voices[j]
+            });
+          }
+        }
+      }
+
+      // Shuffle comparisons
+      for (let i = comparisons.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [comparisons[i], comparisons[j]] = [comparisons[j], comparisons[i]];
+      }
+    }
+
+    function loadProgress() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const data = JSON.parse(saved);
+          results = data.results || {};
+          // Find first unanswered comparison
+          currentIndex = comparisons.findIndex(c => {
+            const key = getComparisonKey(c);
+            return !results[key];
+          });
+          if (currentIndex === -1) currentIndex = comparisons.length;
+        }
+      } catch { results = {}; }
+    }
+
+    function saveProgress() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        results,
+        timestamp: new Date().toISOString()
+      }));
+    }
+
+    function getComparisonKey(comparison) {
+      return `${comparison.letter}:${comparison.voiceA}:${comparison.voiceB}`;
+    }
+
+    function showComparison() {
+      if (currentIndex >= comparisons.length) {
+        showComplete();
+        return;
+      }
+
+      currentComparison = comparisons[currentIndex];
+      playedA = false;
+      playedB = false;
+
+      // Randomly assign A and B
+      if (Math.random() > 0.5) {
+        currentComparison = {
+          ...currentComparison,
+          voiceA: comparisons[currentIndex].voiceB,
+          voiceB: comparisons[currentIndex].voiceA
+        };
+      }
+
+      // Update UI
+      document.getElementById('current-letter').textContent = currentComparison.letter;
+      document.getElementById('letter-sound').textContent = SOUND_DESCRIPTIONS[currentComparison.letter];
+
+      // Reset state
+      document.querySelectorAll('.option-card').forEach(el => el.classList.remove('playing', 'selected'));
+      document.querySelectorAll('.vote-btn').forEach(el => el.classList.remove('voted'));
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const answered = Object.keys(results).length;
+      const total = comparisons.length;
+      const percent = (answered / total) * 100;
+
+      document.getElementById('progress-fill').style.width = `${percent}%`;
+      document.getElementById('progress-text').textContent = `${answered} of ${total} comparisons completed`;
+    }
+
+    function getAudioPath(letter, voice) {
+      const sample = experimentData.samples.find(s => s.letter === letter && s.voice === voice);
+      return sample ? `${AUDIO_BASE}/${sample.file}` : null;
+    }
+
+    function playOption(option) {
+      if (currentAudio) {
+        currentAudio.pause();
+        document.querySelectorAll('.option-card').forEach(el => el.classList.remove('playing'));
+      }
+
+      const voice = option === 'A' ? currentComparison.voiceA : currentComparison.voiceB;
+      const path = getAudioPath(currentComparison.letter, voice);
+
+      if (!path) return;
+
+      const card = document.getElementById(`option-${option.toLowerCase()}`);
+      currentAudio = new Audio(path);
+      card.classList.add('playing');
+
+      if (option === 'A') playedA = true;
+      else playedB = true;
+
+      currentAudio.onended = () => {
+        card.classList.remove('playing');
+        currentAudio = null;
+      };
+
+      currentAudio.play();
+    }
+
+    function vote(choice) {
+      if (!playedA || !playedB) {
+        alert('Please listen to both options before voting!');
+        return;
+      }
+
+      const key = getComparisonKey(comparisons[currentIndex]);
+      const winner = choice === 'A' ? currentComparison.voiceA : currentComparison.voiceB;
+
+      results[key] = {
+        winner,
+        comparison: currentComparison,
+        timestamp: new Date().toISOString()
+      };
+
+      // Show selection briefly
+      document.getElementById(`vote-${choice.toLowerCase()}`).classList.add('voted');
+
+      saveProgress();
+
+      setTimeout(() => {
+        currentIndex++;
+        // Skip already-answered comparisons
+        while (currentIndex < comparisons.length && results[getComparisonKey(comparisons[currentIndex])]) {
+          currentIndex++;
+        }
+        showComparison();
+      }, 300);
+    }
+
+    function skip() {
+      currentIndex++;
+      while (currentIndex < comparisons.length && results[getComparisonKey(comparisons[currentIndex])]) {
+        currentIndex++;
+      }
+      showComparison();
+    }
+
+    function showComplete() {
+      document.getElementById('experiment-container').classList.add('hidden');
+      document.getElementById('complete-message').classList.remove('hidden');
+    }
+
+    function showResults() {
+      document.getElementById('complete-message').classList.add('hidden');
+      document.getElementById('results-section').classList.remove('hidden');
+
+      // Tally votes
+      const voiceCounts = {};
+      for (const voice of Object.keys(experimentData.voices)) {
+        voiceCounts[voice] = 0;
+      }
+
+      for (const result of Object.values(results)) {
+        if (result.winner) {
+          voiceCounts[result.winner] = (voiceCounts[result.winner] || 0) + 1;
+        }
+      }
+
+      // Sort by count
+      const sorted = Object.entries(voiceCounts).sort((a, b) => b[1] - a[1]);
+      const maxCount = sorted[0]?.[1] || 1;
+
+      // Render results
+      const list = document.getElementById('results-list');
+      list.innerHTML = sorted.map(([voice, count]) => {
+        const info = experimentData.voices[voice];
+        const percent = (count / maxCount) * 100;
+        return `
+          <div class="voice-result">
+            <div class="voice-name">${info.name}</div>
+            <div class="voice-bar-container">
+              <div class="voice-bar" style="width: ${percent}%"></div>
+            </div>
+            <div class="voice-count">${count} wins</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function hideResults() {
+      document.getElementById('results-section').classList.add('hidden');
+      document.getElementById('complete-message').classList.remove('hidden');
+    }
+
+    function copyResults() {
+      const voiceCounts = {};
+      for (const voice of Object.keys(experimentData.voices)) {
+        voiceCounts[voice] = 0;
+      }
+      for (const result of Object.values(results)) {
+        if (result.winner) voiceCounts[result.winner]++;
+      }
+
+      let text = "# Letter Sounds Experiment Results\n\n";
+      text += `Total comparisons: ${Object.keys(results).length}\n\n`;
+      text += "## Voice Rankings\n";
+
+      const sorted = Object.entries(voiceCounts).sort((a, b) => b[1] - a[1]);
+      for (const [voice, count] of sorted) {
+        const info = experimentData.voices[voice];
+        text += `- ${info.name} (${info.service}): ${count} wins\n`;
+      }
+
+      navigator.clipboard.writeText(text).then(() => alert('Results copied!'));
+    }
+
+    function resetExperiment() {
+      if (confirm('Reset all progress and start over?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        results = {};
+        currentIndex = 0;
+        document.getElementById('complete-message').classList.add('hidden');
+        document.getElementById('results-section').classList.add('hidden');
+        document.getElementById('experiment-container').classList.remove('hidden');
+        generateComparisons();
+        showComparison();
+      }
+    }
+
+    // Initialize
+    loadExperiment();
+  </script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+{
+  "letters": [
+    "c",
+    "e",
+    "f",
+    "i",
+    "l",
+    "p",
+    "r",
+    "v",
+    "z"
+  ],
+  "spellings": {
+    "c": "kah",
+    "e": "ehhh",
+    "f": "fuh",
+    "i": "ihhh",
+    "l": "lah",
+    "p": "peh",
+    "r": "rah",
+    "v": "vah",
+    "z": "zah"
+  },
+  "voices": {
+    "openai_nova": {
+      "service": "openai",
+      "id": "nova",
+      "name": "Nova",
+      "description": "Clear, neutral American"
+    },
+    "openai_alloy": {
+      "service": "openai",
+      "id": "alloy",
+      "name": "Alloy",
+      "description": "Warm, balanced"
+    },
+    "openai_shimmer": {
+      "service": "openai",
+      "id": "shimmer",
+      "name": "Shimmer",
+      "description": "Expressive, upbeat"
+    },
+    "elevenlabs_Xb7hH8MS": {
+      "service": "elevenlabs",
+      "id": "Xb7hH8MSUJpSbSDYk0k2",
+      "name": "Alice",
+      "description": "Clear British educator"
+    },
+    "elevenlabs_EXAVITQu": {
+      "service": "elevenlabs",
+      "id": "EXAVITQu4vr4xnSDxMaL",
+      "name": "Sarah",
+      "description": "Mature, reassuring American"
+    },
+    "elevenlabs_cgSgspJ2": {
+      "service": "elevenlabs",
+      "id": "cgSgspJ2msm6clMCkdW9",
+      "name": "Jessica",
+      "description": "Playful, bright American"
+    }
+  },
+  "samples": [
+    {
+      "letter": "c",
+      "spelling": "kah",
+      "voice": "openai_nova",
+      "file": "openai_nova_c.mp3"
+    },
+    {
+      "letter": "e",
+      "spelling": "ehhh",
+      "voice": "openai_nova",
+      "file": "openai_nova_e.mp3"
+    },
+    {
+      "letter": "f",
+      "spelling": "fuh",
+      "voice": "openai_nova",
+      "file": "openai_nova_f.mp3"
+    },
+    {
+      "letter": "i",
+      "spelling": "ihhh",
+      "voice": "openai_nova",
+      "file": "openai_nova_i.mp3"
+    },
+    {
+      "letter": "l",
+      "spelling": "lah",
+      "voice": "openai_nova",
+      "file": "openai_nova_l.mp3"
+    },
+    {
+      "letter": "p",
+      "spelling": "peh",
+      "voice": "openai_nova",
+      "file": "openai_nova_p.mp3"
+    },
+    {
+      "letter": "r",
+      "spelling": "rah",
+      "voice": "openai_nova",
+      "file": "openai_nova_r.mp3"
+    },
+    {
+      "letter": "v",
+      "spelling": "vah",
+      "voice": "openai_nova",
+      "file": "openai_nova_v.mp3"
+    },
+    {
+      "letter": "z",
+      "spelling": "zah",
+      "voice": "openai_nova",
+      "file": "openai_nova_z.mp3"
+    },
+    {
+      "letter": "c",
+      "spelling": "kah",
+      "voice": "openai_alloy",
+      "file": "openai_alloy_c.mp3"
+    },
+    {
+      "letter": "e",
+      "spelling": "ehhh",
+      "voice": "openai_alloy",
+      "file": "openai_alloy_e.mp3"
+    },
+    {
+      "letter": "f",
+      "spelling": "fuh",
+      "voice": "openai_alloy",
+      "file": "openai_alloy_f.mp3"
+    },
+    {
+      "letter": "i",
+      "spelling": "ihhh",
+      "voice": "openai_alloy",
+      "file": "openai_alloy_i.mp3"
+    },
+    {
+      "letter": "l",
+      "spelling": "lah",
+      "voice": "openai_alloy",
+      "file": "openai_alloy_l.mp3"
+    },
+    {
+      "letter": "p",
+      "spelling": "peh",
+      "voice": "openai_alloy",
+      "file": "openai_alloy_p.mp3"
+    },
+    {
+      "letter": "r",
+      "spelling": "rah",
+      "voice": "openai_alloy",
+      "file": "openai_alloy_r.mp3"
+    },
+    {
+      "letter": "v",
+      "spelling": "vah",
+      "voice": "openai_alloy",
+      "file": "openai_alloy_v.mp3"
+    },
+    {
+      "letter": "z",
+      "spelling": "zah",
+      "voice": "openai_alloy",
+      "file": "openai_alloy_z.mp3"
+    },
+    {
+      "letter": "c",
+      "spelling": "kah",
+      "voice": "openai_shimmer",
+      "file": "openai_shimmer_c.mp3"
+    },
+    {
+      "letter": "e",
+      "spelling": "ehhh",
+      "voice": "openai_shimmer",
+      "file": "openai_shimmer_e.mp3"
+    },
+    {
+      "letter": "f",
+      "spelling": "fuh",
+      "voice": "openai_shimmer",
+      "file": "openai_shimmer_f.mp3"
+    },
+    {
+      "letter": "i",
+      "spelling": "ihhh",
+      "voice": "openai_shimmer",
+      "file": "openai_shimmer_i.mp3"
+    },
+    {
+      "letter": "l",
+      "spelling": "lah",
+      "voice": "openai_shimmer",
+      "file": "openai_shimmer_l.mp3"
+    },
+    {
+      "letter": "p",
+      "spelling": "peh",
+      "voice": "openai_shimmer",
+      "file": "openai_shimmer_p.mp3"
+    },
+    {
+      "letter": "r",
+      "spelling": "rah",
+      "voice": "openai_shimmer",
+      "file": "openai_shimmer_r.mp3"
+    },
+    {
+      "letter": "v",
+      "spelling": "vah",
+      "voice": "openai_shimmer",
+      "file": "openai_shimmer_v.mp3"
+    },
+    {
+      "letter": "z",
+      "spelling": "zah",
+      "voice": "openai_shimmer",
+      "file": "openai_shimmer_z.mp3"
+    },
+    {
+      "letter": "c",
+      "spelling": "kah",
+      "voice": "elevenlabs_Xb7hH8MS",
+      "file": "elevenlabs_Xb7hH8MS_c.mp3"
+    },
+    {
+      "letter": "e",
+      "spelling": "ehhh",
+      "voice": "elevenlabs_Xb7hH8MS",
+      "file": "elevenlabs_Xb7hH8MS_e.mp3"
+    },
+    {
+      "letter": "f",
+      "spelling": "fuh",
+      "voice": "elevenlabs_Xb7hH8MS",
+      "file": "elevenlabs_Xb7hH8MS_f.mp3"
+    },
+    {
+      "letter": "i",
+      "spelling": "ihhh",
+      "voice": "elevenlabs_Xb7hH8MS",
+      "file": "elevenlabs_Xb7hH8MS_i.mp3"
+    },
+    {
+      "letter": "l",
+      "spelling": "lah",
+      "voice": "elevenlabs_Xb7hH8MS",
+      "file": "elevenlabs_Xb7hH8MS_l.mp3"
+    },
+    {
+      "letter": "p",
+      "spelling": "peh",
+      "voice": "elevenlabs_Xb7hH8MS",
+      "file": "elevenlabs_Xb7hH8MS_p.mp3"
+    },
+    {
+      "letter": "r",
+      "spelling": "rah",
+      "voice": "elevenlabs_Xb7hH8MS",
+      "file": "elevenlabs_Xb7hH8MS_r.mp3"
+    },
+    {
+      "letter": "v",
+      "spelling": "vah",
+      "voice": "elevenlabs_Xb7hH8MS",
+      "file": "elevenlabs_Xb7hH8MS_v.mp3"
+    },
+    {
+      "letter": "z",
+      "spelling": "zah",
+      "voice": "elevenlabs_Xb7hH8MS",
+      "file": "elevenlabs_Xb7hH8MS_z.mp3"
+    },
+    {
+      "letter": "c",
+      "spelling": "kah",
+      "voice": "elevenlabs_EXAVITQu",
+      "file": "elevenlabs_EXAVITQu_c.mp3"
+    },
+    {
+      "letter": "e",
+      "spelling": "ehhh",
+      "voice": "elevenlabs_EXAVITQu",
+      "file": "elevenlabs_EXAVITQu_e.mp3"
+    },
+    {
+      "letter": "f",
+      "spelling": "fuh",
+      "voice": "elevenlabs_EXAVITQu",
+      "file": "elevenlabs_EXAVITQu_f.mp3"
+    },
+    {
+      "letter": "i",
+      "spelling": "ihhh",
+      "voice": "elevenlabs_EXAVITQu",
+      "file": "elevenlabs_EXAVITQu_i.mp3"
+    },
+    {
+      "letter": "l",
+      "spelling": "lah",
+      "voice": "elevenlabs_EXAVITQu",
+      "file": "elevenlabs_EXAVITQu_l.mp3"
+    },
+    {
+      "letter": "p",
+      "spelling": "peh",
+      "voice": "elevenlabs_EXAVITQu",
+      "file": "elevenlabs_EXAVITQu_p.mp3"
+    },
+    {
+      "letter": "r",
+      "spelling": "rah",
+      "voice": "elevenlabs_EXAVITQu",
+      "file": "elevenlabs_EXAVITQu_r.mp3"
+    },
+    {
+      "letter": "v",
+      "spelling": "vah",
+      "voice": "elevenlabs_EXAVITQu",
+      "file": "elevenlabs_EXAVITQu_v.mp3"
+    },
+    {
+      "letter": "z",
+      "spelling": "zah",
+      "voice": "elevenlabs_EXAVITQu",
+      "file": "elevenlabs_EXAVITQu_z.mp3"
+    },
+    {
+      "letter": "c",
+      "spelling": "kah",
+      "voice": "elevenlabs_cgSgspJ2",
+      "file": "elevenlabs_cgSgspJ2_c.mp3"
+    },
+    {
+      "letter": "e",
+      "spelling": "ehhh",
+      "voice": "elevenlabs_cgSgspJ2",
+      "file": "elevenlabs_cgSgspJ2_e.mp3"
+    },
+    {
+      "letter": "f",
+      "spelling": "fuh",
+      "voice": "elevenlabs_cgSgspJ2",
+      "file": "elevenlabs_cgSgspJ2_f.mp3"
+    },
+    {
+      "letter": "i",
+      "spelling": "ihhh",
+      "voice": "elevenlabs_cgSgspJ2",
+      "file": "elevenlabs_cgSgspJ2_i.mp3"
+    },
+    {
+      "letter": "l",
+      "spelling": "lah",
+      "voice": "elevenlabs_cgSgspJ2",
+      "file": "elevenlabs_cgSgspJ2_l.mp3"
+    },
+    {
+      "letter": "p",
+      "spelling": "peh",
+      "voice": "elevenlabs_cgSgspJ2",
+      "file": "elevenlabs_cgSgspJ2_p.mp3"
+    },
+    {
+      "letter": "r",
+      "spelling": "rah",
+      "voice": "elevenlabs_cgSgspJ2",
+      "file": "elevenlabs_cgSgspJ2_r.mp3"
+    },
+    {
+      "letter": "v",
+      "spelling": "vah",
+      "voice": "elevenlabs_cgSgspJ2",
+      "file": "elevenlabs_cgSgspJ2_v.mp3"
+    },
+    {
+      "letter": "z",
+      "spelling": "zah",
+      "voice": "elevenlabs_cgSgspJ2",
+      "file": "elevenlabs_cgSgspJ2_z.mp3"
+    }
+  ]
+}

@@ -71,139 +71,129 @@
       border-color: var(--color-sage);
     }
 
-    .form-hint {
-      font-size: 0.8rem;
-      color: var(--color-text-muted);
-      margin-top: 4px;
-    }
-
-    /* Voice Tabs */
-    .voice-tabs {
+    /* Source Tabs */
+    .source-tabs {
       display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
       justify-content: center;
+      gap: 8px;
       margin-bottom: var(--space-lg);
     }
 
-    .voice-tab {
-      padding: 10px 20px;
+    .source-tab {
+      padding: 10px 24px;
       border: 2px solid var(--color-border);
       background: white;
       border-radius: 25px;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
-    .voice-tab:hover {
+    .source-tab:hover {
       border-color: var(--color-sage);
     }
 
-    .voice-tab.active {
+    .source-tab.active {
       background: var(--color-sage);
       border-color: var(--color-sage);
       color: white;
     }
 
-    .voice-tab .check-count {
-      background: rgba(255,255,255,0.3);
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-size: 0.75rem;
-    }
-
-    .voice-tab.active .check-count {
-      background: rgba(255,255,255,0.3);
-    }
-
-    .voice-tab:not(.active) .check-count {
-      background: var(--color-sage-light);
-      color: var(--color-sage-dark);
-    }
-
-    /* Voice Section */
-    .voice-section {
+    /* Letter Section */
+    .letter-section {
       background: white;
       border-radius: var(--border-radius-lg);
       padding: var(--space-lg);
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      margin-bottom: var(--space-lg);
+      margin-bottom: var(--space-md);
     }
 
-    .voice-header {
-      text-align: center;
+    .letter-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
       margin-bottom: var(--space-md);
-      padding-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
       border-bottom: 2px solid var(--color-cream);
     }
 
-    .voice-header h2 {
+    .letter-big {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: var(--color-charcoal);
+      width: 70px;
+      text-align: center;
+    }
+
+    .letter-info h3 {
       margin: 0 0 4px;
     }
 
-    .voice-header p {
-      color: var(--color-text-muted);
+    .letter-info p {
       margin: 0;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
     }
 
-    /* Letter Grid */
-    .letters-grid {
+    .acceptable-count {
+      margin-left: auto;
+      background: var(--color-sage-light);
+      color: var(--color-sage-dark);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Variants Grid */
+    .variants-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
       gap: 12px;
     }
 
-    .letter-card {
+    .variant-card {
       background: var(--color-cream);
       border: 3px solid transparent;
       border-radius: var(--border-radius);
-      padding: 16px;
+      padding: 14px 10px;
       text-align: center;
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .letter-card:hover {
+    .variant-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    .letter-card.playing {
+    .variant-card.playing {
       border-color: var(--color-sage);
       background: var(--color-sage-light);
     }
 
-    .letter-card.acceptable {
+    .variant-card.acceptable {
       border-color: var(--color-sage);
       background: var(--color-sage-light);
     }
 
-    .letter-big {
-      font-family: var(--font-display);
-      font-size: 2.5rem;
+    .variant-spelling {
+      font-family: monospace;
+      font-size: 1.3rem;
       font-weight: bold;
       color: var(--color-charcoal);
-      margin-bottom: 4px;
-    }
-
-    .letter-sound {
-      font-size: 0.8rem;
-      color: var(--color-text-muted);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .play-btn {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       border: none;
       background: var(--color-sage);
       color: white;
-      font-size: 1rem;
+      font-size: 1.1rem;
       cursor: pointer;
       transition: all 0.2s;
       margin-bottom: 8px;
@@ -235,47 +225,24 @@
       border-radius: var(--border-radius-lg);
       padding: var(--space-lg);
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-top: var(--space-lg);
     }
 
     .summary-section h2 {
       margin-bottom: var(--space-md);
     }
 
-    .voice-result {
-      display: flex;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--color-border);
+    .summary-letter {
+      margin-bottom: var(--space-sm);
     }
 
-    .voice-result:last-child {
-      border-bottom: none;
+    .summary-letter strong {
+      display: inline-block;
+      width: 30px;
     }
 
-    .result-voice-name {
-      width: 120px;
-      font-weight: 600;
-    }
-
-    .result-bar-container {
-      flex: 1;
-      height: 24px;
-      background: var(--color-cream);
-      border-radius: 12px;
-      overflow: hidden;
-      margin: 0 12px;
-    }
-
-    .result-bar {
-      height: 100%;
-      background: var(--color-sage);
-      transition: width 0.5s ease;
-    }
-
-    .result-count {
-      width: 100px;
-      text-align: right;
-      color: var(--color-text-muted);
+    .summary-spellings {
+      color: var(--color-sage-dark);
     }
 
     .actions {
@@ -293,7 +260,7 @@
   <div class="container">
     <header class="experiment-header">
       <h1>Letter Sounds Experiment</h1>
-      <p>Help us find the best voices for teaching letter sounds! Listen to each voice and mark which sounds are acceptable.</p>
+      <p>Help us find the best phonetic spellings for TTS! Listen to each variant and mark which ones sound acceptable.</p>
     </header>
 
     <!-- Intake Form -->
@@ -315,19 +282,15 @@
 
     <!-- Main Experiment -->
     <div id="experiment-container" class="hidden">
-      <div class="voice-tabs" id="voice-tabs"></div>
-
-      <div class="voice-section" id="voice-section">
-        <div class="voice-header">
-          <h2 id="current-voice-name">Loading...</h2>
-          <p id="current-voice-desc"></p>
-        </div>
-        <div class="letters-grid" id="letters-grid"></div>
+      <div class="source-tabs">
+        <button class="source-tab active" data-source="openai-us" onclick="setSource('openai-us')">OpenAI (US)</button>
+        <button class="source-tab" data-source="elevenlabs-uk" onclick="setSource('elevenlabs-uk')">ElevenLabs (UK)</button>
       </div>
 
+      <div id="letters-container"></div>
+
       <div class="summary-section">
-        <h2>Summary</h2>
-        <p style="color: var(--color-text-muted); margin-bottom: var(--space-md);">Acceptable sounds per voice</p>
+        <h2>Your Selections</h2>
         <div id="summary-list"></div>
         <div class="actions">
           <button class="btn btn-primary" onclick="submitResults()">Submit Results</button>
@@ -339,13 +302,13 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'letter-sounds-experiment-v2';
-    const AUDIO_BASE = '/experiments/letter-sounds/audio';
+    const STORAGE_KEY = 'letter-sounds-variants-experiment';
+    const VARIANTS_BASE = '/activities/letter-sounds/variants';
 
-    let experimentData = null;
-    let currentVoice = null;
+    let variantsData = null;
+    let currentSource = 'openai-us';
     let currentAudio = null;
-    let acceptableSelections = {}; // { voiceId: { letter: true/false } }
+    let acceptableSelections = {}; // { source: { letter: { variantId: true } } }
     let participantInfo = {};
 
     const SOUND_INFO = {
@@ -360,21 +323,22 @@
       z: { sound: 'z', example: 'zip' }
     };
 
-    async function loadExperiment() {
+    async function loadVariants() {
       try {
-        const res = await fetch('/experiments/letter-sounds/experiment.json');
-        experimentData = await res.json();
+        const res = await fetch(`${VARIANTS_BASE}/variants.json`);
+        variantsData = await res.json();
         loadProgress();
 
         // Check if already completed intake
         const intake = localStorage.getItem(STORAGE_KEY + '-intake');
         if (intake) {
-          const data = JSON.parse(intake);
-          participantInfo = data;
+          participantInfo = JSON.parse(intake);
           showExperiment();
         }
       } catch (err) {
-        console.error('Failed to load experiment:', err);
+        console.error('Failed to load variants:', err);
+        document.getElementById('letters-container').innerHTML =
+          '<p style="text-align:center; color: var(--color-text-muted);">Failed to load variants data.</p>';
       }
     }
 
@@ -387,21 +351,11 @@
       } catch {
         acceptableSelections = {};
       }
-
-      // Initialize empty selections for each voice
-      if (experimentData) {
-        for (const voiceId of Object.keys(experimentData.voices)) {
-          if (!acceptableSelections[voiceId]) {
-            acceptableSelections[voiceId] = {};
-          }
-        }
-      }
     }
 
     function saveProgress() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(acceptableSelections));
       updateSummary();
-      renderVoiceTabs();
     }
 
     function submitIntake() {
@@ -423,80 +377,70 @@
     function showExperiment() {
       document.getElementById('intake-form').classList.add('hidden');
       document.getElementById('experiment-container').classList.remove('hidden');
-
-      loadProgress();
-      renderVoiceTabs();
-
-      // Select first voice
-      const firstVoice = Object.keys(experimentData.voices)[0];
-      selectVoice(firstVoice);
-    }
-
-    function renderVoiceTabs() {
-      const container = document.getElementById('voice-tabs');
-      const voices = Object.entries(experimentData.voices);
-
-      container.innerHTML = voices.map(([voiceId, voice]) => {
-        const count = Object.values(acceptableSelections[voiceId] || {}).filter(v => v).length;
-        return `
-          <button class="voice-tab ${currentVoice === voiceId ? 'active' : ''}"
-                  onclick="selectVoice('${voiceId}')">
-            ${voice.name}
-            <span class="check-count">${count}/9</span>
-          </button>
-        `;
-      }).join('');
-    }
-
-    function selectVoice(voiceId) {
-      currentVoice = voiceId;
-      const voice = experimentData.voices[voiceId];
-
-      document.getElementById('current-voice-name').textContent = voice.name;
-      document.getElementById('current-voice-desc').textContent = `${voice.service} - ${voice.description}`;
-
       renderLetters();
-      renderVoiceTabs();
+      updateSummary();
+    }
+
+    function setSource(source) {
+      currentSource = source;
+      document.querySelectorAll('.source-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.source === source);
+      });
+      renderLetters();
+      updateSummary();
     }
 
     function renderLetters() {
-      const container = document.getElementById('letters-grid');
-      const selections = acceptableSelections[currentVoice] || {};
+      const container = document.getElementById('letters-container');
+      const letters = Object.keys(variantsData.letters).sort();
 
-      container.innerHTML = experimentData.letters.map(letter => {
+      container.innerHTML = letters.map(letter => {
+        const variants = variantsData.letters[letter];
         const info = SOUND_INFO[letter];
-        const isAcceptable = selections[letter] === true;
+        const selections = acceptableSelections[currentSource]?.[letter] || {};
+        const acceptedCount = Object.values(selections).filter(v => v).length;
 
         return `
-          <div class="letter-card ${isAcceptable ? 'acceptable' : ''}" data-letter="${letter}">
-            <div class="letter-big">${letter}</div>
-            <div class="letter-sound">/${info.sound}/ as in ${info.example}</div>
-            <button class="play-btn" onclick="event.stopPropagation(); playSound('${letter}')">▶</button>
-            <label class="accept-checkbox">
-              <input type="checkbox" ${isAcceptable ? 'checked' : ''}
-                     onchange="toggleAcceptable('${letter}', this.checked)">
-              Acceptable
-            </label>
+          <div class="letter-section">
+            <div class="letter-header">
+              <div class="letter-big">${letter}</div>
+              <div class="letter-info">
+                <h3>/${info.sound}/ sound</h3>
+                <p>as in "${info.example}"</p>
+              </div>
+              ${acceptedCount > 0 ? `<span class="acceptable-count">${acceptedCount} selected</span>` : ''}
+            </div>
+            <div class="variants-grid">
+              ${variants.map(v => {
+                const isAcceptable = selections[v.id] === true;
+                return `
+                  <div class="variant-card ${isAcceptable ? 'acceptable' : ''}"
+                       data-letter="${letter}" data-variant="${v.id}">
+                    <div class="variant-spelling">"${v.spelling}"</div>
+                    <button class="play-btn" onclick="event.stopPropagation(); playVariant('${letter}', '${v.id}')">▶</button>
+                    <label class="accept-checkbox">
+                      <input type="checkbox" ${isAcceptable ? 'checked' : ''}
+                             onchange="toggleAcceptable('${letter}', '${v.id}', this.checked)">
+                      OK
+                    </label>
+                  </div>
+                `;
+              }).join('')}
+            </div>
           </div>
         `;
       }).join('');
     }
 
-    function getAudioPath(letter, voiceId) {
-      const sample = experimentData.samples.find(s => s.letter === letter && s.voice === voiceId);
-      return sample ? `${AUDIO_BASE}/${sample.file}` : null;
-    }
-
-    function playSound(letter) {
+    function playVariant(letter, variantId) {
       if (currentAudio) {
         currentAudio.pause();
-        document.querySelectorAll('.letter-card.playing').forEach(el => el.classList.remove('playing'));
+        document.querySelectorAll('.variant-card.playing').forEach(el => el.classList.remove('playing'));
       }
 
-      const path = getAudioPath(letter, currentVoice);
-      if (!path) return;
+      const path = `${VARIANTS_BASE}/${currentSource}/${letter}_${variantId}.mp3`;
+      const card = document.querySelector(`.variant-card[data-letter="${letter}"][data-variant="${variantId}"]`);
 
-      const card = document.querySelector(`.letter-card[data-letter="${letter}"]`);
       currentAudio = new Audio(path);
       card.classList.add('playing');
 
@@ -505,54 +449,49 @@
         currentAudio = null;
       };
 
-      currentAudio.play();
+      currentAudio.play().catch(() => card.classList.remove('playing'));
     }
 
-    function toggleAcceptable(letter, isAcceptable) {
-      if (!acceptableSelections[currentVoice]) {
-        acceptableSelections[currentVoice] = {};
+    function toggleAcceptable(letter, variantId, isAcceptable) {
+      if (!acceptableSelections[currentSource]) {
+        acceptableSelections[currentSource] = {};
       }
-      acceptableSelections[currentVoice][letter] = isAcceptable;
+      if (!acceptableSelections[currentSource][letter]) {
+        acceptableSelections[currentSource][letter] = {};
+      }
+      acceptableSelections[currentSource][letter][variantId] = isAcceptable;
       saveProgress();
       renderLetters();
     }
 
     function updateSummary() {
       const container = document.getElementById('summary-list');
-      const voices = Object.entries(experimentData.voices);
-      const maxCount = 9; // number of letters
+      const letters = Object.keys(variantsData.letters).sort();
 
-      const results = voices.map(([voiceId, voice]) => {
-        const count = Object.values(acceptableSelections[voiceId] || {}).filter(v => v).length;
-        return { voiceId, voice, count };
-      }).sort((a, b) => b.count - a.count);
+      let html = `<p style="color: var(--color-text-muted); margin-bottom: var(--space-sm);">Source: ${currentSource}</p>`;
 
-      container.innerHTML = results.map(({ voice, count }) => {
-        const percent = (count / maxCount) * 100;
-        return `
-          <div class="voice-result">
-            <div class="result-voice-name">${voice.name}</div>
-            <div class="result-bar-container">
-              <div class="result-bar" style="width: ${percent}%"></div>
-            </div>
-            <div class="result-count">${count} / ${maxCount}</div>
+      for (const letter of letters) {
+        const selections = acceptableSelections[currentSource]?.[letter] || {};
+        const variants = variantsData.letters[letter];
+        const accepted = variants
+          .filter(v => selections[v.id])
+          .map(v => `"${v.spelling}"`);
+
+        html += `
+          <div class="summary-letter">
+            <strong>${letter}:</strong>
+            <span class="summary-spellings">${accepted.length > 0 ? accepted.join(', ') : '<span style="color: var(--color-text-muted);">none selected</span>'}</span>
           </div>
         `;
-      }).join('');
+      }
+
+      container.innerHTML = html;
     }
 
     function submitResults() {
       const results = {
         participant: participantInfo,
         selections: acceptableSelections,
-        summary: Object.entries(experimentData.voices).map(([voiceId, voice]) => ({
-          voice: voice.name,
-          service: voice.service,
-          acceptableCount: Object.values(acceptableSelections[voiceId] || {}).filter(v => v).length,
-          acceptableLetters: Object.entries(acceptableSelections[voiceId] || {})
-            .filter(([_, v]) => v)
-            .map(([letter]) => letter)
-        })),
         timestamp: new Date().toISOString()
       };
 
@@ -561,29 +500,25 @@
     }
 
     function copyResults() {
-      let text = `# Letter Sounds Experiment Results\n\n`;
+      let text = `# Letter Sounds Variants Experiment\n\n`;
       text += `**Participant:** ${participantInfo.name}\n`;
       if (participantInfo.comments) {
         text += `**Comments:** ${participantInfo.comments}\n`;
       }
       text += `**Date:** ${new Date().toLocaleString()}\n\n`;
 
-      text += `## Voice Rankings\n\n`;
-
-      const results = Object.entries(experimentData.voices)
-        .map(([voiceId, voice]) => {
-          const acceptable = Object.entries(acceptableSelections[voiceId] || {})
+      for (const [source, letterSelections] of Object.entries(acceptableSelections)) {
+        text += `## ${source}\n\n`;
+        for (const [letter, variantSelections] of Object.entries(letterSelections)) {
+          const accepted = Object.entries(variantSelections)
             .filter(([_, v]) => v)
-            .map(([letter]) => letter);
-          return { voice, acceptable };
-        })
-        .sort((a, b) => b.acceptable.length - a.acceptable.length);
-
-      for (const { voice, acceptable } of results) {
-        text += `### ${voice.name} (${voice.service})\n`;
-        text += `- Acceptable: ${acceptable.length}/9\n`;
-        if (acceptable.length > 0) {
-          text += `- Letters: ${acceptable.join(', ')}\n`;
+            .map(([id]) => {
+              const variant = variantsData.letters[letter].find(v => v.id === id);
+              return variant ? `"${variant.spelling}"` : id;
+            });
+          if (accepted.length > 0) {
+            text += `- **${letter}:** ${accepted.join(', ')}\n`;
+          }
         }
         text += '\n';
       }
@@ -605,7 +540,7 @@
     }
 
     // Initialize
-    loadExperiment();
+    loadVariants();
   </script>
 </body>
 </html>

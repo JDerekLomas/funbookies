@@ -1,0 +1,222 @@
+{
+  "letters": {
+    "c": [
+      {
+        "id": "v1",
+        "spelling": "kuh",
+        "description": "kuh - schwa ending"
+      },
+      {
+        "id": "v2",
+        "spelling": "kah",
+        "description": "kah - ah ending"
+      },
+      {
+        "id": "v3",
+        "spelling": "k",
+        "description": "k - bare consonant"
+      },
+      {
+        "id": "v4",
+        "spelling": "cuh",
+        "description": "cuh - c spelling"
+      },
+      {
+        "id": "v5",
+        "spelling": "keh",
+        "description": "keh - short e ending"
+      }
+    ],
+    "e": [
+      {
+        "id": "v1",
+        "spelling": "eh",
+        "description": "eh - standard"
+      },
+      {
+        "id": "v2",
+        "spelling": "ehhh",
+        "description": "ehhh - sustained"
+      },
+      {
+        "id": "v3",
+        "spelling": "\u0115",
+        "description": "\u0115 - breve symbol"
+      },
+      {
+        "id": "v4",
+        "spelling": "short e",
+        "description": "short e - description"
+      }
+    ],
+    "f": [
+      {
+        "id": "v1",
+        "spelling": "ff",
+        "description": "ff - sustained fricative"
+      },
+      {
+        "id": "v2",
+        "spelling": "fuh",
+        "description": "fuh - schwa ending"
+      },
+      {
+        "id": "v3",
+        "spelling": "fah",
+        "description": "fah - ah ending"
+      },
+      {
+        "id": "v4",
+        "spelling": "fff",
+        "description": "fff - longer sustained"
+      },
+      {
+        "id": "v5",
+        "spelling": "feh",
+        "description": "feh - short e ending"
+      }
+    ],
+    "i": [
+      {
+        "id": "v1",
+        "spelling": "ih",
+        "description": "ih - standard"
+      },
+      {
+        "id": "v2",
+        "spelling": "ihhh",
+        "description": "ihhh - sustained"
+      },
+      {
+        "id": "v3",
+        "spelling": "\u012d",
+        "description": "\u012d - breve symbol"
+      },
+      {
+        "id": "v4",
+        "spelling": "short i",
+        "description": "short i - description"
+      }
+    ],
+    "l": [
+      {
+        "id": "v1",
+        "spelling": "ll",
+        "description": "ll - sustained"
+      },
+      {
+        "id": "v2",
+        "spelling": "luh",
+        "description": "luh - schwa ending"
+      },
+      {
+        "id": "v3",
+        "spelling": "lah",
+        "description": "lah - ah ending"
+      },
+      {
+        "id": "v4",
+        "spelling": "lll",
+        "description": "lll - longer sustained"
+      },
+      {
+        "id": "v5",
+        "spelling": "leh",
+        "description": "leh - short e ending"
+      }
+    ],
+    "p": [
+      {
+        "id": "v1",
+        "spelling": "puh",
+        "description": "puh - schwa ending"
+      },
+      {
+        "id": "v2",
+        "spelling": "pah",
+        "description": "pah - ah ending"
+      },
+      {
+        "id": "v3",
+        "spelling": "p",
+        "description": "p - bare consonant"
+      },
+      {
+        "id": "v4",
+        "spelling": "peh",
+        "description": "peh - short e ending"
+      }
+    ],
+    "r": [
+      {
+        "id": "v1",
+        "spelling": "rr",
+        "description": "rr - sustained"
+      },
+      {
+        "id": "v2",
+        "spelling": "ruh",
+        "description": "ruh - schwa ending"
+      },
+      {
+        "id": "v3",
+        "spelling": "rah",
+        "description": "rah - ah ending"
+      },
+      {
+        "id": "v4",
+        "spelling": "rrr",
+        "description": "rrr - longer sustained"
+      },
+      {
+        "id": "v5",
+        "spelling": "er",
+        "description": "er - schwa-r"
+      }
+    ],
+    "v": [
+      {
+        "id": "v1",
+        "spelling": "vv",
+        "description": "vv - sustained fricative"
+      },
+      {
+        "id": "v2",
+        "spelling": "vuh",
+        "description": "vuh - schwa ending"
+      },
+      {
+        "id": "v3",
+        "spelling": "vah",
+        "description": "vah - ah ending"
+      },
+      {
+        "id": "v4",
+        "spelling": "vvv",
+        "description": "vvv - longer sustained"
+      }
+    ],
+    "z": [
+      {
+        "id": "v1",
+        "spelling": "zz",
+        "description": "zz - sustained"
+      },
+      {
+        "id": "v2",
+        "spelling": "zuh",
+        "description": "zuh - schwa ending"
+      },
+      {
+        "id": "v3",
+        "spelling": "zah",
+        "description": "zah - ah ending"
+      },
+      {
+        "id": "v4",
+        "spelling": "zzz",
+        "description": "zzz - longer sustained"
+      }
+    ]
+  }
+}

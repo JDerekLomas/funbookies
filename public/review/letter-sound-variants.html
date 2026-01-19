@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Letter Sound Variants - FunBookies</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .review-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: var(--space-md);
+    }
+
+    .review-nav a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: var(--border-radius);
+      transition: all 0.2s;
+    }
+
+    .review-nav a:hover { background: var(--color-cream); color: var(--color-charcoal); }
+
+    .page-title { text-align: center; margin-bottom: var(--space-xs); }
+    .subtitle { text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-md); }
+
+    .source-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: var(--space-md);
+    }
+
+    .source-tab {
+      padding: 8px 16px;
+      border: 2px solid var(--color-border);
+      background: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .source-tab:hover { border-color: var(--color-sage); }
+    .source-tab.active { background: var(--color-sage); border-color: var(--color-sage); color: white; }
+
+    .letter-section {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .letter-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+    }
+
+    .letter-big {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--color-charcoal);
+      width: 60px;
+      text-align: center;
+    }
+
+    .letter-info {
+      flex: 1;
+    }
+
+    .letter-info h3 { margin: 0; font-size: 1rem; }
+    .letter-info p { margin: 4px 0 0; font-size: 0.85rem; color: var(--color-text-muted); }
+
+    .selected-badge {
+      background: var(--color-sage);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .variants-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .variant-card {
+      background: var(--color-cream);
+      border: 3px solid transparent;
+      border-radius: var(--border-radius);
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .variant-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .variant-card.playing {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .variant-card.selected {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .variant-spelling {
+      font-family: monospace;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--color-charcoal);
+      margin-bottom: 4px;
+    }
+
+    .variant-id {
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+    }
+
+    .variant-select-btn {
+      margin-top: 8px;
+      padding: 4px 12px;
+      border: 2px solid var(--color-sage);
+      background: white;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      color: var(--color-sage-dark);
+      transition: all 0.2s;
+    }
+
+    .variant-select-btn:hover {
+      background: var(--color-sage);
+      color: white;
+    }
+
+    .variant-card.selected .variant-select-btn {
+      background: var(--color-sage);
+      color: white;
+    }
+
+    .summary-section {
+      max-width: 800px;
+      margin: var(--space-lg) auto;
+      padding: var(--space-md);
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .summary-section h3 {
+      margin-bottom: var(--space-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .summary-section pre {
+      background: var(--color-cream);
+      padding: 12px;
+      border-radius: var(--border-radius);
+      font-size: 0.85rem;
+      overflow-x: auto;
+    }
+
+    .actions { display: flex; gap: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="review-nav">
+      <a href="/review/letter-sounds.html">&larr; Back to Letter Sounds</a>
+    </nav>
+
+    <h1 class="page-title">Letter Sound Variants</h1>
+    <p class="subtitle">Compare different phonetic spellings and select the best one for each letter</p>
+
+    <div class="source-tabs">
+      <button class="source-tab active" data-source="openai-us">OpenAI (US)</button>
+      <button class="source-tab" data-source="elevenlabs-uk">ElevenLabs (UK)</button>
+    </div>
+
+    <div id="letters-container"></div>
+
+    <div class="summary-section">
+      <h3>
+        <span>Selected Variants</span>
+        <div class="actions">
+          <button class="btn btn-sm btn-secondary" onclick="copySummary()">Copy Config</button>
+          <button class="btn btn-sm btn-ghost" onclick="clearSelections()">Clear</button>
+        </div>
+      </h3>
+      <pre id="summaryOutput">// Select variants above to build config...</pre>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'letter-sound-variants-v1';
+    let variantsMetadata = null;
+    let selections = {};
+    let currentSource = 'openai-us';
+    let currentAudio = null;
+
+    async function loadVariantsMetadata() {
+      try {
+        const res = await fetch('/activities/letter-sounds/variants/variants.json');
+        variantsMetadata = await res.json();
+        render();
+      } catch (err) {
+        console.error('Failed to load variants metadata:', err);
+        document.getElementById('letters-container').innerHTML =
+          '<p style="text-align:center;color:var(--color-text-muted)">No variants found. Run generate_letter_sound_variants.py first.</p>';
+      }
+    }
+
+    function loadSelections() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) selections = JSON.parse(saved);
+      } catch { selections = {}; }
+    }
+
+    function saveSelections() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(selections));
+      updateSummary();
+    }
+
+    function getSelectionKey(letter) {
+      return `${currentSource}:${letter}`;
+    }
+
+    function selectVariant(letter, variantId) {
+      const key = getSelectionKey(letter);
+      if (selections[key] === variantId) {
+        delete selections[key]; // Toggle off
+      } else {
+        selections[key] = variantId;
+      }
+      saveSelections();
+      render();
+    }
+
+    function playVariant(letter, variantId, event) {
+      event.stopPropagation();
+
+      if (currentAudio) {
+        currentAudio.pause();
+        document.querySelectorAll('.variant-card.playing').forEach(el => el.classList.remove('playing'));
+      }
+
+      const path = `/activities/letter-sounds/variants/${currentSource}/${letter}_${variantId}.mp3`;
+      const card = event.currentTarget.closest('.variant-card');
+
+      currentAudio = new Audio(path);
+      card.classList.add('playing');
+
+      currentAudio.onended = () => {
+        card.classList.remove('playing');
+        currentAudio = null;
+      };
+
+      currentAudio.play().catch(() => card.classList.remove('playing'));
+    }
+
+    function setSource(source) {
+      currentSource = source;
+      document.querySelectorAll('.source-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.source === source);
+      });
+      render();
+    }
+
+    function render() {
+      if (!variantsMetadata) return;
+
+      const container = document.getElementById('letters-container');
+      const letters = Object.keys(variantsMetadata.letters).sort();
+
+      container.innerHTML = letters.map(letter => {
+        const variants = variantsMetadata.letters[letter];
+        const key = getSelectionKey(letter);
+        const selectedVariant = selections[key];
+
+        return `
+          <div class="letter-section">
+            <div class="letter-header">
+              <div class="letter-big">${letter}</div>
+              <div class="letter-info">
+                <h3>/${letter}/ sound</h3>
+                <p>${variants.length} variants available</p>
+              </div>
+              ${selectedVariant ? `<span class="selected-badge">Selected: ${selectedVariant}</span>` : ''}
+            </div>
+            <div class="variants-grid">
+              ${variants.map(v => `
+                <div class="variant-card ${selectedVariant === v.id ? 'selected' : ''}"
+                     onclick="playVariant('${letter}', '${v.id}', event)">
+                  <div class="variant-spelling">"${v.spelling}"</div>
+                  <div class="variant-id">${v.id} - ${v.description.split(' - ')[1] || ''}</div>
+                  <button class="variant-select-btn" onclick="event.stopPropagation(); selectVariant('${letter}', '${v.id}')">
+                    ${selectedVariant === v.id ? '✓ Selected' : 'Select'}
+                  </button>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      updateSummary();
+    }
+
+    function updateSummary() {
+      const sourceSelections = {};
+
+      for (const [key, variantId] of Object.entries(selections)) {
+        const [source, letter] = key.split(':');
+        if (!sourceSelections[source]) sourceSelections[source] = {};
+
+        // Find the spelling for this variant
+        if (variantsMetadata?.letters[letter]) {
+          const variant = variantsMetadata.letters[letter].find(v => v.id === variantId);
+          if (variant) {
+            sourceSelections[source][letter] = variant.spelling;
+          }
+        }
+      }
+
+      let output = '// Selected phonetic spellings\n';
+      output += '// Copy this into your generation script\n\n';
+
+      for (const [source, letters] of Object.entries(sourceSelections)) {
+        output += `// ${source}\n`;
+        output += `LETTER_SOUNDS_${source.replace('-', '_').toUpperCase()} = {\n`;
+        for (const [letter, spelling] of Object.entries(letters)) {
+          output += `    "${letter}": "${spelling}",\n`;
+        }
+        output += '};\n\n';
+      }
+
+      if (Object.keys(sourceSelections).length === 0) {
+        output = '// Select variants above to build config...';
+      }
+
+      document.getElementById('summaryOutput').textContent = output;
+    }
+
+    function copySummary() {
+      const text = document.getElementById('summaryOutput').textContent;
+      navigator.clipboard.writeText(text).then(() => alert('Copied!'));
+    }
+
+    function clearSelections() {
+      if (confirm('Clear all selections?')) {
+        selections = {};
+        saveSelections();
+        render();
+      }
+    }
+
+    // Event listeners
+    document.querySelectorAll('.source-tab').forEach(tab => {
+      tab.addEventListener('click', () => setSource(tab.dataset.source));
+    });
+
+    // Init
+    loadSelections();
+    loadVariantsMetadata();
+  </script>
+</body>
+</html>

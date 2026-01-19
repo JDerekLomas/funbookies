@@ -258,7 +258,41 @@
       <p>Help us find the best voices for teaching letter sounds! Listen to two options and pick the one that sounds clearer and more natural.</p>
     </header>
 
-    <div id="experiment-container">
+    <!-- Intake Form -->
+    <div class="intake-form" id="intake-form" style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 500px; margin: 0 auto 24px;">
+      <h2 style="text-align: center; margin-bottom: 16px;">Quick Survey (Optional)</h2>
+      <p style="text-align: center; color: #6c757d; margin-bottom: 16px;">Help us understand who's participating</p>
+
+      <div style="margin-bottom: 16px;">
+        <label style="display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem;">What best describes you?</label>
+        <select id="role" style="width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;">
+          <option value="">Select...</option>
+          <option value="teacher">Teacher / Educator</option>
+          <option value="parent">Parent</option>
+          <option value="slp">Speech-Language Pathologist</option>
+          <option value="student">Student</option>
+          <option value="researcher">Researcher</option>
+          <option value="developer">Developer / Designer</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <label style="display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem;">Experience with phonics instruction?</label>
+        <select id="experience" style="width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem;">
+          <option value="">Select...</option>
+          <option value="none">None</option>
+          <option value="some">Some familiarity</option>
+          <option value="regular">Regular use</option>
+          <option value="expert">Expert / Professional</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" style="width: 100%; padding: 12px;" onclick="submitIntake()">Start Experiment</button>
+      <p style="text-align: center; margin-top: 12px;"><a href="#" onclick="skipIntake(); return false;" style="color: #6c757d; font-size: 0.9rem;">Skip and start →</a></p>
+    </div>
+
+    <div id="experiment-container" class="hidden">
       <div class="progress-bar">
         <div class="progress-fill" id="progress-fill"></div>
       </div>
@@ -323,6 +357,43 @@
     let results = {};
     let playedA = false;
     let playedB = false;
+    let participantInfo = {};
+
+    function submitIntake() {
+      participantInfo = {
+        role: document.getElementById('role').value,
+        experience: document.getElementById('experience').value
+      };
+      localStorage.setItem(STORAGE_KEY + '-intake', JSON.stringify({
+        participantInfo,
+        completed: true
+      }));
+      showExperiment();
+    }
+
+    function skipIntake() {
+      participantInfo = {};
+      localStorage.setItem(STORAGE_KEY + '-intake', JSON.stringify({ completed: true }));
+      showExperiment();
+    }
+
+    function showExperiment() {
+      document.getElementById('intake-form').classList.add('hidden');
+      document.getElementById('experiment-container').classList.remove('hidden');
+    }
+
+    function checkIntake() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY + '-intake');
+        if (saved) {
+          const data = JSON.parse(saved);
+          if (data.completed) {
+            participantInfo = data.participantInfo || {};
+            showExperiment();
+          }
+        }
+      } catch {}
+    }
 
     // Sound descriptions for each letter
     const SOUND_DESCRIPTIONS = {
@@ -585,6 +656,7 @@
     }
 
     // Initialize
+    checkIntake();
     loadExperiment();
   </script>
 </body>

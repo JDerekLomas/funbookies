@@ -1,6 +1,27 @@
 {
   "experiments": [
     {
+      "id": "books_20260118_143908",
+      "description": "C: All Claude Sonnet - balanced quality/cost",
+      "pipeline": "C",
+      "timestamp": "2026-01-18T14:41:04.453777",
+      "story_count": 3
+    },
+    {
+      "id": "books_20260118_142709",
+      "description": "C: All Claude Sonnet - balanced quality/cost",
+      "pipeline": "C",
+      "timestamp": "2026-01-18T14:32:29.447208",
+      "story_count": 6
+    },
+    {
+      "id": "books_20260118_142118",
+      "description": "C: All Claude Sonnet - balanced quality/cost",
+      "pipeline": "C",
+      "timestamp": "2026-01-18T14:24:38.897229",
+      "story_count": 4
+    },
+    {
       "id": "books_20260118_103240",
       "description": "C: All Claude Sonnet - balanced quality/cost",
       "pipeline": "C",

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research Experiments - FunBookies</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header {
+      text-align: center;
+      padding: var(--space-xl) 0;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .page-header p {
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    .category-section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .category-title {
+      font-size: 1.3rem;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-xs);
+      border-bottom: 2px solid var(--color-sage);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .experiments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .experiment-card {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .experiment-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    .card-preview {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .card-preview.audio { background: linear-gradient(135deg, #d0ebff, #e7f5ff); }
+    .card-preview.story { background: linear-gradient(135deg, #fff3bf, #fff9db); }
+    .card-preview.other { background: linear-gradient(135deg, #e9ecef, #f8f9fa); }
+
+    .card-content {
+      padding: var(--space-md);
+    }
+
+    .card-badges {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .card-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .card-badge.recommended {
+      background: var(--color-terracotta);
+      color: white;
+    }
+
+    .card-badge.ab-test {
+      background: var(--color-sage-light);
+      color: var(--color-sage-dark);
+    }
+
+    .card-badge.internal {
+      background: #e9ecef;
+      color: #6c757d;
+    }
+
+    .card-content h2 {
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .card-content p {
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: var(--space-sm);
+    }
+
+    .card-meta {
+      display: flex;
+      gap: var(--space-sm);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .card-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      margin-bottom: var(--space-md);
+      font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+      color: var(--color-charcoal);
+    }
+
+    .info-section {
+      background: var(--color-cream);
+      border-radius: var(--border-radius);
+      padding: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    .info-section h3 {
+      margin-bottom: var(--space-sm);
+    }
+
+    .info-section p {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">← Back to FunBookies</a>
+
+    <header class="page-header">
+      <h1>Research Experiments</h1>
+      <p>Help us improve FunBookies by participating in our research studies. Your feedback directly shapes our learning experiences.</p>
+    </header>
+
+    <!-- Audio Experiments -->
+    <div class="category-section">
+      <h2 class="category-title">🔊 Audio & Voice</h2>
+      <div class="experiments-grid">
+        <a href="/experiments/letter-sounds/v2.html" class="experiment-card">
+          <div class="card-preview audio">🎙️</div>
+          <div class="card-content">
+            <div class="card-badges">
+              <span class="card-badge recommended">Recommended</span>
+            </div>
+            <h2>Letter Sounds: Voice Comparison</h2>
+            <p>Compare 6 different TTS voices side-by-side. Pick the clearest, most natural voice for each letter sound.</p>
+            <div class="card-meta">
+              <span>⏱️ 5-10 min</span>
+              <span>📊 9 letters × 6 voices</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="/experiments/letter-sounds/" class="experiment-card">
+          <div class="card-preview audio">🎯</div>
+          <div class="card-content">
+            <div class="card-badges">
+              <span class="card-badge ab-test">A/B Test</span>
+            </div>
+            <h2>Letter Sounds: Blind Comparison</h2>
+            <p>Rigorous blind A/B testing between voice pairs. More time-consuming but eliminates bias.</p>
+            <div class="card-meta">
+              <span>⏱️ 15-20 min</span>
+              <span>📊 135 comparisons</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Story Experiments -->
+    <div class="category-section">
+      <h2 class="category-title">📚 Story Generation</h2>
+      <div class="experiments-grid">
+        <a href="/experiments/" class="experiment-card">
+          <div class="card-preview story">📖</div>
+          <div class="card-content">
+            <div class="card-badges">
+              <span class="card-badge internal">Internal</span>
+            </div>
+            <h2>Story Experiments</h2>
+            <p>Review and rate AI-generated decodable stories. Compare different prompts and generation pipelines.</p>
+            <div class="card-meta">
+              <span>⏱️ Varies</span>
+              <span>📊 Multiple experiments</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>About Our Research</h3>
+      <p>
+        FunBookies is developing phonics-based learning activities for early readers.
+        Our experiments help us make evidence-based decisions about content quality,
+        voice selection, and pedagogical approaches.
+      </p>
+      <p style="margin-top: 12px;">
+        All participation is voluntary and anonymous. We collect only your preferences
+        and optional demographic information to understand different perspectives.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

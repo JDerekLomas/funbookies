@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Letter Sounds Experiment v2 - FunBookies</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .experiment-header {
+      text-align: center;
+      padding: var(--space-lg) 0;
+    }
+
+    .experiment-header h1 {
+      font-family: var(--font-display);
+      margin-bottom: var(--space-xs);
+    }
+
+    .experiment-header p {
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Intake Form */
+    .intake-form {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      max-width: 500px;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .intake-form h2 {
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: var(--space-md);
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--color-sage);
+    }
+
+    .form-hint {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-top: 4px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .skip-intake {
+      text-align: center;
+      margin-top: var(--space-sm);
+    }
+
+    .skip-intake a {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Progress */
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--color-cream);
+      border-radius: 4px;
+      margin: var(--space-md) 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--color-sage);
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Letter Section */
+    .letter-section {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: var(--space-lg);
+    }
+
+    .letter-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 2px solid var(--color-cream);
+    }
+
+    .letter-big {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: bold;
+      color: var(--color-charcoal);
+      width: 80px;
+      text-align: center;
+    }
+
+    .letter-info h3 {
+      margin: 0 0 4px;
+    }
+
+    .letter-info p {
+      margin: 0;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .selected-voice {
+      margin-left: auto;
+      background: var(--color-sage);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .voices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    .voice-card {
+      background: var(--color-cream);
+      border: 3px solid transparent;
+      border-radius: var(--border-radius);
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .voice-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .voice-card.playing {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .voice-card.selected {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .voice-name {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .voice-service {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-bottom: 8px;
+    }
+
+    .play-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: var(--color-sage);
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 8px;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.1);
+      background: var(--color-sage-dark);
+    }
+
+    .select-btn {
+      padding: 6px 16px;
+      border: 2px solid var(--color-sage);
+      background: white;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      color: var(--color-sage-dark);
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .select-btn:hover, .voice-card.selected .select-btn {
+      background: var(--color-sage);
+      color: white;
+    }
+
+    /* Results */
+    .results-section {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-top: var(--space-lg);
+    }
+
+    .results-section h2 {
+      margin-bottom: var(--space-md);
+    }
+
+    .voice-result {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .voice-result:last-child {
+      border-bottom: none;
+    }
+
+    .result-voice-name {
+      width: 120px;
+      font-weight: 600;
+    }
+
+    .result-bar-container {
+      flex: 1;
+      height: 24px;
+      background: var(--color-cream);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 0 12px;
+    }
+
+    .result-bar {
+      height: 100%;
+      background: var(--color-sage);
+      transition: width 0.5s ease;
+    }
+
+    .result-count {
+      width: 80px;
+      text-align: right;
+      color: var(--color-text-muted);
+    }
+
+    .submit-section {
+      text-align: center;
+      padding: var(--space-lg);
+      background: var(--color-cream);
+      border-radius: var(--border-radius);
+      margin-top: var(--space-lg);
+    }
+
+    .submit-section p {
+      margin-bottom: var(--space-md);
+      color: var(--color-text-muted);
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="experiment-header">
+      <h1>Letter Sounds Experiment</h1>
+      <p>Help us find the best voices for teaching letter sounds! Listen to all options and pick the clearest, most natural sounding voice for each letter.</p>
+    </header>
+
+    <!-- Intake Form -->
+    <div class="intake-form" id="intake-form">
+      <h2>Quick Survey (Optional)</h2>
+      <p style="text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-md);">Help us understand who's participating</p>
+
+      <div class="form-group">
+        <label for="role">What best describes you?</label>
+        <select id="role">
+          <option value="">Select...</option>
+          <option value="teacher">Teacher / Educator</option>
+          <option value="parent">Parent</option>
+          <option value="slp">Speech-Language Pathologist</option>
+          <option value="student">Student</option>
+          <option value="researcher">Researcher</option>
+          <option value="developer">Developer / Designer</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="experience">Experience with phonics instruction?</label>
+        <select id="experience">
+          <option value="">Select...</option>
+          <option value="none">None</option>
+          <option value="some">Some familiarity</option>
+          <option value="regular">Regular use</option>
+          <option value="expert">Expert / Professional</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="age-group">What age group do you work with? (if applicable)</label>
+        <select id="age-group">
+          <option value="">Select...</option>
+          <option value="prek">Pre-K (3-4 years)</option>
+          <option value="k">Kindergarten (5-6 years)</option>
+          <option value="early-elem">Early Elementary (6-8 years)</option>
+          <option value="elem">Elementary (8-11 years)</option>
+          <option value="older">Older learners</option>
+          <option value="na">Not applicable</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-primary" style="flex: 1" onclick="submitIntake()">Start Experiment</button>
+      </div>
+
+      <div class="skip-intake">
+        <a href="#" onclick="skipIntake(); return false;">Skip and start →</a>
+      </div>
+    </div>
+
+    <!-- Main Experiment -->
+    <div id="experiment-container" class="hidden">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-text" id="progress-text">Select the best voice for each letter sound</div>
+
+      <div id="letters-container"></div>
+
+      <div class="submit-section">
+        <p>When you've selected your preferred voice for each letter, submit your results.</p>
+        <div class="actions">
+          <button class="btn btn-primary" onclick="submitResults()">Submit Results</button>
+          <button class="btn btn-secondary" onclick="showResults()">View Current Results</button>
+          <button class="btn btn-ghost" onclick="resetExperiment()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="results-section hidden" id="results-section">
+      <h2>Voice Rankings</h2>
+      <p style="color: var(--color-text-muted); margin-bottom: var(--space-md);">Based on selections across all letters</p>
+      <div id="results-list"></div>
+      <div class="actions" style="margin-top: var(--space-md);">
+        <button class="btn btn-secondary" onclick="copyResults()">Copy Results</button>
+        <button class="btn btn-ghost" onclick="hideResults()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'letter-sounds-experiment-v2';
+    const AUDIO_BASE = '/experiments/letter-sounds/audio';
+
+    let experimentData = null;
+    let selections = {};
+    let participantInfo = {};
+    let currentAudio = null;
+
+    // Sound descriptions
+    const SOUND_INFO = {
+      c: { sound: 'k', example: 'cat' },
+      e: { sound: 'e', example: 'bed' },
+      f: { sound: 'f', example: 'fan' },
+      i: { sound: 'i', example: 'sit' },
+      l: { sound: 'l', example: 'lamp' },
+      p: { sound: 'p', example: 'pig' },
+      r: { sound: 'r', example: 'red' },
+      v: { sound: 'v', example: 'van' },
+      z: { sound: 'z', example: 'zip' }
+    };
+
+    async function loadExperiment() {
+      try {
+        const res = await fetch('/experiments/letter-sounds/experiment.json');
+        experimentData = await res.json();
+        loadProgress();
+      } catch (err) {
+        console.error('Failed to load experiment:', err);
+      }
+    }
+
+    function loadProgress() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const data = JSON.parse(saved);
+          selections = data.selections || {};
+          participantInfo = data.participantInfo || {};
+
+          // If already completed intake, show experiment
+          if (data.intakeCompleted) {
+            showExperiment();
+          }
+        }
+      } catch {
+        selections = {};
+        participantInfo = {};
+      }
+    }
+
+    function saveProgress() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        selections,
+        participantInfo,
+        intakeCompleted: true,
+        timestamp: new Date().toISOString()
+      }));
+      updateProgress();
+    }
+
+    function submitIntake() {
+      participantInfo = {
+        role: document.getElementById('role').value,
+        experience: document.getElementById('experience').value,
+        ageGroup: document.getElementById('age-group').value
+      };
+      saveProgress();
+      showExperiment();
+    }
+
+    function skipIntake() {
+      participantInfo = {};
+      saveProgress();
+      showExperiment();
+    }
+
+    function showExperiment() {
+      document.getElementById('intake-form').classList.add('hidden');
+      document.getElementById('experiment-container').classList.remove('hidden');
+      renderLetters();
+    }
+
+    function renderLetters() {
+      if (!experimentData) return;
+
+      const container = document.getElementById('letters-container');
+      const voices = Object.entries(experimentData.voices);
+
+      container.innerHTML = experimentData.letters.map(letter => {
+        const info = SOUND_INFO[letter];
+        const selectedVoice = selections[letter];
+        const selectedInfo = selectedVoice ? experimentData.voices[selectedVoice] : null;
+
+        return `
+          <div class="letter-section" id="section-${letter}">
+            <div class="letter-header">
+              <div class="letter-big">${letter}</div>
+              <div class="letter-info">
+                <h3>/${info.sound}/ sound</h3>
+                <p>as in "${info.example}"</p>
+              </div>
+              ${selectedInfo ? `<div class="selected-voice">✓ ${selectedInfo.name}</div>` : ''}
+            </div>
+            <div class="voices-grid">
+              ${voices.map(([voiceId, voice]) => `
+                <div class="voice-card ${selectedVoice === voiceId ? 'selected' : ''}"
+                     data-letter="${letter}" data-voice="${voiceId}">
+                  <div class="voice-name">${voice.name}</div>
+                  <div class="voice-service">${voice.service}</div>
+                  <button class="play-btn" onclick="event.stopPropagation(); playSound('${letter}', '${voiceId}', this)">▶</button>
+                  <button class="select-btn" onclick="event.stopPropagation(); selectVoice('${letter}', '${voiceId}')">
+                    ${selectedVoice === voiceId ? '✓ Selected' : 'Select'}
+                  </button>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const total = experimentData?.letters.length || 0;
+      const completed = Object.keys(selections).length;
+      const percent = total ? (completed / total) * 100 : 0;
+
+      document.getElementById('progress-fill').style.width = `${percent}%`;
+      document.getElementById('progress-text').textContent =
+        `${completed} of ${total} letters rated`;
+    }
+
+    function getAudioPath(letter, voice) {
+      const sample = experimentData.samples.find(s => s.letter === letter && s.voice === voice);
+      return sample ? `${AUDIO_BASE}/${sample.file}` : null;
+    }
+
+    function playSound(letter, voiceId, btn) {
+      if (currentAudio) {
+        currentAudio.pause();
+        document.querySelectorAll('.voice-card.playing').forEach(el => el.classList.remove('playing'));
+      }
+
+      const path = getAudioPath(letter, voiceId);
+      if (!path) return;
+
+      const card = btn.closest('.voice-card');
+      currentAudio = new Audio(path);
+      card.classList.add('playing');
+
+      currentAudio.onended = () => {
+        card.classList.remove('playing');
+        currentAudio = null;
+      };
+
+      currentAudio.play();
+    }
+
+    function selectVoice(letter, voiceId) {
+      if (selections[letter] === voiceId) {
+        delete selections[letter]; // Toggle off
+      } else {
+        selections[letter] = voiceId;
+      }
+      saveProgress();
+      renderLetters();
+    }
+
+    function showResults() {
+      document.getElementById('results-section').classList.remove('hidden');
+
+      // Tally votes
+      const voiceCounts = {};
+      for (const voice of Object.keys(experimentData.voices)) {
+        voiceCounts[voice] = 0;
+      }
+      for (const voiceId of Object.values(selections)) {
+        voiceCounts[voiceId] = (voiceCounts[voiceId] || 0) + 1;
+      }
+
+      const sorted = Object.entries(voiceCounts).sort((a, b) => b[1] - a[1]);
+      const maxCount = Math.max(...sorted.map(s => s[1]), 1);
+
+      document.getElementById('results-list').innerHTML = sorted.map(([voice, count]) => {
+        const info = experimentData.voices[voice];
+        const percent = (count / maxCount) * 100;
+        return `
+          <div class="voice-result">
+            <div class="result-voice-name">${info.name}</div>
+            <div class="result-bar-container">
+              <div class="result-bar" style="width: ${percent}%"></div>
+            </div>
+            <div class="result-count">${count} letters</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function hideResults() {
+      document.getElementById('results-section').classList.add('hidden');
+    }
+
+    function submitResults() {
+      const completed = Object.keys(selections).length;
+      const total = experimentData.letters.length;
+
+      if (completed < total) {
+        if (!confirm(`You've only rated ${completed} of ${total} letters. Submit anyway?`)) {
+          return;
+        }
+      }
+
+      // In a real app, this would POST to an API
+      const results = {
+        participantInfo,
+        selections,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent
+      };
+
+      console.log('Experiment results:', results);
+      alert('Thank you! Your results have been recorded.');
+      showResults();
+    }
+
+    function copyResults() {
+      const voiceCounts = {};
+      for (const voice of Object.keys(experimentData.voices)) {
+        voiceCounts[voice] = 0;
+      }
+      for (const voiceId of Object.values(selections)) {
+        voiceCounts[voiceId]++;
+      }
+
+      let text = "# Letter Sounds Experiment v2 Results\n\n";
+
+      if (participantInfo.role) {
+        text += "## Participant\n";
+        text += `- Role: ${participantInfo.role}\n`;
+        text += `- Experience: ${participantInfo.experience || 'N/A'}\n`;
+        text += `- Age Group: ${participantInfo.ageGroup || 'N/A'}\n\n`;
+      }
+
+      text += "## Selections by Letter\n";
+      for (const [letter, voiceId] of Object.entries(selections)) {
+        const voice = experimentData.voices[voiceId];
+        text += `- ${letter}: ${voice.name} (${voice.service})\n`;
+      }
+
+      text += "\n## Voice Rankings\n";
+      const sorted = Object.entries(voiceCounts).sort((a, b) => b[1] - a[1]);
+      for (const [voice, count] of sorted) {
+        const info = experimentData.voices[voice];
+        text += `- ${info.name} (${info.service}): ${count} letters\n`;
+      }
+
+      navigator.clipboard.writeText(text).then(() => alert('Results copied!'));
+    }
+
+    function resetExperiment() {
+      if (confirm('Reset all progress?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        selections = {};
+        participantInfo = {};
+        document.getElementById('experiment-container').classList.add('hidden');
+        document.getElementById('results-section').classList.add('hidden');
+        document.getElementById('intake-form').classList.remove('hidden');
+      }
+    }
+
+    // Initialize
+    loadExperiment();
+  </script>
+</body>
+</html>

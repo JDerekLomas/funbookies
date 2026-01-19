@@ -1,0 +1,40 @@
+{
+  "id": "books_20260118_143908",
+  "description": "C: All Claude Sonnet - balanced quality/cost",
+  "pipeline": "C",
+  "pipeline_description": "All Claude Sonnet - balanced quality/cost",
+  "timestamp": "2026-01-18T14:41:04.452319",
+  "story_count": 3,
+  "stories": [
+    {
+      "id": "b1_cat_narrative",
+      "title": "Cat on the Mat",
+      "level": "B1",
+      "mode": "narrative",
+      "story": "# The Cat and the Mat\n\nThe cat sat in the sun. \n\nDan had fat paws and a big lap. He ran to the red mat.\n\nDan sat on it. The mat was soft and warm.\n\nBut then\u2014a pan hit the tiles!\n\nDan ran fast. His back got big. Tip, tap, tip, tap. His paws hit the tiles.\n\n\"Dan?\" Pam said. She picked up her pan.\n\nNo cat.\n\nPam sat and waited.\n\nTip, tap, tip, tap. Dan came back. He crept to the mat.\n\nDan sat on the warm mat. He was happy.\n\nThe sun moved. But Dan stayed on his warm, soft mat\u2014the best spot in the house.",
+      "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book\n\nFOCUS: Character design, setting elements, color palette. Narrative style with playful, dynamic illustration.\n\nRow 1 - DAN (Friendly orange tabby cat):\n[1] Dan front view: Round, plump cat with soft orange fur, big expressive green eyes, slightly fluffy tail. Soft curves, simplified body shape. Warm yellow background.\n[2] Dan expressions: Same cat showing startled (wide eyes, arched back), relaxed (curled comfortably), curious (head tilted)\n[3] Dan in action: Cat mid-leap with paws spread, dynamic motion lines, tail arched\n\nRow 2 - SECONDARY ELEMENTS AND KEY MOMENT:\n[4] Red mat: Soft rectangular shape, warm terracotta red color, slightly rumpled texture\n[5] Kitchen tiles: Pale cream/white geometric square tiles with soft shadows\n[6] KEY IMAGE: Dan sitting contentedly on mat, sunlight streaming, peaceful pose\n\nRow 3 - SETTING:\n[7] Sunny kitchen corner: Soft buttery yellow light, gentle shadows, simple furniture outlines\n[8] Sunlight patch: Warm golden-white circular area with soft edges\n[9] Final scene: Dan curled on mat, peaceful kitchen background, soft afternoon light\n\nSTYLE: Simple stylized children's book illustration like Eric Carle. Warm palette of orange, yellow, red, cream. Soft rounded shapes with clear silhouettes. Friendly and approachable. NOT realistic.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.",
+      "setting": "A sunny kitchen, a cat on a mat, a girl named Pam",
+      "anchor": "How cats choose their favorite napping spots based on warmth and safety"
+    },
+    {
+      "id": "b1_pig_narrative",
+      "title": "The Big Pig",
+      "level": "B1",
+      "mode": "narrative",
+      "story": "**Tim and the Hot Pig**\n\nHot, hot, hot.\n\nTim ran to the big pig. She sat and sat. The pig had no zip.\n\nTim got his pan. He got the hose. Water hit the dirt. \n\nThe dirt got wet. Mud! Lots of mud!\n\nThe pig saw the mud. She got up. Step, step, step.\n\nSPLASH!\n\nThe pig hit the mud. Mud went everywhere! \n\nThe pig dug in the mud. She rolled and rolled. The mud was cool on her hot skin.\n\nTim grinned. The pig was happy.",
+      "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book\n\nFOCUS: Character design, farm setting, warm summer color palette. Narrative style with dynamic action.\n\nRow 1 - TIM (young boy helping pig):\n[1] Tim front view: Round-faced boy, overalls, sun hat, freckles, eager expression. Soft peach skin, denim blue overalls. Warm yellow background.\n[2] Tim expressions: Same character showing curious look, determined grin, happy smile with wide eyes.\n[3] Tim in action: Holding garden hose, water spraying, leaning forward with excitement.\n\nRow 2 - PIG AND FARM ELEMENTS:\n[4] Pig character: Plump pink pig with expressive eyes, slightly droopy ears, round body. Soft pink and warm tan colors.\n[5] Farm hose: Coiled green garden hose, water droplets, curved shape suggesting movement.\n[6] KEY IMAGE: Pig mid-splash in muddy puddle, mud flying, dramatic action pose with dynamic motion lines.\n\nRow 3 - FARM SETTING:\n[7] Pig pen: Wooden fence, dusty ground, hints of grass and summer heat. Warm ochre and soft green tones.\n[8] Mud puddle: Rich brown mud, water reflections, splashing edges with circular motion.\n[9] Resolution scene: Tim and pig together, both grinning, summer farm landscape behind them.\n\nSTYLE: Eric Carle inspired collage technique. Bold graphic shapes, layered textures. Warm summer palette of peach, yellow, soft green, dusty brown. Simplified forms with high energy. Friendly, playful illustration approach.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.",
+      "setting": "A muddy farm, a pig pen, a boy named Tim",
+      "anchor": "Why pigs roll in mud to cool down (they can't sweat)"
+    },
+    {
+      "id": "b1_mix_poem",
+      "title": "Fit It In",
+      "level": "B1",
+      "mode": "poem",
+      "story": "**Tidy Time**\n\nThe cat sits.\nThe bat sits.\nThe hat sits on the mat.\n\nPat, pat, pat\u2014\nhands tap the rug.\nPat, pat, pat\u2014\ntoys in the tub.\n\nCan in the pan,\nman by the van,\nDan and his fan\nspin and spin.\n\nSoft socks, warm socks,\ntick-tock clocks.\nThe jam jar gleams,\nthe ram toy sits.\n\nPat, pat, pat\u2014\nfeet on cool wood.\nPat, pat, pat\u2014\neverything good.\n\nThe cat sits.\nThe mat sits.\nThe dim room\nstill.\n\nMoonlight spills\nthrough windowsill,\nand I\nsit\ntoo.",
+      "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's picture book\n\nFOCUS: Character design, bedroom setting elements, nighttime color palette. [Poem-inspired soft style]\n\nRow 1 - DAN (young child tidying up):\n[1] Dan front view: Round-bodied child in soft pajamas, wide curious eyes, messy hair. Gentle blue-gray background.\n[2] Dan expressions: Same child showing calm concentration, sleepy smile, gentle contentment\n[3] Dan in action: Carefully placing toys into storage bin, hands mid-motion, soft movement lines\n\nRow 2 - SECONDARY ELEMENTS:\n[4] Playful Cat: Sitting quietly, curled shape, soft fur texture in muted gray tones\n[5] Scattered Toys: Random collection - bat, hat, ram toy, fan - arranged with dreamy randomness\n[6] KEY IMAGE: Moonlight spilling through windowsill, soft silver-blue light creating peaceful atmosphere\n\nRow 3 - BEDROOM SETTING:\n[7] Nighttime Bedroom: Soft shadowy corners, gentle wood floor texture in warm browns\n[8] Moonlit Window: Silvery light creating soft geometric shadows, quiet stillness\n[9] Final Scene: Dan sitting peacefully, cat nearby, toys neatly arranged, moonlight washing everything\n\nSTYLE: Soft watercolor with gentle edges like Jon Klassen. Muted nighttime palette of blues, grays, warm browns. Rounded shapes, minimal details, atmospheric. Friendly and approachable. NOT realistic.\n\nLAYOUT: 3x3 grid, thin white borders between panels.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.",
+      "setting": "A child's bedroom, toys scattered, time for bed",
+      "anchor": "The rhythm of tidying up - putting things in their spots"
+    }
+  ]
+}

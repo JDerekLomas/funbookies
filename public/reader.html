@@ -2481,36 +2481,93 @@
 
         // Image Editor Functions
         let selectedReference = null;
+        let selectedReferences = []; // For multi-ref support
         let uploadedReferenceData = null;
 
-        function loadReferenceVersions() {
+        async function loadReferenceVersions() {
             const container = document.getElementById('referenceVersions');
             if (!container || !currentBook) return;
 
             const slug = currentBook._slug || bookSlug;
-
-            // Build list of possible reference versions
-            const versions = [
-                { path: `/books/references/${slug}_reference.png`, label: 'v1', version: 1 },
-                { path: `/books/references/${slug}_reference_v2.png`, label: 'v2', version: 2 },
-                { path: `/books/references/${slug}_reference_v3.png`, label: 'v3', version: 3 },
-            ];
-
-            // Determine active version from book metadata or default to v1
-            const activeVersion = currentBook.active_reference_version || 1;
-
             container.innerHTML = '';
 
-            versions.forEach(v => {
-                const div = document.createElement('div');
-                div.className = `reference-version ${v.version === activeVersion ? 'active' : ''}`;
-                div.innerHTML = `
-                    <img src="${v.path}" alt="Reference ${v.label}" onerror="this.parentElement.style.display='none'">
-                    <span class="version-label">${v.label}${v.version === activeVersion ? ' ✓' : ''}</span>
-                `;
-                div.onclick = () => selectReference(v.path, v.version, div);
-                container.appendChild(div);
-            });
+            // Try to load multi-ref manifest first
+            const multiRefPath = `/books/references/${slug}_multi/manifest.json`;
+            let multiRefs = null;
+            try {
+                const resp = await fetch(multiRefPath);
+                if (resp.ok) {
+                    multiRefs = await resp.json();
+                }
+            } catch (e) {
+                // No multi-ref available
+            }
+
+            if (multiRefs && multiRefs.references) {
+                // Display multi-ref images
+                const refs = multiRefs.references;
+                selectedReferences = [];
+
+                // Group by type: characters first, then environments
+                const charRefs = Object.entries(refs).filter(([k]) => k.startsWith('char_'));
+                const envRefs = Object.entries(refs).filter(([k]) => k.startsWith('env_'));
+                const otherRefs = Object.entries(refs).filter(([k]) => !k.startsWith('char_') && !k.startsWith('env_'));
+
+                const allRefs = [...charRefs, ...envRefs, ...otherRefs];
+
+                allRefs.forEach(([key, localPath]) => {
+                    // Convert local path to web path
+                    const filename = localPath.split('/').pop();
+                    const webPath = `/books/references/${slug}_multi/${filename}`;
+
+                    // Create nice label from key (char_jane_front -> Jane Front)
+                    const label = key
+                        .replace('char_', '')
+                        .replace('env_', '')
+                        .replace('style_', '')
+                        .split('_')
+                        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+                        .join(' ');
+
+                    const div = document.createElement('div');
+                    div.className = 'reference-version active'; // All multi-refs are active by default
+                    div.dataset.refKey = key;
+                    div.dataset.refPath = webPath;
+                    div.innerHTML = `
+                        <img src="${webPath}" alt="${label}" onerror="this.parentElement.style.display='none'">
+                        <span class="version-label">${label}</span>
+                    `;
+                    div.onclick = () => toggleMultiReference(div);
+                    container.appendChild(div);
+                    selectedReferences.push(webPath);
+                });
+
+                // Set selectedReference to first one for backwards compat
+                selectedReference = selectedReferences[0] || null;
+            } else {
+                // Fall back to legacy v1/v2/v3 references
+                const versions = [
+                    { path: `/books/references/${slug}_reference.png`, label: 'v1', version: 1 },
+                    { path: `/books/references/${slug}_reference_v2.png`, label: 'v2', version: 2 },
+                    { path: `/books/references/${slug}_reference_v3.png`, label: 'v3', version: 3 },
+                ];
+
+                const activeVersion = currentBook.active_reference_version || 1;
+
+                versions.forEach(v => {
+                    const div = document.createElement('div');
+                    div.className = `reference-version ${v.version === activeVersion ? 'active' : ''}`;
+                    div.innerHTML = `
+                        <img src="${v.path}" alt="Reference ${v.label}" onerror="this.parentElement.style.display='none'">
+                        <span class="version-label">${v.label}${v.version === activeVersion ? ' ✓' : ''}</span>
+                    `;
+                    div.onclick = () => selectReference(v.path, v.version, div);
+                    container.appendChild(div);
+                });
+
+                selectedReference = versions.find(v => v.version === activeVersion)?.path || versions[0].path;
+                selectedReferences = [selectedReference];
+            }
 
             // Add upload button
             const uploadBtn = document.createElement('div');
@@ -2519,9 +2576,22 @@
             uploadBtn.title = 'Upload custom reference';
             uploadBtn.onclick = () => document.getElementById('uploadReferenceInput').click();
             container.appendChild(uploadBtn);
+        }
 
-            // Set initial selection
-            selectedReference = versions.find(v => v.version === activeVersion)?.path || versions[0].path;
+        function toggleMultiReference(element) {
+            const path = element.dataset.refPath;
+            const isActive = element.classList.contains('active');
+
+            if (isActive) {
+                element.classList.remove('active');
+                selectedReferences = selectedReferences.filter(p => p !== path);
+            } else {
+                element.classList.add('active');
+                selectedReferences.push(path);
+            }
+
+            // Update selectedReference for backwards compat
+            selectedReference = selectedReferences[0] || null;
         }
 
         function selectReference(path, version, element) {

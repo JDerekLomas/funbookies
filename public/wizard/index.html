@@ -1956,16 +1956,17 @@ Return ONLY the JSON, no other text.`;
                 btn.disabled = !state.referenceImage;
             } else {
                 // Multi: need all 3 sheets
-                const hasAll = state.multiRefs.characters && state.multiRefs.settings && state.multiRefs.style;
+                const hasAll = state.multiRefs.styleGuide && state.multiRefs.openingScenes && state.multiRefs.closingScenes;
                 btn.disabled = !hasAll;
             }
         }
 
         function renderMultiRefState() {
-            ['characters', 'settings', 'style'].forEach(sheet => {
+            ['styleGuide', 'openingScenes', 'closingScenes'].forEach(sheet => {
                 const url = state.multiRefs[sheet];
-                const imgContainer = document.getElementById(`img${sheet.charAt(0).toUpperCase() + sheet.slice(1)}`);
-                const statusEl = document.getElementById(`status${sheet.charAt(0).toUpperCase() + sheet.slice(1)}`);
+                const capitalizedSheet = sheet.charAt(0).toUpperCase() + sheet.slice(1);
+                const imgContainer = document.getElementById(`img${capitalizedSheet}`);
+                const statusEl = document.getElementById(`status${capitalizedSheet}`);
 
                 if (url) {
                     imgContainer.innerHTML = `<img src="${url}" alt="${sheet}">`;
@@ -1975,9 +1976,9 @@ Return ONLY the JSON, no other text.`;
             });
 
             // Enable cascade buttons based on what's generated
-            if (state.multiRefs.characters) {
-                document.getElementById('btnSettings').disabled = false;
-                document.getElementById('btnStyle').disabled = false;
+            if (state.multiRefs.styleGuide) {
+                document.getElementById('btnOpeningScenes').disabled = false;
+                document.getElementById('btnClosingScenes').disabled = false;
             }
 
             updateApproveButtonState();
@@ -2007,118 +2008,91 @@ IMPORTANT: This is a reference sheet with 9 distinct panels arranged in a 3x3 gr
 NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
         }
 
-        // Multi-ref prompt builders
-        function buildCharactersPrompt() {
-            const character = state.book.characterName || 'the character';
-            const characterType = state.book.character || 'animal';
+        // Multi-ref prompt builders (3-ref cascade)
 
-            return `9-PANEL CHARACTER REFERENCE for '${state.book.title}'
-
-Create a 3x3 grid showing ${character} the ${characterType} from different angles and expressions.
-
-Row 1 - Views:
-[1] ${character} front view, full body, arms at sides, neutral expression
-[2] ${character} side profile, walking pose
-[3] ${character} 3/4 view, slight turn
-
-Row 2 - Expressions:
-[4] ${character} happy, wide smile, eyes crinkled, cheeks raised
-[5] ${character} sad or worried, downturned mouth, drooping posture
-[6] ${character} surprised, eyes wide open, mouth O-shaped
-
-Row 3 - Actions:
-[7] ${character} running, legs mid-stride, arms pumping, body leaning forward
-[8] ${character} sitting, relaxed comfortable pose
-[9] ${character} with key prop or in key story pose
-
-CRITICAL: ${character} must look IDENTICAL in all 9 panels. Same features, proportions, colors.
-STYLE: Soft watercolor children's book illustration, warm colors, gentle lighting.
-
-NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+        // 1. Style Guide - 9-panel reference using same prompt as single ref
+        function buildStyleGuidePrompt() {
+            // Use the same 9-panel reference prompt from single mode
+            return document.getElementById('referencePrompt').value || buildReferencePrompt();
         }
 
-        function buildSettingsPrompt() {
-            const setting = state.book.setting || 'the story location';
+        // 2. Opening Scenes - first half of the book
+        function buildOpeningScenesPrompt() {
+            const pages = state.book.pages || [];
+            const midPoint = Math.ceil(pages.length / 2);
+            const openingPages = pages.slice(0, midPoint);
 
-            return `9-PANEL SETTINGS REFERENCE for '${state.book.title}'
+            // Get up to 4 scenes from opening pages
+            const scenes = openingPages
+                .filter(p => p.scene && !p.scene.includes('Illustration for:'))
+                .slice(0, 4)
+                .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 200)}`);
 
-Create a 3x3 grid showing environments and locations from the story.
-NO CHARACTERS in any panel - settings only.
+            return `OPENING SCENES REFERENCE for '${state.book.title}'
 
-Row 1 - Main Location:
-[1] ${setting}, wide establishing shot, bright daylight
-[2] Same location, golden hour sunset lighting, warm tones
-[3] Same location, early morning or dusk, softer light
+Single cohesive illustration showing key moments from the FIRST HALF of the story.
 
-Row 2 - Interior / Secondary:
-[4] Interior space from story, warm inviting lighting
-[5] Secondary location or different area, clear details
-[6] Detail shot of important furniture, object, or architectural element
+Scenes to include:
+${scenes.join('\n')}
 
-Row 3 - Atmosphere:
-[7] Sky and weather typical of the story (sunny, cloudy, etc.)
-[8] Nature elements: trees, grass, flowers, water - as relevant
-[9] Mood/atmosphere shot capturing the feeling of the story world
-
-CRITICAL: NO characters, NO people, NO animals in any panel.
-Pure environments and settings only.
-STYLE: Soft watercolor children's book illustration, warm colors, gentle lighting.
-
-NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+COMPOSITION: One cohesive illustration. NOT a grid. Flow the scenes together naturally.
+STYLE: Match the style guide reference exactly.
+CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
         }
 
-        function buildStylePrompt() {
-            return `9-PANEL STYLE REFERENCE - Abstract Color and Texture Samples
+        // 3. Closing Scenes - second half of the book
+        function buildClosingScenesPrompt() {
+            const pages = state.book.pages || [];
+            const midPoint = Math.ceil(pages.length / 2);
+            const closingPages = pages.slice(midPoint);
 
-Create a 3x3 grid of ABSTRACT style samples. NO characters, NO scenes, NO story elements.
+            // Get up to 4 scenes from closing pages
+            const scenes = closingPages
+                .filter(p => p.scene && !p.scene.includes('Illustration for:'))
+                .slice(0, 4)
+                .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 200)}`);
 
-Row 1 - Color Palette:
-[1] Primary color gradient swatch - main colors used in the art style
-[2] Secondary/accent color swatches - complementary tones
-[3] Neutral tones - backgrounds, shadows, highlights
+            return `CLOSING SCENES REFERENCE for '${state.book.title}'
 
-Row 2 - Textures & Brushwork:
-[4] Brush stroke texture sample - showing the painting technique
-[5] Soft edge texture - how edges blend and feather
-[6] Surface texture sample - paper grain, canvas feel
+Single cohesive illustration showing key moments from the SECOND HALF of the story.
 
-Row 3 - Lighting & Mood:
-[7] Warm lighting color study - golden, cozy, inviting tones
-[8] Cool lighting color study - blue, calm, peaceful tones
-[9] Contrast study - light and shadow interplay
+Scenes to include:
+${scenes.join('\n')}
 
-CRITICAL: ABSTRACT ONLY - no recognizable objects, characters, or scenes.
-Just color swatches, gradients, texture samples, and brushwork.
-STYLE: Soft watercolor children's book illustration style.
-
-NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+COMPOSITION: One cohesive illustration. NOT a grid. Flow the scenes together naturally.
+STYLE: Match the style guide reference exactly.
+CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
         }
 
         async function generateMultiRefSheet(sheetType) {
-            const statusEl = document.getElementById(`status${sheetType.charAt(0).toUpperCase() + sheetType.slice(1)}`);
-            const imgContainer = document.getElementById(`img${sheetType.charAt(0).toUpperCase() + sheetType.slice(1)}`);
+            // Map sheetType to proper capitalization for element IDs
+            const capitalizedType = sheetType.charAt(0).toUpperCase() + sheetType.slice(1);
+            const statusEl = document.getElementById(`status${capitalizedType}`);
+            const imgContainer = document.getElementById(`img${capitalizedType}`);
 
             statusEl.textContent = 'Generating...';
             statusEl.className = 'card-status generating';
 
-            // Build prompt based on sheet type
+            // Build prompt and determine model based on sheet type
             let prompt;
-            let model = 'nano-banana-pro';
+            let model;
             let reference = null;
 
-            if (sheetType === 'characters') {
-                prompt = buildCharactersPrompt();
+            if (sheetType === 'styleGuide') {
+                // Style Guide uses nano-banana (T2I)
+                prompt = buildStyleGuidePrompt();
+                model = 'nano-banana-pro';
             } else {
-                // Settings and style use I2I from characters
-                if (!state.multiRefs.characters) {
-                    alert('Generate Characters sheet first (cascade dependency)');
+                // Opening/Closing Scenes use wan 2.6 I2I with styleGuide as reference
+                if (!state.multiRefs.styleGuide) {
+                    alert('Generate Style Guide first (cascade dependency)');
                     statusEl.textContent = 'Pending';
                     statusEl.className = 'card-status';
                     return;
                 }
-                prompt = sheetType === 'settings' ? buildSettingsPrompt() : buildStylePrompt();
+                prompt = sheetType === 'openingScenes' ? buildOpeningScenesPrompt() : buildClosingScenesPrompt();
                 model = 'wan2.6-image';
-                reference = state.multiRefs.characters;
+                reference = state.multiRefs.styleGuide;
             }
 
             try {
@@ -2145,10 +2119,10 @@ NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
                         statusEl.textContent = 'Complete';
                         statusEl.className = 'card-status complete';
 
-                        // Enable cascade buttons if characters done
-                        if (sheetType === 'characters') {
-                            document.getElementById('btnSettings').disabled = false;
-                            document.getElementById('btnStyle').disabled = false;
+                        // Enable cascade buttons if styleGuide done
+                        if (sheetType === 'styleGuide') {
+                            document.getElementById('btnOpeningScenes').disabled = false;
+                            document.getElementById('btnClosingScenes').disabled = false;
                         }
                         updateApproveButtonState();
                     });
@@ -2159,9 +2133,9 @@ NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
                     statusEl.textContent = 'Complete';
                     statusEl.className = 'card-status complete';
 
-                    if (sheetType === 'characters') {
-                        document.getElementById('btnSettings').disabled = false;
-                        document.getElementById('btnStyle').disabled = false;
+                    if (sheetType === 'styleGuide') {
+                        document.getElementById('btnOpeningScenes').disabled = false;
+                        document.getElementById('btnClosingScenes').disabled = false;
                     }
                     updateApproveButtonState();
                 } else {
@@ -2263,7 +2237,7 @@ NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
                 }
             } else {
                 // Multi-ref: need all 3 sheets
-                if (!state.multiRefs.characters || !state.multiRefs.settings || !state.multiRefs.style) {
+                if (!state.multiRefs.closingScenesGuide || !state.multiRefs.openingScenes || !state.multiRefs.closingScenes) {
                     alert('Please generate all 3 reference sheets (Characters, Settings, Style).');
                     return;
                 }
@@ -2332,12 +2306,12 @@ NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
 
             // Build reference payload based on strategy
             let requestBody;
-            if (state.refStrategy === 'multi' && state.multiRefs.characters) {
+            if (state.refStrategy === 'multi' && state.multiRefs.closingScenesGuide) {
                 // Multi-ref: pass array of references (up to 3)
                 const refArray = [
-                    state.multiRefs.characters,
-                    state.multiRefs.settings,
-                    state.multiRefs.style
+                    state.multiRefs.closingScenesGuide,
+                    state.multiRefs.openingScenes,
+                    state.multiRefs.closingScenes
                 ].filter(Boolean);
 
                 requestBody = {

@@ -295,15 +295,29 @@ https://funbookies.com/wizard/
 **Wizard Phases:**
 1. **Story** - Generate narrative with phonics constraints
 2. **Scenes** - Review/edit image scene descriptions
-3. **Reference** - Generate reference image(s) with strategy selection
+3. **Reference** - Generate 3-ref cascade (style guide + scene refs)
 4. **Pages** - Generate page images with reference(s)
+5. **Review** - Review and publish the completed book
 
-**Reference Strategy Toggle (Phase 3):**
-- **Single Sheet ($0.15)** - Traditional 9-panel reference
-- **Multi-Ref ($0.21)** - 3 specialized sheets via cascade:
-  - Characters (T2I, $0.15) → Settings (I2I, $0.03) → Style (I2I, $0.03)
+**3-Reference Cascade Strategy (Phase 3):**
+Total cost: $0.21 per book
 
-Multi-ref provides better character consistency and eliminates content contamination.
+1. **Style Guide** (nano-banana T2I, $0.15)
+   - Traditional 9-panel reference with characters, settings, style
+   - Establishes the visual style for the entire book
+   - This is the seed image for the cascade
+
+2. **Opening Scenes** (wan 2.6 I2I, $0.03)
+   - Generated from Style Guide via image-to-image
+   - Shows scenes from the FIRST HALF of the book
+   - Used when generating pages 1 through midpoint
+
+3. **Closing Scenes** (wan 2.6 I2I, $0.03)
+   - Generated from Style Guide via image-to-image
+   - Shows scenes from the SECOND HALF of the book
+   - Used when generating pages from midpoint to end
+
+This scene-split approach prevents content contamination (future story elements appearing in early pages).
 
 ### CLI Commands
 
@@ -642,9 +656,9 @@ result = client.generate_with_reference(
 
 ## Reference Image Strategies
 
-### Current: Single 9-Panel Reference Sheet
+### Legacy: Single 9-Panel Reference Sheet
 
-The **production workflow** uses a single 9-panel reference sheet per book:
+The **legacy workflow** uses a single 9-panel reference sheet per book:
 
 ```
 ┌─────────────────────────────────────────┐
@@ -659,8 +673,10 @@ The **production workflow** uses a single 9-panel reference sheet per book:
 └─────────────────────────────────────────┘
 ```
 
-**Pros:** Simple, one generation per book, proven workflow
+**Pros:** Simple, one generation per book, lower cost
 **Cons:** Content contamination (story elements bleed into pages), limited style control
+
+**Status:** Deprecated in favor of 3-ref Scene Split. Use only for quick previews.
 
 **Scripts:**
 - `generate_references.py` - Creates 9-panel sheets
@@ -670,46 +686,67 @@ The **production workflow** uses a single 9-panel reference sheet per book:
 
 ---
 
-### Target: Multi-Reference Strategy (3 refs)
+### Current: Multi-Reference Strategy (3 refs) - Scene Split
 
-Models like `wan2.6-image` support up to **3 reference images**. This enables specialized references:
+The **production workflow** uses a 3-reference cascade approach to prevent content contamination while maintaining style consistency:
 
 ```
-Reference 1: CHARACTER SHEET
-┌─────────────────────────────┐
-│ [Front] [Side] [3/4 view]  │
-│ [Happy] [Sad]  [Surprised] │
-│ [Action1] [Action2] [Size] │
-└─────────────────────────────┘
+Reference 1: STYLE GUIDE (nano-banana-pro T2I, $0.15)
+┌─────────────────────────────────────────┐
+│  [1] Char     [2] Char     [3] Char    │  Traditional 9-panel
+│      Front        Expr         Action   │  combining characters,
+├─────────────────────────────────────────┤  settings, and style
+│  [4] Char2/   [5] **HERO** [6] Setting │  in one image.
+│      Prop         SHOT                  │
+├─────────────────────────────────────────┤  Establishes the
+│  [7] Setting  [8] Setting  [9] Together│  visual style for
+│      Day          Night                 │  the whole book.
+└─────────────────────────────────────────┘
 
-Reference 2: SETTINGS SHEET
-┌─────────────────────────────┐
-│ [Day exterior] [Night]     │
-│ [Interior 1]   [Interior 2]│
-│ [Weather]      [Mood]      │
-└─────────────────────────────┘
+Reference 2: OPENING SCENES (wan2.6-image I2I from style guide, $0.03)
+┌─────────────────────────────────────────┐
+│  Scenes from FIRST HALF of the book     │  Generated via I2I
+├─────────────────────────────────────────┤  using style guide
+│  Up to 4 scenes from pages 1 to midpoint│  as reference.
+├─────────────────────────────────────────┤
+│  Use when generating early pages        │  Maintains style
+└─────────────────────────────────────────┘  without future content
 
-Reference 3: STYLE SHEET
-┌─────────────────────────────┐
-│ Color palette swatches     │
-│ Texture samples            │
-│ Lighting examples          │
-└─────────────────────────────┘
+Reference 3: CLOSING SCENES (wan2.6-image I2I from style guide, $0.03)
+┌─────────────────────────────────────────┐
+│  Scenes from SECOND HALF of the book    │  Generated via I2I
+├─────────────────────────────────────────┤  using style guide
+│  Up to 4 scenes from midpoint to end    │  as reference.
+├─────────────────────────────────────────┤
+│  Use when generating later pages        │  Maintains style
+└─────────────────────────────────────────┘  with resolution context
 ```
 
-**Pros:** No content contamination, better character consistency, fine-grained control
-**Cons:** Slightly higher reference cost ($0.21 vs $0.15), more complex workflow
+**Why scene-split works:**
+- Style guide provides consistent style/characters across all pages
+- Opening scenes ref: Contains only first-half content (no spoilers in early pages)
+- Closing scenes ref: Contains resolution moments for later pages
+- When generating page 3, use style guide + opening scenes (no future content contamination)
+- When generating page 9, use style guide + closing scenes (relevant resolution context)
 
-**Cascade approach:** Characters sheet is T2I ($0.15), then settings and style are I2I from characters ($0.03 each) for style consistency.
+**Pros:** No content contamination, style consistency, story-appropriate context per page
+**Cons:** Total cost $0.21 vs $0.15 for single ref
 
-**Scripts:**
-- `generate_references.py --strategy multi` - Creates 3 specialized sheets ($0.21)
-- `generate_page_images.py` - Auto-detects and uses multi-refs if available
+**Cascade Workflow:**
+1. Style Guide generated via T2I (nano-banana, $0.15)
+2. Opening Scenes generated via I2I from Style Guide (wan 2.6, $0.03)
+3. Closing Scenes generated via I2I from Style Guide (wan 2.6, $0.03)
+
+**Wizard Implementation:**
+The Book Creation Wizard (Phase 3) implements this cascade:
+- "Generate Style Guide" button → nano-banana T2I
+- "Generate Opening Scenes" button → wan 2.6 I2I (disabled until style guide exists)
+- "Generate Closing Scenes" button → wan 2.6 I2I (disabled until style guide exists)
 
 **Storage:** `public/books/references/{slug}_multi/`
-- `{slug}_characters.png`
-- `{slug}_settings.png`
-- `{slug}_style.png`
+- `{slug}_style_guide.png` - 9-panel style reference
+- `{slug}_opening_scenes.png` - First half story scenes
+- `{slug}_closing_scenes.png` - Second half story scenes
 
 ---
 
@@ -812,11 +849,13 @@ Style: [art style]. NO TEXT anywhere.
 
 ### Choosing a Strategy
 
-| Book Type | Recommended Strategy | Cost/Page | Quality |
-|-----------|---------------------|-----------|---------|
-| Simple (1 char, few settings) | Single 9-panel | $0.03 | Good |
-| Standard (1-2 chars, varied settings) | Multi 3-ref | $0.03 | Better |
-| Complex (3+ chars, critical consistency) | 14-ref Gemini | $0.15 | Best |
+| Book Type | Recommended Strategy | Ref Cost | Page Cost | Quality |
+|-----------|---------------------|----------|-----------|---------|
+| All books (recommended) | 3-ref Scene Split | $0.21 | $0.03 | Best for most |
+| Quick preview | Single 9-panel | $0.15 | $0.03 | Good |
+| Complex (3+ chars) | 14-ref Gemini | varies | $0.15 | Maximum consistency |
+
+**Default workflow:** Use 3-ref Scene Split for all production books. The extra $0.06 per book prevents content contamination issues that are expensive to fix later.
 
 ---
 
@@ -829,7 +868,7 @@ Style: [art style]. NO TEXT anywhere.
 | Cover Images | 48 generated |
 | Page Images | 2 books fully generated |
 | Multi-ref CLI | Supported via `generate_references.py --strategy multi` |
-| Multi-ref Wizard | Supported with strategy toggle in Phase 3 |
+| Wizard 3-ref | Scene-split cascade (Style Guide → Opening/Closing Scenes) |
 
 ## Edit Mode & Image Versioning
 

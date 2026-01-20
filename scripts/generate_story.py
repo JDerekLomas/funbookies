@@ -156,6 +156,14 @@ VOCABULARY CHECK - these are TOO HARD for early levels:
 - "water" → ok as sight word but keep sentences short
 - "towel" → ok but keep it simple
 
+AWKWARD PHRASING TO AVOID:
+- "has not got" → use "wants" or "needs"
+- "can not get" → use "did not get" or restructure
+- "is wet and has mud" → use "is wet with mud"
+- Double negatives or clunky constructions
+- Sentences that sound like grammar exercises
+Write like you're talking to a child, not filling in blanks.
+
 ## VISUAL STYLE FOR THIS BAND ({band})
 
 {band_style}

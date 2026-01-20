@@ -4,6 +4,45 @@ Development session notes and changes.
 
 ---
 
+## 2026-01-20: Awkward Phrasing Prevention Rules
+
+### Summary
+Added generation-time rules to prevent awkward text constructions that required manual fixes.
+
+### Added to Prompt
+```
+AWKWARD PHRASING TO AVOID:
+- "has not got" → use "wants" or "needs"
+- "can not get" → use "did not get" or restructure
+- "is wet and has mud" → use "is wet with mud"
+- Double negatives or clunky constructions
+- Sentences that sound like grammar exercises
+Write like you're talking to a child, not filling in blanks.
+```
+
+### Workflow Improvements Summary
+
+The story generation workflow now includes:
+1. **Logic rules** - Cause/effect must make sense (no "wet in the sun")
+2. **Continuity tracking** - Character state persists (muddy stays muddy)
+3. **Vocabulary limits** - Level-appropriate word choices
+4. **Awkward phrasing prevention** - Natural child-friendly language
+5. **Band-specific styles** - Visual style matches reading level
+6. **Post-story reference prompt** - Based on actual story content
+
+### Post-Generation Review Checklist
+After `generate_story.py` completes, review the HTML page for:
+- [ ] Does each sentence make logical sense?
+- [ ] Is character state consistent across pages?
+- [ ] Any awkward phrasing to revise?
+- [ ] Is vocabulary appropriate for the level?
+- [ ] Does the story have genuine want/obstacle/resolution?
+
+### Files Changed
+- `scripts/generate_story.py` - Added AWKWARD PHRASING rules section
+
+---
+
 ## 2026-01-20: Improved 9-Panel Reference Prompt Generation
 
 ### Summary

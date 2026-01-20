@@ -665,11 +665,13 @@ Reference 3: STYLE SHEET
 ```
 
 **Pros:** No content contamination, better character consistency, fine-grained control
-**Cons:** 3x reference generation cost, more complex workflow
+**Cons:** Slightly higher reference cost ($0.21 vs $0.15), more complex workflow
 
-**Scripts (planned):**
-- `generate_references.py --strategy multi` - Creates 3 specialized sheets
-- `generate_page_images.py --refs 3` - Uses all 3 references
+**Cascade approach:** Characters sheet is T2I ($0.15), then settings and style are I2I from characters ($0.03 each) for style consistency.
+
+**Scripts:**
+- `generate_references.py --strategy multi` - Creates 3 specialized sheets ($0.21)
+- `generate_page_images.py` - Auto-detects and uses multi-refs if available
 
 **Storage:** `public/books/references/{slug}_multi/`
 - `{slug}_characters.png`

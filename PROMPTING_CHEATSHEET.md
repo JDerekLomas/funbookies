@@ -284,10 +284,10 @@ Before each page, ask:
 | Multi 3-ref | 3 | wan2.6-image | $0.03 | Better consistency, no contamination |
 | Premium 14-ref | 14 | gemini-3-pro | $0.15 | Complex multi-character |
 
-**3-Reference Strategy:**
-1. **Characters** - poses, expressions, size reference
-2. **Settings** - locations, lighting variations
-3. **Style** - color palette, textures (no story content)
+**3-Reference Strategy (cascade, $0.21 to generate):**
+1. **Characters** - T2I, establishes the style ($0.15)
+2. **Settings** - I2I from characters, no characters in panels ($0.03)
+3. **Style** - I2I from characters, abstract only, no story content ($0.03)
 
 See [IMAGE_GENERATION_WORKFLOW.md](IMAGE_GENERATION_WORKFLOW.md#reference-image-strategies) for templates.
 

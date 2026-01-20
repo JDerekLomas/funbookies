@@ -2,17 +2,16 @@
 """Generate reference images for books based on their content.
 
 Supports two strategies:
-- single: One 9-panel reference sheet (default, current workflow)
-- multi: Three specialized sheets (characters, settings, style)
+- single: One 9-panel reference sheet ($0.15)
+- multi: Three specialized sheets using cascade approach ($0.21)
+  1. characters.png - T2I nano-banana-pro ($0.15) - establishes the style
+  2. settings.png - I2I wan2.6 with characters as ref ($0.03)
+  3. style.png - I2I wan2.6 with characters as ref ($0.03)
 
-Supports two providers:
-- fal.ai (default): $0.15/image for nano-banana-pro
-- mulerouter: $0.15/image for nano-banana-pro
-
-Multi-ref strategy creates 3 images ($0.45 total) but provides:
+Multi-ref strategy provides:
 - Better character consistency (dedicated character sheet)
 - No content contamination (style sheet has no story elements)
-- Fine-grained control over settings
+- Style consistency across all sheets (cascade from characters)
 
 Saves generation metadata to book JSON.
 """
@@ -439,7 +438,15 @@ NO TEXT, NO WORDS, NO LETTERS anywhere in the image."""
 
 
 def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
-    """Generate 3 specialized reference sheets using fal.ai (multi-ref strategy)."""
+    """Generate 3 specialized reference sheets using fal.ai (multi-ref strategy).
+
+    Uses a cascade approach for style consistency and lower cost:
+    1. Characters sheet - nano-banana-pro T2I ($0.15) - establishes the style
+    2. Settings sheet - wan2.6-image I2I with characters as ref ($0.03)
+    3. Style sheet - wan2.6-image I2I with characters as ref ($0.03)
+
+    Total: $0.21 instead of $0.45 with all T2I
+    """
 
     book_info = get_book_info(slug)
     if not book_info:
@@ -453,28 +460,66 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
     print(f"  Title: {book_info['title']}")
     print(f"  Band: {book_info['band']}")
     print(f"  Output: {multi_dir}/")
+    print(f"  Strategy: cascade (T2I -> I2I -> I2I)")
 
-    model = "nano-banana-pro"
-    sheets = [
-        ("characters", build_characters_prompt),
+    results = {}
+    characters_path = None
+    total_cost = 0.0
+
+    # Step 1: Generate characters sheet with T2I (establishes style)
+    print(f"\n  [1/3 characters] - nano-banana-pro T2I ($0.15)")
+    characters_path = multi_dir / f"{slug}_characters.png"
+    prompt = build_characters_prompt(slug, book_info)
+    print(f"    Prompt preview: {prompt[:100]}...")
+
+    result = fal_client.generate_image(
+        prompt=prompt,
+        model="nano-banana-pro",
+        size="square_hd",
+        verbose=True,
+    )
+
+    if not result.success:
+        print(f"    Failed: {result.error}")
+        print(f"    Cannot continue without characters sheet")
+        return False
+
+    print(f"    Generated: {result.url[:60]}...")
+    try:
+        urllib.request.urlretrieve(result.url, characters_path)
+        print(f"    Saved: {characters_path.name}")
+        results["characters"] = {
+            "path": str(characters_path.relative_to(REFS_DIR.parent.parent)),
+            "prompt": prompt,
+            "model": "nano-banana-pro",
+            "generated_at": datetime.now().isoformat(),
+        }
+        total_cost += 0.15
+    except Exception as e:
+        print(f"    Download error: {e}")
+        return False
+
+    # Step 2 & 3: Generate settings and style with I2I using characters as reference
+    i2i_sheets = [
         ("settings", build_settings_prompt),
         ("style", build_style_prompt),
     ]
 
-    results = {}
-    success_count = 0
-
-    for sheet_name, prompt_builder in sheets:
+    for idx, (sheet_name, prompt_builder) in enumerate(i2i_sheets, start=2):
+        print(f"\n  [{idx}/3 {sheet_name}] - wan2.6-image I2I ($0.03)")
         output_path = multi_dir / f"{slug}_{sheet_name}.png"
         prompt = prompt_builder(slug, book_info)
 
-        print(f"\n  [{sheet_name}]")
+        # Add style reference instruction for I2I
+        prompt = f"Generate an image using the style of image 1.\n\n{prompt}"
         print(f"    Prompt preview: {prompt[:100]}...")
+        print(f"    Reference: {characters_path.name}")
 
-        result = fal_client.generate_image(
+        result = fal_client.generate_with_reference(
             prompt=prompt,
-            model=model,
-            size="square_hd",
+            reference_images=[characters_path],
+            model="wan2.6-image",
+            size="1024x1024",
             verbose=True,
         )
 
@@ -486,13 +531,17 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
                 results[sheet_name] = {
                     "path": str(output_path.relative_to(REFS_DIR.parent.parent)),
                     "prompt": prompt,
+                    "model": "wan2.6-image",
+                    "reference": "characters",
                     "generated_at": datetime.now().isoformat(),
                 }
-                success_count += 1
+                total_cost += 0.03
             except Exception as e:
                 print(f"    Download error: {e}")
         else:
             print(f"    Failed: {result.error}")
+
+    success_count = len(results)
 
     # Save metadata to book JSON
     if success_count > 0:
@@ -501,11 +550,10 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
             book = json.load(f)
 
         book["multi_reference_metadata"] = {
-            "strategy": "multi-3ref",
+            "strategy": "multi-3ref-cascade",
             "generated_at": datetime.now().isoformat(),
-            "model": model,
             "provider": "fal.ai",
-            "cost": f"${success_count * 0.15:.2f}",
+            "cost": f"${total_cost:.2f}",
             "sheets": results,
         }
 
@@ -514,6 +562,7 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
 
         print(f"\n  Metadata saved to book JSON")
 
+    print(f"\n  Total cost: ${total_cost:.2f}")
     return success_count == 3
 
 
@@ -708,10 +757,10 @@ def main():
         print("")
         print("Strategies:")
         print("  --strategy single  One 9-panel sheet (default, $0.15)")
-        print("  --strategy multi   Three specialized sheets ($0.45)")
-        print("                     - characters.png: poses, expressions")
-        print("                     - settings.png: environments, locations")
-        print("                     - style.png: colors, textures (no content)")
+        print("  --strategy multi   Three specialized sheets ($0.21, cascade)")
+        print("                     1. characters.png: T2I, establishes style")
+        print("                     2. settings.png: I2I from characters")
+        print("                     3. style.png: I2I from characters (no content)")
         print("")
         print("Options:")
         print("  --provider fal        Use fal.ai (default)")
@@ -728,10 +777,10 @@ def main():
 
     if args.strategy == "single":
         cost_per_book = 0.15
-        print(f"Cost: $0.15 per book (1 image)")
+        print(f"Cost: $0.15 per book (1 T2I image)")
     else:
-        cost_per_book = 0.45
-        print(f"Cost: $0.45 per book (3 images)")
+        cost_per_book = 0.21
+        print(f"Cost: $0.21 per book (1 T2I + 2 I2I cascade)")
 
     print(f"Estimated total: ${len(existing) * cost_per_book:.2f}")
 

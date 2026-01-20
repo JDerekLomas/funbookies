@@ -12,6 +12,12 @@
     },
     "api/refine-concept.js": {
       "maxDuration": 60
+    },
+    "api/generate-story.js": {
+      "maxDuration": 120
+    },
+    "api/generate-scenes.js": {
+      "maxDuration": 120
     }
   },
   "rewrites": [

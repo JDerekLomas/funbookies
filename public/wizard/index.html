@@ -917,6 +917,150 @@
             height: 1px;
             background: var(--color-border);
         }
+
+        /* Collapsible Prompt Editors */
+        .prompt-editor {
+            margin-top: var(--space-md);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            background: var(--color-bg);
+        }
+
+        .prompt-editor summary {
+            padding: var(--space-sm) var(--space-md);
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .prompt-editor summary:hover {
+            color: var(--color-text);
+            background: var(--color-cream);
+        }
+
+        .prompt-editor summary::before {
+            content: '▶';
+            font-size: 0.7rem;
+            transition: transform 0.2s;
+        }
+
+        .prompt-editor[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        .prompt-editor-content {
+            padding: var(--space-sm) var(--space-md) var(--space-md);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .prompt-editor textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: var(--space-sm);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-sm);
+            font-family: monospace;
+            font-size: 0.85rem;
+            resize: vertical;
+            background: var(--color-white);
+        }
+
+        .prompt-editor textarea:focus {
+            outline: none;
+            border-color: var(--color-sage);
+            box-shadow: 0 0 0 3px var(--color-sage-light);
+        }
+
+        .prompt-editor-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--space-xs);
+            display: block;
+        }
+
+        .prompt-editor-hint {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .prompt-actions {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
+        }
+
+        /* Multi-prompt accordion for Phase 3 */
+        .prompt-accordion {
+            margin-bottom: var(--space-md);
+        }
+
+        .prompt-accordion .prompt-editor {
+            margin-top: 0;
+            border-radius: 0;
+            border-bottom: none;
+        }
+
+        .prompt-accordion .prompt-editor:first-child {
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .prompt-accordion .prompt-editor:last-child {
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .prompt-accordion .prompt-editor:only-child {
+            border-radius: var(--border-radius);
+        }
+
+        /* Confirmation modal */
+        .confirm-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .confirm-modal.visible {
+            display: flex;
+        }
+
+        .confirm-content {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            max-width: 450px;
+            width: 90%;
+        }
+
+        .confirm-content h3 {
+            margin-bottom: var(--space-sm);
+            color: var(--color-terracotta);
+        }
+
+        .confirm-content p {
+            margin-bottom: var(--space-md);
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+
+        .confirm-actions {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: flex-end;
+        }
     </style>
 </head>
 <body>
@@ -1062,6 +1206,20 @@
                             <div class="word-tags" id="wordTags"></div>
                         </div>
 
+                        <!-- Advanced: Story Prompt Editor -->
+                        <details class="prompt-editor" id="storyPromptEditor">
+                            <summary>Advanced: View/Edit Story Prompt</summary>
+                            <div class="prompt-editor-content">
+                                <label class="prompt-editor-label">Story Generation Prompt</label>
+                                <p class="prompt-editor-hint">This prompt is sent to the AI to generate your story. Edit if you want to customize the generation.</p>
+                                <textarea id="storyPromptTextarea" placeholder="Fill in the form above, then click 'Preview Prompt' to see the prompt that will be used."></textarea>
+                                <div class="prompt-actions">
+                                    <button type="button" class="btn btn-ghost btn-sm" onclick="previewStoryPrompt()">Preview Prompt</button>
+                                    <button type="button" class="btn btn-ghost btn-sm" onclick="resetStoryPrompt()">Reset to Default</button>
+                                </div>
+                            </div>
+                        </details>
+
                         <div class="action-bar">
                             <div class="action-bar-left"></div>
                             <div class="action-bar-right">
@@ -1206,6 +1364,43 @@
                             </div>
                         </div>
 
+                        <!-- Multi-ref Prompt Editors -->
+                        <div class="prompt-accordion">
+                            <details class="prompt-editor" id="styleGuidePromptEditor">
+                                <summary>Edit Style Guide Prompt</summary>
+                                <div class="prompt-editor-content">
+                                    <p class="prompt-editor-hint">9-panel character reference sheet (nano-banana T2I)</p>
+                                    <textarea id="styleGuidePromptTextarea" placeholder="Style guide prompt will be generated when you load this phase..."></textarea>
+                                    <div class="prompt-actions">
+                                        <button type="button" class="btn btn-ghost btn-sm" onclick="previewStyleGuidePrompt()">Preview</button>
+                                        <button type="button" class="btn btn-ghost btn-sm" onclick="resetStyleGuidePrompt()">Reset</button>
+                                    </div>
+                                </div>
+                            </details>
+                            <details class="prompt-editor" id="openingScenesPromptEditor">
+                                <summary>Edit Opening Scenes Prompt</summary>
+                                <div class="prompt-editor-content">
+                                    <p class="prompt-editor-hint">First half of story scenes (wan 2.6 I2I)</p>
+                                    <textarea id="openingScenesPromptTextarea" placeholder="Opening scenes prompt will be generated when you load this phase..."></textarea>
+                                    <div class="prompt-actions">
+                                        <button type="button" class="btn btn-ghost btn-sm" onclick="previewOpeningScenesPrompt()">Preview</button>
+                                        <button type="button" class="btn btn-ghost btn-sm" onclick="resetOpeningScenesPrompt()">Reset</button>
+                                    </div>
+                                </div>
+                            </details>
+                            <details class="prompt-editor" id="closingScenesPromptEditor">
+                                <summary>Edit Closing Scenes Prompt</summary>
+                                <div class="prompt-editor-content">
+                                    <p class="prompt-editor-hint">Second half of story scenes (wan 2.6 I2I)</p>
+                                    <textarea id="closingScenesPromptTextarea" placeholder="Closing scenes prompt will be generated when you load this phase..."></textarea>
+                                    <div class="prompt-actions">
+                                        <button type="button" class="btn btn-ghost btn-sm" onclick="previewClosingScenesPrompt()">Preview</button>
+                                        <button type="button" class="btn btn-ghost btn-sm" onclick="resetClosingScenesPrompt()">Reset</button>
+                                    </div>
+                                </div>
+                            </details>
+                        </div>
+
                         <div style="display: flex; gap: var(--space-sm); margin-bottom: var(--space-md);">
                             <button class="btn btn-secondary" onclick="generateAllMultiRefs()" id="genAllRefsBtn">Generate All (Cascade)</button>
                         </div>
@@ -1332,6 +1527,18 @@
         </div>
     </div>
 
+    <!-- Regeneration Confirmation Modal -->
+    <div class="confirm-modal" id="confirmModal">
+        <div class="confirm-content">
+            <h3 id="confirmTitle">Regenerate Content?</h3>
+            <p id="confirmMessage">This will replace existing content. Are you sure?</p>
+            <div class="confirm-actions">
+                <button class="btn btn-ghost" onclick="closeConfirmModal()">Cancel</button>
+                <button class="btn btn-primary" id="confirmActionBtn" onclick="executeConfirmedAction()">Regenerate</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ===================
         // STATE MANAGEMENT
@@ -1350,6 +1557,13 @@
             phaseStatus: { 1: 'in_progress', 2: 'pending', 3: 'pending', 4: 'pending', 5: 'pending' },
             book: null,
             referenceImage: null,
+            // Prompt tracking - stores custom/edited prompts
+            prompts: {
+                story: null,           // Custom story prompt (null = use default)
+                styleGuide: null,      // Custom style guide prompt
+                openingScenes: null,   // Custom opening scenes prompt
+                closingScenes: null    // Custom closing scenes prompt
+            },
             // Multi-ref support (3-ref cascade)
             refStrategy: 'single', // 'single' or 'multi'
             multiRefs: {
@@ -1653,8 +1867,8 @@
         // PHASE 1: STORY
         // ===================
 
-        async function generateStory() {
-            // Get form values
+        function generateStory() {
+            // Get form values for validation
             state.formData.concept = document.getElementById('conceptInput').value.trim();
             state.formData.setting = document.getElementById('settingInput').value.trim();
             state.formData.level = document.getElementById('levelSelect').value;
@@ -1664,6 +1878,19 @@
                 return;
             }
 
+            // Show confirmation if there's already a book
+            if (state.book) {
+                showConfirmModal(
+                    'Generate New Story?',
+                    'This will replace your current story and all progress. Continue?',
+                    doGenerateStory
+                );
+            } else {
+                doGenerateStory();
+            }
+        }
+
+        async function doGenerateStory() {
             // Show loading in Phase 1
             document.getElementById('phase1Form').classList.add('hidden');
             document.getElementById('phase1Loading').classList.remove('hidden');
@@ -1744,6 +1971,30 @@
         }
 
         function buildStoryPrompt() {
+            // Check if user has edited the prompt in the textarea
+            const customPrompt = document.getElementById('storyPromptTextarea').value.trim();
+            if (customPrompt) {
+                // Store for reference
+                state.prompts.story = customPrompt;
+                return customPrompt;
+            }
+            // Otherwise use the default
+            return buildDefaultStoryPrompt();
+        }
+
+        function resetPhase1() {
+            state.book = null;
+            state.slug = null;
+            document.getElementById('phase1Form').classList.remove('hidden');
+            updateUI();
+        }
+
+        // ===================
+        // PROMPT EDITOR FUNCTIONS
+        // ===================
+
+        // Build the default story prompt (without using custom)
+        function buildDefaultStoryPrompt() {
             const levelDescriptions = {
                 'A1': 'Simple CVC words only (cat, dog, sun). 3-4 words per sentence.',
                 'A2': 'CVC words with basic sight words (the, a, is). 4-5 words per sentence.',
@@ -1791,11 +2042,189 @@ OUTPUT FORMAT (JSON):
 Return ONLY the JSON, no other text.`;
         }
 
-        function resetPhase1() {
-            state.book = null;
-            state.slug = null;
-            document.getElementById('phase1Form').classList.remove('hidden');
-            updateUI();
+        // Preview the story prompt in the editor
+        function previewStoryPrompt() {
+            // First update form data from inputs
+            state.formData.concept = document.getElementById('conceptInput').value.trim();
+            state.formData.setting = document.getElementById('settingInput').value.trim();
+            state.formData.level = document.getElementById('levelSelect').value;
+
+            const prompt = buildDefaultStoryPrompt();
+            document.getElementById('storyPromptTextarea').value = prompt;
+        }
+
+        // Reset story prompt to default
+        function resetStoryPrompt() {
+            state.prompts.story = null;
+            previewStoryPrompt();
+        }
+
+        // Preview style guide prompt
+        function previewStyleGuidePrompt() {
+            const prompt = buildDefaultReferencePrompt();
+            document.getElementById('styleGuidePromptTextarea').value = prompt;
+        }
+
+        // Reset style guide prompt
+        function resetStyleGuidePrompt() {
+            state.prompts.styleGuide = null;
+            previewStyleGuidePrompt();
+        }
+
+        // Preview opening scenes prompt
+        function previewOpeningScenesPrompt() {
+            const prompt = buildDefaultOpeningScenesPrompt();
+            document.getElementById('openingScenesPromptTextarea').value = prompt;
+        }
+
+        // Reset opening scenes prompt
+        function resetOpeningScenesPrompt() {
+            state.prompts.openingScenes = null;
+            previewOpeningScenesPrompt();
+        }
+
+        // Preview closing scenes prompt
+        function previewClosingScenesPrompt() {
+            const prompt = buildDefaultClosingScenesPrompt();
+            document.getElementById('closingScenesPromptTextarea').value = prompt;
+        }
+
+        // Reset closing scenes prompt
+        function resetClosingScenesPrompt() {
+            state.prompts.closingScenes = null;
+            previewClosingScenesPrompt();
+        }
+
+        // Build default reference prompt
+        function buildDefaultReferencePrompt() {
+            const character = state.book?.characterName || 'the character';
+            const characterType = state.book?.character || 'animal';
+            const setting = state.book?.setting || 'the scene';
+
+            return `Create a 3x3 grid style reference sheet for a children's book character:
+
+GRID LAYOUT (9 panels total):
+Row 1: [1] ${character} front view, [2] ${character} expressions (happy, surprised, worried), [3] ${character} in action pose
+Row 2: [4] Secondary elements/props from story, [5] KEY SCENE: ${character} in main story moment, [6] Important objects/items
+Row 3: [7] ${setting} background element, [8] Another setting element, [9] ${character} resolution pose
+
+CHARACTER DESIGN for ${character} the ${characterType}:
+- Soft, friendly, rounded shapes
+- Clear, simple features easy to recognize
+- Consistent color palette throughout all panels
+- Expressive but simple face
+
+STYLE: Soft watercolor children's book illustration, warm colors, gentle lighting, Eric Carle inspired textures.
+
+IMPORTANT: This is a reference sheet with 9 distinct panels arranged in a 3x3 grid. Each panel should be clearly separated.
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+        }
+
+        // Build default opening scenes prompt
+        function buildDefaultOpeningScenesPrompt() {
+            if (!state.book) return '';
+            const pages = state.book.pages || [];
+            const storyPages = pages.filter(p => p.type === 'story' && p.scene);
+            const midPoint = Math.ceil(storyPages.length / 2);
+            const openingPages = storyPages.slice(0, midPoint);
+
+            const scenes = openingPages
+                .filter(p => !p.scene.includes('Illustration for:'))
+                .slice(0, 6)
+                .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 150)}`);
+
+            while (scenes.length < 6) {
+                scenes.push(`[${scenes.length + 1}] Key moment from opening`);
+            }
+
+            return `9-PANEL OPENING SCENES REFERENCE for '${state.book.title}'
+
+Using the style from the reference image, create a 3x3 grid showing scenes from the FIRST HALF of the story.
+
+Row 1:
+${scenes[0]}
+${scenes[1]}
+${scenes[2]}
+
+Row 2:
+${scenes[3]}
+${scenes[4]}
+${scenes[5]}
+
+Row 3 - Key moments from first half:
+[7] Establishing shot of main setting
+[8] Character interaction moment
+[9] Transition scene leading to second half
+
+STYLE: Match the watercolor style from the reference image exactly.
+Consistent characters across all panels.
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+        }
+
+        // Build default closing scenes prompt
+        function buildDefaultClosingScenesPrompt() {
+            if (!state.book) return '';
+            const pages = state.book.pages || [];
+            const storyPages = pages.filter(p => p.type === 'story' && p.scene);
+            const midPoint = Math.ceil(storyPages.length / 2);
+            const closingPages = storyPages.slice(midPoint);
+
+            const scenes = closingPages
+                .filter(p => !p.scene.includes('Illustration for:'))
+                .slice(0, 6)
+                .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 150)}`);
+
+            while (scenes.length < 6) {
+                scenes.push(`[${scenes.length + 1}] Key moment from closing`);
+            }
+
+            return `9-PANEL CLOSING SCENES REFERENCE for '${state.book.title}'
+
+Using the style from the reference image, create a 3x3 grid showing scenes from the SECOND HALF of the story.
+
+Row 1:
+${scenes[0]}
+${scenes[1]}
+${scenes[2]}
+
+Row 2:
+${scenes[3]}
+${scenes[4]}
+${scenes[5]}
+
+Row 3 - Key moments from second half:
+[7] Climax scene
+[8] Resolution moment
+[9] Final happy ending
+
+STYLE: Match the watercolor style from the reference image exactly.
+Consistent characters across all panels.
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+        }
+
+        // ===================
+        // CONFIRMATION MODAL
+        // ===================
+
+        let pendingConfirmAction = null;
+
+        function showConfirmModal(title, message, actionCallback) {
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmMessage').textContent = message;
+            pendingConfirmAction = actionCallback;
+            document.getElementById('confirmModal').classList.add('visible');
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('visible');
+            pendingConfirmAction = null;
+        }
+
+        function executeConfirmedAction() {
+            if (pendingConfirmAction) {
+                pendingConfirmAction();
+            }
+            closeConfirmModal();
         }
 
         // ===================
@@ -1845,7 +2274,16 @@ Return ONLY the JSON, no other text.`;
             saveState();
         }
 
-        async function regenerateStoryAndScenes() {
+        // Wrapper that shows confirmation before regenerating
+        function regenerateStoryAndScenes() {
+            showConfirmModal(
+                'Regenerate Story?',
+                'This will replace your current story and all scene descriptions. Any edits you\'ve made will be lost.',
+                doRegenerateStoryAndScenes
+            );
+        }
+
+        async function doRegenerateStoryAndScenes() {
             // Show loading
             document.getElementById('phase2Content').classList.add('hidden');
             document.getElementById('phase2Actions').classList.add('hidden');
@@ -2036,6 +2474,21 @@ Return ONLY the JSON, no other text.`;
 
             document.getElementById('referencePrompt').value = state.book.referencePrompt;
 
+            // Populate multi-ref prompt editors with defaults or saved values
+            const styleGuideEl = document.getElementById('styleGuidePromptTextarea');
+            const openingEl = document.getElementById('openingScenesPromptTextarea');
+            const closingEl = document.getElementById('closingScenesPromptTextarea');
+
+            if (styleGuideEl) {
+                styleGuideEl.value = state.prompts.styleGuide || buildDefaultReferencePrompt();
+            }
+            if (openingEl) {
+                openingEl.value = state.prompts.openingScenes || buildDefaultOpeningScenesPrompt();
+            }
+            if (closingEl) {
+                closingEl.value = state.prompts.closingScenes || buildDefaultClosingScenesPrompt();
+            }
+
             // Restore strategy toggle state
             setRefStrategy(state.refStrategy || 'single', false);
 
@@ -2128,95 +2581,42 @@ NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
         }
 
         // Multi-ref prompt builders (3-ref cascade)
+        // These check for edited values in textareas first, then fall back to defaults
 
         // 1. Style Guide - 9-panel reference using same prompt as single ref
         function buildStyleGuidePrompt() {
-            // Use the same 9-panel reference prompt from single mode
+            // Check multi-ref textarea first
+            const customPrompt = document.getElementById('styleGuidePromptTextarea')?.value.trim();
+            if (customPrompt) {
+                state.prompts.styleGuide = customPrompt;
+                return customPrompt;
+            }
+            // Fall back to single ref textarea or default
             return document.getElementById('referencePrompt').value || buildReferencePrompt();
         }
 
         // 2. Opening Scenes - first half of the book (9-panel grid)
         function buildOpeningScenesPrompt() {
-            const pages = state.book.pages || [];
-            const storyPages = pages.filter(p => p.type === 'story' && p.scene);
-            const midPoint = Math.ceil(storyPages.length / 2);
-            const openingPages = storyPages.slice(0, midPoint);
-
-            // Get up to 6 scenes for rows 1-2, plus 3 key moments for row 3
-            const scenes = openingPages
-                .filter(p => !p.scene.includes('Illustration for:'))
-                .slice(0, 6)
-                .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 150)}`);
-
-            // Pad to 6 if needed
-            while (scenes.length < 6) {
-                scenes.push(`[${scenes.length + 1}] Key moment from opening`);
+            // Check textarea for custom prompt
+            const customPrompt = document.getElementById('openingScenesPromptTextarea')?.value.trim();
+            if (customPrompt) {
+                state.prompts.openingScenes = customPrompt;
+                return customPrompt;
             }
-
-            return `9-PANEL OPENING SCENES REFERENCE for '${state.book.title}'
-
-Using the style from the reference image, create a 3x3 grid showing scenes from the FIRST HALF of the story.
-
-Row 1:
-${scenes[0]}
-${scenes[1]}
-${scenes[2]}
-
-Row 2:
-${scenes[3]}
-${scenes[4]}
-${scenes[5]}
-
-Row 3 - Key moments from first half:
-[7] Establishing shot of main setting
-[8] Character interaction moment
-[9] Transition scene leading to second half
-
-STYLE: Match the watercolor style from the reference image exactly.
-Consistent characters across all panels.
-NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+            // Otherwise use default
+            return buildDefaultOpeningScenesPrompt();
         }
 
         // 3. Closing Scenes - second half of the book (9-panel grid)
         function buildClosingScenesPrompt() {
-            const pages = state.book.pages || [];
-            const storyPages = pages.filter(p => p.type === 'story' && p.scene);
-            const midPoint = Math.ceil(storyPages.length / 2);
-            const closingPages = storyPages.slice(midPoint);
-
-            // Get up to 6 scenes for rows 1-2, plus 3 key moments for row 3
-            const scenes = closingPages
-                .filter(p => !p.scene.includes('Illustration for:'))
-                .slice(0, 6)
-                .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 150)}`);
-
-            // Pad to 6 if needed
-            while (scenes.length < 6) {
-                scenes.push(`[${scenes.length + 1}] Key moment from closing`);
+            // Check textarea for custom prompt
+            const customPrompt = document.getElementById('closingScenesPromptTextarea')?.value.trim();
+            if (customPrompt) {
+                state.prompts.closingScenes = customPrompt;
+                return customPrompt;
             }
-
-            return `9-PANEL CLOSING SCENES REFERENCE for '${state.book.title}'
-
-Using the style from the reference image, create a 3x3 grid showing scenes from the SECOND HALF of the story.
-
-Row 1:
-${scenes[0]}
-${scenes[1]}
-${scenes[2]}
-
-Row 2:
-${scenes[3]}
-${scenes[4]}
-${scenes[5]}
-
-Row 3 - Key moments from second half:
-[7] Climax scene
-[8] Resolution moment
-[9] Final happy ending
-
-STYLE: Match the watercolor style from the reference image exactly.
-Consistent characters across all panels.
-NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+            // Otherwise use default
+            return buildDefaultClosingScenesPrompt();
         }
 
         async function generateMultiRefSheet(sheetType) {
@@ -2331,7 +2731,20 @@ NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
             document.getElementById('genAllRefsBtn').disabled = false;
         }
 
-        async function generateReference() {
+        function generateReference() {
+            // Show confirmation if there's already a reference image
+            if (state.referenceImage) {
+                showConfirmModal(
+                    'Regenerate Reference Image?',
+                    'This will replace your existing reference image. Continue?',
+                    doGenerateReference
+                );
+            } else {
+                doGenerateReference();
+            }
+        }
+
+        async function doGenerateReference() {
             const prompt = document.getElementById('referencePrompt').value;
             state.book.referencePrompt = prompt;
             saveState();

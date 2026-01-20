@@ -2016,52 +2016,88 @@ NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
             return document.getElementById('referencePrompt').value || buildReferencePrompt();
         }
 
-        // 2. Opening Scenes - first half of the book
+        // 2. Opening Scenes - first half of the book (9-panel grid)
         function buildOpeningScenesPrompt() {
             const pages = state.book.pages || [];
-            const midPoint = Math.ceil(pages.length / 2);
-            const openingPages = pages.slice(0, midPoint);
+            const storyPages = pages.filter(p => p.type === 'story' && p.scene);
+            const midPoint = Math.ceil(storyPages.length / 2);
+            const openingPages = storyPages.slice(0, midPoint);
 
-            // Get up to 4 scenes from opening pages
+            // Get up to 6 scenes for rows 1-2, plus 3 key moments for row 3
             const scenes = openingPages
-                .filter(p => p.scene && !p.scene.includes('Illustration for:'))
-                .slice(0, 4)
-                .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 200)}`);
+                .filter(p => !p.scene.includes('Illustration for:'))
+                .slice(0, 6)
+                .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 150)}`);
 
-            return `OPENING SCENES REFERENCE for '${state.book.title}'
+            // Pad to 6 if needed
+            while (scenes.length < 6) {
+                scenes.push(`[${scenes.length + 1}] Key moment from opening`);
+            }
 
-Single cohesive illustration showing key moments from the FIRST HALF of the story.
+            return `9-PANEL OPENING SCENES REFERENCE for '${state.book.title}'
 
-Scenes to include:
-${scenes.join('\n')}
+Using the style from the reference image, create a 3x3 grid showing scenes from the FIRST HALF of the story.
 
-COMPOSITION: One cohesive illustration. NOT a grid. Flow the scenes together naturally.
-STYLE: Match the style guide reference exactly.
-CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+Row 1:
+${scenes[0]}
+${scenes[1]}
+${scenes[2]}
+
+Row 2:
+${scenes[3]}
+${scenes[4]}
+${scenes[5]}
+
+Row 3 - Key moments from first half:
+[7] Establishing shot of main setting
+[8] Character interaction moment
+[9] Transition scene leading to second half
+
+STYLE: Match the watercolor style from the reference image exactly.
+Consistent characters across all panels.
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
         }
 
-        // 3. Closing Scenes - second half of the book
+        // 3. Closing Scenes - second half of the book (9-panel grid)
         function buildClosingScenesPrompt() {
             const pages = state.book.pages || [];
-            const midPoint = Math.ceil(pages.length / 2);
-            const closingPages = pages.slice(midPoint);
+            const storyPages = pages.filter(p => p.type === 'story' && p.scene);
+            const midPoint = Math.ceil(storyPages.length / 2);
+            const closingPages = storyPages.slice(midPoint);
 
-            // Get up to 4 scenes from closing pages
+            // Get up to 6 scenes for rows 1-2, plus 3 key moments for row 3
             const scenes = closingPages
-                .filter(p => p.scene && !p.scene.includes('Illustration for:'))
-                .slice(0, 4)
-                .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 200)}`);
+                .filter(p => !p.scene.includes('Illustration for:'))
+                .slice(0, 6)
+                .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 150)}`);
 
-            return `CLOSING SCENES REFERENCE for '${state.book.title}'
+            // Pad to 6 if needed
+            while (scenes.length < 6) {
+                scenes.push(`[${scenes.length + 1}] Key moment from closing`);
+            }
 
-Single cohesive illustration showing key moments from the SECOND HALF of the story.
+            return `9-PANEL CLOSING SCENES REFERENCE for '${state.book.title}'
 
-Scenes to include:
-${scenes.join('\n')}
+Using the style from the reference image, create a 3x3 grid showing scenes from the SECOND HALF of the story.
 
-COMPOSITION: One cohesive illustration. NOT a grid. Flow the scenes together naturally.
-STYLE: Match the style guide reference exactly.
-CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+Row 1:
+${scenes[0]}
+${scenes[1]}
+${scenes[2]}
+
+Row 2:
+${scenes[3]}
+${scenes[4]}
+${scenes[5]}
+
+Row 3 - Key moments from second half:
+[7] Climax scene
+[8] Resolution moment
+[9] Final happy ending
+
+STYLE: Match the watercolor style from the reference image exactly.
+Consistent characters across all panels.
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
         }
 
         async function generateMultiRefSheet(sheetType) {
@@ -2151,20 +2187,20 @@ CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
 
         async function generateAllMultiRefs() {
             document.getElementById('genAllRefsBtn').disabled = true;
-            document.getElementById('phase3LoadingText').textContent = 'Generating characters sheet (1/3)...';
+            document.getElementById('phase3LoadingText').textContent = 'Generating style guide (1/3)...';
             document.getElementById('phase3Loading').classList.remove('hidden');
             document.getElementById('phase3Actions').classList.add('hidden');
 
             try {
-                // Step 1: Characters (T2I)
+                // Step 1: Style Guide (T2I)
                 await generateMultiRefSheet('styleGuide');
 
-                // Step 2: Settings (I2I from characters)
-                document.getElementById('phase3LoadingText').textContent = 'Generating settings sheet (2/3)...';
+                // Step 2: Opening Scenes (I2I from style guide)
+                document.getElementById('phase3LoadingText').textContent = 'Generating opening scenes (2/3)...';
                 await generateMultiRefSheet('openingScenes');
 
-                // Step 3: Style (I2I from characters)
-                document.getElementById('phase3LoadingText').textContent = 'Generating style sheet (3/3)...';
+                // Step 3: Closing Scenes (I2I from style guide)
+                document.getElementById('phase3LoadingText').textContent = 'Generating closing scenes (3/3)...';
                 await generateMultiRefSheet('closingScenes');
 
             } catch (error) {

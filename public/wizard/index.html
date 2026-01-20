@@ -51,6 +51,24 @@
             gap: var(--space-sm);
             padding: var(--space-sm) 0;
             position: relative;
+            transition: opacity 0.2s;
+        }
+
+        .step.clickable {
+            cursor: pointer;
+        }
+
+        .step.clickable:hover .step-indicator {
+            transform: scale(1.05);
+            transition: transform 0.2s;
+        }
+
+        .step.clickable:hover .step-title {
+            color: var(--color-sage-dark);
+        }
+
+        .step:not(.clickable):not(.active):not(.completed) {
+            opacity: 0.5;
         }
 
         .step:not(:last-child)::after {
@@ -200,55 +218,40 @@
             opacity: 1;
         }
 
-        /* Story Ideas */
-        .story-ideas-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-height: 280px;
-            overflow-y: auto;
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
         }
 
-        .story-idea-option {
-            padding: var(--space-sm);
+        .character-option {
+            padding: var(--space-xs) 6px;
             border: 2px solid var(--color-border);
             border-radius: var(--border-radius);
+            text-align: center;
             cursor: pointer;
             transition: all 0.2s;
-            background: var(--color-white);
         }
 
-        .story-idea-option:hover {
+        .character-option:hover {
             border-color: var(--color-sage);
             background: var(--color-sage-light);
         }
 
-        .story-idea-option.selected {
+        .character-option.selected {
             border-color: var(--color-sage);
             background: var(--color-sage);
             color: var(--color-white);
         }
 
-        .story-idea-option .idea-title {
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 4px;
+        .character-option .icon {
+            font-size: 1.5rem;
+            margin-bottom: 2px;
         }
 
-        .story-idea-option .idea-concept {
-            font-size: 0.8rem;
-            line-height: 1.4;
-            opacity: 0.85;
-        }
-
-        .story-idea-option.selected .idea-concept {
-            opacity: 1;
-        }
-
-        .no-ideas-message {
-            color: var(--color-text-muted);
-            font-style: italic;
-            padding: var(--space-sm);
+        .character-option .name {
+            font-size: 0.75rem;
+            font-weight: 500;
         }
 
         /* Loading spinner */
@@ -428,22 +431,6 @@
             resize: vertical;
         }
 
-        /* Load Book Panel */
-        .load-book-panel {
-            background: var(--color-sage-light);
-            border-radius: var(--border-radius);
-            padding: var(--space-md);
-            margin-bottom: var(--space-md);
-        }
-
-        .load-book-panel.hidden {
-            display: none;
-        }
-
-        .load-book-panel .form-group {
-            margin-bottom: var(--space-sm);
-        }
-
         /* Strategy toggle */
         .strategy-toggle {
             display: flex;
@@ -612,6 +599,72 @@
             color: var(--color-error);
         }
 
+        /* Review phase */
+        .review-section {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .review-section h3 {
+            margin-bottom: var(--space-sm);
+            font-size: 1rem;
+        }
+
+        .review-box {
+            background: var(--color-cream);
+            border-radius: var(--border-radius);
+            padding: var(--space-sm);
+            font-size: 0.9rem;
+        }
+
+        .review-box p {
+            margin-bottom: var(--space-xs);
+        }
+
+        .review-box strong {
+            color: var(--color-text);
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
+        }
+
+        .checklist {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            cursor: pointer;
+            padding: var(--space-xs);
+            border-radius: var(--border-radius);
+            transition: background 0.2s;
+        }
+
+        .checklist-item:hover {
+            background: var(--color-cream);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--color-sage);
+        }
+
+        .publish-actions {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
         /* Checkpoint modal */
         .checkpoint-modal {
             display: none;
@@ -770,6 +823,13 @@
                             <div class="step-subtitle">Generate images</div>
                         </div>
                     </li>
+                    <li class="step" data-phase="5">
+                        <div class="step-indicator">5</div>
+                        <div class="step-content">
+                            <div class="step-title">Review</div>
+                            <div class="step-subtitle">Preview & publish</div>
+                        </div>
+                    </li>
                 </ul>
 
                 <div id="bookInfo" class="hidden" style="margin-top: var(--space-md); padding-top: var(--space-sm); border-top: 1px solid var(--color-border);">
@@ -784,26 +844,6 @@
                 <div class="phase-content active" id="phase1">
                     <div class="wizard-header">
                         <h2>Step 1: Generate Story</h2>
-                        <button class="btn btn-ghost" onclick="toggleLoadBook()">Load Existing Book</button>
-                    </div>
-
-                    <!-- Load Existing Book Panel -->
-                    <div id="loadBookPanel" class="load-book-panel hidden">
-                        <div class="form-group">
-                            <label>Select Book to Load</label>
-                            <p class="hint">Continue working on an existing book</p>
-                            <select class="select" id="existingBookSelect">
-                                <option value="">Loading books...</option>
-                            </select>
-                        </div>
-                        <div class="action-bar">
-                            <div class="action-bar-left">
-                                <button class="btn btn-ghost" onclick="toggleLoadBook()">Cancel</button>
-                            </div>
-                            <div class="action-bar-right">
-                                <button class="btn btn-primary" onclick="loadExistingBook()">Load Book</button>
-                            </div>
-                        </div>
                     </div>
 
                     <div id="phase1Form">
@@ -811,42 +851,14 @@
                             <label>Reading Level</label>
                             <p class="hint">Choose the phonics level for your reader</p>
                             <select class="select" id="levelSelect">
-                                <optgroup label="Band A: Pre-Reader">
-                                    <option value="A0">A0: Concept of Print (wordless/1-2 words)</option>
-                                    <option value="A1">A1: Letter Recognition (1 word/page)</option>
-                                    <option value="A2">A2: CV/VC Words (2-3 words/page)</option>
-                                    <option value="A3">A3: Mixed Case Sentences (3-4 words)</option>
-                                    <option value="A4">A4: Emergent Bridge (4-6 words)</option>
-                                </optgroup>
-                                <optgroup label="Band B: Phonics Foundation">
-                                    <option value="B1" selected>B1: CVC Short a, i</option>
-                                    <option value="B2">B2: CVC Short o, u, e</option>
-                                    <option value="B3">B3: Final Blends + FLOSS</option>
-                                    <option value="B4">B4: Initial Blends</option>
-                                    <option value="B5">B5: Digraphs (sh, ch, th)</option>
-                                    <option value="B6">B6: Silent E (CVCe)</option>
-                                    <option value="B7">B7: Vowel Teams (ai, ay, ee)</option>
-                                    <option value="B8">B8: Diphthongs (oi, oy, ou)</option>
-                                    <option value="B9">B9: R-Controlled Vowels</option>
-                                </optgroup>
-                                <optgroup label="Band C: Word Study">
-                                    <option value="C1">C1: Silent Letters (kn, wr)</option>
-                                    <option value="C2">C2: Soft C and G</option>
-                                    <option value="C3">C3: Two-Syllable Closed</option>
-                                    <option value="C4">C4: Open + Consonant-le</option>
-                                    <option value="C5">C5: Contractions</option>
-                                    <option value="C6">C6: Inflectional Endings</option>
-                                    <option value="C7">C7: Derivational Suffixes</option>
-                                    <option value="C8">C8: Prefixes</option>
-                                </optgroup>
-                                <optgroup label="Band D: Fluent Reading">
-                                    <option value="D1">D1: Sentence Variety</option>
-                                    <option value="D2">D2: Inference + Chapters</option>
-                                    <option value="D3">D3: Latin Roots</option>
-                                    <option value="D4">D4: Greek Roots</option>
-                                    <option value="D5">D5: Figurative Language</option>
-                                    <option value="D6">D6: Grade-Level Prose</option>
-                                </optgroup>
+                                <option value="A1">Band A - Level 1 (Pink): Simple CVC</option>
+                                <option value="A2">Band A - Level 2 (Red): CVC + sight words</option>
+                                <option value="B1" selected>Band B - Level 1 (Yellow): Beginning blends</option>
+                                <option value="B2">Band B - Level 2 (Blue): Ending blends</option>
+                                <option value="C1">Band C - Level 1 (Green): Digraphs</option>
+                                <option value="C2">Band C - Level 2 (Orange): Silent e</option>
+                                <option value="D1">Band D - Level 1 (Purple): Vowel teams</option>
+                                <option value="D2">Band D - Level 2 (Gold): R-controlled</option>
                             </select>
                         </div>
 
@@ -863,10 +875,40 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Story Ideas</label>
-                            <p class="hint">Choose a story idea for this level, or write your own concept above</p>
-                            <div class="story-ideas-list" id="storyIdeasList">
-                                <div class="no-ideas-message">Loading story ideas...</div>
+                            <label>Main Character</label>
+                            <div class="character-grid" id="characterGrid">
+                                <div class="character-option selected" data-character="puppy" data-name="Max">
+                                    <div class="icon">&#x1F436;</div>
+                                    <div class="name">Puppy</div>
+                                </div>
+                                <div class="character-option" data-character="pig" data-name="Pip">
+                                    <div class="icon">&#x1F437;</div>
+                                    <div class="name">Pig</div>
+                                </div>
+                                <div class="character-option" data-character="cat" data-name="Kit">
+                                    <div class="icon">&#x1F431;</div>
+                                    <div class="name">Cat</div>
+                                </div>
+                                <div class="character-option" data-character="rabbit" data-name="Hop">
+                                    <div class="icon">&#x1F430;</div>
+                                    <div class="name">Rabbit</div>
+                                </div>
+                                <div class="character-option" data-character="duck" data-name="Dot">
+                                    <div class="icon">&#x1F986;</div>
+                                    <div class="name">Duck</div>
+                                </div>
+                                <div class="character-option" data-character="frog" data-name="Fred">
+                                    <div class="icon">&#x1F438;</div>
+                                    <div class="name">Frog</div>
+                                </div>
+                                <div class="character-option" data-character="fox" data-name="Rex">
+                                    <div class="icon">&#x1F98A;</div>
+                                    <div class="name">Fox</div>
+                                </div>
+                                <div class="character-option" data-character="owl" data-name="Olive">
+                                    <div class="icon">&#x1F989;</div>
+                                    <div class="name">Owl</div>
+                                </div>
                             </div>
                         </div>
 
@@ -1058,7 +1100,73 @@
                         </div>
                         <div class="action-bar-right">
                             <button class="btn btn-secondary" onclick="generateAllPageImages()" id="genAllPagesBtn">Generate All Pages</button>
-                            <button class="btn btn-primary" onclick="finishWizard()" id="finishBtn" disabled>Save &amp; View in Reader</button>
+                            <button class="btn btn-primary" onclick="approvePhase4()" id="phase4NextBtn">Continue to Review</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 5: Review & Publish -->
+                <div class="phase-content" id="phase5">
+                    <div class="wizard-header">
+                        <h2>Step 5: Review & Publish</h2>
+                    </div>
+
+                    <div id="reviewContent">
+                        <div class="review-section">
+                            <h3>Book Summary</h3>
+                            <div id="reviewSummary" class="review-box"></div>
+                        </div>
+
+                        <div class="review-section">
+                            <h3>Preview</h3>
+                            <p class="hint">Open the book in the reader to check how it looks</p>
+                            <div class="preview-actions">
+                                <a id="readerLink" class="btn btn-secondary" href="#" target="_blank">Open in Reader</a>
+                                <a id="editLink" class="btn btn-ghost" href="#" target="_blank">Open in Edit Mode</a>
+                            </div>
+                        </div>
+
+                        <div class="review-section">
+                            <h3>Quality Checklist</h3>
+                            <div class="checklist">
+                                <label class="checklist-item">
+                                    <input type="checkbox" id="check1">
+                                    <span>Text is readable and matches phonics level</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" id="check2">
+                                    <span>Images are single scenes (not grids)</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" id="check3">
+                                    <span>No unwanted text in images</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" id="check4">
+                                    <span>Characters are consistent across pages</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" id="check5">
+                                    <span>Story flows well from start to finish</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="review-section">
+                            <h3>Actions</h3>
+                            <div class="publish-actions">
+                                <button class="btn btn-ghost" onclick="downloadBookJSON()">Download JSON</button>
+                                <button class="btn btn-secondary" onclick="saveAndPublish()">Save to Library</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-bar">
+                        <div class="action-bar-left">
+                            <button class="btn btn-ghost" onclick="goToPhase(4)">Back to Pages</button>
+                        </div>
+                        <div class="action-bar-right">
+                            <button class="btn btn-primary" onclick="finishWizard()">Complete & View Book</button>
                         </div>
                     </div>
                 </div>
@@ -1088,7 +1196,7 @@
         let state = {
             slug: null,
             currentPhase: 1,
-            phaseStatus: { 1: 'in_progress', 2: 'pending', 3: 'pending', 4: 'pending' },
+            phaseStatus: { 1: 'in_progress', 2: 'pending', 3: 'pending', 4: 'pending', 5: 'pending' },
             book: null,
             referenceImage: null,
             // Multi-ref support
@@ -1104,20 +1212,17 @@
                 level: 'B1',
                 concept: '',
                 setting: '',
-                storyIdea: null, // Selected story idea object
+                character: 'puppy',
+                characterName: 'Max',
                 words: []
-            },
-            storyIdeas: null // Loaded from story-ideas.json
+            }
         };
 
         // ===================
         // INITIALIZATION
         // ===================
 
-        async function init() {
-            // Load story ideas first
-            await loadStoryIdeas();
-
+        function init() {
             // Check URL params for existing book
             const params = new URLSearchParams(window.location.search);
             const slug = params.get('slug');
@@ -1135,29 +1240,14 @@
         }
 
         function setupEventListeners() {
-            // Story ideas selection
-            document.getElementById('storyIdeasList').addEventListener('click', (e) => {
-                const option = e.target.closest('.story-idea-option');
+            // Character grid
+            document.getElementById('characterGrid').addEventListener('click', (e) => {
+                const option = e.target.closest('.character-option');
                 if (option) {
-                    document.querySelectorAll('.story-idea-option').forEach(o => o.classList.remove('selected'));
+                    document.querySelectorAll('.character-option').forEach(o => o.classList.remove('selected'));
                     option.classList.add('selected');
-
-                    // Get the story idea data
-                    const index = parseInt(option.dataset.index);
-                    const level = state.formData.level;
-                    const ideas = state.storyIdeas?.ideas?.[level] || [];
-                    const idea = ideas[index];
-
-                    if (idea) {
-                        state.formData.storyIdea = idea;
-                        // Auto-fill the concept and setting fields
-                        document.getElementById('conceptInput').value = idea.concept;
-                        state.formData.concept = idea.concept;
-                        if (idea.setting) {
-                            document.getElementById('settingInput').value = idea.setting;
-                            state.formData.setting = idea.setting;
-                        }
-                    }
+                    state.formData.character = option.dataset.character;
+                    state.formData.characterName = option.dataset.name;
                 }
             });
 
@@ -1176,45 +1266,18 @@
             // Level select
             document.getElementById('levelSelect').addEventListener('change', (e) => {
                 state.formData.level = e.target.value;
-                state.formData.storyIdea = null; // Clear selected idea
-                renderStoryIdeas(); // Refresh ideas for new level
             });
-        }
 
-        // ===================
-        // STORY IDEAS
-        // ===================
-
-        async function loadStoryIdeas() {
-            try {
-                const response = await fetch('/data/story-ideas.json');
-                if (!response.ok) throw new Error('Failed to load story ideas');
-                state.storyIdeas = await response.json();
-                renderStoryIdeas();
-            } catch (error) {
-                console.error('Error loading story ideas:', error);
-                document.getElementById('storyIdeasList').innerHTML =
-                    '<div class="no-ideas-message">Could not load story ideas. Write your own concept above.</div>';
-            }
-        }
-
-        function renderStoryIdeas() {
-            const container = document.getElementById('storyIdeasList');
-            const level = state.formData.level;
-            const ideas = state.storyIdeas?.ideas?.[level] || [];
-
-            if (ideas.length === 0) {
-                container.innerHTML = '<div class="no-ideas-message">No story ideas for this level yet. Write your own concept above.</div>';
-                return;
-            }
-
-            container.innerHTML = ideas.map((idea, index) => `
-                <div class="story-idea-option${state.formData.storyIdea?.title === idea.title ? ' selected' : ''}"
-                     data-index="${index}">
-                    <div class="idea-title">${idea.title}</div>
-                    <div class="idea-concept">${idea.concept.substring(0, 100)}${idea.concept.length > 100 ? '...' : ''}</div>
-                </div>
-            `).join('');
+            // Stepper navigation - click on completed/active steps to navigate
+            document.getElementById('stepper').addEventListener('click', (e) => {
+                const step = e.target.closest('.step');
+                if (step && step.classList.contains('clickable')) {
+                    const phase = parseInt(step.dataset.phase);
+                    if (phase && phase !== state.currentPhase) {
+                        goToPhase(phase);
+                    }
+                }
+            });
         }
 
         // ===================
@@ -1267,148 +1330,6 @@
             }
         }
 
-        // ===================
-        // LOAD EXISTING BOOK
-        // ===================
-
-        let existingBooksLoaded = false;
-
-        function toggleLoadBook() {
-            const panel = document.getElementById('loadBookPanel');
-            const form = document.getElementById('phase1Form');
-
-            if (panel.classList.contains('hidden')) {
-                panel.classList.remove('hidden');
-                form.style.display = 'none';
-                if (!existingBooksLoaded) {
-                    loadExistingBooksList();
-                }
-            } else {
-                panel.classList.add('hidden');
-                form.style.display = 'block';
-            }
-        }
-
-        async function loadExistingBooksList() {
-            const select = document.getElementById('existingBookSelect');
-            select.innerHTML = '<option value="">Loading books...</option>';
-
-            try {
-                // Try to fetch from filesystem index
-                const response = await fetch('/books/index.json');
-                if (!response.ok) throw new Error('No index');
-
-                const books = await response.json();
-
-                select.innerHTML = '<option value="">-- Select a book --</option>';
-
-                // Sort by title
-                const sorted = Object.entries(books).sort((a, b) =>
-                    (a[1].title || a[0]).localeCompare(b[1].title || b[0])
-                );
-
-                sorted.forEach(([slug, book]) => {
-                    const opt = document.createElement('option');
-                    opt.value = slug;
-                    opt.textContent = `${book.title || slug} (${book.level || '?'})`;
-                    select.appendChild(opt);
-                });
-
-                existingBooksLoaded = true;
-            } catch (e) {
-                // Fallback: fetch book list from API
-                try {
-                    const resp = await fetch('/api/list-books');
-                    if (resp.ok) {
-                        const books = await resp.json();
-                        select.innerHTML = '<option value="">-- Select a book --</option>';
-                        books.forEach(book => {
-                            const opt = document.createElement('option');
-                            opt.value = book.slug;
-                            opt.textContent = `${book.title || book.slug} (${book.level || '?'})`;
-                            select.appendChild(opt);
-                        });
-                        existingBooksLoaded = true;
-                    }
-                } catch (e2) {
-                    select.innerHTML = '<option value="">Error loading books</option>';
-                }
-            }
-        }
-
-        async function loadExistingBook() {
-            const select = document.getElementById('existingBookSelect');
-            const slug = select.value;
-
-            if (!slug) {
-                alert('Please select a book to load.');
-                return;
-            }
-
-            try {
-                // Fetch book JSON
-                const response = await fetch(`/books/${slug}.json`);
-                if (!response.ok) throw new Error('Book not found');
-
-                const book = await response.json();
-
-                // Populate wizard state from book
-                state.book = book;
-                state.slug = slug;
-                state.formData.level = book.level || 'B1';
-                state.formData.concept = book.story_bible?.concept || '';
-                state.formData.setting = book.story_bible?.settings || '';
-
-                // Mark phases as complete based on book content
-                state.phaseStatus[1] = 'complete';
-
-                if (book.pages && book.pages.some(p => p.scene)) {
-                    state.phaseStatus[2] = 'complete';
-                }
-
-                // Check for reference images
-                const refCheck = await fetch(`/books/references/${slug}_reference.png`, { method: 'HEAD' });
-                const multiRefCheck = await fetch(`/books/references/${slug}_multi/${slug}_characters.png`, { method: 'HEAD' });
-
-                if (refCheck.ok) {
-                    state.referenceImage = `/books/references/${slug}_reference.png`;
-                    state.phaseStatus[3] = 'complete';
-                }
-
-                if (multiRefCheck.ok) {
-                    state.refStrategy = 'multi';
-                    state.multiRefs = {
-                        characters: `/books/references/${slug}_multi/${slug}_characters.png`,
-                        settings: `/books/references/${slug}_multi/${slug}_settings.png`,
-                        style: `/books/references/${slug}_multi/${slug}_style.png`
-                    };
-                    state.phaseStatus[3] = 'complete';
-                }
-
-                saveState();
-
-                // Determine which phase to go to
-                let targetPhase = 1;
-                if (state.phaseStatus[1] === 'complete') targetPhase = 2;
-                if (state.phaseStatus[2] === 'complete') targetPhase = 3;
-                if (state.phaseStatus[3] === 'complete') targetPhase = 4;
-
-                // Hide load panel
-                document.getElementById('loadBookPanel').classList.add('hidden');
-                document.getElementById('phase1Form').style.display = 'block';
-
-                // Update UI and go to appropriate phase
-                updateUI();
-                goToPhase(targetPhase);
-
-                alert(`Loaded "${book.title || slug}" - continuing from Phase ${targetPhase}`);
-
-            } catch (error) {
-                console.error('Load error:', error);
-                alert('Error loading book: ' + error.message);
-            }
-        }
-
         function updateURL() {
             const url = new URL(window.location);
             if (state.slug) {
@@ -1444,13 +1365,16 @@
         function updateStepper() {
             document.querySelectorAll('.step').forEach(step => {
                 const phase = parseInt(step.dataset.phase);
-                step.classList.remove('active', 'completed');
+                step.classList.remove('active', 'completed', 'clickable');
 
                 if (phase === state.currentPhase) {
-                    step.classList.add('active');
+                    step.classList.add('active', 'clickable');
                 } else if (state.phaseStatus[phase] === 'complete') {
-                    step.classList.add('completed');
+                    step.classList.add('completed', 'clickable');
                     step.querySelector('.step-indicator').innerHTML = '&#10003;';
+                } else {
+                    // Reset indicator number if not completed
+                    step.querySelector('.step-indicator').textContent = phase;
                 }
             });
         }
@@ -1474,6 +1398,8 @@
                 renderReferencePhase();
             } else if (phase === 4 && state.book) {
                 renderPageImagesGrid();
+            } else if (phase === 5 && state.book) {
+                renderReviewPhase();
             }
         }
 
@@ -1531,10 +1457,9 @@
                 // Add metadata
                 state.book.slug = state.slug;
                 state.book.level = state.formData.level;
+                state.book.character = state.formData.character;
+                state.book.characterName = state.formData.characterName;
                 state.book.setting = state.formData.setting;
-                if (state.formData.storyIdea) {
-                    state.book.storyIdea = state.formData.storyIdea.title;
-                }
 
                 saveState();
                 renderStoryPreview();
@@ -1550,48 +1475,23 @@
 
         function buildStoryPrompt() {
             const levelDescriptions = {
-                'A0': 'Wordless or 1-2 word labels. Pictures carry meaning.',
-                'A1': 'Single word per page (I, A + noun). Letters: M,S,A,T,O,I.',
-                'A2': 'CV/VC words (ma, at, it). 2-3 words per page. Pattern: "I see the ___"',
-                'A3': 'CVC words, mixed case. 3-4 words. Simple declaratives.',
-                'A4': 'Simple sentences. 4-6 words. Character + action + outcome.',
-                'B1': 'CVC short a/i (cat, sit, big, hat). 4-5 words per sentence.',
-                'B2': 'All short vowels (hot, cup, bed). 5-6 words. Emotional range.',
-                'B3': 'Final blends (jump, hand, best) + FLOSS (off, bell). 5-6 words.',
-                'B4': 'Initial blends (stop, flag, crab, swim). 5-7 words.',
-                'B5': 'Digraphs (ship, chat, this, when). Dialogue introduced. 6-7 words.',
-                'B6': 'Silent e (cake, bike, home). Contrast CVC/CVCe. 6-8 words.',
-                'B7': 'Vowel teams (rain, day, see, boat). Weather/seasons. 7-9 words.',
-                'B8': 'Diphthongs (oil, boy, out, cow, moon, book). 7-9 words.',
-                'B9': 'R-controlled (car, for, her, bird, turn). 8-10 words.',
-                'C1': 'Silent letters (know, write, lamb). 8-10 words.',
-                'C2': 'Soft c/g (city, giant, bridge). 9-11 words.',
-                'C3': 'Two-syllable closed (rabbit, kitten). 9-12 words.',
-                'C4': 'Open syllables + consonant-le (paper, turtle). 10-12 words.',
-                'C5': 'Contractions (can\'t, I\'ll, it\'s). Natural dialogue. 10-13 words.',
-                'C6': 'Inflectional endings (-ed, -ing, -er, -est). 11-14 words.',
-                'C7': 'Suffixes (-ful, -less, -ness, -ly). Character emotions. 12-15 words.',
-                'C8': 'Prefixes (un-, re-, dis-). Problem-solving themes. 12-16 words.',
-                'D1': 'Complex sentences, rich dialogue. 14-18 words.',
-                'D2': 'Inference, chapter format. Show don\'t tell. 15-20 words.',
-                'D3': 'Latin roots (struct, port, dict). 16-22 words.',
-                'D4': 'Greek roots (graph, photo, bio). Science themes. 18-24 words.',
-                'D5': 'Figurative language (simile, metaphor). 20-28 words.',
-                'D6': 'Full literary complexity. Coming of age themes. 22-35 words.'
+                'A1': 'Simple CVC words only (cat, dog, sun). 3-4 words per sentence.',
+                'A2': 'CVC words with basic sight words (the, a, is). 4-5 words per sentence.',
+                'B1': 'Beginning consonant blends (stop, flag, crab). 5-6 words per sentence.',
+                'B2': 'Ending blends (jump, help, fast). 6-7 words per sentence.',
+                'C1': 'Digraphs (ship, chat, thin). 7-8 words per sentence.',
+                'C2': 'Silent e words (cake, bike, home). Longer sentences OK.',
+                'D1': 'Vowel teams (rain, boat, see). Complex sentences OK.',
+                'D2': 'R-controlled vowels (car, bird, corn). Natural sentence length.'
             };
-
-            // Build character/setting info from story idea or manual input
-            const storyIdea = state.formData.storyIdea;
-            const character = storyIdea?.character || 'an appropriate character';
-            const setting = state.formData.setting || storyIdea?.setting || 'appropriate for the story';
 
             return `You are writing a decodable book for a beginning reader. Generate a short story (8-12 pages) following these STRICT constraints:
 
 READING LEVEL: ${state.formData.level} - ${levelDescriptions[state.formData.level]}
 
-STORY CONCEPT: ${state.formData.concept}
-CHARACTER: ${character}
-SETTING: ${setting}
+MAIN CHARACTER: ${state.formData.characterName} the ${state.formData.character}
+SETTING: ${state.formData.setting || 'appropriate for the story'}
+CONCEPT: ${state.formData.concept}
 ${state.formData.words.length > 0 ? `WORDS TO INCLUDE: ${state.formData.words.join(', ')}` : ''}
 
 CRITICAL RULES:
@@ -2435,6 +2335,83 @@ CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.`;
         }
 
         // ===================
+        // PHASE 5: REVIEW & PUBLISH
+        // ===================
+
+        function approvePhase4() {
+            // Check that at least some images are generated
+            const pagesWithImages = state.book.pages.filter(p => p.image && p.image.startsWith('data:')).length;
+            if (pagesWithImages === 0) {
+                alert('Please generate at least some page images before continuing.');
+                return;
+            }
+
+            state.phaseStatus[4] = 'complete';
+            state.checkpointApprovals[4] = { approved: true, timestamp: new Date().toISOString() };
+            saveState();
+            saveToSupabase();
+            goToPhase(5);
+        }
+
+        function renderReviewPhase() {
+            // Update summary
+            const summary = document.getElementById('reviewSummary');
+            const pagesWithImages = state.book.pages.filter(p => p.image && p.image.startsWith('data:')).length;
+            const totalPages = state.book.pages.length;
+
+            summary.innerHTML = `
+                <p><strong>Title:</strong> ${state.book.title || 'Untitled'}</p>
+                <p><strong>Level:</strong> ${state.book.level || 'Unknown'}</p>
+                <p><strong>Pages:</strong> ${totalPages} (${pagesWithImages} with images)</p>
+                <p><strong>Slug:</strong> ${state.slug}</p>
+            `;
+
+            // Update links
+            document.getElementById('readerLink').href = `/reader.html?book=${state.slug}`;
+            document.getElementById('editLink').href = `/reader.html?book=${state.slug}&mode=edit`;
+
+            // Reset checklist
+            document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb => cb.checked = false);
+        }
+
+        async function saveAndPublish() {
+            // Prepare book with reference image(s)
+            const finalBook = {
+                ...state.book,
+                referenceImage: state.referenceImage,
+                refStrategy: state.refStrategy,
+                multiRefs: state.refStrategy === 'multi' ? state.multiRefs : undefined,
+                publishedAt: new Date().toISOString(),
+                createdWith: 'wizard'
+            };
+
+            try {
+                const response = await fetch('/api/save-book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        slug: state.slug,
+                        fullBook: finalBook
+                    })
+                });
+
+                if (!response.ok) {
+                    const result = await response.json();
+                    alert('Could not save book: ' + (result.error || 'Unknown error'));
+                    return;
+                }
+
+                alert('Book saved to library successfully!');
+                state.book = finalBook;
+                saveState();
+
+            } catch (error) {
+                console.error('Save error:', error);
+                alert('Error saving book: ' + error.message);
+            }
+        }
+
+        // ===================
         // FINISH
         // ===================
 
@@ -2473,8 +2450,8 @@ CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.`;
 
             // Update local state
             state.book = finalBook;
-            state.phaseStatus[4] = 'complete';
-            state.checkpointApprovals[4] = { approved: true, timestamp: new Date().toISOString() };
+            state.phaseStatus[5] = 'complete';
+            state.checkpointApprovals[5] = { approved: true, timestamp: new Date().toISOString() };
             saveState();
 
             // Redirect to reader

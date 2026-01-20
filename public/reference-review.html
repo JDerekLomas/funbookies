@@ -337,8 +337,8 @@
         // Populate characters
         renderCharacters();
 
-        // Populate prompt if saved
-        const savedPrompt = currentBook.reference_metadata?.prompt || '';
+        // Populate prompt if saved (check both locations)
+        const savedPrompt = currentBook.reference_prompt || currentBook.reference_metadata?.prompt || '';
         document.getElementById('promptEditor').value = savedPrompt;
 
         // Update preview

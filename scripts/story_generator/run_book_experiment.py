@@ -29,40 +29,30 @@ from evaluator import evaluate_story
 # =============================================================================
 
 EXPERIMENT_SEEDS = [
-    # Level B3 (Consonant Blends) - 2 modes
+    # Level B1 (CVC Short a, i) - 3 stories
     StorySeed(
-        id="b3_narrative",
-        level="B3",
+        id="b1_cat_narrative",
+        level="B1",
         mode="narrative",
-        setting="African riverbank at midday, hot sand, slow green water, reeds rustling",
-        anchor="Oxpecker birds eating ticks from hippos (mutualism/symbiosis)",
-        notes="Blend sounds: cr-, st-, sp-, -mp. Story of trust between big and small.",
+        setting="A sunny kitchen, a cat on a mat, a girl named Pam",
+        anchor="How cats choose their favorite napping spots based on warmth and safety",
+        notes="Short a focus: cat, mat, sat, nap, lap, Pam, hat. Simple actions, warm feeling.",
     ),
     StorySeed(
-        id="b3_poem",
-        level="B3",
-        mode="poem",
-        setting="Playground at recess, spring day, puddles from rain",
-        anchor="Splashing in puddles - the physics of surface tension and droplets",
-        notes="Blend sounds are percussive: splash, stomp, plop, drip, skip. Energetic rhythm.",
-    ),
-
-    # Level B5 (Digraphs) - 2 modes
-    StorySeed(
-        id="b5_narrative",
-        level="B5",
+        id="b1_pig_narrative",
+        level="B1",
         mode="narrative",
-        setting="Coastal tide pools at dawn, shells, starfish, anemones",
-        anchor="Hermit crabs switching shells in a vacancy chain (real behavior)",
-        notes="Digraph sounds: sh (shell, fish, wish), ch (much, such), th (with, this). Story of finding the right fit.",
+        setting="A muddy farm, a pig pen, a boy named Tim",
+        anchor="Why pigs roll in mud to cool down (they can't sweat)",
+        notes="Short i focus: pig, big, dig, Tim, him, sit, did, mud. Playful energy.",
     ),
     StorySeed(
-        id="b5_poem",
-        level="B5",
+        id="b1_mix_poem",
+        level="B1",
         mode="poem",
-        setting="Fishing village at night, boats rocking, moon on water",
-        anchor="Bioluminescent plankton glowing when disturbed",
-        notes="sh sounds are whispery: shush, shimmer, shine, fish, wish. Quiet, magical mood.",
+        setting="A child's bedroom, toys scattered, time for bed",
+        anchor="The rhythm of tidying up - putting things in their spots",
+        notes="Mix of short a and i: hat, bat, cat, sat, fit, bit, pit, sit. Rhythmic, simple.",
     ),
 ]
 
@@ -172,16 +162,31 @@ def run_experiment(config_name: str = "C", output_dir: str = "book_experiment"):
         print("="*70)
 
         # Generate title based on seed
-        if seed.mode == "poem":
-            titles = {
-                "b3_poem": "Splash and Stomp",
-                "b5_poem": "The Shimmer and the Shell",
-            }
-        else:
-            titles = {
-                "b3_narrative": "Ox and the Big Hip",
-                "b5_narrative": "The Shell Switch",
-            }
+        titles = {
+            # B1 (CVC Short a, i)
+            "b1_cat_narrative": "Cat on the Mat",
+            "b1_pig_narrative": "The Big Pig",
+            "b1_mix_poem": "Fit It In",
+            # B3 (Final Blends)
+            "b3_poem": "Splash and Stomp",
+            "b3_narrative": "Ox and the Big Hip",
+            # B4 (Initial Blends)
+            "b4_frog_narrative": "Frog on the Log",
+            "b4_sled_poem": "Sled Run",
+            "b4_crab_narrative": "Crab Grab",
+            # B5 (Digraphs)
+            "b5_poem": "The Shimmer and the Shell",
+            "b5_narrative": "The Shell Switch",
+            # B6 (Magic E)
+            "b6_a_e_narrative": "Jake's Lake",
+            "b6_a_e_poem": "Bake Day",
+            "b6_i_e_narrative": "Mike's Bike Ride",
+            "b6_o_e_narrative": "A Home for Mole",
+            # B7 (Vowel Teams)
+            "b7_snail_narrative": "Snail Mail",
+            "b7_boat_poem": "Sail Away",
+            "b7_bee_narrative": "Bee's Big Day",
+        }
         title = titles.get(seed.id, f"{seed.level} {seed.mode.title()}")
 
         try:

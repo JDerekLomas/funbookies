@@ -142,6 +142,37 @@ class LevelSpec:
 
 # Example level specs (you can expand these)
 LEVEL_SPECS = {
+    "B1": LevelSpec(
+        level="B1",
+        band="B",
+        skill="CVC Words (Short a, i)",
+        skill_description="Three-letter words with short a and short i vowels",
+        phonics_patterns=["CVC-a", "CVC-i"],
+        word_families=["-at", "-an", "-am", "-ap", "-ad", "-ag", "-it", "-in", "-im", "-ip", "-id", "-ig"],
+        decodable_words=[
+            # Short a words
+            "cat", "bat", "hat", "mat", "rat", "sat", "fat", "pat", "vat",
+            "can", "man", "pan", "ran", "tan", "van", "fan", "Dan",
+            "ham", "jam", "ram", "Sam", "yam",
+            "cap", "gap", "lap", "map", "nap", "tap", "zap",
+            "bad", "dad", "had", "mad", "sad", "lad", "pad",
+            "bag", "rag", "tag", "wag", "sag", "nag",
+            # Short i words
+            "bit", "fit", "hit", "kit", "lit", "pit", "sit", "wit",
+            "bin", "din", "fin", "pin", "tin", "win",
+            "dim", "him", "rim", "Tim", "Jim",
+            "dip", "hip", "lip", "rip", "sip", "tip", "zip",
+            "bid", "did", "hid", "kid", "lid", "rid",
+            "big", "dig", "fig", "jig", "pig", "wig",
+        ],
+        sight_words=[
+            "the", "a", "is", "I", "to", "and", "it", "in", "on", "my",
+            "see", "he", "she", "we", "be", "me", "no", "go", "so"
+        ],
+        max_words=80,
+        target_decodability=0.90,
+    ),
+
     "B3": LevelSpec(
         level="B3",
         band="B",
@@ -164,6 +195,40 @@ LEVEL_SPECS = {
         target_decodability=0.85,
     ),
 
+    "B4": LevelSpec(
+        level="B4",
+        band="B",
+        skill="Initial Consonant Blends",
+        skill_description="Two consonants blended together at the start: L-blends, R-blends, S-blends",
+        phonics_patterns=["bl-", "cl-", "fl-", "gl-", "pl-", "sl-", "br-", "cr-", "dr-", "fr-", "gr-", "pr-", "tr-", "sc-", "sk-", "sm-", "sn-", "sp-", "st-", "sw-"],
+        word_families=["-ap", "-ip", "-op", "-ot", "-ug", "-um", "-an", "-in", "-ock", "-ick"],
+        decodable_words=[
+            # L-blends
+            "black", "blink", "block", "blob", "clap", "clip", "clock", "club", "clam",
+            "flag", "flat", "flip", "flop", "fled", "glad", "glen", "glum", "glob",
+            "plan", "plot", "plop", "plug", "plum", "slam", "slap", "slid", "slim", "slip", "slot", "slug",
+            # R-blends
+            "brag", "brick", "brim", "brush", "crab", "crack", "crib", "crop", "crush",
+            "drag", "drip", "drop", "drum", "fresh", "frog", "frost", "from",
+            "grab", "gram", "grass", "grill", "grin", "grip", "grit",
+            "press", "prick", "print", "prod", "prop",
+            "track", "trap", "trick", "trim", "trip", "trot", "truck", "trust",
+            # S-blends
+            "scab", "scan", "scat", "skill", "skim", "skin", "skip", "skit", "skull", "skunk",
+            "smack", "small", "smash", "smell", "smog", "snack", "snag", "snap", "sniff", "snip", "snob", "snug",
+            "span", "spell", "spend", "spill", "spin", "spit", "spot", "spun",
+            "stack", "stamp", "stand", "step", "stick", "still", "stomp", "stop", "stuck", "stump", "stung",
+            "swam", "swell", "swept", "swift", "swim", "swing", "swung",
+        ],
+        sight_words=[
+            "the", "a", "is", "was", "in", "on", "I", "he", "she", "her", "his",
+            "said", "to", "what", "no", "not", "it", "but", "will", "can",
+            "do", "you", "my", "me", "from", "there", "they", "come"
+        ],
+        max_words=160,
+        target_decodability=0.85,
+    ),
+
     "B5": LevelSpec(
         level="B5",
         band="B",
@@ -183,6 +248,100 @@ LEVEL_SPECS = {
             "a", "I", "the", "is", "to", "and", "it", "in", "on", "my", "see",
             "he", "she", "we", "be", "you", "are", "was", "for", "said", "have",
             "they", "come", "there", "what", "from"
+        ],
+        max_words=180,
+        target_decodability=0.85,
+    ),
+
+    "B7": LevelSpec(
+        level="B7",
+        band="B",
+        skill="Vowel Teams",
+        skill_description="Two vowels working together: ai/ay, ee/ea, oa/ow",
+        phonics_patterns=["ai", "ay", "ee", "ea", "oa", "ow"],
+        word_families=["-ail", "-ain", "-ay", "-eep", "-eet", "-ead", "-eat", "-oat", "-oad", "-ow"],
+        decodable_words=[
+            # ai words
+            "mail", "nail", "pail", "rail", "sail", "tail", "trail", "snail",
+            "rain", "brain", "chain", "drain", "grain", "main", "pain", "plain", "Spain", "stain", "train",
+            "wait", "bait", "paid", "maid", "aid", "laid", "raid",
+            # ay words
+            "bay", "day", "gay", "hay", "jay", "lay", "may", "pay", "ray", "say", "way",
+            "clay", "gray", "play", "pray", "stay", "spray", "stray", "sway", "tray",
+            # ee words
+            "bee", "fee", "see", "tree", "free", "three",
+            "beef", "reef", "beet", "feet", "meet", "sweet", "street",
+            "beep", "deep", "jeep", "keep", "peep", "seep", "sleep", "steep", "sweep", "creep",
+            "deed", "feed", "need", "seed", "speed", "weed",
+            "feel", "heel", "peel", "reel", "steel", "wheel",
+            "seen", "been", "keen", "green", "queen", "screen",
+            # ea words
+            "bean", "dean", "jean", "lean", "mean", "clean",
+            "beat", "eat", "heat", "meat", "neat", "seat", "treat", "wheat",
+            "bead", "lead", "read", "plead",
+            "beach", "each", "peach", "reach", "teach",
+            "beam", "dream", "ream", "seam", "steam", "stream", "team",
+            "leaf", "tea", "pea", "sea", "flea",
+            # oa words
+            "boat", "coat", "float", "goat", "moat", "oat",
+            "foam", "loam", "roam",
+            "load", "road", "toad",
+            "coal", "foal", "goal",
+            "coast", "roast", "toast", "boast",
+            "oak", "soak", "cloak", "croak",
+            # ow (long o) words
+            "bow", "flow", "glow", "grow", "know", "low", "mow", "row", "show", "slow", "snow", "stow", "throw", "tow",
+            "blown", "flown", "grown", "known", "shown", "thrown",
+            "bowl", "own", "yellow", "follow", "hollow", "swallow",
+        ],
+        sight_words=[
+            "the", "a", "is", "was", "to", "and", "he", "she", "they", "said",
+            "I", "you", "my", "me", "we", "be", "have", "are", "were", "there",
+            "what", "when", "where", "who", "one", "two", "do", "does"
+        ],
+        max_words=180,
+        target_decodability=0.85,
+    ),
+
+    "B6": LevelSpec(
+        level="B6",
+        band="B",
+        skill="Magic E (CVCe)",
+        skill_description="Silent e makes the vowel say its name: a_e, i_e, o_e, u_e",
+        phonics_patterns=["a_e", "i_e", "o_e", "u_e"],
+        word_families=["-ake", "-ame", "-ade", "-ate", "-ave", "-ike", "-ide", "-ine", "-ite", "-ome", "-ope", "-ote", "-ube", "-ule", "-ute"],
+        decodable_words=[
+            # a_e words
+            "bake", "cake", "fake", "lake", "make", "rake", "take", "wake", "Jake",
+            "came", "fame", "game", "name", "same", "tame",
+            "cave", "gave", "save", "wave", "brave",
+            "made", "fade", "wade", "shade", "grade",
+            "late", "gate", "date", "mate", "plate", "skate",
+            # i_e words
+            "bike", "hike", "like", "Mike", "spike",
+            "dine", "fine", "line", "mine", "nine", "pine", "vine", "shine",
+            "hide", "ride", "side", "wide", "glide", "slide", "pride",
+            "bite", "kite", "white", "quite",
+            "dive", "five", "hive", "drive",
+            "time", "dime", "lime", "chime",
+            # o_e words
+            "bone", "cone", "tone", "zone", "stone", "phone",
+            "home", "dome", "gnome",
+            "hope", "rope", "scope",
+            "hole", "mole", "pole", "role", "stole", "whole",
+            "nose", "rose", "those", "chose", "close",
+            "woke", "broke", "spoke", "joke", "poke", "smoke",
+            "note", "vote", "wrote",
+            # u_e words
+            "cube", "tube",
+            "cute", "mute",
+            "huge", "fuse",
+            "rule", "June", "tune", "prune", "dune",
+        ],
+        sight_words=[
+            "the", "a", "is", "was", "to", "and", "he", "she", "they", "said",
+            "I", "you", "my", "me", "we", "be", "have", "are", "were", "there",
+            "what", "when", "where", "who", "why", "how", "one", "two"
         ],
         max_words=180,
         target_decodability=0.85,

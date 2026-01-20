@@ -149,6 +149,30 @@ List 6-8 key visual moments that would make great illustrations
 ## Style Notes
 Art style suggestions (colors, mood, visual references)
 
+## Reference Sheet Prompt
+Generate a complete 9-panel style reference sheet prompt for the illustrator. Format as a single block that can be sent directly to an image generator:
+
+"9-PANEL CHARACTER AND STYLE REFERENCE SHEET for children's picture book '[Title]'.
+
+STYLE: [Describe art style - e.g., soft watercolor, bold digital illustration, etc. Include color palette.]
+
+ROW 1 - MAIN CHARACTER:
+Panel 1: [Full body front view with key features]
+Panel 2: [Full body side/3-quarter view showing movement]
+Panel 3: [Close-up face showing key expressions]
+
+ROW 2 - SUPPORTING ELEMENTS:
+Panel 4: [Secondary character or key object]
+Panel 5: [Another angle/pose of secondary element]
+Panel 6: [Key prop or story element]
+
+ROW 3 - SETTINGS:
+Panel 7: [Main setting/environment]
+Panel 8: [Secondary location or time of day variant]
+Panel 9: [Key story moment composition]
+
+TECHNICAL: Grid layout, consistent style across all panels, NO TEXT anywhere in image, pure visual reference only."
+
 Be specific and creative while staying within the level constraints.`;
 
     // Check if client wants streaming

@@ -22,12 +22,29 @@ load_dotenv(PROJECT_ROOT / ".env")
 
 BOOKS_DIR = PROJECT_ROOT / "public" / "books"
 
-# Anthropic client
-try:
-    import anthropic
-    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-except ImportError:
-    print("Please install anthropic: pip install anthropic")
+# Try Anthropic first, fall back to Google Gemini
+ANTHROPIC_KEY = os.getenv("ANTHROPIC_API_KEY")
+GOOGLE_KEY = os.getenv("GOOGLE_AI_API_KEY")
+
+if ANTHROPIC_KEY:
+    try:
+        import anthropic
+        client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
+        LLM_PROVIDER = "anthropic"
+    except ImportError:
+        print("Anthropic key found but package not installed. pip install anthropic")
+        sys.exit(1)
+elif GOOGLE_KEY:
+    try:
+        import google.generativeai as genai
+        genai.configure(api_key=GOOGLE_KEY)
+        client = genai.GenerativeModel("gemini-2.0-flash")
+        LLM_PROVIDER = "google"
+    except ImportError:
+        print("Google key found but package not installed. pip install google-generativeai")
+        sys.exit(1)
+else:
+    print("No API key found. Set ANTHROPIC_API_KEY or GOOGLE_AI_API_KEY in .env")
     sys.exit(1)
 
 
@@ -169,13 +186,16 @@ def generate_scene_for_page(
         prev_context=prev_context or "First page of story"
     )
 
-    response = client.messages.create(
-        model="claude-sonnet-4-20250514",
-        max_tokens=500,
-        messages=[{"role": "user", "content": prompt}]
-    )
-
-    return response.content[0].text.strip()
+    if LLM_PROVIDER == "anthropic":
+        response = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=500,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return response.content[0].text.strip()
+    else:  # google
+        response = client.generate_content(prompt)
+        return response.text.strip()
 
 
 def generate_scenes_for_book(slug: str, dry_run: bool = False, force: bool = False) -> bool:

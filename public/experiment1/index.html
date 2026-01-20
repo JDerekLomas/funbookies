@@ -7,7 +7,7 @@
     <title>Book Creator - FunBookies Lab</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --color-cream: #FAF8F5;
@@ -20,8 +20,11 @@
             --color-terracotta: #EFA487;
             --color-terracotta-light: #FDF4F0;
             --color-border: #E8E4DD;
+            --color-blue: #5B8DEF;
+            --color-blue-light: #EBF1FD;
             --font-display: 'Fraunces', Georgia, serif;
             --font-body: 'DM Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
             --space-xs: 0.5rem;
             --space-sm: 1rem;
             --space-md: 2rem;
@@ -39,16 +42,19 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 var(--space-md);
         }
 
         /* Header */
         .header {
-            padding: var(--space-md) 0;
+            padding: var(--space-sm) 0;
             border-bottom: 1px solid var(--color-border);
             background: var(--color-white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .header-inner {
@@ -76,232 +82,177 @@
         /* Main layout */
         .main {
             display: grid;
-            grid-template-columns: 320px 1fr;
+            grid-template-columns: 280px 1fr;
             gap: var(--space-md);
             padding: var(--space-md) 0;
-            min-height: calc(100vh - 100px);
+            min-height: calc(100vh - 80px);
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1000px) {
             .main { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
         }
 
-        /* Sidebar - Reading Levels */
+        /* Sidebar - Workflow Stages */
         .sidebar {
             background: var(--color-white);
             border-radius: var(--border-radius);
             padding: var(--space-md);
             height: fit-content;
             position: sticky;
-            top: var(--space-md);
+            top: 80px;
         }
 
         .sidebar h2 {
             font-family: var(--font-display);
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             margin-bottom: var(--space-sm);
         }
 
-        .level-list {
-            list-style: none;
-            max-height: calc(100vh - 200px);
-            overflow-y: auto;
-        }
-
-        .level-group {
-            margin-bottom: var(--space-sm);
-        }
-
-        .group-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--color-border);
-            margin-bottom: 4px;
-        }
-
-        .group-header strong {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: var(--color-charcoal);
-        }
-
-        .group-grades {
-            font-size: 0.7rem;
-            color: #999;
-        }
-
-        .group-levels {
+        .stage-list {
             list-style: none;
         }
 
-        .level-item {
+        .stage-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 6px 8px;
-            border-radius: 6px;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
             cursor: pointer;
-            transition: all 0.15s;
-            margin-bottom: 2px;
-            font-size: 0.85rem;
+            transition: all 0.2s;
+            border: 2px solid transparent;
         }
 
-        .level-item:hover {
+        .stage-item:hover {
             background: var(--color-cream);
         }
 
-        .level-item.selected {
+        .stage-item.active {
             background: var(--color-sage-light);
-            border-left: 3px solid var(--color-sage);
+            border-color: var(--color-sage);
         }
 
-        .level-num {
-            width: 22px;
-            height: 22px;
-            border-radius: 4px;
+        .stage-item.completed {
+            background: var(--color-sage-light);
+        }
+
+        .stage-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .stage-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.7rem;
-            color: white;
+            font-size: 0.8rem;
+            background: var(--color-border);
+            color: var(--color-charcoal);
             flex-shrink: 0;
         }
 
-        .level-name {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .level-badge {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.9rem;
+        .stage-item.active .stage-num {
+            background: var(--color-sage);
             color: white;
         }
 
-        /* Level colors - Phonics Foundation (0-8) */
-        .level-0, [data-level="0"] .level-num { background: #FFB6C1; }
-        .level-1, [data-level="1"] .level-num { background: #FFD700; }
-        .level-2, [data-level="2"] .level-num { background: #FFA500; }
-        .level-3, [data-level="3"] .level-num { background: #FF8C00; }
-        .level-4, [data-level="4"] .level-num { background: #DC143C; }
-        .level-5, [data-level="5"] .level-num { background: #9370DB; }
-        .level-6, [data-level="6"] .level-num { background: #4169E1; }
-        .level-7, [data-level="7"] .level-num { background: #228B22; }
-        .level-8, [data-level="8"] .level-num { background: #DAA520; }
-        /* Transitional (9-12) */
-        .level-9, [data-level="9"] .level-num { background: #20B2AA; }
-        .level-10, [data-level="10"] .level-num { background: #4B0082; }
-        .level-11, [data-level="11"] .level-num { background: #FF7F50; }
-        .level-12, [data-level="12"] .level-num { background: #32CD32; }
-        /* Developing (13-16) */
-        .level-13, [data-level="13"] .level-num { background: #FF00FF; }
-        .level-14, [data-level="14"] .level-num { background: #00CED1; }
-        .level-15, [data-level="15"] .level-num { background: #FFBF00; }
-        .level-16, [data-level="16"] .level-num { background: #708090; }
-        /* Fluent (17-20) */
-        .level-17, [data-level="17"] .level-num { background: #DC143C; }
-        .level-18, [data-level="18"] .level-num { background: #50C878; }
-        .level-19, [data-level="19"] .level-num { background: #8A2BE2; }
-        .level-20, [data-level="20"] .level-num { background: #CD7F32; }
-        /* Advanced (21-23) */
-        .level-21, [data-level="21"] .level-num { background: #C0C0C0; }
-        .level-22, [data-level="22"] .level-num { background: #E5E4E2; color: #333; }
-        .level-23, [data-level="23"] .level-num { background: #0C0C0C; }
+        .stage-item.completed .stage-num {
+            background: var(--color-sage-dark);
+            color: white;
+        }
+
+        .stage-item.completed .stage-num::after {
+            content: '✓';
+        }
+
+        .stage-item.completed .stage-num span {
+            display: none;
+        }
+
+        .stage-info {
+            flex: 1;
+        }
+
+        .stage-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .stage-desc {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        /* Level Selector in Sidebar */
+        .level-selector {
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .level-selector h3 {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .level-dropdown {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            background: white;
+            cursor: pointer;
+        }
 
         /* Content area */
         .content {
             background: var(--color-white);
             border-radius: var(--border-radius);
             padding: var(--space-lg);
+            min-height: 600px;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
         }
 
         .content h1 {
             font-family: var(--font-display);
             font-size: 1.75rem;
-            margin-bottom: var(--space-xs);
         }
 
-        .content-subtitle {
-            color: #666;
-            margin-bottom: var(--space-md);
-        }
-
-        /* Level details */
-        .level-details {
-            background: var(--color-cream);
-            border-radius: 8px;
-            padding: var(--space-md);
-            margin-bottom: var(--space-md);
-        }
-
-        .level-header {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-sm);
-        }
-
-        .level-header h2 {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-        }
-
-        .level-meta {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: var(--space-sm);
-            margin-bottom: var(--space-sm);
-        }
-
-        .meta-item {
-            font-size: 0.9rem;
-        }
-
-        .meta-item strong {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: #999;
-            margin-bottom: 2px;
-        }
-
-        .word-examples {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: var(--space-xs);
-        }
-
-        .word-chip {
-            background: var(--color-white);
-            padding: 4px 10px;
+        .level-badge {
+            padding: 6px 14px;
             border-radius: 20px;
+            font-weight: 600;
             font-size: 0.85rem;
-            font-weight: 500;
+            background: var(--color-sage-light);
+            color: var(--color-sage-dark);
         }
 
-        /* Create form */
-        .create-form {
-            margin-top: var(--space-md);
+        /* Stage content panels */
+        .stage-panel {
+            display: none;
         }
 
-        .create-form h3 {
-            font-size: 1.1rem;
-            margin-bottom: var(--space-sm);
+        .stage-panel.active {
+            display: block;
         }
 
+        /* Form elements */
         .form-group {
-            margin-bottom: var(--space-sm);
+            margin-bottom: var(--space-md);
         }
 
         .form-group label {
@@ -334,53 +285,22 @@
 
         .textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px;
         }
 
-        .character-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 8px;
-        }
-
-        .character-option {
-            padding: 12px 8px;
-            border: 2px solid var(--color-border);
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .character-option:hover {
-            border-color: var(--color-sage);
-            background: var(--color-sage-light);
-        }
-
-        .character-option.selected {
-            border-color: var(--color-sage);
-            background: var(--color-sage);
-            color: white;
-        }
-
-        .character-option .icon {
-            font-size: 1.75rem;
-            margin-bottom: 4px;
-        }
-
-        .character-option .name {
-            font-size: 0.8rem;
-            font-weight: 500;
+        .textarea.small {
+            min-height: 80px;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 14px 28px;
+            gap: 8px;
+            padding: 12px 24px;
             border-radius: 8px;
             font-family: var(--font-body);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
@@ -392,7 +312,7 @@
             color: white;
         }
 
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             background: var(--color-sage-dark);
         }
 
@@ -404,150 +324,202 @@
         .btn-secondary {
             background: var(--color-cream);
             color: var(--color-charcoal);
+            border: 1px solid var(--color-border);
         }
 
-        .btn-secondary:hover {
+        .btn-secondary:hover:not(:disabled) {
             background: var(--color-border);
         }
 
-        /* Output section */
-        .output-section {
-            margin-top: var(--space-md);
-            padding-top: var(--space-md);
-            border-top: 1px solid var(--color-border);
-            display: none;
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.85rem;
         }
 
-        .output-section.visible {
+        .btn-icon {
+            padding: 8px;
+            background: transparent;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+        }
+
+        .btn-icon:hover {
+            background: var(--color-cream);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: var(--space-md);
+        }
+
+        /* Prompt visibility */
+        .prompt-section {
+            margin-top: var(--space-md);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--color-cream);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .prompt-header:hover {
+            background: var(--color-border);
+        }
+
+        .prompt-header h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prompt-toggle {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .prompt-content {
+            display: none;
+            padding: 16px;
+            background: #1e1e1e;
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .prompt-content.visible {
             display: block;
         }
 
-        .story-preview {
+        .prompt-content pre {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: #d4d4d4;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin: 0;
+        }
+
+        /* Streaming output */
+        .stream-output {
             background: #FFFBF0;
             border: 2px solid #FFE4B5;
             border-radius: 8px;
             padding: var(--space-md);
-            margin-bottom: var(--space-sm);
+            min-height: 200px;
+            max-height: 500px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
-        .story-page {
-            margin-bottom: var(--space-sm);
-            padding-bottom: var(--space-sm);
-            border-bottom: 1px dashed #E8E4DD;
+        .stream-output.streaming {
+            border-color: var(--color-sage);
         }
 
-        .story-page:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+        .stream-output .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1em;
+            background: var(--color-sage);
+            animation: blink 1s infinite;
         }
 
-        .story-page .page-num {
-            font-size: 0.75rem;
-            color: #999;
-            margin-bottom: 4px;
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
-        .story-page .text {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            color: var(--color-soft-black);
-        }
-
-        .story-page .scene {
-            font-size: 0.8rem;
-            color: #666;
-            font-style: italic;
-            margin-top: 4px;
-        }
-
-        /* Loading */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: var(--space-lg);
-        }
-
-        .loading.visible {
-            display: block;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--color-border);
-            border-top-color: var(--color-sage);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto var(--space-sm);
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Existing books */
-        .existing-books {
-            margin-top: var(--space-md);
-            padding-top: var(--space-md);
-            border-top: 1px solid var(--color-border);
-        }
-
-        .existing-books h3 {
-            font-size: 1rem;
-            margin-bottom: var(--space-sm);
-        }
-
-        .book-grid {
+        /* Story preview */
+        .story-preview {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: var(--space-sm);
+            margin-top: var(--space-md);
         }
 
-        .book-card {
+        .story-page-card {
             background: var(--color-cream);
             border-radius: 8px;
             padding: var(--space-sm);
-            text-align: center;
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.2s;
+            border: 1px solid var(--color-border);
         }
 
-        .book-card:hover {
-            transform: translateY(-2px);
+        .story-page-card.has-image {
+            border-color: var(--color-sage);
         }
 
-        .book-card img {
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .page-num {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #666;
+            background: var(--color-white);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .page-type {
+            font-size: 0.7rem;
+            color: #999;
+            text-transform: uppercase;
+        }
+
+        .page-image {
             width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
+            aspect-ratio: 5/4;
+            background: #ddd;
             border-radius: 6px;
             margin-bottom: 8px;
-            background: #ddd;
+            object-fit: cover;
         }
 
-        .book-card .title {
-            font-size: 0.85rem;
-            font-weight: 600;
+        .page-image.placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.8rem;
         }
 
-        .book-card .meta {
+        .page-text {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .page-scene {
             font-size: 0.75rem;
             color: #666;
+            font-style: italic;
         }
 
-        /* Validation results */
+        /* Validation */
         .validation-section {
             margin-top: var(--space-md);
             padding: var(--space-md);
             background: var(--color-cream);
             border-radius: 8px;
-            display: none;
-        }
-
-        .validation-section.visible {
-            display: block;
         }
 
         .validation-header {
@@ -557,15 +529,10 @@
             margin-bottom: var(--space-sm);
         }
 
-        .validation-header h4 {
-            font-size: 1rem;
-            margin: 0;
-        }
-
         .validation-badge {
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 12px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
         }
 
@@ -581,20 +548,20 @@
 
         .validation-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: var(--space-sm);
             margin-bottom: var(--space-sm);
         }
 
         .stat-item {
             background: var(--color-white);
-            padding: 10px;
+            padding: 12px;
             border-radius: 6px;
             text-align: center;
         }
 
         .stat-item .value {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--color-sage-dark);
         }
@@ -605,47 +572,12 @@
             text-transform: uppercase;
         }
 
-        .validation-issues {
-            margin-top: var(--space-sm);
-        }
-
-        .validation-issues h5 {
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-            color: #721C24;
-        }
-
-        .issue-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .issue-item {
-            background: var(--color-white);
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin-bottom: 6px;
-            font-size: 0.85rem;
-            border-left: 3px solid var(--color-terracotta);
-        }
-
-        .issue-item .word {
-            font-weight: 600;
-            color: var(--color-terracotta);
-        }
-
-        .issue-item .suggestion {
-            color: var(--color-sage-dark);
-            font-style: italic;
-        }
-
         .decodability-bar {
             height: 8px;
             background: #E0E0E0;
             border-radius: 4px;
             overflow: hidden;
-            margin: 8px 0;
+            margin: 12px 0;
         }
 
         .decodability-fill {
@@ -658,6 +590,335 @@
         .decodability-fill.good { background: #9FC7AA; }
         .decodability-fill.fair { background: #FFC107; }
         .decodability-fill.poor { background: #DC3545; }
+
+        .issue-list {
+            list-style: none;
+            margin-top: var(--space-sm);
+        }
+
+        .issue-item {
+            background: var(--color-white);
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            border-left: 3px solid var(--color-terracotta);
+        }
+
+        .issue-item .word {
+            font-weight: 600;
+            color: var(--color-terracotta);
+        }
+
+        /* Image generation */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+
+        .image-card {
+            background: var(--color-cream);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .image-card img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            background: #ddd;
+        }
+
+        .image-card .label {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .image-card .status {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        .image-card.generating {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Loading */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-overlay.visible {
+            display: flex;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--color-border);
+            border-top-color: var(--color-sage);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto var(--space-sm);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* JSON Editor */
+        .json-editor {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .json-editor textarea {
+            width: 100%;
+            min-height: 400px;
+            background: transparent;
+            border: none;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: #d4d4d4;
+            resize: vertical;
+        }
+
+        .json-editor textarea:focus {
+            outline: none;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: var(--space-md);
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            color: var(--color-charcoal);
+        }
+
+        .tab.active {
+            color: var(--color-sage-dark);
+            border-bottom-color: var(--color-sage);
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* Alert/Info boxes */
+        .alert {
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: var(--space-md);
+            font-size: 0.9rem;
+        }
+
+        .alert-info {
+            background: var(--color-blue-light);
+            color: #1a4a7a;
+            border-left: 4px solid var(--color-blue);
+        }
+
+        .alert-success {
+            background: var(--color-sage-light);
+            color: #155724;
+            border-left: 4px solid var(--color-sage);
+        }
+
+        .alert-warning {
+            background: var(--color-terracotta-light);
+            color: #856404;
+            border-left: 4px solid var(--color-terracotta);
+        }
+
+        /* Markdown-like content */
+        .refined-content h2 {
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-sage-dark);
+        }
+
+        .refined-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .refined-content p {
+            margin-bottom: 0.75rem;
+        }
+
+        .refined-content ul, .refined-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .refined-content li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* Story Suggestions */
+        .suggestions-section {
+            margin-top: var(--space-sm);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .suggestions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: var(--color-cream);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .suggestions-header:hover {
+            background: var(--color-border);
+        }
+
+        .suggestions-toggle {
+            color: var(--color-sage-dark);
+            font-size: 0.8rem;
+        }
+
+        .suggestions-content {
+            display: none;
+            padding: var(--space-sm);
+            background: var(--color-white);
+        }
+
+        .suggestions-content.visible {
+            display: block;
+        }
+
+        .suggestions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+        }
+
+        .suggestion-card {
+            background: var(--color-cream);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 12px 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .suggestion-card:hover {
+            border-color: var(--color-sage);
+            background: var(--color-sage-light);
+        }
+
+        .suggestion-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            color: var(--color-charcoal);
+        }
+
+        .suggestion-desc {
+            font-size: 0.8rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .suggestion-words {
+            margin-top: 6px;
+            font-size: 0.7rem;
+            color: var(--color-sage-dark);
+        }
+
+        .no-suggestions {
+            text-align: center;
+            padding: var(--space-md);
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Reference Section */
+        .reference-section {
+            margin-top: var(--space-md);
+            padding: var(--space-md);
+            background: var(--color-sage-light);
+            border-radius: 8px;
+            border: 1px solid var(--color-sage);
+        }
+
+        .reference-section h3 {
+            color: var(--color-sage-dark);
+        }
+
+        .reference-preview {
+            margin-top: var(--space-sm);
+        }
+
+        .reference-preview img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .reference-preview.generating::before {
+            content: 'Generating reference sheet...';
+            display: block;
+            padding: var(--space-md);
+            background: var(--color-cream);
+            border-radius: 8px;
+            text-align: center;
+            color: #666;
+            animation: pulse 2s infinite;
+        }
     </style>
 </head>
 <body>
@@ -665,153 +926,285 @@
         <div class="container">
             <div class="header-inner">
                 <a href="/" class="logo">FunBookies</a>
-                <span class="badge">Experiment Lab</span>
+                <span class="badge">Book Creator Lab</span>
             </div>
         </div>
     </header>
 
     <div class="container">
         <div class="main">
-            <!-- Reading Levels Sidebar -->
+            <!-- Workflow Stages Sidebar -->
             <aside class="sidebar">
-                <h2>Reading Levels</h2>
-                <ul class="level-list" id="levelList">
-                    <!-- Populated by JS -->
+                <h2>Creation Workflow</h2>
+                <ul class="stage-list" id="stageList">
+                    <li class="stage-item active" data-stage="concept" onclick="goToStage('concept')">
+                        <span class="stage-num"><span>1</span></span>
+                        <div class="stage-info">
+                            <div class="stage-name">Concept</div>
+                            <div class="stage-desc">Level + story idea</div>
+                        </div>
+                    </li>
+                    <li class="stage-item disabled" data-stage="refine" onclick="goToStage('refine')">
+                        <span class="stage-num"><span>2</span></span>
+                        <div class="stage-info">
+                            <div class="stage-name">Refine</div>
+                            <div class="stage-desc">Characters & settings</div>
+                        </div>
+                    </li>
+                    <li class="stage-item disabled" data-stage="generate" onclick="goToStage('generate')">
+                        <span class="stage-num"><span>3</span></span>
+                        <div class="stage-info">
+                            <div class="stage-name">Generate</div>
+                            <div class="stage-desc">Full book with pages</div>
+                        </div>
+                    </li>
+                    <li class="stage-item disabled" data-stage="validate" onclick="goToStage('validate')">
+                        <span class="stage-num"><span>4</span></span>
+                        <div class="stage-info">
+                            <div class="stage-name">Validate</div>
+                            <div class="stage-desc">Decodability check</div>
+                        </div>
+                    </li>
+                    <li class="stage-item disabled" data-stage="images" onclick="goToStage('images')">
+                        <span class="stage-num"><span>5</span></span>
+                        <div class="stage-info">
+                            <div class="stage-name">Images</div>
+                            <div class="stage-desc">Reference & pages</div>
+                        </div>
+                    </li>
+                    <li class="stage-item disabled" data-stage="save" onclick="goToStage('save')">
+                        <span class="stage-num"><span>6</span></span>
+                        <div class="stage-info">
+                            <div class="stage-name">Save</div>
+                            <div class="stage-desc">Export & publish</div>
+                        </div>
+                    </li>
                 </ul>
+
+                <div class="level-selector">
+                    <h3>Reading Level</h3>
+                    <select class="level-dropdown" id="levelSelect" onchange="updateLevel()">
+                        <optgroup label="Band A: Pre-Reader">
+                            <option value="A0">A0: Concept of Print</option>
+                            <option value="A1">A1: Letter Recognition</option>
+                            <option value="A2">A2: CV/VC Words</option>
+                            <option value="A3">A3: Mixed Case</option>
+                            <option value="A4">A4: Emergent Bridge</option>
+                        </optgroup>
+                        <optgroup label="Band B: Phonics Foundation">
+                            <option value="B1">B1: CVC Short a, i</option>
+                            <option value="B2">B2: CVC All Vowels</option>
+                            <option value="B3" selected>B3: Final Blends + FLOSS</option>
+                            <option value="B4">B4: Initial Blends</option>
+                            <option value="B5">B5: Digraphs</option>
+                            <option value="B6">B6: Silent E (CVCe)</option>
+                            <option value="B7">B7: Vowel Teams</option>
+                            <option value="B8">B8: Diphthongs</option>
+                            <option value="B9">B9: R-Controlled</option>
+                        </optgroup>
+                        <optgroup label="Band C: Word Study">
+                            <option value="C1">C1: 2-Syllable VCCV</option>
+                            <option value="C2">C2: 2-Syllable VCV</option>
+                            <option value="C3">C3: Suffixes -ed/-ing</option>
+                            <option value="C4">C4: Suffixes -er/-est</option>
+                            <option value="C5">C5: Prefixes un-/re-</option>
+                            <option value="C6">C6: Contractions</option>
+                            <option value="C7">C7: Compound Words</option>
+                            <option value="C8">C8: Multi-Syllable</option>
+                        </optgroup>
+                        <optgroup label="Band D: Fluent Reading">
+                            <option value="D1">D1: Fluency Focus</option>
+                            <option value="D2">D2: Comprehension</option>
+                            <option value="D3">D3: Vocabulary</option>
+                            <option value="D4">D4: Literary Elements</option>
+                            <option value="D5">D5: Non-Fiction</option>
+                            <option value="D6">D6: Advanced</option>
+                        </optgroup>
+                    </select>
+                </div>
             </aside>
 
             <!-- Main Content -->
             <main class="content">
-                <h1>Create a New Book</h1>
-                <p class="content-subtitle">Select a reading level, then describe your story idea</p>
-
-                <!-- Level Details -->
-                <div class="level-details" id="levelDetails">
-                    <div class="level-header">
-                        <span class="level-badge level-2" id="levelBadge">2</span>
-                        <h2 id="levelTitle">Level 2: Orange</h2>
+                <!-- Stage 1: Concept -->
+                <div class="stage-panel active" id="stage-concept">
+                    <div class="content-header">
+                        <h1>Step 1: Story Concept</h1>
+                        <span class="level-badge" id="levelBadge">Level B3</span>
                     </div>
-                    <div class="level-meta">
-                        <div class="meta-item">
-                            <strong>Grade</strong>
-                            <span id="levelGrade">K</span>
-                        </div>
-                        <div class="meta-item">
-                            <strong>Skill</strong>
-                            <span id="levelSkill">CVC with short u</span>
-                        </div>
-                        <div class="meta-item">
-                            <strong>Max Words</strong>
-                            <span id="levelWords">4 words</span>
-                        </div>
-                        <div class="meta-item">
-                            <strong>Age Range</strong>
-                            <span id="levelAge">4-6 years</span>
-                        </div>
-                    </div>
-                    <div>
-                        <strong style="font-size: 0.75rem; color: #999;">EXAMPLE WORDS</strong>
-                        <div class="word-examples" id="wordExamples">
-                            <span class="word-chip">mud</span>
-                            <span class="word-chip">bug</span>
-                            <span class="word-chip">cup</span>
-                            <span class="word-chip">fun</span>
-                            <span class="word-chip">run</span>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Creation Form -->
-                <div class="create-form">
-                    <h3>Story Settings</h3>
-
-                    <div class="form-group">
-                        <label>Main Character (optional)</label>
-                        <p class="hint">Pick a preset or describe your own below</p>
-                        <div class="character-grid" id="characterGrid">
-                            <div class="character-option selected" data-character="none">
-                                <div class="icon">✨</div>
-                                <div class="name">Any</div>
-                            </div>
-                            <div class="character-option" data-character="pig">
-                                <div class="icon">🐷</div>
-                                <div class="name">Pig</div>
-                            </div>
-                            <div class="character-option" data-character="dog">
-                                <div class="icon">🐕</div>
-                                <div class="name">Dog</div>
-                            </div>
-                            <div class="character-option" data-character="cat">
-                                <div class="icon">🐱</div>
-                                <div class="name">Cat</div>
-                            </div>
-                            <div class="character-option" data-character="rabbit">
-                                <div class="icon">🐰</div>
-                                <div class="name">Rabbit</div>
-                            </div>
-                            <div class="character-option" data-character="bear">
-                                <div class="icon">🐻</div>
-                                <div class="name">Bear</div>
-                            </div>
-                            <div class="character-option" data-character="fox">
-                                <div class="icon">🦊</div>
-                                <div class="name">Fox</div>
-                            </div>
-                            <div class="character-option" data-character="custom">
-                                <div class="icon">✏️</div>
-                                <div class="name">Custom</div>
-                            </div>
-                        </div>
-                        <input type="text" class="input" id="customCharacter" placeholder="Describe your character: a brave little mouse named Max" style="margin-top: 8px; display: none;">
+                    <div class="alert alert-info">
+                        Enter your story idea below. The AI will enhance it with characters, settings, and a proper story arc that matches the reading level constraints.
                     </div>
 
                     <div class="form-group">
                         <label>Story Idea</label>
-                        <p class="hint">Describe what happens in the story. Keep it simple - the AI will adapt it to the reading level.</p>
-                        <textarea class="textarea" id="storyPrompt" placeholder="Example: The pig finds a mud puddle and has fun splashing around. A puppy joins in and they become friends."></textarea>
+                        <p class="hint">Describe what happens in the story. Keep it simple - the AI will develop it fully.</p>
+                        <textarea class="textarea" id="conceptInput" placeholder="Example: A small bird is hungry and spots food stuck in a crocodile's teeth. She's scared of the big crocodile but overcomes her fear to help clean his teeth, and they become friends.
+
+Based on the real symbiotic relationship between Egyptian plovers and Nile crocodiles."></textarea>
+
+                        <!-- Story Suggestions -->
+                        <div class="suggestions-section">
+                            <div class="suggestions-header" onclick="toggleSuggestions()">
+                                <span>Story Ideas for <span id="suggestionsLevel">B3</span></span>
+                                <span class="suggestions-toggle" id="suggestionsToggle">Show suggestions</span>
+                            </div>
+                            <div class="suggestions-content" id="suggestionsContent">
+                                <div class="suggestions-grid" id="suggestionsGrid">
+                                    <!-- Suggestions will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Custom Words to Include (optional)</label>
-                        <p class="hint">Comma-separated words you want in the story</p>
-                        <input type="text" class="input" id="customWords" placeholder="mud, fun, hug">
+                        <label>Story Structure (optional)</label>
+                        <p class="hint">Choose a narrative structure or let the AI pick the best one</p>
+                        <select class="select" id="structureSelect">
+                            <option value="">Auto-select best structure</option>
+                            <option value="hero">Mini Hero's Journey - challenge & triumph</option>
+                            <option value="problem">Problem-Solution - try, fail, succeed</option>
+                            <option value="wish">Wish Fulfillment - want, work, get</option>
+                            <option value="friendship">Friendship - meet, misunderstand, connect</option>
+                            <option value="discovery">Discovery - encounter, explore, understand</option>
+                            <option value="helping">Helping Others - see need, help, succeed together</option>
+                        </select>
                     </div>
 
-                    <div style="display: flex; gap: var(--space-sm); margin-top: var(--space-md);">
-                        <button class="btn btn-primary" id="generateBtn" onclick="generateStory()">
-                            Generate Story
-                        </button>
-                        <button class="btn btn-secondary" onclick="clearForm()">
-                            Clear
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="refineConcept()">
+                            Refine Concept &rarr;
                         </button>
                     </div>
                 </div>
 
-                <!-- Loading -->
-                <div class="loading" id="loading">
-                    <div class="spinner"></div>
-                    <p>Creating your story...</p>
-                    <p style="font-size: 0.85rem; color: #666;">This takes about 10-20 seconds</p>
-                </div>
-
-                <!-- Output -->
-                <div class="output-section" id="output">
-                    <h3 id="storyTitle">Generated Story</h3>
-                    <div class="story-preview" id="storyPreview">
-                        <!-- Pages inserted here -->
+                <!-- Stage 2: Refine -->
+                <div class="stage-panel" id="stage-refine">
+                    <div class="content-header">
+                        <h1>Step 2: Refined Concept</h1>
+                        <span class="level-badge" id="levelBadge2">Level B3</span>
                     </div>
 
-                    <!-- Validation Results -->
-                    <div class="validation-section" id="validationSection">
+                    <div class="alert alert-info">
+                        The AI is developing your concept with detailed characters, settings, and story arc. You can edit the result before generating the full book.
+                    </div>
+
+                    <div class="stream-output refined-content" id="refineOutput">
+                        <span class="cursor"></span>
+                    </div>
+
+                    <!-- Reference Image Section -->
+                    <div class="reference-section" id="referenceSection" style="display: none;">
+                        <h3 style="margin-bottom: 12px; font-size: 1rem;">Reference Sheet</h3>
+                        <div class="form-group">
+                            <label>Reference Prompt <span style="font-weight: normal; color: #666;">(extracted from concept)</span></label>
+                            <textarea class="textarea" id="refineReferencePrompt" rows="6" placeholder="Reference prompt will appear here..."></textarea>
+                        </div>
+                        <div class="btn-group" style="margin-top: 12px; margin-bottom: 16px;">
+                            <button class="btn btn-secondary" onclick="generateReferenceFromRefine()">
+                                Generate Reference Sheet
+                            </button>
+                            <span id="referenceStatus" style="font-size: 0.85rem; color: #666; align-self: center;"></span>
+                        </div>
+                        <div id="refineReferencePreview" class="reference-preview">
+                            <!-- Reference image will appear here -->
+                        </div>
+                    </div>
+
+                    <!-- Prompt Visibility -->
+                    <div class="prompt-section" id="refinePrompts">
+                        <div class="prompt-header" onclick="togglePrompts('refinePrompts')">
+                            <h4>View Prompts</h4>
+                            <span class="prompt-toggle">Show</span>
+                        </div>
+                        <div class="prompt-content">
+                            <pre id="refinePromptText">Loading...</pre>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" onclick="goToStage('concept')">
+                            &larr; Back
+                        </button>
+                        <button class="btn btn-primary" id="generateBookBtn" onclick="generateBook()" disabled>
+                            Generate Full Book &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stage 3: Generate -->
+                <div class="stage-panel" id="stage-generate">
+                    <div class="content-header">
+                        <h1>Step 3: Generate Book</h1>
+                        <span class="level-badge" id="levelBadge3">Level B3</span>
+                    </div>
+
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchTab('generate', 'stream')">Live Stream</button>
+                        <button class="tab" onclick="switchTab('generate', 'preview')">Page Preview</button>
+                        <button class="tab" onclick="switchTab('generate', 'json')">JSON</button>
+                    </div>
+
+                    <div class="tab-panel active" id="generate-stream">
+                        <div class="stream-output" id="generateOutput">
+                            <span class="cursor"></span>
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="generate-preview">
+                        <div class="story-preview" id="storyPreview">
+                            <!-- Pages will be inserted here -->
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="generate-json">
+                        <div class="json-editor">
+                            <textarea id="bookJsonEditor" placeholder="Book JSON will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Prompt Visibility -->
+                    <div class="prompt-section" id="generatePrompts">
+                        <div class="prompt-header" onclick="togglePrompts('generatePrompts')">
+                            <h4>View Prompts</h4>
+                            <span class="prompt-toggle">Show</span>
+                        </div>
+                        <div class="prompt-content">
+                            <pre id="generatePromptText">Loading...</pre>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" onclick="goToStage('refine')">
+                            &larr; Back
+                        </button>
+                        <button class="btn btn-primary" id="validateBtn" onclick="validateBook()" disabled>
+                            Validate Book &rarr;
+                        </button>
+                        <button class="btn btn-secondary" onclick="regenerateBook()">
+                            Regenerate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stage 4: Validate -->
+                <div class="stage-panel" id="stage-validate">
+                    <div class="content-header">
+                        <h1>Step 4: Validate</h1>
+                        <span class="level-badge" id="levelBadge4">Level B3</span>
+                    </div>
+
+                    <div class="validation-section" id="validationResults">
                         <div class="validation-header">
-                            <h4>Reading Level Validation</h4>
+                            <h3>Reading Level Validation</h3>
                             <span class="validation-badge" id="validationBadge">Checking...</span>
                         </div>
                         <div class="validation-stats" id="validationStats">
-                            <!-- Stats populated by JS -->
+                            <!-- Stats will be inserted -->
                         </div>
                         <div>
-                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
                                 <span>Decodability Score</span>
                                 <span id="decodabilityPercent">--</span>
                             </div>
@@ -819,574 +1212,814 @@
                                 <div class="decodability-fill" id="decodabilityFill" style="width: 0%"></div>
                             </div>
                         </div>
-                        <div class="validation-issues" id="validationIssues">
-                            <!-- Issues populated by JS -->
+                        <div id="validationIssues">
+                            <!-- Issues will be inserted -->
                         </div>
                     </div>
 
-                    <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap; margin-top: var(--space-md);">
-                        <button class="btn btn-primary" onclick="reviseStory()">Revise to Fit Level</button>
-                        <button class="btn btn-secondary" onclick="generateImages()">Generate Images</button>
-                        <button class="btn btn-secondary" onclick="downloadJSON()">Download JSON</button>
-                        <button class="btn btn-secondary" onclick="regenerate()">Try Again</button>
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" onclick="goToStage('generate')">
+                            &larr; Back to Edit
+                        </button>
+                        <button class="btn btn-primary" id="imagesBtn" onclick="goToStage('images')">
+                            Generate Images &rarr;
+                        </button>
+                        <button class="btn btn-secondary" onclick="reviseBook()">
+                            Auto-Revise
+                        </button>
                     </div>
                 </div>
 
-                <!-- Existing Books at This Level -->
-                <div class="existing-books" id="existingBooks">
-                    <h3>Books at This Level</h3>
-                    <div class="book-grid" id="bookGrid">
-                        <!-- Populated by JS -->
+                <!-- Stage 5: Images -->
+                <div class="stage-panel" id="stage-images">
+                    <div class="content-header">
+                        <h1>Step 5: Generate Images</h1>
+                        <span class="level-badge" id="levelBadge5">Level B3</span>
+                    </div>
+
+                    <div class="alert alert-info">
+                        Image generation uses a two-step process: First, a 9-panel reference sheet establishes the style, then individual pages are generated using style transfer.
+                    </div>
+
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchTab('images', 'reference')">Reference Sheet</button>
+                        <button class="tab" onclick="switchTab('images', 'pages')">Page Images</button>
+                    </div>
+
+                    <div class="tab-panel active" id="images-reference">
+                        <div class="form-group">
+                            <label>Reference Prompt</label>
+                            <textarea class="textarea" id="referencePromptInput" rows="8"></textarea>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generateReference()">
+                                Generate Reference Sheet
+                            </button>
+                        </div>
+                        <div id="referencePreview" style="margin-top: var(--space-md);">
+                            <!-- Reference image will appear here -->
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="images-pages">
+                        <div class="image-grid" id="pageImagesGrid">
+                            <!-- Page image cards will be inserted -->
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generateAllImages()">
+                                Generate All Page Images
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="btn-group" style="margin-top: var(--space-lg);">
+                        <button class="btn btn-secondary" onclick="goToStage('validate')">
+                            &larr; Back
+                        </button>
+                        <button class="btn btn-primary" onclick="goToStage('save')">
+                            Save Book &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stage 6: Save -->
+                <div class="stage-panel" id="stage-save">
+                    <div class="content-header">
+                        <h1>Step 6: Save & Export</h1>
+                        <span class="level-badge" id="levelBadge6">Level B3</span>
+                    </div>
+
+                    <div class="alert alert-success">
+                        Your book is ready! Download the JSON file or save to the FunBookies library.
+                    </div>
+
+                    <div class="form-group">
+                        <label>Book Title</label>
+                        <input type="text" class="input" id="bookTitle" placeholder="Book title">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Slug (URL-friendly name)</label>
+                        <input type="text" class="input" id="bookSlug" placeholder="b3-book-title">
+                    </div>
+
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchTab('save', 'preview')">Preview</button>
+                        <button class="tab" onclick="switchTab('save', 'json')">Final JSON</button>
+                    </div>
+
+                    <div class="tab-panel active" id="save-preview">
+                        <div class="story-preview" id="finalPreview">
+                            <!-- Final preview will be inserted -->
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="save-json">
+                        <div class="json-editor">
+                            <textarea id="finalJsonEditor" readonly></textarea>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" onclick="goToStage('images')">
+                            &larr; Back
+                        </button>
+                        <button class="btn btn-primary" onclick="downloadJSON()">
+                            Download JSON
+                        </button>
+                        <button class="btn btn-secondary" onclick="openInReader()">
+                            Preview in Reader
+                        </button>
                     </div>
                 </div>
             </main>
         </div>
     </div>
 
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p id="loadingText">Working...</p>
+        </div>
+    </div>
+
     <script>
-        // Reading levels data - Phonics → Fluency → Comprehension progression
-        // Levels 0-8: Phonics Foundation (Pre-K to Grade 2)
-        // Levels 9-12: Transitional (Grades 2-3)
-        // Levels 13-16: Developing (Grades 3-5)
-        // Levels 17-20: Fluent (Grades 5-7)
-        // Levels 21-23: Advanced (Grades 7-12)
-        const LEVELS = [
-            // === PHONICS FOUNDATION (Pre-K to Grade 2) ===
-            { level: 0, color: 'Pink', name: 'Pre-reader', skill: 'Picture reading', words: 2, age: '3-5', grade: 'Pre-K', examples: ['I', 'a', 'the', 'cat', 'dog'] },
-            { level: 1, color: 'Yellow', name: 'CVC Short a/i/o', skill: 'Basic CVC words', words: 3, age: '4-5', grade: 'K', examples: ['cat', 'sit', 'hot', 'pig', 'map'] },
-            { level: 2, color: 'Orange', name: 'CVC All Vowels', skill: 'Short e, u added', words: 4, age: '4-6', grade: 'K', examples: ['bed', 'mud', 'pet', 'cup', 'run'] },
-            { level: 3, color: 'Orange', name: 'Digraphs', skill: 'sh, ch, th, wh, ck, ng', words: 5, age: '5-6', grade: 'K-1', examples: ['ship', 'chat', 'this', 'kick', 'ring'] },
-            { level: 4, color: 'Red', name: 'Initial Blends', skill: 'bl, cr, st, sw...', words: 6, age: '5-7', grade: '1', examples: ['stop', 'flag', 'crab', 'swim', 'frog'] },
-            { level: 5, color: 'Purple', name: 'Final Blends', skill: '-nd, -mp, -st, FLOSS', words: 7, age: '5-7', grade: '1', examples: ['jump', 'fast', 'bell', 'miss', 'sand'] },
-            { level: 6, color: 'Blue', name: 'Silent E', skill: 'VCe long vowels', words: 8, age: '5-8', grade: '1', examples: ['cake', 'bike', 'home', 'tube', 'make'] },
-            { level: 7, color: 'Green', name: 'Vowel Teams', skill: 'ai, ea, oa, ee, oo', words: 10, age: '6-8', grade: '1-2', examples: ['rain', 'boat', 'see', 'moon', 'team'] },
-            { level: 8, color: 'Gold', name: 'R-Controlled', skill: 'ar, er, ir, or, ur', words: 12, age: '6-9', grade: '2', examples: ['car', 'bird', 'corn', 'turn', 'hurt'] },
-
-            // === TRANSITIONAL (Grades 2-3) ===
-            { level: 9, color: 'Teal', name: 'Diphthongs', skill: 'oi/oy, ou/ow, au/aw', words: 14, age: '7-9', grade: '2', examples: ['boy', 'coin', 'cloud', 'down', 'saw', 'haul'] },
-            { level: 10, color: 'Indigo', name: 'Silent Letters', skill: 'kn, wr, gn, mb, gh', words: 15, age: '7-9', grade: '2-3', examples: ['know', 'write', 'sign', 'lamb', 'night', 'thought'] },
-            { level: 11, color: 'Coral', name: 'Soft C & G', skill: 'ce, ci, ge, gi, dge', words: 16, age: '7-9', grade: '2-3', examples: ['city', 'race', 'giant', 'bridge', 'edge', 'prince'] },
-            { level: 12, color: 'Lime', name: '2-Syllable Words', skill: 'Closed + open syllables', words: 18, age: '7-10', grade: '3', examples: ['rabbit', 'napkin', 'robot', 'even', 'tiger', 'open'] },
-
-            // === DEVELOPING READERS (Grades 3-5) ===
-            { level: 13, color: 'Magenta', name: 'Syllable Types', skill: 'All 6 syllable types', words: 20, age: '8-10', grade: '3', examples: ['Complete', 'table', 'market', 'rescue', 'highway', 'employ'] },
-            { level: 14, color: 'Cyan', name: 'Common Suffixes', skill: '-ed, -ing, -ly, -ful, -less', words: 22, age: '8-11', grade: '3-4', examples: ['jumped', 'running', 'quickly', 'helpful', 'careless', 'excitement'] },
-            { level: 15, color: 'Amber', name: 'Common Prefixes', skill: 'un-, re-, pre-, dis-, mis-', words: 24, age: '9-11', grade: '4', examples: ['unhappy', 'return', 'preview', 'disagree', 'misplace', 'invisible'] },
-            { level: 16, color: 'Slate', name: 'Latin Roots', skill: 'Basic morphology', words: 26, age: '9-12', grade: '4-5', examples: ['inspect', 'transport', 'construct', 'describe', 'interrupt', 'predict'] },
-
-            // === FLUENT READERS (Grades 5-7) ===
-            { level: 17, color: 'Crimson', name: 'Greek Roots', skill: 'Advanced morphology', words: 28, age: '10-12', grade: '5', examples: ['telephone', 'biography', 'photograph', 'democracy', 'chronology', 'geography'] },
-            { level: 18, color: 'Emerald', name: 'Academic Vocab Tier 2', skill: 'Cross-curricular words', words: 30, age: '10-13', grade: '5-6', examples: ['analyze', 'evidence', 'significant', 'conclude', 'compare', 'influence'] },
-            { level: 19, color: 'Violet', name: 'Complex Sentences', skill: 'Subordinate clauses', words: 35, age: '11-13', grade: '6', examples: ['Although...', 'Because...', 'While...', 'If...then', 'Not only...but also'] },
-            { level: 20, color: 'Bronze', name: 'Figurative Language', skill: 'Idioms, metaphor, irony', words: 40, age: '11-14', grade: '6-7', examples: ['Break the ice', 'Time flies', 'Heart of gold', 'Sharp as a tack'] },
-
-            // === ADVANCED READERS (Grades 7-12) ===
-            { level: 21, color: 'Silver', name: 'Domain Vocabulary', skill: 'Subject-specific Tier 3', words: 45, age: '12-15', grade: '7-8', examples: ['photosynthesis', 'democracy', 'allegory', 'variable', 'revolution', 'catalyst'] },
-            { level: 22, color: 'Platinum', name: 'Nuanced Language', skill: 'Connotation, tone, register', words: 50, age: '13-16', grade: '8-10', examples: ['Nevertheless', 'Subsequently', 'Notwithstanding', 'Albeit', 'Whereas'] },
-            { level: 23, color: 'Obsidian', name: 'Advanced Literary', skill: 'Complex texts, analysis', words: 60, age: '14-18', grade: '9-12', examples: ['Juxtaposition', 'Foreshadowing', 'Epistolary', 'Antithesis', 'Verisimilitude'] },
-        ];
-
-        // Detailed phonics specifications per level (Orton-Gillingham / Science of Reading based)
-        const LEVEL_SPECS = {
-            0: {
-                name: "Pre-reader (Pink)",
-                phonics: "No decoding required. Memorized words only.",
-                patterns: ["Single words or 2-word phrases"],
-                decodable: [],
-                sightWords: ["I", "a", "the", "is", "it", "my", "me", "we", "go", "no", "so", "to", "do", "he", "she", "be"],
-                avoid: ["Any word requiring decoding", "Sentences longer than 2 words"],
-                sentenceStructure: "Label format: 'The [noun].' or '[Noun]!' Maximum 2 words.",
-                examples: ["The cat.", "A dog.", "I go.", "My hat."]
-            },
-            1: {
-                name: "CVC Short A, I, O (Yellow)",
-                phonics: "Closed syllables with short a, i, o only. Single consonants.",
-                patterns: ["CVC with /a/: cat, hat, sat, mat, bat, rat, can, pan, man, ran, fan, van, dad, sad, mad, bad, had, nap, tap, cap, map, gap, lap, tag, bag, rag, wag"],
-                decodable: ["CVC with /i/: sit, hit, bit, fit, pit, kit, dig, big, pig, wig, fig, jig, did, hid, kid, lid, rid, dim, him, rim, tin, pin, bin, fin, win, dip, hip, lip, rip, sip, tip, zip"],
-                sightWords: ["I", "a", "the", "is", "it", "my", "to", "go", "no", "so", "we", "he", "she", "be", "me", "do", "was", "said", "you", "are", "have", "they", "what", "were", "there", "your"],
-                avoid: ["Short e, u words", "Digraphs", "Blends", "Silent e", "Multi-syllable words"],
-                sentenceStructure: "Simple declarative. Subject + verb or Subject + verb + object. Max 3 words.",
-                examples: ["The cat sat.", "A pig hid.", "I can nap.", "The dog ran."]
-            },
-            2: {
-                name: "CVC All Short Vowels (Orange)",
-                phonics: "All 5 short vowels in CVC pattern. Still single consonants only.",
-                patterns: ["Add short e: bed, red, fed, led, pet, bet, get, jet, let, met, net, set, wet, yet, hen, den, men, pen, ten, peg, leg, beg"],
-                decodable: ["Add short u: bug, dug, hug, jug, mug, rug, tug, bud, cud, mud, bus, us, but, cut, gut, hut, jut, nut, rut, bun, fun, gun, nun, pun, run, sun, cup, pup, up"],
-                sightWords: ["Previous + come, some, one, done, from, of, or, for, her, very, want, says, could, would, should, who, two, into, many, water"],
-                avoid: ["Digraphs", "Blends", "Silent e", "Vowel teams", "Multi-syllable"],
-                sentenceStructure: "Simple sentences. Can use 'and' to join. Max 4 words per clause.",
-                examples: ["The pup dug mud.", "A hen sat.", "I pet the cat.", "We had fun."]
-            },
-            3: {
-                name: "Digraphs (Orange+)",
-                phonics: "Consonant digraphs: sh, ch, th, wh, ck, ng. Still short vowels.",
-                patterns: ["sh-: ship, shop, shed, shell, shin, shut, shun, shot, sham, shag, shack"],
-                decodable: ["ch-: chip, chop, chin, chat, chess, chill, chug, check, chest, chick", "th-: this, that, them, then, than, thin, thick, thud", "wh-: when, which, whip, whim", "-ck: back, pack, tack, rack, sack, kick, pick, sick, tick, wick, dock, lock, rock, sock, duck, luck, muck, tuck, stuck", "-ng: bang, hang, rang, sang, king, ring, sing, wing, gong, song, hung, lung, rung, sung"],
-                sightWords: ["Previous + because, before, after, again, give, live, does, goes, been, being, where, here, any, only, our, new, know, now, how, down, out, about"],
-                avoid: ["Blends", "Silent e", "Vowel teams", "R-controlled"],
-                sentenceStructure: "Can include questions and exclamations. Max 5 words.",
-                examples: ["The ship is big!", "Which shell is that?", "They sang a song.", "Chuck had a snack."]
-            },
-            4: {
-                name: "Initial Blends (Red)",
-                phonics: "Beginning consonant blends: bl, cl, fl, gl, pl, sl, br, cr, dr, fr, gr, pr, tr, sc, sk, sm, sn, sp, st, sw.",
-                patterns: ["l-blends: black, clap, flag, glad, plan, slap, slip, blob, clock, flip, glum, plus, slug", "r-blends: brick, crab, drip, frog, grin, press, trap, trim, trip, drop, gram, prop"],
-                decodable: ["s-blends: scan, skin, smell, snap, spin, spot, stem, step, stop, swim, swam, skit, skip, skid, snug, sled, slid"],
-                sightWords: ["Previous + friend, special, sure, even, always, often, please, once, own, use, used, make, made, just, must, much, such, other, another"],
-                avoid: ["Silent e", "Vowel teams", "R-controlled vowels", "Ending blends (except simple -st, -nd)"],
-                sentenceStructure: "Compound sentences with 'and', 'but'. Max 6 words per clause.",
-                examples: ["The frog can stop and swim.", "Brad slid on the sled.", "Grab the flag, Stan!"]
-            },
-            5: {
-                name: "Final Blends & FLOSS (Purple)",
-                phonics: "Ending blends: -st, -sk, -sp, -nd, -nt, -nk, -mp, -lt, -ft, -lp, -ct, -pt. FLOSS rule (ff, ll, ss, zz).",
-                patterns: ["-nd: and, band, hand, land, sand, bend, lend, send, end, fond, pond, bond", "-nt: ant, bent, dent, hint, mint, tent, went, hunt, punt, bunt", "-nk: bank, rank, sank, tank, ink, link, mink, pink, sink, wink, bunk, dunk, junk, sunk, trunk"],
-                decodable: ["-mp: bump, camp, damp, jump, lamp, pump, ramp, stamp, stomp, clamp, crimp", "-st: best, fast, fist, just, last, list, lost, mist, must, nest, past, rest, test, vest, west, cost, dust, bust, cast, frost", "-ft: craft, draft, drift, gift, left, lift, loft, raft, shift, soft, swift, theft, tuft", "-lp: gulp, help, kelp, yelp", "FLOSS: bell, bill, doll, dull, fell, fill, full, gull, hill, hull, mill, mull, pill, pull, sell, tell, well, will, yell, boss, fuss, hiss, kiss, less, loss, mass, mess, miss, moss, pass, toss, buzz, fuzz, jazz, fizz, frizz, cliff, cuff, fluff, gruff, miff, muff, puff, scoff, sniff, staff, stiff, stuff, whiff, bluff"],
-                sightWords: ["Previous + through, thought, though, enough, right, might, night, light, high, while, because, people, little, first, work, word, world"],
-                avoid: ["Silent e", "Vowel teams", "R-controlled"],
-                sentenceStructure: "More complex. Adjectives OK. Max 7 words.",
-                examples: ["The swift fox went past the pond.", "She felt the soft, damp sand.", "Help! The lamp fell off!"]
-            },
-            6: {
-                name: "Silent E / VCe (Blue)",
-                phonics: "Vowel-consonant-e pattern. Long vowels: a_e, i_e, o_e, u_e, (e_e rare).",
-                patterns: ["a_e (long a): bake, cake, fake, lake, make, rake, take, wake, came, fame, game, lame, name, same, tame, cane, lane, mane, pane, cape, tape, gape, base, case, vase, cave, gave, pave, save, wave, Dave, daze, gaze, haze, maze, late, date, fate, gate, hate, mate, rate, face, lace, pace, race, age, cage, page, rage, sage, stage, wage, ape, grape, shape, brave, crave, shade, trade, blade, flame, frame, plane, plate, scale, skate, snake, space, stage, state, stake, stale"],
-                decodable: ["i_e (long i): bike, hike, like, Mike, pike, bite, kite, mite, site, dime, lime, mime, time, dine, fine, line, mine, nine, pine, vine, wine, dive, five, hive, jive, live, fire, hire, tire, wire, file, mile, pile, tile, vile, while, ripe, pipe, wipe, side, hide, ride, tide, wide, glide, pride, slide, bride, chime, crime, grime, prime, slime, spine, shine, twine, write, drive, prize, stripe, smile", "o_e (long o): bone, cone, lone, tone, zone, dome, home, Rome, dope, hope, mope, rope, dose, hose, nose, pose, rose, cove, dove, wove, stove, drove, froze, phone, stone, smoke, spoke, broke, choke, close, those, whole, globe, scope, slope", "u_e (long u): cube, tube, dude, rude, dune, June, tune, cure, pure, fuse, muse, use, huge, cute, mute, prune, flute, brute"],
-                sightWords: ["Previous + would, could, should, there, their, where, were, here, come, some, done, none, gone, move, love, give, live, have, one, once"],
-                avoid: ["Vowel teams (ai, ea, etc.)", "R-controlled vowels"],
-                sentenceStructure: "Full sentences with descriptions. Dialogue OK. Max 8 words.",
-                examples: ["Kate made a huge cake at home.", "Mike rode his bike to the lake.", "\"Come take a dive!\" said Dave."]
-            },
-            7: {
-                name: "Vowel Teams (Green)",
-                phonics: "Two vowels together: ai, ay, ee, ea, oa, oe, ue, ew, ow (long o), ie, igh, oo (long & short).",
-                patterns: ["ai/ay (long a): aid, braid, maid, paid, raid, snail, tail, wail, brain, chain, drain, grain, plain, rain, spain, stain, strain, train, main, pain, gain, faint, paint, saint, wait, bait, bay, day, gay, hay, jay, lay, may, pay, ray, say, way, clay, gray, play, pray, spray, stay, stray, tray"],
-                decodable: ["ee/ea (long e): bee, fee, flee, free, glee, knee, see, tee, three, tree, beep, deep, jeep, keep, peep, seep, weep, beef, reef, beet, feet, meet, deer, beer, steer, bead, lead, read, bean, lean, mean, dean, clean, dream, cream, stream, team, beam, seam, beat, heat, meat, neat, peat, seat, cheat, treat, wheat, beach, peach, reach, teach, leak, peak, weak, speak, sneak, deal, heal, meal, real, seal, steal, each, feast, beast, least, east", "oa/oe (long o): oak, soak, cloak, croak, boat, coat, float, goat, moat, load, road, toad, coal, foal, goal, foam, roam, loan, moan, groan, boast, coast, roast, toast, doe, foe, hoe, Joe, toe, woe", "ow (long o): bow, low, mow, row, sow, tow, blow, flow, glow, grow, know, show, slow, snow, throw, own, bowl, grown, shown, blown", "ue/ew: blue, clue, glue, true, due, Sue, cue, dew, few, hew, Jew, mew, new, pew, flew, blew, brew, chew, drew, grew, knew, slew, stew, threw", "oo (long): boo, coo, goo, moo, too, woo, zoo, boom, bloom, broom, doom, gloom, room, zoom, boot, hoot, loot, root, toot, scoot, shoot, cool, drool, fool, pool, spool, stool, tool, food, mood, goof, hoof, proof, roof, spoof, woof, goose, loose, moose, noose, boost, roost, tooth, smooth", "oo (short): book, cook, hook, look, nook, rook, took, brook, crook, shook, foot, good, hood, wood, stood"],
-                sightWords: ["Previous + again, against, often, listen, learn, heard, early, earth, answer, hour, carry, every, everything, bought, brought, thought, caught, taught, eight, weigh, neighbor"],
-                avoid: ["R-controlled (save for level 8)"],
-                sentenceStructure: "Complex sentences. Can use 'because', 'when', 'while'. Max 10 words.",
-                examples: ["The goat in the boat floated down the stream.", "When it rained, we stayed home to read.", "\"Look! Three deer by the oak tree!\" she said."]
-            },
-            8: {
-                name: "R-Controlled Vowels (Gold)",
-                phonics: "Vowel + r changes the sound: ar, er, ir, ur, or. Also -le syllables.",
-                patterns: ["ar (car): bar, car, far, jar, star, tar, scar, barn, darn, yarn, ark, bark, dark, mark, park, shark, spark, art, cart, dart, part, start, smart, chart, arm, farm, harm, charm, card, hard, yard, guard, arch, march, large, charge, sharp, harp, scarf"],
-                decodable: ["er/ir/ur (same sound): her, fern, germ, term, herd, nerd, verb, perch, jerk, perk, clerk, stern, serve, nerve, swerve, bird, dirt, firm, girl, sir, stir, swirl, third, shirt, skirt, thirst, first, birth, chirp, squirm, squirt, blur, burn, churn, turn, curb, curl, hurl, hurt, burst, nurse, purse, curse, church, fur, burp, slurp", "or (corn): for, nor, or, born, corn, horn, morn, torn, worn, fork, pork, stork, cord, lord, fort, port, sort, sport, short, storm, form, worm, north, forth, torch, porch, horse, force, scorch, score, shore, store, more, core, bore, wore, tore, snore, chore", "-le syllables: able, table, cable, fable, stable, bubble, double, trouble, rubble, stubble, cuddle, huddle, muddle, puddle, giggle, wiggle, jiggle, juggle, struggle, snuggle, apple, maple, purple, simple, temple, people, little, middle, riddle, fiddle, paddle, saddle, rattle, battle, cattle, bottle, settle, kettle, gentle, turtle, circle, uncle, ankle, crinkle, wrinkle, sparkle, puzzle, drizzle, sizzle, nozzle"],
-                sightWords: ["Previous + journal, world, worth, worse, work, word, worst, worry, worm, worn, warm, war, want, walk, talk, chalk, stalk, half, calf, calm, palm, folk, yolk, shoulder, could, would, should, island, answer, sword, guard"],
-                avoid: [],
-                sentenceStructure: "Full narrative complexity. All structures. Max 12 words.",
-                examples: ["The girl in the purple shirt rode her horse to the barn.", "After the storm, we searched the shore for starfish.", "\"Turn left at the church,\" the nurse told her."]
-            },
-
-            // === TRANSITIONAL READERS (Grades 2-3) ===
-            9: {
-                name: "Diphthongs (Teal)",
-                phonics: "Vowel glides where sound shifts: oi/oy, ou/ow (as in cow), au/aw.",
-                patterns: ["oi/oy: oil, boil, coil, foil, soil, toil, coin, join, point, moist, voice, choice, noise, boy, joy, toy, coy, ploy, annoy, enjoy, destroy, loyal, royal"],
-                decodable: ["ou/ow (cow sound): out, our, hour, sour, flour, cloud, loud, proud, shout, scout, count, mount, found, ground, round, sound, bound, mound, pound, house, mouse, blouse, cow, how, now, wow, bow, plow, brow, crowd, clown, crown, drown, frown, brown, down, town, gown, owl, howl, growl, prowl, scowl", "au/aw: saw, raw, jaw, law, paw, claw, draw, straw, thaw, yawn, dawn, fawn, lawn, spawn, crawl, shawl, brawl, cause, pause, sauce, fault, vault, haul, maul, haunt, jaunt, launch, staunch, caught, taught"],
-                sightWords: ["All previous + thought, through, although, enough, tough, rough, cough, buy, guy, build, built, guard, guide, guest, guess, guitar"],
-                avoid: [],
-                sentenceStructure: "Compound and complex sentences. Dialogue with tags. Max 14 words.",
-                examples: ["The boy found a shiny coin on the ground near the old house.", "\"How loud was that owl?\" asked Roy with a frown.", "We saw the brown cow walk down to the pond at dawn."]
-            },
-            10: {
-                name: "Silent Letters (Indigo)",
-                phonics: "Letters that are written but not pronounced: kn-, wr-, gn-, -mb, gh patterns.",
-                patterns: ["kn- (silent k): knee, kneel, knew, knife, knight, knit, knob, knock, knot, know, knowledge, knuckle", "wr- (silent w): wrap, wreath, wreck, wren, wrestle, wriggle, wring, wrinkle, wrist, write, writhe, wrong, wrote, wry"],
-                decodable: ["gn- (silent g): gnarl, gnash, gnat, gnaw, gnome, gnu, sign, design, assign, resign, align, benign, reign, feign", "-mb (silent b): bomb, climb, comb, crumb, dumb, lamb, limb, numb, plumb, thumb, tomb, womb", "gh patterns: high, sigh, thigh, night, right, sight, tight, bright, flight, fright, knight, light, might, slight, weigh, sleigh, neigh, eight, weight, freight, neighbor, caught, taught, daughter, bought, brought, fought, thought, ought, though, although, dough, thorough"],
-                sightWords: ["All previous + answer, island, listen, often, soften, fasten, castle, whistle, bustle, hustle, rustle, wrestle"],
-                avoid: [],
-                sentenceStructure: "Multiple clauses. Introductory phrases. Max 15 words.",
-                examples: ["The knight knew he ought to climb the winding path to the castle.", "I thought I might write a sign about the gnome in the garden.", "Although the lamb was dumb, it could wriggle through the tight fence."]
-            },
-            11: {
-                name: "Soft C & G (Coral)",
-                phonics: "C says /s/ before e, i, y. G says /j/ before e, i, y. Also -dge pattern.",
-                patterns: ["Soft c (ce, ci, cy): ace, face, lace, pace, race, place, space, grace, trace, brace, ice, dice, mice, nice, rice, price, slice, spice, twice, voice, choice, cell, cent, center, certain, circle, city, civil, cycle, bicycle, icy, fancy, mercy, policy"],
-                decodable: ["Soft g (ge, gi, gy): age, cage, page, rage, sage, stage, wage, huge, change, charge, large, strange, gem, gentle, germ, giant, giraffe, gym, energy, allergy, apology, biology, technology, magic, tragic, logic, allergic, Egypt, oxygen", "-dge (says /j/): badge, cadge, edge, hedge, ledge, wedge, bridge, fridge, ridge, budge, fudge, judge, nudge, smudge, trudge, dodge, lodge, knowledge, acknowledge"],
-                sightWords: ["All previous + ocean, special, ancient, especially, social, official, delicious, precious, conscious, anxious, cautious"],
-                avoid: [],
-                sentenceStructure: "Varied sentence beginnings. Transitions. Max 16 words.",
-                examples: ["The gentle giant from the city placed the mice in a large cage.", "Grace decided to dance across the stage twice before the judge arrived.", "In ancient Egypt, people built huge bridges over the edge of the ridge."]
-            },
-            12: {
-                name: "2-Syllable Words (Lime)",
-                phonics: "Syllable division: VC/CV (closed), V/CV (open), VC/V patterns. Compound words.",
-                patterns: ["Closed syllables (VC/CV - divide between consonants): rabbit, happen, butter, kitten, cotton, button, mitten, hidden, sudden, muffin, pumpkin, napkin, basket, helmet, puppet, magnet, insect, sunset, consist, contest"],
-                decodable: ["Open syllables (V/CV - first syllable open, long vowel): even, open, over, paper, baby, lazy, lady, crazy, tiger, spider, robot, total, moment, vocal, local, focus, bonus, basic, unit, music, student, humid", "Mixed patterns: lemon, never, seven, clever, river, visit, limit, spirit, cabin, robin, planet, rapid, manage, balance, damage, publish, vanish, punish, finish, polish", "Compound words: into, upon, until, within, without, inside, outside, upstairs, downstairs, birthday, popcorn, sometimes, airplane, sunshine, rainbow, homework, football, bedroom, bathroom, breakfast"],
-                sightWords: ["All previous + complete, repeat, machine, magazine, routine, unique, technique, antique, fatigue, league, colleague, vague, plague"],
-                avoid: [],
-                sentenceStructure: "Topic sentences. Supporting details. Max 18 words.",
-                examples: ["The baby tiger was hidden inside the cabin until sunset when the robot arrived.", "After breakfast, the clever student finished her homework about insects and spiders.", "Sometimes a rainbow appears over the mountains, and the moment feels truly magic."]
-            },
-
-            // === DEVELOPING READERS (Grades 3-5) ===
-            13: {
-                name: "All 6 Syllable Types (Magenta)",
-                phonics: "Mastery of: Closed, Open, VCe, Vowel Team, R-controlled, Consonant-le.",
-                patterns: ["Closed (short vowel, ends in consonant): basket, dentist, fantastic, magnetism, experiment", "Open (ends in long vowel): locate, donate, rotate, migrate, hibernate, demonstrate", "VCe (silent e makes vowel long): complete, translate, organize, recognize, demonstrate"],
-                decodable: ["Vowel Team (two vowels make one sound): explain, complain, entertain, maintain, repeat, defeat, reveal, conceal, appeal, approach, reproach", "R-Controlled (vowel + r): surprise, perform, important, departure, furthermore, thermometer, determine", "Consonant-le (ends in -le): terrible, horrible, possible, responsible, comfortable, miserable, remarkable, vegetable, considerable, syllable"],
-                sightWords: ["All previous + guarantee, restaurant, calendar, February, Wednesday, secretary, necessary, different, experience, experiment, especially, government, environment"],
-                avoid: [],
-                sentenceStructure: "Paragraph structure. Main idea and details. Max 20 words.",
-                examples: ["The responsible scientist performed a remarkable experiment to determine if hibernation was possible.", "It seems necessary to explain the considerable difference between vegetables grown in February.", "The government's environmental approach was especially important for the comfortable future of wildlife."]
-            },
-            14: {
-                name: "Common Suffixes (Cyan)",
-                phonics: "Inflectional: -s, -es, -ed, -ing, -er, -est. Derivational: -ly, -ful, -less, -ness, -ment, -tion, -able.",
-                patterns: ["Inflectional endings: walks, walking, walked, walker; jumps, jumping, jumped, jumper; boxes, foxes; happier, happiest; bigger, biggest; running, swimming (double consonant)", "Base word changes: hope→hoping, make→making (drop e); happy→happily, beauty→beautiful (y to i); occur→occurring, begin→beginning (double final consonant)"],
-                decodable: ["-ly (adverbs): quickly, slowly, quietly, loudly, carefully, suddenly, probably, actually, finally, usually, especially, certainly, definitely, unfortunately", "-ful/-less (adjectives): beautiful, wonderful, powerful, peaceful, harmful, careful, hopeful, thankful, careless, hopeless, useless, helpless, fearless, endless, countless", "-ness/-ment (nouns): happiness, sadness, kindness, darkness, weakness, illness, goodness, excitement, enjoyment, amazement, achievement, agreement, government, environment, improvement", "-tion/-sion (nouns): action, nation, station, vacation, education, information, celebration, imagination, attention, invention, decision, television, permission, expression, discussion"],
-                sightWords: ["All previous + education, situation, imagination, information, communication, transportation, explanation, investigation, recommendation, determination"],
-                avoid: [],
-                sentenceStructure: "Varied sentence types. Cause and effect. Compare and contrast. Max 22 words.",
-                examples: ["The careful investigation unfortunately revealed that the powerful invention caused harmful environmental damage.", "Surprisingly, the peaceful celebration brought tremendous happiness and definitely improved communication between the nations.", "Without careful attention, the careless decision quickly led to endless problems and considerable disappointment."]
-            },
-            15: {
-                name: "Common Prefixes (Amber)",
-                phonics: "un-, re-, pre-, dis-, mis-, in-/im-/il-/ir-, over-, under-, non-, anti-, semi-, super-.",
-                patterns: ["Negation prefixes: unhappy, unkind, unfair, unable, unlock, uncomfortable; disagree, disappear, dislike, disconnect, disappoint; misunderstand, misbehave, misspell, mistrust, mislead"],
-                decodable: ["Direction/position: return, review, rewrite, rebuild, recycle, repeat; preview, predict, prepare, prevent, prehistoric; overload, overcome, overlook, overnight; underwater, understand, underground, underline", "Degree/manner: impossible, impatient, imperfect, impolite; illegal, illogical; irregular, irresponsible; nonviolent, nonsense, nonfiction; antiwar, antisocial, antibiotic; semicircle, semifinal; superhero, supernatural, supermarket"],
-                sightWords: ["All previous + prejudice, prejudge, preposition, prescription, presentation, preparation, independence, incredible, inexpensive, intersection, international, interrupt, irrelevant, irresistible"],
-                avoid: [],
-                sentenceStructure: "Complex sentences with multiple clauses. Transition words. Max 24 words.",
-                examples: ["Although it seemed impossible, the irresponsible superhero quickly returned to rebuild the underground shelter before the semifinal.", "The international presentation unfortunately revealed that the nonfiction manuscript contained several irrelevant and misleading statements.", "Without preparation, the impatient students could not possibly understand the prehistoric artifacts displayed at the supermarket intersection."]
-            },
-            16: {
-                name: "Latin Roots (Slate)",
-                phonics: "Common Latin roots: struct, port, dict, scrib/script, spec/spect, ject, rupt, tract, form, aud, vid/vis.",
-                patterns: ["struct (build): structure, construct, instruct, destruct, obstruct, destruction, construction, instruction, infrastructure", "port (carry): transport, import, export, report, support, portable, important, transportation", "dict (say): dictate, predict, verdict, dictionary, contradict, addiction, prediction, diction"],
-                decodable: ["scrib/script (write): scribble, describe, inscribe, prescribe, subscribe, manuscript, transcript, prescription, description", "spec/spect (see/look): inspect, respect, expect, suspect, spectacle, perspective, inspector, spectator, spectacular", "ject (throw): project, reject, inject, object, subject, eject, projection, rejection, injection, objection", "rupt (break):rupt, erupt, corrupt, disrupt, abrupt, bankrupt, eruption, corruption, disruption, interruption", "tract (pull/drag): tractor, attract, distract, extract, contract, subtract, retract, attraction, distraction", "form (shape): form, reform, inform, perform, transform, uniform, formula, formation, information, transformation", "aud (hear): audio, audience, audition, auditorium, audible, inaudible", "vid/vis (see): video, vision, visible, invisible, visualize, television, supervisor, revision, evidence"],
-                sightWords: ["All previous + architecture, circumstance, consequence, constitution, contemporary, controversy, cooperation, correspondence, curriculum, democracy"],
-                avoid: [],
-                sentenceStructure: "Academic writing style. Evidence and explanation. Formal transitions. Max 26 words.",
-                examples: ["The construction project required considerable infrastructure support, and the inspector predicted that the transformation would attract significant attention.", "According to the evidence, the spectacular eruption caused substantial disruption, which consequently interrupted the transportation of important manuscripts.", "The supervisor instructed the audience to visualize the transformation and describe their perspective on the controversial democratic reforms."]
-            },
-
-            // === FLUENT READERS (Grades 5-7) ===
-            17: {
-                name: "Greek Roots (Crimson)",
-                phonics: "Common Greek roots: graph, phon, photo, bio, geo, chron, log, tele, therm, meter, scope, auto, psych, path.",
-                patterns: ["graph (write): graph, paragraph, autograph, biography, photography, geography, bibliography, choreography, demographic, graphic, telegraph", "phon (sound): phone, phonics, telephone, microphone, symphony, saxophone, homophone, phonograph, euphony, cacophony", "photo (light): photo, photograph, photographer, photosynthesis, photocopy, photogenic, telephoto"],
-                decodable: ["bio (life): biology, biography, antibiotic, biodegradable, biochemistry, biome, biosphere, biopsy, symbiosis", "geo (earth): geography, geology, geometry, geothermal, geocentric, geopolitical, geographic", "chron (time): chronic, chronicle, chronological, synchronize, anachronism, chronometer", "log/logy (word/study): logic, dialogue, monologue, apology, technology, psychology, sociology, ecology, mythology, anthology, biology, geology, etymology", "tele (far): telephone, telescope, television, telegram, telepathy, telecommunication, telecommute", "therm (heat): thermometer, thermal, thermostat, hypothermia, geothermal, thermos, exothermic, endothermic", "auto (self): automatic, automobile, autonomy, autobiography, autograph, autopilot, autocrat, autonomous", "scope (see): microscope, telescope, stethoscope, horoscope, periscope, kaleidoscope, endoscope"],
-                sightWords: ["All previous + analyze, analyze, archaeology, bureaucracy, catastrophe, characteristic, choreography, chronological, comprehensive, contemporary, continuous"],
-                avoid: [],
-                sentenceStructure: "Academic paragraphs. Thesis and evidence. Formal register. Max 28 words.",
-                examples: ["The biologist's comprehensive autobiography chronicled her groundbreaking research on photosynthesis and the symbiotic relationships within diverse biomes.", "Using the telescope and microscope, the geologist analyzed the geographic characteristics of the autonomous region's geothermal activity.", "The psychology professor's chronological dialogue about technology's impact on contemporary society demonstrated sophisticated understanding of human behavior."]
-            },
-            18: {
-                name: "Academic Vocabulary Tier 2 (Emerald)",
-                phonics: "High-utility cross-curricular words that appear across domains: analyze, evidence, significant, context, interpret, conclude.",
-                patterns: ["Analysis words: analyze, examine, investigate, evaluate, assess, compare, contrast, distinguish, categorize, classify, identify, determine, conclude, infer, deduce"],
-                decodable: ["Evidence words: evidence, support, demonstrate, illustrate, indicate, suggest, reveal, confirm, verify, substantiate, corroborate, validate", "Argument words: argue, claim, assert, contend, maintain, propose, suggest, recommend, conclude, justify, persuade, convince", "Process words: process, procedure, method, approach, strategy, technique, system, mechanism, function, operate, sequence, phase, stage", "Relationship words: relationship, connection, association, correlation, interaction, influence, impact, effect, consequence, result, cause, factor, contribute", "Degree words: significant, considerable, substantial, extensive, comprehensive, thorough, sufficient, adequate, primary, secondary, fundamental, essential, critical"],
-                sightWords: ["All previous + accumulate, acknowledge, adjacent, alternative, ambiguous, anticipate, appreciate, approximate, arbitrary, attribute, circumstances, coherent, commence"],
-                avoid: [],
-                sentenceStructure: "Formal academic prose. Hedging language. Citations and attributions. Max 30 words.",
-                examples: ["The comprehensive analysis suggests that significant environmental factors substantially contributed to the substantial decline, although alternative interpretations remain valid.", "Researchers demonstrated that the correlation between these variables indicated a fundamental connection; however, the evidence was insufficient to establish causation.", "To effectively evaluate this argument, one must first acknowledge the considerable impact of contextual factors and thoroughly examine the supporting evidence."]
-            },
-            19: {
-                name: "Complex Sentences (Violet)",
-                phonics: "Subordinate clauses, relative clauses, participial phrases, appositives, parallel structure.",
-                patterns: ["Subordinate conjunctions: although, because, since, while, whereas, unless, until, whenever, wherever, if, even though, so that, in order that, as long as, provided that"],
-                decodable: ["Relative clauses: who, whom, whose, which, that, where, when - The scientist who discovered the cure / The book that changed everything / The place where we first met", "Participial phrases: Walking through the forest, she noticed... / Exhausted from the journey, they rested... / Having completed the experiment, the team celebrated...", "Appositives: My brother, an accomplished musician, performed at Carnegie Hall. / The Amazon, the world's largest rainforest, contains incredible biodiversity.", "Parallel structure: She likes hiking, swimming, and cycling. / The program was designed to educate, inspire, and motivate students."],
-                sightWords: ["All previous + accommodate, accompany, accomplish, according, accumulate, achieve, acquire, adequate, administration, adolescent, advantageous, advertisement, aesthetic"],
-                avoid: [],
-                sentenceStructure: "Sophisticated syntax. Embedded clauses. Varied sentence length for rhythm. Max 35 words.",
-                examples: ["Although the expedition, which had been meticulously planned for months, encountered unexpected challenges, the determined researchers, having adapted their approach, successfully completed their groundbreaking study.", "The renowned architect, whose innovative designs have transformed urban landscapes, believes that sustainable buildings, when properly constructed, can significantly reduce environmental impact while enhancing quality of life.", "Because the committee recognized that traditional methods were insufficient, they implemented comprehensive reforms; consequently, participation increased dramatically, exceeding all preliminary projections."]
-            },
-            20: {
-                name: "Figurative Language (Bronze)",
-                phonics: "Idioms, metaphors, similes, personification, hyperbole, alliteration, onomatopoeia, symbolism, irony.",
-                patterns: ["Idioms: break the ice, piece of cake, hit the nail on the head, under the weather, cost an arm and a leg, bite the bullet, beat around the bush, let the cat out of the bag, once in a blue moon, the ball is in your court"],
-                decodable: ["Metaphor: Life is a journey. Time is money. The world is a stage. Her voice was music. He has a heart of stone. The classroom was a zoo.", "Simile: As brave as a lion. Like a fish out of water. Quick as lightning. Smooth as silk. Cold as ice. Busy as a bee. Light as a feather.", "Personification: The wind whispered secrets. Time flies. The sun smiled down. Opportunity knocked. Fear gripped him. The flowers danced in the breeze.", "Hyperbole: I've told you a million times. I'm so hungry I could eat a horse. This bag weighs a ton. I nearly died laughing. He's older than the hills.", "Irony: Situational (a fire station burns down), Verbal (saying 'nice weather' during a storm), Dramatic (audience knows what character doesn't)"],
-                sightWords: ["All previous + allude, allusion, allegory, ambiguity, connotation, denotation, euphemism, innuendo, juxtaposition, metaphorical, paradox, rhetorical, sarcasm, satire, symbolism"],
-                avoid: [],
-                sentenceStructure: "Literary style. Varied for effect. Intentional use of figurative devices. Max 40 words.",
-                examples: ["The opportunity that knocked at her door was, ironically, disguised as failure—a blessing in sheep's clothing that would ultimately transform her entire perspective on success.", "Time, that relentless thief, had stolen the vibrant colors from his memories, leaving only sepia-toned shadows that whispered of summers as endless as the ocean.", "The politician's promises, as empty as a drum, echoed through the hall; yet the audience, hungry for hope, devoured every crumb as if it were a feast."]
-            },
-
-            // === ADVANCED READERS (Grades 7-12) ===
-            21: {
-                name: "Domain Vocabulary Tier 3 (Silver)",
-                phonics: "Subject-specific technical vocabulary: scientific, mathematical, historical, literary terms.",
-                patterns: ["Science: hypothesis, photosynthesis, mitochondria, equilibrium, catalyst, chromosome, ecosystem, electromagnetic, biodiversity, metabolism, oxidation, evolution, genome, pandemic, vaccine", "Math: algorithm, coefficient, denominator, exponential, factorial, geometric, integer, polynomial, quadratic, theorem, variable, circumference, perpendicular, statistical, probability"],
-                decodable: ["History/Social Studies: civilization, constitution, democracy, imperialism, industrialization, nationalism, revolution, sovereignty, totalitarian, bureaucracy, capitalism, colonialism, communism, federalism, feudalism", "Literature/Arts: allegory, antagonist, archetype, characterization, denouement, foreshadowing, juxtaposition, metaphor, motif, narrative, omniscient, protagonist, rhetoric, symbolism, vernacular", "Philosophy/Psychology: cognition, consciousness, epistemology, existentialism, hypothesis, ideology, perception, rationalism, relativism, skepticism, subjective, synthesis, transcendence, utilitarianism"],
-                sightWords: ["All previous + aberration, abstraction, acquisition, aesthetic, amalgamation, anomaly, antithesis, archaic, articulate, assimilate, autonomous, benevolent, Byzantine, capricious, circumvent"],
-                avoid: [],
-                sentenceStructure: "Discipline-specific conventions. Technical precision. Appropriate jargon. Max 45 words.",
-                examples: ["The protagonist's existential crisis, foreshadowed through recurring motifs of isolation, reaches its denouement when she recognizes the fundamental antithesis between her ideological convictions and societal expectations.", "The catalyst initiated an exothermic reaction, demonstrating the equilibrium between oxidation and reduction; subsequently, the mitochondrial function exhibited predictable patterns consistent with the researcher's hypothesis.", "Analyzing the socioeconomic factors that precipitated the revolution reveals the inherent contradictions within the feudal system and the subsequent emergence of nationalistic ideology."]
-            },
-            22: {
-                name: "Nuanced Language (Platinum)",
-                phonics: "Connotation vs denotation, tone, register, formal vs informal, euphemism, understatement, loaded language.",
-                patterns: ["Register shifts: Formal (Subsequently, the committee convened) → Informal (Then, the group got together); Academic (The data suggests) → Conversational (It looks like)", "Connotation: childlike (positive) vs childish (negative); slender (positive) vs skinny (negative); confident (positive) vs arrogant (negative); thrifty (positive) vs cheap (negative)"],
-                decodable: ["Hedging language: It appears that, Evidence suggests, One might argue, It could be interpreted as, There is reason to believe, This seems to indicate", "Intensifiers and downtoners: extremely, considerably, somewhat, relatively, quite, rather, fairly, slightly, marginally, fundamentally, inherently, essentially", "Formal transitions: Furthermore, Moreover, Nevertheless, Notwithstanding, Consequently, Subsequently, Hitherto, Heretofore, Whereby, Wherein, Therein, Thereof", "Euphemisms: passed away (died), let go (fired), economically disadvantaged (poor), correctional facility (prison), collateral damage (civilian casualties), downsizing (layoffs)"],
-                sightWords: ["All previous + albeit, apropos, commensurate, concomitant, de facto, didactic, efficacious, equivocate, ersatz, exacerbate, exemplary, expedient, fortuitous, gratuitous, hegemony, idiosyncratic"],
-                avoid: [],
-                sentenceStructure: "Sophisticated register control. Deliberate word choice. Nuanced argumentation. Max 50 words.",
-                examples: ["While the administration characterized the workforce reduction as 'strategic restructuring,' the somewhat euphemistic terminology notwithstanding, those affected experienced the consequences as fundamentally devastating—a rhetorical distinction that, albeit subtle, reveals considerably about institutional priorities.", "The ostensibly gratuitous violence in the narrative, rather than being merely sensational, functions didactically; furthermore, the author's idiosyncratic style, wherein brutality becomes allegory, exemplifies how aesthetic choices can efficaciously illuminate hegemonic structures.", "Albeit controversial, the de facto policy shift represented a commensurate response to exacerbating conditions; nevertheless, critics argued that the expedient solution would prove neither sustainable nor, ultimately, efficacious."]
-            },
-            23: {
-                name: "Advanced Literary Analysis (Obsidian)",
-                phonics: "Critical reading of complex texts. Rhetorical analysis. Synthesis across sources. Original argumentation.",
-                patterns: ["Literary movements: Romanticism, Realism, Naturalism, Modernism, Postmodernism, Existentialism, Transcendentalism, Surrealism, Absurdism, Magical Realism", "Rhetorical strategies: ethos, pathos, logos, kairos, anaphora, epistrophe, chiasmus, antithesis, parallelism, rhetorical question, apostrophe, syllogism"],
-                decodable: ["Critical lenses: Formalist, Biographical, Historical, Marxist, Feminist, Psychoanalytic, Deconstructionist, Reader-Response, New Historicist, Postcolonial, Ecocritical, Queer Theory", "Analytical verbs: interrogate, problematize, deconstruct, synthesize, juxtapose, elucidate, extrapolate, contextualize, historicize, foreground, subvert, destabilize, complicate, nuance", "Argumentation: thesis, antithesis, synthesis, premise, warrant, qualifier, rebuttal, concession, counterargument, implication, ramification, corollary"],
-                sightWords: ["All previous + anathema, apotheosis, chimera, denouement, dichotomy, ennui, epistolary, ineffable, intertextuality, liminal, melancholy, mise-en-scène, palimpsest, polyphonic, quintessential, verisimilitude, zeitgeist"],
-                avoid: [],
-                sentenceStructure: "Scholarly prose. Complex argumentation. Synthesis and original insight. No practical word limit—sophistication over brevity.",
-                examples: ["The narrative's polyphonic structure—wherein multiple, often contradictory perspectives coalesce into what Bakhtin might term a 'dialogic' text—destabilizes conventional notions of authorial omniscience, thereby problematizing the reader's epistemological assumptions about textual meaning and interpretive authority.", "Through the lens of postcolonial criticism, the seemingly innocuous pastoral imagery reveals itself as a palimpsest of imperial ideology; the bucolic landscape, ostensibly celebrating natural beauty, simultaneously effaces the violence of colonial appropriation that enabled such aesthetic appreciation.", "The protagonist's existential ennui, far from representing mere psychological characterization, functions as an allegory for the broader cultural malaise of late capitalism—a reading that gains additional resonance when juxtaposed with the text's publication during the economic turbulence of the interwar period."]
-            }
+        // State
+        let currentStage = 'concept';
+        let selectedLevel = 'B3';
+        let levelSpecs = null;
+        let refinedConcept = '';
+        let currentBook = null;
+        let referencePrompt = '';
+        let referenceImageUrl = null;
+        let prompts = {
+            refine: { system: '', user: '' },
+            generate: { system: '', user: '' }
         };
 
-        // Existing books by level
-        const BOOKS = [
-            { slug: 'dog_pink', title: 'No, No, Dog!', level: 0, cover: '/books/images/dog_pink_page01.png' },
-            { slug: 'pig_yellow', title: 'Pig in Mud', level: 1, cover: '/books/images/pig_yellow_page01.png' },
-            { slug: 'volcano', title: 'Gus and the Volcano', level: 2, cover: '/books/volcano_images/page_01_cover.png' },
-            { slug: 'pig_mud', title: 'Pig in the Mud', level: 2, cover: '/books/pig_mud_images/page_01_cover.png' },
-            { slug: 'castle', title: 'Rats in the Castle', level: 3, cover: '/books/castle_images/page_01_cover.png' },
-        ];
-
-        let selectedLevel = 2;
-        let selectedCharacter = 'none';
-        let currentStory = null;
+        // Story Ideas by Level (from STORY_CONTENT_GUIDE.md)
+        const STORY_IDEAS = {
+            'A0': [
+                { title: "Look! Look! Look!", desc: "A curious cat points at things in their world", pattern: '"Look! A [object]!"' },
+                { title: "Up and Down", desc: "A bird and worm explore directional words", pattern: "Spatial concepts" },
+                { title: "This is My Book", desc: "How to hold and turn pages - interactive meta-awareness", pattern: "Print concepts" }
+            ],
+            'A1': [
+                { title: "Ava's Alphabet Adventure", desc: "Letters hiding in everyday objects", pattern: '"A is in the apple."' },
+                { title: "Letter Zoo", desc: "Animals with their initial letters", pattern: '"L is for Lion. Roar!"' },
+                { title: "My Name Is...", desc: "Characters introduce themselves with letter sounds", pattern: '"My name is Sam. S-S-Sam!"' }
+            ],
+            'A2': [
+                { title: "Go, Go, Go!", desc: "Animals racing with simple CV words", pattern: '"Go, cat, go!"' },
+                { title: "I Am Big. I Am Little.", desc: "Size comparisons and opposites", pattern: "Opposites structure" }
+            ],
+            'A3': [
+                { title: "The Red Hen", desc: "Classic folk tale with animal helpers", pattern: '"Not I, said the [animal]"' }
+            ],
+            'A4': [
+                { title: "Sam and the Map", desc: "A treasure hunt adventure", words: "treasure", pattern: "Simple quest" },
+                { title: "The Hat in the Pit", desc: "Friends try to rescue a hat", pattern: '"Can [animal] get it? No!"' }
+            ],
+            'B1': [
+                { title: "Nat the Bat", desc: "A bat who's scared of the dark learns to be brave", words: "bat, sat, hat, mat" },
+                { title: "The Big Pig Wig", desc: "A pig tries on silly wigs to find the right one", words: "big, pig, wig, dig" },
+                { title: "Dan's Nap", desc: "A cat keeps interrupting naptime", words: "Dan, nap, tap, sat, cat" },
+                { title: "Nat's Big Trip", desc: "A cat flies on an airplane to visit grandma", words: "Nat, sat, had, map", reach: "airplane, suitcase" }
+            ],
+            'B2': [
+                { title: "The Pup and the Mop", desc: "A puppy makes a mess and learns to clean up", words: "pup, mud, mop, tub, rub" },
+                { title: "Jet the Pet", desc: "A class pet hamster escapes on an adventure", words: "Jet, pet, get, set, wet" },
+                { title: "Pup at the Pond", desc: "A puppy discovers nature at the pond", words: "pup, hop, log, sun, mud", reach: "dragonfly, butterfly" },
+                { title: "Hot Dot", desc: "A ladybug seeks shade on a hot day", words: "hot, dot, pot, not, got" }
+            ],
+            'B3': [
+                { title: "Pip and the Croc", desc: "A small plover bird overcomes her fear to help clean a crocodile's teeth, and they become unlikely friends. Based on real symbiotic relationships.", words: "Pip, pond, stomp, best, trust", reach: "crocodile" },
+                { title: "Frog on a Log in the Fog", desc: "A frog must trust a friend in low visibility", words: "frog, log, fog, pond, stomp" },
+                { title: "Camp Stomp", desc: "Friends go camping and have stomping adventures", words: "camp, stomp, tent, best", reach: "marshmallow, campfire" },
+                { title: "Brent's Best Tent", desc: "Building the perfect blanket fort", words: "tent, best, went, sent, bent" },
+                { title: "The Crab Club", desc: "Crabs start a beach club", words: "crab, club, clap, grab, glad" }
+            ],
+            'B4': [
+                { title: "The Duck That Was Stuck", desc: "Friends work together to rescue a stuck duck", words: "duck, stuck, muck, truck" },
+                { title: "Stuck Truck", desc: "Construction vehicles rescue a stuck truck", words: "stuck, truck, muck, luck", reach: "bulldozer, excavator" },
+                { title: "The Glass Bell", desc: "A magical bell grants wishes", words: "glass, bell, fell, well, spell" }
+            ],
+            'B5': [
+                { title: "Shep the Sheep Chef", desc: "A sheep runs a food truck", words: "Shep, sheep, chef, shop, chop", reach: "restaurant" },
+                { title: "This, That, and the Other Thing", desc: "Decision paralysis over choices", words: "this, that, with, then, them" },
+                { title: "The Whale Who Wished", desc: "A whale learns the grass isn't always greener", words: "whale, wish, when, what, which" },
+                { title: "Phil's Photo", desc: "A photography contest adventure", words: "Phil, photo, phone", reach: "camera" }
+            ],
+            'B6': [
+                { title: "Kate's Cake Mistake", desc: "A baking disaster turns into triumph", words: "Kate, cake, make, bake, mistake" },
+                { title: "The Bike Hike", desc: "First big biking adventure", words: "bike, hike, like, ride, mile" },
+                { title: "The Wave That Saved the Cave", desc: "An ocean adventure with brave characters", words: "wave, cave, save, gave, brave" },
+                { title: "Mole's Home Stone", desc: "A mole decorates their underground home", words: "mole, home, stone, bone, alone" }
+            ],
+            'B7': [
+                { title: "The Rain Train", desc: "An imaginary journey on a rainy day", words: "rain, train, main, plain, drain" },
+                { title: "Toad's Road Home", desc: "A toad's journey back home", words: "toad, road, load, goat, boat" },
+                { title: "The Bee Team", desc: "Bees learn cooperation", words: "bee, team, dream, stream, seem", reach: "honeycomb" },
+                { title: "The Snowy Rowboat", desc: "A winter boating adventure", words: "snow, row, boat, float, coat" }
+            ],
+            'B8': [
+                { title: "The Owl and the Boy", desc: "A nighttime friendship develops", words: "owl, how, now, bow, wow" },
+                { title: "Joy's Noisy Toy", desc: "Problem-solving with a too-loud toy", words: "joy, toy, noise, voice, choice" },
+                { title: "The Hound Found the Sound", desc: "A detective dog follows mysterious sounds", words: "hound, found, sound, round, ground" },
+                { title: "Paw Prints in the Snow", desc: "Tracking animals in winter", words: "paw, saw, draw, raw, straw" }
+            ],
+            'B9': [
+                { title: "A Star on the Farm", desc: "Animals have a talent show", words: "star, farm, barn, car, jar" },
+                { title: "Fern's First Turn", desc: "Learning to share and take turns", words: "Fern, turn, burn, churn, first" },
+                { title: "The Storm Before Morning", desc: "A comforting night during a storm", words: "storm, morning, for, or, north" },
+                { title: "Chirp and Purr", desc: "An unlikely bird and cat friendship", words: "chirp, bird, purr, fur, her" }
+            ],
+            'C1': [
+                { title: "The Knight Who Couldn't Knock", desc: "A too-loud knight learns subtlety", pattern: "kn patterns" },
+                { title: "The Wrong Sign", desc: "A backwards writing adventure", pattern: "wr patterns" },
+                { title: "The Gnome's Garden", desc: "A gnome tends a secret garden", pattern: "gn patterns" }
+            ],
+            'C2': [
+                { title: "The Magic City", desc: "Discovering a miniature city", pattern: "ce, ci, cy words" },
+                { title: "The Gentle Giant", desc: "A misunderstood giant helps the village", pattern: "ge, gi words" }
+            ],
+            'C3': [
+                { title: "The Kitten in the Basket", desc: "Finding homes for kittens", words: "kitten, basket, ribbon" },
+                { title: "The Sunset Picnic", desc: "A family outing adventure", words: "sunset, picnic, napkin" },
+                { title: "Problem at the Pumpkin Patch", desc: "A farm mystery to solve", words: "problem, pumpkin, rabbit" }
+            ],
+            'C4': [
+                { title: "The Robot and the Pilot", desc: "A flying partnership", words: "robot, pilot, silent" },
+                { title: "The Little Purple Turtle", desc: "A turtle learns self-acceptance", words: "little, purple, turtle" },
+                { title: "The Maple Table", desc: "Intergenerational woodworking", words: "maple, table, stable" }
+            ],
+            'C5': [
+                { title: "The Treehouse Mystery", desc: "Who's been in the treehouse?", words: "treehouse, someone, can't" },
+                { title: "I Can't? I Can!", desc: "Proving doubters wrong", words: "can't, won't, didn't" },
+                { title: "The Butterfly's Birthday", desc: "A nature celebration", words: "butterfly, birthday, sunlight" }
+            ],
+            'C6': [
+                { title: "The Biggest Race", desc: "Achieving a personal best", words: "biggest, fastest, running" },
+                { title: "Wanted: Helper", desc: "Starting a helping business", words: "wanted, needed, helped" },
+                { title: "Camping and Cooking", desc: "Outdoor cooking skills", words: "camping, cooking, fishing" }
+            ],
+            'C7': [
+                { title: "The Hopeless Garden", desc: "A garden transforms with care", words: "hopeless, careful, kindness" },
+                { title: "The Fearless Firefly", desc: "A firefly becomes a leader", words: "fearless, darkness, safely" },
+                { title: "Thankful Thursday", desc: "Learning gratitude", words: "thankful, wonderful, quietly" }
+            ],
+            'C8': [
+                { title: "The Impossible Invention", desc: "Proving naysayers wrong with creativity", words: "impossible, disagree, redo" },
+                { title: "Unhappy Unicorn", desc: "A unicorn discovers what really makes them happy", words: "unhappy, unkind, undo" },
+                { title: "Replay", desc: "Learning from mistakes through do-overs", words: "replay, return, rethink" }
+            ],
+            'D1': [
+                { title: "The Lighthouse Keeper's Secret", desc: "Mysterious letters discovered in an old lighthouse", theme: "Curiosity, history" },
+                { title: "Melody's Magnificent Mistake", desc: "An error creates unexpected art", theme: "Happy accidents" },
+                { title: "The Map Maker's Daughter", desc: "Completing an unfinished map", theme: "Legacy, exploration" }
+            ],
+            'D2': [
+                { title: "The Submarine's Journey", desc: "Deep sea exploration adventure", roots: "sub, mar, aqua" },
+                { title: "Telescope to the Stars", desc: "An astronomy club discovery", roots: "tele, scop, astro" },
+                { title: "The Portable Library", desc: "Traveling books bring stories everywhere", roots: "port, lib, graph" }
+            ],
+            'D3': [
+                { title: "The Architect's Secret Blueprint", desc: "A hidden design reveals a mystery", focus: "-tion, -ment, -ible" },
+                { title: "Transformation", desc: "A caterpillar's perspective on change", focus: "trans-, -form, -ation" }
+            ],
+            'D4': [
+                { title: "Signals from Kepler", desc: "Decoding an alien message", genre: "Science fiction" },
+                { title: "The Winter Market", desc: "A community comes together", genre: "Realistic fiction" },
+                { title: "Shadows in the Museum", desc: "Statues move at night", genre: "Fantasy mystery" }
+            ],
+            'D5': [
+                { title: "The Color of Memory", desc: "Colors trigger forgotten memories", device: "Symbolism" },
+                { title: "Two Paths, One Mountain", desc: "Same journey from two perspectives", device: "Point of view" },
+                { title: "The Echo in the Valley", desc: "Words return changed", device: "Metaphor" }
+            ],
+            'D6': [
+                { title: "The Bridge Between Worlds", desc: "Navigating two cultures", theme: "Identity, belonging" },
+                { title: "The Last Page", desc: "A book that writes itself", theme: "Meta-fiction" },
+                { title: "The Starmaker's Apprentice", desc: "Learning how stars are made", theme: "World-building" }
+            ]
+        };
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            renderLevelList();
-            setupCharacterGrid();
-            updateLevelDetails(selectedLevel);
-            updateBookGrid(selectedLevel);
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Load level specs
+            try {
+                const response = await fetch('/data/level-specs.json');
+                levelSpecs = await response.json();
+            } catch (e) {
+                console.error('Failed to load level specs:', e);
+            }
+
+            updateLevelDisplay();
+            updateSuggestions();
         });
 
-        function renderLevelList() {
-            const list = document.getElementById('levelList');
-            const groups = [
-                { name: 'Phonics Foundation', range: [0, 8], grades: 'Pre-K to 2' },
-                { name: 'Transitional', range: [9, 12], grades: 'Grades 2-3' },
-                { name: 'Developing', range: [13, 16], grades: 'Grades 3-5' },
-                { name: 'Fluent', range: [17, 20], grades: 'Grades 5-7' },
-                { name: 'Advanced', range: [21, 23], grades: 'Grades 7-12' }
-            ];
+        // Story Suggestions
+        function toggleSuggestions() {
+            const content = document.getElementById('suggestionsContent');
+            const toggle = document.getElementById('suggestionsToggle');
 
-            list.innerHTML = groups.map(g => `
-                <li class="level-group">
-                    <div class="group-header">
-                        <strong>${g.name}</strong>
-                        <span class="group-grades">${g.grades}</span>
-                    </div>
-                    <ul class="group-levels">
-                        ${LEVELS.slice(g.range[0], g.range[1] + 1).map(l => `
-                            <li class="level-item ${l.level === selectedLevel ? 'selected' : ''}"
-                                data-level="${l.level}" onclick="selectLevel(${l.level})">
-                                <span class="level-num">${l.level}</span>
-                                <span class="level-name">${l.name}</span>
-                            </li>
-                        `).join('')}
-                    </ul>
-                </li>
-            `).join('');
+            if (content.classList.contains('visible')) {
+                content.classList.remove('visible');
+                toggle.textContent = 'Show suggestions';
+            } else {
+                content.classList.add('visible');
+                toggle.textContent = 'Hide';
+            }
         }
 
-        function selectLevel(level) {
-            selectedLevel = level;
-            document.querySelectorAll('.level-item').forEach(el => {
-                el.classList.toggle('selected', parseInt(el.dataset.level) === level);
-            });
-            updateLevelDetails(level);
-            updateBookGrid(level);
-        }
+        function updateSuggestions() {
+            const grid = document.getElementById('suggestionsGrid');
+            const levelLabel = document.getElementById('suggestionsLevel');
+            const ideas = STORY_IDEAS[selectedLevel] || [];
 
-        function updateLevelDetails(level) {
-            const l = LEVELS[level];
-            document.getElementById('levelBadge').textContent = level;
-            document.getElementById('levelBadge').className = `level-badge level-${level}`;
-            document.getElementById('levelTitle').textContent = `Level ${level}: ${l.name}`;
-            document.getElementById('levelGrade').textContent = `Grade ${l.grade}`;
-            document.getElementById('levelSkill').textContent = l.skill;
-            document.getElementById('levelWords').textContent = `${l.words} words`;
-            document.getElementById('levelAge').textContent = `${l.age} years`;
-            document.getElementById('wordExamples').innerHTML = l.examples.map(w =>
-                `<span class="word-chip">${w}</span>`
-            ).join('');
-        }
+            levelLabel.textContent = selectedLevel;
 
-        function updateBookGrid(level) {
-            const books = BOOKS.filter(b => b.level === level || b.level === level - 1 || b.level === level + 1);
-            const grid = document.getElementById('bookGrid');
-
-            if (books.length === 0) {
-                grid.innerHTML = '<p style="color: #666; font-size: 0.9rem;">No books at this level yet. Create one!</p>';
+            if (ideas.length === 0) {
+                grid.innerHTML = '<div class="no-suggestions">No pre-defined story ideas for this level yet. Enter your own concept above!</div>';
                 return;
             }
 
-            grid.innerHTML = books.map(b => `
-                <a href="/books/" class="book-card">
-                    <img src="${b.cover}" alt="${b.title}" onerror="this.style.background='#ddd'">
-                    <div class="title">${b.title}</div>
-                    <div class="meta">Level ${b.level}</div>
-                </a>
+            grid.innerHTML = ideas.map((idea, idx) => `
+                <div class="suggestion-card" onclick="useSuggestion(${idx})">
+                    <div class="suggestion-title">${idea.title}</div>
+                    <div class="suggestion-desc">${idea.desc}</div>
+                    ${idea.words ? `<div class="suggestion-words">Words: ${idea.words}</div>` : ''}
+                    ${idea.reach ? `<div class="suggestion-words">Reach words: ${idea.reach}</div>` : ''}
+                    ${idea.pattern ? `<div class="suggestion-words">Pattern: ${idea.pattern}</div>` : ''}
+                    ${idea.theme ? `<div class="suggestion-words">Theme: ${idea.theme}</div>` : ''}
+                </div>
             `).join('');
         }
 
-        function setupCharacterGrid() {
-            const customInput = document.getElementById('customCharacter');
-            document.getElementById('characterGrid').addEventListener('click', (e) => {
-                const option = e.target.closest('.character-option');
-                if (option) {
-                    document.querySelectorAll('.character-option').forEach(o => o.classList.remove('selected'));
-                    option.classList.add('selected');
-                    selectedCharacter = option.dataset.character;
-                    // Show/hide custom character input
-                    customInput.style.display = selectedCharacter === 'custom' ? 'block' : 'none';
-                    if (selectedCharacter === 'custom') {
-                        customInput.focus();
-                    }
+        function useSuggestion(idx) {
+            const ideas = STORY_IDEAS[selectedLevel] || [];
+            const idea = ideas[idx];
+            if (!idea) return;
+
+            // Build a concept from the suggestion
+            let concept = idea.desc;
+            if (idea.words) {
+                concept += `\n\nTarget words for this level: ${idea.words}`;
+            }
+            if (idea.reach) {
+                concept += `\nReach words (high-interest vocabulary): ${idea.reach}`;
+            }
+
+            document.getElementById('conceptInput').value = concept;
+
+            // Close suggestions
+            document.getElementById('suggestionsContent').classList.remove('visible');
+            document.getElementById('suggestionsToggle').textContent = 'Show suggestions';
+        }
+
+        // Stage Navigation
+        function goToStage(stage) {
+            const stageItem = document.querySelector(`[data-stage="${stage}"]`);
+            if (stageItem?.classList.contains('disabled')) return;
+
+            // Update sidebar
+            document.querySelectorAll('.stage-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.stage === stage) {
+                    item.classList.add('active');
                 }
             });
+
+            // Update content
+            document.querySelectorAll('.stage-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.getElementById(`stage-${stage}`).classList.add('active');
+
+            currentStage = stage;
+
+            // Stage-specific setup
+            if (stage === 'images') {
+                setupImagesStage();
+            } else if (stage === 'save') {
+                setupSaveStage();
+            }
         }
 
-        async function generateStory() {
-            const prompt = document.getElementById('storyPrompt').value.trim();
-            const customWords = document.getElementById('customWords').value.trim();
-            const customCharacter = document.getElementById('customCharacter').value.trim();
+        function enableStage(stage) {
+            const stageItem = document.querySelector(`[data-stage="${stage}"]`);
+            if (stageItem) {
+                stageItem.classList.remove('disabled');
+            }
+        }
 
-            if (!prompt) {
-                alert('Please enter a story idea!');
+        function completeStage(stage) {
+            const stageItem = document.querySelector(`[data-stage="${stage}"]`);
+            if (stageItem) {
+                stageItem.classList.add('completed');
+            }
+        }
+
+        // Level handling
+        function updateLevel() {
+            selectedLevel = document.getElementById('levelSelect').value;
+            updateLevelDisplay();
+            updateSuggestions();
+        }
+
+        function updateLevelDisplay() {
+            const badges = document.querySelectorAll('.level-badge');
+            badges.forEach(badge => {
+                badge.textContent = `Level ${selectedLevel}`;
+            });
+        }
+
+        // Prompt visibility
+        function togglePrompts(sectionId) {
+            const section = document.getElementById(sectionId);
+            const content = section.querySelector('.prompt-content');
+            const toggle = section.querySelector('.prompt-toggle');
+
+            if (content.classList.contains('visible')) {
+                content.classList.remove('visible');
+                toggle.textContent = 'Show';
+            } else {
+                content.classList.add('visible');
+                toggle.textContent = 'Hide';
+            }
+        }
+
+        // Tab switching
+        function switchTab(stage, tab) {
+            const tabs = document.querySelectorAll(`#stage-${stage} .tab`);
+            const panels = document.querySelectorAll(`#stage-${stage} .tab-panel`);
+
+            tabs.forEach(t => t.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
+
+            document.querySelector(`#stage-${stage} .tab[onclick*="${tab}"]`)?.classList.add('active');
+            document.getElementById(`${stage}-${tab}`)?.classList.add('active');
+        }
+
+        // Loading overlay
+        function showLoading(text = 'Working...') {
+            document.getElementById('loadingText').textContent = text;
+            document.getElementById('loadingOverlay').classList.add('visible');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.remove('visible');
+        }
+
+        // Stage 2: Refine Concept
+        async function refineConcept() {
+            const concept = document.getElementById('conceptInput').value.trim();
+            if (!concept) {
+                alert('Please enter a story concept');
                 return;
             }
 
-            // Show loading
-            document.getElementById('loading').classList.add('visible');
-            document.getElementById('output').classList.remove('visible');
-            document.getElementById('generateBtn').disabled = true;
+            const structure = document.getElementById('structureSelect').value;
+            const fullConcept = structure
+                ? `${concept}\n\nUse the ${structure.toUpperCase()} story structure.`
+                : concept;
 
-            const levelInfo = LEVELS[selectedLevel];
+            // Move to refine stage
+            enableStage('refine');
+            goToStage('refine');
 
-            // Build character instruction
-            let characterInstruction = '';
-            if (selectedCharacter === 'none') {
-                characterInstruction = 'Choose an appropriate main character for the story.';
-            } else if (selectedCharacter === 'custom') {
-                characterInstruction = customCharacter || 'Choose an appropriate main character for the story.';
-            } else {
-                characterInstruction = `Main character: a ${selectedCharacter}`;
-            }
+            const output = document.getElementById('refineOutput');
+            output.innerHTML = '<span class="cursor"></span>';
+            output.classList.add('streaming');
 
-            const spec = LEVEL_SPECS[selectedLevel];
-
-            const systemPrompt = `You are a reading specialist creating a decodable leveled reader using Science of Reading / Orton-Gillingham principles.
-
-=== TARGET: LEVEL ${selectedLevel} - ${spec.name} ===
-
-PHONICS SCOPE: ${spec.phonics}
-
-DECODABLE WORD PATTERNS (use these!):
-${spec.patterns.slice(0, 2).join('\n')}
-${spec.decodable.slice(0, 2).join('\n')}
-
-SIGHT WORDS OK: ${spec.sightWords.slice(0, 20).join(', ')}...
-
-AVOID (too advanced for this level): ${spec.avoid.join(', ')}
-
-SENTENCE RULES: ${spec.sentenceStructure}
-
-EXAMPLES OF GOOD SENTENCES:
-${spec.examples.map(e => `• "${e}"`).join('\n')}
-
-=== STORY PARAMETERS ===
-CHARACTER: ${characterInstruction}
-${customWords ? `INCLUDE THESE WORDS: ${customWords}` : ''}
-STORY IDEA: ${prompt}
-
-=== REQUIREMENTS ===
-1. Write 10-14 pages
-2. STRICT: Maximum ${levelInfo.words} words per sentence
-3. Use ONLY decodable patterns from this level or below
-4. Follow Hero's Journey: ordinary world → call to adventure → challenge → triumph → return
-5. Keep it engaging - repetition and rhythm help emerging readers!
-6. Each page needs a scene description for illustration
-
-Return ONLY valid JSON:
-{
-  "title": "Story Title",
-  "summary": "One sentence summary",
-  "pages": [
-    {"page": 1, "text": "Page text here.", "scene": "Visual description for illustrator"}
-  ],
-  "word_list": {
-    "decodable": ["words", "child", "sounds", "out"],
-    "sight": ["high", "frequency", "words"],
-    "new_vocabulary": ["any", "new", "words"]
-  },
-  "phonics_focus": ["patterns", "practiced", "in", "story"]
-}`;
+            document.getElementById('generateBookBtn').disabled = true;
+            refinedConcept = '';
 
             try {
-                const response = await fetch('/api/generate-story', {
+                const response = await fetch(`/api/refine-concept?stream=true`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: systemPrompt })
+                    body: JSON.stringify({
+                        concept: fullConcept,
+                        level: selectedLevel
+                    })
                 });
 
-                if (!response.ok) throw new Error('Failed to generate');
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
 
-                currentStory = await response.json();
-                currentStory.level = selectedLevel;
-                currentStory.character = selectedCharacter;
-                displayStory(currentStory);
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
 
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n');
+
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            try {
+                                const data = JSON.parse(line.slice(6));
+                                if (data.text) {
+                                    refinedConcept += data.text;
+                                    output.innerHTML = formatMarkdown(refinedConcept) + '<span class="cursor"></span>';
+                                    output.scrollTop = output.scrollHeight;
+                                } else if (data.done) {
+                                    output.classList.remove('streaming');
+                                    output.innerHTML = formatMarkdown(refinedConcept);
+                                    document.getElementById('generateBookBtn').disabled = false;
+                                    completeStage('concept');
+                                    enableStage('generate');
+
+                                    // Extract and show reference prompt
+                                    extractAndShowReferencePrompt(refinedConcept);
+                                }
+                            } catch (e) {}
+                        }
+                    }
+                }
             } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to generate story. Please try again.');
+                console.error('Refine error:', error);
+                output.innerHTML = `<div class="alert alert-warning">Error: ${error.message}</div>`;
+            }
+        }
+
+        // Reference Image Functions
+        function extractAndShowReferencePrompt(text) {
+            // Look for the reference prompt section
+            const markers = [
+                '## Reference Sheet Prompt',
+                '## Reference Prompt',
+                '9-PANEL CHARACTER AND STYLE REFERENCE'
+            ];
+
+            let refPrompt = '';
+
+            for (const marker of markers) {
+                const idx = text.indexOf(marker);
+                if (idx !== -1) {
+                    // Extract from marker to end or next ## section
+                    let endIdx = text.indexOf('\n## ', idx + marker.length);
+                    if (endIdx === -1) endIdx = text.length;
+
+                    refPrompt = text.slice(idx, endIdx).trim();
+
+                    // If it starts with a header, remove it
+                    if (refPrompt.startsWith('## ')) {
+                        const lineEnd = refPrompt.indexOf('\n');
+                        refPrompt = refPrompt.slice(lineEnd + 1).trim();
+                    }
+
+                    // Clean up quotes if wrapped
+                    if (refPrompt.startsWith('"') && refPrompt.endsWith('"')) {
+                        refPrompt = refPrompt.slice(1, -1);
+                    }
+
+                    break;
+                }
             }
 
-            document.getElementById('loading').classList.remove('visible');
-            document.getElementById('generateBtn').disabled = false;
+            // If no explicit section found, look for 9-PANEL text anywhere
+            if (!refPrompt) {
+                const ninePanel = text.match(/9-PANEL[\s\S]*?(?:NO TEXT|pure visual reference)[^"]*"?/i);
+                if (ninePanel) {
+                    refPrompt = ninePanel[0].replace(/^["']|["']$/g, '').trim();
+                }
+            }
+
+            if (refPrompt) {
+                referencePrompt = refPrompt;
+                document.getElementById('refineReferencePrompt').value = refPrompt;
+                document.getElementById('referenceSection').style.display = 'block';
+            } else {
+                // No reference prompt found - still show section with empty prompt
+                document.getElementById('referenceSection').style.display = 'block';
+                document.getElementById('refineReferencePrompt').placeholder =
+                    'No reference prompt was generated. You can write one manually or regenerate the concept.';
+            }
         }
 
-        function displayStory(story) {
-            const titleEl = document.getElementById('storyTitle');
-            titleEl.innerHTML = story.title + (story.revised ? ' <span style="background: var(--color-sage); color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; margin-left: 8px; vertical-align: middle;">Revised</span>' : '');
+        async function generateReferenceFromRefine() {
+            const prompt = document.getElementById('refineReferencePrompt').value.trim();
+            if (!prompt) {
+                alert('Please enter a reference prompt');
+                return;
+            }
 
+            const status = document.getElementById('referenceStatus');
+            const preview = document.getElementById('refineReferencePreview');
+
+            status.textContent = 'Generating...';
+            preview.classList.add('generating');
+            preview.innerHTML = '';
+
+            try {
+                const response = await fetch('/api/generate-image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        model: 'nano-banana-pro',
+                        width: 1024,
+                        height: 1024
+                    })
+                });
+
+                const result = await response.json();
+
+                // Handle immediate result
+                if (result.url) {
+                    referenceImageUrl = result.url;
+                    preview.classList.remove('generating');
+                    preview.innerHTML = `<img src="${result.url}" alt="Reference Sheet">`;
+                    status.textContent = 'Generated!';
+                    status.style.color = 'var(--color-sage-dark)';
+                    return;
+                }
+
+                // Handle async polling case
+                if (result.pending && result.taskId) {
+                    status.textContent = 'Processing...';
+                    const imageUrl = await pollForImageResult(result.taskId, result.statusEndpoint, status);
+                    referenceImageUrl = imageUrl;
+                    preview.classList.remove('generating');
+                    preview.innerHTML = `<img src="${imageUrl}" alt="Reference Sheet">`;
+                    status.textContent = 'Generated!';
+                    status.style.color = 'var(--color-sage-dark)';
+                    return;
+                }
+
+                throw new Error(result.error || 'Failed to generate image');
+            } catch (error) {
+                console.error('Reference generation error:', error);
+                preview.classList.remove('generating');
+                preview.innerHTML = `<div class="alert alert-warning">Error: ${error.message}</div>`;
+                status.textContent = 'Failed';
+                status.style.color = 'var(--color-terracotta)';
+            }
+        }
+
+        // Helper function to poll for image generation result
+        async function pollForImageResult(taskId, statusEndpoint, statusEl, maxAttempts = 60) {
+            for (let i = 0; i < maxAttempts; i++) {
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                const checkResponse = await fetch(`/api/check-status?taskId=${taskId}&endpoint=${encodeURIComponent(statusEndpoint)}`);
+                const checkResult = await checkResponse.json();
+
+                if (statusEl) {
+                    statusEl.textContent = `Processing... (${i + 1}/${maxAttempts})`;
+                }
+
+                // API returns { completed: true, url } on success
+                if (checkResult.completed && checkResult.url) {
+                    return checkResult.url;
+                }
+
+                // API returns { success: false, error } on failure
+                if (!checkResult.success || checkResult.error) {
+                    throw new Error(checkResult.error || 'Image generation failed');
+                }
+
+                // API returns { pending: true } while still processing
+                // Continue polling
+            }
+            throw new Error('Timeout waiting for image generation');
+        }
+
+        // Stage 3: Generate Book
+        async function generateBook() {
+            if (!refinedConcept) {
+                alert('Please refine the concept first');
+                return;
+            }
+
+            enableStage('generate');
+            goToStage('generate');
+
+            const output = document.getElementById('generateOutput');
+            output.innerHTML = '<span class="cursor"></span>';
+            output.classList.add('streaming');
+
+            document.getElementById('validateBtn').disabled = true;
+            let rawText = '';
+
+            try {
+                const response = await fetch(`/api/generate-book-json?stream=true`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        concept: refinedConcept,
+                        level: selectedLevel
+                    })
+                });
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n');
+
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            try {
+                                const data = JSON.parse(line.slice(6));
+
+                                if (data.type === 'prompts') {
+                                    prompts.generate = {
+                                        system: data.systemPrompt,
+                                        user: data.userPrompt
+                                    };
+                                    document.getElementById('generatePromptText').textContent =
+                                        `=== SYSTEM PROMPT ===\n${data.systemPrompt}\n\n=== USER PROMPT ===\n${data.userPrompt}`;
+                                } else if (data.type === 'text') {
+                                    rawText += data.text;
+                                    output.innerHTML = `<pre style="white-space: pre-wrap; font-family: inherit;">${escapeHtml(rawText)}</pre><span class="cursor"></span>`;
+                                    output.scrollTop = output.scrollHeight;
+                                } else if (data.type === 'complete') {
+                                    currentBook = data.book;
+                                    output.classList.remove('streaming');
+                                    output.innerHTML = `<div class="alert alert-success">Book generated successfully!</div><pre style="white-space: pre-wrap; font-family: inherit;">${escapeHtml(rawText)}</pre>`;
+                                    document.getElementById('validateBtn').disabled = false;
+                                    document.getElementById('bookJsonEditor').value = JSON.stringify(currentBook, null, 2);
+                                    renderStoryPreview(currentBook);
+                                    completeStage('refine');
+                                    enableStage('validate');
+                                } else if (data.type === 'parse_error') {
+                                    output.classList.remove('streaming');
+                                    output.innerHTML = `<div class="alert alert-warning">Parse error: ${data.error}</div><pre style="white-space: pre-wrap;">${escapeHtml(data.rawText)}</pre>`;
+                                } else if (data.type === 'done') {
+                                    output.classList.remove('streaming');
+                                }
+                            } catch (e) {}
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Generate error:', error);
+                output.innerHTML = `<div class="alert alert-warning">Error: ${error.message}</div>`;
+            }
+        }
+
+        function regenerateBook() {
+            generateBook();
+        }
+
+        function renderStoryPreview(book) {
             const preview = document.getElementById('storyPreview');
-            const levelInfo = LEVELS[selectedLevel];
+            if (!book?.pages) {
+                preview.innerHTML = '<p>No pages to preview</p>';
+                return;
+            }
 
-            preview.innerHTML = story.pages.map(p => {
-                const wordCount = p.text.split(/\s+/).filter(w => w).length;
-                const sentences = p.text.split(/[.!?]+/).filter(s => s.trim());
-                const maxSentenceWords = Math.max(...sentences.map(s => s.trim().split(/\s+/).filter(w => w).length));
-                const overLimit = maxSentenceWords > levelInfo.words;
-
+            preview.innerHTML = book.pages.map(page => {
+                const hasImage = page.image && !page.image.includes('placeholder');
                 return `
-                <div class="story-page">
-                    <div class="page-num">Page ${p.page} ${overLimit ? '<span style="color: var(--color-terracotta); font-size: 0.75rem;">⚠️ ' + maxSentenceWords + '/' + levelInfo.words + ' words</span>' : ''}</div>
-                    <div class="text">${p.text}</div>
-                    ${p.scene ? `<div class="scene">[${p.scene}]</div>` : ''}
-                </div>
-            `}).join('');
-
-            document.getElementById('output').classList.add('visible');
-
-            // Auto-validate the story
-            validateStory(story);
+                    <div class="story-page-card ${hasImage ? 'has-image' : ''}">
+                        <div class="page-header">
+                            <span class="page-num">Page ${page.page}${page.story_page ? ` (Story ${page.story_page})` : ''}</span>
+                            <span class="page-type">${page.type}</span>
+                        </div>
+                        ${page.type === 'story' ? `
+                            <div class="page-image placeholder">
+                                ${hasImage ? `<img src="${page.image}" alt="Page ${page.page}">` : 'No image'}
+                            </div>
+                        ` : ''}
+                        <div class="page-text">${page.text || ''}</div>
+                        ${page.scene ? `<div class="page-scene">${page.scene}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
         }
 
-        async function validateStory(story) {
-            const validationSection = document.getElementById('validationSection');
+        // Stage 4: Validate
+        async function validateBook() {
+            if (!currentBook) {
+                alert('No book to validate');
+                return;
+            }
+
+            enableStage('validate');
+            goToStage('validate');
+
             const badge = document.getElementById('validationBadge');
             const stats = document.getElementById('validationStats');
             const issues = document.getElementById('validationIssues');
-            const decodabilityPercent = document.getElementById('decodabilityPercent');
-            const decodabilityFill = document.getElementById('decodabilityFill');
+            const percentEl = document.getElementById('decodabilityPercent');
+            const fillEl = document.getElementById('decodabilityFill');
 
-            // Show section with loading state
-            validationSection.classList.add('visible');
             badge.textContent = 'Checking...';
             badge.className = 'validation-badge';
 
             // Combine all page text
-            const fullText = story.pages.map(p => p.text).join(' ');
+            const fullText = currentBook.pages
+                .filter(p => p.type === 'story' && p.text)
+                .map(p => p.text)
+                .join(' ');
 
             try {
                 const response = await fetch('/api/validate-text', {
@@ -1399,231 +2032,243 @@ Return ONLY valid JSON:
                 });
 
                 if (!response.ok) {
-                    const err = await response.json();
-                    throw new Error(err.message || 'Validation failed');
+                    throw new Error('Validation failed');
                 }
 
                 const result = await response.json();
-                displayValidationResults(result);
+
+                // Update badge
+                badge.textContent = result.passed ? 'PASS' : 'NEEDS REVISION';
+                badge.className = `validation-badge ${result.passed ? 'pass' : 'fail'}`;
+
+                // Update stats
+                stats.innerHTML = `
+                    <div class="stat-item">
+                        <div class="value">${result.analysis?.totalWords || 0}</div>
+                        <div class="label">Total Words</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="value">${result.analysis?.uniqueWords || 0}</div>
+                        <div class="label">Unique</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="value">${result.decodability?.decodableWords || 0}</div>
+                        <div class="label">Decodable</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="value">${result.decodability?.sightWords || 0}</div>
+                        <div class="label">Sight</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="value">${result.decodability?.unknownWords?.length || 0}</div>
+                        <div class="label">Unknown</div>
+                    </div>
+                `;
+
+                // Update decodability bar
+                const score = result.decodability?.score || 0;
+                percentEl.textContent = score.toFixed(1) + '%';
+                fillEl.style.width = score + '%';
+
+                if (score >= 95) fillEl.className = 'decodability-fill excellent';
+                else if (score >= 85) fillEl.className = 'decodability-fill good';
+                else if (score >= 70) fillEl.className = 'decodability-fill fair';
+                else fillEl.className = 'decodability-fill poor';
+
+                // Update issues
+                if (result.violations?.length > 0) {
+                    issues.innerHTML = `
+                        <h4 style="margin-top: 1rem; font-size: 0.9rem;">Issues Found:</h4>
+                        <ul class="issue-list">
+                            ${result.violations.slice(0, 10).map(v => `
+                                <li class="issue-item">
+                                    <span class="word">"${v.word}"</span> - ${v.reason}
+                                    ${v.suggestion ? `<br><span style="color: var(--color-sage-dark);">Try: "${v.suggestion}"</span>` : ''}
+                                </li>
+                            `).join('')}
+                            ${result.violations.length > 10 ? `<li class="issue-item" style="border-left-color: #999;">...and ${result.violations.length - 10} more</li>` : ''}
+                        </ul>
+                    `;
+                } else {
+                    issues.innerHTML = '<p style="color: var(--color-sage-dark); margin-top: 1rem;">All words match level requirements!</p>';
+                }
+
+                completeStage('generate');
+                enableStage('images');
 
             } catch (error) {
                 console.error('Validation error:', error);
-                badge.textContent = 'Unable to validate';
+                badge.textContent = 'Error';
                 badge.className = 'validation-badge fail';
-                stats.innerHTML = `<p style="color: #666; font-size: 0.85rem;">Word banks are being set up. Try again shortly.</p>`;
-                issues.innerHTML = '';
-                decodabilityPercent.textContent = '--';
-                decodabilityFill.style.width = '0%';
+                stats.innerHTML = `<p>Validation failed: ${error.message}</p>`;
             }
         }
 
-        function displayValidationResults(result) {
-            const badge = document.getElementById('validationBadge');
-            const stats = document.getElementById('validationStats');
-            const issues = document.getElementById('validationIssues');
-            const decodabilityPercent = document.getElementById('decodabilityPercent');
-            const decodabilityFill = document.getElementById('decodabilityFill');
-
-            // Update badge
-            if (result.passed) {
-                badge.textContent = 'PASS';
-                badge.className = 'validation-badge pass';
-            } else {
-                badge.textContent = 'NEEDS REVISION';
-                badge.className = 'validation-badge fail';
-            }
-
-            // Update stats
-            stats.innerHTML = `
-                <div class="stat-item">
-                    <div class="value">${result.analysis.totalWords}</div>
-                    <div class="label">Total Words</div>
-                </div>
-                <div class="stat-item">
-                    <div class="value">${result.analysis.uniqueWords}</div>
-                    <div class="label">Unique Words</div>
-                </div>
-                <div class="stat-item">
-                    <div class="value">${result.decodability.decodableWords}</div>
-                    <div class="label">Decodable</div>
-                </div>
-                <div class="stat-item">
-                    <div class="value">${result.decodability.sightWords}</div>
-                    <div class="label">Sight Words</div>
-                </div>
-                <div class="stat-item">
-                    <div class="value">${result.decodability.unknownWords.length}</div>
-                    <div class="label">Unknown</div>
-                </div>
-            `;
-
-            // Update decodability bar
-            const score = result.decodability.score;
-            decodabilityPercent.textContent = score.toFixed(1) + '%';
-            decodabilityFill.style.width = score + '%';
-
-            if (score >= 95) {
-                decodabilityFill.className = 'decodability-fill excellent';
-            } else if (score >= 85) {
-                decodabilityFill.className = 'decodability-fill good';
-            } else if (score >= 70) {
-                decodabilityFill.className = 'decodability-fill fair';
-            } else {
-                decodabilityFill.className = 'decodability-fill poor';
-            }
-
-            // Update issues
-            if (result.violations.length === 0 && result.sentenceCheck.passed) {
-                issues.innerHTML = '<p style="color: var(--color-sage-dark); font-size: 0.85rem;">All words match Level ' + selectedLevel + ' requirements!</p>';
-            } else {
-                let issuesHtml = '';
-
-                // Word violations
-                if (result.violations.length > 0) {
-                    issuesHtml += `<h5>Unknown Words (${result.violations.length})</h5><ul class="issue-list">`;
-                    result.violations.slice(0, 10).forEach(v => {
-                        issuesHtml += `<li class="issue-item">
-                            <span class="word">"${v.word}"</span> - ${v.reason}
-                            ${v.suggestion ? `<br><span class="suggestion">Try: "${v.suggestion}"</span>` : ''}
-                        </li>`;
-                    });
-                    if (result.violations.length > 10) {
-                        issuesHtml += `<li class="issue-item" style="border-left-color: #999;">...and ${result.violations.length - 10} more</li>`;
-                    }
-                    issuesHtml += '</ul>';
-                }
-
-                // Sentence violations
-                if (!result.sentenceCheck.passed) {
-                    issuesHtml += `<h5>Sentence Length Violations</h5><ul class="issue-list">`;
-                    result.sentenceCheck.violations.forEach(v => {
-                        issuesHtml += `<li class="issue-item">
-                            Sentence ${v.sentenceNumber}: <span class="word">${v.wordCount} words</span> (max ${v.maxAllowed})
-                            <br><span style="color: #666; font-size: 0.8rem;">"${v.text}"</span>
-                        </li>`;
-                    });
-                    issuesHtml += '</ul>';
-                }
-
-                issues.innerHTML = issuesHtml;
-            }
+        async function reviseBook() {
+            showLoading('Revising book to match reading level...');
+            // TODO: Implement revision API call
+            hideLoading();
+            alert('Auto-revision coming soon! For now, edit the JSON manually.');
         }
 
-        function regenerate() {
-            document.getElementById('output').classList.remove('visible');
-            generateStory();
+        // Stage 5: Images
+        function setupImagesStage() {
+            if (!currentBook) return;
+
+            // Use reference prompt from refine stage if available, otherwise from book
+            const refPrompt = referencePrompt || currentBook.reference_prompt || '';
+            document.getElementById('referencePromptInput').value = refPrompt;
+
+            // Show reference image if already generated
+            if (referenceImageUrl) {
+                document.getElementById('referencePreview').innerHTML =
+                    `<img src="${referenceImageUrl}" alt="Reference Sheet" style="max-width: 100%; border-radius: 8px;">`;
+            }
+
+            // Set up page images grid
+            const grid = document.getElementById('pageImagesGrid');
+            const storyPages = currentBook.pages.filter(p => p.type === 'story' || p.type === 'cover');
+
+            grid.innerHTML = storyPages.map(page => `
+                <div class="image-card" data-page="${page.page}">
+                    <img src="${page.image || '/images/placeholder.png'}" alt="Page ${page.page}"
+                         onerror="this.style.background='#ddd'; this.alt='No image'">
+                    <div class="label">Page ${page.page}</div>
+                    <div class="status">${page.image ? 'Generated' : 'Pending'}</div>
+                </div>
+            `).join('');
         }
 
-        async function reviseStory() {
-            if (!currentStory) return;
+        async function generateReference() {
+            const prompt = document.getElementById('referencePromptInput').value;
+            if (!prompt) {
+                alert('Please enter a reference prompt');
+                return;
+            }
 
-            // Show loading
-            document.getElementById('loading').classList.add('visible');
-            document.getElementById('output').classList.remove('visible');
-
-            const levelInfo = LEVELS[selectedLevel];
-            const spec = LEVEL_SPECS[selectedLevel];
-
-            const revisionPrompt = `You are a reading specialist revising a decodable reader using Science of Reading / Orton-Gillingham principles.
-
-=== LEVEL ${selectedLevel}: ${spec.name} ===
-
-PHONICS SCOPE: ${spec.phonics}
-
-DECODABLE PATTERNS FOR THIS LEVEL:
-${spec.patterns.join('\n')}
-${spec.decodable.join('\n')}
-
-SIGHT WORDS ALLOWED: ${spec.sightWords.join(', ')}
-
-MUST AVOID (too advanced): ${spec.avoid.join(', ')}
-
-SENTENCE STRUCTURE: ${spec.sentenceStructure}
-
-EXAMPLE SENTENCES AT THIS LEVEL:
-${spec.examples.map(e => `• "${e}"`).join('\n')}
-
-=== STORY TO REVISE ===
-${JSON.stringify(currentStory, null, 2)}
-
-=== REVISION INSTRUCTIONS ===
-
-1. WORD-LEVEL FIXES:
-   - Replace any word NOT in the decodable patterns or sight words list
-   - If a word uses patterns from a HIGHER level (check "avoid" list), substitute it
-   - Example: At level 2, "shop" uses digraph 'sh' → replace with "go" or restructure
-
-2. SENTENCE-LEVEL FIXES:
-   - MAXIMUM ${levelInfo.words} words per sentence - this is STRICT
-   - Split longer sentences into multiple shorter ones
-   - Follow the sentence structure guidelines for this level
-
-3. PHONICS INTEGRITY:
-   - Every decodable word must match the patterns taught at level ${selectedLevel} or below
-   - Cumulative: Level ${selectedLevel} can use patterns from levels 0-${selectedLevel}
-   - When in doubt, use a simpler word from the examples provided
-
-4. PRESERVE:
-   - Story meaning and emotional arc
-   - Scene descriptions (for illustrations)
-   - Character names (treat as sight words if needed)
-
-Return ONLY valid JSON:
-{
-  "title": "...",
-  "summary": "...",
-  "pages": [{"page": 1, "text": "...", "scene": "..."}],
-  "word_list": {
-    "decodable": ["words", "reader", "can", "sound", "out"],
-    "sight": ["high", "frequency", "words"],
-    "new_vocabulary": ["any", "challenging", "words", "introduced"]
-  },
-  "phonics_focus": ["specific", "patterns", "practiced"]
-}`;
+            showLoading('Generating reference sheet...');
 
             try {
-                const response = await fetch('/api/generate-story', {
+                const response = await fetch('/api/generate-image', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: revisionPrompt })
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        model: 'nano-banana-pro',
+                        width: 1024,
+                        height: 1024
+                    })
                 });
 
-                if (!response.ok) throw new Error('Failed to revise');
+                const result = await response.json();
 
-                currentStory = await response.json();
-                currentStory.level = selectedLevel;
-                currentStory.revised = true;
-                displayStory(currentStory);
-
+                if (result.imageUrl) {
+                    document.getElementById('referencePreview').innerHTML = `
+                        <img src="${result.imageUrl}" alt="Reference Sheet" style="max-width: 100%; border-radius: 8px;">
+                    `;
+                } else {
+                    throw new Error(result.error || 'Failed to generate image');
+                }
             } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to revise story. Please try again.');
-                document.getElementById('output').classList.add('visible');
+                console.error('Reference generation error:', error);
+                alert('Failed to generate reference: ' + error.message);
             }
 
-            document.getElementById('loading').classList.remove('visible');
+            hideLoading();
+        }
+
+        async function generateAllImages() {
+            alert('Batch image generation coming soon! For now, use the Python scripts.');
+        }
+
+        // Stage 6: Save
+        function setupSaveStage() {
+            if (!currentBook) return;
+
+            document.getElementById('bookTitle').value = currentBook.title || '';
+            document.getElementById('bookSlug').value = currentBook.slug || '';
+            document.getElementById('finalJsonEditor').value = JSON.stringify(currentBook, null, 2);
+
+            renderFinalPreview();
+        }
+
+        function renderFinalPreview() {
+            const preview = document.getElementById('finalPreview');
+            if (!currentBook?.pages) {
+                preview.innerHTML = '<p>No book to preview</p>';
+                return;
+            }
+
+            // Same as story preview but for final
+            preview.innerHTML = currentBook.pages.map(page => `
+                <div class="story-page-card">
+                    <div class="page-header">
+                        <span class="page-num">Page ${page.page}</span>
+                        <span class="page-type">${page.type}</span>
+                    </div>
+                    <div class="page-text">${page.text || ''}</div>
+                </div>
+            `).join('');
         }
 
         function downloadJSON() {
-            if (!currentStory) return;
-            const blob = new Blob([JSON.stringify(currentStory, null, 2)], { type: 'application/json' });
+            if (!currentBook) {
+                alert('No book to download');
+                return;
+            }
+
+            // Update from editor
+            try {
+                const editedJson = document.getElementById('finalJsonEditor').value;
+                currentBook = JSON.parse(editedJson);
+            } catch (e) {
+                console.warn('Could not parse edited JSON, using original');
+            }
+
+            // Update title/slug from inputs
+            currentBook.title = document.getElementById('bookTitle').value || currentBook.title;
+            currentBook.slug = document.getElementById('bookSlug').value || currentBook.slug;
+
+            const blob = new Blob([JSON.stringify(currentBook, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `${currentStory.title.toLowerCase().replace(/\s+/g, '_')}.json`;
+            a.download = `${currentBook.slug || 'book'}.json`;
             a.click();
             URL.revokeObjectURL(url);
         }
 
-        function generateImages() {
-            alert('Image generation coming soon!\n\nFor now, download the JSON and use:\npython scripts/generate_images.sh [book_slug]');
+        function openInReader() {
+            if (!currentBook?.slug) {
+                alert('Please set a book slug first');
+                return;
+            }
+            window.open(`/reader.html?book=${currentBook.slug}&mode=edit`, '_blank');
         }
 
-        function clearForm() {
-            document.getElementById('storyPrompt').value = '';
-            document.getElementById('customWords').value = '';
-            document.getElementById('output').classList.remove('visible');
-            currentStory = null;
+        // Utility functions
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatMarkdown(text) {
+            // Simple markdown formatting
+            return text
+                .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+                .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                .replace(/^- (.+)$/gm, '<li>$1</li>')
+                .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>')
+                .replace(/<\/ul>\s*<ul>/g, '')
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/^(.+)$/gm, (match) => {
+                    if (match.startsWith('<')) return match;
+                    return `<p>${match}</p>`;
+                })
+                .replace(/<p><\/p>/g, '');
         }
     </script>
 </body>

@@ -4,6 +4,136 @@ Development session notes and changes.
 
 ---
 
+## 2026-01-20: Improved 9-Panel Reference Prompt Generation
+
+### Summary
+Enhanced `generate_story.py` to produce higher-quality 9-panel reference image prompts based on patterns from effective past generations.
+
+### Key Improvements
+
+#### 1. Band-Specific Visual Styles
+Added automatic style guidance based on reading band:
+- **Band A**: Simple bold shapes, pastel, minimal detail
+- **Band B**: Playful watercolor, vibrant, expressive
+- **Band C**: Rich watercolor, detailed, dynamic
+- **Band D**: Sophisticated, nuanced lighting, atmospheric
+
+#### 2. Proper 3-Row Reference Structure
+Reference prompts now follow the proven template:
+```
+Row 1 - Main Character:
+[1] Front view [2] Action pose [3] Expression variation
+
+Row 2 - Supporting Elements:
+[4] Secondary character/object [5] **KEY MOMENT** (center hero shot) [6] Key prop
+
+Row 3 - Settings:
+[7] Primary setting [8] Lighting/time variation [9] Final heartwarming scene
+```
+
+#### 3. Technical Requirements
+All prompts now include:
+- Style block with palette (sage, terracotta, cream, soft gold)
+- Format: Square 1:1, 3x3 grid, thin white borders
+- CRITICAL: NO TEXT clause
+
+### Files Changed
+- `scripts/generate_story.py` - Enhanced reference prompt instructions + band styles
+- `public/books/frog-gets-fun.json` - Test book with improved reference prompt
+- `public/review/frog-gets-fun-review.html` - Review page
+
+### Text Revisions Made
+Fixed awkward generated text:
+- "has not got" → "wants"
+- "can not get" → "did not get"
+- "is wet and has mud" → "is wet with mud"
+
+### Next Steps
+- Generate reference image: `python3 scripts/generate_references.py --book frog-gets-fun`
+- Test across more levels to tune per-band output
+
+---
+
+## 2026-01-20: Audio System Overhaul - Pre-recorded Audio for All Activities
+
+### Summary
+Replaced raw TTS (Text-to-Speech) with pre-recorded audio across all activities and games. Generated word audio, updated blend/letter sounds with experiment winners, and created a letter sounds variant experiment page.
+
+### What Was Done
+
+#### 1. Word Audio Generation
+- Generated **255 word audio files** using OpenAI TTS (tts-1-hd, nova voice)
+- Location: `/public/audio/words/{word}.mp3`
+- Created review page: `/public/review/word-audio.html`
+
+#### 2. Blend Audio Updates
+Based on experiment results, updated blend audio in `/audio/phonemes/`:
+- **Schwa variants (v2):** br, dr, sm, tw
+- **Bare variants (v1):** all other 16 blends
+
+#### 3. Letter Sounds Updates
+Updated 9 letter sounds with winning variants from experiments:
+- c=k, e=ĕ, f=feh, i=short-i, l=lll, p=p, r=rrr, v=vah, z=zz
+
+#### 4. Letter Sounds Variant Experiment
+Created experiment page for all 26 letters:
+- Location: `/public/experiments/letter-sounds/variants.html`
+- Shows 3-5 variants per letter with play-on-click
+- "None" option for each letter
+- Progress bar, localStorage persistence, copy/submit results
+- Generated 51 new audio files for missing letter variants
+
+#### 5. Activity Audio Updates
+Updated **7 activities** to use `AudioUtils` instead of raw TTS:
+
+| Activity | Method Used |
+|----------|-------------|
+| say-the-sound.html | `AudioUtils.playSound()` |
+| sight-words.html | `AudioUtils.playWord()` |
+| rhyme-match.html | `AudioUtils.playWord()` |
+| sentence-scramble.html | `AudioUtils.playWord()` |
+| word-families.html | `AudioUtils.playWord()` |
+| read-aloud.html | `AudioUtils.playWord()` |
+| letter-sounds-review.html | `AudioUtils.playSound()` for sounds mode |
+
+All activities now use pre-recorded audio with automatic TTS fallback.
+
+#### 6. Sound-Boxes Improvements
+- Added click-to-place (in addition to drag)
+- Success sequence: plays each letter sound, then full word
+- Added delay between last letter and full word
+
+### Files Changed
+- `/public/audio/words/` - 255 new word audio files
+- `/public/review/word-audio.html` - New review page
+- `/public/experiments/letter-sounds/variants.html` - New experiment page
+- `/public/activities/letter-sounds/variants/` - 51 new variant audio files
+- `/public/activities/sound-boxes.html` - Click-to-place, success sequence
+- `/public/activities/say-the-sound.html` - AudioUtils integration
+- `/public/activities/sight-words.html` - AudioUtils integration
+- `/public/activities/rhyme-match.html` - AudioUtils integration
+- `/public/activities/sentence-scramble.html` - AudioUtils integration
+- `/public/activities/word-families.html` - AudioUtils integration
+- `/public/activities/read-aloud.html` - AudioUtils integration
+- `/public/activities/letter-sounds-review.html` - AudioUtils integration
+
+### Audio System Architecture
+```
+AudioUtils.playWord(word)   → /audio/words/{word}.mp3 → TTS fallback
+AudioUtils.playSound(letter) → /activities/letter-sounds/openai-us/sounds/{letter}.mp3 → TTS fallback
+```
+
+### Current Audio Inventory
+| Type | Count | Location |
+|------|-------|----------|
+| Word audio | 255 | `/audio/words/` |
+| Letter sounds | 26 | `/activities/letter-sounds/openai-us/sounds/` |
+| Letter names | 26 | `/activities/letter-sounds/openai-us/names/` |
+| Phonemes | 61 | `/audio/phonemes/` |
+| Instructions | 30 | `/audio/instructions/` |
+
+---
+
 ## 2026-01-20: Completed generate_story.py - Single-Pass Story Generator
 
 ### Summary

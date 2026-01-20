@@ -218,42 +218,6 @@
             opacity: 1;
         }
 
-        .character-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 10px;
-        }
-
-        .character-option {
-            padding: var(--space-xs) 6px;
-            border: 2px solid var(--color-border);
-            border-radius: var(--border-radius);
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .character-option:hover {
-            border-color: var(--color-sage);
-            background: var(--color-sage-light);
-        }
-
-        .character-option.selected {
-            border-color: var(--color-sage);
-            background: var(--color-sage);
-            color: var(--color-white);
-        }
-
-        .character-option .icon {
-            font-size: 1.5rem;
-            margin-bottom: 2px;
-        }
-
-        .character-option .name {
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
         /* Loading spinner */
         .spinner {
             width: 40px;
@@ -780,6 +744,118 @@
         }
 
         .hidden { display: none !important; }
+
+        /* Story Ideas Selector */
+        .story-ideas-section {
+            margin-bottom: var(--space-md);
+        }
+
+        .story-ideas-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-xs);
+        }
+
+        .story-ideas-header label {
+            font-weight: 600;
+        }
+
+        .story-ideas-toggle {
+            font-size: 0.8rem;
+            color: var(--color-sage-dark);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .story-ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-sm);
+            margin-top: var(--space-xs);
+        }
+
+        .story-idea-card {
+            background: var(--color-bg);
+            border: 2px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--space-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .story-idea-card:hover {
+            border-color: var(--color-sage);
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .story-idea-card.selected {
+            border-color: var(--color-sage-dark);
+            background: var(--color-sage-light);
+        }
+
+        .story-idea-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: var(--color-text);
+        }
+
+        .story-idea-concept {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            line-height: 1.4;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .story-idea-meta {
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+        }
+
+        .story-idea-tag {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            background: var(--color-sage-light);
+            color: var(--color-sage-dark);
+        }
+
+        .story-idea-tag.theme {
+            background: #E3F2FD;
+            color: #1565C0;
+        }
+
+        .no-ideas-message {
+            text-align: center;
+            padding: var(--space-md);
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .or-divider {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin: var(--space-md) 0;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--color-border);
+        }
     </style>
 </head>
 <body>
@@ -851,16 +927,58 @@
                             <label>Reading Level</label>
                             <p class="hint">Choose the phonics level for your reader</p>
                             <select class="select" id="levelSelect">
-                                <option value="A1">Band A - Level 1 (Pink): Simple CVC</option>
-                                <option value="A2">Band A - Level 2 (Red): CVC + sight words</option>
-                                <option value="B1" selected>Band B - Level 1 (Yellow): Beginning blends</option>
-                                <option value="B2">Band B - Level 2 (Blue): Ending blends</option>
-                                <option value="C1">Band C - Level 1 (Green): Digraphs</option>
-                                <option value="C2">Band C - Level 2 (Orange): Silent e</option>
-                                <option value="D1">Band D - Level 1 (Purple): Vowel teams</option>
-                                <option value="D2">Band D - Level 2 (Gold): R-controlled</option>
+                                <optgroup label="Band A - Emergent">
+                                    <option value="A0">A0: Pre-reading / Picture support</option>
+                                    <option value="A1">A1: Simple CVC words</option>
+                                    <option value="A2">A2: CVC + sight words</option>
+                                    <option value="A3">A3: Simple sentences</option>
+                                    <option value="A4">A4: Bridge to phonics</option>
+                                </optgroup>
+                                <optgroup label="Band B - Early">
+                                    <option value="B1" selected>B1: Short a/i word families</option>
+                                    <option value="B2">B2: All short vowels</option>
+                                    <option value="B3">B3: Final blends + FLOSS</option>
+                                    <option value="B4">B4: Initial blends</option>
+                                    <option value="B5">B5: Digraphs (sh, ch, th)</option>
+                                    <option value="B6">B6: CVCe / Silent e</option>
+                                    <option value="B7">B7: Vowel teams (ai, ay, oa)</option>
+                                    <option value="B8">B8: Diphthongs (oi, oy, ou, ow)</option>
+                                    <option value="B9">B9: R-controlled vowels</option>
+                                </optgroup>
+                                <optgroup label="Band C - Transitional">
+                                    <option value="C1">C1: Silent letters (kn, wr, mb)</option>
+                                    <option value="C2">C2: Soft c/g</option>
+                                    <option value="C3">C3: Two-syllable words</option>
+                                    <option value="C4">C4: Open syllables + compounds</option>
+                                    <option value="C5">C5: Contractions</option>
+                                    <option value="C6">C6: Inflected endings (-ed, -ing)</option>
+                                    <option value="C7">C7: Suffixes (-ful, -less, -ness)</option>
+                                    <option value="C8">C8: Prefixes (un-, re-, pre-)</option>
+                                </optgroup>
+                                <optgroup label="Band D - Fluent">
+                                    <option value="D1">D1: Complex dialogue</option>
+                                    <option value="D2">D2: Inference / Show don't tell</option>
+                                    <option value="D3">D3: Latin roots</option>
+                                    <option value="D4">D4: Greek roots</option>
+                                    <option value="D5">D5: Figurative language</option>
+                                    <option value="D6">D6: Full literary complexity</option>
+                                </optgroup>
                             </select>
                         </div>
+
+                        <!-- Story Ideas Section -->
+                        <div class="story-ideas-section" id="storyIdeasSection">
+                            <div class="story-ideas-header">
+                                <label>Story Ideas for this Level</label>
+                                <span class="story-ideas-toggle" id="toggleIdeas" onclick="toggleStoryIdeas()">Hide</span>
+                            </div>
+                            <p class="hint">Click an idea to use it, or write your own below</p>
+                            <div class="story-ideas-grid" id="storyIdeasGrid">
+                                <div class="no-ideas-message">Loading ideas...</div>
+                            </div>
+                        </div>
+
+                        <div class="or-divider">or write your own</div>
 
                         <div class="form-group">
                             <label>Story Concept</label>
@@ -872,44 +990,6 @@
                             <label>Setting</label>
                             <p class="hint">Where does the story take place?</p>
                             <input type="text" class="input" id="settingInput" placeholder="e.g., backyard, farm, park">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Main Character</label>
-                            <div class="character-grid" id="characterGrid">
-                                <div class="character-option selected" data-character="puppy" data-name="Max">
-                                    <div class="icon">&#x1F436;</div>
-                                    <div class="name">Puppy</div>
-                                </div>
-                                <div class="character-option" data-character="pig" data-name="Pip">
-                                    <div class="icon">&#x1F437;</div>
-                                    <div class="name">Pig</div>
-                                </div>
-                                <div class="character-option" data-character="cat" data-name="Kit">
-                                    <div class="icon">&#x1F431;</div>
-                                    <div class="name">Cat</div>
-                                </div>
-                                <div class="character-option" data-character="rabbit" data-name="Hop">
-                                    <div class="icon">&#x1F430;</div>
-                                    <div class="name">Rabbit</div>
-                                </div>
-                                <div class="character-option" data-character="duck" data-name="Dot">
-                                    <div class="icon">&#x1F986;</div>
-                                    <div class="name">Duck</div>
-                                </div>
-                                <div class="character-option" data-character="frog" data-name="Fred">
-                                    <div class="icon">&#x1F438;</div>
-                                    <div class="name">Frog</div>
-                                </div>
-                                <div class="character-option" data-character="fox" data-name="Rex">
-                                    <div class="icon">&#x1F98A;</div>
-                                    <div class="name">Fox</div>
-                                </div>
-                                <div class="character-option" data-character="owl" data-name="Olive">
-                                    <div class="icon">&#x1F989;</div>
-                                    <div class="name">Owl</div>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="form-group">
@@ -1017,45 +1097,45 @@
 
                     <!-- Multi Reference View -->
                     <div id="multiRefView" class="hidden">
-                        <p class="cost-estimate">Cascade generation: Characters (T2I $0.15) → Settings (I2I $0.03) → Style (I2I $0.03)</p>
+                        <p class="cost-estimate">Cascade: Style Guide (nano-banana $0.15) → Opening Scenes (wan 2.6 I2I $0.03) → Closing Scenes (wan 2.6 I2I $0.03)</p>
 
                         <div class="multi-ref-grid">
-                            <div class="multi-ref-card" data-sheet="characters">
+                            <div class="multi-ref-card" data-sheet="styleGuide">
                                 <div class="card-header">
-                                    <span>1. Characters</span>
-                                    <span class="card-status" id="statusCharacters">Pending</span>
+                                    <span>1. Style Guide</span>
+                                    <span class="card-status" id="statusStyleGuide">Pending</span>
                                 </div>
-                                <div class="card-image" id="imgCharacters">
-                                    <div class="reference-placeholder">Poses & expressions</div>
+                                <div class="card-image" id="imgStyleGuide">
+                                    <div class="reference-placeholder">9-panel reference sheet</div>
                                 </div>
                                 <div class="card-actions">
-                                    <button class="btn btn-sm btn-ghost" onclick="generateMultiRefSheet('characters')" style="width:100%">Generate</button>
+                                    <button class="btn btn-sm btn-ghost" onclick="generateMultiRefSheet('styleGuide')" style="width:100%">Generate</button>
                                 </div>
                             </div>
 
-                            <div class="multi-ref-card" data-sheet="settings">
+                            <div class="multi-ref-card" data-sheet="openingScenes">
                                 <div class="card-header">
-                                    <span>2. Settings</span>
-                                    <span class="card-status" id="statusSettings">Pending</span>
+                                    <span>2. Opening Scenes</span>
+                                    <span class="card-status" id="statusOpeningScenes">Pending</span>
                                 </div>
-                                <div class="card-image" id="imgSettings">
-                                    <div class="reference-placeholder">Environments</div>
+                                <div class="card-image" id="imgOpeningScenes">
+                                    <div class="reference-placeholder">First half of story</div>
                                 </div>
                                 <div class="card-actions">
-                                    <button class="btn btn-sm btn-ghost" onclick="generateMultiRefSheet('settings')" style="width:100%" id="btnSettings" disabled>Generate</button>
+                                    <button class="btn btn-sm btn-ghost" onclick="generateMultiRefSheet('openingScenes')" style="width:100%" id="btnOpeningScenes" disabled>Generate</button>
                                 </div>
                             </div>
 
-                            <div class="multi-ref-card" data-sheet="style">
+                            <div class="multi-ref-card" data-sheet="closingScenes">
                                 <div class="card-header">
-                                    <span>3. Style</span>
-                                    <span class="card-status" id="statusStyle">Pending</span>
+                                    <span>3. Closing Scenes</span>
+                                    <span class="card-status" id="statusClosingScenes">Pending</span>
                                 </div>
-                                <div class="card-image" id="imgStyle">
-                                    <div class="reference-placeholder">Colors & textures</div>
+                                <div class="card-image" id="imgClosingScenes">
+                                    <div class="reference-placeholder">Second half of story</div>
                                 </div>
                                 <div class="card-actions">
-                                    <button class="btn btn-sm btn-ghost" onclick="generateMultiRefSheet('style')" style="width:100%" id="btnStyle" disabled>Generate</button>
+                                    <button class="btn btn-sm btn-ghost" onclick="generateMultiRefSheet('closingScenes')" style="width:100%" id="btnClosingScenes" disabled>Generate</button>
                                 </div>
                             </div>
                         </div>
@@ -1193,18 +1273,23 @@
 
         const STATE_KEY_PREFIX = 'wizard_state_';
 
+        // Story ideas loaded from JSON
+        let storyIdeasData = null;
+        let storyIdeasVisible = true;
+        let selectedIdeaIndex = null;
+
         let state = {
             slug: null,
             currentPhase: 1,
             phaseStatus: { 1: 'in_progress', 2: 'pending', 3: 'pending', 4: 'pending', 5: 'pending' },
             book: null,
             referenceImage: null,
-            // Multi-ref support
+            // Multi-ref support (3-ref cascade)
             refStrategy: 'single', // 'single' or 'multi'
             multiRefs: {
-                characters: null,
-                settings: null,
-                style: null
+                styleGuide: null,    // 9-panel (nano-banana T2I)
+                openingScenes: null, // First half pages (wan 2.6 I2I)
+                closingScenes: null  // Second half pages (wan 2.6 I2I)
             },
             pendingTasks: [],
             checkpointApprovals: {},
@@ -1212,8 +1297,6 @@
                 level: 'B1',
                 concept: '',
                 setting: '',
-                character: 'puppy',
-                characterName: 'Max',
                 words: []
             }
         };
@@ -1222,7 +1305,10 @@
         // INITIALIZATION
         // ===================
 
-        function init() {
+        async function init() {
+            // Load story ideas
+            await loadStoryIdeas();
+
             // Check URL params for existing book
             const params = new URLSearchParams(window.location.search);
             const slug = params.get('slug');
@@ -1237,20 +1323,12 @@
 
             setupEventListeners();
             updateUI();
+
+            // Render initial story ideas for default level
+            renderStoryIdeas();
         }
 
         function setupEventListeners() {
-            // Character grid
-            document.getElementById('characterGrid').addEventListener('click', (e) => {
-                const option = e.target.closest('.character-option');
-                if (option) {
-                    document.querySelectorAll('.character-option').forEach(o => o.classList.remove('selected'));
-                    option.classList.add('selected');
-                    state.formData.character = option.dataset.character;
-                    state.formData.characterName = option.dataset.name;
-                }
-            });
-
             // Word input
             document.getElementById('wordInput').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -1266,6 +1344,8 @@
             // Level select
             document.getElementById('levelSelect').addEventListener('change', (e) => {
                 state.formData.level = e.target.value;
+                selectedIdeaIndex = null; // Clear selection when level changes
+                renderStoryIdeas();
             });
 
             // Stepper navigation - click on completed/active steps to navigate
@@ -1413,6 +1493,94 @@
         function removeWord(word) {
             state.formData.words = state.formData.words.filter(w => w !== word);
             renderWordTags();
+        }
+
+        // ===================
+        // STORY IDEAS
+        // ===================
+
+        async function loadStoryIdeas() {
+            try {
+                const response = await fetch('/data/story-ideas.json');
+                if (response.ok) {
+                    storyIdeasData = await response.json();
+                    console.log('Loaded story ideas:', Object.keys(storyIdeasData.ideas).length, 'levels');
+                }
+            } catch (error) {
+                console.warn('Could not load story ideas:', error);
+            }
+        }
+
+        function renderStoryIdeas() {
+            const grid = document.getElementById('storyIdeasGrid');
+            const level = document.getElementById('levelSelect').value;
+
+            if (!storyIdeasData || !storyIdeasData.ideas) {
+                grid.innerHTML = '<div class="no-ideas-message">Could not load story ideas</div>';
+                return;
+            }
+
+            const ideas = storyIdeasData.ideas[level] || [];
+
+            if (ideas.length === 0) {
+                grid.innerHTML = '<div class="no-ideas-message">No pre-made ideas for this level yet. Write your own below!</div>';
+                return;
+            }
+
+            grid.innerHTML = ideas.map((idea, index) => `
+                <div class="story-idea-card ${selectedIdeaIndex === index ? 'selected' : ''}"
+                     onclick="selectStoryIdea(${index})">
+                    <div class="story-idea-title">${idea.title}</div>
+                    <div class="story-idea-concept">${idea.concept}</div>
+                    <div class="story-idea-meta">
+                        <span class="story-idea-tag">${idea.character}</span>
+                        ${idea.theme ? `<span class="story-idea-tag theme">${idea.theme}</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            // Update visibility
+            grid.style.display = storyIdeasVisible ? 'grid' : 'none';
+            document.getElementById('toggleIdeas').textContent = storyIdeasVisible ? 'Hide' : 'Show';
+        }
+
+        function selectStoryIdea(index) {
+            const level = document.getElementById('levelSelect').value;
+            const ideas = storyIdeasData?.ideas[level] || [];
+            const idea = ideas[index];
+
+            if (!idea) return;
+
+            // Toggle selection
+            if (selectedIdeaIndex === index) {
+                // Deselect
+                selectedIdeaIndex = null;
+                document.getElementById('conceptInput').value = '';
+                document.getElementById('settingInput').value = '';
+                state.formData.words = [];
+            } else {
+                // Select this idea
+                selectedIdeaIndex = index;
+
+                // Populate form fields
+                document.getElementById('conceptInput').value = idea.concept;
+                document.getElementById('settingInput').value = idea.setting || '';
+
+                // Add sample words if available
+                if (idea.sample_words && idea.sample_words.length > 0) {
+                    state.formData.words = [...idea.sample_words];
+                }
+            }
+
+            renderStoryIdeas();
+            renderWordTags();
+        }
+
+        function toggleStoryIdeas() {
+            storyIdeasVisible = !storyIdeasVisible;
+            const grid = document.getElementById('storyIdeasGrid');
+            grid.style.display = storyIdeasVisible ? 'grid' : 'none';
+            document.getElementById('toggleIdeas').textContent = storyIdeasVisible ? 'Hide' : 'Show';
         }
 
         // ===================
@@ -2015,15 +2183,15 @@ NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
 
             try {
                 // Step 1: Characters (T2I)
-                await generateMultiRefSheet('characters');
+                await generateMultiRefSheet('styleGuide');
 
                 // Step 2: Settings (I2I from characters)
                 document.getElementById('phase3LoadingText').textContent = 'Generating settings sheet (2/3)...';
-                await generateMultiRefSheet('settings');
+                await generateMultiRefSheet('openingScenes');
 
                 // Step 3: Style (I2I from characters)
                 document.getElementById('phase3LoadingText').textContent = 'Generating style sheet (3/3)...';
-                await generateMultiRefSheet('style');
+                await generateMultiRefSheet('closingScenes');
 
             } catch (error) {
                 console.error('Error in cascade generation:', error);

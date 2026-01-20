@@ -2,6 +2,22 @@
 
 A research-based guide to creating engaging, effective decodable stories.
 
+## What Makes a Good Story
+
+The five essential elements (from `generate_story.py`):
+
+| Element | Description | Example |
+|---------|-------------|---------|
+| **CHARACTER WANT** | Wants something specific and clear | "Pip wants a friend" not "Pip is sad" |
+| **OBSTACLE** | A real problem (not manufactured drama) | Ball rolled into dark tunnel |
+| **TRY-FAIL** | Genuine attempt that fails for a logical reason | Tried to reach but arms too short |
+| **RESOLUTION** | Satisfying and earned | Found courage, got the ball |
+| **CAUSATION** | Each event causes the next (not random scenes) | Saw ball → chased → lost it → searched → found |
+
+**The key test:** Can you trace a causal chain from page 1 to the end? If any page could be removed without breaking the chain, it's not earning its place.
+
+---
+
 ## What Makes Children's Books Resonate
 
 Based on research from children's literature experts and analysis of master authors like Mo Willems, Eric Carle, and Dr. Seuss.
@@ -40,12 +56,35 @@ Based on research from children's literature experts and analysis of master auth
 
 Each FunBookies book uses three categories of words:
 
+### The Word Palette Philosophy
+
+**CRITICAL:** Treat word lists as inspiration, not constraint.
+
+```
+If a phonics word doesn't fit naturally, DON'T USE IT.
+```
+
+A clear story with slightly fewer target words beats a confusing story that hits every phonics pattern.
+
 ### 1. Sound-Out Words (Decodable)
 Words that use ONLY the phonics patterns taught at or before this level. These are the core of the text.
 
 **Example at B2 (CVC all short vowels):**
 - ✅ cat, sat, hot, mud, bed, got, run
 - ❌ cake (magic e), train (vowel team)
+
+### Vocabulary Substitutions for Early Levels
+
+Some words are too complex even if technically decodable. Use simpler alternatives:
+
+| Too Hard | Use Instead | Why |
+|----------|-------------|-----|
+| washes | gets, rubs | Multi-syllable, complex ending |
+| ready | set | Abstract, harder to decode |
+| water | (ok as sight word) | Keep sentences short around it |
+| towel | (ok) | Keep it simple |
+| beautiful | pretty, nice | Too many syllables |
+| because | so | Simpler connector |
 
 ### 2. Sight Words (Heart Words)
 High-frequency words that may not be fully decodable but are essential for natural sentences. Keep limited (5-10 per book).
@@ -427,6 +466,46 @@ Each scene must show the CURRENT emotional state:
 
 ---
 
+## Logic and Continuity Rules
+
+**CRITICAL:** Every sentence must make logical sense. Check cause and effect. Check physical reality.
+
+### Logic Errors to Avoid
+
+| Bad | Problem | Good Alternative |
+|-----|---------|------------------|
+| "He got wet in the sun." | Sun doesn't make you wet | "He got wet in the rain." |
+| "Now Max is not wet." (after a bath) | He'd be soaking wet! | "Mom dried Max with a towel." |
+| "He is wet and red." | Why red? Makes no sense | "He is wet and muddy." |
+| "The cat ran to sit." | Awkward phrasing | "The cat ran. Then it sat." |
+
+### Good Logic Examples
+
+| Cause | Effect | Why It Works |
+|-------|--------|--------------|
+| "Max jumped in the mud." | "Mud splashed on his nose!" | Clear cause → effect |
+| "Mom dried Max with a towel." | "Now his fur was fluffy." | Action → result |
+| "The pup ran fast." | "He wanted that ball!" | Motivation → action |
+
+### Continuity Checklist
+
+Before writing each page, ask:
+1. **State:** What state is the character in from the previous page?
+2. **Logic:** What would logically happen next?
+3. **Flow:** Does this follow from what just happened?
+
+### Scene Continuity Examples
+
+| Page | Text | Scene Must Show |
+|------|------|-----------------|
+| Page 4 | "He fell in the mud" | Character NOW muddy |
+| Page 5 | "Mom called him inside" | Character STILL muddy |
+| Page 6 | "Time for a bath!" | Character STILL muddy, near bathtub |
+| Page 7 | "Splash! Splash!" | Character IN water, mud washing off |
+| Page 8 | "All clean now!" | Character WET but clean |
+
+---
+
 ## What to Avoid
 
 | Don't | Why | Do Instead |
@@ -441,6 +520,8 @@ Each scene must show the CURRENT emotional state:
 | Ending doesn't match setup | Unsatisfying | Mirror the opening problem |
 | Scene without prop location | Image generator fills in wrong | Always state where key props are |
 | Ambiguous character presence | Generator might include wrong chars | Explicitly include/exclude characters |
+| Logic errors | Breaks immersion | Check cause → effect on every page |
+| Discontinuous states | Confuses reader | Track character state page to page |
 
 ---
 

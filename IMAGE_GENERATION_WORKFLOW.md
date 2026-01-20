@@ -177,10 +177,20 @@ Book XML (generate_book_xml.py)
 - Allows typography consistency and easy updates
 
 ### 4. Level-Appropriate Styles
-- Band A: Simple shapes for pre-readers
-- Band B: Playful for emerging readers
-- Band C: Rich for developing readers
-- Band D: Sophisticated for fluent readers
+
+| Band | Base Style | Mood |
+|------|------------|------|
+| A | Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors, toddler-friendly | Gentle, comforting, bright |
+| B | Playful watercolor, expressive characters, vibrant colors, child-friendly art style | Energetic, fun, adventurous |
+| C | Rich watercolor, more detailed characters/settings, dynamic compositions | Exciting, imaginative, engaging |
+| D | Sophisticated style, detailed environments, nuanced lighting, chapter book aesthetic | Atmospheric, immersive, evocative |
+
+**Book-Specific Overrides** (in `generate_references.py`):
+- `d1-the-lighthouse-keeper`: Coastal watercolor, muted blues, sunset oranges
+- `d2-the-hidden-garden`: Lush botanical, secret garden aesthetic
+- `d4-signals-from-kepler`: Science fiction, deep space blues/purples
+- `c1_knight_quest`: Medieval fantasy, castle/forest settings
+- See script for 30+ additional book-specific styles
 
 ## File Structure
 
@@ -426,6 +436,51 @@ Before generating, verify each scene description has:
 - [ ] **NO** abstract/mood language ("dreamy", "magical feeling")
 - [ ] **NO** negations ("no airplane", "without the tractor")
 - [ ] **NO** future story references ("about to imagine")
+
+## Prompt Enhancement Pipeline
+
+For complex books or problematic pages, use `prompt_enhancer.py`:
+
+```bash
+python scripts/prompt_enhancer.py {slug} --pages 11,12,13
+```
+
+### Pipeline Stages
+
+1. **Story Context Analysis**
+   - Determines narrative act (setup 0-25%, conflict 25-60%, climax 60-85%, resolution 85-100%)
+   - Gets emotional beat from story_bible
+   - Extracts previous/next page context
+
+2. **Character Presence Logic**
+   - Extracts all characters from book
+   - Determines who MUST be in scene (from page text)
+   - Determines who MUST NOT be in scene (exclusion list)
+   - Adds explicit "DO NOT INCLUDE" instructions
+
+3. **Emotional → Physical Translation**
+   - Converts mood words to visual descriptions
+   - "scared" → "eyes wide open, mouth agape, eyebrows raised"
+   - "happy" → "wide smile showing teeth, eyes crinkled, cheeks raised"
+
+4. **LLM Review & Scoring**
+   - Validates prompt quality (1-10 scale)
+   - Detects common issues
+   - Suggests fixes for low scores (<7)
+
+### Output Format
+
+```json
+{
+  "enhanced_prompt": "Full physical prompt",
+  "characters_included": ["Name1", "Name2"],
+  "characters_excluded": ["Name3"],
+  "physical_descriptions": ["detail 1", "detail 2"],
+  "recommended_panels": [1, 5],
+  "review_score": 8,
+  "issues": []
+}
+```
 
 ## Character Consistency Techniques
 

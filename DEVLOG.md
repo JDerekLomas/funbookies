@@ -4,6 +4,64 @@ Development session notes and changes.
 
 ---
 
+## 2026-01-20: Completed generate_story.py - Single-Pass Story Generator
+
+### Summary
+Finished the `generate_story.py` script for single-pass story + scene generation. Iteratively improved the prompt to fix coherence issues.
+
+### What Was Built
+
+`scripts/generate_story.py` - Complete story generator with:
+- Single LLM call generates: story text, scene descriptions, characters, reference prompt
+- HTML review page at `public/review/{slug}-review.html`
+- Saves book JSON to `public/books/{slug}.json`
+
+### Key Prompt Improvements
+
+1. **Meaning Over Phonics** - Added explicit rules to prevent nonsense sentences
+   - BAD: "He got wet in the sun" (sun doesn't make you wet)
+   - GOOD: "Max jumped in the mud. Mud splashed on his nose!"
+
+2. **Continuity Tracking** - Scenes must track character state
+   - If muddy on page 4, still muddy on page 5
+   - If in bath, will be WET when gets out
+   - Fixed: "Now Max is not wet" after bath → "Max is wet but clean"
+
+3. **Level-Appropriate Vocabulary** - Stricter word limits
+   - Max words per sentence enforced
+   - Vocabulary check for multi-syllable words
+
+4. **Reference Prompt After Story** - Reference prompt now based on actual story content
+   - Includes actual characters, objects, settings from the story
+
+### Usage
+
+```bash
+python3 scripts/generate_story.py --level B2 --concept "A pup in mud" --setting "backyard"
+python3 scripts/generate_story.py --level B1 --concept "A cat and a hat" --setting "house" --dry-run
+```
+
+### Files Changed
+- `scripts/generate_story.py` - Complete rewrite (was 35 lines, now ~420 lines)
+- `public/review/` - New directory for review HTML pages
+- `public/books/pup-in-mud.json` - Test book generated
+- `public/books/mud-pup-fun.json` - Test book generated
+- `public/books/pip-gets-a-hit.json` - Test book generated
+
+### Review Page Features
+- Shows characters with visual details
+- Shows reference image prompt
+- Shows word lists (sound out / sight / heart)
+- Story pages with scene descriptions expanded
+- Generation prompt visible (collapsible) for debugging
+
+### Still To Do
+- Scene descriptions could use more enrichment guidance
+- May need per-level prompt tuning
+- Test across more levels (A, C, D bands)
+
+---
+
 ## 2026-01-19: Multi-Ref Image Workflow & Story Generation Learnings
 
 ### Summary

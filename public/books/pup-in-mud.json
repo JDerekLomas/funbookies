@@ -1,0 +1,232 @@
+{
+  "id": "pup-in-mud",
+  "title": "Pup in Mud",
+  "slug": "pup-in-mud",
+  "level": "B2",
+  "band": "B",
+  "targetPhonics": "Level B2 patterns",
+  "skill": "Level B2",
+  "skill_description": "A playful pup gets messy in the backyard mud and needs help getting clean.",
+  "age_range": "K-1",
+  "created": "2026-01-20",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "A playful pup gets messy in the backyard mud and needs help getting clean.",
+  "characters": {
+    "max": {
+      "name": "Max",
+      "visual_shorthand": "Small golden retriever puppy with floppy ears",
+      "distinctive_features": [
+        "floppy golden ears",
+        "bright brown eyes",
+        "fluffy tail"
+      ]
+    },
+    "mom": {
+      "name": "Mom",
+      "visual_shorthand": "Kind woman with gentle hands",
+      "distinctive_features": [
+        "warm smile",
+        "caring hands",
+        "patient expression"
+      ]
+    }
+  },
+  "setting_context": "Sunny backyard with a muddy patch near the garden",
+  "story_bible": {
+    "premise": "A playful pup gets messy in the backyard mud and needs help getting clean.",
+    "setting": "Sunny backyard with a muddy patch near the garden",
+    "visual_style": "Warm watercolor with soft edges and bright, cheerful colors"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET: Row 1: Golden retriever puppy Max front view with floppy ears and bright eyes, Max happy expression, Max action pose jumping. Row 2: Muddy puddle in backyard, plastic wash tub with water, Mom with caring hands washing Max (KEY MOMENT). Row 3: Sunny green backyard with garden, backyard washing area with tub, clean backyard scene with warm sunlight. Warm watercolor style with soft edges and bright cheerful colors throughout.",
+  "word_list": {
+    "sound_out": [
+      "pup",
+      "mud",
+      "run",
+      "fun",
+      "sun",
+      "hot",
+      "got",
+      "wet",
+      "pet",
+      "hug",
+      "tub",
+      "rub",
+      "bed"
+    ],
+    "sight": [
+      "the",
+      "is",
+      "in",
+      "he",
+      "and",
+      "to",
+      "go",
+      "we"
+    ],
+    "heart": [
+      "Max",
+      "Mom",
+      "mess",
+      "clean",
+      "love"
+    ]
+  },
+  "sightWordsUsed": [
+    "the",
+    "is",
+    "in",
+    "he",
+    "and",
+    "to",
+    "go",
+    "we"
+  ],
+  "wordsearch_words": [
+    "pup",
+    "mud",
+    "run",
+    "fun",
+    "sun",
+    "hot",
+    "got",
+    "wet"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Pup in Mud"
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "Max is a pup. He can run and jump. The sun is hot.",
+      "scene": "Wide shot: Golden retriever puppy Max with floppy ears standing in sunny green backyard. Bright morning sunlight creates cheerful atmosphere."
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "Max sees the mud. The mud is wet. It looks fun!",
+      "scene": "Medium shot: Max with bright eyes looking excitedly at a large muddy puddle near the garden. Muddy brown patch glistens in sunlight."
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "Max jumps in the mud. He digs and digs. Mud gets on his nose.",
+      "scene": "Close-up shot: Max mid-jump into the muddy puddle, front paws splashing, with mud droplets flying and coating his golden nose."
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "Max runs in the mud. Mud gets on his legs. Mud gets on his back.",
+      "scene": "Medium shot: Max running through the muddy area with brown mud covering his golden legs and back, his tail wagging happily."
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "Now Max is all muddy. He is a mess! But he had fun.",
+      "scene": "Wide shot: Completely mud-covered Max sitting happily in the backyard, brown mud coating his entire golden coat except his bright eyes."
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "Mom sees Max. Max is very muddy. Mom says he needs a bath.",
+      "scene": "Medium shot: Mom with gentle expression looking down at muddy Max in the backyard. Max looks up hopefully with muddy face."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "Mom gets the tub. She puts water in it. The water is warm.",
+      "scene": "Medium shot: Mom filling a large plastic tub with water from garden hose in the sunny backyard. Steam suggests warm water."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "Max gets in the tub. The water feels good. He sits still.",
+      "scene": "Close-up shot: Max sitting calmly in the water-filled tub, muddy water swirling around him as he looks content."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "Mom rubs Max with soap. She gets all the mud off. Max is wet but clean.",
+      "scene": "Medium shot: Mom gently washing Max in the tub with soapy hands, clean golden fur emerging as muddy water washes away."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "Mom dries Max with a towel. She rubs and rubs. Max feels warm and soft.",
+      "scene": "Close-up shot: Mom wrapping clean, wet Max in a large fluffy towel, gently drying his golden fur in the sunny backyard."
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "Now Max is clean and dry. His fur is soft. He looks good!",
+      "scene": "Medium shot: Clean, fluffy Max with pristine golden coat sitting proudly in the backyard, his fur gleaming in the sunlight."
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "Mom gives Max a hug. Max is a good pup. He loves bath time now.",
+      "scene": "Wide shot: Mom kneeling and hugging clean, happy Max in the sunny backyard. Both look content and loving."
+    },
+    {
+      "page": 18,
+      "type": "end",
+      "text": "The End"
+    },
+    {
+      "page": 19,
+      "type": "wordsearch"
+    },
+    {
+      "page": 20,
+      "type": "series_info"
+    },
+    {
+      "page": 21,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-20T14:13:30.614898",
+    "storyPages": 12,
+    "generation_prompt": "You are a master children's book author creating stories that are BOTH phonetically appropriate AND emotionally compelling.\n\nCreate a 12-page story for level B2 (CVC Short o, u, e) readers.\n\nConcept: A pup in mud\nSetting: backyard\nSuggest a catchy title (2-4 words)\n\n## WORD PALETTE (inspiration, not constraint)\n\nPHONICS PATTERNS:\n  CVC short o: hot, pot, dog, fog, mop, top, got, not\n  CVC short u: cup, pup, mud, bug, hug, run, sun, fun\n  CVC short e: bed, red, pet, hen, get, let, ten, pen\nWORD FAMILIES: -ot, -op, -og, -ug, -up, -un, -ed, -en, -et\nSIGHT WORDS: ['Previous + he, she, we, be']\n\n## CRITICAL RULE: LOGIC AND CONTINUITY\n\nEvery sentence MUST make logical sense. Check cause and effect. Check physical reality.\n\nLOGIC ERRORS TO AVOID:\n- \"He got wet in the sun.\" (sun doesn't make you wet)\n- \"Now Max is not wet.\" (after a bath? he'd be soaking wet!)\n- \"He is wet and red.\" (why red? makes no sense)\n- \"The cat ran to sit.\" (awkward phrasing)\n\nGOOD LOGIC:\n- \"Max jumped in the mud. Mud splashed on his nose!\" (cause \u2192 effect)\n- \"Mom dried Max with a towel. Now his fur was fluffy.\" (action \u2192 result)\n- \"The pup ran fast. He wanted that ball!\" (motivation \u2192 action)\n\nCONTINUITY CHECK - Before writing each page, ask:\n- What state is the character in from the previous page?\n- What would logically happen next?\n- Does this follow from what just happened?\n\nIf a phonics word doesn't fit naturally, DON'T USE IT.\n\n## REQUIREMENTS\n\nLevel guidance: Character wants something, gets it. Emotional range: fun, sad, mad.\n- Max 6 words per sentence (STRICT - count every word!)\n- 12 story pages, 2-3 short sentences each\n- Use SIMPLE words from the palette - avoid multi-syllable words\n- Every sentence must pass the \"does this make sense?\" test\n\nVOCABULARY CHECK - these are TOO HARD for early levels:\n- \"washes\" \u2192 use \"gets\" or \"rubs\"\n- \"ready\" \u2192 use \"set\"\n- \"water\" \u2192 ok as sight word but keep sentences short\n- \"towel\" \u2192 ok but keep it simple\n\n## WHAT MAKES A GOOD STORY\n\n1. CHARACTER WANT - wants something specific and clear\n2. OBSTACLE - a real problem (not manufactured drama)\n3. TRY-FAIL - genuine attempt that fails for a logical reason\n4. RESOLUTION - satisfying and earned\n5. CAUSATION - each event causes the next (not random scenes)\n\n## OUTPUT: JSON only\n\n```json\n{{\n  \"title\": \"Story Title\",\n  \"summary\": \"One sentence description\",\n  \"characters\": {{\n    \"char_id\": {{\n      \"name\": \"Name\",\n      \"visual_shorthand\": \"brief visual description\",\n      \"distinctive_features\": [\"feature1\", \"feature2\"]\n    }}\n  }},\n  \"setting_context\": \"Setting description\",\n  \"visual_style\": \"Art style (e.g., Warm watercolor with bold shapes)\",\n  \"word_list\": {{\"sound_out\": [], \"sight\": [], \"heart\": []}},\n  \"pages\": [\n    {{\n      \"story_page\": 1,\n      \"text\": \"Story text here.\",\n      \"scene\": \"Medium shot: [WHO with visual details] [ACTION verb-ing] in [WHERE with specifics]. [Mood/lighting].\"\n    }}\n  ],\n  \"reference_prompt\": \"9-PANEL STYLE REFERENCE SHEET based on the story above. Row 1: [your main character] views. Row 2: key objects from YOUR story. Row 3: settings from YOUR story.\"\n}}\n```\n\nSCENE RULES:\n- WHO: Character with exact visual details from characters section\n- WHERE: Specific setting with lighting/atmosphere\n- WHAT: Active verb describing the action\n- STATE: Show character's current physical state (wet? muddy? clean? tired?)\n- Shot type: Wide/Medium/Close-up\n- NEVER use negations (\"no ball\" makes ball appear)\n- Keep scenes CLEAN - no \"NO TEXT\" instructions (added later)\n\nSCENE CONTINUITY - scenes must flow like a movie:\n- If character got muddy on page 4, they're STILL muddy on page 5 (unless cleaned)\n- If character is in the bath, they'll be WET when they get out\n- Track: location changes, character state changes, time of day\n- Each scene should visually connect to the previous one\n\nREFERENCE_PROMPT (write this LAST, after completing all pages):\nBased on the story you just wrote, create a 9-panel reference sheet prompt featuring:\n- Row 1: YOUR main character (front view, expressions, action pose) with exact visual details\n- Row 2: Key objects/secondary characters from YOUR story, KEY MOMENT in center\n- Row 3: The actual settings from YOUR story (e.g., backyard, bathroom)\n- Include your visual_style throughout\n\nOutput ONLY valid JSON."
+  },
+  "parent_tips": {
+    "before_reading": "Look at the cover.",
+    "during_reading": "Help sound out words.",
+    "after_reading": "What was your favorite part?"
+  }
+}

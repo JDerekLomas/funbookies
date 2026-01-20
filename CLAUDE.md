@@ -1,5 +1,26 @@
 # Claude Code Instructions for LilBookies
 
+## Documentation Index
+
+| Doc | Purpose | Read When |
+|-----|---------|-----------|
+| **[PROMPTING_CHEATSHEET.md](PROMPTING_CHEATSHEET.md)** | Quick reference for all prompting rules | First stop for any prompting question |
+| [BOOK_CREATION_PROCESS.md](BOOK_CREATION_PROCESS.md) | 4-checkpoint workflow, validation | Starting a new book |
+| [STORY_CONTENT_GUIDE.md](STORY_CONTENT_GUIDE.md) | Narrative principles, word categories | Writing story text |
+| [STORY_RUBRIC.md](STORY_RUBRIC.md) | Quality checklist, dialogue rules | Reviewing story quality |
+| [IMAGE_GENERATION_WORKFLOW.md](IMAGE_GENERATION_WORKFLOW.md) | Multi-ref architecture, models | Understanding image pipeline |
+| [REFERENCE_IMAGE_PROMPTS.md](REFERENCE_IMAGE_PROMPTS.md) | 9-panel templates by level | Creating reference sheets |
+| [BOOK_GENERATION_GUIDE.md](BOOK_GENERATION_GUIDE.md) | Conversational workflow | Step-by-step with checkpoints |
+
+### The Five Golden Rules
+1. **Never use negations** - "no ball" generates a ball
+2. **Physical over emotional** - "eyes wide" not "scared"
+3. **Explicit character presence** - say who IS and ISN'T there
+4. **Single scene emphasis** - "One cohesive illustration filling the entire canvas"
+5. **NO TEXT in every prompt** - always end with "NO TEXT, NO WORDS, NO LETTERS"
+
+---
+
 ## Session Documentation
 
 After completing work, document changes in `DEVLOG.md` with:

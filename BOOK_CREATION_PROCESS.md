@@ -114,6 +114,23 @@ bold shapes and textures. NO TEXT.
    - Bad: "not a grid", "single image not panels"
    - Good: "One cohesive illustration filling the entire canvas"
 
+### Emotional → Physical Translation
+
+**CRITICAL:** Never use mood words in scene descriptions. Translate emotions to physical manifestations:
+
+| Emotion | Physical Description |
+|---------|---------------------|
+| Scared/Panicked | Eyes wide open, mouth agape, eyebrows raised high, body leaning back |
+| Happy/Joyful | Wide smile showing teeth, eyes crinkled, cheeks raised |
+| Sad/Worried | Downturned mouth, eyebrows furrowed inward, shoulders slumped |
+| Surprised | Mouth O-shaped, eyebrows raised, hands up near face |
+| Determined | Jaw set, eyes focused, chin up, chest out, stepping confidently |
+| Tired/Exhausted | Drooping eyelids, slouched posture, yawning |
+| Stuck in mud | Body buried up to [specific point], only [parts] visible above surface |
+| Running away | Legs extended mid-stride, arms pumping, body leaning forward |
+
+**Why:** Image models don't understand emotions—they understand visual features. "Scared" means nothing; "eyes wide, mouth agape" is renderable.
+
 ### Checkpoint 2: Scene Description Review
 
 Before proceeding to image generation:
@@ -234,6 +251,38 @@ Validation checks:
 - [ ] Scene descriptions include composition instructions
 - [ ] No negations in scene descriptions
 - [ ] story_bible or characters field populated
+
+### Optional: Prompt Enhancement Pipeline
+
+For higher-quality prompts, use the enhancement script:
+
+```bash
+python scripts/prompt_enhancer.py {slug} --pages 11,12,13
+```
+
+The pipeline:
+1. **Story Context Analysis** - Determines narrative act (setup/conflict/climax/resolution)
+2. **Character Presence Logic** - Identifies who MUST and MUST NOT be in scene
+3. **Emotional → Physical Translation** - Converts mood words to visual descriptions
+4. **LLM Review & Scoring** - Validates prompt quality before generation
+
+**Review Scoring Criteria:**
+
+| Score | Quality | Action |
+|-------|---------|--------|
+| 9-10 | Perfect - physically specific, correct characters, clear composition | Generate |
+| 7-8 | Good - minor improvements but should generate correctly | Generate |
+| 5-6 | Acceptable - some vagueness but main elements clear | Caution |
+| 3-4 | Problematic - likely wrong characters or emotions | Fix first |
+| 1-2 | Fail - will definitely generate incorrectly | Must fix |
+
+**Common Issues Detected:**
+- Wrong characters present (character should be alone)
+- Emotional words without physical translation
+- Vague positioning ("in the scene" vs specific placement)
+- Missing key character identifiers
+- Ambiguous scale or size relationships
+- Story continuity errors
 
 ### Checkpoint 4: Image Review
 

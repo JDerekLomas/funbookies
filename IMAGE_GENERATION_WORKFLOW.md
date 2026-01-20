@@ -607,14 +607,193 @@ result = client.generate_with_reference(
 )
 ```
 
+## Reference Image Strategies
+
+### Current: Single 9-Panel Reference Sheet
+
+The **production workflow** uses a single 9-panel reference sheet per book:
+
+```
+┌─────────────────────────────────────────┐
+│  [1] Char     [2] Char     [3] Char    │
+│      Front        Expr         Action   │
+├─────────────────────────────────────────┤
+│  [4] Char2/   [5] **HERO** [6] Setting │
+│      Prop         SHOT                  │
+├─────────────────────────────────────────┤
+│  [7] Setting  [8] Setting  [9] Together│
+│      Day          Night                 │
+└─────────────────────────────────────────┘
+```
+
+**Pros:** Simple, one generation per book, proven workflow
+**Cons:** Content contamination (story elements bleed into pages), limited style control
+
+**Scripts:**
+- `generate_references.py` - Creates 9-panel sheets
+- `generate_page_images.py` - Uses single reference for all pages
+
+**Storage:** `public/books/references/{slug}_reference.png`
+
+---
+
+### Target: Multi-Reference Strategy (3 refs)
+
+Models like `wan2.6-image` support up to **3 reference images**. This enables specialized references:
+
+```
+Reference 1: CHARACTER SHEET
+┌─────────────────────────────┐
+│ [Front] [Side] [3/4 view]  │
+│ [Happy] [Sad]  [Surprised] │
+│ [Action1] [Action2] [Size] │
+└─────────────────────────────┘
+
+Reference 2: SETTINGS SHEET
+┌─────────────────────────────┐
+│ [Day exterior] [Night]     │
+│ [Interior 1]   [Interior 2]│
+│ [Weather]      [Mood]      │
+└─────────────────────────────┘
+
+Reference 3: STYLE SHEET
+┌─────────────────────────────┐
+│ Color palette swatches     │
+│ Texture samples            │
+│ Lighting examples          │
+└─────────────────────────────┘
+```
+
+**Pros:** No content contamination, better character consistency, fine-grained control
+**Cons:** 3x reference generation cost, more complex workflow
+
+**Scripts (planned):**
+- `generate_references.py --strategy multi` - Creates 3 specialized sheets
+- `generate_page_images.py --refs 3` - Uses all 3 references
+
+**Storage:** `public/books/references/{slug}_multi/`
+- `{slug}_characters.png`
+- `{slug}_settings.png`
+- `{slug}_style.png`
+
+---
+
+### Premium: 14-Reference Strategy (Gemini 3 Pro)
+
+For books requiring maximum consistency (complex multi-character stories), `gemini-3-pro` supports **14 reference images**:
+
+```
+Images 1-5:   Individual character images (not sheets)
+              - char1_front.png, char1_side.png, char1_happy.png
+              - char2_front.png, char2_side.png
+
+Images 6-8:   Key objects/props
+              - prop_ball.png, prop_hat.png, prop_wagon.png
+
+Images 9-11:  Environment references
+              - env_backyard.png, env_bedroom.png, env_kitchen.png
+
+Images 12-14: Style references
+              - style_palette.png, style_texture.png, style_lighting.png
+```
+
+**Cost:** $0.15/page (vs $0.03 for wan2.6-image)
+**Use when:** Multi-character books, critical consistency needs
+
+---
+
+### Reference Type Templates
+
+#### Character Sheet Prompt
+```
+9-PANEL CHARACTER REFERENCE for [Name]:
+
+Row 1 - Views:
+[1] [Name] front view, full body, arms at sides, neutral expression
+[2] [Name] side profile, walking pose
+[3] [Name] 3/4 view, slight smile
+
+Row 2 - Expressions:
+[4] [Name] happy, wide smile, eyes crinkled
+[5] [Name] sad, downturned mouth, drooping posture
+[6] [Name] surprised, eyes wide, mouth O-shaped
+
+Row 3 - Actions:
+[7] [Name] running, legs mid-stride
+[8] [Name] sitting, relaxed pose
+[9] [Name] with [key prop], size reference
+
+CRITICAL: Same character in ALL panels. Consistent [distinctive features].
+Style: [art style]. NO TEXT anywhere.
+```
+
+#### Settings Sheet Prompt
+```
+9-PANEL SETTINGS REFERENCE for [Book Title]:
+
+Row 1 - Exterior:
+[1] [Main location] exterior, bright daylight
+[2] Same location, golden hour sunset lighting
+[3] Same location, blue hour/dusk
+
+Row 2 - Interior:
+[4] [Interior space 1] with warm lighting
+[5] [Interior space 2] cozy atmosphere
+[6] Detail shot of [key furniture/object]
+
+Row 3 - Atmosphere:
+[7] Weather: [sunny/cloudy/rainy] sky
+[8] Nature elements: [trees/flowers/grass]
+[9] Mood shot: [overall feeling of story]
+
+Consistent color palette and art style across all panels.
+Style: [art style]. NO TEXT anywhere.
+```
+
+#### Style Sheet Prompt
+```
+9-PANEL STYLE REFERENCE - Color and Texture:
+
+Row 1 - Color Palette:
+[1] Primary color swatch: [color name and hex]
+[2] Secondary colors: [2-3 accent colors]
+[3] Neutral tones: [background/shadow colors]
+
+Row 2 - Textures:
+[4] Brush stroke sample: [watercolor/gouache/etc]
+[5] Character skin/fur texture close-up
+[6] Background texture: [grass/sky/wood]
+
+Row 3 - Lighting:
+[7] Warm lighting example (golden, cozy)
+[8] Cool lighting example (blue, calm)
+[9] Dramatic lighting (contrast, shadow)
+
+Abstract swatches and samples only. No characters or story elements.
+Style: [art style]. NO TEXT anywhere.
+```
+
+---
+
+### Choosing a Strategy
+
+| Book Type | Recommended Strategy | Cost/Page | Quality |
+|-----------|---------------------|-----------|---------|
+| Simple (1 char, few settings) | Single 9-panel | $0.03 | Good |
+| Standard (1-2 chars, varied settings) | Multi 3-ref | $0.03 | Better |
+| Complex (3+ chars, critical consistency) | 14-ref Gemini | $0.15 | Best |
+
+---
+
 ## Current Status
 
 | Component | Status |
 |-----------|--------|
 | Book JSONs | 48 books with scene descriptions |
-| Reference Images | 47 generated |
+| Reference Images | 47 generated (single 9-panel) |
 | Cover Images | 48 generated |
 | Page Images | 2 books fully generated |
+| Multi-ref support | Documented, scripts need update |
 
 ## Edit Mode & Image Versioning
 

@@ -276,13 +276,31 @@ Before each page, ask:
 
 ---
 
+## Reference Image Strategies
+
+| Strategy | # Refs | Model | Cost/Page | Best For |
+|----------|--------|-------|-----------|----------|
+| Single 9-panel | 1 | wan2.6-image | $0.03 | Simple books, proven workflow |
+| Multi 3-ref | 3 | wan2.6-image | $0.03 | Better consistency, no contamination |
+| Premium 14-ref | 14 | gemini-3-pro | $0.15 | Complex multi-character |
+
+**3-Reference Strategy:**
+1. **Characters** - poses, expressions, size reference
+2. **Settings** - locations, lighting variations
+3. **Style** - color palette, textures (no story content)
+
+See [IMAGE_GENERATION_WORKFLOW.md](IMAGE_GENERATION_WORKFLOW.md#reference-image-strategies) for templates.
+
+---
+
 ## Cost Reference
 
-| Model | Type | Cost | Use For |
-|-------|------|------|---------|
-| nano-banana-pro | T2I | $0.15/img | Reference sheets, covers |
-| wan2.6-image | I2I | $0.03/img | Pages with reference |
-| gemini-3-pro | I2I | $0.15/img | Complex multi-character (14 refs) |
+| Model | Type | Cost | Max Refs | Use For |
+|-------|------|------|----------|---------|
+| nano-banana-pro | T2I | $0.15/img | 0 | Reference sheets, covers |
+| wan2.6-image | I2I | $0.03/img | 3 | Pages with reference |
+| gemini-2.5-flash | I2I | $0.039/img | 3 | Budget + quality |
+| gemini-3-pro | I2I | $0.15/img | 14 | Complex multi-character |
 
 ---
 

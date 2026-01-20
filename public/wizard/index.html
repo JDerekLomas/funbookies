@@ -272,6 +272,67 @@
         }
 
         /* Scene list */
+        /* Split view for Phase 2 */
+        .split-view {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        @media (max-width: 900px) {
+            .split-view {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .split-panel {
+            background: var(--color-cream);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .split-panel h3 {
+            font-family: var(--font-display);
+            margin-bottom: var(--space-sm);
+            font-size: 1.1rem;
+            position: sticky;
+            top: 0;
+            background: var(--color-cream);
+            padding-bottom: var(--space-xs);
+        }
+
+        .editable-page {
+            background: var(--color-white);
+            border-radius: var(--border-radius-sm);
+            padding: var(--space-sm);
+            margin-bottom: var(--space-xs);
+        }
+
+        .editable-page label {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .editable-page textarea {
+            width: 100%;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-sm);
+            padding: 8px;
+            font-size: 0.9rem;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .editable-page textarea:focus {
+            outline: none;
+            border-color: var(--color-sage);
+        }
+
         .scene-list {
             display: flex;
             flex-direction: column;
@@ -874,22 +935,22 @@
                     <li class="step active" data-phase="1">
                         <div class="step-indicator">1</div>
                         <div class="step-content">
-                            <div class="step-title">Story</div>
-                            <div class="step-subtitle">Generate narrative</div>
+                            <div class="step-title">Concept</div>
+                            <div class="step-subtitle">Story inputs</div>
                         </div>
                     </li>
                     <li class="step" data-phase="2">
                         <div class="step-indicator">2</div>
                         <div class="step-content">
-                            <div class="step-title">Scenes</div>
-                            <div class="step-subtitle">Image descriptions</div>
+                            <div class="step-title">Story</div>
+                            <div class="step-subtitle">Edit text & scenes</div>
                         </div>
                     </li>
                     <li class="step" data-phase="3">
                         <div class="step-indicator">3</div>
                         <div class="step-content">
                             <div class="step-title">Reference</div>
-                            <div class="step-subtitle">Style guide image</div>
+                            <div class="step-subtitle">Style images</div>
                         </div>
                     </li>
                     <li class="step" data-phase="4">
@@ -902,7 +963,7 @@
                     <li class="step" data-phase="5">
                         <div class="step-indicator">5</div>
                         <div class="step-content">
-                            <div class="step-title">Review</div>
+                            <div class="step-title">Publish</div>
                             <div class="step-subtitle">Preview & publish</div>
                         </div>
                     </li>
@@ -916,10 +977,10 @@
 
             <!-- Main Content -->
             <main class="wizard-main">
-                <!-- Phase 1: Story Generation -->
+                <!-- Phase 1: Story Concept -->
                 <div class="phase-content active" id="phase1">
                     <div class="wizard-header">
-                        <h2>Step 1: Generate Story</h2>
+                        <h2>Step 1: Story Concept</h2>
                     </div>
 
                     <div id="phase1Form">
@@ -1011,29 +1072,15 @@
 
                     <div id="phase1Loading" class="loading-state hidden">
                         <div class="spinner"></div>
-                        <p>Generating your story...</p>
-                        <p style="font-size: 0.85rem; color: var(--color-text-muted);">This may take 10-20 seconds</p>
-                    </div>
-
-                    <div id="phase1Review" class="hidden">
-                        <div class="story-preview" id="storyPreview"></div>
-
-                        <div class="action-bar">
-                            <div class="action-bar-left">
-                                <button class="btn btn-ghost" onclick="resetPhase1()">Start Over</button>
-                            </div>
-                            <div class="action-bar-right">
-                                <button class="btn btn-secondary" onclick="generateStory()">Regenerate</button>
-                                <button class="btn btn-primary" onclick="approvePhase1()">Approve &amp; Continue</button>
-                            </div>
-                        </div>
+                        <p id="phase1LoadingText">Generating your story...</p>
+                        <p style="font-size: 0.85rem; color: var(--color-text-muted);">This may take 20-30 seconds</p>
                     </div>
                 </div>
 
-                <!-- Phase 2: Scene Descriptions -->
+                <!-- Phase 2: Story Review (Split View) -->
                 <div class="phase-content" id="phase2">
                     <div class="wizard-header">
-                        <h2>Step 2: Scene Descriptions</h2>
+                        <h2>Step 2: Review Story</h2>
                     </div>
 
                     <div id="validationMessages" class="validation-messages hidden">
@@ -1041,20 +1088,39 @@
                         <ul id="validationList"></ul>
                     </div>
 
-                    <div id="sceneList" class="scene-list"></div>
-
                     <div id="phase2Loading" class="loading-state hidden">
                         <div class="spinner"></div>
-                        <p>Generating scene descriptions...</p>
+                        <p id="phase2LoadingText">Generating story and scenes...</p>
+                    </div>
+
+                    <div id="phase2Content" class="hidden">
+                        <div class="split-view">
+                            <!-- Left: Editable Story Text -->
+                            <div class="split-panel">
+                                <h3>Story Text</h3>
+                                <div class="form-group" style="margin-bottom: var(--space-sm);">
+                                    <label>Title</label>
+                                    <input type="text" class="input" id="editableTitle" placeholder="Book title" onchange="updateTitle(this.value)">
+                                </div>
+                                <div id="editablePages"></div>
+                            </div>
+
+                            <!-- Right: Scene Descriptions -->
+                            <div class="split-panel">
+                                <h3>Scene Descriptions</h3>
+                                <p class="hint" style="margin-bottom: var(--space-sm);">These descriptions guide image generation</p>
+                                <div id="sceneList" class="scene-list"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="action-bar" id="phase2Actions">
                         <div class="action-bar-left">
-                            <button class="btn btn-ghost" onclick="goToPhase(1)">Back to Story</button>
+                            <button class="btn btn-ghost" onclick="goToPhase(1)">Back to Concept</button>
                         </div>
                         <div class="action-bar-right">
-                            <button class="btn btn-secondary" onclick="generateScenes()">Regenerate All</button>
-                            <button class="btn btn-primary" onclick="validateAndApprovePhase2()">Validate &amp; Continue</button>
+                            <button class="btn btn-secondary" onclick="regenerateStoryAndScenes()">Regenerate</button>
+                            <button class="btn btn-primary" onclick="validateAndApprovePhase2()">Continue to Reference</button>
                         </div>
                     </div>
                 </div>
@@ -1473,7 +1539,7 @@
 
             // Render phase-specific content
             if (phase === 2 && state.book) {
-                renderSceneList();
+                renderPhase2Content();
             } else if (phase === 3 && state.book) {
                 renderReferencePhase();
             } else if (phase === 4 && state.book) {
@@ -1598,12 +1664,13 @@
                 return;
             }
 
-            // Show loading
+            // Show loading in Phase 1
             document.getElementById('phase1Form').classList.add('hidden');
-            document.getElementById('phase1Review').classList.add('hidden');
             document.getElementById('phase1Loading').classList.remove('hidden');
+            document.getElementById('phase1LoadingText').textContent = 'Generating your story...';
 
             try {
+                // Step 1: Generate story
                 const response = await fetch('/api/generate-story', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1625,20 +1692,55 @@
                 // Add metadata
                 state.book.slug = state.slug;
                 state.book.level = state.formData.level;
-                state.book.character = state.formData.character;
-                state.book.characterName = state.formData.characterName;
                 state.book.setting = state.formData.setting;
 
                 saveState();
-                renderStoryPreview();
+
+                // Step 2: Generate scene descriptions
+                document.getElementById('phase1LoadingText').textContent = 'Generating scene descriptions...';
+
+                await generateScenesInternal();
+
+                // Mark phase 1 complete and go to phase 2
+                state.phaseStatus[1] = 'complete';
+                state.checkpointApprovals[1] = { approved: true, timestamp: new Date().toISOString() };
+                saveState();
+                saveToSupabase();
+
+                document.getElementById('phase1Loading').classList.add('hidden');
+                goToPhase(2);
+                renderPhase2Content();
 
             } catch (error) {
                 console.error('Error:', error);
                 alert('Failed to generate story. Please try again.');
                 document.getElementById('phase1Form').classList.remove('hidden');
+                document.getElementById('phase1Loading').classList.add('hidden');
+            }
+        }
+
+        // Internal scene generation (no UI updates)
+        async function generateScenesInternal() {
+            const response = await fetch('/api/generate-scenes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ book: state.book })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to generate scenes');
             }
 
-            document.getElementById('phase1Loading').classList.add('hidden');
+            const result = await response.json();
+
+            // Update book with new scenes
+            result.pages.forEach((newPage, i) => {
+                if (state.book.pages[i]) {
+                    state.book.pages[i].scene = newPage.scene;
+                }
+            });
+
+            saveState();
         }
 
         function buildStoryPrompt() {
@@ -1655,12 +1757,13 @@
 
             return `You are writing a decodable book for a beginning reader. Generate a short story (8-12 pages) following these STRICT constraints:
 
-READING LEVEL: ${state.formData.level} - ${levelDescriptions[state.formData.level]}
+READING LEVEL: ${state.formData.level} - ${levelDescriptions[state.formData.level] || 'Age-appropriate vocabulary'}
 
-MAIN CHARACTER: ${state.formData.characterName} the ${state.formData.character}
 SETTING: ${state.formData.setting || 'appropriate for the story'}
 CONCEPT: ${state.formData.concept}
 ${state.formData.words.length > 0 ? `WORDS TO INCLUDE: ${state.formData.words.join(', ')}` : ''}
+
+Create an appropriate main character (can be a child, animal, or friendly creature) that fits the story concept.
 
 CRITICAL RULES:
 1. Use ONLY words appropriate for the reading level. No words the child cannot decode.
@@ -1688,100 +1791,116 @@ OUTPUT FORMAT (JSON):
 Return ONLY the JSON, no other text.`;
         }
 
-        function renderStoryPreview() {
-            const preview = document.getElementById('storyPreview');
-
-            let wordListHtml = '';
-            if (state.book.word_list) {
-                const soundOut = state.book.word_list.sound_out || [];
-                const sight = state.book.word_list.sight || [];
-                wordListHtml = `
-                    <div style="margin-bottom: var(--space-sm);">
-                        <strong>Sound-out words:</strong> ${soundOut.join(', ') || 'None'}
-                    </div>
-                    <div style="margin-bottom: var(--space-sm);">
-                        <strong>Sight words:</strong> ${sight.join(', ') || 'None'}
-                    </div>
-                `;
-            }
-
-            preview.innerHTML = `
-                <h3>${state.book.title}</h3>
-                <div style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: var(--space-sm);">
-                    Level: ${state.book.level} | ${state.book.pages.length} pages
-                </div>
-                ${wordListHtml}
-                <div style="max-height: 400px; overflow-y: auto;">
-                    ${state.book.pages.map(p => `
-                        <div class="story-page-preview">
-                            <div class="page-num">Page ${p.page}</div>
-                            <div class="text">${p.text}</div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-
-            document.getElementById('phase1Form').classList.add('hidden');
-            document.getElementById('phase1Review').classList.remove('hidden');
-        }
-
         function resetPhase1() {
             state.book = null;
             state.slug = null;
             document.getElementById('phase1Form').classList.remove('hidden');
-            document.getElementById('phase1Review').classList.add('hidden');
             updateUI();
         }
 
-        function approvePhase1() {
-            state.phaseStatus[1] = 'complete';
-            state.checkpointApprovals[1] = { approved: true, timestamp: new Date().toISOString() };
-            saveState();
-            saveToSupabase(); // Persist to database
-            goToPhase(2);
-            generateScenes();
+        // ===================
+        // PHASE 2: STORY REVIEW (Split View)
+        // ===================
+
+        function renderPhase2Content() {
+            if (!state.book) return;
+
+            // Show content, hide loading
+            document.getElementById('phase2Loading').classList.add('hidden');
+            document.getElementById('phase2Content').classList.remove('hidden');
+            document.getElementById('phase2Actions').classList.remove('hidden');
+
+            // Render editable story (left panel)
+            renderEditableStory();
+
+            // Render scene list (right panel)
+            renderSceneList();
         }
 
-        // ===================
-        // PHASE 2: SCENES
-        // ===================
+        function renderEditableStory() {
+            // Set title
+            document.getElementById('editableTitle').value = state.book.title || '';
 
-        async function generateScenes() {
-            document.getElementById('sceneList').classList.add('hidden');
+            // Render pages
+            const container = document.getElementById('editablePages');
+            container.innerHTML = state.book.pages.map((page, i) => `
+                <div class="editable-page">
+                    <label>Page ${page.page}</label>
+                    <textarea onchange="updatePageText(${i}, this.value)">${page.text || ''}</textarea>
+                </div>
+            `).join('');
+        }
+
+        function updatePageText(index, newText) {
+            if (state.book.pages[index]) {
+                state.book.pages[index].text = newText;
+                saveState();
+            }
+        }
+
+        function updateTitle(newTitle) {
+            state.book.title = newTitle;
+            state.slug = generateSlug(newTitle);
+            state.book.slug = state.slug;
+            saveState();
+        }
+
+        async function regenerateStoryAndScenes() {
+            // Show loading
+            document.getElementById('phase2Content').classList.add('hidden');
             document.getElementById('phase2Actions').classList.add('hidden');
             document.getElementById('phase2Loading').classList.remove('hidden');
+            document.getElementById('phase2LoadingText').textContent = 'Regenerating story...';
 
             try {
-                const response = await fetch('/api/generate-scenes', {
+                // Regenerate story
+                const response = await fetch('/api/generate-story', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ book: state.book })
+                    body: JSON.stringify({
+                        prompt: buildStoryPrompt()
+                    })
                 });
 
                 if (!response.ok) {
-                    throw new Error('Failed to generate scenes');
+                    throw new Error('Failed to generate story');
                 }
 
-                const result = await response.json();
-
-                // Update book with new scenes
-                result.pages.forEach((newPage, i) => {
-                    if (state.book.pages[i]) {
-                        state.book.pages[i].scene = newPage.scene;
-                    }
-                });
-
+                const book = await response.json();
+                state.slug = generateSlug(book.title);
+                state.book = book;
+                state.book.slug = state.slug;
+                state.book.level = state.formData.level;
+                state.book.setting = state.formData.setting;
                 saveState();
-                renderSceneList();
+
+                // Regenerate scenes
+                document.getElementById('phase2LoadingText').textContent = 'Regenerating scene descriptions...';
+                await generateScenesInternal();
+
+                renderPhase2Content();
 
             } catch (error) {
                 console.error('Error:', error);
-                alert('Failed to generate scenes. Please try again.');
+                alert('Failed to regenerate. Please try again.');
+                renderPhase2Content();
             }
+        }
 
-            document.getElementById('phase2Loading').classList.add('hidden');
-            document.getElementById('sceneList').classList.remove('hidden');
-            document.getElementById('phase2Actions').classList.remove('hidden');
+        async function generateScenes() {
+            document.getElementById('phase2Content').classList.add('hidden');
+            document.getElementById('phase2Actions').classList.add('hidden');
+            document.getElementById('phase2Loading').classList.remove('hidden');
+            document.getElementById('phase2LoadingText').textContent = 'Generating scene descriptions...';
+
+            try {
+                await generateScenesInternal();
+                renderPhase2Content();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to generate scenes. Please try again.');
+                renderPhase2Content();
+            }
         }
 
         function renderSceneList() {

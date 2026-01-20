@@ -2520,6 +2520,7 @@
         let currentBook = null;
         let currentPage = 0;
         let bookSlug = '';
+        let galleryMode = false;
 
         // Get book ID and mode from URL params
         const urlParams = new URLSearchParams(window.location.search);
@@ -4177,8 +4178,6 @@
         }
 
         // Gallery View Functions
-        let galleryMode = false;
-
         function toggleGalleryView() {
             galleryMode = !galleryMode;
             document.body.classList.toggle('gallery-mode', galleryMode);

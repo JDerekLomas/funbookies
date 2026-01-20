@@ -123,37 +123,6 @@ function validatePage(page, pageNum) {
     warnings.push(`Page ${pageNum}: Consider adding "Single scene illustration" for clarity`);
   }
 
-  // Check for emotional words (should be physical descriptions)
-  // These are ERRORS because image models can't render emotions - only physical states
-  const emotionalWords = [
-    'happy', 'sad', 'scared', 'worried', 'angry', 'excited', 'nervous', 'anxious',
-    'joyful', 'panicked', 'surprised', 'determined', 'tired', 'lonely', 'confused'
-  ];
-  const emotionalTranslations = {
-    'happy': 'wide smile showing teeth, eyes crinkled, cheeks raised',
-    'sad': 'downturned mouth, eyebrows furrowed inward, shoulders slumped',
-    'scared': 'eyes wide open, mouth agape, eyebrows raised high, body leaning back',
-    'worried': 'furrowed brow, tight lips, hunched shoulders',
-    'angry': 'furrowed brows, clenched jaw, tense posture',
-    'excited': 'wide eyes, open mouth smile, raised arms, bouncing posture',
-    'nervous': 'fidgeting hands, darting eyes, tense shoulders',
-    'anxious': 'biting lip, wringing hands, hunched posture',
-    'joyful': 'beaming smile, arms raised, light bouncing step',
-    'panicked': 'wide eyes, open mouth, hands near face, body recoiling',
-    'surprised': 'mouth O-shaped, eyebrows raised, hands up near face',
-    'determined': 'jaw set, eyes focused, chin up, chest out',
-    'tired': 'drooping eyelids, slouched posture, yawning',
-    'lonely': 'slumped shoulders, downcast eyes, arms wrapped around self',
-    'confused': 'tilted head, furrowed brow, one eyebrow raised'
-  };
-  emotionalWords.forEach(word => {
-    const regex = new RegExp(`\\b${word}\\b`, 'gi');
-    if (regex.test(scene)) {
-      const suggestion = emotionalTranslations[word] || 'physical description';
-      errors.push(`Page ${pageNum}: Uses emotional word "${word}" - replace with: "${suggestion}"`);
-    }
-  });
-
   // Check for WHO/WHERE/WHAT components
   const hasCharacter = /\b(shot|view|close-up|medium|wide)\b/i.test(scene) ||
                        scene.includes(page.character) ||

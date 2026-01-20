@@ -488,15 +488,32 @@
       container.innerHTML = html;
     }
 
-    function submitResults() {
+    async function submitResults() {
       const results = {
         participant: participantInfo,
         selections: acceptableSelections,
         timestamp: new Date().toISOString()
       };
 
-      console.log('Experiment results:', results);
-      alert('Thank you, ' + participantInfo.name + '! Your results have been recorded.');
+      try {
+        const response = await fetch('/api/experiment-results', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(results)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert('Thank you, ' + participantInfo.name + '! Your results have been saved.');
+          console.log('Saved:', data);
+        } else {
+          throw new Error(data.error || 'Failed to save');
+        }
+      } catch (error) {
+        console.error('Error submitting:', error);
+        alert('Could not save to server. Your results are stored locally.\n\nUse "Copy Results" to share manually.');
+      }
     }
 
     function copyResults() {

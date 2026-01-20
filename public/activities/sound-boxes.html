@@ -574,9 +574,24 @@
           }
         }
 
-        // Click to hear sound
+        // Click to place in next empty box (or hear sound if all full)
         tile.addEventListener('click', (e) => {
-          if (!tile.classList.contains('used')) {
+          if (tile.classList.contains('used')) return;
+
+          // Find next empty box
+          const emptyIndex = boxContents.findIndex(b => b === null);
+          if (emptyIndex !== -1) {
+            boxContents[emptyIndex] = letter;
+            playLetterSound(letter);
+            renderSoundBoxes();
+            renderLetterBank();
+
+            // Auto-check if all boxes filled
+            if (boxContents.every(b => b !== null)) {
+              setTimeout(checkAnswer, 300);
+            }
+          } else {
+            // All boxes full, just play the sound
             playLetterSound(letter);
           }
         });
@@ -752,18 +767,20 @@
         document.getElementById('feedback').className = 'feedback correct';
 
         showCelebration();
-        playWord();
 
-        setTimeout(() => {
-          wordIndex++;
-          if (wordIndex >= roundWords.length) {
-            document.getElementById('feedback').textContent = 'Round complete! Great job!';
-            saveActivity();
-            setTimeout(startRound, 2000);
-          } else {
-            loadWord();
-          }
-        }, 1500);
+        // Play each sound, then pause, then full word
+        playSuccessSequence().then(() => {
+          setTimeout(() => {
+            wordIndex++;
+            if (wordIndex >= roundWords.length) {
+              document.getElementById('feedback').textContent = 'Round complete! Great job!';
+              saveActivity();
+              setTimeout(startRound, 2000);
+            } else {
+              loadWord();
+            }
+          }, 800);
+        });
       } else {
         document.getElementById('feedback').textContent = 'Not quite - try again!';
         document.getElementById('feedback').className = 'feedback incorrect';
@@ -792,6 +809,18 @@
 
     function playLetterSound(letter) {
       AudioUtils.playSound(letter).catch(() => {});
+    }
+
+    async function playSuccessSequence() {
+      // Play each sound with short delay
+      for (const sound of currentWord.sounds) {
+        await AudioUtils.playSound(sound).catch(() => {});
+        await AudioUtils.sleep(200);
+      }
+      // Pause before full word
+      await AudioUtils.sleep(400);
+      // Play full word
+      await AudioUtils.playWord(currentWord.word).catch(() => {});
     }
 
     function renderProgress() {

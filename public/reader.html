@@ -2335,7 +2335,7 @@
         <span class="book-title" id="bookTitle">Loading...</span>
         <div style="display: flex; align-items: center;">
             <button class="gallery-toggle" id="galleryToggle" onclick="toggleGalleryView()">Gallery</button>
-            <a href="#" id="modeToggle" class="mode-toggle">Edit</a>
+            <a href="#" id="modeToggle" class="mode-toggle" onclick="toggleEditMode(); return false;">Edit</a>
         </div>
     </header>
 
@@ -2530,13 +2530,80 @@
         let currentPage = 0;
         let bookSlug = '';
         let galleryMode = false;
+        let editMode = false;  // Now mutable
 
-        // Get book ID and mode from URL params
+        // Get URL params
         const urlParams = new URLSearchParams(window.location.search);
         const bookId = urlParams.get('book');
-        const editMode = urlParams.get('mode') === 'edit';
+        editMode = urlParams.get('mode') === 'edit';
         const pageParam = urlParams.get('page');
         const viewParam = urlParams.get('view');
+        const actionParam = urlParams.get('action');
+
+        // Unified URL update helper - keeps URL in sync with state
+        function updateUrl(options = {}) {
+            const url = new URL(window.location);
+            const slug = currentBook?._slug || bookSlug;
+
+            // Always set book
+            if (slug) url.searchParams.set('book', slug);
+
+            // Mode
+            if (editMode) {
+                url.searchParams.set('mode', 'edit');
+            } else {
+                url.searchParams.delete('mode');
+            }
+
+            // Page (skip for default pages)
+            const defaultPage = editMode ? -2 : 0;
+            if (currentPage !== defaultPage || options.forcePage) {
+                url.searchParams.set('page', currentPage);
+            } else {
+                url.searchParams.delete('page');
+            }
+
+            // View
+            if (galleryMode) {
+                url.searchParams.set('view', 'gallery');
+            } else {
+                url.searchParams.delete('view');
+            }
+
+            // Clear action param after it's been processed
+            url.searchParams.delete('action');
+
+            history.replaceState({}, '', url);
+        }
+
+        // Toggle edit mode without full page reload
+        function toggleEditMode() {
+            editMode = !editMode;
+            document.body.classList.toggle('edit-mode', editMode);
+
+            // Update page title
+            if (currentBook) {
+                document.title = `${currentBook.title} - FunBookies${editMode ? ' (Edit)' : ''}`;
+            }
+
+            // Update mode toggle button text
+            const modeToggle = document.getElementById('modeToggle');
+            if (modeToggle) {
+                modeToggle.textContent = editMode ? 'Read' : 'Edit';
+            }
+
+            // Re-initialize edit mode UI
+            initEditMode();
+
+            // Re-render current view
+            if (galleryMode) {
+                renderGallery();
+            } else {
+                renderPage();
+            }
+
+            updateUrl();
+        }
 
         // Apply edit mode class to body
         if (editMode) {
@@ -2596,11 +2663,26 @@
                 // Initialize edit mode UI
                 initEditMode();
 
-                renderPage();
-
-                // If gallery mode, render gallery after book loads
+                // Render either gallery OR page view, not both
                 if (galleryMode) {
                     renderGallery();
+                } else {
+                    renderPage();
+                }
+
+                // Handle action param (e.g., action=generate triggers image regeneration)
+                if (actionParam === 'generate' && editMode) {
+                    // Exit gallery mode if needed - generation happens in page view
+                    if (galleryMode) {
+                        galleryMode = false;
+                        document.body.classList.remove('gallery-mode');
+                        document.getElementById('galleryToggle').classList.remove('active');
+                        renderPage();
+                    }
+                    // Clear action from URL to prevent re-triggering on refresh
+                    updateUrl();
+                    // Small delay to let page render, then trigger generate
+                    setTimeout(() => regenerateImage(), 500);
                 }
             } catch (e) {
                 console.error('Error loading book:', e);
@@ -2623,15 +2705,9 @@
         function initEditMode() {
             const slug = currentBook._slug || bookSlug;
 
-            // Set up mode toggle link
+            // Set up mode toggle text (onclick handler calls toggleEditMode)
             const modeToggle = document.getElementById('modeToggle');
-            if (editMode) {
-                modeToggle.textContent = 'Read';
-                modeToggle.href = `/reader.html?book=${slug}&page=${currentPage}`;
-            } else {
-                modeToggle.textContent = 'Edit';
-                modeToggle.href = `/reader.html?book=${slug}&mode=edit&page=${currentPage}`;
-            }
+            modeToggle.textContent = editMode ? 'Read' : 'Edit';
 
             // Set initial edit info
             if (editMode) {
@@ -4159,6 +4235,7 @@
                 setTimeout(() => {
                     currentPage--;
                     renderPage();
+                    updateUrl();
                     bookPage.classList.remove('slide-right');
                     bookPage.classList.add('fade-in');
                     setTimeout(() => bookPage.classList.remove('fade-in'), 300);
@@ -4173,6 +4250,7 @@
                 setTimeout(() => {
                     currentPage++;
                     renderPage();
+                    updateUrl();
                     bookPage.classList.remove('slide-left');
                     bookPage.classList.add('fade-in');
                     setTimeout(() => bookPage.classList.remove('fade-in'), 300);
@@ -4196,14 +4274,7 @@
                 renderGallery();
             }
 
-            // Update URL without reload
-            const url = new URL(window.location);
-            if (galleryMode) {
-                url.searchParams.set('view', 'gallery');
-            } else {
-                url.searchParams.delete('view');
-            }
-            history.replaceState({}, '', url);
+            updateUrl();
         }
 
         function renderGallery() {
@@ -4302,32 +4373,28 @@
 
             currentPage = pageIndex;
             renderPage();
-
-            // Update URL
-            const url = new URL(window.location);
-            url.searchParams.delete('view');
-            url.searchParams.set('page', pageIndex);
-            history.replaceState({}, '', url);
+            updateUrl();
         }
 
         function goToPageEdit(pageIndex) {
-            // Switch to edit mode if not already
+            // Switch to edit mode if not already, then go to page
             if (!editMode) {
-                window.location.href = `/reader.html?book=${bookSlug}&mode=edit&page=${pageIndex}`;
-            } else {
-                goToPage(pageIndex);
+                editMode = true;
+                document.body.classList.add('edit-mode');
+                document.getElementById('modeToggle').textContent = 'Read';
+                if (currentBook) {
+                    document.title = `${currentBook.title} - FunBookies (Edit)`;
+                }
+                initEditMode();
             }
+            goToPage(pageIndex);
         }
 
         function generatePageFromGallery(pageIndex) {
             // Go to page in edit mode and trigger regeneration
-            if (!editMode) {
-                window.location.href = `/reader.html?book=${bookSlug}&mode=edit&page=${pageIndex}&action=generate`;
-            } else {
-                goToPage(pageIndex);
-                // Small delay to let page render, then trigger generate
-                setTimeout(() => regenerateImage(), 300);
-            }
+            goToPageEdit(pageIndex);
+            // Small delay to let page render, then trigger generate
+            setTimeout(() => regenerateImage(), 300);
         }
 
         // Batch generation state
@@ -4567,17 +4634,6 @@ CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration
             document.getElementById('pageIndicator').textContent = pageText;
             const bottomIndicator = document.getElementById('bottomPageIndicator');
             if (bottomIndicator) bottomIndicator.textContent = pageText;
-
-            // Update mode toggle link to preserve current page
-            const modeToggle = document.getElementById('modeToggle');
-            const slug = currentBook?._slug || bookSlug;
-            if (modeToggle && slug) {
-                if (editMode) {
-                    modeToggle.href = `/reader.html?book=${slug}&page=${currentPage}`;
-                } else {
-                    modeToggle.href = `/reader.html?book=${slug}&mode=edit&page=${currentPage}`;
-                }
-            }
         }
 
         // Keyboard navigation (skip when editing text)

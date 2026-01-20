@@ -1,0 +1,452 @@
+{
+  "version": "1.0",
+  "description": "Story ideas organized by reading level for the book creation wizard",
+  "ideas": {
+    "A0": [
+      {
+        "title": "Look!",
+        "concept": "A wordless or near-wordless book showing a child discovering things around them. Each page reveals something new to look at.",
+        "character": "Young child",
+        "setting": "Home or playground"
+      },
+      {
+        "title": "Big and Small",
+        "concept": "Visual comparison book - big ball, small ball. Big dog, small dog. Pictures carry all meaning.",
+        "character": "Various animals",
+        "setting": "Various"
+      }
+    ],
+    "A1": [
+      {
+        "title": "I Am",
+        "concept": "Simple labels: 'I am Sam.' One word per page with supporting illustration.",
+        "character": "Named animal (Sam, Mat, Tim)",
+        "setting": "Simple backgrounds"
+      },
+      {
+        "title": "A Cat",
+        "concept": "Labels only: 'A cat.' 'A mat.' 'A sat.' One decodable word per page.",
+        "character": "Cat",
+        "setting": "Home"
+      }
+    ],
+    "A2": [
+      {
+        "title": "I See the ___",
+        "concept": "Repetitive frame: 'I see the cat.' 'I see the mat.' Only one word changes each page.",
+        "character": "Young child narrator",
+        "setting": "Outdoor walk"
+      },
+      {
+        "title": "The ___ Sat",
+        "concept": "Pattern book: 'The cat sat.' 'The mat sat.' Same sentence frame, changing subject.",
+        "character": "Various animals",
+        "setting": "Cozy room"
+      }
+    ],
+    "A3": [
+      {
+        "title": "The Cat Is Here",
+        "concept": "Simple declaratives with slight variation. 'The cat is here. The cat is on it. The cat ran.'",
+        "character": "Playful cat",
+        "setting": "House"
+      },
+      {
+        "title": "Here and There",
+        "concept": "Location-based story. Character moves to different spots. 'Sam is here. Sam is there.'",
+        "character": "Named animal",
+        "setting": "Room with furniture"
+      }
+    ],
+    "A4": [
+      {
+        "title": "Sam and the Hat",
+        "concept": "Bridge to phonics. Simple narrative: Sam finds a hat, tries it on, something happens, resolution.",
+        "character": "Sam (puppy or child)",
+        "setting": "Backyard"
+      },
+      {
+        "title": "The Lost Ball",
+        "concept": "Character wants something, searches, finds it. Simple problem-solution narrative.",
+        "character": "Named animal",
+        "setting": "Park"
+      }
+    ],
+    "B1": [
+      {
+        "title": "The Big Pig",
+        "concept": "Action narrative with CVC short a/i words: A big pig sat. The pig ran. The pig hit the pan!",
+        "character": "Pig named Pip",
+        "setting": "Farm"
+      },
+      {
+        "title": "Sam and the Cat",
+        "concept": "Two characters interact using -at, -an, -it word families. Sam and a cat have an adventure.",
+        "character": "Sam and a cat",
+        "setting": "Backyard"
+      },
+      {
+        "title": "Pip Gets a Hit",
+        "concept": "Sports story using short a/i words. Pip tries to hit the ball, misses, finally succeeds!",
+        "character": "Pip (pig or animal)",
+        "setting": "Baseball field"
+      }
+    ],
+    "B2": [
+      {
+        "title": "Pup in the Mud",
+        "concept": "Character wants something, gets it. Pup sees mud, jumps in, has fun, gets a bath. Emotional range: fun, messy!",
+        "character": "Puppy named Max",
+        "setting": "Backyard with mud puddle"
+      },
+      {
+        "title": "The Red Hen",
+        "concept": "Classic tale adapted: A hen wants help, no one helps, she does it herself. Uses short o/u/e words.",
+        "character": "Red hen and farm friends",
+        "setting": "Farm"
+      },
+      {
+        "title": "Frog Gets Fun",
+        "concept": "Frog is bored, tries different things, discovers something fun. Uses all five short vowels.",
+        "character": "Frog named Fred",
+        "setting": "Pond and meadow"
+      }
+    ],
+    "B3": [
+      {
+        "title": "Jump at Camp",
+        "concept": "Action story with final blends: jump, bump, stomp! Characters at camp have active adventures.",
+        "character": "Camp friends (various animals)",
+        "setting": "Summer camp"
+      },
+      {
+        "title": "Rex and the Runaway Ball",
+        "concept": "Suspense story: 'What was that?' Ball rolls away, Rex must find it. Uses -nd, -mp, -st blends.",
+        "character": "Rex (fox or dog)",
+        "setting": "Park"
+      },
+      {
+        "title": "The Best Nest",
+        "concept": "Bird wants to build the best nest. Collects soft, just-right things. FLOSS rule words (off, bell, miss).",
+        "character": "Small bird",
+        "setting": "Forest"
+      }
+    ],
+    "B4": [
+      {
+        "title": "Frog and Crab",
+        "concept": "Two characters interact using initial blends. They swim, skip, trip, grab. Friendship story.",
+        "character": "Frog and Crab",
+        "setting": "Beach/pond"
+      },
+      {
+        "title": "Flicker the Firefly",
+        "concept": "A firefly learns to use their light. Uses l-blends, r-blends, s-blends throughout.",
+        "character": "Flicker (firefly)",
+        "setting": "Night meadow"
+      },
+      {
+        "title": "The Sled Run",
+        "concept": "Winter adventure with blends: sled, slip, stop, spin. Characters race down a snowy hill.",
+        "character": "Group of friends",
+        "setting": "Snowy hill"
+      }
+    ],
+    "B5": [
+      {
+        "title": "The Ship in the Shell",
+        "concept": "Discovery story with digraphs: A character finds something special (sh, ch, th, wh words).",
+        "character": "Beach explorer",
+        "setting": "Beach"
+      },
+      {
+        "title": "Zip the Little Snail",
+        "concept": "A slow snail wishes to be fast. Uses digraphs and -ng endings. 'I wish I could dash!'",
+        "character": "Zip (snail)",
+        "setting": "Garden"
+      },
+      {
+        "title": "The Shell Switch",
+        "concept": "Dialogue-driven: 'She said, What is that?' Hermit crab needs a new shell. Questions in narrative.",
+        "character": "Hermit crab and friends",
+        "setting": "Tide pool"
+      }
+    ],
+    "B6": [
+      {
+        "title": "Kate and the Lake",
+        "concept": "Character names with silent e (Kate, Jake, Mike). Kate visits a lake, makes a cake, has an adventure.",
+        "character": "Kate (girl or animal)",
+        "setting": "Lake house"
+      },
+      {
+        "title": "Bake Day",
+        "concept": "CVCe throughout: make, bake, cake, home, stone. Characters prepare for a celebration.",
+        "character": "Animal friends",
+        "setting": "Kitchen"
+      },
+      {
+        "title": "The Bike Ride",
+        "concept": "Adventure with i_e words: bike, ride, hide, side. Character explores and discovers.",
+        "character": "Named character",
+        "setting": "Neighborhood"
+      }
+    ],
+    "B7": [
+      {
+        "title": "A Star at the Farm",
+        "concept": "Weather and seasons theme. 'The rain came. We had to stay. Then the sun came out to play.'",
+        "character": "Farm animals",
+        "setting": "Farm"
+      },
+      {
+        "title": "The Rain and the Snow",
+        "concept": "Weather changes story using vowel teams: rain, snow, day, play, green, dream.",
+        "character": "Child and pet",
+        "setting": "Home/outside"
+      },
+      {
+        "title": "Sail Away",
+        "concept": "Ocean adventure with ai/ay/oa/ow teams. A boat sails to find something special.",
+        "character": "Sea creature or sailor",
+        "setting": "Ocean"
+      }
+    ],
+    "B8": [
+      {
+        "title": "The Day the Rain Came",
+        "concept": "Animals (owl, cow, mouse) in outdoor setting. 'The boy found a coin by the brook.'",
+        "character": "Forest animals",
+        "setting": "Forest/meadow"
+      },
+      {
+        "title": "The Owl and the Mouse",
+        "concept": "Unlikely friendship using oi/oy/ou/ow diphthongs. Night in the forest.",
+        "character": "Owl and mouse",
+        "setting": "Nighttime forest"
+      },
+      {
+        "title": "The Cloud House",
+        "concept": "Imagination story with oo words (moon, room, book, look). A character dreams big.",
+        "character": "Dreamy character",
+        "setting": "Bedroom/clouds"
+      }
+    ],
+    "B9": [
+      {
+        "title": "A Star at the Farm",
+        "concept": "Farm/nature adventure. 'After the storm, the girl went to the barn to find her horse.'",
+        "character": "Farm child",
+        "setting": "Farm during/after storm"
+      },
+      {
+        "title": "The Owl and the Boy",
+        "concept": "Multiple scenes with r-controlled vowels: car, barn, for, her, bird, turn. Night adventure.",
+        "character": "Boy and owl",
+        "setting": "Farm/forest at night"
+      },
+      {
+        "title": "Purple Turtle's Thursday",
+        "concept": "Day-in-the-life story using all r-controlled patterns: ar, or, er, ir, ur.",
+        "character": "Purple turtle",
+        "setting": "Various"
+      }
+    ],
+    "C1": [
+      {
+        "title": "The Knight's Quest",
+        "concept": "Knights, castles, mysteries. 'The knight knew he had to write a sign.' Silent letters throughout.",
+        "character": "Knight",
+        "setting": "Medieval castle"
+      },
+      {
+        "title": "The Night Writer",
+        "concept": "Mystery story with kn-, wr-, -mb, -gh words. A character solves a puzzle.",
+        "character": "Detective or curious child",
+        "setting": "Old house/castle"
+      }
+    ],
+    "C2": [
+      {
+        "title": "The Magic City",
+        "concept": "Cities, stages, magic. 'The giant stood on the bridge near the village.' Soft c/g words.",
+        "character": "Young magician",
+        "setting": "Fantasy city"
+      },
+      {
+        "title": "The Giant's Garden",
+        "concept": "A gentle giant shares their garden. Uses soft c (city, face) and soft g (giant, magic, page).",
+        "character": "Giant and village children",
+        "setting": "Giant's garden"
+      }
+    ],
+    "C3": [
+      {
+        "title": "The Kitten in the Basket",
+        "concept": "Chapter-style story. 'The kitten was hidden in the basket. It happened so suddenly!'",
+        "character": "Kitten and child",
+        "setting": "Home"
+      },
+      {
+        "title": "The Hidden Mitten",
+        "concept": "Search story with VC/CV words: hidden, kitten, butter, ladder, suddenly.",
+        "character": "Child looking for lost item",
+        "setting": "Home/neighborhood"
+      }
+    ],
+    "C4": [
+      {
+        "title": "The Robot and the Pilot",
+        "concept": "Robots, pilots, adventures. 'The purple turtle hid under the table.'",
+        "character": "Robot and pilot",
+        "setting": "Futuristic setting"
+      },
+      {
+        "title": "The Paper Airplane",
+        "concept": "V/CV open syllables and compound words: paper, tiger, robot, sunshine, airplane.",
+        "character": "Inventive child",
+        "setting": "School/park"
+      }
+    ],
+    "C5": [
+      {
+        "title": "The Treehouse Mystery",
+        "concept": "Natural dialogue. 'I can't find it anywhere! Where'd it go?' Contractions throughout.",
+        "character": "Group of friends",
+        "setting": "Treehouse"
+      },
+      {
+        "title": "Everyone's Something",
+        "concept": "Each character has a special talent. Uses contractions and compound words throughout.",
+        "character": "Group of diverse characters",
+        "setting": "School or community"
+      }
+    ],
+    "C6": [
+      {
+        "title": "The Biggest Race",
+        "concept": "Past tense narrative. 'She wanted the biggest cookie. She jumped and grabbed it!'",
+        "character": "Racing animals",
+        "setting": "Race course"
+      },
+      {
+        "title": "The Day Everything Changed",
+        "concept": "Story with -ed (3 sounds), -ing, -er, -est. Character grows/changes through experience.",
+        "character": "Character on journey",
+        "setting": "Various"
+      }
+    ],
+    "C7": [
+      {
+        "title": "The Hopeless Garden",
+        "concept": "Character emotions and motivations. 'She felt hopeless at first, but suddenly found the solution.'",
+        "character": "Gardener (child or animal)",
+        "setting": "Garden"
+      },
+      {
+        "title": "The Peaceful Kingdom",
+        "concept": "Uses -ful, -less, -ness, -ment, -ly suffixes. A kingdom learns about cooperation.",
+        "character": "Kingdom inhabitants",
+        "setting": "Fantasy kingdom"
+      }
+    ],
+    "C8": [
+      {
+        "title": "The Impossible Invention",
+        "concept": "Problem-solving, overcoming. 'She had to redo the impossible task. But she didn't give up.'",
+        "character": "Young inventor",
+        "setting": "Workshop"
+      },
+      {
+        "title": "The Unfair Race",
+        "concept": "Prefixes un-, re-, pre-, dis-, mis-. Character faces unfairness but finds solution.",
+        "character": "Determined character",
+        "setting": "Competition"
+      }
+    ],
+    "D1": [
+      {
+        "title": "The Lighthouse Keeper",
+        "concept": "Character-driven with rich dialogue. Multiple speakers distinguished by voice.",
+        "character": "Lighthouse keeper and visitors",
+        "setting": "Coastal lighthouse"
+      },
+      {
+        "title": "The Unexpected Visitor",
+        "concept": "Complex dialogue with varied tags: asked, replied, whispered, shouted. Compound-complex sentences.",
+        "character": "Family and mysterious visitor",
+        "setting": "Home"
+      }
+    ],
+    "D2": [
+      {
+        "title": "The Hidden Garden",
+        "concept": "Show don't tell. 'Her hands trembled as she reached for the handle.' (inference: nervous)",
+        "character": "Child discovering secrets",
+        "setting": "Old estate with garden"
+      },
+      {
+        "title": "The Secret Society",
+        "concept": "Chapter book with cliffhangers. Character motivation, cause and effect chains, theme identification.",
+        "character": "Group of friends",
+        "setting": "School/secret meeting place"
+      }
+    ],
+    "D3": [
+      {
+        "title": "The Architect's Secret",
+        "concept": "Historical, construction, discovery themes. 'The architect inspected the ancient structure.'",
+        "character": "Young architect or historian",
+        "setting": "Ancient ruins/modern city"
+      },
+      {
+        "title": "The Transport Mystery",
+        "concept": "Latin roots: struct, port, dict, ject, rupt. Character solves a mystery involving old technology.",
+        "character": "Detective or curious explorer",
+        "setting": "Historical setting"
+      }
+    ],
+    "D4": [
+      {
+        "title": "Signals from Kepler",
+        "concept": "Science fiction, exploration, biography. 'The biologist used her microscope to study the organism.'",
+        "character": "Young scientist",
+        "setting": "Space station or research lab"
+      },
+      {
+        "title": "The Photographer's Journey",
+        "concept": "Greek roots: graph, phon, photo, bio, geo. Character documents a scientific discovery.",
+        "character": "Photographer/scientist",
+        "setting": "Expedition"
+      }
+    ],
+    "D5": [
+      {
+        "title": "The Winter of Words",
+        "concept": "Literary fiction. 'The old house groaned in protest as the storm raged outside.'",
+        "character": "Writer or poet",
+        "setting": "Remote cabin"
+      },
+      {
+        "title": "The Storm Singer",
+        "concept": "Figurative language: simile, metaphor, personification. Character with special gift.",
+        "character": "Character connected to nature",
+        "setting": "Coastal village"
+      }
+    ],
+    "D6": [
+      {
+        "title": "The Bridge Between",
+        "concept": "Full literary complexity. Open endings possible. Themes reward reflection. Coming of age.",
+        "character": "Teen navigating change",
+        "setting": "Town going through changes"
+      },
+      {
+        "title": "The Last Summer",
+        "concept": "Multiple perspectives, ambiguity and nuance, author's craft awareness.",
+        "character": "Group of friends before change",
+        "setting": "Summer before transition"
+      }
+    ]
+  }
+}

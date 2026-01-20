@@ -200,40 +200,55 @@
             opacity: 1;
         }
 
-        .character-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 10px;
+        /* Story Ideas */
+        .story-ideas-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 280px;
+            overflow-y: auto;
         }
 
-        .character-option {
-            padding: var(--space-xs) 6px;
+        .story-idea-option {
+            padding: var(--space-sm);
             border: 2px solid var(--color-border);
             border-radius: var(--border-radius);
-            text-align: center;
             cursor: pointer;
             transition: all 0.2s;
+            background: var(--color-white);
         }
 
-        .character-option:hover {
+        .story-idea-option:hover {
             border-color: var(--color-sage);
             background: var(--color-sage-light);
         }
 
-        .character-option.selected {
+        .story-idea-option.selected {
             border-color: var(--color-sage);
             background: var(--color-sage);
             color: var(--color-white);
         }
 
-        .character-option .icon {
-            font-size: 1.5rem;
-            margin-bottom: 2px;
+        .story-idea-option .idea-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
         }
 
-        .character-option .name {
-            font-size: 0.75rem;
-            font-weight: 500;
+        .story-idea-option .idea-concept {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            opacity: 0.85;
+        }
+
+        .story-idea-option.selected .idea-concept {
+            opacity: 1;
+        }
+
+        .no-ideas-message {
+            color: var(--color-text-muted);
+            font-style: italic;
+            padding: var(--space-sm);
         }
 
         /* Loading spinner */
@@ -760,14 +775,42 @@
                             <label>Reading Level</label>
                             <p class="hint">Choose the phonics level for your reader</p>
                             <select class="select" id="levelSelect">
-                                <option value="A1">Band A - Level 1 (Pink): Simple CVC</option>
-                                <option value="A2">Band A - Level 2 (Red): CVC + sight words</option>
-                                <option value="B1" selected>Band B - Level 1 (Yellow): Beginning blends</option>
-                                <option value="B2">Band B - Level 2 (Blue): Ending blends</option>
-                                <option value="C1">Band C - Level 1 (Green): Digraphs</option>
-                                <option value="C2">Band C - Level 2 (Orange): Silent e</option>
-                                <option value="D1">Band D - Level 1 (Purple): Vowel teams</option>
-                                <option value="D2">Band D - Level 2 (Gold): R-controlled</option>
+                                <optgroup label="Band A: Pre-Reader">
+                                    <option value="A0">A0: Concept of Print (wordless/1-2 words)</option>
+                                    <option value="A1">A1: Letter Recognition (1 word/page)</option>
+                                    <option value="A2">A2: CV/VC Words (2-3 words/page)</option>
+                                    <option value="A3">A3: Mixed Case Sentences (3-4 words)</option>
+                                    <option value="A4">A4: Emergent Bridge (4-6 words)</option>
+                                </optgroup>
+                                <optgroup label="Band B: Phonics Foundation">
+                                    <option value="B1" selected>B1: CVC Short a, i</option>
+                                    <option value="B2">B2: CVC Short o, u, e</option>
+                                    <option value="B3">B3: Final Blends + FLOSS</option>
+                                    <option value="B4">B4: Initial Blends</option>
+                                    <option value="B5">B5: Digraphs (sh, ch, th)</option>
+                                    <option value="B6">B6: Silent E (CVCe)</option>
+                                    <option value="B7">B7: Vowel Teams (ai, ay, ee)</option>
+                                    <option value="B8">B8: Diphthongs (oi, oy, ou)</option>
+                                    <option value="B9">B9: R-Controlled Vowels</option>
+                                </optgroup>
+                                <optgroup label="Band C: Word Study">
+                                    <option value="C1">C1: Silent Letters (kn, wr)</option>
+                                    <option value="C2">C2: Soft C and G</option>
+                                    <option value="C3">C3: Two-Syllable Closed</option>
+                                    <option value="C4">C4: Open + Consonant-le</option>
+                                    <option value="C5">C5: Contractions</option>
+                                    <option value="C6">C6: Inflectional Endings</option>
+                                    <option value="C7">C7: Derivational Suffixes</option>
+                                    <option value="C8">C8: Prefixes</option>
+                                </optgroup>
+                                <optgroup label="Band D: Fluent Reading">
+                                    <option value="D1">D1: Sentence Variety</option>
+                                    <option value="D2">D2: Inference + Chapters</option>
+                                    <option value="D3">D3: Latin Roots</option>
+                                    <option value="D4">D4: Greek Roots</option>
+                                    <option value="D5">D5: Figurative Language</option>
+                                    <option value="D6">D6: Grade-Level Prose</option>
+                                </optgroup>
                             </select>
                         </div>
 
@@ -784,40 +827,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Main Character</label>
-                            <div class="character-grid" id="characterGrid">
-                                <div class="character-option selected" data-character="puppy" data-name="Max">
-                                    <div class="icon">&#x1F436;</div>
-                                    <div class="name">Puppy</div>
-                                </div>
-                                <div class="character-option" data-character="pig" data-name="Pip">
-                                    <div class="icon">&#x1F437;</div>
-                                    <div class="name">Pig</div>
-                                </div>
-                                <div class="character-option" data-character="cat" data-name="Kit">
-                                    <div class="icon">&#x1F431;</div>
-                                    <div class="name">Cat</div>
-                                </div>
-                                <div class="character-option" data-character="rabbit" data-name="Hop">
-                                    <div class="icon">&#x1F430;</div>
-                                    <div class="name">Rabbit</div>
-                                </div>
-                                <div class="character-option" data-character="duck" data-name="Dot">
-                                    <div class="icon">&#x1F986;</div>
-                                    <div class="name">Duck</div>
-                                </div>
-                                <div class="character-option" data-character="frog" data-name="Fred">
-                                    <div class="icon">&#x1F438;</div>
-                                    <div class="name">Frog</div>
-                                </div>
-                                <div class="character-option" data-character="fox" data-name="Rex">
-                                    <div class="icon">&#x1F98A;</div>
-                                    <div class="name">Fox</div>
-                                </div>
-                                <div class="character-option" data-character="owl" data-name="Olive">
-                                    <div class="icon">&#x1F989;</div>
-                                    <div class="name">Owl</div>
-                                </div>
+                            <label>Story Ideas</label>
+                            <p class="hint">Choose a story idea for this level, or write your own concept above</p>
+                            <div class="story-ideas-list" id="storyIdeasList">
+                                <div class="no-ideas-message">Loading story ideas...</div>
                             </div>
                         </div>
 
@@ -1055,17 +1068,20 @@
                 level: 'B1',
                 concept: '',
                 setting: '',
-                character: 'puppy',
-                characterName: 'Max',
+                storyIdea: null, // Selected story idea object
                 words: []
-            }
+            },
+            storyIdeas: null // Loaded from story-ideas.json
         };
 
         // ===================
         // INITIALIZATION
         // ===================
 
-        function init() {
+        async function init() {
+            // Load story ideas first
+            await loadStoryIdeas();
+
             // Check URL params for existing book
             const params = new URLSearchParams(window.location.search);
             const slug = params.get('slug');
@@ -1083,14 +1099,29 @@
         }
 
         function setupEventListeners() {
-            // Character grid
-            document.getElementById('characterGrid').addEventListener('click', (e) => {
-                const option = e.target.closest('.character-option');
+            // Story ideas selection
+            document.getElementById('storyIdeasList').addEventListener('click', (e) => {
+                const option = e.target.closest('.story-idea-option');
                 if (option) {
-                    document.querySelectorAll('.character-option').forEach(o => o.classList.remove('selected'));
+                    document.querySelectorAll('.story-idea-option').forEach(o => o.classList.remove('selected'));
                     option.classList.add('selected');
-                    state.formData.character = option.dataset.character;
-                    state.formData.characterName = option.dataset.name;
+
+                    // Get the story idea data
+                    const index = parseInt(option.dataset.index);
+                    const level = state.formData.level;
+                    const ideas = state.storyIdeas?.ideas?.[level] || [];
+                    const idea = ideas[index];
+
+                    if (idea) {
+                        state.formData.storyIdea = idea;
+                        // Auto-fill the concept and setting fields
+                        document.getElementById('conceptInput').value = idea.concept;
+                        state.formData.concept = idea.concept;
+                        if (idea.setting) {
+                            document.getElementById('settingInput').value = idea.setting;
+                            state.formData.setting = idea.setting;
+                        }
+                    }
                 }
             });
 
@@ -1109,7 +1140,45 @@
             // Level select
             document.getElementById('levelSelect').addEventListener('change', (e) => {
                 state.formData.level = e.target.value;
+                state.formData.storyIdea = null; // Clear selected idea
+                renderStoryIdeas(); // Refresh ideas for new level
             });
+        }
+
+        // ===================
+        // STORY IDEAS
+        // ===================
+
+        async function loadStoryIdeas() {
+            try {
+                const response = await fetch('/data/story-ideas.json');
+                if (!response.ok) throw new Error('Failed to load story ideas');
+                state.storyIdeas = await response.json();
+                renderStoryIdeas();
+            } catch (error) {
+                console.error('Error loading story ideas:', error);
+                document.getElementById('storyIdeasList').innerHTML =
+                    '<div class="no-ideas-message">Could not load story ideas. Write your own concept above.</div>';
+            }
+        }
+
+        function renderStoryIdeas() {
+            const container = document.getElementById('storyIdeasList');
+            const level = state.formData.level;
+            const ideas = state.storyIdeas?.ideas?.[level] || [];
+
+            if (ideas.length === 0) {
+                container.innerHTML = '<div class="no-ideas-message">No story ideas for this level yet. Write your own concept above.</div>';
+                return;
+            }
+
+            container.innerHTML = ideas.map((idea, index) => `
+                <div class="story-idea-option${state.formData.storyIdea?.title === idea.title ? ' selected' : ''}"
+                     data-index="${index}">
+                    <div class="idea-title">${idea.title}</div>
+                    <div class="idea-concept">${idea.concept.substring(0, 100)}${idea.concept.length > 100 ? '...' : ''}</div>
+                </div>
+            `).join('');
         }
 
         // ===================
@@ -1284,9 +1353,10 @@
                 // Add metadata
                 state.book.slug = state.slug;
                 state.book.level = state.formData.level;
-                state.book.character = state.formData.character;
-                state.book.characterName = state.formData.characterName;
                 state.book.setting = state.formData.setting;
+                if (state.formData.storyIdea) {
+                    state.book.storyIdea = state.formData.storyIdea.title;
+                }
 
                 saveState();
                 renderStoryPreview();
@@ -1302,23 +1372,48 @@
 
         function buildStoryPrompt() {
             const levelDescriptions = {
-                'A1': 'Simple CVC words only (cat, dog, sun). 3-4 words per sentence.',
-                'A2': 'CVC words with basic sight words (the, a, is). 4-5 words per sentence.',
-                'B1': 'Beginning consonant blends (stop, flag, crab). 5-6 words per sentence.',
-                'B2': 'Ending blends (jump, help, fast). 6-7 words per sentence.',
-                'C1': 'Digraphs (ship, chat, thin). 7-8 words per sentence.',
-                'C2': 'Silent e words (cake, bike, home). Longer sentences OK.',
-                'D1': 'Vowel teams (rain, boat, see). Complex sentences OK.',
-                'D2': 'R-controlled vowels (car, bird, corn). Natural sentence length.'
+                'A0': 'Wordless or 1-2 word labels. Pictures carry meaning.',
+                'A1': 'Single word per page (I, A + noun). Letters: M,S,A,T,O,I.',
+                'A2': 'CV/VC words (ma, at, it). 2-3 words per page. Pattern: "I see the ___"',
+                'A3': 'CVC words, mixed case. 3-4 words. Simple declaratives.',
+                'A4': 'Simple sentences. 4-6 words. Character + action + outcome.',
+                'B1': 'CVC short a/i (cat, sit, big, hat). 4-5 words per sentence.',
+                'B2': 'All short vowels (hot, cup, bed). 5-6 words. Emotional range.',
+                'B3': 'Final blends (jump, hand, best) + FLOSS (off, bell). 5-6 words.',
+                'B4': 'Initial blends (stop, flag, crab, swim). 5-7 words.',
+                'B5': 'Digraphs (ship, chat, this, when). Dialogue introduced. 6-7 words.',
+                'B6': 'Silent e (cake, bike, home). Contrast CVC/CVCe. 6-8 words.',
+                'B7': 'Vowel teams (rain, day, see, boat). Weather/seasons. 7-9 words.',
+                'B8': 'Diphthongs (oil, boy, out, cow, moon, book). 7-9 words.',
+                'B9': 'R-controlled (car, for, her, bird, turn). 8-10 words.',
+                'C1': 'Silent letters (know, write, lamb). 8-10 words.',
+                'C2': 'Soft c/g (city, giant, bridge). 9-11 words.',
+                'C3': 'Two-syllable closed (rabbit, kitten). 9-12 words.',
+                'C4': 'Open syllables + consonant-le (paper, turtle). 10-12 words.',
+                'C5': 'Contractions (can\'t, I\'ll, it\'s). Natural dialogue. 10-13 words.',
+                'C6': 'Inflectional endings (-ed, -ing, -er, -est). 11-14 words.',
+                'C7': 'Suffixes (-ful, -less, -ness, -ly). Character emotions. 12-15 words.',
+                'C8': 'Prefixes (un-, re-, dis-). Problem-solving themes. 12-16 words.',
+                'D1': 'Complex sentences, rich dialogue. 14-18 words.',
+                'D2': 'Inference, chapter format. Show don\'t tell. 15-20 words.',
+                'D3': 'Latin roots (struct, port, dict). 16-22 words.',
+                'D4': 'Greek roots (graph, photo, bio). Science themes. 18-24 words.',
+                'D5': 'Figurative language (simile, metaphor). 20-28 words.',
+                'D6': 'Full literary complexity. Coming of age themes. 22-35 words.'
             };
+
+            // Build character/setting info from story idea or manual input
+            const storyIdea = state.formData.storyIdea;
+            const character = storyIdea?.character || 'an appropriate character';
+            const setting = state.formData.setting || storyIdea?.setting || 'appropriate for the story';
 
             return `You are writing a decodable book for a beginning reader. Generate a short story (8-12 pages) following these STRICT constraints:
 
 READING LEVEL: ${state.formData.level} - ${levelDescriptions[state.formData.level]}
 
-MAIN CHARACTER: ${state.formData.characterName} the ${state.formData.character}
-SETTING: ${state.formData.setting || 'appropriate for the story'}
-CONCEPT: ${state.formData.concept}
+STORY CONCEPT: ${state.formData.concept}
+CHARACTER: ${character}
+SETTING: ${setting}
 ${state.formData.words.length > 0 ? `WORDS TO INCLUDE: ${state.formData.words.join(', ')}` : ''}
 
 CRITICAL RULES:

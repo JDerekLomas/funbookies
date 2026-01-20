@@ -53,6 +53,10 @@ function validateBook(book) {
     warnings.push(...pageErrors.warnings);
   });
 
+  // Cross-page validation: physical state continuity
+  const continuityWarnings = validatePhysicalStateContinuity(book.pages);
+  warnings.push(...continuityWarnings);
+
   return {
     valid: errors.length === 0,
     errors,
@@ -120,14 +124,33 @@ function validatePage(page, pageNum) {
   }
 
   // Check for emotional words (should be physical descriptions)
+  // These are ERRORS because image models can't render emotions - only physical states
   const emotionalWords = [
     'happy', 'sad', 'scared', 'worried', 'angry', 'excited', 'nervous', 'anxious',
     'joyful', 'panicked', 'surprised', 'determined', 'tired', 'lonely', 'confused'
   ];
+  const emotionalTranslations = {
+    'happy': 'wide smile showing teeth, eyes crinkled, cheeks raised',
+    'sad': 'downturned mouth, eyebrows furrowed inward, shoulders slumped',
+    'scared': 'eyes wide open, mouth agape, eyebrows raised high, body leaning back',
+    'worried': 'furrowed brow, tight lips, hunched shoulders',
+    'angry': 'furrowed brows, clenched jaw, tense posture',
+    'excited': 'wide eyes, open mouth smile, raised arms, bouncing posture',
+    'nervous': 'fidgeting hands, darting eyes, tense shoulders',
+    'anxious': 'biting lip, wringing hands, hunched posture',
+    'joyful': 'beaming smile, arms raised, light bouncing step',
+    'panicked': 'wide eyes, open mouth, hands near face, body recoiling',
+    'surprised': 'mouth O-shaped, eyebrows raised, hands up near face',
+    'determined': 'jaw set, eyes focused, chin up, chest out',
+    'tired': 'drooping eyelids, slouched posture, yawning',
+    'lonely': 'slumped shoulders, downcast eyes, arms wrapped around self',
+    'confused': 'tilted head, furrowed brow, one eyebrow raised'
+  };
   emotionalWords.forEach(word => {
     const regex = new RegExp(`\\b${word}\\b`, 'gi');
     if (regex.test(scene)) {
-      warnings.push(`Page ${pageNum}: Uses emotional word "${word}" - use physical description instead`);
+      const suggestion = emotionalTranslations[word] || 'physical description';
+      errors.push(`Page ${pageNum}: Uses emotional word "${word}" - replace with: "${suggestion}"`);
     }
   });
 
@@ -145,4 +168,64 @@ function validatePage(page, pageNum) {
   }
 
   return { errors, warnings };
+}
+
+/**
+ * Validate physical state continuity across pages.
+ * If a character gets muddy/wet/etc on page N, they should still be in that state
+ * on page N+1 unless explicitly cleaned/dried/etc.
+ */
+function validatePhysicalStateContinuity(pages) {
+  const warnings = [];
+
+  // Physical states to track (state → what clears it)
+  const stateTransitions = {
+    'muddy': ['clean', 'washed', 'bath', 'dried', 'towel'],
+    'wet': ['dry', 'dried', 'towel', 'sun'],
+    'dirty': ['clean', 'washed', 'bath'],
+    'soaked': ['dry', 'dried', 'towel'],
+    'splattered': ['clean', 'washed', 'wiped'],
+    'covered in': ['clean', 'washed', 'wiped', 'removed']
+  };
+
+  // Track active states
+  const activeStates = new Map(); // state -> page where it started
+
+  pages.forEach((page, index) => {
+    const pageNum = page.page || index + 1;
+    const scene = (page.scene || '').toLowerCase();
+    const text = (page.text || '').toLowerCase();
+    const combined = scene + ' ' + text;
+
+    // Check for new states being introduced
+    for (const [state, clearers] of Object.entries(stateTransitions)) {
+      // Check if this state is introduced
+      if (combined.includes(state) && !activeStates.has(state)) {
+        activeStates.set(state, pageNum);
+      }
+
+      // Check if this state is cleared
+      if (activeStates.has(state)) {
+        const isCleared = clearers.some(clearer => combined.includes(clearer));
+        if (isCleared) {
+          activeStates.delete(state);
+        }
+      }
+    }
+
+    // For pages after the first, check if active states are mentioned in scene
+    if (index > 0 && activeStates.size > 0) {
+      for (const [state, startPage] of activeStates.entries()) {
+        // Only warn if the state started on a previous page and isn't in current scene
+        if (startPage < pageNum && !scene.includes(state)) {
+          warnings.push(
+            `Page ${pageNum}: Character was "${state}" on page ${startPage} - ` +
+            `scene should show this state or show it being cleared`
+          );
+        }
+      }
+    }
+  });
+
+  return warnings;
 }

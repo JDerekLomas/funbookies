@@ -2514,8 +2514,9 @@
                 const otherRefs = Object.entries(refs).filter(([k]) => !k.startsWith('char_') && !k.startsWith('env_'));
 
                 const allRefs = [...charRefs, ...envRefs, ...otherRefs];
+                const MAX_INITIAL_REFS = 3; // Only select first 3 by default
 
-                allRefs.forEach(([key, localPath]) => {
+                allRefs.forEach(([key, localPath], index) => {
                     // Convert local path to web path
                     const filename = localPath.split('/').pop();
                     const webPath = `/books/references/${slug}_multi/${filename}`;
@@ -2529,8 +2530,9 @@
                         .map(w => w.charAt(0).toUpperCase() + w.slice(1))
                         .join(' ');
 
+                    const isSelected = index < MAX_INITIAL_REFS;
                     const div = document.createElement('div');
-                    div.className = 'reference-version active'; // All multi-refs are active by default
+                    div.className = `reference-version ${isSelected ? 'active' : ''}`;
                     div.dataset.refKey = key;
                     div.dataset.refPath = webPath;
                     div.innerHTML = `
@@ -2539,7 +2541,9 @@
                     `;
                     div.onclick = () => toggleMultiReference(div);
                     container.appendChild(div);
-                    selectedReferences.push(webPath);
+                    if (isSelected) {
+                        selectedReferences.push(webPath);
+                    }
                 });
 
                 // Set selectedReference to first one for backwards compat
@@ -2578,6 +2582,8 @@
             container.appendChild(uploadBtn);
         }
 
+        const MAX_REFS = 3; // wan2.6 limit
+
         function toggleMultiReference(element) {
             const path = element.dataset.refPath;
             const isActive = element.classList.contains('active');
@@ -2586,6 +2592,11 @@
                 element.classList.remove('active');
                 selectedReferences = selectedReferences.filter(p => p !== path);
             } else {
+                // Check limit before adding
+                if (selectedReferences.length >= MAX_REFS) {
+                    alert(`Maximum ${MAX_REFS} references allowed for Wan 2.6`);
+                    return;
+                }
                 element.classList.add('active');
                 selectedReferences.push(path);
             }
@@ -2768,7 +2779,7 @@
                 const slug = currentBook._slug || bookSlug;
                 const pageNum = currentPage === -1 ? 'reference' : currentPage;
 
-                // Prepare reference image - use URL for hosted images, base64 only for uploads
+                // Prepare reference images - use URLs for hosted images, base64 only for uploads
                 // Models that use reference images for style transfer
                 const modelsWithReference = ['gemini-3-pro', 'gemini-flash', 'wan2.6-image', 'wan2.5-i2i'];
                 let referenceData = null;
@@ -2777,8 +2788,12 @@
                     if (uploadedReferenceData) {
                         // Custom upload - compress and send as base64
                         referenceData = await compressImageDataUrl(uploadedReferenceData, 512, 0.8);
+                    } else if (selectedReferences.length > 0) {
+                        // Multiple hosted references - send as array of full URLs
+                        referenceData = selectedReferences.map(ref => window.location.origin + ref);
+                        referenceIsUrl = true;
                     } else if (selectedReference) {
-                        // Hosted reference - send as full URL (much smaller payload)
+                        // Single hosted reference (legacy fallback)
                         referenceData = window.location.origin + selectedReference;
                         referenceIsUrl = true;
                     }

@@ -167,32 +167,39 @@ export default async function handler(req, res) {
         throw new Error('No image in Gemini response');
 
       case 'wan2.6-image':
-        // Image-to-image with reference
+        // Image-to-image with reference(s) - supports up to 3
         endpoint = '/vendors/alibaba/v1/wan2.6-image/generation';
 
-        // If reference is a URL, fetch it and convert to base64
-        let referenceBase64 = reference;
-        if (reference && referenceIsUrl) {
-          console.log(`Fetching reference image from URL: ${reference}`);
-          try {
-            const imgResponse = await fetch(reference);
-            if (!imgResponse.ok) {
-              throw new Error(`Failed to fetch reference image: ${imgResponse.status}`);
+        // Handle array of references or single reference
+        let referenceImages = [];
+        const refArray = Array.isArray(reference) ? reference : (reference ? [reference] : []);
+
+        for (const ref of refArray.slice(0, 3)) { // Max 3 refs for wan2.6
+          if (referenceIsUrl) {
+            console.log(`Fetching reference image from URL: ${ref}`);
+            try {
+              const imgResponse = await fetch(ref);
+              if (!imgResponse.ok) {
+                throw new Error(`Failed to fetch reference image: ${imgResponse.status}`);
+              }
+              const imgBuffer = await imgResponse.arrayBuffer();
+              const base64 = Buffer.from(imgBuffer).toString('base64');
+              const contentType = imgResponse.headers.get('content-type') || 'image/png';
+              referenceImages.push(`data:${contentType};base64,${base64}`);
+              console.log(`Converted URL to base64, length: ${referenceImages[referenceImages.length-1].length}`);
+            } catch (fetchError) {
+              console.error('Failed to fetch reference image:', fetchError);
+              throw new Error(`Could not fetch reference image: ${fetchError.message}`);
             }
-            const imgBuffer = await imgResponse.arrayBuffer();
-            const base64 = Buffer.from(imgBuffer).toString('base64');
-            const contentType = imgResponse.headers.get('content-type') || 'image/png';
-            referenceBase64 = `data:${contentType};base64,${base64}`;
-            console.log(`Converted URL to base64, length: ${referenceBase64.length}`);
-          } catch (fetchError) {
-            console.error('Failed to fetch reference image:', fetchError);
-            throw new Error(`Could not fetch reference image: ${fetchError.message}`);
+          } else {
+            referenceImages.push(ref);
           }
         }
+        console.log(`Using ${referenceImages.length} reference image(s) for wan2.6`);
 
         body = {
           prompt,
-          images: referenceBase64 ? [referenceBase64] : [],
+          images: referenceImages,
           size: '1024*1024',
           n: 1
         };

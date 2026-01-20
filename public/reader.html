@@ -1471,6 +1471,15 @@
             background: #5a7c9e;
         }
 
+        .editor-btn.danger {
+            background: var(--color-terracotta);
+            color: white;
+        }
+
+        .editor-btn.danger:hover {
+            background: #E08B6D;
+        }
+
         .reference-section {
             margin-top: 12px;
             padding-top: 12px;
@@ -4321,8 +4330,224 @@
             }
         }
 
-        function generateAllMissing() {
-            alert('Generate All Missing: Coming soon! For now, click individual pages to generate.');
+        // Batch generation state
+        let batchGenerating = false;
+        let batchAborted = false;
+
+        async function generateAllMissing() {
+            if (batchGenerating) {
+                // Already running - abort
+                batchAborted = true;
+                return;
+            }
+
+            // Find all pages missing images
+            const missingCards = document.querySelectorAll('.gallery-card.no-image');
+            if (missingCards.length === 0) {
+                alert('All pages already have images!');
+                return;
+            }
+
+            // Get page indices from cards
+            const missingIndices = Array.from(missingCards).map(card =>
+                parseInt(card.dataset.page, 10)
+            ).filter(idx => {
+                // Only generate for pages that have scene descriptions
+                const page = currentBook.pages[idx];
+                return page && (page.scene || page.image_prompt);
+            });
+
+            if (missingIndices.length === 0) {
+                alert('No pages with scene descriptions to generate. Add scene descriptions first.');
+                return;
+            }
+
+            // Confirm with user
+            const estimatedCost = (missingIndices.length * 0.03).toFixed(2);
+            const proceed = confirm(
+                `Generate ${missingIndices.length} missing images?\n\n` +
+                `Estimated cost: ~$${estimatedCost} (using wan2.6-image)\n\n` +
+                `This may take ${missingIndices.length * 30}-${missingIndices.length * 60} seconds.\n\n` +
+                `Click OK to start, or Cancel to abort.`
+            );
+            if (!proceed) return;
+
+            // Setup batch state
+            batchGenerating = true;
+            batchAborted = false;
+            const btn = document.getElementById('generateAllBtn');
+            const originalText = btn.textContent;
+            btn.textContent = 'Stop Generation';
+            btn.classList.remove('primary');
+            btn.classList.add('danger');
+
+            // Create progress display
+            const statsEl = document.getElementById('galleryStats');
+            const originalStats = statsEl.innerHTML;
+
+            const slug = currentBook._slug || bookSlug;
+
+            // Determine reference to use
+            let referenceData = null;
+            let referenceIsUrl = false;
+
+            // Try to find a reference image
+            const refPath = `/books/references/${slug}_reference.png`;
+            try {
+                const refCheck = await fetch(refPath, { method: 'HEAD' });
+                if (refCheck.ok) {
+                    referenceData = window.location.origin + refPath;
+                    referenceIsUrl = true;
+                }
+            } catch (e) {
+                // No reference available
+            }
+
+            const model = referenceData ? 'wan2.6-image' : 'nano-banana-pro';
+            let completed = 0;
+            let failed = 0;
+
+            // Generate each missing page
+            for (const pageIndex of missingIndices) {
+                if (batchAborted) {
+                    statsEl.innerHTML = `<span style="color: var(--color-terracotta);">Aborted after ${completed} images</span>`;
+                    break;
+                }
+
+                const page = currentBook.pages[pageIndex];
+                const pageNum = page.page || (pageIndex + 1);
+                const prompt = page.image_prompt || page.scene || '';
+
+                if (!prompt) {
+                    failed++;
+                    continue;
+                }
+
+                // Update progress
+                statsEl.innerHTML = `
+                    <span>Generating ${completed + 1}/${missingIndices.length}...</span>
+                    <span style="color: var(--color-sage);">${completed} done</span>
+                    ${failed > 0 ? `<span style="color: var(--color-terracotta);">${failed} failed</span>` : ''}
+                `;
+
+                // Highlight current card
+                const cardId = `gallery-card-${pageIndex}`;
+                const card = document.getElementById(cardId);
+                if (card) card.style.outline = '3px solid var(--color-sage)';
+
+                try {
+                    // Build enhanced prompt with composition instructions
+                    const enhancedPrompt = buildBatchPrompt(prompt, currentBook);
+
+                    // Call API
+                    const response = await fetch('/api/generate-image', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            prompt: enhancedPrompt,
+                            model,
+                            slug,
+                            page: pageNum,
+                            reference: referenceData,
+                            referenceIsUrl
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success && result.pending) {
+                        // Poll for async result
+                        const imageUrl = await pollForImageResult(result.taskId, result.statusEndpoint);
+                        await saveBatchImage(imageUrl, slug, pageNum, pageIndex);
+                        completed++;
+                        markCardHasImage(cardId);
+                    } else if (result.success && result.url) {
+                        await saveBatchImage(result.url, slug, pageNum, pageIndex);
+                        completed++;
+                        markCardHasImage(cardId);
+                    } else {
+                        console.error(`Failed page ${pageNum}:`, result.error);
+                        failed++;
+                    }
+                } catch (error) {
+                    console.error(`Error generating page ${pageNum}:`, error);
+                    failed++;
+                } finally {
+                    // Remove highlight
+                    if (card) card.style.outline = '';
+                }
+
+                // Small delay between requests
+                await new Promise(r => setTimeout(r, 1000));
+            }
+
+            // Restore UI
+            batchGenerating = false;
+            btn.textContent = originalText;
+            btn.classList.remove('danger');
+            btn.classList.add('primary');
+
+            // Final status
+            if (!batchAborted) {
+                statsEl.innerHTML = `
+                    <span style="color: var(--color-sage);">✓ Generated ${completed} images</span>
+                    ${failed > 0 ? `<span style="color: var(--color-terracotta);">${failed} failed</span>` : ''}
+                `;
+
+                // Restore normal stats after a delay
+                setTimeout(() => {
+                    if (!batchGenerating) updateGalleryStats();
+                }, 5000);
+            }
+        }
+
+        function buildBatchPrompt(scene, book) {
+            // Add composition instructions to prevent grid output
+            const prefix = 'Single scene illustration: ';
+            const suffix = `
+
+COMPOSITION: One cohesive illustration filling the entire canvas.
+Full-bleed image with the scene filling edge to edge.
+
+CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.`;
+
+            // Check if scene already has these instructions
+            if (scene.includes('Single scene') || scene.includes('COMPOSITION:')) {
+                return scene;
+            }
+
+            return prefix + scene + suffix;
+        }
+
+        async function saveBatchImage(url, slug, pageNum, pageIndex) {
+            // Upload to Vercel Blob storage
+            try {
+                const uploadResponse = await fetch('/api/upload-image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        imageUrl: url,
+                        slug,
+                        pageNum,
+                        version: 1  // First version for batch-generated images
+                    })
+                });
+
+                const uploadResult = await uploadResponse.json();
+
+                if (uploadResult.success) {
+                    // Update the book data
+                    currentBook.pages[pageIndex].image = uploadResult.url;
+
+                    // Update the gallery card image
+                    const cardImg = document.querySelector(`#gallery-card-${pageIndex} img`);
+                    if (cardImg) {
+                        cardImg.src = uploadResult.url;
+                    }
+                }
+            } catch (e) {
+                console.error('Failed to save image:', e);
+            }
         }
 
         function updateNavigationState() {

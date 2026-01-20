@@ -839,6 +839,7 @@
                         <div class="action-bar-left">
                             <button class="btn btn-ghost" onclick="goToPhase(3)">Back to Reference</button>
                             <button class="btn btn-ghost" onclick="downloadBookJSON()">Download JSON</button>
+                            <button class="btn btn-ghost" onclick="openImagePromptsReview()">Review Prompts</button>
                         </div>
                         <div class="action-bar-right">
                             <button class="btn btn-secondary" onclick="generateAllPageImages()" id="genAllPagesBtn">Generate All Pages</button>
@@ -1665,6 +1666,14 @@ CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.`;
         // ===================
         // DOWNLOAD
         // ===================
+
+        function openImagePromptsReview() {
+            if (!state.slug) {
+                alert('No book loaded.');
+                return;
+            }
+            window.open(`/review/image-prompts.html?book=${state.slug}`, '_blank');
+        }
 
         function downloadBookJSON() {
             if (!state.book) {

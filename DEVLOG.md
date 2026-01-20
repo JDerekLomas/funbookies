@@ -4,6 +4,95 @@ Development session notes and changes.
 
 ---
 
+## 2026-01-20: Image Prompts Review Page with Cascade Reference Workflow
+
+### Summary
+Created a standalone image prompts review page that supports Wan 2.6's ability to use up to 3 reference images. Uses a **cascade approach** for cost-effective, consistent reference generation.
+
+### Cascade Reference Workflow
+
+```
+characters.png ─┬─► settings.png
+(T2I $0.15)     └─► style.png
+                    (I2I $0.03 each)
+
+Total: $0.21 for 3 consistent references
+```
+
+**Reference Types:**
+1. **Characters** (T2I $0.15): Character poses & expressions - the seed for everything
+2. **Settings** (I2I $0.03): Environment/backgrounds - uses characters as style ref
+3. **Style** (I2I $0.03): Colors & textures - uses characters as style ref
+
+Settings and Style can generate in parallel once Characters is complete.
+
+All 3 references are then passed to page image generation for maximum style consistency.
+
+### New Page: `/review/image-prompts.html?book={slug}`
+
+Features:
+- **3-Reference Sidebar**: Shows all 3 reference images with status indicators
+- **Key Scene Selection**: Dropdown to pick which pages become refs 2 & 3
+- **Generate Refs 2 & 3**: Uses 9-panel as style reference for consistency
+- **Editable Image Prompts**: Review and customize prompts before generation
+- **Reset to Default**: Revert individual prompts to auto-generated defaults
+- **Refs Info Bar**: Shows how many references are ready (0/3, 1/3, etc.)
+- **Standalone + Embeddable**: Works directly via URL or embedded in wizard
+
+### Wizard Integration
+
+Added "Review Prompts" button in Phase 4 that opens the review page in a new tab.
+
+### Files Changed
+- `public/review/image-prompts.html` - New standalone review page with cascade workflow
+- `public/wizard/index.html` - Added "Review Prompts" button in Phase 4
+- `api/generate-ref-i2i.js` - New I2I endpoint for settings/style generation
+- `api/generate-refs-cascade.js` - Cascade orchestration endpoint (optional)
+
+### Key Scene Reference Prompt Template
+
+When generating refs 2 & 3, the prompt includes:
+- Scene description from selected page
+- Character descriptions from book data
+- Visual style from story_bible
+- Instruction to maintain consistency with 9-panel reference
+
+### Data Storage
+
+References and key scene selections are saved to:
+- `wizard_state_{slug}` in localStorage (for wizard flow)
+- `refs_{slug}` in localStorage (for standalone access)
+- Custom image prompts saved to `image_prompts_{slug}`
+
+---
+
+## 2026-01-20: Reader.html Refactor - Extract CSS
+
+### Summary
+Split monolithic reader.html (5177 lines, 192KB) into separate files for maintainability and Claude readability.
+
+### Before
+- `reader.html` - 5177 lines, 192KB (too large for Claude to read)
+
+### After
+| File | Lines | Size | Content |
+|------|-------|------|---------|
+| `reader.html` | 213 | 12KB | HTML structure only |
+| `reader.js` | 2634 | 104KB | All JavaScript (extracted by user) |
+| `css/reader.css` | 2328 | 60KB | All styles |
+
+### Files Changed
+- `public/reader.html` - Stripped to HTML shell, links to external CSS/JS
+- `public/reader.js` - JavaScript extracted (done by user before this session)
+- `public/css/reader.css` - New file with all styles
+
+### Next Steps
+- reader.js (104KB) still too large for comfortable reading
+- Could split into modules: core, pages, edit, generation, gallery, feedback
+- Would require ES modules or concatenation build step
+
+---
+
 ## 2026-01-20: Awkward Phrasing Prevention Rules
 
 ### Summary

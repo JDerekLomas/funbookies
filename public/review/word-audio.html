@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Audio Review - FunBookies</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .review-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: var(--space-md);
+    }
+
+    .review-nav-links { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
+
+    .review-nav a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: var(--border-radius);
+      transition: all 0.2s;
+    }
+
+    .review-nav a:hover { background: var(--color-cream); color: var(--color-charcoal); }
+    .review-nav a.active { background: var(--color-sage-light); color: var(--color-sage-dark); font-weight: 600; }
+
+    .page-title { text-align: center; margin-bottom: var(--space-xs); }
+    .subtitle { text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-lg); }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      border: 2px solid var(--color-border);
+      background: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover { border-color: var(--color-sage); }
+    .filter-btn.active { background: var(--color-sage); border-color: var(--color-sage); color: white; }
+    .filter-btn.rejected-filter { border-color: var(--color-error); }
+    .filter-btn.rejected-filter.active { background: var(--color-error); border-color: var(--color-error); }
+
+    .stats {
+      text-align: center;
+      margin-bottom: var(--space-md);
+      padding: 15px;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .stats span { margin: 0 10px; }
+    .total { color: var(--color-charcoal); }
+    .rejected-stat { color: var(--color-error); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: all 0.2s;
+      border: 3px solid transparent;
+      cursor: pointer;
+    }
+
+    .card:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .card.playing { border-color: var(--color-terracotta); background: var(--color-terracotta-light); }
+    .card.rejected { border-color: var(--color-error); background: #ffebee; }
+
+    .word-icon {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+
+    .word-label {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+      margin-bottom: 8px;
+    }
+
+    .reject-btn {
+      width: 36px;
+      height: 36px;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      background: white;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .reject-btn:hover, .reject-btn.selected {
+      border-color: var(--color-error);
+      background: var(--color-error);
+      transform: scale(1.1);
+    }
+
+    .review-summary {
+      max-width: 800px;
+      margin: var(--space-lg) auto;
+      padding: var(--space-md);
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .review-summary h3 {
+      margin-bottom: var(--space-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .review-summary textarea {
+      width: 100%;
+      height: 150px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      padding: 12px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      resize: vertical;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="review-nav">
+      <a href="/review/" style="font-weight: 600;">&larr; Review Hub</a>
+      <div class="review-nav-links">
+        <a href="/review/books.html">Books</a>
+        <a href="/review/covers.html">Covers</a>
+        <a href="/review/phoneme-sounds.html">Phonemes</a>
+        <a href="/review/word-icons.html">Word Icons</a>
+        <a href="/review/word-audio.html" class="active">Word Audio</a>
+      </div>
+    </nav>
+
+    <h1 class="page-title">Word Audio Review</h1>
+    <p class="subtitle">Click to play audio. Thumbs down if quality is poor.</p>
+
+    <div class="controls">
+      <button class="filter-btn active" data-filter="all">All (255)</button>
+      <button class="filter-btn rejected-filter" data-filter="rejected">Flagged</button>
+    </div>
+
+    <div class="stats" id="stats">Loading...</div>
+    <div class="grid" id="content"></div>
+
+    <div class="review-summary">
+      <h3>
+        <span>Flagged for Regeneration</span>
+        <div class="actions" style="display: flex; gap: 8px;">
+          <button class="btn btn-sm btn-secondary" onclick="copyReview()">Copy</button>
+          <button class="btn btn-sm btn-ghost" onclick="clearReviews()">Clear</button>
+        </div>
+      </h3>
+      <textarea id="reviewOutput" readonly placeholder="Flag words above to see list..."></textarea>
+    </div>
+  </div>
+
+  <script>
+    const WORDS = [
+      "bake", "ball", "barn", "bat", "bath", "bead", "bed", "bee", "bell", "bench",
+      "big", "bike", "bin", "bird", "bit", "boat", "bone", "book", "boy", "brick",
+      "brim", "brown", "bug", "bull", "bun", "burn", "bus", "cake", "call", "came",
+      "can", "cane", "cape", "car", "card", "cart", "cat", "chat", "chest", "chin",
+      "chip", "chop", "clap", "cliff", "clock", "clog", "cloud", "clown", "coat", "coin",
+      "cone", "cook", "corn", "cot", "couch", "crab", "crib", "crow", "crown", "cub",
+      "cube", "cup", "cute", "dark", "day", "dig", "dime", "dish", "dog", "doll",
+      "dot", "down", "dress", "drop", "drum", "fall", "fan", "far", "feet", "fell",
+      "fern", "fig", "fill", "fin", "fish", "flag", "food", "foot", "for", "fork",
+      "fort", "fox", "frog", "full", "fun", "game", "girl", "glass", "goat", "gong",
+      "good", "got", "grass", "grill", "grin", "grow", "gull", "hat", "hen", "her",
+      "hike", "hill", "hit", "hive", "home", "hook", "hop", "hope", "horn", "hose",
+      "hot", "house", "hug", "hurt", "jar", "join", "joy", "jug", "king", "kiss",
+      "kite", "lake", "like", "log", "look", "loud", "mail", "make", "man", "mane",
+      "map", "mat", "math", "meat", "mill", "miss", "moon", "mop", "moth", "mouse",
+      "mug", "mule", "name", "net", "nose", "out", "owl", "pail", "pan", "park",
+      "path", "pen", "pig", "pill", "pin", "pine", "pit", "play", "plug", "plum",
+      "pork", "pot", "pouch", "pull", "rain", "ran", "rat", "read", "red", "ring",
+      "road", "rope", "rose", "rug", "run", "sail", "sat", "say", "seat", "see",
+      "sell", "shed", "shell", "ship", "shirt", "shop", "show", "shut", "sing", "sit",
+      "skip", "skirt", "skull", "sled", "slip", "snail", "snap", "snow", "soil", "song",
+      "soon", "spin", "spoon", "star", "stay", "stem", "step", "stop", "sub", "sun",
+      "swim", "tail", "tall", "tape", "tell", "that", "them", "then", "thin", "this",
+      "time", "toad", "top", "town", "toy", "tray", "tree", "trip", "truck", "tub",
+      "tube", "turn", "twig", "van", "vine", "wall", "web", "well", "wig", "will",
+      "wing", "wish", "with", "wood", "worm"
+    ];
+
+    const ICON_PATH = "/activities/word-icons";
+    const AUDIO_PATH = "/audio/words";
+    const STORAGE_KEY = "word-audio-reviews-v1";
+
+    let reviews = {};
+    let currentAudio = null;
+    let currentFilter = "all";
+
+    function loadReviews() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) reviews = JSON.parse(saved);
+      } catch (e) { reviews = {}; }
+    }
+
+    function saveReviews() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
+      updateReviewOutput();
+      updateStats();
+    }
+
+    function playSound(word, event) {
+      event.stopPropagation();
+      if (currentAudio) {
+        currentAudio.pause();
+        document.querySelectorAll('.card.playing').forEach(el => el.classList.remove('playing'));
+      }
+
+      const card = document.querySelector(`[data-word="${word}"]`);
+      currentAudio = new Audio(`${AUDIO_PATH}/${word}.mp3`);
+      card.classList.add('playing');
+      currentAudio.onended = () => { card.classList.remove('playing'); currentAudio = null; };
+      currentAudio.onerror = () => {
+        card.classList.remove('playing');
+        card.style.animation = 'shake 0.3s';
+        setTimeout(() => card.style.animation = '', 300);
+      };
+      currentAudio.play().catch(() => card.classList.remove('playing'));
+    }
+
+    function toggleReject(word, event) {
+      event.stopPropagation();
+      if (reviews[word]) delete reviews[word];
+      else reviews[word] = 'rejected';
+      saveReviews();
+      render();
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filter);
+      });
+      render();
+    }
+
+    function updateStats() {
+      const rejectedCount = Object.keys(reviews).length;
+      document.getElementById('stats').innerHTML =
+        `<span class="total">Total: ${WORDS.length}</span> <span class="rejected-stat">Flagged: ${rejectedCount}</span>`;
+    }
+
+    function updateReviewOutput() {
+      const rejected = Object.keys(reviews).sort();
+      let text = `# Word Audio - Flagged for Regeneration\n`;
+      text += `**Date:** ${new Date().toLocaleString()}\n\n`;
+      text += `## Words (${rejected.length})\n`;
+      text += rejected.length ? rejected.map(w => `- ${w}`).join('\n') : '(none flagged)';
+      document.getElementById('reviewOutput').value = text;
+    }
+
+    function copyReview() {
+      const output = document.getElementById('reviewOutput');
+      output.select();
+      document.execCommand('copy');
+      alert('Copied to clipboard!');
+    }
+
+    function clearReviews() {
+      if (confirm('Clear all flagged words?')) {
+        reviews = {};
+        saveReviews();
+        render();
+      }
+    }
+
+    function render() {
+      const content = document.getElementById('content');
+      let words = WORDS;
+
+      if (currentFilter === 'rejected') {
+        words = WORDS.filter(w => reviews[w]);
+      }
+
+      let html = '';
+      for (const word of words) {
+        const isRejected = reviews[word];
+        let cardClass = 'card';
+        if (isRejected) cardClass += ' rejected';
+
+        html += `
+          <div class="${cardClass}" data-word="${word}" onclick="playSound('${word}', event)">
+            <img class="word-icon" src="${ICON_PATH}/${word}.png" alt="${word}" loading="lazy">
+            <div class="word-label">${word}</div>
+            <button class="reject-btn ${isRejected ? 'selected' : ''}" onclick="toggleReject('${word}', event)">👎</button>
+          </div>`;
+      }
+
+      content.innerHTML = html || '<p style="text-align: center; color: var(--color-text-muted);">No flagged words</p>';
+      updateStats();
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.addEventListener('click', () => setFilter(btn.dataset.filter)));
+    loadReviews();
+    updateReviewOutput();
+    render();
+  </script>
+</body>
+</html>

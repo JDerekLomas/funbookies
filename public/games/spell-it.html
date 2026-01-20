@@ -731,8 +731,8 @@
 
     // Audio functions
     function speakWord(word) {
-      if (typeof AudioUtils !== 'undefined' && AudioUtils.speakTTS) {
-        AudioUtils.speakTTS(word, { rate: 0.8, pitch: 1.0 });
+      if (typeof AudioUtils !== 'undefined' && AudioUtils.playWord) {
+        AudioUtils.playWord(word).catch(() => {});
       } else if ('speechSynthesis' in window) {
         speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(word);

@@ -763,9 +763,8 @@
 
     // Use AudioUtils for sounds (preloaded letter sounds + TTS fallback for words)
     function speakWord(word) {
-      // Use TTS for whole words (AudioUtils handles this with good fallback)
-      if (typeof AudioUtils !== 'undefined' && AudioUtils.speakTTS) {
-        AudioUtils.speakTTS(word, { rate: 0.8, pitch: 1.0 });
+      if (typeof AudioUtils !== 'undefined' && AudioUtils.playWord) {
+        AudioUtils.playWord(word).catch(() => {});
       } else if ('speechSynthesis' in window) {
         speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(word);

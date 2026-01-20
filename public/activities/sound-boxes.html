@@ -787,49 +787,11 @@
     }
 
     function playWord() {
-      if (wordAudio) {
-        wordAudio.pause();
-        wordAudio.currentTime = 0;
-      }
-      // Use speech synthesis for whole word
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(currentWord.word);
-        utterance.rate = 0.8;
-        speechSynthesis.speak(utterance);
-      }
+      AudioUtils.playWord(currentWord.word).catch(() => {});
     }
 
     function playLetterSound(letter) {
-      if (letterAudio) {
-        letterAudio.pause();
-        letterAudio.currentTime = 0;
-      }
-
-      // For single letters, use pre-recorded audio
-      if (letter.length === 1) {
-        letterAudio = new Audio(`/activities/letter-sounds/openai-us/sounds/${letter}.mp3`);
-        letterAudio.play().catch(() => {
-          // Fallback to speech synthesis
-          speakSound(letter);
-        });
-      } else {
-        // For digraphs, use speech synthesis
-        speakSound(letter);
-      }
-    }
-
-    function speakSound(sound) {
-      const phonemes = {
-        'sh': 'shh', 'ch': 'chh', 'th': 'thh', 'ng': 'ng'
-      };
-      const text = phonemes[sound] || sound;
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 0.6;
-        speechSynthesis.speak(utterance);
-      }
+      AudioUtils.playSound(letter).catch(() => {});
     }
 
     function renderProgress() {

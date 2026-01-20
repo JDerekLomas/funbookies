@@ -70,6 +70,16 @@ def build_story_prompt(level: str, concept: str, setting: str, title: str = None
         raise ValueError(f"Unknown level: {level}")
 
     band = spec.get("band", "B")
+
+    # Band-specific visual style guidance
+    band_styles = {
+        "A": "Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors. Gentle, comforting, bright mood.",
+        "B": "Playful watercolor illustration, expressive characters, vibrant colors. Energetic, fun, adventurous mood.",
+        "C": "Rich watercolor, more detailed characters and settings, dynamic compositions. Exciting, imaginative mood.",
+        "D": "Sophisticated watercolor style, detailed environments, nuanced lighting. Atmospheric, immersive mood."
+    }
+    band_style = band_styles.get(band, band_styles["B"])
+
     constraints = spec.get("constraints", {})
     phonics_patterns = constraints.get("phonicsPatterns", [])
     word_families = constraints.get("wordFamilies", [])
@@ -146,6 +156,12 @@ VOCABULARY CHECK - these are TOO HARD for early levels:
 - "water" → ok as sight word but keep sentences short
 - "towel" → ok but keep it simple
 
+## VISUAL STYLE FOR THIS BAND ({band})
+
+{band_style}
+
+Use this style guidance for visual_style field and all scene descriptions.
+
 ## WHAT MAKES A GOOD STORY
 
 1. CHARACTER WANT - wants something specific and clear
@@ -168,7 +184,7 @@ VOCABULARY CHECK - these are TOO HARD for early levels:
     }}}}
   }}}},
   "setting_context": "Setting description",
-  "visual_style": "Art style (e.g., Warm watercolor with bold shapes)",
+  "visual_style": "Describe your art style based on the VISUAL STYLE section above",
   "word_list": {{{{"sound_out": [], "sight": [], "heart": []}}}},
   "pages": [
     {{{{
@@ -177,7 +193,7 @@ VOCABULARY CHECK - these are TOO HARD for early levels:
       "scene": "Medium shot: [WHO with visual details] [ACTION verb-ing] in [WHERE with specifics]. [Mood/lighting]."
     }}}}
   ],
-  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET based on the story above. Row 1: [your main character] views. Row 2: key objects from YOUR story. Row 3: settings from YOUR story."
+  "reference_prompt": "[Full 9-panel reference sheet prompt - see instructions below]"
 }}}}
 ```
 
@@ -197,11 +213,33 @@ SCENE CONTINUITY - scenes must flow like a movie:
 - Each scene should visually connect to the previous one
 
 REFERENCE_PROMPT (write this LAST, after completing all pages):
-Based on the story you just wrote, create a 9-panel reference sheet prompt featuring:
-- Row 1: YOUR main character (front view, expressions, action pose) with exact visual details
-- Row 2: Key objects/secondary characters from YOUR story, KEY MOMENT in center
-- Row 3: The actual settings from YOUR story (e.g., backyard, bathroom)
-- Include your visual_style throughout
+
+Write a complete 9-panel reference sheet prompt using this EXACT structure:
+
+```
+9-panel children's book reference sheet, grid layout (3x3), consistent [your visual_style] throughout all panels:
+
+Row 1 - [MAIN CHARACTER NAME]:
+[1] [Name], [full visual description], front view, [expression], cream background
+[2] Same [character] [doing action from story], side view, [pose details]
+[3] Same [character] [different action/expression from story], [pose details]
+
+Row 2 - [Supporting Elements]:
+[4] [Secondary character OR key object from YOUR story], [detailed visual description]
+[5] **KEY MOMENT** - [Main character(s) in central story moment - this is the HERO SHOT]
+[6] [Another key object/prop from YOUR story], [detailed visual description]
+
+Row 3 - Settings:
+[7] [First setting from story], [specific details], [lighting/mood]
+[8] [Second setting OR different time of day], [specific details]
+[9] [Final heartwarming scene with character(s)], [resolution mood]
+
+STYLE: [Your visual_style]. Soft edges, muted earthy palette (sage, terracotta, cream, soft gold).
+FORMAT: Square 1:1, 3x3 grid, thin white borders between panels.
+CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in any panel. Pure illustration only.
+```
+
+Use SPECIFIC details from YOUR story - actual character names, actual objects, actual settings.
 
 Output ONLY valid JSON."""
 

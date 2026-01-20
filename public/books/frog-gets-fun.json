@@ -1,0 +1,235 @@
+{
+  "id": "frog-gets-fun",
+  "title": "Frog Gets Fun",
+  "slug": "frog-gets-fun",
+  "level": "B2",
+  "band": "B",
+  "targetPhonics": "Level B2 patterns",
+  "skill": "Level B2",
+  "skill_description": "A lonely frog searches the pond until he finds a perfect friend to play with.",
+  "age_range": "K-1",
+  "created": "2026-01-20",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "A lonely frog searches the pond until he finds a perfect friend to play with.",
+  "characters": {
+    "frog": {
+      "name": "Frog",
+      "visual_shorthand": "bright green frog with big round eyes",
+      "distinctive_features": [
+        "emerald green skin",
+        "large golden eyes",
+        "webbed feet"
+      ]
+    },
+    "bug": {
+      "name": "Bug",
+      "visual_shorthand": "small red beetle with shiny shell",
+      "distinctive_features": [
+        "crimson red shell",
+        "tiny black legs",
+        "cheerful expression"
+      ]
+    }
+  },
+  "setting_context": "A peaceful pond surrounded by cattails and lily pads, with muddy banks and shallow water.",
+  "story_bible": {
+    "premise": "A lonely frog searches the pond until he finds a perfect friend to play with.",
+    "setting": "A peaceful pond surrounded by cattails and lily pads, with muddy banks and shallow water.",
+    "visual_style": "Playful watercolor illustration with soft, flowing brushstrokes. Vibrant greens and blues for the pond setting, warm golden sunlight filtering through. Expressive character faces with gentle, rounded features. Energetic and adventurous mood with splashes of bright color."
+  },
+  "reference_prompt": "9-panel children's book reference sheet, grid layout (3x3), consistent playful watercolor illustration throughout all panels:\n\nRow 1 - Frog:\n[1] Frog, bright emerald green skin with large golden eyes and webbed feet, front view, gentle smile, cream background\n[2] Same frog hopping energetically, side view, legs extended in mid-jump motion\n[3] Same frog sitting with droopy sad expression, slumped shoulders, looking downward\n\nRow 2 - Supporting Elements:\n[4] Bug, small crimson red beetle with shiny shell and tiny black legs, cheerful antennae up\n[5] **KEY MOMENT** - Green frog and red beetle sitting together on brown log over pond water, both smiling, perfect friendship\n[6] Brown log covered in wet mud with water droplets, lying across pond edge\n\nRow 3 - Settings:\n[7] Peaceful pond with lily pads and cattails, soft morning light filtering through reeds\n[8] Same pond at golden sunset, warm light reflecting on water surface\n[9] Final heartwarming scene with frog and beetle playing together in shallow water, joyful splashing\n\nSTYLE: Playful watercolor illustration with soft, flowing brushstrokes. Vibrant greens and blues, warm golden sunlight. Soft edges, muted earthy palette (sage, terracotta, cream, soft gold).\nFORMAT: Square 1:1, 3x3 grid, thin white borders between panels.\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in any panel. Pure illustration only.",
+  "word_list": {
+    "sound_out": [
+      "frog",
+      "pond",
+      "hop",
+      "log",
+      "mud",
+      "bug",
+      "red",
+      "fun",
+      "run",
+      "sun",
+      "got",
+      "not",
+      "pet",
+      "wet",
+      "get",
+      "top",
+      "hot"
+    ],
+    "sight": [
+      "a",
+      "the",
+      "is",
+      "in",
+      "on",
+      "he",
+      "we",
+      "be"
+    ],
+    "heart": [
+      "friend",
+      "sad",
+      "happy",
+      "play"
+    ]
+  },
+  "sightWordsUsed": [
+    "a",
+    "the",
+    "is",
+    "in",
+    "on",
+    "he",
+    "we",
+    "be"
+  ],
+  "wordsearch_words": [
+    "frog",
+    "pond",
+    "hop",
+    "log",
+    "mud",
+    "bug",
+    "red",
+    "fun"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Frog Gets Fun"
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "Frog is in the pond. He is sad.",
+      "scene": "Medium shot: Bright green frog with large golden eyes sitting alone on a lily pad in the center of a quiet pond. Soft morning light filtering through cattails."
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "Frog has not got a friend. He wants to get a pet.",
+      "scene": "Close-up: Green frog with droopy expression looking longingly across the empty pond water. Gentle ripples reflect his sad face."
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "Frog can hop on the log. He will run and look.",
+      "scene": "Wide shot: Green frog hopping energetically onto a brown log at the pond's edge. Determined expression, webbed feet pushing off lily pad."
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "The sun is hot. Frog hops in mud.",
+      "scene": "Medium shot: Green frog hopping into soft brown mud near the pond bank. Bright golden sunlight overhead, mud splashing around his webbed feet."
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "Frog is wet and has mud. He looks at the top.",
+      "scene": "Medium shot: Muddy green frog looking upward with hopeful expression. Brown mud spots on his skin, water droplets glistening, searching the cattails above."
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "Frog can not get a pet. He is sad.",
+      "scene": "Close-up: Green frog sitting dejectedly on muddy bank. Shoulders slumped, large golden eyes looking down, still covered in brown mud spots."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "A red bug hops on Frog! The bug is wet too.",
+      "scene": "Medium shot: Small crimson red beetle landing on surprised green frog's head. Both characters dripping with pond water, frog's eyes wide with wonder."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "Bug sits on the log. Frog sits on the log.",
+      "scene": "Wide shot: Green frog and small red beetle sitting side by side on brown log. Both facing forward, peaceful expressions, gentle pond ripples below."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "We can be pals! We can run!",
+      "scene": "Medium shot: Green frog and red beetle facing each other on the log. Excited expressions, frog gesturing with webbed hands, beetle's antennae perked up happily."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "Frog and Bug run in mud. The mud is fun!",
+      "scene": "Wide shot: Green frog and red beetle racing through brown mud together. Mud splashing around them, both with joyful expressions, movement lines showing speed."
+    },
+    {
+      "page": 16,
+      "story_page": 11,
+      "type": "story",
+      "text": "Frog and Bug hop on the log. The sun is hot.",
+      "scene": "Medium shot: Green frog and red beetle hopping in unison onto their log. Bright golden sunlight overhead, synchronized jumping motion, happy partnership."
+    },
+    {
+      "page": 17,
+      "story_page": 12,
+      "type": "story",
+      "text": "Frog got a pal! Frog and Bug have fun!",
+      "scene": "Wide shot: Green frog and red beetle playing together in the pond at sunset. Golden light reflecting on water, both characters laughing and splashing, perfect friendship moment."
+    },
+    {
+      "page": 18,
+      "type": "end",
+      "text": "The End"
+    },
+    {
+      "page": 19,
+      "type": "wordsearch"
+    },
+    {
+      "page": 20,
+      "type": "series_info"
+    },
+    {
+      "page": 21,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-20T14:54:45.604443",
+    "storyPages": 12,
+    "generation_prompt": "You are a master children's book author creating stories that are BOTH phonetically appropriate AND emotionally compelling.\n\nCreate a 12-page story for level B2 (CVC Short o, u, e) readers.\n\nConcept: A frog finds a friend\nSetting: pond\nSuggest a catchy title (2-4 words)\n\n## WORD PALETTE (inspiration, not constraint)\n\nPHONICS PATTERNS:\n  CVC short o: hot, pot, dog, fog, mop, top, got, not\n  CVC short u: cup, pup, mud, bug, hug, run, sun, fun\n  CVC short e: bed, red, pet, hen, get, let, ten, pen\nWORD FAMILIES: -ot, -op, -og, -ug, -up, -un, -ed, -en, -et\nSIGHT WORDS: ['Previous + he, she, we, be']\n\n## CRITICAL RULE: LOGIC AND CONTINUITY\n\nEvery sentence MUST make logical sense. Check cause and effect. Check physical reality.\n\nLOGIC ERRORS TO AVOID:\n- \"He got wet in the sun.\" (sun doesn't make you wet)\n- \"Now Max is not wet.\" (after a bath? he'd be soaking wet!)\n- \"He is wet and red.\" (why red? makes no sense)\n- \"The cat ran to sit.\" (awkward phrasing)\n\nGOOD LOGIC:\n- \"Max jumped in the mud. Mud splashed on his nose!\" (cause \u2192 effect)\n- \"Mom dried Max with a towel. Now his fur was fluffy.\" (action \u2192 result)\n- \"The pup ran fast. He wanted that ball!\" (motivation \u2192 action)\n\nCONTINUITY CHECK - Before writing each page, ask:\n- What state is the character in from the previous page?\n- What would logically happen next?\n- Does this follow from what just happened?\n\nIf a phonics word doesn't fit naturally, DON'T USE IT.\n\n## REQUIREMENTS\n\nLevel guidance: Character wants something, gets it. Emotional range: fun, sad, mad.\n- Max 6 words per sentence (STRICT - count every word!)\n- 12 story pages, 2-3 short sentences each\n- Use SIMPLE words from the palette - avoid multi-syllable words\n- Every sentence must pass the \"does this make sense?\" test\n\nVOCABULARY CHECK - these are TOO HARD for early levels:\n- \"washes\" \u2192 use \"gets\" or \"rubs\"\n- \"ready\" \u2192 use \"set\"\n- \"water\" \u2192 ok as sight word but keep sentences short\n- \"towel\" \u2192 ok but keep it simple\n\n## VISUAL STYLE FOR THIS BAND (B)\n\nPlayful watercolor illustration, expressive characters, vibrant colors. Energetic, fun, adventurous mood.\n\nUse this style guidance for visual_style field and all scene descriptions.\n\n## WHAT MAKES A GOOD STORY\n\n1. CHARACTER WANT - wants something specific and clear\n2. OBSTACLE - a real problem (not manufactured drama)\n3. TRY-FAIL - genuine attempt that fails for a logical reason\n4. RESOLUTION - satisfying and earned\n5. CAUSATION - each event causes the next (not random scenes)\n\n## OUTPUT: JSON only\n\n```json\n{{\n  \"title\": \"Story Title\",\n  \"summary\": \"One sentence description\",\n  \"characters\": {{\n    \"char_id\": {{\n      \"name\": \"Name\",\n      \"visual_shorthand\": \"brief visual description\",\n      \"distinctive_features\": [\"feature1\", \"feature2\"]\n    }}\n  }},\n  \"setting_context\": \"Setting description\",\n  \"visual_style\": \"Describe your art style based on the VISUAL STYLE section above\",\n  \"word_list\": {{\"sound_out\": [], \"sight\": [], \"heart\": []}},\n  \"pages\": [\n    {{\n      \"story_page\": 1,\n      \"text\": \"Story text here.\",\n      \"scene\": \"Medium shot: [WHO with visual details] [ACTION verb-ing] in [WHERE with specifics]. [Mood/lighting].\"\n    }}\n  ],\n  \"reference_prompt\": \"[Full 9-panel reference sheet prompt - see instructions below]\"\n}}\n```\n\nSCENE RULES:\n- WHO: Character with exact visual details from characters section\n- WHERE: Specific setting with lighting/atmosphere\n- WHAT: Active verb describing the action\n- STATE: Show character's current physical state (wet? muddy? clean? tired?)\n- Shot type: Wide/Medium/Close-up\n- NEVER use negations (\"no ball\" makes ball appear)\n- Keep scenes CLEAN - no \"NO TEXT\" instructions (added later)\n\nSCENE CONTINUITY - scenes must flow like a movie:\n- If character got muddy on page 4, they're STILL muddy on page 5 (unless cleaned)\n- If character is in the bath, they'll be WET when they get out\n- Track: location changes, character state changes, time of day\n- Each scene should visually connect to the previous one\n\nREFERENCE_PROMPT (write this LAST, after completing all pages):\n\nWrite a complete 9-panel reference sheet prompt using this EXACT structure:\n\n```\n9-panel children's book reference sheet, grid layout (3x3), consistent [your visual_style] throughout all panels:\n\nRow 1 - [MAIN CHARACTER NAME]:\n[1] [Name], [full visual description], front view, [expression], cream background\n[2] Same [character] [doing action from story], side view, [pose details]\n[3] Same [character] [different action/expression from story], [pose details]\n\nRow 2 - [Supporting Elements]:\n[4] [Secondary character OR key object from YOUR story], [detailed visual description]\n[5] **KEY MOMENT** - [Main character(s) in central story moment - this is the HERO SHOT]\n[6] [Another key object/prop from YOUR story], [detailed visual description]\n\nRow 3 - Settings:\n[7] [First setting from story], [specific details], [lighting/mood]\n[8] [Second setting OR different time of day], [specific details]\n[9] [Final heartwarming scene with character(s)], [resolution mood]\n\nSTYLE: [Your visual_style]. Soft edges, muted earthy palette (sage, terracotta, cream, soft gold).\nFORMAT: Square 1:1, 3x3 grid, thin white borders between panels.\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in any panel. Pure illustration only.\n```\n\nUse SPECIFIC details from YOUR story - actual character names, actual objects, actual settings.\n\nOutput ONLY valid JSON."
+  },
+  "parent_tips": {
+    "before_reading": "Look at the cover.",
+    "during_reading": "Help sound out words.",
+    "after_reading": "What was your favorite part?"
+  }
+}

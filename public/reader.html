@@ -1534,6 +1534,20 @@
             padding: 2px;
         }
 
+        .reference-version::after {
+            content: '🔍';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 0.6rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .reference-version:hover::after {
+            opacity: 0.7;
+        }
+
         .upload-reference {
             width: 60px;
             height: 60px;
@@ -2847,11 +2861,13 @@
                     div.className = `reference-version ${isSelected ? 'active' : ''}`;
                     div.dataset.refKey = key;
                     div.dataset.refPath = webPath;
+                    div.title = 'Click to select, double-click to view full size';
                     div.innerHTML = `
                         <img src="${webPath}" alt="${label}" onerror="this.parentElement.style.display='none'">
                         <span class="version-label">${label}</span>
                     `;
                     div.onclick = () => toggleMultiReference(div);
+                    div.ondblclick = (e) => { e.stopPropagation(); window.open(webPath, '_blank'); };
                     container.appendChild(div);
                     if (isSelected) {
                         selectedReferences.push(webPath);
@@ -2873,11 +2889,13 @@
                 versions.forEach(v => {
                     const div = document.createElement('div');
                     div.className = `reference-version ${v.version === activeVersion ? 'active' : ''}`;
+                    div.title = 'Click to select, double-click to view full size';
                     div.innerHTML = `
                         <img src="${v.path}" alt="Reference ${v.label}" onerror="this.parentElement.style.display='none'">
                         <span class="version-label">${v.label}${v.version === activeVersion ? ' ✓' : ''}</span>
                     `;
                     div.onclick = () => selectReference(v.path, v.version, div);
+                    div.ondblclick = (e) => { e.stopPropagation(); window.open(v.path, '_blank'); };
                     container.appendChild(div);
                 });
 

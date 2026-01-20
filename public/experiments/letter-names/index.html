@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Letter Names Experiment - FunBookies</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .experiment-header {
+      text-align: center;
+      padding: var(--space-lg) 0;
+    }
+
+    .experiment-header h1 {
+      font-family: var(--font-display);
+      margin-bottom: var(--space-xs);
+    }
+
+    .experiment-header p {
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .intake-form {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      max-width: 450px;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .intake-form h2 {
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: var(--space-md);
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .letter-section {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: var(--space-md);
+    }
+
+    .letter-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 2px solid var(--color-cream);
+    }
+
+    .letter-big {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--color-charcoal);
+      width: 60px;
+      text-align: center;
+    }
+
+    .letter-info h3 {
+      margin: 0 0 4px;
+    }
+
+    .letter-info p {
+      margin: 0;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .selected-count {
+      margin-left: auto;
+      background: var(--color-sage-light);
+      color: var(--color-sage-dark);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .voices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .voice-card {
+      background: var(--color-cream);
+      border: 3px solid transparent;
+      border-radius: var(--border-radius);
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .voice-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .voice-card.playing {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .voice-card.selected {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .voice-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .voice-desc {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-bottom: 8px;
+    }
+
+    .play-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: var(--color-sage);
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 8px;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.1);
+      background: var(--color-sage-dark);
+    }
+
+    .select-checkbox {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .select-checkbox input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .summary-section {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-top: var(--space-lg);
+    }
+
+    .summary-section h2 {
+      margin-bottom: var(--space-md);
+    }
+
+    .summary-letter {
+      margin-bottom: var(--space-sm);
+    }
+
+    .summary-letter strong {
+      display: inline-block;
+      width: 30px;
+    }
+
+    .summary-voices {
+      color: var(--color-sage-dark);
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      margin-bottom: var(--space-md);
+      font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+      color: var(--color-charcoal);
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/experiments/hub.html" class="back-link">← Back to Experiments</a>
+
+    <header class="experiment-header">
+      <h1>Letter Names Experiment</h1>
+      <p>Compare different TTS voices saying letter names (A, B, C...). Pick which voice sounds best for each letter.</p>
+    </header>
+
+    <!-- Intake Form -->
+    <div class="intake-form" id="intake-form">
+      <h2>Before You Start</h2>
+
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="Enter your name">
+      </div>
+
+      <div class="form-group">
+        <label for="comments">Comments (optional)</label>
+        <textarea id="comments" placeholder="Any context about your background..."></textarea>
+      </div>
+
+      <button class="btn btn-primary" style="width: 100%" onclick="submitIntake()">Start Experiment</button>
+    </div>
+
+    <!-- Main Experiment -->
+    <div id="experiment-container" class="hidden">
+      <div id="letters-container"></div>
+
+      <div class="summary-section">
+        <h2>Your Selections</h2>
+        <div id="summary-list"></div>
+        <div class="actions">
+          <button class="btn btn-primary" onclick="submitResults()">Submit Results</button>
+          <button class="btn btn-secondary" onclick="copyResults()">Copy Results</button>
+          <button class="btn btn-ghost" onclick="resetExperiment()">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'letter-names-experiment';
+    const LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+    const VOICES = {
+      'openai-us': {
+        name: 'OpenAI (US)',
+        desc: 'Nova voice',
+        path: '/activities/letter-sounds/openai-us/names'
+      },
+      'elevenlabs-uk': {
+        name: 'ElevenLabs (UK)',
+        desc: 'Alice voice',
+        path: '/activities/letter-sounds/elevenlabs-uk/names'
+      },
+      'openai-uk': {
+        name: 'OpenAI (UK)',
+        desc: 'Nova voice, UK accent',
+        path: '/activities/letter-sounds/openai-uk/names'
+      }
+    };
+
+    let currentAudio = null;
+    let selections = {}; // { letter: { voiceId: true } }
+    let participantInfo = {};
+
+    function loadProgress() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          selections = JSON.parse(saved);
+        }
+
+        const intake = localStorage.getItem(STORAGE_KEY + '-intake');
+        if (intake) {
+          participantInfo = JSON.parse(intake);
+          showExperiment();
+        }
+      } catch {
+        selections = {};
+      }
+    }
+
+    function saveProgress() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(selections));
+      updateSummary();
+    }
+
+    function submitIntake() {
+      const name = document.getElementById('name').value.trim();
+      if (!name) {
+        alert('Please enter your name');
+        return;
+      }
+
+      participantInfo = {
+        name,
+        comments: document.getElementById('comments').value.trim(),
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem(STORAGE_KEY + '-intake', JSON.stringify(participantInfo));
+      showExperiment();
+    }
+
+    function showExperiment() {
+      document.getElementById('intake-form').classList.add('hidden');
+      document.getElementById('experiment-container').classList.remove('hidden');
+      renderLetters();
+      updateSummary();
+    }
+
+    function renderLetters() {
+      const container = document.getElementById('letters-container');
+
+      container.innerHTML = LETTERS.map(letter => {
+        const letterSelections = selections[letter] || {};
+        const selectedCount = Object.values(letterSelections).filter(v => v).length;
+
+        return `
+          <div class="letter-section">
+            <div class="letter-header">
+              <div class="letter-big">${letter.toUpperCase()}</div>
+              <div class="letter-info">
+                <h3>Letter "${letter.toUpperCase()}"</h3>
+                <p>Compare voice recordings</p>
+              </div>
+              ${selectedCount > 0 ? `<span class="selected-count">${selectedCount} selected</span>` : ''}
+            </div>
+            <div class="voices-grid">
+              ${Object.entries(VOICES).map(([voiceId, voice]) => {
+                const isSelected = letterSelections[voiceId] === true;
+                return `
+                  <div class="voice-card ${isSelected ? 'selected' : ''}"
+                       data-letter="${letter}" data-voice="${voiceId}">
+                    <div class="voice-name">${voice.name}</div>
+                    <div class="voice-desc">${voice.desc}</div>
+                    <button class="play-btn" onclick="event.stopPropagation(); playVoice('${letter}', '${voiceId}')">▶</button>
+                    <label class="select-checkbox">
+                      <input type="checkbox" ${isSelected ? 'checked' : ''}
+                             onchange="toggleSelection('${letter}', '${voiceId}', this.checked)">
+                      Best
+                    </label>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function playVoice(letter, voiceId) {
+      if (currentAudio) {
+        currentAudio.pause();
+        document.querySelectorAll('.voice-card.playing').forEach(el => el.classList.remove('playing'));
+      }
+
+      const voice = VOICES[voiceId];
+      const path = `${voice.path}/${letter}.mp3`;
+      const card = document.querySelector(`.voice-card[data-letter="${letter}"][data-voice="${voiceId}"]`);
+
+      currentAudio = new Audio(path);
+      card.classList.add('playing');
+
+      currentAudio.onended = () => {
+        card.classList.remove('playing');
+        currentAudio = null;
+      };
+
+      currentAudio.onerror = () => {
+        card.classList.remove('playing');
+        console.error(`Failed to load: ${path}`);
+      };
+
+      currentAudio.play().catch(() => card.classList.remove('playing'));
+    }
+
+    function toggleSelection(letter, voiceId, isSelected) {
+      if (!selections[letter]) {
+        selections[letter] = {};
+      }
+      selections[letter][voiceId] = isSelected;
+      saveProgress();
+      renderLetters();
+    }
+
+    function updateSummary() {
+      const container = document.getElementById('summary-list');
+
+      let html = '';
+      for (const letter of LETTERS) {
+        const letterSelections = selections[letter] || {};
+        const selected = Object.entries(letterSelections)
+          .filter(([_, v]) => v)
+          .map(([voiceId]) => VOICES[voiceId]?.name || voiceId);
+
+        html += `
+          <div class="summary-letter">
+            <strong>${letter.toUpperCase()}:</strong>
+            <span class="summary-voices">${selected.length > 0 ? selected.join(', ') : '<span style="color: var(--color-text-muted);">none</span>'}</span>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    async function submitResults() {
+      const results = {
+        participant: participantInfo,
+        selections: { 'letter-names': selections },
+        experimentType: 'letter-names',
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        const response = await fetch('/api/experiment-results', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(results)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert('Thank you, ' + participantInfo.name + '! Your results have been saved.');
+        } else {
+          throw new Error(data.error || 'Failed to save');
+        }
+      } catch (error) {
+        console.error('Error submitting:', error);
+        alert('Could not save to server. Use "Copy Results" to share manually.');
+      }
+    }
+
+    function copyResults() {
+      let text = `# Letter Names Experiment\n\n`;
+      text += `**Participant:** ${participantInfo.name}\n`;
+      if (participantInfo.comments) {
+        text += `**Comments:** ${participantInfo.comments}\n`;
+      }
+      text += `**Date:** ${new Date().toLocaleString()}\n\n`;
+
+      for (const letter of LETTERS) {
+        const letterSelections = selections[letter] || {};
+        const selected = Object.entries(letterSelections)
+          .filter(([_, v]) => v)
+          .map(([voiceId]) => VOICES[voiceId]?.name || voiceId);
+        if (selected.length > 0) {
+          text += `- **${letter.toUpperCase()}:** ${selected.join(', ')}\n`;
+        }
+      }
+
+      navigator.clipboard.writeText(text).then(() => alert('Results copied!'));
+    }
+
+    function resetExperiment() {
+      if (confirm('Reset all progress and start over?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(STORAGE_KEY + '-intake');
+        selections = {};
+        participantInfo = {};
+        document.getElementById('experiment-container').classList.add('hidden');
+        document.getElementById('intake-form').classList.remove('hidden');
+        document.getElementById('name').value = '';
+        document.getElementById('comments').value = '';
+      }
+    }
+
+    loadProgress();
+  </script>
+</body>
+</html>

@@ -206,7 +206,14 @@ def generate_book_json(
     # Add end matter
     story_end_page = 5 + len(story_pages)
     pages.extend([
-        {"page": story_end_page + 1, "type": "end", "text": "The End"},
+        {
+            "page": story_end_page + 1,
+            "type": "end",
+            "text": "The End",
+            # PLACEHOLDER - must be replaced with proper scene description before images
+            # End pages should show a satisfying final moment with main character(s)
+            "scene": "[PLACEHOLDER - run generate_scene_descriptions.py] Final celebratory scene"
+        },
         {"page": story_end_page + 2, "type": "wordsearch"},
         {"page": story_end_page + 3, "type": "series_info"},
         {"page": story_end_page + 4, "type": "back_cover", "text": ""},

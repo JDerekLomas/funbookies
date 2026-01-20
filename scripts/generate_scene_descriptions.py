@@ -115,6 +115,36 @@ PREVIOUS PAGE CONTEXT (for continuity):
 Output ONLY the scene description, nothing else. No quotes, no explanation."""
 
 
+END_PAGE_PROMPT = """You are an expert at writing image prompts for children's book illustrations.
+
+Generate a "The End" scene for a children's book. This should be a satisfying final image showing the main character(s) in a happy, resolved moment.
+
+## BOOK CONTEXT
+Title: {title}
+Level: {level}
+Setting: {setting}
+Art Style: {style}
+
+## CHARACTER REFERENCE
+{character_info}
+
+## STORY SUMMARY
+{story_summary}
+
+## RULES
+
+1. Show main character(s) in a peaceful, happy concluding moment
+2. Use the same visual style and character details as story pages
+3. Good options: characters waving goodbye, sleeping peacefully, hugging, celebrating
+4. Keep the setting consistent with the book
+5. End with: "NO TEXT anywhere in image."
+
+## CRITICAL: NEVER USE NEGATIONS
+Only describe what IS in the scene, never what isn't.
+
+Output ONLY the scene description, nothing else. No quotes, no explanation."""
+
+
 def extract_character_info(reference_prompt: str) -> str:
     """Extract character information from reference prompt."""
     if not reference_prompt:
@@ -198,6 +228,42 @@ def generate_scene_for_page(
         return response.text.strip()
 
 
+def generate_end_page_scene(book: dict, story_pages: list) -> str:
+    """Generate a scene description for the end page."""
+
+    title = book.get('title', 'Untitled')
+    level = book.get('level', 'Unknown')
+    setting = book.get('setting_context', book.get('summary', ''))
+    reference_prompt = book.get('reference_prompt', '')
+
+    character_info = extract_character_info(reference_prompt)
+    style = extract_style(reference_prompt, book)
+
+    # Build story summary from page texts
+    story_texts = [p.get('text', '') for p in story_pages if p.get('text')]
+    story_summary = ' '.join(story_texts)[:500]
+
+    prompt = END_PAGE_PROMPT.format(
+        title=title,
+        level=level,
+        setting=setting,
+        style=style,
+        character_info=character_info,
+        story_summary=story_summary
+    )
+
+    if LLM_PROVIDER == "anthropic":
+        response = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=500,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return response.content[0].text.strip()
+    else:  # google
+        response = client.generate_content(prompt)
+        return response.text.strip()
+
+
 def generate_scenes_for_book(slug: str, dry_run: bool = False, force: bool = False) -> bool:
     """Generate scene descriptions for all story pages in a book."""
 
@@ -209,12 +275,15 @@ def generate_scenes_for_book(slug: str, dry_run: bool = False, force: bool = Fal
     with open(book_path) as f:
         book = json.load(f)
 
-    story_pages = [p for p in book.get("pages", []) if p.get("type") == "story"]
+    all_pages = book.get("pages", [])
+    story_pages = [p for p in all_pages if p.get("type") == "story"]
+    end_pages = [p for p in all_pages if p.get("type") == "end"]
 
     print(f"\n{'='*60}")
     print(f"GENERATING SCENES: {book.get('title', slug)}")
     print(f"{'='*60}")
     print(f"Story pages: {len(story_pages)}")
+    print(f"End pages: {len(end_pages)}")
 
     # Check which pages need scenes
     pages_to_update = []
@@ -264,6 +333,30 @@ def generate_scenes_for_book(slug: str, dry_run: bool = False, force: bool = Fal
 
         # Update context for next page
         prev_context = f"Page {story_pnum}: {text[:100]}"
+
+    # Process end pages
+    for end_page in end_pages:
+        pnum = end_page.get('page')
+        scene = end_page.get("scene", "")
+        needs_update = (
+            not scene or
+            scene.startswith("[PLACEHOLDER") or
+            len(scene) < 80
+        )
+
+        if needs_update or force:
+            if dry_run:
+                print(f"\n[DRY RUN] Would update end page {pnum}")
+            else:
+                print(f"\n[END] Generating scene for end page {pnum}...")
+                try:
+                    scene = generate_end_page_scene(book, story_pages)
+                    end_page['scene'] = scene
+                    updated += 1
+                    print(f"   ✓ Generated ({len(scene)} chars)")
+                    print(f"   Preview: {scene[:100]}...")
+                except Exception as e:
+                    print(f"   ✗ Error: {e}")
 
     # Save updated book
     if updated > 0:

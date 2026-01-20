@@ -338,9 +338,12 @@ def main():
     print(f"{'='*50}")
 
     all_warnings = []
+    # Process both story and end pages
     story_pages = [p for p in pages if p.get("type") == "story"]
+    end_pages = [p for p in pages if p.get("type") == "end"]
+    imageable_pages = story_pages + end_pages
 
-    for page in story_pages:
+    for page in imageable_pages:
         scene = page.get("scene", "")
         pnum = page.get("page", "?")
         warnings = validate_scene(scene, pnum)

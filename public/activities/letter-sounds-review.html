@@ -121,6 +121,7 @@
   </style>
 </head>
 <body>
+  <script src="/js/audio-utils.js"></script>
   <h1>Letter Pronunciation Review</h1>
 
   <div class="mode-toggle">
@@ -163,7 +164,19 @@
     let rejected = JSON.parse(localStorage.getItem('rejectedLetters') || '{}');
     let selectedLetter = null;
 
-    function speak(text) {
+    function speak(text, letter) {
+      // Use pre-recorded audio for sounds mode, TTS for names mode
+      if (currentMode === 'sounds' && letter) {
+        AudioUtils.playSound(letter).catch(() => {
+          // Fallback to TTS
+          speakTTS(text);
+        });
+      } else {
+        speakTTS(text);
+      }
+    }
+
+    function speakTTS(text) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = 0.8;
@@ -195,7 +208,7 @@
           </div>
         `;
         card.onclick = () => {
-          speak(phonetic);
+          speak(phonetic, letter);
           selectLetter(letter);
         };
         grid.appendChild(card);

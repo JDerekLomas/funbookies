@@ -282,6 +282,7 @@
 <body>
   <script src="/js/data-service.js"></script>
   <script src="/js/student-picker.js"></script>
+  <script src="/js/audio-utils.js"></script>
   <script src="/js/toast.js"></script>
   <div class="container-narrow">
     <div class="page-header">
@@ -719,12 +720,7 @@
     }
 
     function speakWord(text) {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 0.85;
-        speechSynthesis.speak(utterance);
-      }
+      AudioUtils.playWord(text).catch(() => {});
     }
 
     function skipSentence() {

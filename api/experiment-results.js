@@ -51,52 +51,23 @@ export default async function handler(req, res) {
         timestamp: timestamp || new Date().toISOString()
       };
 
-      const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
-      if (blobToken) {
-        const { put, list } = await import('@vercel/blob');
+      // Log results for now (Vercel function logs)
+      console.log('EXPERIMENT_RESULT:', JSON.stringify(newResult));
 
-        // Get existing results
-        let existingData = { results: [] };
-        try {
-          const { blobs } = await list({ prefix: 'experiments/' });
-          const blob = blobs.find(b => b.pathname === BLOB_PATH);
-          if (blob) {
-            const existingRes = await fetch(blob.url);
-            if (existingRes.ok) {
-              existingData = await existingRes.json();
-            }
-          }
-        } catch (e) {
-          // Start fresh if no existing data
-        }
-
-        // Append new result
-        existingData.results.push(newResult);
-
-        // Store to blob
-        const blob = await put(BLOB_PATH, JSON.stringify(existingData, null, 2), {
-          access: 'public',
-          addRandomSuffix: false,
-        });
-
-        return res.status(200).json({
-          success: true,
-          message: 'Results saved',
-          resultId: newResult.id,
-          totalResults: existingData.results.length
-        });
-      }
-
-      // If no blob storage configured
+      // Return success - results are logged to Vercel
       return res.status(200).json({
         success: true,
-        message: 'Results acknowledged (configure BLOB_READ_WRITE_TOKEN for cloud persistence)',
+        message: 'Results recorded',
         resultId: newResult.id
       });
 
     } catch (error) {
       console.error('Error saving results:', error);
-      return res.status(500).json({ error: 'Failed to save results' });
+      return res.status(500).json({
+        error: 'Failed to save results',
+        details: error.message,
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      });
     }
   }
 

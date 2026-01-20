@@ -566,6 +566,160 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
     return success_count == 3
 
 
+def generate_multi_refs_mulerouter(slug: str, config) -> bool:
+    """Generate 3 specialized reference sheets using MuleRouter (multi-ref strategy).
+
+    Uses same cascade approach as fal.ai version:
+    1. Characters sheet - nano-banana-pro T2I ($0.15) - establishes the style
+    2. Settings sheet - wan2.6-image I2I with characters as ref ($0.12)
+    3. Style sheet - wan2.6-image I2I with characters as ref ($0.12)
+
+    Total: $0.39 (more expensive than fal.ai's $0.21)
+    """
+    sys.path.insert(0, str(SKILL_DIR))
+    load_dotenv(SKILL_DIR / ".env")
+    from core import APIClient, create_and_poll_task
+
+    book_info = get_book_info(slug)
+    if not book_info:
+        print(f"  Book not found: {slug}")
+        return False
+
+    # Create output directory
+    multi_dir = REFS_DIR / f"{slug}_multi"
+    multi_dir.mkdir(parents=True, exist_ok=True)
+
+    print(f"  Title: {book_info['title']}")
+    print(f"  Band: {book_info['band']}")
+    print(f"  Output: {multi_dir}/")
+    print(f"  Strategy: cascade (T2I -> I2I -> I2I)")
+
+    results = {}
+    characters_path = None
+    total_cost = 0.0
+
+    with APIClient(config) as client:
+        # Step 1: Generate characters sheet with T2I (establishes style)
+        print(f"\n  [1/3 characters] - nano-banana-pro T2I ($0.15)")
+        characters_path = multi_dir / f"{slug}_characters.png"
+        prompt = build_characters_prompt(slug, book_info)
+        print(f"    Prompt preview: {prompt[:100]}...")
+
+        body = {
+            "prompt": prompt,
+            "size": "1024*1024",
+            "n": 1
+        }
+
+        result = create_and_poll_task(
+            client=client,
+            endpoint_path="/vendors/google/v1/nano-banana-pro/generation",
+            request_body=body,
+            result_key="images",
+            interval=5.0,
+            max_wait=300.0,
+            verbose=True
+        )
+
+        if not result.results:
+            print(f"    Failed: {result.error}")
+            print(f"    Cannot continue without characters sheet")
+            return False
+
+        url = result.results[0]
+        print(f"    Generated: {url[:60]}...")
+        try:
+            urllib.request.urlretrieve(url, characters_path)
+            print(f"    Saved: {characters_path.name}")
+            results["characters"] = {
+                "path": str(characters_path.relative_to(REFS_DIR.parent.parent)),
+                "prompt": prompt,
+                "model": "nano-banana-pro",
+                "generated_at": datetime.now().isoformat(),
+            }
+            total_cost += 0.15
+        except Exception as e:
+            print(f"    Download error: {e}")
+            return False
+
+        # Step 2 & 3: Generate settings and style with I2I using characters as reference
+        i2i_sheets = [
+            ("settings", build_settings_prompt),
+            ("style", build_style_prompt),
+        ]
+
+        # Load reference image as base64 for I2I
+        from image_utils import image_to_base64_uri
+        ref_uri = image_to_base64_uri(characters_path)
+
+        for idx, (sheet_name, prompt_builder) in enumerate(i2i_sheets, start=2):
+            print(f"\n  [{idx}/3 {sheet_name}] - wan2.6-image I2I ($0.12)")
+            output_path = multi_dir / f"{slug}_{sheet_name}.png"
+            prompt = prompt_builder(slug, book_info)
+            print(f"    Prompt preview: {prompt[:100]}...")
+            print(f"    Reference: {characters_path.name}")
+
+            body = {
+                "prompt": prompt,
+                "images": [ref_uri],
+                "size": "1024*1024",
+                "n": 1
+            }
+
+            result = create_and_poll_task(
+                client=client,
+                endpoint_path="/vendors/alibaba/v1/wan2.6-image/generation",
+                request_body=body,
+                result_key="images",
+                interval=5.0,
+                max_wait=300.0,
+                verbose=True
+            )
+
+            if result.results:
+                url = result.results[0]
+                print(f"    Generated: {url[:60]}...")
+                try:
+                    urllib.request.urlretrieve(url, output_path)
+                    print(f"    Saved: {output_path.name}")
+                    results[sheet_name] = {
+                        "path": str(output_path.relative_to(REFS_DIR.parent.parent)),
+                        "prompt": prompt,
+                        "model": "wan2.6-image",
+                        "reference": "characters",
+                        "generated_at": datetime.now().isoformat(),
+                    }
+                    total_cost += 0.12
+                except Exception as e:
+                    print(f"    Download error: {e}")
+            else:
+                print(f"    Failed: {result.error}")
+
+    success_count = len(results)
+
+    # Save metadata to book JSON
+    if success_count > 0:
+        book_path = BOOKS_DIR / f"{slug}.json"
+        with open(book_path) as f:
+            book = json.load(f)
+
+        book["multi_reference_metadata"] = {
+            "strategy": "multi-3ref-cascade",
+            "generated_at": datetime.now().isoformat(),
+            "provider": "mulerouter",
+            "cost": f"${total_cost:.2f}",
+            "sheets": results,
+        }
+
+        with open(book_path, 'w') as f:
+            json.dump(book, f, indent=2)
+
+        print(f"\n  Metadata saved to book JSON")
+
+    print(f"\n  Total cost: ${total_cost:.2f}")
+    return success_count == 3
+
+
 def generate_reference_fal(slug: str, fal_client: FalClient) -> bool:
     """Generate a 9-panel reference image using fal.ai."""
 
@@ -779,8 +933,12 @@ def main():
         cost_per_book = 0.15
         print(f"Cost: $0.15 per book (1 T2I image)")
     else:
-        cost_per_book = 0.21
-        print(f"Cost: $0.21 per book (1 T2I + 2 I2I cascade)")
+        if args.provider == "fal":
+            cost_per_book = 0.21
+            print(f"Cost: $0.21 per book (1 T2I + 2 I2I cascade)")
+        else:
+            cost_per_book = 0.39
+            print(f"Cost: $0.39 per book (1 T2I + 2 I2I cascade, MuleRouter)")
 
     print(f"Estimated total: ${len(existing) * cost_per_book:.2f}")
 
@@ -811,14 +969,8 @@ def main():
                 if generate_multi_refs_fal(slug, client):
                     success += 1
             else:
-                print("  Multi-ref not yet implemented for mulerouter, using fal.ai")
-                # Fall back to fal for multi-ref
-                try:
-                    fal_client = FalClient()
-                    if generate_multi_refs_fal(slug, fal_client):
-                        success += 1
-                except ValueError as e:
-                    print(f"  Error: {e}")
+                if generate_multi_refs_mulerouter(slug, client):
+                    success += 1
         else:
             # Single strategy: one 9-panel sheet
             if args.provider == "fal":

@@ -14,6 +14,60 @@ Story Seed → Story Text → Scene Descriptions → Reference Image → Page Im
 
 ---
 
+## Three Ways to Create Books
+
+### 1. Web Wizard (Recommended for humans)
+```
+https://funbookies.com/wizard/
+```
+Step-by-step UI with built-in validation. Data saved to Supabase after each phase.
+
+### 2. Claude Code Web (AI-assisted)
+```
+https://claude.ai/code
+```
+Connect your GitHub repo, then either:
+- Use browser automation to run the wizard
+- Call APIs directly via curl
+- Ask Claude to generate and review each phase
+
+**Example prompt for Claude Code Web:**
+```
+Create a B2 level book about a cat who finds a lost mitten.
+Use the wizard at funbookies.com/wizard/ to generate it,
+reviewing each phase before proceeding.
+```
+
+### 3. CLI/Python Scripts (Batch generation)
+```bash
+python scripts/generate_story.py --level B2 --concept "cat finds mitten"
+python scripts/generate_scene_descriptions.py cat-and-the-mitten
+python scripts/generate_references.py --book cat-and-the-mitten
+python scripts/generate_page_images.py cat-and-the-mitten
+```
+
+---
+
+## API Endpoints (for Claude Code Web / programmatic access)
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/api/generate-story` | POST | Generate story from concept |
+| `/api/generate-scenes` | POST | Generate scene descriptions (Sonnet) |
+| `/api/validate-book` | POST | Validate book for image generation |
+| `/api/generate-image` | POST | Generate single image |
+| `/api/save-book` | POST | Save book to Supabase |
+| `/api/check-status` | GET | Poll async image generation |
+
+**Example: Generate story via API**
+```bash
+curl -X POST https://funbookies.com/api/generate-story \
+  -H "Content-Type: application/json" \
+  -d '{"level": "B2", "concept": "cat finds mitten", "setting": "snowy backyard"}'
+```
+
+---
+
 ## Phase 1: Story Generation
 
 ### Input

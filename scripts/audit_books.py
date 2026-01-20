@@ -76,11 +76,23 @@ def audit_book(slug: str) -> dict:
             pass
 
     # Page images check
+    # Template pages don't need generated images - they're rendered dynamically
+    TEMPLATE_PAGES = {'copyright', 'parent_guide', 'level_info', 'wordlist',
+                      'wordsearch', 'series_info', 'back_cover', 'end'}
+
     images_found = 0
     images_missing = 0
+    pages_needing_images = 0
+
     for i, p in enumerate(pages):
         page_num = p.get("page", i + 1)
         page_type = p.get("type", "story")
+
+        # Skip template pages - they don't need generated images
+        if page_type in TEMPLATE_PAGES:
+            continue
+
+        pages_needing_images += 1
 
         if page_type == "cover":
             img_path = COVERS_DIR / f"{slug}.png"
@@ -96,7 +108,7 @@ def audit_book(slug: str) -> dict:
             images_missing += 1
 
     # Determine status
-    if images_found == len(pages) and (ref_9panel or ref_multi):
+    if images_found == pages_needing_images and pages_needing_images > 0 and (ref_9panel or ref_multi):
         status = "complete"
     elif images_found > 0:
         status = "partial"
@@ -134,6 +146,7 @@ def audit_book(slug: str) -> dict:
         "ref_9panel": ref_9panel,
         "ref_multi": ref_multi,
         "multi_ref_count": multi_ref_count,
+        "pages_needing_images": pages_needing_images,
         "images_found": images_found,
         "images_missing": images_missing,
         "status": status,
@@ -224,7 +237,7 @@ def generate_roadmap(audits: list[dict]) -> str:
         if a["images_missing"] == 0 and a["images_found"] > 0:
             img_indicator = f"✅ {a['images_found']}"
         elif a["images_found"] > 0:
-            img_indicator = f"{a['images_found']}/{a['images_found'] + a['images_missing']}"
+            img_indicator = f"{a['images_found']}/{a['pages_needing_images']}"
         else:
             img_indicator = "-"
 

@@ -1,13 +1,13 @@
 # Book Reference Skill
 
-Generate a 9-panel style reference sheet for consistent character, object, and setting design.
+Generate individual reference images for consistent character, environment, and style design.
 
 ## When to Use
 
 Use this skill when:
-- A book has scene descriptions and needs a style reference
-- Regenerating a reference sheet with improvements
-- The existing reference is causing content contamination
+- A book has character and setting data, needs reference images
+- Regenerating reference images with improvements
+- Adding new characters or environments to an existing book
 
 ## Usage
 
@@ -16,88 +16,129 @@ Use this skill when:
 ```
 
 Examples:
-- `/book-reference b2-if-i-could-only-be-a-red-tractor`
-- `/book-reference c1-the-knights-quest`
+- `/book-reference the-big-pig`
+- `/book-reference sled-run`
 
 ## How It Works
 
 ### 1. Load Book Data
 
 Read the book from `/public/books/{slug}.json` and extract:
-- `reference_prompt` - The 9-panel prompt (if exists)
-- `characters` - Character descriptions
-- `setting_context` - Cultural/geographic context
-- Key objects from the story
+- `characters` - Character data with `visual_shorthand` and `distinctive_features`
+- `setting_context` - Environment description
+- `story_bible.visual_style` - Art style notes
 
-### 2. Design Reference Structure
-
-The reference should show **STYLE VOCABULARY**, not story scenes:
-
-```
-Row 1 - CHARACTER DESIGN:
-[1] Front view with full outfit
-[2] Expression studies (3 small faces)
-[3] Character in motion
-
-Row 2 - KEY OBJECTS:
-[4] Main object 1 (e.g., red tractor)
-[5] Main object 2 (e.g., airplane)
-[6] Props together (e.g., toy versions)
-
-Row 3 - SETTING:
-[7] Exterior (e.g., farmhouse)
-[8] Landscape (e.g., countryside)
-[9] Interior (e.g., cozy room)
+Example character data:
+```json
+{
+  "characters": {
+    "tim": {
+      "name": "Tim",
+      "visual_shorthand": "young boy (5-6), round face, short brown hair, blue overalls, red t-shirt",
+      "distinctive_features": ["round face", "short brown hair", "blue overalls", "red t-shirt"]
+    },
+    "pig": {
+      "name": "The Big Pig",
+      "visual_shorthand": "very large pink pig with floppy ears, friendly expression",
+      "distinctive_features": ["very large size", "pink", "floppy ears"]
+    }
+  }
+}
 ```
 
-**Why this structure?**
-- Separates visual elements from narrative
-- Prevents content contamination (airplane won't appear in tractor scenes)
-- Establishes consistent character design
-- Defines the color palette and style
+### 2. Individual Reference Structure
 
-### 3. Generate Reference Prompt
-
-If `reference_prompt` doesn't exist, create it:
+Generate separate reference images instead of a single 9-panel composite:
 
 ```
-9-PANEL STYLE REFERENCE SHEET for children's book illustration
-
-FOCUS: Character design, setting elements, and color palette. NOT story scenes.
-
-Row 1 - CHARACTER DESIGN:
-[1] {Character} front view: {full description}, standing pose, cream background
-[2] {Character} expressions: Same {character type} showing three expressions -
-    {emotion1}, {emotion2}, {emotion3}
-[3] {Character} in motion: Same {character type} {action}, {details}
-
-Row 2 - KEY OBJECTS:
-[4] {Object1}: {detailed description}, {style notes}
-[5] {Object2}: {detailed description}, {style notes}
-[6] {Objects together}: {toy/miniature versions on surface}
-
-Row 3 - {SETTING_NAME} SETTING:
-[7] {Exterior}: {cultural-specific building description}
-[8] {Landscape}: {geographic-specific landscape description}
-[9] {Interior}: {room description with lighting}
-
-STYLE: Warm soft watercolor illustration throughout all panels. Muted earthy
-palette: sage green, terracotta orange, warm cream, soft gold, dusty blue.
-Soft painterly edges with no hard black outlines. Gentle natural lighting.
-Friendly rounded shapes suitable for young children.
-
-LAYOUT: 3x3 grid with thin white borders between panels. Each panel clearly separated.
-
-CRITICAL: NO TEXT, NO WORDS, NO LETTERS, NO NUMBERS anywhere in the image.
-Pure visual reference only.
+{slug}_multi/
+├── Character References
+│   ├── char_{name}_front.png      # Front view, full body, clear design
+│   ├── char_{name}_side.png       # Side/3-quarter view, in action
+│   └── char_{name}_expression.png # Expression studies (multiple faces)
+│
+├── Environment References
+│   ├── env_day.png                # Daytime setting
+│   └── env_night.png              # Nighttime setting (if needed)
+│
+└── Style Reference
+    └── style_palette.png          # Color palette, style exemplar
 ```
 
-### 4. Generate Image with Nano-Banana-Pro
+**Why individual refs?**
+- wan2.6-image supports up to 3 reference images per generation
+- Allows selecting the most relevant refs per page
+- Prevents grid artifacts from composite references
+- More control over character/environment/style influence
 
-Use the MuleRouter skill to generate the reference:
+### 3. Generate Reference Prompts
+
+For each reference type, generate a specialized prompt:
+
+**Character Front:**
+```
+Single character illustration on clean background:
+{Character name}, {visual_shorthand}.
+Standing in neutral pose, facing viewer, full body visible.
+{art_style}
+NO TEXT, NO WORDS, NO LETTERS anywhere.
+```
+
+**Character Side:**
+```
+Single character illustration on clean background:
+{Character name}, {visual_shorthand}.
+Three-quarter view, walking or in gentle motion.
+{art_style}
+NO TEXT, NO WORDS, NO LETTERS anywhere.
+```
+
+**Character Expression:**
+```
+Character expression studies:
+{Character name}, {visual_shorthand}.
+Four expressions in 2x2 grid: happy, surprised, sad, determined.
+Same character in each, head/face only.
+{art_style}
+NO TEXT, NO WORDS, NO LETTERS anywhere.
+```
+
+**Environment Day:**
+```
+Environment illustration:
+{setting_context} during daytime.
+Establishing shot showing full environment, no characters.
+Bright natural lighting, warm atmosphere.
+{art_style}
+NO TEXT, NO WORDS, NO LETTERS anywhere.
+```
+
+**Style Palette:**
+```
+Art style reference:
+Color palette and style demonstration for children's book.
+{art_style}
+Show: color swatches, texture samples, sample object in style.
+Clean presentation, no characters or specific story elements.
+NO TEXT, NO WORDS, NO LETTERS anywhere.
+```
+
+### 4. Generate Images with Nano-Banana-Pro
+
+Use the multi_ref_experiment.py script to generate all references:
 
 ```bash
-cd /path/to/mulerouter-skills
+cd /Users/dereklomas/lilbookies
+uv run python scripts/multi_ref_experiment.py {slug} --generate-refs
+```
+
+This generates all character, environment, and style references based on book JSON data.
+
+Or generate individually using MuleRouter:
+
+```bash
+cd ~/.claude/plugins/cache/mulerouter-skills/mulerouter-skills/1.0.0/skills/mulerouter-skills
+
 uv run python models/google/nano-banana-pro/generation.py \
   --prompt '{reference_prompt}' \
   --aspect-ratio '1:1' \
@@ -106,46 +147,83 @@ uv run python models/google/nano-banana-pro/generation.py \
 
 ### 5. Download and Save
 
-Save the generated image to:
+Save generated images to:
 ```
-/public/books/references/{slug}_reference.png
+/public/books/references/{slug}_multi/char_{name}_front.png
+/public/books/references/{slug}_multi/char_{name}_side.png
+/public/books/references/{slug}_multi/char_{name}_expression.png
+/public/books/references/{slug}_multi/env_day.png
+/public/books/references/{slug}_multi/env_night.png
+/public/books/references/{slug}_multi/style_palette.png
 ```
-
-If regenerating, save as `_reference_v2.png`, `_v3.png`, etc.
 
 ### 6. Checkpoint
 
 After generating, show the user:
-1. The reference image
-2. Ask: "Does the character look consistent? Are the objects and settings correct? Ready to generate page images?"
+1. All generated reference images
+2. Ask: "Do the characters look consistent? Are environments correct? Ready to generate page images?"
 
 ## Reference Quality Checklist
 
-- [ ] Character is consistent across all 3 character panels
-- [ ] Character matches the description (age, hair, clothing)
-- [ ] Objects are clearly depicted and child-friendly
-- [ ] Setting matches cultural context
-- [ ] Color palette is warm and cohesive
+### Character References
+- [ ] Front view shows full body, clear features
+- [ ] Side view is recognizably the same character
+- [ ] Expressions show range while maintaining identity
+- [ ] Clothing/colors match `visual_shorthand`
+- [ ] Distinctive features are visible
+
+### Environment References
+- [ ] Setting matches `setting_context`
+- [ ] Appropriate lighting (day/night)
+- [ ] Child-friendly, warm atmosphere
+- [ ] No characters or story elements
+
+### Style Reference
+- [ ] Color palette matches intended style
+- [ ] Texture/brushwork is consistent
 - [ ] No text or letters anywhere
-- [ ] 9 distinct panels visible
 
 ## Common Issues
 
-### Content Contamination
-**Problem:** Story scenes in reference bleed into all page images
-**Solution:** Use character/object/setting structure, NOT story scenes
+### Character Looks Different Between Refs
+**Problem:** Front and side views don't match
+**Solution:** Include full `visual_shorthand` in each prompt, emphasize key features
 
-### Inconsistent Character
-**Problem:** Character looks different across panels
-**Solution:** Include detailed identifiers in each panel description
+### Environment Too Specific
+**Problem:** Environment ref shows specific story scene
+**Solution:** Use "establishing shot" framing, exclude story-specific elements
 
-### Wrong Setting
-**Problem:** Generic "farmhouse" instead of cultural-specific
-**Solution:** Use setting_context ("Estonian wooden farmhouse with steep shingled roof")
+### Wrong Art Style
+**Problem:** Style doesn't match book's visual intent
+**Solution:** Include detailed `art_style` in every prompt
 
 ## File Locations
 
-| File | Path |
+| Type | Path |
 |------|------|
-| Reference | `/public/books/references/{slug}_reference.png` |
-| Versioned | `/public/books/references/{slug}_reference_v2.png` |
+| Character refs | `/public/books/references/{slug}_multi/char_{name}_*.png` |
+| Environment refs | `/public/books/references/{slug}_multi/env_*.png` |
+| Style ref | `/public/books/references/{slug}_multi/style_palette.png` |
+
+## Generation Summary
+
+After completion, output:
+
+```
+Generated references for: the-big-pig
+
+Characters:
+  tim: front ✓, side ✓, expression ✓
+  pig: front ✓, side ✓, expression ✓
+
+Environments:
+  day ✓
+
+Style:
+  palette ✓
+
+Total: 8 reference images
+Location: /public/books/references/the-big-pig_multi/
+
+Ready for: /book-images the-big-pig --all
+```

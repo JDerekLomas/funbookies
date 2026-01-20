@@ -1,11 +1,11 @@
 # Book Images Skill
 
-Generate page images for a FunBookies book using style transfer from the reference sheet.
+Generate page images for a FunBookies book using multi-reference style transfer.
 
 ## When to Use
 
 Use this skill when:
-- A book has scenes and a reference, ready for page images
+- A book has scenes and individual reference images, ready for page images
 - Regenerating specific pages that didn't turn out well
 - Regenerating all images with improved prompts
 
@@ -22,9 +22,9 @@ Options:
 - `--end` - Only generate end page
 
 Examples:
-- `/book-images b2-if-i-could-only-be-a-red-tractor --all`
-- `/book-images b2-if-i-could-only-be-a-red-tractor --pages 2,5`
-- `/book-images c1-the-knights-quest --cover`
+- `/book-images the-big-pig --all`
+- `/book-images the-big-pig --pages 2,5,8`
+- `/book-images the-big-pig --cover`
 
 ## How It Works
 
@@ -32,38 +32,88 @@ Examples:
 
 Read the book from `/public/books/{slug}.json` and extract:
 - `pages` - All pages with scene descriptions
+- `characters` - Character data with `visual_shorthand`
 - `story_elements` - When elements first appear (for negative prompts)
-- Reference image URL from `/public/books/references/{slug}_reference.png`
 
-### 2. Format Prompts to Prevent Grid Output
+### 2. Load Reference Images
 
-**CRITICAL:** The reference image is a 9-panel grid. Without explicit instructions, wan2.6-image will generate grids instead of single scenes.
+Individual reference images in `/public/books/references/{slug}_multi/`:
 
-**Prompt prefix:** Always start scene descriptions with:
 ```
-Single scene illustration:
-```
-
-**Example:**
-```
-Single scene illustration: Tiia, a small blonde girl (5-6) in blue overalls,
-sits cross-legged in tall golden barley. Bright summer sun overhead...
+{slug}_multi/
+├── char_{name}_front.png      # Character front view
+├── char_{name}_side.png       # Character side view
+├── char_{name}_expression.png # Character expressions
+├── env_day.png                # Day environment
+├── env_night.png              # Night environment (if needed)
+└── style_palette.png          # Color palette & style
 ```
 
-### 3. Compute Negative Prompts
+### 3. Select 3 References Per Page (split-3ref)
 
-Use `story_elements` to prevent future elements from appearing, plus **always include anti-grid terms**:
+For each page, select the most relevant 3 references:
+
+```python
+def select_refs_for_page(page, characters, setting):
+    refs = []
+
+    # 1. Character reference (front view for main character in scene)
+    main_char = detect_main_character(page['scene'])
+    refs.append(f"char_{main_char}_front.png")
+
+    # 2. Environment reference (day/night based on scene)
+    if "night" in page['scene'].lower():
+        refs.append("env_night.png")
+    else:
+        refs.append("env_day.png")
+
+    # 3. Style reference (always include)
+    refs.append("style_palette.png")
+
+    return refs  # Returns 3 refs for wan2.6-image
+```
+
+### 4. Generate Images with Wan2.6-Image (3 refs)
+
+For each page, use image-to-image generation with 3 reference images:
+
+```bash
+cd ~/.claude/plugins/cache/mulerouter-skills/mulerouter-skills/1.0.0/skills/mulerouter-skills
+
+uv run python models/alibaba/wan2.6-image/generation.py \
+  --prompt '{scene_description}' \
+  --images '["https://.../char_tim_front.png", "https://.../env_day.png", "https://.../style_palette.png"]' \
+  --negative-prompt 'text, words, letters, watermark, {story_exclusions}' \
+  --size '1280*960' \
+  --n 1
+```
+
+Or use the multi_ref_experiment.py script:
+
+```bash
+cd /Users/dereklomas/lilbookies
+uv run python scripts/multi_ref_experiment.py {slug} \
+  --strategies split-3ref \
+  --pages 1,2,3,4,5,6,7,8,9,10,11,12
+```
+
+**Image sizes:**
+- Cover: `1280*1280` (square)
+- Story pages: `1280*960` (landscape, fits 80/20 layout)
+- End page: `1280*960`
+
+### 5. Compute Negative Prompts
+
+Use `story_elements` to prevent future elements from appearing:
 
 ```python
 story_elements = {
     "airplane": 5,      # First appears on story_page 5
     "farmhouse": 9,     # First appears on story_page 9
-    "clouds": 8
 }
 
 def get_negative_prompt(story_page):
-    # ALWAYS include anti-grid terms since reference is a 9-panel grid
-    base = "text, words, letters, writing, watermark, grid, panels, collage, multiple images, comic strip, split screen, photo montage"
+    base = "text, words, letters, writing, watermark"
     exclusions = []
 
     for element, intro_page in story_elements.items():
@@ -73,32 +123,9 @@ def get_negative_prompt(story_page):
     if exclusions:
         return f"{base}, {', '.join(exclusions)}"
     return base
-
-# Page 3: "text, words, ..., grid, panels, ..., airplane, farmhouse, clouds"
-# Page 6: "text, words, ..., grid, panels, ..., farmhouse, clouds"
-# Page 10: "text, words, ..., grid, panels, ..."
 ```
 
-### 4. Generate Images with Wan2.6-Image
-
-For each page, use image-to-image generation:
-
-```bash
-cd /path/to/mulerouter-skills
-uv run python models/alibaba/wan2.6-image/generation.py \
-  --prompt 'Single scene illustration: {scene_description}' \
-  --images '["https://...reference.png"]' \
-  --negative-prompt 'text, words, letters, watermark, grid, panels, collage, multiple images, comic strip, {story_exclusions}' \
-  --size '1280*960' \
-  --n 1
-```
-
-**Image sizes:**
-- Cover: `1280*1280` (square)
-- Story pages: `1280*960` (landscape, fits 80/20 layout)
-- End page: `1280*960`
-
-### 4. Parallel Generation
+### 6. Parallel Generation
 
 Generate multiple pages in parallel for speed (4 at a time):
 
@@ -107,19 +134,19 @@ Generate multiple pages in parallel for speed (4 at a time):
 uv run python ... --prompt '{page1_scene}' & \
 uv run python ... --prompt '{page2_scene}' & \
 uv run python ... --prompt '{page3_scene}' & \
-uv run python ... --prompt '{page4_scene}' & \
+uv run python ... --prompt '{page4_scene}' &
 wait
 ```
 
-### 5. Download Images
+### 7. Download Images
 
 Save generated images to:
 ```
 /public/images/covers/{slug}.png          # Cover
-/public/books/images/{slug}_page{NN}.png  # Pages (01, 02, etc.)
+/public/books/images/{slug}/page{NN}.png  # Pages (01, 02, etc.)
 ```
 
-### 6. Checkpoint
+### 8. Checkpoint
 
 After generating, show the user:
 1. Sample of generated images (cover + 2-3 key pages)
@@ -128,15 +155,15 @@ After generating, show the user:
 ## Image Generation Rules
 
 ### DO:
-- Use the reference image for every generation
+- Use 3 reference images per generation (character, environment, style)
 - Compute negative prompts based on story progression
 - Include standard negative prompt base (text, watermark, etc.)
 - Generate in parallel for speed (4 at a time max)
 - Use consistent sizes (1280x960 for pages)
 
 ### DON'T:
+- Use more than 3 references (wan2.6 limit)
 - Skip the negative prompt
-- Regenerate the reference when regenerating pages
 - Use different aspect ratios for pages
 - Generate more than 4 in parallel (API limits)
 
@@ -149,58 +176,62 @@ When user says "page 5 has an airplane but shouldn't":
 3. Regenerate just page 5:
 
 ```bash
-/book-images b2-if-i-could-only-be-a-red-tractor --pages 5
+uv run python scripts/multi_ref_experiment.py {slug} \
+  --strategies split-3ref \
+  --pages 5
 ```
 
 ## Common Issues
 
-### Grid/Panel Output Instead of Single Image
-**Problem:** Generated images come out as 9-panel grids like the reference
-**Cause:** Style transfer picks up the grid layout from the reference image
-**Solution:**
-1. Add "Single scene illustration:" prefix to every prompt
-2. Add to negative prompt: "grid, panels, collage, multiple images, comic strip, split screen"
-3. Both are required - prefix alone is not enough
-
 ### Content Contamination
 **Problem:** Airplane appears in tractor-only pages
-**Cause:** Missing negative prompt or reference showing story scenes
+**Cause:** Missing negative prompt
 **Solution:**
 1. Check `story_elements` is correct
 2. Verify negative prompt includes "airplane"
-3. If reference is contaminating, regenerate with `/book-reference`
+3. Regenerate the page
 
 ### Style Inconsistency
 **Problem:** Pages look different from each other
-**Cause:** Not using reference image
-**Solution:** Ensure reference URL is passed to every generation
+**Cause:** Different reference combinations or missing style_palette ref
+**Solution:** Ensure style_palette.png is always included as one of the 3 refs
 
 ### Wrong Scene
 **Problem:** Image doesn't match page text
 **Cause:** Scene description is wrong
-**Solution:** Use `/book-scenes` to rewrite, then regenerate
+**Solution:** Update the scene in book JSON, then regenerate
+
+### Character Looks Different
+**Problem:** Character appearance varies between pages
+**Cause:** Using different character refs or no character ref
+**Solution:** Always include character front ref for pages featuring that character
 
 ## File Locations
 
 | Type | Path |
 |------|------|
-| Reference | `/public/books/references/{slug}_reference.png` |
+| Character refs | `/public/books/references/{slug}_multi/char_{name}_*.png` |
+| Environment refs | `/public/books/references/{slug}_multi/env_*.png` |
+| Style ref | `/public/books/references/{slug}_multi/style_palette.png` |
 | Cover | `/public/images/covers/{slug}.png` |
-| Pages | `/public/books/images/{slug}_page{NN}.png` |
+| Pages | `/public/books/images/{slug}/page{NN}.png` |
 
 ## Generation Summary
 
 After completion, output:
 
 ```
-Generated images for: b2-if-i-could-only-be-a-red-tractor
+Generated images for: the-big-pig
+
+References used: char_tim_front, char_pig_front, env_day, style_palette
+Strategy: split-3ref (3 refs per page)
 
 Cover: ✓
-Pages: 01 ✓, 02 ✓, 03 ✓, 04 ✓, 05 ✓, 06 ✓, 07 ✓, 08 ✓, 09 ✓, 10 ✓
+Pages: 01 ✓, 02 ✓, 03 ✓, 04 ✓, 05 ✓, 06 ✓, 07 ✓, 08 ✓, 09 ✓, 10 ✓, 11 ✓, 12 ✓
 End: ✓
 
-Total: 12 images
-Time: ~3 minutes
+Total: 14 images @ $0.03 each = $0.42
+Cost breakdown: Character refs $0.03/ea, Env refs $0.03/ea, Pages $0.03/ea
 
-Review at: /reader.html?book=b2-if-i-could-only-be-a-red-tractor&mode=edit
+Review at: /reader.html?book=the-big-pig&mode=edit
 ```

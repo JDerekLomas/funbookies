@@ -37,22 +37,27 @@ An idealized abstraction of how book images are created.
 │                    │                                                        │
 │                    ▼                                                        │
 │   ┌─────────────────────────────────┐                                       │
-│   │    9-Panel Reference Sheet      │  ← TEXT-TO-IMAGE                     │
-│   │    (1 image, 9 panels)          │    (nano-banana / gpt-image-1)       │
+│   │   Individual Reference Images   │  ← TEXT-TO-IMAGE                     │
+│   │   (multiple separate images)    │    (nano-banana-pro)                 │
 │   │                                 │                                       │
-│   │  ┌───┬───┬───┐                  │    Prompt:                           │
-│   │  │ 1 │ 2 │ 3 │  Characters      │    - Style description               │
-│   │  ├───┼───┼───┤                  │    - 9 scene vignettes               │
-│   │  │ 4 │ 5 │ 6 │  Objects/Props   │    - "No title text"                 │
-│   │  ├───┼───┼───┤                  │                                       │
-│   │  │ 7 │ 8 │ 9 │  Settings        │    Output: Single 1024x1024 image    │
-│   │  └───┴───┴───┘                  │    containing all 9 panels           │
+│   │  CHARACTER REFS:                │    Per character:                    │
+│   │  ┌─────┐ ┌─────┐ ┌─────┐       │    - Front view                      │
+│   │  │front│ │side │ │expr │       │    - Side view                       │
+│   │  └─────┘ └─────┘ └─────┘       │    - Expressions                     │
 │   │                                 │                                       │
-│   │  Captures: palette, character   │                                       │
-│   │  design, mood, art style        │                                       │
+│   │  ENVIRONMENT REFS:              │    Settings:                         │
+│   │  ┌─────┐ ┌─────┐               │    - Day scene                       │
+│   │  │ day │ │night│               │    - Night scene                     │
+│   │  └─────┘ └─────┘               │                                       │
+│   │                                 │                                       │
+│   │  STYLE REF:                     │    Style palette:                    │
+│   │  ┌─────┐                        │    - Colors, textures, mood          │
+│   │  │style│                        │                                       │
+│   │  └─────┘                        │                                       │
+│   │                                 │                                       │
 │   └────────────────┬────────────────┘                                       │
 │                    │                                                        │
-│                    │  Reference image provides style consistency            │
+│                    │  3 refs selected per page for consistency              │
 │                    ▼                                                        │
 └────────────────────┼────────────────────────────────────────────────────────┘
                      │
@@ -69,11 +74,13 @@ An idealized abstraction of how book images are created.
 │   └─────┬─────┘         └─────┬─────┘                                       │
 │         │                     │                                             │
 │         │  IMAGE-TO-IMAGE     │  IMAGE-TO-IMAGE                             │
+│         │  (wan2.6-image)     │  (wan2.6-image)                             │
 │         │                     │                                             │
 │         │  Inputs:            │  Inputs:                                    │
-│         │  - Reference sheet  │  - Reference sheet                          │
-│         │  - Cover scene      │  - Page scene                               │
-│         │  - "NO TEXT"        │  - "NO TEXT"                                │
+│         │  - 3 refs (char,    │  - 3 refs (char, env, style)                │
+│         │    env, style)      │  - Page scene prompt                        │
+│         │  - Cover scene      │  - "NO TEXT"                                │
+│         │  - "NO TEXT"        │                                             │
 │         │                     │                                             │
 │         │  Output:            │  Output:                                    │
 │         │  Pure illustration  │  Pure illustration                          │
@@ -121,19 +128,33 @@ An idealized abstraction of how book images are created.
 ## The Pipeline
 
 ```
-Book JSON
+Book XML (generate_book_xml.py)
     │
-    ├──► Scene Descriptions ──► Style Selection ──► Reference Sheet (T2I)
-    │                                                      │
-    │                                                      ▼
-    │                                              ┌───────────────┐
-    │                                              │   Reference   │
-    │                                              │    Image      │
-    │                                              └───────┬───────┘
-    │                                                      │
-    ├──► Cover Scene ─────────────────────────────────────►├──► Cover (I2I)
-    │                                                      │
-    └──► Page Scenes ─────────────────────────────────────►└──► Pages (I2I)
+    ├──► Story + Scenes ──► Book JSON (xml_to_book_json.py)
+    │                              │
+    │                              ├──► Add character data (visual_shorthand)
+    │                              │
+    │                              ▼
+    │                       ┌─────────────────────────────────────┐
+    │                       │  Individual Refs (multi_ref_exp.py) │
+    │                       │  --generate-refs                    │
+    │                       │                                     │
+    │                       │  ┌──────────┐ ┌──────────┐         │
+    │                       │  │ char_*   │ │ env_*    │         │
+    │                       │  │ front    │ │ day      │         │
+    │                       │  │ side     │ │ night    │         │
+    │                       │  │ expr     │ └──────────┘         │
+    │                       │  └──────────┘ ┌──────────┐         │
+    │                       │               │ style_   │         │
+    │                       │               │ palette  │         │
+    │                       │               └──────────┘         │
+    │                       └─────────────────┬───────────────────┘
+    │                                         │
+    │                                         │ Select 3 refs per page
+    │                                         ▼
+    ├──► Cover Scene ────────────────────────►├──► Cover (I2I, wan2.6)
+    │                                         │
+    └──► Page Scenes ────────────────────────►└──► Pages (I2I, wan2.6)
 ```
 
 ## Key Principles
@@ -143,10 +164,12 @@ Book JSON
 - **Images** are pure illustrations
 - **UI** composes them together at runtime
 
-### 2. Style Consistency via Reference
-- One reference sheet per book
-- All images for that book use the same reference
-- Ensures character, palette, and mood consistency
+### 2. Style Consistency via Multi-Ref
+- Individual reference images per book (character, environment, style)
+- 3 refs selected per page using split-3ref strategy
+- Character refs ensure visual consistency across pages
+- Environment refs maintain setting coherence
+- Style ref locks color palette and mood
 
 ### 3. No Baked Text
 - Images contain NO text, titles, or words
@@ -166,9 +189,18 @@ public/
 ├── books/
 │   ├── {slug}.json              # Book content
 │   ├── references/
-│   │   └── {slug}_reference.png # Style reference (9-panel)
+│   │   ├── {slug}_reference.png # Legacy 9-panel (deprecated)
+│   │   └── {slug}_multi/        # Individual refs (preferred)
+│   │       ├── char_{name}_front.png
+│   │       ├── char_{name}_side.png
+│   │       ├── char_{name}_expression.png
+│   │       ├── env_day.png
+│   │       ├── env_night.png
+│   │       ├── style_palette.png
+│   │       └── manifest.json
 │   └── images/
-│       └── {slug}_page{NN}.png  # Page illustrations
+│       └── {slug}/
+│           └── page{NN}.png     # Page illustrations
 │
 └── images/
     └── covers/
@@ -179,9 +211,9 @@ public/
 
 | Step | Model | Type | Why |
 |------|-------|------|-----|
-| Reference Sheets | `nano-banana-pro` or `gpt-image-1` | Text-to-Image | Highest quality for style guide |
-| Covers | `wan2.6-image` | Image-to-Image | Uses reference as style input |
-| Pages | `wan2.6-image` | Image-to-Image | Uses reference as style input |
+| Individual Refs | `nano-banana-pro` | Text-to-Image | High quality character/env refs |
+| Covers | `wan2.6-image` | Image-to-Image | 3 refs for style transfer |
+| Pages | `wan2.6-image` | Image-to-Image | 3 refs for style transfer |
 
 ### Available I2I Models (via fal.ai)
 
@@ -243,14 +275,28 @@ Pages:                 /vendors/alibaba/v1/wan2.6-image/generation
 ## Generation Commands
 
 ```bash
-# Step 1: Generate reference sheets (Text-to-Image)
-uv run python scripts/generate_references.py
+# Step 1: Generate book XML with story and scenes
+python scripts/generate_book_xml.py \
+  --level B1 \
+  --concept "Story concept" \
+  --setting "Setting description" \
+  --title "Book Title" \
+  --output /tmp/book.xml
 
-# Step 2: Generate covers from references (Image-to-Image)
-uv run python scripts/generate_covers.py
+# Step 2: Convert XML to JSON
+python scripts/xml_to_book_json.py /tmp/book.xml
 
-# Step 3: (Future) Generate page images (Image-to-Image)
-uv run python scripts/generate_pages.py
+# Step 3: Add character data to JSON (manual step)
+# Edit public/books/{slug}.json to add characters with visual_shorthand
+
+# Step 4: Generate individual reference images
+python scripts/multi_ref_experiment.py {slug} --generate-refs
+
+# Step 5: Generate pages using split-3ref strategy
+python scripts/multi_ref_experiment.py {slug} --strategies split-3ref
+
+# Alternative: Generate all pages at once
+python scripts/multi_ref_experiment.py {slug} --strategies split-3ref --pages all
 ```
 
 ## Prompt Writing Best Practices

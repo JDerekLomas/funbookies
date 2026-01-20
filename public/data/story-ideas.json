@@ -1,0 +1,1096 @@
+{
+  "version": "2.0",
+  "description": "Enriched story ideas organized by reading level for the book creation wizard",
+  "ideas": {
+    "A0": [
+      {
+        "title": "Look!",
+        "concept": "A wordless or near-wordless book showing a child discovering things around them. Each page reveals something new to look at - a bug, a flower, a bird.",
+        "character": "Maya, a curious toddler with big brown eyes and springy curls",
+        "setting": "Backyard garden on a sunny morning",
+        "phonics_focus": ["environmental print", "picture support"],
+        "theme": "Wonder and discovery",
+        "story_arc": "Maya explores the garden, finding one amazing thing after another, ending with sharing her discoveries with a parent",
+        "visual_style": "Soft watercolors, warm palette, close-up details of nature",
+        "sample_words": ["look", "see", "a"]
+      },
+      {
+        "title": "Big and Small",
+        "concept": "Visual comparison book exploring opposites through pairs: big elephant, small mouse. Big tree, small seed. Pictures carry all meaning with minimal text.",
+        "character": "Various friendly animals paired together",
+        "setting": "Safari/jungle scenes",
+        "phonics_focus": ["concept words", "size vocabulary"],
+        "theme": "Differences make the world interesting",
+        "story_arc": "Each spread shows a big/small pair, ending with big and small friends playing together",
+        "visual_style": "Bold shapes, high contrast, playful compositions",
+        "sample_words": ["big", "small", "and"]
+      },
+      {
+        "title": "Hello, Friends!",
+        "concept": "A greeting book where a child waves hello to everyone they meet - the dog, the cat, the bird, their friend. Simple social interaction.",
+        "character": "Leo, a friendly boy who loves saying hi to everyone",
+        "setting": "Walking through the neighborhood",
+        "phonics_focus": ["greetings", "names"],
+        "theme": "Friendship and connection",
+        "story_arc": "Leo greets each friend, they wave back, ends with a group wave",
+        "visual_style": "Cheerful, bright colors, expressive faces",
+        "sample_words": ["hello", "hi", "wave"]
+      }
+    ],
+    "A1": [
+      {
+        "title": "I Am Sam",
+        "concept": "Simple self-introduction labels: 'I am Sam.' Sam shows what he can do - sit, run, hop. One action per page with supporting illustration.",
+        "character": "Sam, a spotted puppy with floppy ears and boundless energy",
+        "setting": "Dog park with simple backgrounds",
+        "phonics_focus": ["CVC words", "short a", "-am family"],
+        "theme": "Self-expression and identity",
+        "story_arc": "Sam introduces himself, shows his tricks, ends with 'I am Sam. I am happy!'",
+        "visual_style": "Clean lines, minimal backgrounds, focus on character action",
+        "sample_words": ["Sam", "I", "am", "can", "sit", "run"]
+      },
+      {
+        "title": "The Cat Sat",
+        "concept": "A cat finds different places to sit: on a mat, on a hat, in a pan. Repetitive structure with one changing word per page.",
+        "character": "Whiskers, a round orange tabby who loves finding cozy spots",
+        "setting": "Cozy house interior",
+        "phonics_focus": ["CVC words", "short a", "-at family"],
+        "theme": "Finding comfort and belonging",
+        "story_arc": "Cat tries many spots, none quite right, finally finds the perfect lap",
+        "visual_style": "Warm interior scenes, soft textures, cozy feeling",
+        "sample_words": ["cat", "sat", "mat", "hat", "pan", "lap"]
+      },
+      {
+        "title": "Tap, Tap, Tap",
+        "concept": "A little bird taps on things to make sounds: tap on a can, tap on a pan, tap on a hat! Playful sound exploration.",
+        "character": "Pip, a tiny woodpecker learning to peck",
+        "setting": "Farm with various objects",
+        "phonics_focus": ["CVC words", "short a", "-ap family"],
+        "theme": "Curiosity and experimentation",
+        "story_arc": "Pip taps everything, makes silly sounds, finds the perfect tree",
+        "visual_style": "Energetic, action lines, fun sound effect visuals",
+        "sample_words": ["tap", "can", "pan", "hat", "rat", "bat"]
+      }
+    ],
+    "A2": [
+      {
+        "title": "I See the ___",
+        "concept": "Repetitive frame: 'I see the cat.' 'I see the mat.' Only one word changes each page. Child narrator points out things on a walk.",
+        "character": "Emma, an observant girl with glasses and a red jacket",
+        "setting": "Nature walk through a park",
+        "phonics_focus": ["CVC words", "sight word 'the'", "short vowels"],
+        "theme": "Observation and appreciation",
+        "story_arc": "Emma notices small details others miss, shares them with reader",
+        "visual_style": "Detailed backgrounds with highlighted objects, nature illustrations",
+        "sample_words": ["I", "see", "the", "cat", "dog", "bug", "log"]
+      },
+      {
+        "title": "The Pig Did Sit",
+        "concept": "Pattern book: 'The pig did sit.' 'The pig did dig.' Same sentence frame, changing action verb. Playful farm pig antics.",
+        "character": "Gus, a cheerful pink pig who can't sit still",
+        "setting": "Muddy farm pen",
+        "phonics_focus": ["CVC words", "short i", "-ig and -it families"],
+        "theme": "Playfulness and joy",
+        "story_arc": "Pig tries to sit but keeps finding fun things to do, finally rests at sunset",
+        "visual_style": "Expressive character, muddy textures, warm farm colors",
+        "sample_words": ["pig", "did", "sit", "dig", "jig", "big"]
+      },
+      {
+        "title": "Mom and Me",
+        "concept": "Simple activity book: 'Mom and me hop.' 'Mom and me run.' Showing parent-child activities together.",
+        "character": "A bunny kit and their mom",
+        "setting": "Meadow through the seasons",
+        "phonics_focus": ["CVC words", "short o", "sight words"],
+        "theme": "Family bonding and love",
+        "story_arc": "Activities through the day, ending with bedtime snuggle",
+        "visual_style": "Gentle, soft colors, tender moments captured",
+        "sample_words": ["mom", "hop", "run", "hug", "nap", "love"]
+      }
+    ],
+    "A3": [
+      {
+        "title": "The Cat Is Here",
+        "concept": "Simple declaratives with slight variation. 'The cat is here. The cat is on it. The cat ran fast!' Cat explores and gets into mischief.",
+        "character": "Mittens, a curious gray kitten with white paws",
+        "setting": "Living room with furniture to climb",
+        "phonics_focus": ["CVC words", "sight words 'is', 'the', 'on'"],
+        "theme": "Curiosity and adventure",
+        "story_arc": "Cat explores room, causes minor chaos, gets caught, forgiven with cuddles",
+        "visual_style": "Dynamic poses, domestic setting, humor in expressions",
+        "sample_words": ["cat", "is", "here", "on", "it", "ran", "hid"]
+      },
+      {
+        "title": "Where Is Pup?",
+        "concept": "Hide and seek story. 'Is Pup in the box? No! Is Pup on the bed? No!' Building to a fun reveal.",
+        "character": "Pup, a small brown dachshund who loves hiding",
+        "setting": "Child's bedroom",
+        "phonics_focus": ["CVC words", "question structure", "prepositions"],
+        "theme": "Playfulness and surprise",
+        "story_arc": "Reader searches with narrator, finds Pup in unexpected place",
+        "visual_style": "Interactive feel, search-and-find elements, cozy room",
+        "sample_words": ["is", "in", "on", "box", "bed", "tub", "yes", "no"]
+      },
+      {
+        "title": "Run, Bug, Run!",
+        "concept": "Action chase story. 'The bug ran. The frog ran. Run, bug, run!' Simple excitement and movement.",
+        "character": "A tiny ladybug being chased by friendly animals",
+        "setting": "Garden at ground level",
+        "phonics_focus": ["CVC words", "short u", "-un family"],
+        "theme": "Excitement and safety",
+        "story_arc": "Bug flees various creatures, finds safe home in a flower",
+        "visual_style": "Bug's-eye view, oversized plants, dramatic angles",
+        "sample_words": ["run", "bug", "sun", "fun", "hid", "safe"]
+      }
+    ],
+    "A4": [
+      {
+        "title": "Sam and the Hat",
+        "concept": "Bridge to narrative. Sam finds a hat, tries it on, it's too big! He tries to give it away but everyone says no. Finally finds the perfect owner.",
+        "character": "Sam, a helpful puppy who finds a fancy top hat",
+        "setting": "Backyard leading to neighborhood",
+        "phonics_focus": ["CVC words", "-at family", "simple dialogue"],
+        "theme": "Persistence and generosity",
+        "story_arc": "Problem (big hat) → attempts to solve → satisfying resolution",
+        "visual_style": "Expressive character emotions, the hat as visual comedy",
+        "sample_words": ["Sam", "hat", "big", "no", "yes", "fit"]
+      },
+      {
+        "title": "The Lost Sock",
+        "concept": "Mini-mystery: Where did the sock go? Child searches high and low, silly places, finally finds it somewhere unexpected.",
+        "character": "Ben, a boy getting dressed who's missing one sock",
+        "setting": "Bedroom becoming increasingly messy during search",
+        "phonics_focus": ["CVC words", "short o", "prepositions"],
+        "theme": "Problem-solving and humor",
+        "story_arc": "Loss → search → discovery (dog had it!)",
+        "visual_style": "Progressively messier room, humor in the chaos",
+        "sample_words": ["sock", "lost", "box", "top", "dog", "got"]
+      },
+      {
+        "title": "Hop to the Top",
+        "concept": "Frog wants to see the view from the top of the hill. Hops and hops, gets tired, almost gives up, makes it! Beautiful view.",
+        "character": "Fritz, a determined little green frog",
+        "setting": "Grassy hill with wildflowers",
+        "phonics_focus": ["CVC words", "short o", "-op family"],
+        "theme": "Perseverance and reward",
+        "story_arc": "Goal set → struggle → triumph → appreciation",
+        "visual_style": "Vertical composition showing height, triumphant final spread",
+        "sample_words": ["hop", "top", "stop", "not", "got", "lot"]
+      }
+    ],
+    "B1": [
+      {
+        "title": "The Big Pig",
+        "concept": "Tim has a big pig who gets too hot in the sun. Tim digs a pit, but pig won't go in. Tim has to get creative with jam and bags to coax pig into the cool pit.",
+        "character": "Tim, a resourceful farm boy, and his stubborn but lovable pink pig",
+        "setting": "Sunny farm with barn and pigpen",
+        "phonics_focus": ["CVC short i", "-ig, -it, -in families"],
+        "theme": "Creative problem-solving and patience",
+        "story_arc": "Problem (hot pig) → failed solution → creative solution → success",
+        "visual_style": "Warm farm colors, expressive pig emotions, summer heat feeling",
+        "sample_words": ["big", "pig", "dig", "sit", "pit", "Tim", "him", "in"]
+      },
+      {
+        "title": "Pip Gets a Hit",
+        "concept": "Pip the pig wants to play baseball but keeps missing. Friends encourage her. Finally connects - a big hit! Team celebrates.",
+        "character": "Pip, a small pig with a big baseball dream, and her supportive animal friends",
+        "setting": "Sunny baseball diamond at the park",
+        "phonics_focus": ["CVC short i", "-it, -ip families"],
+        "theme": "Persistence and friendship",
+        "story_arc": "Struggle → encouragement → practice → success → celebration",
+        "visual_style": "Sporty, dynamic action poses, team spirit feeling",
+        "sample_words": ["Pip", "hit", "bit", "sit", "tip", "rip", "win"]
+      },
+      {
+        "title": "Dan's Big Van",
+        "concept": "Dan the ram has a van. He picks up friends one by one for an adventure. Van gets full! Where are they going? A surprise picnic!",
+        "character": "Dan, a friendly ram with a colorful van, various animal passengers",
+        "setting": "Country road leading to a meadow",
+        "phonics_focus": ["CVC short a", "-an, -am families"],
+        "theme": "Friendship and sharing",
+        "story_arc": "Picking up friends → journey → surprise destination → shared joy",
+        "visual_style": "Cheerful, the van as a character, progressively fuller scenes",
+        "sample_words": ["Dan", "van", "can", "ran", "man", "jam", "ham"]
+      },
+      {
+        "title": "The Sad Lad",
+        "concept": "Chad is sad. He lost his cap. Friends help him look - not in the bag, not on the cat. Dad finds it! Chad is glad.",
+        "character": "Chad, a young boy, and his helpful dad and pet cat",
+        "setting": "House and backyard",
+        "phonics_focus": ["CVC short a", "-ad, -ap, -ag families"],
+        "theme": "Family support and relief",
+        "story_arc": "Loss → sadness → search with help → found → happiness",
+        "visual_style": "Expressive emotions, cozy home setting, warm resolution",
+        "sample_words": ["sad", "lad", "Chad", "dad", "had", "cap", "bag", "glad"]
+      }
+    ],
+    "B2": [
+      {
+        "title": "Pup in the Mud",
+        "concept": "Max the puppy sees a mud puddle. Should he? He shouldn't... but he does! SPLASH! So much fun! Then Mom sees him. Bath time!",
+        "character": "Max, an energetic golden puppy who can't resist mud",
+        "setting": "Backyard after rain, then bathroom",
+        "phonics_focus": ["CVC all short vowels", "-ud, -up, -un families"],
+        "theme": "Joy and consequences (gentle)",
+        "story_arc": "Temptation → giving in → pure joy → cleanup → still worth it",
+        "visual_style": "Dynamic mud splashes, expressive dog joy, sudsy bath contrast",
+        "sample_words": ["pup", "mud", "fun", "run", "tub", "rub", "hug"]
+      },
+      {
+        "title": "Frog Gets Fun",
+        "concept": "Fred the frog is bored on his log. Tries hopping - not fun enough. Tries swimming - still bored. Discovers he can make music by croaking with friends!",
+        "character": "Fred, a contemplative green frog seeking excitement",
+        "setting": "Pond and surrounding meadow",
+        "phonics_focus": ["CVC all short vowels", "-og, -op families"],
+        "theme": "Finding your passion and community",
+        "story_arc": "Boredom → failed attempts → discovery → belonging",
+        "visual_style": "Peaceful pond setting, musical notes visual, frog expressions",
+        "sample_words": ["frog", "log", "bog", "hop", "stop", "fun", "hum"]
+      },
+      {
+        "title": "The Red Hen",
+        "concept": "Hen wants to make bread. 'Who will help?' Not cat. Not dog. Not pig. Hen does it herself. When bread is ready - who wants some? She shares anyway.",
+        "character": "Red Hen, hardworking and kind; lazy but lovable farm friends",
+        "setting": "Farm kitchen and barnyard",
+        "phonics_focus": ["CVC all short vowels", "-ed, -en, -et families"],
+        "theme": "Hard work and generous forgiveness",
+        "story_arc": "Task → repeated refusals → solo effort → surprising generosity",
+        "visual_style": "Classic farm tale, warm kitchen scenes, character expressions",
+        "sample_words": ["red", "hen", "bed", "fed", "yes", "get", "let", "yet"]
+      },
+      {
+        "title": "Hot Dog",
+        "concept": "It's a hot day. Dog pants. Dog digs. Dog finds shade. But then - the sprinkler turns on! Best day ever!",
+        "character": "Buster, a shaggy dog trying to cool off",
+        "setting": "Suburban backyard in summer",
+        "phonics_focus": ["CVC short o", "-ot, -og, -op families"],
+        "theme": "Simple pleasures and happy surprises",
+        "story_arc": "Problem → attempts → bigger problem → unexpected solution → joy",
+        "visual_style": "Summer heat visuals, water spray joy, dog expressions",
+        "sample_words": ["hot", "dog", "got", "lot", "not", "hop", "stop", "pop"]
+      },
+      {
+        "title": "The Bug Hut",
+        "concept": "Gus the bug needs a home. Tries a cup - too dark. Tries a nut - too small. Builds his own hut from a leaf. Perfect!",
+        "character": "Gus, a resourceful little beetle",
+        "setting": "Garden at bug-scale",
+        "phonics_focus": ["CVC short u", "-ut, -ug, -up families"],
+        "theme": "Resourcefulness and self-reliance",
+        "story_arc": "Need → failed options → creative building → satisfaction",
+        "visual_style": "Tiny world perspective, leaf architecture, cozy ending",
+        "sample_words": ["bug", "hut", "nut", "cut", "cup", "up", "Gus", "us"]
+      }
+    ],
+    "B3": [
+      {
+        "title": "Jump at Camp",
+        "concept": "Animal friends at summer camp compete in silly events: who can jump highest? Stomp loudest? By the campfire, they realize everyone won something.",
+        "character": "Rabbit, Bear, Frog, and Mouse - camp friends with different strengths",
+        "setting": "Summer camp in the woods",
+        "phonics_focus": ["Final blends: -mp, -nd, -nt, -st"],
+        "theme": "Everyone has unique talents",
+        "story_arc": "Competition → various events → no clear winner → realization → celebration",
+        "visual_style": "Camp activities, woodland setting, medal/ribbon imagery",
+        "sample_words": ["jump", "camp", "stomp", "bump", "land", "stand", "best", "rest"]
+      },
+      {
+        "title": "Rex and the Runaway Ball",
+        "concept": "Rex's ball rolls away - down the hill, past the pond, into the wind! He chases it through obstacles, finally catching it just before it goes too far.",
+        "character": "Rex, a determined fox with a favorite red ball",
+        "setting": "Rolling hills, pond, windy field",
+        "phonics_focus": ["Final blends: -nd, -st, -nt"],
+        "theme": "Determination and adventure",
+        "story_arc": "Loss → chase → obstacles → near misses → triumphant catch",
+        "visual_style": "Dynamic movement, ball as red focal point, landscape variety",
+        "sample_words": ["ball", "fast", "past", "wind", "land", "just", "must", "best"]
+      },
+      {
+        "title": "The Best Nest",
+        "concept": "Bird wants to build the perfect nest. Tries stiff sticks - too poky. Tries soft fluff - flies away! Combines both for the best nest on the hill.",
+        "character": "Wren, a perfectionist bird preparing for eggs",
+        "setting": "Forest with various trees",
+        "phonics_focus": ["FLOSS rule: ff, ll, ss, zz"],
+        "theme": "Balance and learning from mistakes",
+        "story_arc": "Goal → failed extremes → combination solution → success",
+        "visual_style": "Nest-building details, forest textures, cozy final nest",
+        "sample_words": ["nest", "best", "rest", "fluff", "stuff", "stiff", "hill", "will"]
+      },
+      {
+        "title": "Lost and Found",
+        "concept": "Jill loses her doll at the mall. Asks for help - the man at the desk, the lady with the cart. Finally found in the lost and found!",
+        "character": "Jill, a young girl, and helpful mall workers",
+        "setting": "Shopping mall",
+        "phonics_focus": ["FLOSS rule: ll, ss", "final blends"],
+        "theme": "Asking for help, community kindness",
+        "story_arc": "Loss → worry → asking for help → helpers → reunion",
+        "visual_style": "Mall setting, emotional journey, happy reunion",
+        "sample_words": ["lost", "doll", "mall", "tell", "well", "miss", "less", "found"]
+      }
+    ],
+    "B4": [
+      {
+        "title": "Frog and Crab",
+        "concept": "Frog lives by the pond, Crab lives by the sea. They meet at the stream and become unlikely friends. They swim, skip, and grab snacks together.",
+        "character": "Frog (freshwater, bouncy) and Crab (saltwater, sideways)",
+        "setting": "Where stream meets ocean",
+        "phonics_focus": ["Initial blends: fr-, cr-, gr-, sw-, sk-"],
+        "theme": "Unlikely friendships, different backgrounds",
+        "story_arc": "Meeting → initial confusion → finding common ground → friendship",
+        "visual_style": "Two ecosystems blending, playful interaction poses",
+        "sample_words": ["frog", "crab", "grab", "swim", "skip", "trip", "step", "stop"]
+      },
+      {
+        "title": "Flicker the Firefly",
+        "concept": "Flicker can't make her light work. Other fireflies glow brightly. She tries and tries - nothing. Then one dark night, a lost baby rabbit needs help. Flicker tries so hard... she glows!",
+        "character": "Flicker, a young firefly who's a late bloomer",
+        "setting": "Meadow at twilight and night",
+        "phonics_focus": ["Initial blends: fl-, gl-, br-, tr-"],
+        "theme": "Finding your light when others need you",
+        "story_arc": "Struggle → comparison → crisis → rising to occasion → triumph",
+        "visual_style": "Dark backgrounds, glowing effects, emotional lighting",
+        "sample_words": ["flicker", "glow", "bright", "fright", "trip", "trap", "glad", "blink"]
+      },
+      {
+        "title": "The Sled Run",
+        "concept": "First snow! Friends grab sleds and race down the hill. Slip, slide, spin! Someone crashes - are they okay? Yes, laughing! Best snow day ever.",
+        "character": "Group of animal friends (Bear, Rabbit, Fox, Squirrel)",
+        "setting": "Snowy hill",
+        "phonics_focus": ["Initial blends: sl-, sn-, sp-", "s-blends"],
+        "theme": "Winter joy and resilience",
+        "story_arc": "Excitement → racing → crash → checking on friend → relief → more fun",
+        "visual_style": "White snow, colorful scarves, action and movement",
+        "sample_words": ["sled", "snow", "spin", "slip", "stop", "spit", "spot", "still"]
+      },
+      {
+        "title": "Drip, Drop, Plop",
+        "concept": "Rain starts slowly - drip. Then faster - drop. Then a downpour - PLOP! Animals find shelter, then splash in puddles when it stops.",
+        "character": "Various forest animals seeking shelter together",
+        "setting": "Forest during and after rainstorm",
+        "phonics_focus": ["Initial blends: dr-, pl-", "final blends"],
+        "theme": "Finding joy in weather, community shelter",
+        "story_arc": "Rain begins → seeking shelter → togetherness → rain stops → puddle joy",
+        "visual_style": "Rain effects, cozy shelter, splashing action",
+        "sample_words": ["drip", "drop", "plop", "stop", "plan", "plant", "splash", "flat"]
+      }
+    ],
+    "B5": [
+      {
+        "title": "The Ship in the Shell",
+        "concept": "Child finds a shell on the beach. Holds it to ear - hears the ocean... and a tiny ship! Imagines sailing away to adventure, then puts shell back for the next dreamer.",
+        "character": "Shelly, a imaginative girl with a found shell",
+        "setting": "Beach, then imagination sequences",
+        "phonics_focus": ["Digraphs: sh-, ch-, th-, wh-"],
+        "theme": "Imagination and sharing wonder",
+        "story_arc": "Discovery → imagination journey → return → passing it on",
+        "visual_style": "Realistic beach to fantasy sea, shell as portal, dreamy colors",
+        "sample_words": ["ship", "shell", "wish", "fish", "when", "then", "the", "this"]
+      },
+      {
+        "title": "Zip the Little Snail",
+        "concept": "Zip the snail wishes he could dash like the rabbit, swoosh like the fish. He feels too slow. But when a friend needs patient help, Zip's slowness saves the day.",
+        "character": "Zip, a philosophical snail who dreams of speed",
+        "setting": "Garden with various fast creatures",
+        "phonics_focus": ["Digraphs: sh, ch, th", "-ng endings"],
+        "theme": "Embracing who you are, slow and steady",
+        "story_arc": "Wishing to be different → failed attempts → crisis → slow saves day → self-acceptance",
+        "visual_style": "Speed lines for others, detailed slow journey, triumphant ending",
+        "sample_words": ["wish", "dash", "rush", "such", "thing", "bring", "long", "strong"]
+      },
+      {
+        "title": "The Shell Switch",
+        "concept": "Hermit crab needs a new shell. Tries this one, that one - too big, too small, too fancy. Has to trade and negotiate. Finds just right one with a friend's help.",
+        "character": "Chester the hermit crab and tide pool friends",
+        "setting": "Tide pool ecosystem",
+        "phonics_focus": ["Digraphs: sh, ch, th, wh", "dialogue"],
+        "theme": "Finding where you fit, helping others",
+        "story_arc": "Need → search → rejections → friend helps → perfect fit",
+        "visual_style": "Underwater detail, various shell designs, community feeling",
+        "sample_words": ["shell", "which", "that", "this", "with", "thank", "such", "much"]
+      },
+      {
+        "title": "The Path to the Thatch",
+        "concept": "Three chicks must find their way home before dark. Follow the path, cross the bridge, through the thick brush to the thatch-roof barn. They make it!",
+        "character": "Three brave chicks on a journey",
+        "setting": "Farm landscape, various terrains",
+        "phonics_focus": ["Digraphs: th, ch, tch", "path words"],
+        "theme": "Bravery and teamwork",
+        "story_arc": "Separation → journey with obstacles → teamwork → home safe",
+        "visual_style": "Journey map feeling, increasing darkness, warm home at end",
+        "sample_words": ["path", "thatch", "chick", "thick", "with", "this", "that", "then"]
+      }
+    ],
+    "B6": [
+      {
+        "title": "Kate and the Lake",
+        "concept": "Kate wants to swim in the lake but is scared. She wades in slowly, goes deeper each day. Finally swims all the way to the raft! Pride in overcoming fear.",
+        "character": "Kate, a cautious girl who conquers her fear of deep water",
+        "setting": "Summer lake with dock and swimming raft",
+        "phonics_focus": ["CVCe: a_e words", "long a"],
+        "theme": "Overcoming fear through gradual steps",
+        "story_arc": "Fear → small steps → progress → setback → triumph",
+        "visual_style": "Lake scenes, emotional progression, triumphant swim",
+        "sample_words": ["Kate", "lake", "wake", "make", "take", "brave", "wade", "safe"]
+      },
+      {
+        "title": "Bake Day",
+        "concept": "Animals prepare for the village bake sale. Each makes something special - cake, dates, grapes. When oven breaks, they combine efforts to bake one amazing creation!",
+        "character": "Bear (baker), Mouse (decorator), Bird (helper) - village friends",
+        "setting": "Cozy kitchen and village square",
+        "phonics_focus": ["CVCe: a_e words", "long a throughout"],
+        "theme": "Collaboration makes things better",
+        "story_arc": "Individual efforts → crisis → teamwork → combined success → celebration",
+        "visual_style": "Warm kitchen, baking details, community celebration",
+        "sample_words": ["bake", "cake", "make", "take", "plate", "late", "gate", "taste"]
+      },
+      {
+        "title": "The Bike Ride",
+        "concept": "Mike gets a new bike but can't ride yet. Falls, tries, falls again. Big sister Jane helps. Finally rides alone - down the whole street! Freedom feeling.",
+        "character": "Mike, a determined boy, and Jane, his patient sister",
+        "setting": "Suburban street, driveway practice",
+        "phonics_focus": ["CVCe: i_e words", "long i"],
+        "theme": "Persistence with support from family",
+        "story_arc": "Excitement → failure → help → practice → independence",
+        "visual_style": "Learning progression, balance attempts, joyful riding",
+        "sample_words": ["bike", "Mike", "ride", "side", "wide", "time", "fine", "line"]
+      },
+      {
+        "title": "Home Sweet Home",
+        "concept": "Mole digs a new home. Needs to be just right - not too close to the stone, not under the rose. Finds the perfect spot and invites friends to see.",
+        "character": "Mole, a particular digger who knows what he wants",
+        "setting": "Underground and garden surface",
+        "phonics_focus": ["CVCe: o_e words", "long o"],
+        "theme": "Creating a home, knowing what you need",
+        "story_arc": "Search → rejecting wrong spots → finding perfect spot → creating home → sharing",
+        "visual_style": "Cross-section underground views, cozy burrow details",
+        "sample_words": ["home", "mole", "hole", "stone", "bone", "rose", "nose", "close"]
+      }
+    ],
+    "B7": [
+      {
+        "title": "A Day at the Farm",
+        "concept": "Follow the farmer through the day - feeding the goats, milking, collecting eggs. Each task with rain threatening. Storm comes, but all animals are safe in the barn!",
+        "character": "Farmer Mae and her various farm animals",
+        "setting": "Small farm through the day",
+        "phonics_focus": ["Vowel teams: ai, ay", "long a sounds"],
+        "theme": "Responsibility and care for others",
+        "story_arc": "Morning tasks → weather watching → racing storm → safe in barn",
+        "visual_style": "Farm life details, darkening sky progression, cozy barn ending",
+        "sample_words": ["day", "hay", "way", "rain", "grain", "train", "wait", "stay"]
+      },
+      {
+        "title": "The Rain and the Snow",
+        "concept": "Two weather fairies - Rain and Snow - argue about who should visit today. They compromise: rain in the morning, snow in the afternoon. Everyone's happy!",
+        "character": "Rain (cheerful, wet) and Snow (sparkly, cold) as fairy characters",
+        "setting": "Sky and village below",
+        "phonics_focus": ["Vowel teams: ai, ay, oa, ow"],
+        "theme": "Compromise and sharing",
+        "story_arc": "Conflict → argument → compromise idea → execution → harmony",
+        "visual_style": "Weather personified, village scenes, both weather beauties shown",
+        "sample_words": ["rain", "snow", "day", "play", "coat", "boat", "show", "grow"]
+      },
+      {
+        "title": "Sail Away",
+        "concept": "A toy boat (made by a child) sails down the stream, having adventures: passing ducks, going through the drain, reaching the bay. Bittersweet letting go.",
+        "character": "The toy boat as protagonist, child who made it at bookends",
+        "setting": "Stream to ocean journey",
+        "phonics_focus": ["Vowel teams: ai, ay, oa"],
+        "theme": "Letting go and trusting the journey",
+        "story_arc": "Creation → launch → journey → near-dangers → reaching the sea",
+        "visual_style": "Water journey, boat's perspective, landscape changing",
+        "sample_words": ["sail", "boat", "float", "rain", "drain", "bay", "way", "today"]
+      },
+      {
+        "title": "The Dream Team",
+        "concept": "Group of animals have different dreams - Bee wants to see the sea, Sheep wants to sleep on a cloud, Seal wants to feel the forest. They help each other's dreams come true.",
+        "character": "Bee, Sheep, and Seal - dreamers who help each other",
+        "setting": "Various landscapes matching dreams",
+        "phonics_focus": ["Vowel teams: ea, ee"],
+        "theme": "Supporting friends' dreams",
+        "story_arc": "Dreams shared → planning → helping each other → dreams achieved",
+        "visual_style": "Dreamy quality, each dream vignette, friendship warmth",
+        "sample_words": ["dream", "team", "bee", "see", "sea", "sheep", "sleep", "feel"]
+      }
+    ],
+    "B8": [
+      {
+        "title": "The Day the Rain Came",
+        "concept": "Owl, Cow, and Mouse were going to have a picnic. Rain came! They found shelter in a house by the brook. Made the best indoor picnic instead.",
+        "character": "Owl (wise), Cow (practical), Mouse (cheerful) - different reactions to rain",
+        "setting": "Meadow, then cozy abandoned cottage",
+        "phonics_focus": ["Diphthongs: oi/oy, ou/ow"],
+        "theme": "Making the best of changed plans",
+        "story_arc": "Plans → rain ruins plans → disappointment → adaptation → joy anyway",
+        "visual_style": "Outdoor to indoor transition, cozy cottage details",
+        "sample_words": ["owl", "cow", "house", "found", "joy", "boy", "coin", "join"]
+      },
+      {
+        "title": "The Owl and the Mouse",
+        "concept": "Owl and Mouse seem like they shouldn't be friends (owl might eat mouse!). But they bond over shared love of the night. Trust builds slowly into friendship.",
+        "character": "Oliver Owl and Millie Mouse - unlikely friends",
+        "setting": "Nighttime forest",
+        "phonics_focus": ["Diphthongs: ou/ow", "oo words"],
+        "theme": "Overcoming assumptions, unlikely friendships",
+        "story_arc": "Fear/distrust → small kindness → more kindness → trust → friendship",
+        "visual_style": "Nighttime atmosphere, size contrast played for emotion",
+        "sample_words": ["owl", "mouse", "house", "out", "shout", "now", "how", "moon", "soon"]
+      },
+      {
+        "title": "The Cloud House",
+        "concept": "A girl looks at clouds and imagines living in a cloud house. Room by room she decorates it in her mind - fluffy beds, rainbow windows. Then rain falls - her house melts! But tomorrow, new clouds, new house.",
+        "character": "Luna, a dreamer who looks up",
+        "setting": "Backyard looking at sky, then imagination sequences",
+        "phonics_focus": ["Diphthongs: ou/ow", "oo words"],
+        "theme": "Imagination is renewable, impermanence is okay",
+        "story_arc": "Dreaming → building in mind → enjoying → loss → acceptance → new beginning",
+        "visual_style": "Realistic to dreamy transitions, cloud architecture",
+        "sample_words": ["cloud", "house", "out", "room", "moon", "cool", "pool", "look", "book"]
+      },
+      {
+        "title": "Too Loud!",
+        "concept": "New neighbors move in - they're SO LOUD! Banging, shouting, noise noise noise! Turns out they're building a playground for the whole neighborhood. Worth it!",
+        "character": "Grumpy Groundhog annoyed by new neighbors (Woodpecker family)",
+        "setting": "Suburban animal neighborhood",
+        "phonics_focus": ["Diphthongs: ou/ow, oi/oy"],
+        "theme": "Patience, jumping to conclusions, community benefit",
+        "story_arc": "Annoyance → investigation → discovery → apology → enjoyment",
+        "visual_style": "Noise visualized, before/after neighborhood, happy ending",
+        "sample_words": ["loud", "sound", "round", "found", "noise", "joy", "enjoy", "annoy"]
+      }
+    ],
+    "B9": [
+      {
+        "title": "A Star at the Farm",
+        "concept": "After a big storm, Emma goes to the barn to check on her horse, Star. Star is scared but Emma stays calm. Together they watch the storm end and the real stars come out.",
+        "character": "Emma, a brave farm girl, and Star, her anxious horse",
+        "setting": "Farm during and after storm, nighttime",
+        "phonics_focus": ["R-controlled: ar, or"],
+        "theme": "Being calm for those who need you, mutual comfort",
+        "story_arc": "Storm fear → going to help → calming Star → storm passes → beauty emerges",
+        "visual_style": "Storm drama, barn warmth, starry sky resolution",
+        "sample_words": ["star", "farm", "barn", "dark", "storm", "horse", "for", "more"]
+      },
+      {
+        "title": "The Owl and the Boy",
+        "concept": "A boy can't sleep. Goes to his window, sees an owl. They have a silent conversation through the night. Owl shows boy the farm, the forest, the stars. Boy finally sleeps, at peace.",
+        "character": "Marcus, an insomniac boy, and a wise old owl",
+        "setting": "Bedroom, then flying night journey",
+        "phonics_focus": ["R-controlled: all patterns - ar, or, er, ir, ur"],
+        "theme": "Finding peace, night's beauty",
+        "story_arc": "Can't sleep → connection with owl → night journey → return → peaceful sleep",
+        "visual_style": "Nighttime blue palette, flying sequences, peaceful ending",
+        "sample_words": ["owl", "boy", "dark", "star", "bird", "turn", "her", "first", "morning"]
+      },
+      {
+        "title": "Purple Turtle's Thursday",
+        "concept": "Follow Purple Turtle through her day - morning at the fern, afternoon learning, evening returning home. Everyday magic in ordinary moments.",
+        "character": "Purple Turtle, a thoughtful reptile who appreciates life",
+        "setting": "Pond and forest through the day",
+        "phonics_focus": ["R-controlled: er, ir, ur"],
+        "theme": "Finding joy in routine",
+        "story_arc": "Morning → midday → afternoon → evening - each part meaningful",
+        "visual_style": "Time-of-day lighting, peaceful scenes, nature details",
+        "sample_words": ["purple", "turtle", "Thursday", "first", "turn", "fern", "her", "bird", "word"]
+      },
+      {
+        "title": "The Bird Who Hurt Her Wing",
+        "concept": "Bird hurts her wing and can't fly. Girl finds her, makes a perch, brings water and worms. Bird heals over days. Finally flies - returns one more time to say thanks.",
+        "character": "Vera (girl) and a injured sparrow she nurses back",
+        "setting": "Backyard, homemade bird recovery station",
+        "phonics_focus": ["R-controlled: ir, ur, er"],
+        "theme": "Compassion and healing, letting go",
+        "story_arc": "Discovery → care → healing → release → bittersweet farewell",
+        "visual_style": "Tender care scenes, healing progress, triumphant flight",
+        "sample_words": ["bird", "hurt", "first", "her", "nurse", "turn", "perch", "chirp"]
+      }
+    ],
+    "C1": [
+      {
+        "title": "The Knight's Quest",
+        "concept": "A knight must solve riddles to save the kingdom - each riddle involves silent letters. 'What has a KNEE but cannot bend? A KNIGHT in the garden!'",
+        "character": "Sir Cedric, a thinking knight who solves puzzles not fights",
+        "setting": "Medieval castle and enchanted forest",
+        "phonics_focus": ["Silent letters: kn-, wr-, -mb, -gn"],
+        "theme": "Brains over brawn, cleverness",
+        "story_arc": "Kingdom in trouble → quest begins → riddles solved → kingdom saved",
+        "visual_style": "Medieval illuminated manuscript style, puzzle elements",
+        "sample_words": ["knight", "knew", "know", "write", "wrong", "climb", "lamb", "sign"]
+      },
+      {
+        "title": "The Night Writer",
+        "concept": "A girl can only write at night - her stories come alive in dreams. She writes about a knitting gnome, a whistling knight. Her journal becomes magical.",
+        "character": "Wren, a nocturnal creative soul",
+        "setting": "Bedroom at night, dream sequences",
+        "phonics_focus": ["Silent letters: all patterns"],
+        "theme": "Creativity, the power of writing",
+        "story_arc": "Discovers writing at night → stories come alive → shares magic",
+        "visual_style": "Dreamy nighttime blues, words becoming images",
+        "sample_words": ["night", "write", "knit", "gnome", "knee", "knock", "wrist", "wrong"]
+      },
+      {
+        "title": "The Lamb Who Couldn't Keep Calm",
+        "concept": "A jittery lamb needs to learn to be still for the sheep counting competition. Tries everything. Finally learns by watching a ladybug on his knee - slow and steady.",
+        "character": "Lambert, an anxious lamb who vibrates with energy",
+        "setting": "Farm, counting competition",
+        "phonics_focus": ["Silent letters: -mb", "kn-"],
+        "theme": "Mindfulness, learning to be still",
+        "story_arc": "Can't be still → failed attempts → unlikely teacher → success",
+        "visual_style": "Bouncy energy to calm stillness progression",
+        "sample_words": ["lamb", "calm", "climb", "limb", "knee", "knew", "thumb", "numb"]
+      }
+    ],
+    "C2": [
+      {
+        "title": "The Magic City",
+        "concept": "A young magician's trick goes wrong - the entire city is now made of gingerbread! Must find the original spell page to reverse it. Race against time (before rain!).",
+        "character": "Ginger, apprentice magician who made a delicious mistake",
+        "setting": "Fantasy city transformed to gingerbread",
+        "phonics_focus": ["Soft c: ce, ci, cy", "soft g: ge, gi, gy"],
+        "theme": "Fixing mistakes, creative problem-solving",
+        "story_arc": "Mistake → discovery of consequences → search for solution → close call → fixed",
+        "visual_style": "Gingerbread architecture, race-against-rain tension",
+        "sample_words": ["city", "magic", "page", "giant", "cage", "nice", "face", "place"]
+      },
+      {
+        "title": "The Giant's Garden",
+        "concept": "A gentle giant is lonely because everyone fears him. He creates a magnificent garden. Children are curious, then brave enough to visit. Giant shares his gentle heart.",
+        "character": "Gerard the Giant, shy and kind, and curious village children",
+        "setting": "Giant's walled garden, village",
+        "phonics_focus": ["Soft g: giant, gentle, magic"],
+        "theme": "Don't judge by appearance, sharing brings joy",
+        "story_arc": "Loneliness → creation → curiosity → brave visitor → friendship",
+        "visual_style": "Scale contrasts, magnificent garden details, friendship warmth",
+        "sample_words": ["giant", "gentle", "garden", "village", "huge", "orange", "strange", "change"]
+      },
+      {
+        "title": "The Circus Mice",
+        "concept": "A family of mice live under the circus stage. They create their own tiny circus, mirroring the big one. A girl discovers them and keeps their secret, becoming their audience of one.",
+        "character": "The Cinnamon family of circus mice",
+        "setting": "Circus - both big stage and tiny mouse version below",
+        "phonics_focus": ["Soft c: circus, mice, nice, dance"],
+        "theme": "Art happens at every scale, secret joys",
+        "story_arc": "Daily life → mouse circus revealed → discovery by girl → secret friendship",
+        "visual_style": "Parallel big/small circus scenes, wonder and whimsy",
+        "sample_words": ["circus", "mice", "nice", "ice", "dance", "prince", "fence", "since"]
+      }
+    ],
+    "C3": [
+      {
+        "title": "The Kitten in the Basket",
+        "concept": "A kitten hides in a picnic basket. Gets carried to the park without anyone knowing! Must find way home. Uses clues - follows the butter smell back to the kitchen.",
+        "character": "Whisper, a curious kitten who got more adventure than expected",
+        "setting": "Home to park and back",
+        "phonics_focus": ["Two-syllable words: VC/CV pattern", "double consonants"],
+        "theme": "Curiosity and its consequences, finding your way home",
+        "story_arc": "Hiding → accidentally transported → lost → clue finding → home",
+        "visual_style": "Kitten's perspective, journey map, happy reunion",
+        "sample_words": ["kitten", "basket", "hidden", "butter", "summer", "dinner", "ladder", "letter"]
+      },
+      {
+        "title": "The Hidden Mitten",
+        "concept": "A girl's favorite mitten disappears. She searches the entire house systematically - under the pillow, in the puppet box. Dog had it hidden in his bed all along.",
+        "character": "Hannah and her sneaky but lovable dog Tucker",
+        "setting": "House interior, increasingly thorough search",
+        "phonics_focus": ["VC/CV syllable division", "double letters"],
+        "theme": "Systematic problem-solving, funny pet behavior",
+        "story_arc": "Loss → organized search → dead ends → discovery → laughter",
+        "visual_style": "Search-and-find feel, cozy home, comedic reveal",
+        "sample_words": ["mitten", "hidden", "kitten", "button", "cotton", "rabbit", "puppet", "sudden"]
+      },
+      {
+        "title": "The Perfect Picnic",
+        "concept": "Friends plan a picnic. Everything goes wrong - ants in the basket, rain and thunder, forgotten napkins. But they're together, and that's what matters.",
+        "character": "Group of woodland friends with different personalities",
+        "setting": "Forest meadow, chaotic picnic",
+        "phonics_focus": ["Two-syllable words", "common patterns"],
+        "theme": "Friendship matters more than perfection",
+        "story_arc": "Planning → disasters → considering giving up → choosing joy → happy ending",
+        "visual_style": "Chaos and laughter, rain then rainbow, friendship warmth",
+        "sample_words": ["picnic", "basket", "napkin", "butter", "happen", "thunder", "better", "together"]
+      }
+    ],
+    "C4": [
+      {
+        "title": "The Robot and the Pilot",
+        "concept": "A robot and a human pilot must work together when their spaceship has trouble. Robot is logical, pilot is emotional. Together they combine strengths to land safely.",
+        "character": "ROB-7 (analytical robot) and Captain Luna (intuitive pilot)",
+        "setting": "Spaceship interior, approaching planet",
+        "phonics_focus": ["V/CV open syllables", "compound words"],
+        "theme": "Different perspectives solve problems together",
+        "story_arc": "Crisis → disagreement → combination of approaches → success → respect",
+        "visual_style": "Sci-fi retro style, split-screen robot/human, teamwork visuals",
+        "sample_words": ["robot", "pilot", "open", "even", "over", "spaceship", "sunrise", "stardust"]
+      },
+      {
+        "title": "The Paper Airplane",
+        "concept": "A boy makes the perfect paper airplane. He throws it - it catches the wind and goes impossibly far. He chases it through the town, finally catching it at sunset by the ocean.",
+        "character": "Max, a patient folder who creates something special",
+        "setting": "Town, following the airplane's path",
+        "phonics_focus": ["V/CV open syllables", "compound words"],
+        "theme": "Creation, letting go, chasing dreams",
+        "story_arc": "Creating → launching → chase → near catches → final catch",
+        "visual_style": "Airplane as white focal point, town panorama, movement",
+        "sample_words": ["paper", "over", "open", "even", "airplane", "sunset", "something", "outside"]
+      },
+      {
+        "title": "Tiger Lily's Secret",
+        "concept": "A flower (Tiger Lily) in the garden knows a secret - there's treasure buried underneath. She hints to a little girl through movements. Together they dig and find a time capsule.",
+        "character": "Tiger Lily (the flower) and Sophia (the gardener's granddaughter)",
+        "setting": "Old garden with history",
+        "phonics_focus": ["V/CV and VC/V patterns"],
+        "theme": "Connection across time, nature's secrets",
+        "story_arc": "Noticing hints → following clues → digging → discovery → understanding the past",
+        "visual_style": "Garden beauty, treasure hunt feel, vintage items in capsule",
+        "sample_words": ["tiger", "secret", "frozen", "moment", "broken", "open", "even", "visit"]
+      }
+    ],
+    "C5": [
+      {
+        "title": "The Treehouse Mystery",
+        "concept": "Friends find their treehouse has been used while they were away. Who's been here? Clues everywhere - someone's living in it! Turns out a stray cat had kittens inside. They help.",
+        "character": "The Treehouse Club - three friends who solve the mystery together",
+        "setting": "Woods, treehouse",
+        "phonics_focus": ["Contractions: can't, won't, don't, we'll, they're"],
+        "theme": "Mystery-solving, compassion for animals",
+        "story_arc": "Discovery → investigation → clues → revelation → helping",
+        "visual_style": "Mystery atmosphere, treehouse details, kitten cuteness reveal",
+        "sample_words": ["can't", "don't", "won't", "didn't", "haven't", "we'll", "they're", "something"]
+      },
+      {
+        "title": "Everyone's Got Something",
+        "concept": "New kid at school doesn't think they're special. Classmates show their things - drawing, running, kindness. New kid realizes their something: they notice everyone else's gifts.",
+        "character": "Jamie (new kid) and diverse classmates with different talents",
+        "setting": "School and playground",
+        "phonics_focus": ["Contractions", "possessives"],
+        "theme": "Everyone has value, the gift of seeing others",
+        "story_arc": "Feeling ordinary → seeing others → still feeling ordinary → realization",
+        "visual_style": "Classroom diversity, talent showcases, warm community",
+        "sample_words": ["everyone's", "she's", "he's", "they're", "I'm", "that's", "what's", "something"]
+      },
+      {
+        "title": "We'll Get There",
+        "concept": "Family road trip goes wrong - flat tire, wrong turn, it's getting dark. Dad's stressed. Then they find an unexpected beautiful spot. Best accident ever.",
+        "character": "The Wilson family on their chaotic adventure",
+        "setting": "Car journey, unexpected destination",
+        "phonics_focus": ["Contractions: we'll, they'll, it'll, that's"],
+        "theme": "Happy accidents, going with the flow",
+        "story_arc": "Plans → disasters → frustration → unexpected beauty → gratitude",
+        "visual_style": "Road trip feel, stress to serenity, surprise vista reveal",
+        "sample_words": ["we'll", "won't", "can't", "that's", "it's", "don't", "let's", "something"]
+      }
+    ],
+    "C6": [
+      {
+        "title": "The Biggest Race",
+        "concept": "Tortoise and Hare story retold - this time Hare has learned. She trains hard, stays focused. But Tortoise has also trained! A real race. Both win in different ways.",
+        "character": "Hazel Hare (reformed) and Theodore Tortoise (improved)",
+        "setting": "Race course through varied terrain",
+        "phonics_focus": ["Inflected endings: -ed (three sounds), -ing, -er, -est"],
+        "theme": "Growth, fair competition, personal bests",
+        "story_arc": "Training → race day → close competition → both achieve personal goals",
+        "visual_style": "Sports montage style, determination faces, photo finish",
+        "sample_words": ["biggest", "fastest", "jumping", "running", "wanted", "grabbed", "looked", "finished"]
+      },
+      {
+        "title": "The Day Everything Changed",
+        "concept": "An ordinary Tuesday - kid walks to school, same old route. But today: notices a new friend, tries something new at lunch, speaks up in class. Same day, new experience.",
+        "character": "Eli, who decides to do things differently today",
+        "setting": "School day, same setting seen differently",
+        "phonics_focus": ["All -ed endings", "-ing progressive"],
+        "theme": "Small changes make big differences",
+        "story_arc": "Ordinary start → small brave choice → chain reaction → transformed day",
+        "visual_style": "Same settings with different energy, progressively brighter",
+        "sample_words": ["walked", "changed", "started", "noticed", "asking", "hoping", "bigger", "happier"]
+      },
+      {
+        "title": "The Jumping Contest",
+        "concept": "Farm animals have a jumping contest. Each animal has a different style - horse jumped highest, frog jumped farthest, grasshopper jumped most times. Everyone's a winner.",
+        "character": "Farmyard friends competing in their own ways",
+        "setting": "Farm field, jumping setup",
+        "phonics_focus": ["Comparatives: -er, -est"],
+        "theme": "Different measures of success",
+        "story_arc": "Competition starts → different jumps → who won? → everyone won something",
+        "visual_style": "Sporting event, different jump styles, multiple podiums",
+        "sample_words": ["jumping", "jumped", "higher", "highest", "faster", "fastest", "farther", "farthest"]
+      }
+    ],
+    "C7": [
+      {
+        "title": "The Hopeless Garden",
+        "concept": "A girl inherits a hopeless, dead garden. Everyone says give up. She doesn't. Works tirelessly. One day, suddenly - a sprout! Then more. Garden becomes beautiful, hope restored.",
+        "character": "Grace, stubborn optimist with gardening gloves",
+        "setting": "Overgrown abandoned garden brought back to life",
+        "phonics_focus": ["Suffixes: -ful, -less, -ness, -ment, -ly"],
+        "theme": "Persistence against doubt, restoration",
+        "story_arc": "Inheritance → seeming hopelessness → daily work → first sign → transformation",
+        "visual_style": "Before/after transformation, patience montage, bloom explosion",
+        "sample_words": ["hopeless", "hopeful", "careful", "careless", "kindness", "suddenly", "beautiful", "thankful"]
+      },
+      {
+        "title": "The Peaceful Kingdom",
+        "concept": "A kingdom where everyone's always fighting. New ruler says: 'Let's try kindness.' At first, nothing. Then slowly, change. Kingdom becomes peaceful, one act at a time.",
+        "character": "Young Queen Harmony and her skeptical but changing subjects",
+        "setting": "Medieval kingdom transforming",
+        "phonics_focus": ["Suffixes: -ful, -less, -ness, -ment"],
+        "theme": "Leadership through kindness, gradual change",
+        "story_arc": "Conflict → new approach → doubt → small changes → transformation",
+        "visual_style": "Kingdom evolution, harsh to soft colors, community scenes",
+        "sample_words": ["peaceful", "kindness", "thankful", "endless", "treatment", "movement", "careful", "wonderful"]
+      },
+      {
+        "title": "The Fearless Kitten",
+        "concept": "Kitten is fearless (or so she thinks). Climbs too high, goes too far. Gets stuck. Learns that fearless doesn't mean careless. Bravery includes knowing limits.",
+        "character": "Daring the kitten, who learns the difference between brave and reckless",
+        "setting": "Home and neighborhood, increasingly precarious spots",
+        "phonics_focus": ["Suffixes: -less, -ful, -ness, -ly"],
+        "theme": "True bravery vs. recklessness, wisdom",
+        "story_arc": "Fearless acts → escalation → stuck → rescue → understanding",
+        "visual_style": "Kitten adventures, height tension, wise ending",
+        "sample_words": ["fearless", "careless", "careful", "quickly", "slowly", "helpless", "thankful", "safely"]
+      }
+    ],
+    "C8": [
+      {
+        "title": "The Impossible Invention",
+        "concept": "Young inventor tries to build a flying machine. Fails repeatedly. Father says it's impossible. She doesn't stop. Redesigns, relearns. Final version... works! Father amazed.",
+        "character": "Iris, a relentless inventor who won't quit",
+        "setting": "Workshop/garage through many failed attempts",
+        "phonics_focus": ["Prefixes: un-, re-, pre-, dis-, mis-"],
+        "theme": "Perseverance, proving doubters wrong",
+        "story_arc": "Dream → failures → 'impossible' → persistence → breakthrough",
+        "visual_style": "Workshop evolution, failed machines, triumphant flight",
+        "sample_words": ["impossible", "retry", "redo", "untested", "rebuild", "discover", "unknown", "unfair"]
+      },
+      {
+        "title": "The Unfair Race",
+        "concept": "A race where some runners get head starts. Main character thinks it's unfair - until she learns some runners have obstacles she can't see. Perspective shift.",
+        "character": "Maya, who learns about equity vs. equality",
+        "setting": "School race, various starting positions",
+        "phonics_focus": ["Prefixes: un-, dis-", "prefix meanings"],
+        "theme": "Fairness isn't always sameness, empathy",
+        "story_arc": "Confusion → complaint → explanation → understanding → supporting others",
+        "visual_style": "Race setup, invisible obstacles made visible, empathy moment",
+        "sample_words": ["unfair", "unequal", "discover", "different", "unable", "relearn", "misunderstand", "understand"]
+      },
+      {
+        "title": "Rewrite the Rules",
+        "concept": "Kids in a town follow outdated rules that don't make sense anymore. They propose rewriting them - respectfully. Adults listen. Town becomes better with updated rules.",
+        "character": "Council of kids who question and improve",
+        "setting": "Small town with silly old rules",
+        "phonics_focus": ["Prefixes: re-, pre-, un-, mis-"],
+        "theme": "Respectful questioning of tradition, positive change",
+        "story_arc": "Noticing problems → organizing → presenting case → compromise → improvement",
+        "visual_style": "Town hall meeting, before/after community scenes",
+        "sample_words": ["rewrite", "review", "redo", "unfair", "untrue", "misread", "preplanned", "understood"]
+      }
+    ],
+    "D1": [
+      {
+        "title": "The Lighthouse Keeper",
+        "concept": "Old lighthouse keeper is retiring. New keeper arrives - young, different methods. They clash. Storm comes, they must work together. Mutual respect develops through crisis.",
+        "character": "Old keeper (Margaret, traditional) and new keeper (James, modern)",
+        "setting": "Remote coastal lighthouse",
+        "phonics_focus": ["Complex dialogue", "varied sentence structure"],
+        "theme": "Generational wisdom, mutual respect",
+        "story_arc": "Tension → forced collaboration → crisis → mutual saving → understanding",
+        "visual_style": "Dramatic coastal setting, lighthouse detail, storm intensity",
+        "sample_words": ["dialogue", "whispered", "exclaimed", "replied", "wondered", "lighthouse", "generation", "traditional"]
+      },
+      {
+        "title": "The Unexpected Visitor",
+        "concept": "Family has a stranger knock on door during a storm. Should they let them in? They do. Stranger has amazing stories. Leaves a gift - a book that changes everything.",
+        "character": "The Chen family and a mysterious traveling storyteller",
+        "setting": "Isolated house during a storm",
+        "phonics_focus": ["Dialogue tags: asked, replied, whispered, shouted"],
+        "theme": "Hospitality, stories connect us, trust",
+        "story_arc": "Dilemma → kindness → stories shared → departure → lasting gift",
+        "visual_style": "Storm outside, warm inside, storytelling glow",
+        "sample_words": ["mysterious", "whispered", "wondered", "replied", "unexpected", "hospitality", "storyteller"]
+      },
+      {
+        "title": "Two Languages, One Heart",
+        "concept": "Child translator helps grandmother who only speaks Spanish communicate with new neighbors. Realizes being bilingual is a superpower that connects worlds.",
+        "character": "Sofia, bridge between grandmother and community",
+        "setting": "Neighborhood, grandmother's kitchen",
+        "phonics_focus": ["Complex sentences", "rich dialogue"],
+        "theme": "Language as connection, intergenerational bonds",
+        "story_arc": "Translation challenge → frustration → success → appreciation → pride",
+        "visual_style": "Two cultures blending, warmth of connection",
+        "sample_words": ["translated", "explained", "understood", "connected", "between", "language", "communicate"]
+      }
+    ],
+    "D2": [
+      {
+        "title": "The Hidden Garden",
+        "concept": "Girl moves to old estate, finds a locked garden. Key is hidden somewhere in the house. As she searches, she learns about the garden's history and the family who left it behind.",
+        "character": "Lily, newcomer uncovering layers of history",
+        "setting": "Old estate with mystery garden",
+        "phonics_focus": ["Inferencing", "show don't tell", "implicit emotion"],
+        "theme": "Uncovering the past, new life from old",
+        "story_arc": "Move → discovery → search → history revelation → restoration begins",
+        "visual_style": "Gothic mystery atmosphere, before/after garden hints",
+        "sample_words": ["hidden", "mysterious", "trembled", "overgrown", "abandoned", "discovered", "restoration"]
+      },
+      {
+        "title": "The Secret Society",
+        "concept": "Kids discover a secret club from 50 years ago. Find the old meeting place, the codes, the records. Realize the members were their grandparents. Restart the society.",
+        "character": "Four friends uncovering their grandparents' secret past",
+        "setting": "School, secret basement room, grandparents' homes",
+        "phonics_focus": ["Chapter structure", "cliffhangers"],
+        "theme": "Connections across generations, continuity",
+        "story_arc": "Discovery → investigation → realization → reconnection → continuation",
+        "visual_style": "Mystery clues, old photographs, generational parallels",
+        "sample_words": ["society", "discovered", "mysterious", "investigation", "generations", "continued", "revealed"]
+      },
+      {
+        "title": "What the Old Tree Knows",
+        "concept": "An ancient oak tree in town is scheduled to be cut down. Kids research its history - it's witnessed everything. They campaign to save it, learning about change and memory.",
+        "character": "Neighborhood kids and the 300-year-old oak tree",
+        "setting": "Town past and present, tree as witness",
+        "phonics_focus": ["Descriptive writing", "showing emotion"],
+        "theme": "Memory, change, advocacy, respecting history",
+        "story_arc": "Threat → research → discoveries → campaign → resolution",
+        "visual_style": "Tree through eras, historical flashbacks, community gathering",
+        "sample_words": ["ancient", "witnessed", "remembered", "generations", "campaign", "preserved", "community"]
+      }
+    ],
+    "D3": [
+      {
+        "title": "The Architect's Secret",
+        "concept": "A young architect discovers blueprints for a building that was never built. Why? She investigates, finding the original architect had a vision too ahead of its time. She builds it now.",
+        "character": "Maya, young architect with connection to the past",
+        "setting": "Architecture firm, historical archives, construction site",
+        "phonics_focus": ["Latin roots: struct, dict, ject, port"],
+        "theme": "Ideas ahead of their time, honoring visionaries",
+        "story_arc": "Discovery → research → understanding → modern adaptation → completion",
+        "visual_style": "Blueprints, architectural renderings, past/present parallels",
+        "sample_words": ["architect", "structure", "construct", "project", "transport", "instruct", "predict", "dictionary"]
+      },
+      {
+        "title": "The Transport Mystery",
+        "concept": "Old train station has a mystery - trains used to disappear. New kid investigates, finds a hidden track, a secret route used during wartime to protect refugees.",
+        "character": "Historian kid uncovering heroic secrets",
+        "setting": "Old train station, wartime flashbacks",
+        "phonics_focus": ["Latin roots: port, rupt, dict, ject"],
+        "theme": "Hidden heroes, history's secrets",
+        "story_arc": "Mystery → investigation → discovery → revelation → honoring",
+        "visual_style": "Train station atmosphere, historical mystery, heroic reveals",
+        "sample_words": ["transport", "disrupt", "erupt", "predict", "injection", "porter", "report", "interrupt"]
+      },
+      {
+        "title": "Project: Time Capsule",
+        "concept": "Class creates a time capsule for 100 years from now. What do they include? Debates about what matters, what future people need to know. Reveals what kids value.",
+        "character": "Diverse classroom with different perspectives on importance",
+        "setting": "Classroom, brainstorming sessions, burial ceremony",
+        "phonics_focus": ["Latin roots: ject, struct"],
+        "theme": "What matters, legacy, perspective on time",
+        "story_arc": "Assignment → debates → choices → reflection → ceremony",
+        "visual_style": "Classroom discussions, capsule items, future imagination",
+        "sample_words": ["project", "reject", "subject", "construct", "structure", "instruct", "object", "inject"]
+      }
+    ],
+    "D4": [
+      {
+        "title": "Signals from Kepler",
+        "concept": "Young scientist detects unusual signals from exoplanet Kepler-442b. Is it natural? Or something else? The investigation requires biology, physics, and imagination.",
+        "character": "Dr. Zara Okonkwo, 16-year-old prodigy scientist",
+        "setting": "Space research facility, radio telescope array",
+        "phonics_focus": ["Greek roots: graph, phon, photo, bio, geo"],
+        "theme": "Scientific inquiry, wonder, possibility",
+        "story_arc": "Detection → investigation → hypothesis → testing → open-ended wonder",
+        "visual_style": "Space imagery, scientific equipment, data visualizations",
+        "sample_words": ["biography", "photograph", "telephone", "geography", "biology", "graphic", "phonics", "geology"]
+      },
+      {
+        "title": "The Photographer's Journey",
+        "concept": "A photographer documents a dying language - the last speakers, their stories, their geography. Racing against time to preserve what's being lost.",
+        "character": "Documentary photographer preserving culture",
+        "setting": "Remote village, elder speakers, landscape",
+        "phonics_focus": ["Greek roots: graph, phon, photo"],
+        "theme": "Preservation, language as culture, documentation",
+        "story_arc": "Assignment → immersion → connection → urgency → completion/loss",
+        "visual_style": "Documentary photography, portraits, landscapes",
+        "sample_words": ["photograph", "biography", "microphone", "autograph", "graphic", "phonograph", "geography"]
+      },
+      {
+        "title": "The Symphony of Science",
+        "concept": "A composer creates music using sounds from nature - whale songs, earthquake frequencies, solar wind data. Art and science merge into something beautiful and new.",
+        "character": "Composer who hears music in scientific data",
+        "setting": "Studio with scientific equipment, nature recordings",
+        "phonics_focus": ["Greek roots: phon, graph, bio"],
+        "theme": "Science and art are connected, finding beauty in data",
+        "story_arc": "Inspiration → collection → composition → premiere → wonder",
+        "visual_style": "Sound waves, nature imagery, concert hall",
+        "sample_words": ["symphony", "telephone", "microphone", "biography", "photograph", "phonics", "homophone"]
+      }
+    ],
+    "D5": [
+      {
+        "title": "The Winter of Words",
+        "concept": "A writer is blocked, frozen. She retreats to a cabin in winter. The silence is terrifying, then healing. Words return, changed. She writes her best work from stillness.",
+        "character": "Author finding her voice again through silence",
+        "setting": "Isolated winter cabin, snow landscapes",
+        "phonics_focus": ["Figurative language: metaphor, simile", "rich description"],
+        "theme": "Creativity needs rest, silence has value",
+        "story_arc": "Block → escape → struggle with silence → acceptance → breakthrough",
+        "visual_style": "Winter isolation beauty, cabin intimacy, metaphor visuals",
+        "sample_words": ["silence", "metaphor", "frozen", "whispered", "crystalized", "echoed", "imagined", "transformed"]
+      },
+      {
+        "title": "The Storm Singer",
+        "concept": "A girl discovers she can sense storms before they come - she feels them as music. This gift helps her community but also sets her apart. Learning to live with extraordinary ability.",
+        "character": "Marina, who experiences weather as symphony",
+        "setting": "Coastal village dependent on weather knowledge",
+        "phonics_focus": ["Personification", "sensory description"],
+        "theme": "Gifts come with responsibility, being different",
+        "story_arc": "Discovery → doubt → acceptance → crisis → using gift → belonging",
+        "visual_style": "Synesthesia visuals, weather as music, emotional storms",
+        "sample_words": ["symphony", "crescendo", "whispered", "thundered", "swirled", "harmonized", "transformed"]
+      },
+      {
+        "title": "The Library of Lost Books",
+        "concept": "A library exists where books that were never finished are kept - authors who died, manuscripts that were lost. A librarian cares for them, sometimes finishing them herself.",
+        "character": "The Librarian of unfinished stories",
+        "setting": "Mystical library of incomplete works",
+        "phonics_focus": ["Literary language", "metaphor"],
+        "theme": "Stories want to be finished, completion vs. perfection",
+        "story_arc": "Introduction to library → special book found → research → completion → release",
+        "visual_style": "Magical library, floating text, story imagery",
+        "sample_words": ["unfinished", "manuscripts", "preserved", "whispered", "completed", "transformed", "released"]
+      }
+    ],
+    "D6": [
+      {
+        "title": "The Bridge Between",
+        "concept": "A teen moves between two worlds - their parents' traditional culture and their friends' modern one. A bridge builder, but exhausted. Eventually creates their own space that honors both.",
+        "character": "Alex, navigating dual identity",
+        "setting": "Home (traditional) and school (modern)",
+        "phonics_focus": ["Full literary complexity", "nuanced character"],
+        "theme": "Identity, code-switching, creating space for wholeness",
+        "story_arc": "Tension → exhaustion → crisis → integration → new identity",
+        "visual_style": "Two distinct visual worlds merging, bridge imagery",
+        "sample_words": ["between", "identity", "traditional", "integration", "exhaustion", "belonging", "wholeness"]
+      },
+      {
+        "title": "The Last Summer",
+        "concept": "Friends know this summer is their last together before everyone scatters. They try to make it perfect but imperfections make it memorable. Bittersweet beauty of endings.",
+        "character": "Four friends facing the end of an era",
+        "setting": "Hometown summer before everyone leaves",
+        "phonics_focus": ["Multiple perspectives", "ambiguity", "thematic depth"],
+        "theme": "Endings are beginnings, imperfect is perfect",
+        "story_arc": "Awareness of ending → trying too hard → disasters → acceptance → memory-making",
+        "visual_style": "Golden summer light, nostalgic moments, group dynamics",
+        "sample_words": ["bittersweet", "nostalgic", "imperfect", "memorable", "scattered", "together", "forever"]
+      },
+      {
+        "title": "The Letters We Never Sent",
+        "concept": "When grandmother dies, family finds box of unsent letters. Each family member reads one addressed to them. Secrets, apologies, love. Family heals through understanding her.",
+        "character": "Three generations processing a life through letters",
+        "setting": "Family home, grandmother's room, each reader's space",
+        "phonics_focus": ["Epistolary elements", "voice variety", "inference"],
+        "theme": "Unspoken words matter, posthumous understanding",
+        "story_arc": "Death → discovery → reading → processing → family unity",
+        "visual_style": "Handwriting, memory sequences, family gathering",
+        "sample_words": ["unspoken", "addressed", "forgiveness", "revealed", "understanding", "legacy", "inherited"]
+      }
+    ]
+  }
+}

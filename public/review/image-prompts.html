@@ -357,64 +357,70 @@
             <aside class="reference-sidebar">
                 <h3 style="margin-bottom: var(--space-md);">Reference Images</h3>
 
-                <!-- Ref 1: Characters (T2I - $0.15) -->
+                <!-- Ref 1: 9-Panel Style Guide (T2I - $0.15) -->
                 <div class="reference-section">
                     <h4>
-                        <span>1. Characters</span>
+                        <span>1. 9-Panel</span>
                         <span class="ref-status" id="ref1Status">Not set</span>
                     </h4>
                     <div class="reference-image" id="referenceImage1">
                         <div class="reference-placeholder">
-                            <p>Character poses & expressions</p>
+                            <p>Style guide</p>
                             <p style="font-size: 0.7rem;">T2I $0.15</p>
                         </div>
                     </div>
-                    <button class="btn btn-sm btn-secondary" onclick="generateCharactersRef()" style="width: 100%; margin-top: var(--space-xs);" id="genRef1Btn">
-                        Generate Characters
-                    </button>
+                    <p style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 4px;">
+                        Generate in wizard or upload
+                    </p>
                 </div>
 
-                <!-- Ref 2: Settings (I2I - $0.03) -->
+                <!-- Ref 2: Opening Scene (I2I - $0.03) -->
                 <div class="reference-section">
                     <h4>
-                        <span>2. Settings</span>
+                        <span>2. Opening Scene</span>
                         <span class="ref-status" id="ref2Status">Not set</span>
                     </h4>
+                    <select class="key-scene-select" id="sceneSelect2" onchange="updateSceneSelection(2)">
+                        <option value="">Select page...</option>
+                    </select>
                     <div class="reference-image small" id="referenceImage2">
                         <div class="reference-placeholder">
-                            <p>Environment/backgrounds</p>
+                            <p>Early story scene</p>
                             <p style="font-size: 0.7rem;">I2I $0.03</p>
                         </div>
                     </div>
-                    <button class="btn btn-sm btn-ghost" onclick="generateSettingsRef()" style="width: 100%; margin-top: var(--space-xs);" id="genRef2Btn" disabled>
-                        Generate Settings
+                    <button class="btn btn-sm btn-ghost" onclick="generateSceneRef(2)" style="width: 100%; margin-top: var(--space-xs);" id="genRef2Btn" disabled>
+                        Generate Scene
                     </button>
                 </div>
 
-                <!-- Ref 3: Style (I2I - $0.03) -->
+                <!-- Ref 3: Closing Scene (I2I - $0.03) -->
                 <div class="reference-section">
                     <h4>
-                        <span>3. Style</span>
+                        <span>3. Closing Scene</span>
                         <span class="ref-status" id="ref3Status">Not set</span>
                     </h4>
+                    <select class="key-scene-select" id="sceneSelect3" onchange="updateSceneSelection(3)">
+                        <option value="">Select page...</option>
+                    </select>
                     <div class="reference-image small" id="referenceImage3">
                         <div class="reference-placeholder">
-                            <p>Colors & textures</p>
+                            <p>Late story scene</p>
                             <p style="font-size: 0.7rem;">I2I $0.03</p>
                         </div>
                     </div>
-                    <button class="btn btn-sm btn-ghost" onclick="generateStyleRef()" style="width: 100%; margin-top: var(--space-xs);" id="genRef3Btn" disabled>
-                        Generate Style
+                    <button class="btn btn-sm btn-ghost" onclick="generateSceneRef(3)" style="width: 100%; margin-top: var(--space-xs);" id="genRef3Btn" disabled>
+                        Generate Scene
                     </button>
                 </div>
 
                 <!-- Generate All Cascade -->
                 <div class="reference-section" style="background: var(--color-sage-light); border-radius: var(--border-radius); padding: var(--space-sm);">
                     <button class="btn btn-primary btn-sm" onclick="generateAllRefsCascade()" style="width: 100%;" id="genAllRefsBtn">
-                        Generate All ($0.21)
+                        Generate Scenes ($0.06)
                     </button>
                     <p style="font-size: 0.7rem; color: var(--color-text-muted); margin-top: 4px; text-align: center;">
-                        Characters → Settings + Style
+                        Uses 9-panel as style ref
                     </p>
                 </div>
 
@@ -493,12 +499,12 @@
         let slug = null;
         let referenceImages = {
             ref1: null,  // 9-panel style guide
-            ref2: null,  // Key scene A
-            ref3: null   // Key scene B
+            ref2: null,  // Opening scene
+            ref3: null   // Closing scene
         };
-        let keySceneSelections = {
-            ref2: null,  // page number for key scene 2
-            ref3: null   // page number for key scene 3
+        let sceneSelections = {
+            ref2: null,  // page number for opening scene
+            ref3: null   // page number for closing scene
         };
         let imagePrompts = {}; // page number -> custom prompt
 
@@ -556,8 +562,8 @@
                 if (state.referenceImages) {
                     referenceImages = { ...referenceImages, ...state.referenceImages };
                 }
-                if (state.keySceneSelections) {
-                    keySceneSelections = state.keySceneSelections;
+                if (state.sceneSelections) {
+                    sceneSelections = state.sceneSelections;
                 }
 
                 // Load any saved custom prompts
@@ -615,34 +621,35 @@
 
             document.getElementById('readerLink').href = `/reader.html?book=${slug}`;
 
+            // Populate scene dropdowns
+            populateSceneDropdowns();
+
             // Update reference images
             updateReferenceDisplay();
         }
 
         function updateReferenceDisplay() {
-            // Ref 1 (Characters)
+            // Ref 1 (9-Panel)
             if (referenceImages.ref1) {
-                document.getElementById('referenceImage1').innerHTML = `<img src="${referenceImages.ref1}" alt="Characters">`;
+                document.getElementById('referenceImage1').innerHTML = `<img src="${referenceImages.ref1}" alt="9-Panel">`;
                 document.getElementById('ref1Status').textContent = 'Ready';
                 document.getElementById('ref1Status').className = 'ref-status ready';
-                // Enable I2I buttons
-                document.getElementById('genRef2Btn').disabled = false;
-                document.getElementById('genRef3Btn').disabled = false;
-            } else {
-                document.getElementById('genRef2Btn').disabled = true;
-                document.getElementById('genRef3Btn').disabled = true;
             }
 
-            // Ref 2 (Settings)
+            // Update scene button states based on 9-panel availability
+            updateSceneButtonState(2);
+            updateSceneButtonState(3);
+
+            // Ref 2 (Opening Scene)
             if (referenceImages.ref2) {
-                document.getElementById('referenceImage2').innerHTML = `<img src="${referenceImages.ref2}" alt="Settings">`;
+                document.getElementById('referenceImage2').innerHTML = `<img src="${referenceImages.ref2}" alt="Opening Scene">`;
                 document.getElementById('ref2Status').textContent = 'Ready';
                 document.getElementById('ref2Status').className = 'ref-status ready';
             }
 
-            // Ref 3 (Style)
+            // Ref 3 (Closing Scene)
             if (referenceImages.ref3) {
-                document.getElementById('referenceImage3').innerHTML = `<img src="${referenceImages.ref3}" alt="Style">`;
+                document.getElementById('referenceImage3').innerHTML = `<img src="${referenceImages.ref3}" alt="Closing Scene">`;
                 document.getElementById('ref3Status').textContent = 'Ready';
                 document.getElementById('ref3Status').className = 'ref-status ready';
             }
@@ -653,29 +660,29 @@
 
         function updateRefsInfo() {
             const refs = [];
-            if (referenceImages.ref1) refs.push('Characters');
-            if (referenceImages.ref2) refs.push('Settings');
-            if (referenceImages.ref3) refs.push('Style');
+            if (referenceImages.ref1) refs.push('9-Panel');
+            if (referenceImages.ref2) refs.push('Opening');
+            if (referenceImages.ref3) refs.push('Closing');
 
             document.getElementById('refsCount').textContent = refs.length;
 
             if (refs.length === 0) {
-                document.getElementById('refsDetail').textContent = 'Generate characters first, then settings + style.';
+                document.getElementById('refsDetail').textContent = 'Generate 9-panel in wizard first.';
                 document.getElementById('refsInfo').style.background = '#FFEBEE';
             } else if (refs.length === 1) {
-                document.getElementById('refsDetail').textContent = `Have: ${refs.join(', ')}. Generate settings + style next.`;
+                document.getElementById('refsDetail').textContent = `Have: ${refs.join(', ')}. Select & generate scene refs.`;
                 document.getElementById('refsInfo').style.background = '#FFF3E0';
             } else if (refs.length === 2) {
-                document.getElementById('refsDetail').textContent = `Have: ${refs.join(', ')}. Add one more for full consistency.`;
+                document.getElementById('refsDetail').textContent = `Have: ${refs.join(', ')}. Add one more scene.`;
                 document.getElementById('refsInfo').style.background = '#FFF3E0';
             } else {
-                document.getElementById('refsDetail').textContent = `All 3 references ready! ($0.21 total)`;
+                document.getElementById('refsDetail').textContent = `All 3 references ready!`;
                 document.getElementById('refsInfo').style.background = 'var(--color-sage-light)';
             }
         }
 
         // ===================
-        // CASCADE REFERENCE GENERATION
+        // SCENE-BASED REFERENCE GENERATION
         // ===================
 
         function truncate(text, maxLen) {
@@ -695,141 +702,107 @@
             }).join('\n');
         }
 
-        function getSettingContext() {
-            return book.setting_context || book.story_bible?.setting || 'Cozy, inviting environment';
+        // Populate scene selection dropdowns
+        function populateSceneDropdowns() {
+            const storyPages = book.pages.filter(p => p.type === 'story' || (p.text && !p.type));
+
+            [2, 3].forEach(refNum => {
+                const select = document.getElementById(`sceneSelect${refNum}`);
+                if (!select) return;
+
+                select.innerHTML = '<option value="">Select page...</option>';
+
+                storyPages.forEach((page, idx) => {
+                    const pageNum = page.page || page.story_page;
+                    const option = document.createElement('option');
+                    option.value = pageNum;
+                    // Suggest opening for ref2, closing for ref3
+                    const label = refNum === 2 && idx < 3 ? ' (suggested)' :
+                                  refNum === 3 && idx >= storyPages.length - 3 ? ' (suggested)' : '';
+                    option.textContent = `Page ${pageNum}: "${truncate(page.text, 35)}"${label}`;
+                    select.appendChild(option);
+                });
+
+                // Auto-select suggestions
+                if (!sceneSelections[`ref${refNum}`]) {
+                    if (refNum === 2 && storyPages.length > 0) {
+                        // Select 2nd story page for opening
+                        const suggestedPage = storyPages[Math.min(1, storyPages.length - 1)];
+                        select.value = suggestedPage.page || suggestedPage.story_page;
+                        sceneSelections.ref2 = parseInt(select.value);
+                    } else if (refNum === 3 && storyPages.length > 1) {
+                        // Select 2nd-to-last story page for closing
+                        const suggestedPage = storyPages[Math.max(0, storyPages.length - 2)];
+                        select.value = suggestedPage.page || suggestedPage.story_page;
+                        sceneSelections.ref3 = parseInt(select.value);
+                    }
+                } else {
+                    select.value = sceneSelections[`ref${refNum}`];
+                }
+
+                updateSceneButtonState(refNum);
+            });
         }
 
-        // Build prompt for characters.png (T2I)
-        function buildCharactersPrompt() {
+        function updateSceneSelection(refNum) {
+            const select = document.getElementById(`sceneSelect${refNum}`);
+            sceneSelections[`ref${refNum}`] = select.value ? parseInt(select.value) : null;
+            updateSceneButtonState(refNum);
+            saveRefsToStorage();
+        }
+
+        function updateSceneButtonState(refNum) {
+            const btn = document.getElementById(`genRef${refNum}Btn`);
+            const hasSelection = sceneSelections[`ref${refNum}`];
+            const has9Panel = referenceImages.ref1;
+            btn.disabled = !hasSelection || !has9Panel;
+        }
+
+        // Build prompt for a scene (I2I using 9-panel as reference)
+        function buildScenePrompt(page) {
+            const scene = page.scene || page.text;
+            const style = getVisualStyle();
             const chars = getCharacterDescriptions();
-            const style = getVisualStyle();
 
-            return `Character reference sheet for children's book:
+            return `Single scene illustration: ${scene}
 
-${chars}
-
-Show each character in multiple poses:
-- Front view with friendly expression
-- Side view in action/walking pose
-- Happy/excited expression
-- Additional expression as needed
-
+${chars ? `CHARACTERS (maintain exact consistency with reference sheet):\n${chars}\n` : ''}
 STYLE: ${style}
 
-LAYOUT: Arrange characters clearly with space between each pose.
-CRITICAL: NO TEXT, NO WORDS, NO LETTERS. Pure illustration only.
-Maintain consistent design across all poses.`;
+COMPOSITION: One cohesive illustration filling the entire canvas.
+Full-bleed image with the scene filling edge to edge.
+Match character designs exactly from the 9-panel reference.
+
+CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.`;
         }
 
-        // Build prompt for settings.png (I2I)
-        function buildSettingsPrompt() {
-            const setting = getSettingContext();
-            const style = getVisualStyle();
-
-            return `Environment/setting reference for children's book:
-
-Setting: ${setting}
-
-Show the environment with:
-- Wide establishing view
-- Key location details
-- Appropriate lighting and atmosphere
-- Space where characters would naturally exist
-
-STYLE: ${style}
-
-Match style exactly from the character reference.
-CRITICAL: NO TEXT, NO WORDS, NO LETTERS. Pure illustration only.`;
-        }
-
-        // Build prompt for style.png (I2I)
-        function buildStylePrompt() {
-            const style = getVisualStyle();
-
-            return `Style palette reference for children's book:
-
-Create a mood board showing:
-- Color palette with key colors
-- Texture samples (watercolor washes, etc.)
-- Lighting examples (warm sunlight, cozy indoor)
-- Sample brushwork and edges
-
-STYLE: ${style}
-
-This captures the overall visual feel for consistency.
-Match style exactly from the character reference.
-CRITICAL: NO TEXT, NO WORDS, NO LETTERS. Pure illustration only.`;
-        }
-
-        // Generate characters.png via T2I
-        async function generateCharactersRef() {
-            const genBtn = document.getElementById('genRef1Btn');
-            const statusEl = document.getElementById('ref1Status');
-
-            genBtn.disabled = true;
-            genBtn.textContent = 'Generating...';
-            statusEl.textContent = 'Generating...';
-
-            const prompt = buildCharactersPrompt();
-
-            try {
-                const response = await fetch('/api/generate-image', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        prompt: prompt,
-                        model: 'wan2.6-t2i',  // T2I for characters ($0.15)
-                        slug: slug,
-                        page: 'characters'
-                    })
-                });
-
-                const result = await response.json();
-
-                if (result.pending && result.taskId) {
-                    await pollForImage(result.taskId, result.statusEndpoint, (url) => {
-                        referenceImages.ref1 = url;
-                        saveRefsToStorage();
-                        updateReferenceDisplay();
-                        // Enable I2I buttons now that we have characters
-                        document.getElementById('genRef2Btn').disabled = false;
-                        document.getElementById('genRef3Btn').disabled = false;
-                    });
-                } else if (result.url) {
-                    referenceImages.ref1 = result.url;
-                    saveRefsToStorage();
-                    updateReferenceDisplay();
-                    document.getElementById('genRef2Btn').disabled = false;
-                    document.getElementById('genRef3Btn').disabled = false;
-                } else {
-                    throw new Error(result.error || 'Failed to generate');
-                }
-
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to generate characters: ' + error.message);
-                statusEl.textContent = 'Error';
-            }
-
-            genBtn.disabled = false;
-            genBtn.textContent = 'Generate Characters';
-        }
-
-        // Generate settings.png via I2I (uses characters as reference)
-        async function generateSettingsRef() {
-            if (!referenceImages.ref1) {
-                alert('Generate characters first (they are the style seed).');
+        // Generate a scene reference via I2I (uses 9-panel as style reference)
+        async function generateSceneRef(refNum) {
+            const pageNum = sceneSelections[`ref${refNum}`];
+            if (!pageNum) {
+                alert('Please select a page first.');
                 return;
             }
 
-            const genBtn = document.getElementById('genRef2Btn');
-            const statusEl = document.getElementById('ref2Status');
+            if (!referenceImages.ref1) {
+                alert('9-panel reference required. Generate or upload one first.');
+                return;
+            }
+
+            const page = book.pages.find(p => (p.page || p.story_page) === pageNum);
+            if (!page) {
+                alert('Page not found.');
+                return;
+            }
+
+            const genBtn = document.getElementById(`genRef${refNum}Btn`);
+            const statusEl = document.getElementById(`ref${refNum}Status`);
 
             genBtn.disabled = true;
             genBtn.textContent = 'Generating...';
             statusEl.textContent = 'Generating...';
 
-            const prompt = buildSettingsPrompt();
+            const prompt = buildScenePrompt(page);
 
             try {
                 const response = await fetch('/api/generate-ref-i2i', {
@@ -840,7 +813,7 @@ CRITICAL: NO TEXT, NO WORDS, NO LETTERS. Pure illustration only.`;
                         referenceImage: referenceImages.ref1,
                         referenceIsUrl: true,
                         slug: slug,
-                        refType: 'settings'
+                        refType: `scene_page${pageNum}`
                     })
                 });
 
@@ -848,12 +821,12 @@ CRITICAL: NO TEXT, NO WORDS, NO LETTERS. Pure illustration only.`;
 
                 if (result.pending && result.taskId) {
                     await pollForImage(result.taskId, result.statusEndpoint, (url) => {
-                        referenceImages.ref2 = url;
+                        referenceImages[`ref${refNum}`] = url;
                         saveRefsToStorage();
                         updateReferenceDisplay();
                     });
                 } else if (result.url) {
-                    referenceImages.ref2 = result.url;
+                    referenceImages[`ref${refNum}`] = result.url;
                     saveRefsToStorage();
                     updateReferenceDisplay();
                 } else {
@@ -862,91 +835,33 @@ CRITICAL: NO TEXT, NO WORDS, NO LETTERS. Pure illustration only.`;
 
             } catch (error) {
                 console.error('Error:', error);
-                alert('Failed to generate settings: ' + error.message);
+                alert('Failed to generate scene: ' + error.message);
                 statusEl.textContent = 'Error';
             }
 
             genBtn.disabled = false;
-            genBtn.textContent = 'Generate Settings';
+            genBtn.textContent = 'Generate Scene';
         }
 
-        // Generate style.png via I2I (uses characters as reference)
-        async function generateStyleRef() {
-            if (!referenceImages.ref1) {
-                alert('Generate characters first (they are the style seed).');
-                return;
-            }
-
-            const genBtn = document.getElementById('genRef3Btn');
-            const statusEl = document.getElementById('ref3Status');
-
-            genBtn.disabled = true;
-            genBtn.textContent = 'Generating...';
-            statusEl.textContent = 'Generating...';
-
-            const prompt = buildStylePrompt();
-
-            try {
-                const response = await fetch('/api/generate-ref-i2i', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        prompt: prompt,
-                        referenceImage: referenceImages.ref1,
-                        referenceIsUrl: true,
-                        slug: slug,
-                        refType: 'style'
-                    })
-                });
-
-                const result = await response.json();
-
-                if (result.pending && result.taskId) {
-                    await pollForImage(result.taskId, result.statusEndpoint, (url) => {
-                        referenceImages.ref3 = url;
-                        saveRefsToStorage();
-                        updateReferenceDisplay();
-                    });
-                } else if (result.url) {
-                    referenceImages.ref3 = result.url;
-                    saveRefsToStorage();
-                    updateReferenceDisplay();
-                } else {
-                    throw new Error(result.error || 'Failed to generate');
-                }
-
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to generate style: ' + error.message);
-                statusEl.textContent = 'Error';
-            }
-
-            genBtn.disabled = false;
-            genBtn.textContent = 'Generate Style';
-        }
-
-        // Generate all refs in cascade: characters → (settings + style in parallel)
+        // Generate both scene refs in parallel (requires 9-panel to exist)
         async function generateAllRefsCascade() {
+            if (!referenceImages.ref1) {
+                alert('9-panel reference required first. Generate one in the wizard.');
+                return;
+            }
+
             const btn = document.getElementById('genAllRefsBtn');
             btn.disabled = true;
             btn.textContent = 'Generating...';
 
             try {
-                // Step 1: Generate characters (T2I)
-                if (!referenceImages.ref1) {
-                    await generateCharactersRef();
-                }
-
-                // Wait a moment for state to update
-                await new Promise(r => setTimeout(r, 1000));
-
-                // Step 2 & 3: Generate settings and style in parallel (I2I)
+                // Generate both scenes in parallel
                 const promises = [];
-                if (!referenceImages.ref2) {
-                    promises.push(generateSettingsRef());
+                if (sceneSelections.ref2 && !referenceImages.ref2) {
+                    promises.push(generateSceneRef(2));
                 }
-                if (!referenceImages.ref3) {
-                    promises.push(generateStyleRef());
+                if (sceneSelections.ref3 && !referenceImages.ref3) {
+                    promises.push(generateSceneRef(3));
                 }
 
                 if (promises.length > 0) {
@@ -955,14 +870,14 @@ CRITICAL: NO TEXT, NO WORDS, NO LETTERS. Pure illustration only.`;
 
                 btn.textContent = 'Complete!';
                 setTimeout(() => {
-                    btn.textContent = 'Generate All ($0.21)';
+                    btn.textContent = 'Generate Scenes ($0.06)';
                     btn.disabled = false;
                 }, 2000);
 
             } catch (error) {
                 console.error('Cascade error:', error);
-                alert('Cascade generation failed: ' + error.message);
-                btn.textContent = 'Generate All ($0.21)';
+                alert('Scene generation failed: ' + error.message);
+                btn.textContent = 'Generate Scenes ($0.06)';
                 btn.disabled = false;
             }
         }
@@ -973,14 +888,14 @@ CRITICAL: NO TEXT, NO WORDS, NO LETTERS. Pure illustration only.`;
             if (wizardState) {
                 const state = JSON.parse(wizardState);
                 state.referenceImages = referenceImages;
-                state.keySceneSelections = keySceneSelections;
+                state.sceneSelections = sceneSelections;
                 localStorage.setItem('wizard_state_' + slug, JSON.stringify(state));
             }
 
             // Also save standalone
             localStorage.setItem('refs_' + slug, JSON.stringify({
                 referenceImages,
-                keySceneSelections
+                sceneSelections
             }));
         }
 

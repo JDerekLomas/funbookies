@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experiment Results - Letter Sounds</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header {
+      text-align: center;
+      padding: var(--space-lg) 0;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-display);
+      margin-bottom: var(--space-xs);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: var(--space-md);
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--color-sage);
+    }
+
+    .stat-label {
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+    }
+
+    .results-section {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: var(--space-lg);
+    }
+
+    .results-section h2 {
+      margin-bottom: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tally-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .tally-table th, .tally-table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .tally-table th {
+      background: var(--color-cream);
+      font-weight: 600;
+    }
+
+    .letter-cell {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .winner {
+      background: var(--color-sage-light);
+      font-weight: 600;
+    }
+
+    .vote-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .vote-fill {
+      height: 20px;
+      background: var(--color-sage);
+      border-radius: 4px;
+      min-width: 4px;
+    }
+
+    .participant-card {
+      background: var(--color-cream);
+      border-radius: var(--border-radius);
+      padding: var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .participant-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .participant-name {
+      font-weight: 600;
+    }
+
+    .participant-date {
+      color: var(--color-text-muted);
+      font-size: 0.8rem;
+    }
+
+    .participant-selections {
+      font-size: 0.9rem;
+    }
+
+    .source-label {
+      font-weight: 600;
+      color: var(--color-sage-dark);
+      margin-top: 8px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: var(--space-xl);
+      color: var(--color-text-muted);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      margin-bottom: var(--space-md);
+      font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+      color: var(--color-charcoal);
+    }
+
+    .refresh-btn {
+      margin-left: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/experiments/hub.html" class="back-link">← Back to Experiments</a>
+
+    <header class="page-header">
+      <h1>Letter Sounds Results</h1>
+      <p>Aggregated results from the phonetic spelling experiment</p>
+    </header>
+
+    <div id="loading" class="loading">Loading results...</div>
+
+    <div id="content" style="display: none;">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="total-responses">0</div>
+          <div class="stat-label">Total Responses</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="openai-responses">0</div>
+          <div class="stat-label">OpenAI Votes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="elevenlabs-responses">0</div>
+          <div class="stat-label">ElevenLabs Votes</div>
+        </div>
+      </div>
+
+      <div class="results-section">
+        <h2>📊 Spelling Preferences by Letter</h2>
+        <div id="tally-tables"></div>
+      </div>
+
+      <div class="results-section">
+        <h2>
+          👥 Individual Responses
+          <button class="btn btn-ghost refresh-btn" onclick="loadResults()">Refresh</button>
+        </h2>
+        <div id="participants-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const LETTERS = ['c', 'e', 'f', 'i', 'l', 'p', 'r', 'v', 'z'];
+
+    async function loadResults() {
+      try {
+        const response = await fetch('/api/experiment-results');
+        const data = await response.json();
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+
+        renderResults(data.results || []);
+      } catch (error) {
+        console.error('Error loading results:', error);
+        document.getElementById('loading').textContent = 'Failed to load results. Try refreshing.';
+      }
+    }
+
+    function renderResults(results) {
+      document.getElementById('total-responses').textContent = results.length;
+
+      // Count votes by source
+      let openaiCount = 0;
+      let elevenlabsCount = 0;
+
+      results.forEach(r => {
+        if (r.selections?.['openai-us']) openaiCount++;
+        if (r.selections?.['elevenlabs-uk']) elevenlabsCount++;
+      });
+
+      document.getElementById('openai-responses').textContent = openaiCount;
+      document.getElementById('elevenlabs-responses').textContent = elevenlabsCount;
+
+      // Tally votes by letter and spelling
+      const tallies = {
+        'openai-us': {},
+        'elevenlabs-uk': {}
+      };
+
+      LETTERS.forEach(letter => {
+        tallies['openai-us'][letter] = {};
+        tallies['elevenlabs-uk'][letter] = {};
+      });
+
+      results.forEach(result => {
+        for (const [source, letterSelections] of Object.entries(result.selections || {})) {
+          if (!tallies[source]) continue;
+
+          for (const [letter, variants] of Object.entries(letterSelections || {})) {
+            for (const [variantId, selected] of Object.entries(variants || {})) {
+              if (selected) {
+                if (!tallies[source][letter][variantId]) {
+                  tallies[source][letter][variantId] = 0;
+                }
+                tallies[source][letter][variantId]++;
+              }
+            }
+          }
+        }
+      });
+
+      renderTallyTables(tallies, results.length);
+      renderParticipants(results);
+    }
+
+    function renderTallyTables(tallies, totalResponses) {
+      const container = document.getElementById('tally-tables');
+
+      let html = '';
+
+      for (const [source, letterTallies] of Object.entries(tallies)) {
+        html += `<h3 style="margin: var(--space-md) 0 var(--space-sm);">${source === 'openai-us' ? 'OpenAI (US)' : 'ElevenLabs (UK)'}</h3>`;
+        html += `<table class="tally-table"><thead><tr><th>Letter</th><th>Spelling</th><th>Votes</th></tr></thead><tbody>`;
+
+        for (const letter of LETTERS) {
+          const variants = letterTallies[letter] || {};
+          const sorted = Object.entries(variants).sort((a, b) => b[1] - a[1]);
+
+          if (sorted.length === 0) {
+            html += `<tr><td class="letter-cell">${letter}</td><td colspan="2" style="color: var(--color-text-muted);">No votes yet</td></tr>`;
+          } else {
+            const maxVotes = sorted[0][1];
+            sorted.forEach(([variantId, count], idx) => {
+              const isWinner = count === maxVotes && count > 0;
+              const barWidth = totalResponses > 0 ? (count / totalResponses) * 100 : 0;
+              html += `
+                <tr class="${isWinner ? 'winner' : ''}">
+                  ${idx === 0 ? `<td class="letter-cell" rowspan="${sorted.length}">${letter}</td>` : ''}
+                  <td>${variantId}</td>
+                  <td>
+                    <div class="vote-bar">
+                      <div class="vote-fill" style="width: ${barWidth}%"></div>
+                      <span>${count}</span>
+                    </div>
+                  </td>
+                </tr>
+              `;
+            });
+          }
+        }
+
+        html += '</tbody></table>';
+      }
+
+      container.innerHTML = html;
+    }
+
+    function renderParticipants(results) {
+      const container = document.getElementById('participants-list');
+
+      if (results.length === 0) {
+        container.innerHTML = '<p style="color: var(--color-text-muted);">No responses yet.</p>';
+        return;
+      }
+
+      // Sort by timestamp descending
+      const sorted = [...results].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+      container.innerHTML = sorted.map(result => {
+        const date = new Date(result.timestamp).toLocaleString();
+        const name = result.participant?.name || 'Anonymous';
+        const comments = result.participant?.comments;
+
+        let selectionsHtml = '';
+        for (const [source, letterSelections] of Object.entries(result.selections || {})) {
+          selectionsHtml += `<div class="source-label">${source}:</div>`;
+          const items = [];
+          for (const [letter, variants] of Object.entries(letterSelections || {})) {
+            const selected = Object.entries(variants || {})
+              .filter(([_, v]) => v)
+              .map(([id]) => id);
+            if (selected.length > 0) {
+              items.push(`<strong>${letter}:</strong> ${selected.join(', ')}`);
+            }
+          }
+          selectionsHtml += items.length > 0 ? items.join(' · ') : '<em>None</em>';
+        }
+
+        return `
+          <div class="participant-card">
+            <div class="participant-header">
+              <span class="participant-name">${name}</span>
+              <span class="participant-date">${date}</span>
+            </div>
+            ${comments ? `<p style="margin-bottom: 8px; font-style: italic;">"${comments}"</p>` : ''}
+            <div class="participant-selections">${selectionsHtml}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    loadResults();
+  </script>
+</body>
+</html>

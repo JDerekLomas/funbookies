@@ -1,0 +1,147 @@
+{
+  "letters": {
+    "a": [
+      {"id": "v1", "spelling": "ah", "description": "ah - open vowel"},
+      {"id": "v2", "spelling": "ahhh", "description": "ahhh - sustained"},
+      {"id": "v3", "spelling": "short a", "description": "short a - description"}
+    ],
+    "b": [
+      {"id": "v1", "spelling": "buh", "description": "buh - schwa ending"},
+      {"id": "v2", "spelling": "b", "description": "b - bare consonant"},
+      {"id": "v3", "spelling": "bah", "description": "bah - ah ending"}
+    ],
+    "c": [
+      {"id": "v1", "spelling": "kuh", "description": "kuh - schwa ending"},
+      {"id": "v2", "spelling": "kah", "description": "kah - ah ending"},
+      {"id": "v3", "spelling": "k", "description": "k - bare consonant"},
+      {"id": "v4", "spelling": "cuh", "description": "cuh - c spelling"},
+      {"id": "v5", "spelling": "keh", "description": "keh - short e ending"}
+    ],
+    "d": [
+      {"id": "v1", "spelling": "duh", "description": "duh - schwa ending"},
+      {"id": "v2", "spelling": "d", "description": "d - bare consonant"},
+      {"id": "v3", "spelling": "dah", "description": "dah - ah ending"}
+    ],
+    "e": [
+      {"id": "v1", "spelling": "eh", "description": "eh - standard"},
+      {"id": "v2", "spelling": "ehhh", "description": "ehhh - sustained"},
+      {"id": "v3", "spelling": "\u0115", "description": "breve symbol"},
+      {"id": "v4", "spelling": "short e", "description": "short e - description"}
+    ],
+    "f": [
+      {"id": "v1", "spelling": "ff", "description": "ff - sustained fricative"},
+      {"id": "v2", "spelling": "fuh", "description": "fuh - schwa ending"},
+      {"id": "v3", "spelling": "fah", "description": "fah - ah ending"},
+      {"id": "v4", "spelling": "fff", "description": "fff - longer sustained"},
+      {"id": "v5", "spelling": "feh", "description": "feh - short e ending"}
+    ],
+    "g": [
+      {"id": "v1", "spelling": "guh", "description": "guh - schwa ending"},
+      {"id": "v2", "spelling": "g", "description": "g - bare consonant"},
+      {"id": "v3", "spelling": "gah", "description": "gah - ah ending"}
+    ],
+    "h": [
+      {"id": "v1", "spelling": "huh", "description": "huh - schwa ending"},
+      {"id": "v2", "spelling": "hh", "description": "hh - aspirated"},
+      {"id": "v3", "spelling": "hah", "description": "hah - ah ending"}
+    ],
+    "i": [
+      {"id": "v1", "spelling": "ih", "description": "ih - standard"},
+      {"id": "v2", "spelling": "ihhh", "description": "ihhh - sustained"},
+      {"id": "v3", "spelling": "\u012d", "description": "breve symbol"},
+      {"id": "v4", "spelling": "short i", "description": "short i - description"}
+    ],
+    "j": [
+      {"id": "v1", "spelling": "juh", "description": "juh - schwa ending"},
+      {"id": "v2", "spelling": "j", "description": "j - bare consonant"},
+      {"id": "v3", "spelling": "jah", "description": "jah - ah ending"}
+    ],
+    "k": [
+      {"id": "v1", "spelling": "kuh", "description": "kuh - schwa ending"},
+      {"id": "v2", "spelling": "k", "description": "k - bare consonant"},
+      {"id": "v3", "spelling": "kah", "description": "kah - ah ending"}
+    ],
+    "l": [
+      {"id": "v1", "spelling": "ll", "description": "ll - sustained"},
+      {"id": "v2", "spelling": "luh", "description": "luh - schwa ending"},
+      {"id": "v3", "spelling": "lah", "description": "lah - ah ending"},
+      {"id": "v4", "spelling": "lll", "description": "lll - longer sustained"},
+      {"id": "v5", "spelling": "leh", "description": "leh - short e ending"}
+    ],
+    "m": [
+      {"id": "v1", "spelling": "mm", "description": "mm - sustained"},
+      {"id": "v2", "spelling": "muh", "description": "muh - schwa ending"},
+      {"id": "v3", "spelling": "mmm", "description": "mmm - longer sustained"}
+    ],
+    "n": [
+      {"id": "v1", "spelling": "nn", "description": "nn - sustained"},
+      {"id": "v2", "spelling": "nuh", "description": "nuh - schwa ending"},
+      {"id": "v3", "spelling": "nnn", "description": "nnn - longer sustained"}
+    ],
+    "o": [
+      {"id": "v1", "spelling": "oh", "description": "oh - standard"},
+      {"id": "v2", "spelling": "ohhh", "description": "ohhh - sustained"},
+      {"id": "v3", "spelling": "short o", "description": "short o - description"}
+    ],
+    "p": [
+      {"id": "v1", "spelling": "puh", "description": "puh - schwa ending"},
+      {"id": "v2", "spelling": "pah", "description": "pah - ah ending"},
+      {"id": "v3", "spelling": "p", "description": "p - bare consonant"},
+      {"id": "v4", "spelling": "peh", "description": "peh - short e ending"}
+    ],
+    "q": [
+      {"id": "v1", "spelling": "kwuh", "description": "kwuh - schwa ending"},
+      {"id": "v2", "spelling": "kw", "description": "kw - bare blend"},
+      {"id": "v3", "spelling": "kwah", "description": "kwah - ah ending"}
+    ],
+    "r": [
+      {"id": "v1", "spelling": "rr", "description": "rr - sustained"},
+      {"id": "v2", "spelling": "ruh", "description": "ruh - schwa ending"},
+      {"id": "v3", "spelling": "rah", "description": "rah - ah ending"},
+      {"id": "v4", "spelling": "rrr", "description": "rrr - longer sustained"},
+      {"id": "v5", "spelling": "er", "description": "er - schwa-r"}
+    ],
+    "s": [
+      {"id": "v1", "spelling": "ss", "description": "ss - sustained"},
+      {"id": "v2", "spelling": "suh", "description": "suh - schwa ending"},
+      {"id": "v3", "spelling": "sss", "description": "sss - longer sustained"}
+    ],
+    "t": [
+      {"id": "v1", "spelling": "tuh", "description": "tuh - schwa ending"},
+      {"id": "v2", "spelling": "t", "description": "t - bare consonant"},
+      {"id": "v3", "spelling": "tah", "description": "tah - ah ending"}
+    ],
+    "u": [
+      {"id": "v1", "spelling": "uh", "description": "uh - standard"},
+      {"id": "v2", "spelling": "uhhh", "description": "uhhh - sustained"},
+      {"id": "v3", "spelling": "short u", "description": "short u - description"}
+    ],
+    "v": [
+      {"id": "v1", "spelling": "vv", "description": "vv - sustained fricative"},
+      {"id": "v2", "spelling": "vuh", "description": "vuh - schwa ending"},
+      {"id": "v3", "spelling": "vah", "description": "vah - ah ending"},
+      {"id": "v4", "spelling": "vvv", "description": "vvv - longer sustained"}
+    ],
+    "w": [
+      {"id": "v1", "spelling": "wuh", "description": "wuh - schwa ending"},
+      {"id": "v2", "spelling": "w", "description": "w - bare consonant"},
+      {"id": "v3", "spelling": "wah", "description": "wah - ah ending"}
+    ],
+    "x": [
+      {"id": "v1", "spelling": "ks", "description": "ks - standard"},
+      {"id": "v2", "spelling": "eks", "description": "eks - with schwa"},
+      {"id": "v3", "spelling": "x", "description": "x - letter name style"}
+    ],
+    "y": [
+      {"id": "v1", "spelling": "yuh", "description": "yuh - schwa ending"},
+      {"id": "v2", "spelling": "y", "description": "y - bare consonant"},
+      {"id": "v3", "spelling": "yah", "description": "yah - ah ending"}
+    ],
+    "z": [
+      {"id": "v1", "spelling": "zz", "description": "zz - sustained"},
+      {"id": "v2", "spelling": "zuh", "description": "zuh - schwa ending"},
+      {"id": "v3", "spelling": "zah", "description": "zah - ah ending"},
+      {"id": "v4", "spelling": "zzz", "description": "zzz - longer sustained"}
+    ]
+  }
+}

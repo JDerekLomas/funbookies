@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Letter Sounds Variants - FunBookies</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .experiment-header {
+      text-align: center;
+      padding: var(--space-lg) 0;
+    }
+
+    .experiment-header h1 {
+      font-family: var(--font-display);
+      margin-bottom: var(--space-xs);
+    }
+
+    .experiment-header p {
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .intake-form {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      max-width: 450px;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .intake-form h2 {
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: var(--space-md);
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--color-sage);
+    }
+
+    .letter-section {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: var(--space-md);
+    }
+
+    .letter-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 2px solid var(--color-cream);
+    }
+
+    .letter-big {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--color-charcoal);
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .letter-info h3 {
+      margin: 0 0 4px;
+    }
+
+    .letter-info p {
+      margin: 0;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .selection-badge {
+      margin-left: auto;
+      background: var(--color-sage-light);
+      color: var(--color-sage-dark);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .selection-badge.none {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .variants-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .variant-card {
+      background: var(--color-cream);
+      border: 3px solid transparent;
+      border-radius: var(--border-radius);
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .variant-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .variant-card.playing {
+      border-color: var(--color-terracotta);
+      background: var(--color-terracotta-light);
+    }
+
+    .variant-card.selected {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .variant-card.none-option {
+      background: #f5f5f5;
+      border-style: dashed;
+    }
+
+    .variant-card.none-option.selected {
+      background: #ffebee;
+      border-color: #c62828;
+      border-style: solid;
+    }
+
+    .variant-spelling {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .variant-desc {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .summary-section {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-top: var(--space-lg);
+    }
+
+    .summary-section h2 {
+      margin-bottom: var(--space-md);
+    }
+
+    .summary-section textarea {
+      width: 100%;
+      height: 200px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      padding: 12px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      resize: vertical;
+    }
+
+    .actions {
+      display: flex;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .progress-bar {
+      position: sticky;
+      top: 0;
+      background: white;
+      padding: 12px 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: var(--space-md);
+    }
+
+    .progress-inner {
+      height: 8px;
+      background: var(--color-cream);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--color-sage);
+      transition: width 0.3s;
+    }
+
+    .progress-text {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-top: 6px;
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="experiment-header">
+      <h1>Letter Sounds Experiment</h1>
+      <p>Pick the best pronunciation for each letter sound. Click to play, then select the best option. Choose "None" if none sound right.</p>
+    </header>
+
+    <!-- Intake Form -->
+    <div class="intake-form" id="intake-form">
+      <h2>Participant Info</h2>
+      <div class="form-group">
+        <label>Your Name (optional)</label>
+        <input type="text" id="participant-name" placeholder="e.g., Teacher Jane">
+      </div>
+      <button class="btn btn-primary" style="width: 100%;" onclick="startExperiment()">Start Experiment</button>
+    </div>
+
+    <div id="experiment-area" class="hidden">
+      <div class="progress-bar">
+        <div class="progress-inner">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-text" id="progress-text">0 of 26 letters reviewed</div>
+      </div>
+
+      <div id="letters-container"></div>
+
+      <div class="summary-section">
+        <h2>Your Selections</h2>
+        <textarea id="summary-output" readonly placeholder="Make selections above to see summary..."></textarea>
+        <div class="actions">
+          <button class="btn btn-primary" onclick="copyResults()">Copy Results</button>
+          <button class="btn btn-secondary" onclick="submitResults()">Submit to Server</button>
+          <button class="btn btn-ghost" onclick="clearSelections()">Clear All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'letter-variants-experiment-v1';
+    const AUDIO_BASE = '/activities/letter-sounds/variants/openai-us';
+
+    let variantsData = null;
+    let selections = {};
+    let currentAudio = null;
+    let participantName = '';
+
+    async function loadVariants() {
+      try {
+        const res = await fetch('/activities/letter-sounds/variants/variants-full.json');
+        variantsData = await res.json();
+      } catch (err) {
+        console.error('Failed to load variants:', err);
+        alert('Failed to load experiment data');
+      }
+    }
+
+    function loadProgress() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const data = JSON.parse(saved);
+          selections = data.selections || {};
+          participantName = data.participantName || '';
+        }
+      } catch { selections = {}; }
+    }
+
+    function saveProgress() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        selections,
+        participantName,
+        timestamp: new Date().toISOString()
+      }));
+      updateSummary();
+      updateProgress();
+    }
+
+    function startExperiment() {
+      participantName = document.getElementById('participant-name').value.trim();
+      document.getElementById('intake-form').classList.add('hidden');
+      document.getElementById('experiment-area').classList.remove('hidden');
+      renderLetters();
+      updateProgress();
+    }
+
+    function renderLetters() {
+      const container = document.getElementById('letters-container');
+      const letters = Object.keys(variantsData.letters).sort();
+
+      container.innerHTML = letters.map(letter => {
+        const variants = variantsData.letters[letter];
+        const selected = selections[letter];
+
+        return `
+          <div class="letter-section" id="section-${letter}">
+            <div class="letter-header">
+              <div class="letter-big">${letter.toUpperCase()}</div>
+              <div class="letter-info">
+                <h3>/${letter}/ sound</h3>
+                <p>Select the best pronunciation</p>
+              </div>
+              <div class="selection-badge ${selected === 'none' ? 'none' : ''}" id="badge-${letter}">
+                ${selected ? (selected === 'none' ? 'None selected' : `"${getSpelling(letter, selected)}"`) : 'Not reviewed'}
+              </div>
+            </div>
+            <div class="variants-grid">
+              ${variants.map(v => `
+                <div class="variant-card ${selected === v.id ? 'selected' : ''}"
+                     data-letter="${letter}" data-variant="${v.id}"
+                     onclick="selectVariant('${letter}', '${v.id}')">
+                  <div class="variant-spelling">${v.spelling}</div>
+                  <div class="variant-desc">${v.description}</div>
+                </div>
+              `).join('')}
+              <div class="variant-card none-option ${selected === 'none' ? 'selected' : ''}"
+                   data-letter="${letter}" data-variant="none"
+                   onclick="selectVariant('${letter}', 'none')">
+                <div class="variant-spelling">None</div>
+                <div class="variant-desc">None are good</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Add click-to-play for variant cards
+      container.querySelectorAll('.variant-card:not(.none-option)').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (!e.target.closest('.variant-card').classList.contains('none-option')) {
+            playVariant(card.dataset.letter, card.dataset.variant);
+          }
+        });
+      });
+    }
+
+    function getSpelling(letter, variantId) {
+      if (variantId === 'none') return 'none';
+      const variants = variantsData.letters[letter];
+      const v = variants.find(v => v.id === variantId);
+      return v ? v.spelling : variantId;
+    }
+
+    function playVariant(letter, variantId) {
+      if (currentAudio) {
+        currentAudio.pause();
+        document.querySelectorAll('.variant-card.playing').forEach(el => el.classList.remove('playing'));
+      }
+
+      const card = document.querySelector(`[data-letter="${letter}"][data-variant="${variantId}"]`);
+      const path = `${AUDIO_BASE}/${letter}_${variantId}.mp3`;
+
+      currentAudio = new Audio(path);
+      card.classList.add('playing');
+
+      currentAudio.onended = () => {
+        card.classList.remove('playing');
+        currentAudio = null;
+      };
+
+      currentAudio.onerror = () => {
+        card.classList.remove('playing');
+        console.warn('Audio not found:', path);
+      };
+
+      currentAudio.play().catch(() => card.classList.remove('playing'));
+    }
+
+    function selectVariant(letter, variantId) {
+      // Toggle selection
+      if (selections[letter] === variantId) {
+        delete selections[letter];
+      } else {
+        selections[letter] = variantId;
+      }
+
+      // Update UI
+      const section = document.getElementById(`section-${letter}`);
+      section.querySelectorAll('.variant-card').forEach(card => {
+        card.classList.toggle('selected', card.dataset.variant === selections[letter]);
+      });
+
+      // Update badge
+      const badge = document.getElementById(`badge-${letter}`);
+      const selected = selections[letter];
+      badge.className = 'selection-badge' + (selected === 'none' ? ' none' : '');
+      badge.textContent = selected
+        ? (selected === 'none' ? 'None selected' : `"${getSpelling(letter, selected)}"`)
+        : 'Not reviewed';
+
+      saveProgress();
+    }
+
+    function updateProgress() {
+      const total = 26;
+      const reviewed = Object.keys(selections).length;
+      const percent = (reviewed / total) * 100;
+
+      document.getElementById('progress-fill').style.width = `${percent}%`;
+      document.getElementById('progress-text').textContent = `${reviewed} of ${total} letters reviewed`;
+    }
+
+    function updateSummary() {
+      const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+      let text = `# Letter Sounds Experiment Results\n`;
+      text += `**Participant:** ${participantName || 'Anonymous'}\n`;
+      text += `**Date:** ${new Date().toLocaleString()}\n\n`;
+
+      const selected = [];
+      const none = [];
+      const unreviewed = [];
+
+      for (const letter of letters) {
+        if (!selections[letter]) {
+          unreviewed.push(letter);
+        } else if (selections[letter] === 'none') {
+          none.push(letter);
+        } else {
+          selected.push(`- **${letter}:** "${getSpelling(letter, selections[letter])}"`);
+        }
+      }
+
+      text += `## Selected Variants\n${selected.join('\n') || '(none yet)'}\n\n`;
+      text += `## None Selected (need new options)\n${none.length ? none.join(', ') : '(none)'}\n\n`;
+      text += `## Not Reviewed\n${unreviewed.length ? unreviewed.join(', ') : '(all reviewed!)'}`;
+
+      document.getElementById('summary-output').value = text;
+    }
+
+    function copyResults() {
+      const output = document.getElementById('summary-output');
+      output.select();
+      document.execCommand('copy');
+      alert('Results copied to clipboard!');
+    }
+
+    async function submitResults() {
+      try {
+        const response = await fetch('/api/experiment-results', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            participant: participantName || 'Anonymous',
+            experiment: 'letter-sounds-variants',
+            selections,
+            timestamp: new Date().toISOString()
+          })
+        });
+
+        if (response.ok) {
+          alert('Results submitted successfully!');
+        } else {
+          alert('Failed to submit. Results copied to clipboard instead.');
+          copyResults();
+        }
+      } catch (err) {
+        alert('Failed to submit. Results copied to clipboard instead.');
+        copyResults();
+      }
+    }
+
+    function clearSelections() {
+      if (confirm('Clear all selections?')) {
+        selections = {};
+        saveProgress();
+        renderLetters();
+      }
+    }
+
+    // Initialize
+    loadProgress();
+    loadVariants().then(() => {
+      if (Object.keys(selections).length > 0) {
+        // Resume previous session
+        document.getElementById('intake-form').classList.add('hidden');
+        document.getElementById('experiment-area').classList.remove('hidden');
+        renderLetters();
+        updateProgress();
+        updateSummary();
+      }
+    });
+  </script>
+</body>
+</html>

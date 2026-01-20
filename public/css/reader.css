@@ -10,6 +10,8 @@
             --color-text-muted: #5A5A52;
             --font-display: 'Fraunces', Georgia, serif;
             --font-body: 'DM Sans', -apple-system, sans-serif;
+            /* Print-safe margin - distance from edge for all content */
+            --page-margin: 16px;
         }
 
         * {
@@ -81,17 +83,18 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.4);
         }
 
-        /* Image takes top 80% */
+        /* Image takes top ~80% with print-safe margins */
         .page-image {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 80%;
+            top: var(--page-margin);
+            left: var(--page-margin);
+            right: var(--page-margin);
+            height: calc(80% - var(--page-margin) - var(--page-margin) / 2);
             overflow: hidden;
             background: linear-gradient(90deg, var(--color-sage-light) 25%, #d4e8d9 50%, var(--color-sage-light) 75%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
+            border-radius: 8px;
         }
 
         @keyframes shimmer {
@@ -140,11 +143,11 @@
             letter-spacing: 1px;
         }
 
-        /* Watermark logo for story pages */
+        /* Watermark logo for story pages - positioned inside the content margin */
         .page-watermark {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: calc(var(--page-margin) + 10px);
+            right: calc(var(--page-margin) + 10px);
             width: 36px;
             height: 36px;
             z-index: 5;
@@ -158,19 +161,19 @@
             object-fit: contain;
         }
 
-        /* Text section takes bottom 20% */
+        /* Text section takes bottom ~20% with print-safe margins */
         .page-text {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 20%;
+            bottom: var(--page-margin);
+            left: var(--page-margin);
+            right: var(--page-margin);
+            height: calc(20% - var(--page-margin) / 2);
             background: rgba(255, 255, 255, 0.95);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 16px 24px;
-            border-top: 1px solid var(--color-border);
+            border-radius: 8px;
         }
 
         .page-text p {
@@ -182,13 +185,13 @@
             max-width: 100%;
         }
 
-        /* Wordlist page styling */
+        /* Wordlist page styling with print-safe margins */
         .page-wordlist {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: var(--page-margin);
+            left: var(--page-margin);
+            right: var(--page-margin);
+            bottom: var(--page-margin);
             background: var(--color-sage-light);
             display: flex;
             flex-direction: column;
@@ -196,6 +199,7 @@
             justify-content: center;
             padding: 32px;
             gap: 20px;
+            border-radius: 8px;
         }
 
         .wordlist-title {
@@ -248,10 +252,10 @@
             padding: 4px 8px;
         }
 
-        /* Copyright page */
+        /* Copyright page with print-safe margins */
         .page-copyright {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: var(--page-margin); left: var(--page-margin); right: var(--page-margin); bottom: var(--page-margin);
             background: var(--color-cream);
             display: flex;
             flex-direction: column;
@@ -259,6 +263,7 @@
             justify-content: center;
             padding: 32px;
             text-align: center;
+            border-radius: 8px;
         }
 
         .page-copyright .copyright-logo {
@@ -308,10 +313,10 @@
             opacity: 0.7;
         }
 
-        /* Parent guide page */
+        /* Parent guide page with print-safe margins */
         .page-parent-guide {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: var(--page-margin); left: var(--page-margin); right: var(--page-margin); bottom: var(--page-margin);
             background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-sage-light) 100%);
             display: flex;
             flex-direction: column;
@@ -319,6 +324,7 @@
             justify-content: flex-start;
             padding: 24px 20px;
             overflow-y: auto;
+            border-radius: 8px;
         }
 
         .page-parent-guide .guide-header {
@@ -395,10 +401,10 @@
             color: var(--color-sage);
         }
 
-        /* Level info page */
+        /* Level info page with print-safe margins */
         .page-level-info {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: var(--page-margin); left: var(--page-margin); right: var(--page-margin); bottom: var(--page-margin);
             background: var(--color-cream);
             display: flex;
             flex-direction: column;
@@ -406,6 +412,7 @@
             justify-content: center;
             padding: 24px;
             text-align: center;
+            border-radius: 8px;
         }
 
         .level-badge {
@@ -479,16 +486,17 @@
             color: var(--color-terracotta);
         }
 
-        /* Word search page */
+        /* Word search page with print-safe margins */
         .page-wordsearch {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: var(--page-margin); left: var(--page-margin); right: var(--page-margin); bottom: var(--page-margin);
             background: linear-gradient(180deg, #FFF9E6 0%, var(--color-cream) 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 16px;
+            border-radius: 8px;
         }
 
         .page-wordsearch .ws-header {
@@ -551,10 +559,10 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        /* Series info page */
+        /* Series info page with print-safe margins */
         .page-series-info {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: var(--page-margin); left: var(--page-margin); right: var(--page-margin); bottom: var(--page-margin);
             background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-sage-light) 100%);
             display: flex;
             flex-direction: column;
@@ -562,6 +570,7 @@
             justify-content: center;
             padding: 24px;
             text-align: center;
+            border-radius: 8px;
         }
 
         .page-series-info .series-logo {
@@ -641,13 +650,14 @@
             color: var(--color-terracotta);
         }
 
-        /* End page - celebration! */
+        /* End page - celebration! With print-safe margins */
         .page-end {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: var(--page-margin); left: var(--page-margin); right: var(--page-margin); bottom: var(--page-margin);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            border-radius: 8px;
         }
 
         .page-end .end-image {
@@ -732,13 +742,15 @@
             color: white;
         }
 
-        /* Back cover - redesigned */
+        /* Back cover - redesigned with print-safe margins */
         .page-back-cover {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: var(--page-margin); left: var(--page-margin); right: var(--page-margin); bottom: var(--page-margin);
             background: var(--color-cream);
             display: flex;
             flex-direction: column;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .back-cover-image {
@@ -916,12 +928,14 @@
             font-weight: 500;
         }
 
-        /* Cover page styling */
+        /* Cover page styling with print-safe margins */
         .page-cover {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: var(--page-margin); left: var(--page-margin); right: var(--page-margin); bottom: var(--page-margin);
             display: flex;
             flex-direction: column;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .cover-corner-tab {
@@ -1068,17 +1082,19 @@
             line-height: 1.1;
         }
 
-        /* Long-form layout for C/D band books */
+        /* Long-form layout for C/D band books with print-safe margins */
         .book-page.long-form {
             aspect-ratio: 4/3;
         }
 
         .page-long-form {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: var(--page-margin); left: var(--page-margin); right: var(--page-margin); bottom: var(--page-margin);
             display: flex;
             flex-direction: row;
             background: var(--color-cream);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .long-form-text {

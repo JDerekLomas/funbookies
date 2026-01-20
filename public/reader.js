@@ -304,6 +304,8 @@ let selectedReference = null;
 let selectedReferences = []; // For multi-ref support
 let uploadedReferenceData = null;
 let loadingReferencesFor = null; // Guard against concurrent loads
+let refStrategy = 'single'; // 'single' or 'multi' (3-sheet strategy)
+let multiRefSheets = { characters: null, settings: null, style: null };
 
 async function loadReferenceVersions() {
     const container = document.getElementById('referenceVersions');
@@ -317,7 +319,66 @@ async function loadReferenceVersions() {
 
     container.innerHTML = '';
 
-    // Try to load multi-ref manifest first
+    // Check for 3-sheet strategy (characters, settings, style)
+    const threeSheetPaths = {
+        characters: `/books/references/${slug}_multi/${slug}_characters.png`,
+        settings: `/books/references/${slug}_multi/${slug}_settings.png`,
+        style: `/books/references/${slug}_multi/${slug}_style.png`
+    };
+
+    // Check which sheets exist (any of them)
+    multiRefSheets = { characters: null, settings: null, style: null };
+    let hasAnyThreeSheet = false;
+
+    try {
+        const checks = await Promise.all([
+            fetch(threeSheetPaths.characters, { method: 'HEAD' }),
+            fetch(threeSheetPaths.settings, { method: 'HEAD' }),
+            fetch(threeSheetPaths.style, { method: 'HEAD' })
+        ]);
+
+        if (checks[0].ok) { multiRefSheets.characters = threeSheetPaths.characters; hasAnyThreeSheet = true; }
+        if (checks[1].ok) { multiRefSheets.settings = threeSheetPaths.settings; hasAnyThreeSheet = true; }
+        if (checks[2].ok) { multiRefSheets.style = threeSheetPaths.style; hasAnyThreeSheet = true; }
+    } catch (e) {
+        // 3-sheet not available
+    }
+
+    // Check for single reference too
+    const singleRefPath = `/books/references/${slug}_reference.png`;
+    let hasSingleRef = false;
+    try {
+        const resp = await fetch(singleRefPath, { method: 'HEAD' });
+        hasSingleRef = resp.ok;
+    } catch (e) {}
+
+    // If both strategies available, show toggle; otherwise use what's available
+    const showStrategyToggle = hasAnyThreeSheet || hasSingleRef;
+
+    if (showStrategyToggle) {
+        // Add strategy toggle
+        const strategyToggle = document.createElement('div');
+        strategyToggle.className = 'strategy-toggle';
+        strategyToggle.innerHTML = `
+            <button class="strategy-btn ${refStrategy === 'single' ? 'active' : ''}" onclick="setRefStrategy('single')">
+                Single
+            </button>
+            <button class="strategy-btn ${refStrategy === 'multi' ? 'active' : ''}" onclick="setRefStrategy('multi')">
+                Multi (3-sheet)
+            </button>
+        `;
+        container.appendChild(strategyToggle);
+    }
+
+    // Render based on current strategy
+    if (refStrategy === 'multi' || (!hasSingleRef && hasAnyThreeSheet)) {
+        refStrategy = 'multi';
+        renderThreeSheetGrid(container, slug, hasAnyThreeSheet);
+        loadingReferencesFor = null;
+        return;
+    }
+
+    // Try to load multi-ref manifest (individual refs)
     const multiRefPath = `/books/references/${slug}_multi/manifest.json`;
     let multiRefs = null;
     try {
@@ -413,6 +474,246 @@ async function loadReferenceVersions() {
 
     // Clear the loading guard (allow future loads for different books)
     loadingReferencesFor = null;
+}
+
+function renderThreeSheetGrid(container, slug, hasAnySheets) {
+    // 3-sheet grid
+    const grid = document.createElement('div');
+    grid.className = 'multi-ref-grid';
+    grid.id = 'multiRefGrid';
+
+    const sheets = [
+        { key: 'characters', label: 'Characters', path: multiRefSheets.characters },
+        { key: 'settings', label: 'Settings', path: multiRefSheets.settings },
+        { key: 'style', label: 'Style', path: multiRefSheets.style }
+    ];
+
+    sheets.forEach(sheet => {
+        const card = document.createElement('div');
+        card.className = `multi-ref-card ${sheet.path ? 'has-image' : ''}`;
+        card.dataset.sheetType = sheet.key;
+
+        if (sheet.path) {
+            card.innerHTML = `
+                <img src="${sheet.path}" alt="${sheet.label}" ondblclick="window.open('${sheet.path}', '_blank')">
+                <span class="sheet-label">${sheet.label}</span>
+            `;
+        } else {
+            card.innerHTML = `
+                <div class="sheet-placeholder">
+                    <button class="generate-sheet-btn" onclick="generateMultiRefSheet('${sheet.key}')">
+                        Generate
+                    </button>
+                </div>
+                <span class="sheet-label">${sheet.label}</span>
+            `;
+        }
+        grid.appendChild(card);
+    });
+
+    container.appendChild(grid);
+
+    // Generate all button if any sheets missing
+    const missingSheets = sheets.filter(s => !s.path);
+    if (missingSheets.length > 0 && missingSheets.length < 3) {
+        const generateAllBtn = document.createElement('button');
+        generateAllBtn.className = 'editor-btn primary';
+        generateAllBtn.style.marginTop = '8px';
+        generateAllBtn.textContent = `Generate Missing (${missingSheets.length})`;
+        generateAllBtn.onclick = () => generateAllMultiRefs();
+        container.appendChild(generateAllBtn);
+    } else if (missingSheets.length === 3) {
+        const generateAllBtn = document.createElement('button');
+        generateAllBtn.className = 'editor-btn primary';
+        generateAllBtn.style.marginTop = '8px';
+        generateAllBtn.textContent = 'Generate All 3 Sheets ($0.21)';
+        generateAllBtn.onclick = () => generateAllMultiRefs();
+        container.appendChild(generateAllBtn);
+    }
+
+    // Use available sheets as selected references
+    selectedReferences = sheets.filter(s => s.path).map(s => s.path);
+    selectedReference = selectedReferences[0] || null;
+}
+
+function setRefStrategy(strategy) {
+    refStrategy = strategy;
+    const slug = currentBook._slug || bookSlug;
+
+    // Update toggle buttons
+    document.querySelectorAll('.strategy-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toLowerCase().includes(strategy));
+    });
+
+    // Reload references based on strategy
+    loadingReferencesFor = null; // Reset guard
+    loadReferenceVersions();
+}
+
+async function generateMultiRefSheet(sheetType) {
+    const status = document.getElementById('generationStatus');
+    const slug = currentBook._slug || bookSlug;
+
+    status.className = 'generation-status loading';
+    status.textContent = `Generating ${sheetType} sheet...`;
+
+    try {
+        // Build prompt based on sheet type
+        let prompt = '';
+        const characters = currentBook.characters || currentBook.story_bible?.characters || {};
+        const settings = currentBook.story_bible?.settings || currentBook.art_direction?.settings || {};
+        const style = currentBook.story_bible?.visual_style || currentBook.art_direction?.style || '';
+
+        if (sheetType === 'characters') {
+            prompt = buildCharactersSheetPrompt(characters, style);
+        } else if (sheetType === 'settings') {
+            prompt = buildSettingsSheetPrompt(settings, style);
+        } else if (sheetType === 'style') {
+            prompt = buildStyleSheetPrompt(style);
+        }
+
+        // Determine model and reference
+        let model = 'nano-banana-pro';
+        let reference = null;
+        let referenceIsUrl = false;
+
+        // Cascade: settings and style use characters as reference
+        if ((sheetType === 'settings' || sheetType === 'style') && multiRefSheets.characters) {
+            model = 'wan2.6-image';
+            reference = window.location.origin + multiRefSheets.characters;
+            referenceIsUrl = true;
+        }
+
+        const response = await fetch('/api/generate-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                prompt,
+                model,
+                slug,
+                page: `ref_${sheetType}`,
+                reference,
+                referenceIsUrl
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success && result.pending) {
+            status.textContent = 'Generation started. Polling...';
+            const imageUrl = await pollForImageResult(result.taskId, result.statusEndpoint);
+            await saveMultiRefSheet(sheetType, imageUrl, slug);
+        } else if (result.success && result.url) {
+            await saveMultiRefSheet(sheetType, result.url, slug);
+        } else {
+            throw new Error(result.error || 'Generation failed');
+        }
+
+        status.className = 'generation-status success';
+        status.textContent = `${sheetType} sheet generated!`;
+
+        // Reload references
+        loadingReferencesFor = null;
+        loadReferenceVersions();
+
+    } catch (error) {
+        status.className = 'generation-status error';
+        status.textContent = `Error: ${error.message}`;
+    }
+}
+
+async function generateAllMultiRefs() {
+    const status = document.getElementById('generationStatus');
+    status.className = 'generation-status loading';
+
+    // Generate in cascade order: characters first, then settings/style
+    const order = ['characters', 'settings', 'style'];
+
+    for (const sheetType of order) {
+        if (!multiRefSheets[sheetType]) {
+            status.textContent = `Generating ${sheetType}...`;
+            await generateMultiRefSheet(sheetType);
+            // Small delay between generations
+            await new Promise(r => setTimeout(r, 1000));
+        }
+    }
+
+    status.className = 'generation-status success';
+    status.textContent = 'All sheets generated!';
+}
+
+async function saveMultiRefSheet(sheetType, imageUrl, slug) {
+    // Download image and save to Vercel Blob
+    const response = await fetch('/api/save-reference', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            slug,
+            sheetType,
+            imageUrl
+        })
+    });
+
+    const result = await response.json();
+    if (result.success) {
+        multiRefSheets[sheetType] = result.path;
+    }
+}
+
+function buildCharactersSheetPrompt(characters, style) {
+    const charList = Object.entries(characters).map(([name, char]) => {
+        const shorthand = char.visual_shorthand || char.description || name;
+        return `${name}: ${shorthand}`;
+    }).join('\n');
+
+    return `9-PANEL CHARACTER REFERENCE SHEET
+
+Characters:
+${charList || 'Main character: friendly young child'}
+
+Layout (3x3 grid):
+Row 1: Front view, side profile, 3/4 view
+Row 2: Happy expression, sad expression, surprised expression
+Row 3: Action pose 1, action pose 2, with key prop
+
+CRITICAL: Same character in ALL panels. Consistent features throughout.
+Style: ${style || 'Children book illustration, soft watercolor, warm colors'}
+
+NO TEXT, NO WORDS, NO LETTERS anywhere in image.`;
+}
+
+function buildSettingsSheetPrompt(settings, style) {
+    const settingDesc = typeof settings === 'string' ? settings :
+        Object.values(settings).join(', ') || 'cozy home environment';
+
+    return `9-PANEL SETTINGS REFERENCE SHEET
+
+Settings: ${settingDesc}
+
+Layout (3x3 grid):
+Row 1: Main location daytime, same location sunset, same location evening
+Row 2: Interior space 1, interior space 2, key furniture/object detail
+Row 3: Weather/sky, nature elements, mood establishing shot
+
+Consistent color palette across all panels. Match the style of reference image 1.
+Style: ${style || 'Children book illustration, soft watercolor, warm colors'}
+
+NO TEXT, NO WORDS, NO LETTERS anywhere in image.`;
+}
+
+function buildStyleSheetPrompt(style) {
+    return `9-PANEL STYLE REFERENCE - Abstract Color and Texture
+
+Layout (3x3 grid):
+Row 1: Primary color swatches, secondary color swatches, neutral tones
+Row 2: Brush stroke texture sample, character texture sample, background texture
+Row 3: Warm lighting example, cool lighting example, dramatic lighting example
+
+Abstract swatches and texture samples ONLY. No characters, no story elements, no scenes.
+Match the artistic style of reference image 1.
+Style: ${style || 'Children book illustration, soft watercolor, warm colors'}
+
+NO TEXT, NO WORDS, NO LETTERS anywhere in image.`;
 }
 
 const MAX_REFS = 3; // wan2.6 limit

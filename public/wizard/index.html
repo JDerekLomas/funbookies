@@ -428,6 +428,22 @@
             resize: vertical;
         }
 
+        /* Load Book Panel */
+        .load-book-panel {
+            background: var(--color-sage-light);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .load-book-panel.hidden {
+            display: none;
+        }
+
+        .load-book-panel .form-group {
+            margin-bottom: var(--space-sm);
+        }
+
         /* Strategy toggle */
         .strategy-toggle {
             display: flex;
@@ -768,6 +784,26 @@
                 <div class="phase-content active" id="phase1">
                     <div class="wizard-header">
                         <h2>Step 1: Generate Story</h2>
+                        <button class="btn btn-ghost" onclick="toggleLoadBook()">Load Existing Book</button>
+                    </div>
+
+                    <!-- Load Existing Book Panel -->
+                    <div id="loadBookPanel" class="load-book-panel hidden">
+                        <div class="form-group">
+                            <label>Select Book to Load</label>
+                            <p class="hint">Continue working on an existing book</p>
+                            <select class="select" id="existingBookSelect">
+                                <option value="">Loading books...</option>
+                            </select>
+                        </div>
+                        <div class="action-bar">
+                            <div class="action-bar-left">
+                                <button class="btn btn-ghost" onclick="toggleLoadBook()">Cancel</button>
+                            </div>
+                            <div class="action-bar-right">
+                                <button class="btn btn-primary" onclick="loadExistingBook()">Load Book</button>
+                            </div>
+                        </div>
                     </div>
 
                     <div id="phase1Form">
@@ -1228,6 +1264,148 @@
             const saved = localStorage.getItem(STATE_KEY_PREFIX + slug);
             if (saved) {
                 state = JSON.parse(saved);
+            }
+        }
+
+        // ===================
+        // LOAD EXISTING BOOK
+        // ===================
+
+        let existingBooksLoaded = false;
+
+        function toggleLoadBook() {
+            const panel = document.getElementById('loadBookPanel');
+            const form = document.getElementById('phase1Form');
+
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                form.style.display = 'none';
+                if (!existingBooksLoaded) {
+                    loadExistingBooksList();
+                }
+            } else {
+                panel.classList.add('hidden');
+                form.style.display = 'block';
+            }
+        }
+
+        async function loadExistingBooksList() {
+            const select = document.getElementById('existingBookSelect');
+            select.innerHTML = '<option value="">Loading books...</option>';
+
+            try {
+                // Try to fetch from filesystem index
+                const response = await fetch('/books/index.json');
+                if (!response.ok) throw new Error('No index');
+
+                const books = await response.json();
+
+                select.innerHTML = '<option value="">-- Select a book --</option>';
+
+                // Sort by title
+                const sorted = Object.entries(books).sort((a, b) =>
+                    (a[1].title || a[0]).localeCompare(b[1].title || b[0])
+                );
+
+                sorted.forEach(([slug, book]) => {
+                    const opt = document.createElement('option');
+                    opt.value = slug;
+                    opt.textContent = `${book.title || slug} (${book.level || '?'})`;
+                    select.appendChild(opt);
+                });
+
+                existingBooksLoaded = true;
+            } catch (e) {
+                // Fallback: fetch book list from API
+                try {
+                    const resp = await fetch('/api/list-books');
+                    if (resp.ok) {
+                        const books = await resp.json();
+                        select.innerHTML = '<option value="">-- Select a book --</option>';
+                        books.forEach(book => {
+                            const opt = document.createElement('option');
+                            opt.value = book.slug;
+                            opt.textContent = `${book.title || book.slug} (${book.level || '?'})`;
+                            select.appendChild(opt);
+                        });
+                        existingBooksLoaded = true;
+                    }
+                } catch (e2) {
+                    select.innerHTML = '<option value="">Error loading books</option>';
+                }
+            }
+        }
+
+        async function loadExistingBook() {
+            const select = document.getElementById('existingBookSelect');
+            const slug = select.value;
+
+            if (!slug) {
+                alert('Please select a book to load.');
+                return;
+            }
+
+            try {
+                // Fetch book JSON
+                const response = await fetch(`/books/${slug}.json`);
+                if (!response.ok) throw new Error('Book not found');
+
+                const book = await response.json();
+
+                // Populate wizard state from book
+                state.book = book;
+                state.slug = slug;
+                state.formData.level = book.level || 'B1';
+                state.formData.concept = book.story_bible?.concept || '';
+                state.formData.setting = book.story_bible?.settings || '';
+
+                // Mark phases as complete based on book content
+                state.phaseStatus[1] = 'complete';
+
+                if (book.pages && book.pages.some(p => p.scene)) {
+                    state.phaseStatus[2] = 'complete';
+                }
+
+                // Check for reference images
+                const refCheck = await fetch(`/books/references/${slug}_reference.png`, { method: 'HEAD' });
+                const multiRefCheck = await fetch(`/books/references/${slug}_multi/${slug}_characters.png`, { method: 'HEAD' });
+
+                if (refCheck.ok) {
+                    state.referenceImage = `/books/references/${slug}_reference.png`;
+                    state.phaseStatus[3] = 'complete';
+                }
+
+                if (multiRefCheck.ok) {
+                    state.refStrategy = 'multi';
+                    state.multiRefs = {
+                        characters: `/books/references/${slug}_multi/${slug}_characters.png`,
+                        settings: `/books/references/${slug}_multi/${slug}_settings.png`,
+                        style: `/books/references/${slug}_multi/${slug}_style.png`
+                    };
+                    state.phaseStatus[3] = 'complete';
+                }
+
+                saveState();
+
+                // Determine which phase to go to
+                let targetPhase = 1;
+                if (state.phaseStatus[1] === 'complete') targetPhase = 2;
+                if (state.phaseStatus[2] === 'complete') targetPhase = 3;
+                if (state.phaseStatus[3] === 'complete') targetPhase = 4;
+
+                // Hide load panel
+                document.getElementById('loadBookPanel').classList.add('hidden');
+                document.getElementById('phase1Form').style.display = 'block';
+
+                // Update UI and go to appropriate phase
+                updateUI();
+                goToPhase(targetPhase);
+
+                alert(`Loaded "${book.title || slug}" - continuing from Phase ${targetPhase}`);
+
+            } catch (error) {
+                console.error('Load error:', error);
+                alert('Error loading book: ' + error.message);
             }
         }
 

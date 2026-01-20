@@ -78,11 +78,9 @@ function validatePage(page, pageNum) {
 
   const scene = page.scene;
 
-  // Check minimum length (error at 50, warn at 80)
+  // Check minimum length
   if (scene.length < 50) {
     errors.push(`Page ${pageNum}: Scene too short (${scene.length} chars, need 50+)`);
-  } else if (scene.length < 80) {
-    warnings.push(`Page ${pageNum}: Scene is short (${scene.length} chars, recommend 80+)`);
   }
 
   // Check for placeholder text

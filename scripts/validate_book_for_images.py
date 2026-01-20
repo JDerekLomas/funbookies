@@ -71,9 +71,11 @@ def validate_book(slug: str) -> bool:
         ]
 
         scene_lower = scene.lower()
+        # Remove "no text" phrases before checking for negations (they're intentional)
+        scene_for_negation_check = scene_lower.replace("no text", "").replace("no words", "").replace("no letters", "")
         for pattern, msg in negation_patterns:
-            if pattern in scene_lower and pattern != "no text":
-                if msg:  # Skip "no text" which is intentional
+            if pattern in scene_for_negation_check:
+                if msg:  # Skip empty messages (like "no text" entry)
                     warnings.append(f"Page {pnum}: {msg} - models generate what you mention even when negated")
 
         # Check for composition instructions

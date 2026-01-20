@@ -303,12 +303,18 @@ function updateEditInfo() {
 let selectedReference = null;
 let selectedReferences = []; // For multi-ref support
 let uploadedReferenceData = null;
+let loadingReferencesFor = null; // Guard against concurrent loads
 
 async function loadReferenceVersions() {
     const container = document.getElementById('referenceVersions');
     if (!container || !currentBook) return;
 
     const slug = currentBook._slug || bookSlug;
+
+    // Prevent concurrent loads for the same book - if already loading, skip
+    if (loadingReferencesFor === slug) return;
+    loadingReferencesFor = slug;
+
     container.innerHTML = '';
 
     // Try to load multi-ref manifest first
@@ -404,6 +410,9 @@ async function loadReferenceVersions() {
     uploadBtn.title = 'Upload custom reference';
     uploadBtn.onclick = () => document.getElementById('uploadReferenceInput').click();
     container.appendChild(uploadBtn);
+
+    // Clear the loading guard (allow future loads for different books)
+    loadingReferencesFor = null;
 }
 
 const MAX_REFS = 3; // wan2.6 limit

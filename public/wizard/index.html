@@ -949,6 +949,38 @@
             }
         }
 
+        // Save book to Supabase (called after each phase)
+        async function saveToSupabase() {
+            if (!state.slug || !state.book) return;
+
+            try {
+                const bookData = {
+                    ...state.book,
+                    slug: state.slug,
+                    referenceImage: state.referenceImage,
+                    wizardPhase: state.currentPhase,
+                    updatedAt: new Date().toISOString()
+                };
+
+                const response = await fetch('/api/save-book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        slug: state.slug,
+                        fullBook: bookData
+                    })
+                });
+
+                if (!response.ok) {
+                    console.warn('Failed to save to Supabase:', await response.text());
+                } else {
+                    console.log('Book saved to Supabase (phase ' + state.currentPhase + ')');
+                }
+            } catch (error) {
+                console.warn('Supabase save error:', error);
+            }
+        }
+
         function loadState(slug) {
             const saved = localStorage.getItem(STATE_KEY_PREFIX + slug);
             if (saved) {
@@ -1190,6 +1222,7 @@ Return ONLY the JSON, no other text.`;
             state.phaseStatus[1] = 'complete';
             state.checkpointApprovals[1] = { approved: true, timestamp: new Date().toISOString() };
             saveState();
+            saveToSupabase(); // Persist to database
             goToPhase(2);
             generateScenes();
         }
@@ -1353,6 +1386,7 @@ Return ONLY the JSON, no other text.`;
             state.phaseStatus[2] = 'complete';
             state.checkpointApprovals[2] = { approved: true, timestamp: new Date().toISOString() };
             saveState();
+            saveToSupabase(); // Persist to database
             goToPhase(3);
         }
 
@@ -1461,6 +1495,7 @@ NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
             state.phaseStatus[3] = 'complete';
             state.checkpointApprovals[3] = { approved: true, timestamp: new Date().toISOString() };
             saveState();
+            saveToSupabase(); // Persist to database
             goToPhase(4);
         }
 

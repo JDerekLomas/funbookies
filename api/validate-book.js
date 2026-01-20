@@ -78,9 +78,11 @@ function validatePage(page, pageNum) {
 
   const scene = page.scene;
 
-  // Check minimum length
+  // Check minimum length (error at 50, warn at 80)
   if (scene.length < 50) {
     errors.push(`Page ${pageNum}: Scene too short (${scene.length} chars, need 50+)`);
+  } else if (scene.length < 80) {
+    warnings.push(`Page ${pageNum}: Scene is short (${scene.length} chars, recommend 80+)`);
   }
 
   // Check for placeholder text
@@ -114,8 +116,16 @@ function validatePage(page, pageNum) {
     warnings.push(`Page ${pageNum}: Missing "NO TEXT" instruction`);
   }
 
+  // Check for single scene emphasis (Golden Rule #4)
+  if (!/single scene|one cohesive|full-bleed|filling the entire/i.test(scene)) {
+    warnings.push(`Page ${pageNum}: Consider adding "Single scene illustration" for clarity`);
+  }
+
   // Check for emotional words (should be physical descriptions)
-  const emotionalWords = ['happy', 'sad', 'scared', 'worried', 'angry', 'excited', 'nervous', 'anxious'];
+  const emotionalWords = [
+    'happy', 'sad', 'scared', 'worried', 'angry', 'excited', 'nervous', 'anxious',
+    'joyful', 'panicked', 'surprised', 'determined', 'tired', 'lonely', 'confused'
+  ];
   emotionalWords.forEach(word => {
     const regex = new RegExp(`\\b${word}\\b`, 'gi');
     if (regex.test(scene)) {

@@ -1,0 +1,84 @@
+{
+  "blends": {
+    "bl": [
+      {"id": "v1", "spelling": "bl", "description": "bare blend"},
+      {"id": "v2", "spelling": "bluh", "description": "schwa ending"}
+    ],
+    "br": [
+      {"id": "v1", "spelling": "br", "description": "bare blend"},
+      {"id": "v2", "spelling": "bruh", "description": "schwa ending"}
+    ],
+    "cl": [
+      {"id": "v1", "spelling": "cl", "description": "bare blend"},
+      {"id": "v2", "spelling": "cluh", "description": "schwa ending"}
+    ],
+    "cr": [
+      {"id": "v1", "spelling": "cr", "description": "bare blend"},
+      {"id": "v2", "spelling": "cruh", "description": "schwa ending"}
+    ],
+    "dr": [
+      {"id": "v1", "spelling": "dr", "description": "bare blend"},
+      {"id": "v2", "spelling": "druh", "description": "schwa ending"}
+    ],
+    "fl": [
+      {"id": "v1", "spelling": "fl", "description": "bare blend"},
+      {"id": "v2", "spelling": "fluh", "description": "schwa ending"}
+    ],
+    "fr": [
+      {"id": "v1", "spelling": "fr", "description": "bare blend"},
+      {"id": "v2", "spelling": "fruh", "description": "schwa ending"}
+    ],
+    "gl": [
+      {"id": "v1", "spelling": "gl", "description": "bare blend"},
+      {"id": "v2", "spelling": "gluh", "description": "schwa ending"}
+    ],
+    "gr": [
+      {"id": "v1", "spelling": "gr", "description": "bare blend"},
+      {"id": "v2", "spelling": "gruh", "description": "schwa ending"}
+    ],
+    "pl": [
+      {"id": "v1", "spelling": "pl", "description": "bare blend"},
+      {"id": "v2", "spelling": "pluh", "description": "schwa ending"}
+    ],
+    "pr": [
+      {"id": "v1", "spelling": "pr", "description": "bare blend"},
+      {"id": "v2", "spelling": "pruh", "description": "schwa ending"}
+    ],
+    "sk": [
+      {"id": "v1", "spelling": "sk", "description": "bare blend"},
+      {"id": "v2", "spelling": "skuh", "description": "schwa ending"}
+    ],
+    "sl": [
+      {"id": "v1", "spelling": "sl", "description": "bare blend"},
+      {"id": "v2", "spelling": "sluh", "description": "schwa ending"}
+    ],
+    "sm": [
+      {"id": "v1", "spelling": "sm", "description": "bare blend"},
+      {"id": "v2", "spelling": "smuh", "description": "schwa ending"}
+    ],
+    "sn": [
+      {"id": "v1", "spelling": "sn", "description": "bare blend"},
+      {"id": "v2", "spelling": "snuh", "description": "schwa ending"}
+    ],
+    "sp": [
+      {"id": "v1", "spelling": "sp", "description": "bare blend"},
+      {"id": "v2", "spelling": "spuh", "description": "schwa ending"}
+    ],
+    "st": [
+      {"id": "v1", "spelling": "st", "description": "bare blend"},
+      {"id": "v2", "spelling": "stuh", "description": "schwa ending"}
+    ],
+    "sw": [
+      {"id": "v1", "spelling": "sw", "description": "bare blend"},
+      {"id": "v2", "spelling": "swuh", "description": "schwa ending"}
+    ],
+    "tr": [
+      {"id": "v1", "spelling": "tr", "description": "bare blend"},
+      {"id": "v2", "spelling": "truh", "description": "schwa ending"}
+    ],
+    "tw": [
+      {"id": "v1", "spelling": "tw", "description": "bare blend"},
+      {"id": "v2", "spelling": "twuh", "description": "schwa ending"}
+    ]
+  }
+}

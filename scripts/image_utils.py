@@ -56,6 +56,63 @@ def find_reference_image(slug: str) -> tuple[Path | None, str | None]:
     return None, None
 
 
+def find_multi_references(slug: str) -> tuple[list[Path], str | None]:
+    """Find multi-ref images for a book (3-ref strategy).
+
+    Looks for the {slug}_multi/ directory with characters, settings, style sheets.
+
+    Args:
+        slug: Book slug (e.g., "mud-pup-fun")
+
+    Returns:
+        Tuple of (list of paths, strategy) or ([], None) if not found.
+        Returns paths in order: [characters, settings, style]
+    """
+    multi_dir = REFS_DIR / f"{slug}_multi"
+    if not multi_dir.exists():
+        return [], None
+
+    paths = []
+    sheet_types = ["characters", "settings", "style"]
+    for sheet_type in sheet_types:
+        path = multi_dir / f"{slug}_{sheet_type}.png"
+        if path.exists():
+            paths.append(path)
+
+    if len(paths) == 3:
+        return paths, "multi-3ref"
+    elif len(paths) > 0:
+        return paths, f"multi-{len(paths)}ref"
+    return [], None
+
+
+def find_best_references(slug: str) -> tuple[list[Path], str]:
+    """Find the best available references for a book.
+
+    Prefers multi-ref strategy if available, falls back to single ref.
+
+    Args:
+        slug: Book slug
+
+    Returns:
+        Tuple of (list of paths, strategy_name)
+        - For multi-ref: ([characters.png, settings.png, style.png], "multi-3ref")
+        - For single ref: ([reference.png], "single")
+        - If none found: ([], "none")
+    """
+    # Try multi-ref first
+    multi_paths, multi_strategy = find_multi_references(slug)
+    if multi_paths:
+        return multi_paths, multi_strategy
+
+    # Fall back to single reference
+    single_path, version = find_reference_image(slug)
+    if single_path:
+        return [single_path], f"single-{version}"
+
+    return [], "none"
+
+
 def get_character_block(book: dict) -> str:
     """Extract a consistent character description block from book data.
 

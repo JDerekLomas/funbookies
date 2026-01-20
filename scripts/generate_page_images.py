@@ -38,7 +38,7 @@ from fal_client import FalClient
 # Import shared utilities
 from image_utils import (
     BOOKS_DIR, REFS_DIR, IMAGES_DIR,
-    image_to_base64_uri, find_reference_image, get_character_block
+    image_to_base64_uri, find_reference_image, find_best_references, get_character_block
 )
 
 
@@ -136,28 +136,33 @@ def generate_image_fal(
 ) -> dict | None:
     """Generate an image using fal.ai.
 
+    Automatically uses multi-ref strategy (3 refs) if available,
+    falls back to single ref, then to T2I if no references found.
+
     Returns: dict with 'url', 'local_path', and 'metadata' or None on failure
     """
     print(f"  Generating page {page_num} via fal.ai...")
 
     model = "nano-banana-pro"
-    ref_path, ref_version = None, None
+    ref_paths = []
+    ref_strategy = "none"
     cost = "$0.15"
 
     if use_reference:
-        ref_path, ref_version = find_reference_image(slug)
-        if ref_path:
-            print(f"    Using reference: {ref_version}")
+        ref_paths, ref_strategy = find_best_references(slug)
+        if ref_paths:
+            num_refs = len(ref_paths)
+            print(f"    Using {num_refs} reference(s): {ref_strategy}")
             model = "wan2.6-image"
             cost = "$0.03"
         else:
-            print(f"    No reference found, using T2I")
+            print(f"    No references found, using T2I")
 
     # Generate based on model type
-    if model == "wan2.6-image" and ref_path:
+    if model == "wan2.6-image" and ref_paths:
         result = fal_client.generate_with_reference(
             prompt=prompt,
-            reference_images=[Path(ref_path)],
+            reference_images=ref_paths,  # Now supports 1-3 references
             model=model,
             size="1024x1024",
             verbose=True,
@@ -192,8 +197,9 @@ def generate_image_fal(
                     "generated_at": datetime.now().isoformat(),
                     "model": model,
                     "provider": "fal.ai",
-                    "used_reference": bool(ref_path and use_reference),
-                    "reference_version": ref_version if (ref_path and use_reference) else None,
+                    "used_reference": bool(ref_paths and use_reference),
+                    "reference_strategy": ref_strategy if (ref_paths and use_reference) else None,
+                    "num_references": len(ref_paths) if ref_paths else 0,
                     "cost": cost,
                 }
             }
@@ -371,11 +377,11 @@ def main():
 
     use_reference = args.use_reference and not args.no_reference
 
-    # Estimate costs
-    ref_path, ref_version = find_reference_image(args.slug)
-    if use_reference and ref_path:
+    # Estimate costs - check for best available references
+    ref_paths, ref_strategy = find_best_references(args.slug)
+    if use_reference and ref_paths:
         cost_per_image = 0.03 if args.provider == "fal" else 0.12
-        print(f"Mode: Image-to-image (style transfer from {ref_version})")
+        print(f"Mode: Image-to-image ({ref_strategy}, {len(ref_paths)} ref(s))")
     else:
         cost_per_image = 0.15
         print(f"Mode: Text-to-image (nano-banana-pro)")
@@ -450,7 +456,7 @@ def main():
     if not args.dry_run:
         print(f"\nDone! Generated {updated} images.")
         if args.provider == "fal":
-            actual_cost = updated * (0.03 if use_reference and ref_path else 0.15)
+            actual_cost = updated * (0.03 if use_reference and ref_paths else 0.15)
             print(f"Total cost: ~${actual_cost:.2f}")
 
 

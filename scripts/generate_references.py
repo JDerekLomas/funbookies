@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
-"""Generate 9-panel reference images for books based on their content.
+"""Generate reference images for books based on their content.
+
+Supports two strategies:
+- single: One 9-panel reference sheet (default, current workflow)
+- multi: Three specialized sheets (characters, settings, style)
 
 Supports two providers:
 - fal.ai (default): $0.15/image for nano-banana-pro
 - mulerouter: $0.15/image for nano-banana-pro
 
-Both providers have the same pricing for nano-banana-pro T2I.
-fal.ai is recommended for API consistency with other scripts.
+Multi-ref strategy creates 3 images ($0.45 total) but provides:
+- Better character consistency (dedicated character sheet)
+- No content contamination (style sheet has no story elements)
+- Fine-grained control over settings
 
-Saves generation metadata to book JSON:
-- reference_generated_at: ISO timestamp
-- reference_model: model used
-- reference_prompt: the prompt used
+Saves generation metadata to book JSON.
 """
 
 import sys
@@ -239,6 +242,281 @@ CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration
     return prompt
 
 
+# =============================================================================
+# MULTI-REF STRATEGY: 3 specialized reference sheets
+# =============================================================================
+
+def build_characters_prompt(slug: str, book_info: dict) -> str:
+    """Build prompt for character reference sheet (multi-ref strategy)."""
+
+    band = book_info["band"]
+    style_template = STYLE_TEMPLATES.get(band, STYLE_TEMPLATES["B"])
+    book_style = book_info.get("visual_style") or BOOK_STYLES.get(slug, style_template["base"])
+
+    character_blocks = book_info.get("character_blocks", [])
+
+    if not character_blocks:
+        # No characters defined - create generic character sheet
+        return f"""9-PANEL CHARACTER REFERENCE for '{book_info['title']}'
+
+Create a 3x3 grid showing the main character(s) from different angles and expressions.
+
+Row 1 - Views:
+[1] Main character front view, full body, arms at sides, neutral expression
+[2] Main character side profile, walking pose
+[3] Main character 3/4 view, slight smile
+
+Row 2 - Expressions:
+[4] Main character happy, wide smile, eyes crinkled
+[5] Main character sad or worried, downturned mouth
+[6] Main character surprised, eyes wide, mouth O-shaped
+
+Row 3 - Actions:
+[7] Main character running, legs mid-stride, arms pumping
+[8] Main character sitting, relaxed pose
+[9] Main character in key action from story
+
+CRITICAL: Same character design in ALL 9 panels. Consistent features throughout.
+Style: {book_style}
+Mood: {style_template['mood']}
+
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image."""
+
+    # Build character-specific prompt
+    char_names = [cb.split(":")[0].strip() for cb in character_blocks[:2]]
+    main_char = char_names[0] if char_names else "Main character"
+    main_desc = character_blocks[0] if character_blocks else ""
+
+    if len(char_names) >= 2:
+        # Two characters - split panels between them
+        second_char = char_names[1]
+        second_desc = character_blocks[1] if len(character_blocks) > 1 else ""
+
+        prompt = f"""9-PANEL CHARACTER REFERENCE for '{book_info['title']}'
+
+Create a 3x3 grid showing both main characters consistently.
+
+CHARACTERS (draw EXACTLY as described):
+{chr(10).join(character_blocks)}
+
+Row 1 - {main_char}:
+[1] {main_char} front view, full body, neutral expression - {main_desc}
+[2] {main_char} side profile, walking pose
+[3] {main_char} happy expression, wide smile
+
+Row 2 - {second_char}:
+[4] {second_char} front view, full body - {second_desc}
+[5] {second_char} side profile
+[6] {second_char} expression variation
+
+Row 3 - Together & Actions:
+[7] {main_char} and {second_char} side by side, size comparison (KEY PANEL)
+[8] {main_char} in action pose
+[9] {second_char} in action pose
+
+CRITICAL: Each character must look IDENTICAL across all their panels.
+Style: {book_style}
+
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image."""
+    else:
+        # Single character - full sheet dedicated to them
+        prompt = f"""9-PANEL CHARACTER REFERENCE for '{book_info['title']}'
+
+Create a 3x3 grid showing {main_char} from different angles and expressions.
+
+CHARACTER (draw EXACTLY as described):
+{main_desc}
+
+Row 1 - Views:
+[1] {main_char} front view, full body, arms at sides, neutral expression
+[2] {main_char} side profile, walking pose
+[3] {main_char} 3/4 view, slight turn
+
+Row 2 - Expressions:
+[4] {main_char} happy, wide smile, eyes crinkled, cheeks raised
+[5] {main_char} sad or worried, downturned mouth, drooping posture
+[6] {main_char} surprised, eyes wide open, mouth O-shaped
+
+Row 3 - Actions:
+[7] {main_char} running, legs mid-stride, arms pumping, body leaning forward
+[8] {main_char} sitting, relaxed comfortable pose
+[9] {main_char} with key prop or in key story pose
+
+CRITICAL: {main_char} must look IDENTICAL in all 9 panels. Same features, proportions, colors.
+Style: {book_style}
+
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image."""
+
+    return prompt
+
+
+def build_settings_prompt(slug: str, book_info: dict) -> str:
+    """Build prompt for settings/environment reference sheet (multi-ref strategy)."""
+
+    band = book_info["band"]
+    style_template = STYLE_TEMPLATES.get(band, STYLE_TEMPLATES["B"])
+    book_style = book_info.get("visual_style") or BOOK_STYLES.get(slug, style_template["base"])
+
+    # Extract setting hints from scenes
+    scenes = book_info.get("scenes", [])[:6]
+
+    # Try to identify settings from story
+    title = book_info.get("title", slug)
+
+    prompt = f"""9-PANEL SETTINGS REFERENCE for '{title}'
+
+Create a 3x3 grid showing environments and locations from the story.
+NO CHARACTERS in any panel - settings only.
+
+Row 1 - Main Location Exterior:
+[1] Main story location, wide establishing shot, bright daylight
+[2] Same location, golden hour sunset lighting, warm tones
+[3] Same location, early morning or dusk, softer light
+
+Row 2 - Interior / Secondary Locations:
+[4] Interior space from story, warm inviting lighting
+[5] Secondary location or different area, clear details
+[6] Detail shot of important furniture, object, or architectural element
+
+Row 3 - Atmosphere & Environment:
+[7] Sky and weather typical of the story (sunny, cloudy, etc.)
+[8] Nature elements: trees, grass, flowers, water - as relevant to story
+[9] Mood/atmosphere shot capturing the feeling of the story world
+
+CRITICAL: NO characters, NO people, NO animals in any panel.
+Pure environments and settings only.
+Consistent color palette and lighting style across all panels.
+
+Style: {book_style}
+Mood: {style_template['mood']}
+
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image."""
+
+    return prompt
+
+
+def build_style_prompt(slug: str, book_info: dict) -> str:
+    """Build prompt for style/palette reference sheet (multi-ref strategy).
+
+    This sheet contains NO story content - only abstract style elements.
+    This prevents content contamination during page generation.
+    """
+
+    band = book_info["band"]
+    style_template = STYLE_TEMPLATES.get(band, STYLE_TEMPLATES["B"])
+    book_style = book_info.get("visual_style") or BOOK_STYLES.get(slug, style_template["base"])
+
+    prompt = f"""9-PANEL STYLE REFERENCE - Abstract Color and Texture Samples
+
+Create a 3x3 grid of ABSTRACT style samples. NO characters, NO scenes, NO story elements.
+
+Row 1 - Color Palette:
+[1] Primary color gradient swatch - main colors used in the art style
+[2] Secondary/accent color swatches - complementary tones
+[3] Neutral tones - backgrounds, shadows, highlights
+
+Row 2 - Textures & Brushwork:
+[4] Brush stroke texture sample - showing the painting technique
+[5] Soft edge texture - how edges blend and feather
+[6] Surface texture sample - paper grain, canvas feel
+
+Row 3 - Lighting & Mood:
+[7] Warm lighting color study - golden, cozy, inviting tones
+[8] Cool lighting color study - blue, calm, peaceful tones
+[9] Contrast study - light and shadow interplay
+
+CRITICAL REQUIREMENTS:
+- ABSTRACT ONLY - no recognizable objects, characters, or scenes
+- Just color swatches, gradients, texture samples, and brushwork
+- This establishes the visual style without any story content
+
+Style to capture: {book_style}
+Mood: {style_template['mood']}
+
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image."""
+
+    return prompt
+
+
+def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
+    """Generate 3 specialized reference sheets using fal.ai (multi-ref strategy)."""
+
+    book_info = get_book_info(slug)
+    if not book_info:
+        print(f"  Book not found: {slug}")
+        return False
+
+    # Create output directory
+    multi_dir = REFS_DIR / f"{slug}_multi"
+    multi_dir.mkdir(parents=True, exist_ok=True)
+
+    print(f"  Title: {book_info['title']}")
+    print(f"  Band: {book_info['band']}")
+    print(f"  Output: {multi_dir}/")
+
+    model = "nano-banana-pro"
+    sheets = [
+        ("characters", build_characters_prompt),
+        ("settings", build_settings_prompt),
+        ("style", build_style_prompt),
+    ]
+
+    results = {}
+    success_count = 0
+
+    for sheet_name, prompt_builder in sheets:
+        output_path = multi_dir / f"{slug}_{sheet_name}.png"
+        prompt = prompt_builder(slug, book_info)
+
+        print(f"\n  [{sheet_name}]")
+        print(f"    Prompt preview: {prompt[:100]}...")
+
+        result = fal_client.generate_image(
+            prompt=prompt,
+            model=model,
+            size="square_hd",
+            verbose=True,
+        )
+
+        if result.success:
+            print(f"    Generated: {result.url[:60]}...")
+            try:
+                urllib.request.urlretrieve(result.url, output_path)
+                print(f"    Saved: {output_path.name}")
+                results[sheet_name] = {
+                    "path": str(output_path.relative_to(REFS_DIR.parent.parent)),
+                    "prompt": prompt,
+                    "generated_at": datetime.now().isoformat(),
+                }
+                success_count += 1
+            except Exception as e:
+                print(f"    Download error: {e}")
+        else:
+            print(f"    Failed: {result.error}")
+
+    # Save metadata to book JSON
+    if success_count > 0:
+        book_path = BOOKS_DIR / f"{slug}.json"
+        with open(book_path) as f:
+            book = json.load(f)
+
+        book["multi_reference_metadata"] = {
+            "strategy": "multi-3ref",
+            "generated_at": datetime.now().isoformat(),
+            "model": model,
+            "provider": "fal.ai",
+            "cost": f"${success_count * 0.15:.2f}",
+            "sheets": results,
+        }
+
+        with open(book_path, 'w') as f:
+            json.dump(book, f, indent=2)
+
+        print(f"\n  Metadata saved to book JSON")
+
+    return success_count == 3
+
+
 def generate_reference_fal(slug: str, fal_client: FalClient) -> bool:
     """Generate a 9-panel reference image using fal.ai."""
 
@@ -390,12 +668,14 @@ def generate_reference_mulerouter(slug: str, config) -> bool:
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(description="Generate 9-panel reference images")
+    parser = argparse.ArgumentParser(description="Generate reference images for books")
     parser.add_argument("--book", help="Single book slug to generate")
     parser.add_argument("--all-missing", action="store_true", help="Generate for all books missing references")
     parser.add_argument("--force", action="store_true", help="Regenerate even if reference exists")
     parser.add_argument("--provider", choices=["fal", "mulerouter"], default="fal",
                         help="API provider (default: fal)")
+    parser.add_argument("--strategy", choices=["single", "multi"], default="single",
+                        help="Reference strategy: single (1 sheet) or multi (3 sheets)")
     args = parser.parse_args()
 
     if args.book:
@@ -405,34 +685,55 @@ def main():
             print(f"Book not found: {args.book}")
             return
         # Check if reference exists and --force not set
-        ref_exists = (REFS_DIR / f"{args.book}_reference.png").exists()
+        if args.strategy == "single":
+            ref_exists = (REFS_DIR / f"{args.book}_reference.png").exists()
+        else:
+            ref_exists = (REFS_DIR / f"{args.book}_multi").exists()
         if ref_exists and not args.force:
             print(f"Reference already exists for {args.book}. Use --force to regenerate.")
             return
     elif args.all_missing:
         # Find all books missing reference images
         all_books = [p.stem for p in BOOKS_DIR.glob("*.json") if p.stem != "manifest"]
-        existing = [s for s in all_books if not (REFS_DIR / f"{s}_reference.png").exists()
-                    and not (REFS_DIR / f"{s}_reference_v2.png").exists()
-                    and not (REFS_DIR / f"{s}_reference_v3.png").exists()
-                    and not (REFS_DIR / f"{s}_reference_v4.png").exists()]
+        if args.strategy == "single":
+            existing = [s for s in all_books if not (REFS_DIR / f"{s}_reference.png").exists()
+                        and not (REFS_DIR / f"{s}_reference_v2.png").exists()
+                        and not (REFS_DIR / f"{s}_reference_v3.png").exists()
+                        and not (REFS_DIR / f"{s}_reference_v4.png").exists()]
+        else:
+            existing = [s for s in all_books if not (REFS_DIR / f"{s}_multi").exists()]
     else:
-        print("Usage: python generate_references.py --book SLUG")
-        print("       python generate_references.py --all-missing")
+        print("Usage: python generate_references.py --book SLUG [--strategy single|multi]")
+        print("       python generate_references.py --all-missing [--strategy single|multi]")
+        print("")
+        print("Strategies:")
+        print("  --strategy single  One 9-panel sheet (default, $0.15)")
+        print("  --strategy multi   Three specialized sheets ($0.45)")
+        print("                     - characters.png: poses, expressions")
+        print("                     - settings.png: environments, locations")
+        print("                     - style.png: colors, textures (no content)")
         print("")
         print("Options:")
-        print("  --provider fal        Use fal.ai (default, $0.15/image)")
-        print("  --provider mulerouter Use MuleRouter ($0.15/image)")
-        print("  --force               Regenerate even if reference exists")
+        print("  --provider fal        Use fal.ai (default)")
+        print("  --provider mulerouter Use MuleRouter")
+        print("  --force               Regenerate even if exists")
         return
 
     print(f"Generating reference images for {len(existing)} books:")
     for s in existing:
         print(f"  - {s}")
 
-    print(f"\nUsing provider: {args.provider}")
-    print(f"Cost: $0.15 per image (nano-banana-pro)")
-    print(f"Estimated total: ${len(existing) * 0.15:.2f}")
+    print(f"\nStrategy: {args.strategy}")
+    print(f"Provider: {args.provider}")
+
+    if args.strategy == "single":
+        cost_per_book = 0.15
+        print(f"Cost: $0.15 per book (1 image)")
+    else:
+        cost_per_book = 0.45
+        print(f"Cost: $0.45 per book (3 images)")
+
+    print(f"Estimated total: ${len(existing) * cost_per_book:.2f}")
 
     # Initialize client
     if args.provider == "fal":
@@ -454,15 +755,32 @@ def main():
     success = 0
     for slug in existing:
         print(f"\n[{slug}]")
-        if args.provider == "fal":
-            if generate_reference_fal(slug, client):
-                success += 1
-        else:
-            if generate_reference_mulerouter(slug, client):
-                success += 1
 
-    print(f"\n\nDone! Generated {success}/{len(existing)} reference images.")
-    print(f"Total cost: ~${success * 0.15:.2f}")
+        if args.strategy == "multi":
+            # Multi-ref strategy: 3 specialized sheets
+            if args.provider == "fal":
+                if generate_multi_refs_fal(slug, client):
+                    success += 1
+            else:
+                print("  Multi-ref not yet implemented for mulerouter, using fal.ai")
+                # Fall back to fal for multi-ref
+                try:
+                    fal_client = FalClient()
+                    if generate_multi_refs_fal(slug, fal_client):
+                        success += 1
+                except ValueError as e:
+                    print(f"  Error: {e}")
+        else:
+            # Single strategy: one 9-panel sheet
+            if args.provider == "fal":
+                if generate_reference_fal(slug, client):
+                    success += 1
+            else:
+                if generate_reference_mulerouter(slug, client):
+                    success += 1
+
+    print(f"\n\nDone! Generated {success}/{len(existing)} references.")
+    print(f"Total cost: ~${success * cost_per_book:.2f}")
 
 
 if __name__ == "__main__":

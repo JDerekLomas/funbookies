@@ -223,5 +223,39 @@
     "before_reading": "Look at the cover.",
     "during_reading": "Help sound out words.",
     "after_reading": "What was your favorite part?"
+  },
+  "multi_reference_metadata": {
+    "strategy": "scene-split",
+    "description": "Base style guide + scene refs split by story half to prevent content contamination",
+    "generated_at": "2026-01-20T16:08:00.000000",
+    "provider": "mulerouter",
+    "cost": "$0.21",
+    "sheets": {
+      "base": {
+        "path": "books/references/mud-pup-fun_multi/mud-pup-fun_base.png",
+        "model": "nano-banana-pro",
+        "type": "T2I",
+        "description": "9-panel style guide with characters, settings, and key moments",
+        "generated_at": "2026-01-20T16:04:00.000000"
+      },
+      "scenes_part1": {
+        "path": "books/references/mud-pup-fun_multi/mud-pup-fun_scenes_part1.png",
+        "model": "wan2.6-image",
+        "type": "I2I",
+        "reference": "base",
+        "description": "First half scenes (1-6): Outdoor mud play",
+        "use_for_pages": [1, 2, 3, 4, 5, 6],
+        "generated_at": "2026-01-20T16:07:00.000000"
+      },
+      "scenes_part2": {
+        "path": "books/references/mud-pup-fun_multi/mud-pup-fun_scenes_part2.png",
+        "model": "wan2.6-image",
+        "type": "I2I",
+        "reference": "base",
+        "description": "Second half scenes (7-12): Bath time",
+        "use_for_pages": [7, 8, 9, 10, 11, 12],
+        "generated_at": "2026-01-20T16:08:00.000000"
+      }
+    }
   }
 }

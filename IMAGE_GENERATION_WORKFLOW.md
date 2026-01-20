@@ -284,6 +284,29 @@ Pages:                 /vendors/alibaba/v1/wan2.6-image/generation
 
 ## Generation Commands
 
+### Wizard (Recommended for New Books)
+
+The Book Creation Wizard provides a visual interface for the complete workflow:
+
+```
+https://funbookies.com/wizard/
+```
+
+**Wizard Phases:**
+1. **Story** - Generate narrative with phonics constraints
+2. **Scenes** - Review/edit image scene descriptions
+3. **Reference** - Generate reference image(s) with strategy selection
+4. **Pages** - Generate page images with reference(s)
+
+**Reference Strategy Toggle (Phase 3):**
+- **Single Sheet ($0.15)** - Traditional 9-panel reference
+- **Multi-Ref ($0.21)** - 3 specialized sheets via cascade:
+  - Characters (T2I, $0.15) → Settings (I2I, $0.03) → Style (I2I, $0.03)
+
+Multi-ref provides better character consistency and eliminates content contamination.
+
+### CLI Commands
+
 ```bash
 # Step 1: Generate book XML with story and scenes
 python scripts/generate_book_xml.py \
@@ -307,6 +330,16 @@ python scripts/multi_ref_experiment.py {slug} --strategies split-3ref
 
 # Alternative: Generate all pages at once
 python scripts/multi_ref_experiment.py {slug} --strategies split-3ref --pages all
+```
+
+### Multi-Ref via CLI
+
+```bash
+# Generate 3 specialized reference sheets (cascade: T2I → I2I → I2I)
+uv run python scripts/generate_references.py --book {slug} --strategy multi
+
+# With MuleRouter provider (more expensive but no FAL_KEY needed)
+uv run python scripts/generate_references.py --book {slug} --strategy multi --provider mulerouter
 ```
 
 ## Prompt Writing Best Practices
@@ -795,7 +828,8 @@ Style: [art style]. NO TEXT anywhere.
 | Reference Images | 47 generated (single 9-panel) |
 | Cover Images | 48 generated |
 | Page Images | 2 books fully generated |
-| Multi-ref support | Documented, scripts need update |
+| Multi-ref CLI | Supported via `generate_references.py --strategy multi` |
+| Multi-ref Wizard | Supported with strategy toggle in Phase 3 |
 
 ## Edit Mode & Image Versioning
 

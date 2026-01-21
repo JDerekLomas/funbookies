@@ -1380,29 +1380,115 @@ function validateAndApprovePhase2() {
 }
 
 // Alias for Phase 3 button (Story Review -> Reference)
-function validateAndApprovePhase3() {
+async function validateAndApprovePhase3() {
     // Phase 3 is Story Review, validates scenes and proceeds to Phase 4 (Reference)
-    const issues = [];
+    const loadingEl = document.getElementById('phase3Loading');
+    const loadingText = document.getElementById('phase3LoadingText');
 
-    state.book.pages.forEach((page, i) => {
-        const validation = validateScene(page.scene);
-        if (!validation.valid) {
-            issues.push(`Page ${page.page}: ${validation.issues.join(', ')}`);
+    // Show loading
+    loadingEl.classList.remove('hidden');
+    loadingText.textContent = 'Validating book with AI...';
+
+    try {
+        // Use LLM-based validation
+        const response = await fetch('/api/validate-book-v2', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ book: state.book })
+        });
+
+        const result = await response.json();
+        loadingEl.classList.add('hidden');
+
+        if (!result.valid) {
+            const allIssues = [...result.errors, ...result.warnings];
+            document.getElementById('validationMessages').classList.remove('hidden');
+            document.getElementById('validationList').innerHTML = allIssues.map(i => `<li>${i}</li>`).join('');
+            if (result.assessment) {
+                const assessmentEl = document.createElement('p');
+                assessmentEl.style.marginTop = '0.5rem';
+                assessmentEl.style.fontStyle = 'italic';
+                assessmentEl.textContent = result.assessment;
+                document.getElementById('validationList').appendChild(assessmentEl);
+            }
+            return;
         }
-    });
 
-    if (issues.length > 0) {
-        document.getElementById('validationMessages').classList.remove('hidden');
-        document.getElementById('validationList').innerHTML = issues.map(i => `<li>${i}</li>`).join('');
-        return;
+        document.getElementById('validationMessages').classList.add('hidden');
+        state.phaseStatus[3] = 'complete';
+        state.checkpointApprovals[3] = { approved: true, timestamp: new Date().toISOString() };
+        saveState();
+        saveToSupabase();
+        goToPhase(4);
+
+    } catch (error) {
+        console.error('Validation error:', error);
+        loadingEl.classList.add('hidden');
+        // Fall back to local validation on error
+        const issues = [];
+        state.book.pages.forEach((page, i) => {
+            const validation = validateScene(page.scene);
+            if (!validation.valid) {
+                issues.push(`Page ${page.page}: ${validation.issues.join(', ')}`);
+            }
+        });
+
+        if (issues.length > 0) {
+            document.getElementById('validationMessages').classList.remove('hidden');
+            document.getElementById('validationList').innerHTML = issues.map(i => `<li>${i}</li>`).join('');
+            return;
+        }
+
+        document.getElementById('validationMessages').classList.add('hidden');
+        state.phaseStatus[3] = 'complete';
+        state.checkpointApprovals[3] = { approved: true, timestamp: new Date().toISOString() };
+        saveState();
+        saveToSupabase();
+        goToPhase(4);
+    }
+}
+
+// Generate/enhance all scenes using LLM
+async function regenerateAllScenes() {
+    const loadingEl = document.getElementById('phase3Loading');
+    const loadingText = document.getElementById('phase3LoadingText');
+
+    loadingEl.classList.remove('hidden');
+    loadingText.textContent = 'Generating scenes with AI...';
+
+    try {
+        const response = await fetch('/api/enhance-scenes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ book: state.book, mode: 'generate' })
+        });
+
+        const result = await response.json();
+
+        if (result.scenes) {
+            // Update book with new scenes
+            result.scenes.forEach(s => {
+                const page = state.book.pages.find(p => p.page === s.page);
+                if (page) {
+                    page.scene = s.scene;
+                }
+            });
+
+            // Update character description if provided
+            if (result.characterDescription) {
+                state.book.characterDescription = result.characterDescription;
+            }
+
+            saveState();
+            renderPhase2Content(); // Re-render to show new scenes
+        }
+
+    } catch (error) {
+        console.error('Scene generation error:', error);
+        alert('Failed to generate scenes: ' + error.message);
     }
 
-    document.getElementById('validationMessages').classList.add('hidden');
-    state.phaseStatus[3] = 'complete';
-    state.checkpointApprovals[3] = { approved: true, timestamp: new Date().toISOString() };
-    saveState();
-    saveToSupabase();
-    goToPhase(4);
+    loadingEl.classList.add('hidden');
 }
 
 // ===================

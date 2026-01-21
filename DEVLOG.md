@@ -4,6 +4,58 @@ Development session notes and changes.
 
 ---
 
+## 2026-01-21: C3 Book, Missing Phonemes, Supabase Wizard Sync
+
+**Commit:** `71de8a7`
+
+### Summary
+Generated a C-band book using the improved story generator, filled in missing phoneme audio, and updated the wizard to persist full state to Supabase for cross-device sync.
+
+### New Book: Kitten's Hidden Basket (C3)
+- Level C3 focuses on two-syllable closed syllables (VC/CV division)
+- Target words: kitten, hidden, basket, button, sudden, happen, rabbit
+- Generated via `scripts/generate_story.py`
+- Story: A curious kitten discovers a secret panel with a button, finds a hidden basket containing a sleeping rabbit, makes a new friend
+
+### Missing Phoneme Audio
+Added 3 missing phonemes to complete the curriculum audio:
+- `qu.mp3` - /kw/ as in "queen"
+- `nk.mp3` - /ŋk/ as in "sink"
+- `igh.mp3` - /aɪ/ as in "night"
+
+Generated with OpenAI TTS (tts-1-hd, nova voice). Updated `scripts/generate_phoneme_sounds.py` with definitions.
+
+**Phoneme audio now complete:** 64 files
+
+### Wizard Supabase Sync
+Updated wizard to store full state in Supabase (not just book data):
+
+**What's now persisted:**
+- `phaseStatus` - which phases are complete/in_progress/pending
+- `checkpointApprovals` - timestamps of user approvals
+- `prompts` / `metaprompts` - custom prompt edits
+- `refStrategy` / `multiRefs` - reference image strategy
+- `outline` - story outline from Phase 1
+- `formData` - level, concept, setting
+
+**Loading behavior:**
+- Always fetches from Supabase (source of truth)
+- Falls back to localStorage if Supabase fails
+- `?refresh=true` param forces reload from Supabase
+
+### Files Changed
+- `public/books/kittens-hidden-basket.json` - New C3 book
+- `public/review/kittens-hidden-basket-review.html` - Review page
+- `public/audio/phonemes/{qu,nk,igh}.mp3` - Missing phoneme audio
+- `public/wizard/wizard.js` - Supabase state persistence
+- `scripts/generate_phoneme_sounds.py` - Added qu, nk, igh definitions
+
+### URLs
+- Wizard: https://funbookies.com/wizard/?slug=kittens-hidden-basket
+- Review: https://funbookies.com/review/kittens-hidden-basket-review.html
+
+---
+
 ## 2026-01-21: CLI-Driven Book Wizard Skill
 
 ### Summary

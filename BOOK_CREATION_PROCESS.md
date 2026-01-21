@@ -2,15 +2,32 @@
 
 A comprehensive guide to creating FunBookies books correctly. Follow this process to avoid common mistakes.
 
+## 10,000 Foot View
+
+FunBookies creates **decodable readers** - children's books with phonetically controlled vocabulary. The creation pipeline ensures:
+
+1. **Reading level appropriate** - Words match the child's phonics stage (A0-D6)
+2. **Narratively compelling** - Stories have WANT → OBSTACLE → TRY-FAIL → RESOLUTION
+3. **Visually consistent** - Reference sheets ensure character/setting continuity across pages
+4. **High quality images** - Multi-reference image generation with style transfer
+
 ## Overview
 
 ```
-Story Seed → Story Text → Scene Descriptions → Reference Image → Page Images → Deploy
-                ↓              ↓                    ↓               ↓
-           CHECKPOINT 1   CHECKPOINT 2         CHECKPOINT 3    CHECKPOINT 4
+Concept → Outline → Full Story → Reference Image → Page Images → Publish
+    ↓        ↓          ↓              ↓               ↓           ↓
+ PHASE 1  PHASE 2    PHASE 3       PHASE 4         PHASE 5     PHASE 6
 ```
 
-**CRITICAL RULE:** Never proceed past a checkpoint without human review.
+**6-Phase Wizard Flow:**
+1. **Concept** - Enter level, story idea, setting → Generate beat-by-beat outline
+2. **Outline** - Review/edit story beats (add, delete, reorder)
+3. **Story** - Expand outline to full text with `<line>` tags and `<scene>` XML
+4. **Reference** - Generate 9-panel style reference sheet
+5. **Pages** - Generate individual page images using reference
+6. **Publish** - Review and publish to reader
+
+**CRITICAL RULE:** Never proceed past a phase without human review.
 
 ---
 
@@ -20,7 +37,12 @@ Story Seed → Story Text → Scene Descriptions → Reference Image → Page Im
 ```
 https://funbookies.com/wizard/
 ```
-Step-by-step UI with built-in validation. Data saved to Supabase after each phase.
+6-step UI with built-in validation. Data saved to Supabase after each phase.
+
+**New Two-Phase Story Generation:**
+- Phase 1 generates a **beat-by-beat outline** (not full text)
+- Phase 2 lets you **edit beats** before expanding
+- Phase 3 expands outline to **full story with scene descriptions**
 
 ### 2. Claude Code Web (AI-assisted)
 ```
@@ -68,28 +90,260 @@ curl -X POST https://funbookies.com/api/generate-story \
 
 ---
 
-## Phase 1: Story Generation
+## Data Structures
 
-### Input
-- Level specification (B1, B4, B6, etc.)
-- Story seed (setting, anchor, mode)
-- Pipeline config (A-F)
+### Outline (Phase 1→2)
+```json
+{
+  "title": "The Big Pig",
+  "character": {
+    "name": "Pip",
+    "type": "pig",
+    "visual_shorthand": "plump pink pig with floppy ears",
+    "distinctive_features": ["curly tail", "muddy snout", "bright eyes"]
+  },
+  "setting": "sunny farm with red barn and mud puddles",
+  "visual_style": "Playful watercolor, expressive characters, vibrant colors.",
+  "beats": [
+    { "page": 1, "beat": "INTRODUCE: Pip the pig wants to find the perfect mud puddle" },
+    { "page": 2, "beat": "WANT: Pip searches the farm for mud" }
+  ],
+  "arc": "Pip wants mud but the puddles are dry. He tries digging but finds rocks. Finally rain comes and makes the best puddle ever."
+}
+```
 
-### Output
-- Story text with page breaks
-- `book.json` with text fields populated
-
-### Checkpoint 1: Story Review
-Before proceeding, verify:
-- [ ] Text matches target phonics level
-- [ ] Decodability meets level requirements
-- [ ] Heart/sight words are appropriate
-- [ ] Each page has a clear visual moment
-- [ ] Story has emotional arc
+### Full Story (Phase 3)
+```json
+{
+  "title": "The Big Pig",
+  "summary": "A pig finds the perfect mud puddle after a rainstorm.",
+  "characters": { "main": { "name": "Pip", "visual_shorthand": "...", "distinctive_features": [] } },
+  "pages": [
+    {
+      "story_page": 1,
+      "text": "<line>Pip is a pig.</line><line>Pip wants mud.</line>",
+      "scene": "Wide shot: Pip, plump pink pig with floppy ears and curly tail, standing in sunny farmyard looking around. Warm morning light. NO TEXT, NO WORDS, NO LETTERS."
+    }
+  ],
+  "word_list": { "sound_out": ["pig", "mud", "big"], "sight": ["is", "a", "the"], "heart": ["happy", "friend"] },
+  "reference_prompt": "9-panel children's book reference sheet..."
+}
+```
 
 ---
 
-## Phase 2: Scene Description Generation
+## Phase 1: Concept → Outline
+
+### Input
+- Level specification (A0-D6)
+- Story concept (what happens)
+- Setting (where it happens)
+
+### Output
+- Beat-by-beat story outline
+- Character with visual details
+- Story arc summary
+
+### What the Prompt Includes
+- Story structure guidance (WANT/OBSTACLE/TRY-FAIL/RESOLUTION)
+- Band-specific visual style (A=simple, B=playful, C=rich, D=sophisticated)
+- Character format with `visual_shorthand` and `distinctive_features`
+
+---
+
+## Phase 2: Outline Review
+
+### Purpose
+Let humans edit the story beats BEFORE generating full text. This prevents wasted generation on bad story structures.
+
+### Actions Available
+- Edit beat text
+- Add/delete beats
+- Reorder beats
+- Regenerate entire outline
+
+---
+
+## Phase 3: Expand to Full Story
+
+### Input
+- Approved outline with beats
+- Level constraints
+
+### Output
+- Full story text with `<line>` tags
+- Scene descriptions in WHO/WHERE/WHAT/STATE format
+- Word lists (sound_out, sight, heart)
+- 9-panel reference prompt
+
+### What the Prompt Includes
+- Logic and continuity rules (cause→effect, state tracking)
+- Level-specific word count limits
+- Scene format requirements
+- Reference prompt template
+
+---
+
+## Phase 4: Reference Image Generation
+
+### Purpose
+The 9-panel reference sheet establishes:
+- Character design consistency
+- Color palette
+- Art style
+- Key objects/props
+- Setting elements
+
+### Reference Sheet Structure
+```
+[1] Character front   [2] Expressions      [3] Character action
+[4] Secondary char    [5] Key prop/object  [6] KEY MOMENT (center)
+[7] Setting element   [8] Setting element  [9] Resolution/together
+```
+
+### Reference Prompt Requirements
+- Focus on STYLE VOCABULARY, not story scenes
+- Panel 6 (center) has highest style influence
+- Include "NO TEXT, NO WORDS, NO LETTERS"
+- Specify art style explicitly
+
+### Model
+Use `nano-banana-pro` (text-to-image) for references.
+
+### Checkpoint: Reference Image Review
+
+Before generating page images:
+- [ ] Character is consistent across panels
+- [ ] Style matches the intended mood
+- [ ] Color palette is cohesive
+- [ ] No unwanted text/words in image
+- [ ] Key props/objects are present
+
+---
+
+## Phase 5: Page Image Generation
+
+### The Critical Settings
+
+Every page image prompt MUST include:
+
+```
+PROMPT PREFIX (add to every scene):
+"Single scene illustration: "
+
+PROMPT SUFFIX (add to every scene):
+"
+COMPOSITION: One cohesive illustration filling the entire canvas.
+Full-bleed image with the scene filling edge to edge.
+Style: [Match reference - watercolor/collage/etc].
+NO TEXT, NO WORDS, NO LETTERS anywhere in image."
+```
+
+### Image Generation Parameters
+
+| Parameter | Value | Why |
+|-----------|-------|-----|
+| Model | wan2.6-image | I2I style transfer |
+| Reference | {slug}_reference.png | Style consistency |
+| Size | 1280x960 (pages), 1280x1280 (cover) | Reader layout |
+
+### Building the Final Prompt
+
+```python
+def build_page_prompt(scene_description: str, book: dict) -> str:
+    """Build complete prompt for page image generation."""
+
+    # Get character block from story_bible
+    char_block = get_character_block(book)
+
+    # Get style from reference prompt or art_direction
+    style = extract_style(book)
+
+    prompt = f"""Single scene illustration: {scene_description}
+
+CHARACTERS (draw EXACTLY as described - these features are KEY):
+{char_block}
+
+COMPOSITION: One cohesive illustration filling the entire canvas.
+Full-bleed image with the scene filling edge to edge.
+
+STYLE: {style}
+
+CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only."""
+
+    return prompt
+```
+
+### Pre-Flight Checklist
+
+Before running batch image generation:
+
+```bash
+# Run validation script
+python scripts/validate_book_for_images.py {slug}
+```
+
+Validation checks:
+- [ ] Book JSON exists
+- [ ] Reference image exists
+- [ ] All story pages have scene descriptions
+- [ ] End page has scene description (shows final happy moment)
+- [ ] Scene descriptions are not placeholders ("Illustration for:" or "[PLACEHOLDER")
+- [ ] Scene descriptions include character details
+- [ ] Scene descriptions include composition instructions
+- [ ] No negations in scene descriptions
+- [ ] story_bible or characters field populated
+
+### Pages That Get Images
+
+| Page Type | Gets Image? | Notes |
+|-----------|-------------|-------|
+| `cover` | Yes | Uses cover image from `/images/covers/` |
+| `story` | Yes | Generated via `generate_page_images.py` |
+| `end` | Yes | "The End" page - shows final celebratory scene |
+| `copyright` | No | Text-only page |
+| `parent_guide` | No | Text-only page |
+| `level_info` | No | Text-only page |
+| `wordlist` | No | Generated by reader |
+| `wordsearch` | No | Generated by reader |
+| `series_info` | No | Generated by reader |
+| `back_cover` | No | Text-only page |
+
+### Checkpoint: Image Review
+
+After generation, review in edit mode:
+```
+https://funbookies.com/reader.html?book={slug}&mode=edit
+```
+
+Check for:
+- [ ] No grid/panel layouts (should be single images)
+- [ ] Characters match reference design
+- [ ] No unwanted text in images
+- [ ] Style consistent across pages
+- [ ] No content contamination from future pages
+- [ ] Actions match page text
+
+---
+
+## Phase 6: Publish
+
+### Actions
+- Review entire book in reader mode
+- Check navigation and page ordering
+- Verify audio (if generated)
+- Publish to production
+
+### Publish URL
+```
+https://funbookies.com/reader.html?book={slug}
+```
+
+---
+
+## Appendix A: Scene Description Guide
+
+This section covers scene description best practices (applies to Phase 3 story generation or legacy manual scene writing).
 
 ### The Problem This Solves
 Bad: `"Illustration for: The pig sat in mud..."`
@@ -185,7 +439,7 @@ bold shapes and textures. NO TEXT.
 
 **Why:** Image models don't understand emotions—they understand visual features. "Scared" means nothing; "eyes wide, mouth agape" is renderable.
 
-### Checkpoint 2: Scene Description Review
+### Scene Validation Checklist
 
 Before proceeding to image generation:
 - [ ] Every story page has a scene description
@@ -194,180 +448,6 @@ Before proceeding to image generation:
 - [ ] No future story elements mentioned
 - [ ] Character descriptions match reference prompt
 - [ ] "NO TEXT" included in every scene
-
----
-
-## Phase 3: Reference Image Generation
-
-### Purpose
-The 9-panel reference sheet establishes:
-- Character design consistency
-- Color palette
-- Art style
-- Key objects/props
-- Setting elements
-
-### Reference Sheet Structure
-```
-[1] Character front   [2] Expressions      [3] Character action
-[4] Secondary char    [5] Key prop/object  [6] KEY MOMENT (center)
-[7] Setting element   [8] Setting element  [9] Resolution/together
-```
-
-### Reference Prompt Requirements
-- Focus on STYLE VOCABULARY, not story scenes
-- Panel 6 (center) has highest style influence
-- Include "NO TEXT, NO WORDS, NO LETTERS"
-- Specify art style explicitly
-
-### Model
-Use `nano-banana-pro` (text-to-image) for references.
-
-### Checkpoint 3: Reference Image Review
-
-Before generating page images:
-- [ ] Character is consistent across panels
-- [ ] Style matches the intended mood
-- [ ] Color palette is cohesive
-- [ ] No unwanted text/words in image
-- [ ] Key props/objects are present
-
----
-
-## Phase 4: Page Image Generation
-
-### The Critical Settings
-
-Every page image prompt MUST include:
-
-```
-PROMPT PREFIX (add to every scene):
-"Single scene illustration: "
-
-PROMPT SUFFIX (add to every scene):
-"
-COMPOSITION: One cohesive illustration filling the entire canvas.
-Full-bleed image with the scene filling edge to edge.
-Style: [Match reference - watercolor/collage/etc].
-NO TEXT, NO WORDS, NO LETTERS anywhere in image."
-```
-
-### Image Generation Parameters
-
-| Parameter | Value | Why |
-|-----------|-------|-----|
-| Model | wan2.6-image | I2I style transfer |
-| Reference | {slug}_reference.png | Style consistency |
-| Size | 1280x960 (pages), 1280x1280 (cover) | Reader layout |
-
-### Building the Final Prompt
-
-```python
-def build_page_prompt(scene_description: str, book: dict) -> str:
-    """Build complete prompt for page image generation."""
-
-    # Get character block from story_bible
-    char_block = get_character_block(book)
-
-    # Get style from reference prompt or art_direction
-    style = extract_style(book)
-
-    prompt = f"""Single scene illustration: {scene_description}
-
-CHARACTERS (draw EXACTLY as described - these features are KEY):
-{char_block}
-
-COMPOSITION: One cohesive illustration filling the entire canvas.
-Full-bleed image with the scene filling edge to edge.
-
-STYLE: {style}
-
-CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only."""
-
-    return prompt
-```
-
-### Pre-Flight Checklist
-
-Before running batch image generation:
-
-```bash
-# Run validation script
-python scripts/validate_book_for_images.py {slug}
-```
-
-Validation checks:
-- [ ] Book JSON exists
-- [ ] Reference image exists
-- [ ] All story pages have scene descriptions
-- [ ] End page has scene description (shows final happy moment)
-- [ ] Scene descriptions are not placeholders ("Illustration for:" or "[PLACEHOLDER")
-- [ ] Scene descriptions include character details
-- [ ] Scene descriptions include composition instructions
-- [ ] No negations in scene descriptions
-- [ ] story_bible or characters field populated
-
-### Pages That Get Images
-
-| Page Type | Gets Image? | Notes |
-|-----------|-------------|-------|
-| `cover` | Yes | Uses cover image from `/images/covers/` |
-| `story` | Yes | Generated via `generate_page_images.py` |
-| `end` | Yes | "The End" page - shows final celebratory scene |
-| `copyright` | No | Text-only page |
-| `parent_guide` | No | Text-only page |
-| `level_info` | No | Text-only page |
-| `wordlist` | No | Generated by reader |
-| `wordsearch` | No | Generated by reader |
-| `series_info` | No | Generated by reader |
-| `back_cover` | No | Text-only page |
-
-### Optional: Prompt Enhancement Pipeline
-
-For higher-quality prompts, use the enhancement script:
-
-```bash
-python scripts/prompt_enhancer.py {slug} --pages 11,12,13
-```
-
-The pipeline:
-1. **Story Context Analysis** - Determines narrative act (setup/conflict/climax/resolution)
-2. **Character Presence Logic** - Identifies who MUST and MUST NOT be in scene
-3. **Emotional → Physical Translation** - Converts mood words to visual descriptions
-4. **LLM Review & Scoring** - Validates prompt quality before generation
-
-**Review Scoring Criteria:**
-
-| Score | Quality | Action |
-|-------|---------|--------|
-| 9-10 | Perfect - physically specific, correct characters, clear composition | Generate |
-| 7-8 | Good - minor improvements but should generate correctly | Generate |
-| 5-6 | Acceptable - some vagueness but main elements clear | Caution |
-| 3-4 | Problematic - likely wrong characters or emotions | Fix first |
-| 1-2 | Fail - will definitely generate incorrectly | Must fix |
-
-**Common Issues Detected:**
-- Wrong characters present (character should be alone)
-- Emotional words without physical translation
-- Vague positioning ("in the scene" vs specific placement)
-- Missing key character identifiers
-- Ambiguous scale or size relationships
-- Story continuity errors
-
-### Checkpoint 4: Image Review
-
-After generation, review in edit mode:
-```
-https://funbookies.com/reader.html?book={slug}&mode=edit
-```
-
-Check for:
-- [ ] No grid/panel layouts (should be single images)
-- [ ] Characters match reference design
-- [ ] No unwanted text in images
-- [ ] Style consistent across pages
-- [ ] No content contamination from future pages
-- [ ] Actions match page text
 
 ---
 
@@ -542,43 +622,45 @@ if __name__ == "__main__":
 
 ## Process Automation
 
-### Recommended Workflow
+### Recommended Workflow: Web Wizard
+
+The easiest way to create books is the 6-phase wizard at:
+```
+https://funbookies.com/wizard/
+```
+
+### Alternative: CLI/Python Scripts
+
+For batch processing or automation:
 
 ```bash
-# 1. Generate story
-python scripts/story_generator/run_book_experiment.py --seeds "b1_pig"
+# Phase 1-3: Generate story (includes outline + full expansion)
+python scripts/generate_story.py --level B2 --concept "pig finds mud"
 
-# 2. Generate scene descriptions (NEW - needs implementation)
-python scripts/generate_scene_descriptions.py the-big-pig
-
-# 3. CHECKPOINT: Review scenes
-cat public/books/the-big-pig.json | jq '.pages[] | select(.type=="story") | {page, scene}'
-
-# 4. Validate before images
+# Validate before images
 python scripts/validate_book_for_images.py the-big-pig
 
-# 5. Generate reference image
-# (use mulerouter-skills nano-banana-pro)
+# Phase 4: Generate reference image (use mulerouter-skills nano-banana-pro)
+# Review: open public/books/references/the-big-pig_reference.png
 
-# 6. CHECKPOINT: Review reference image
-open public/books/references/the-big-pig_reference.png
-
-# 7. Generate page images
+# Phase 5: Generate page images
 python scripts/generate_page_images.py the-big-pig --provider mulerouter
 
-# 8. CHECKPOINT: Review in browser
+# Phase 6: Review and publish
 open "https://funbookies.com/reader.html?book=the-big-pig&mode=edit"
 ```
 
 ---
 
-## Summary: The 4 Checkpoints
+## Summary: The 6 Phases
 
-| # | Phase | What to Check | Who Reviews |
-|---|-------|---------------|-------------|
-| 1 | Story | Text quality, phonics, emotional arc | Human |
-| 2 | Scenes | WHO/WHERE/WHAT/STYLE, no negations | Human + Script |
-| 3 | Reference | Character consistency, style, no text | Human |
-| 4 | Images | Single images, style match, no text | Human |
+| Phase | Name | Output | Checkpoint |
+|-------|------|--------|------------|
+| 1 | Concept | Beat-by-beat outline | Review story arc |
+| 2 | Outline | Edited beats | Verify beats before expansion |
+| 3 | Story | Full text + scene descriptions | Check phonics, logic, scenes |
+| 4 | Reference | 9-panel style sheet | Character consistency, style |
+| 5 | Pages | Generated page images | Single images, no text |
+| 6 | Publish | Live book | Final review |
 
 **NEVER skip checkpoints. The cost of regenerating 100+ bad images far exceeds the time to review.**

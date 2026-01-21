@@ -5,7 +5,16 @@
   "level": "B2",
   "band": "B",
   "targetPhonics": "CVC short vowels (a, e, i, o, u)",
-  "wordFamilies": ["-et", "-it", "-ill", "-ip", "-in", "-un", "-up", "-ot"],
+  "wordFamilies": [
+    "-et",
+    "-it",
+    "-ill",
+    "-ip",
+    "-in",
+    "-un",
+    "-up",
+    "-ot"
+  ],
   "skill": "CVC Short Vowels",
   "skill_description": "Practice reading CVC words with all five short vowels, with 'airplane' as a high-interest heart word.",
   "age_range": "K-1",
@@ -111,7 +120,16 @@
       "page": 1,
       "type": "cover",
       "text": "If I Could Only Be an Airplane",
-      "scene": "Surreal fantasy cover: Jet transformed into a red airplane - his joyful face as the nose, his arms stretched wide as actual wings, his body the fuselage. He soars through bright blue sky with fluffy white clouds. Below, a tiny green hill where a small boy shape once sat. Pure magic and freedom. Warm watercolor style."
+      "scene": "Surreal fantasy cover: Jet transformed into a red airplane - his joyful face as the nose, his arms stretched wide as actual wings, his body the fuselage. He soars through bright blue sky with fluffy white clouds. Below, a tiny green hill where a small boy shape once sat. Pure magic and freedom. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Surreal fantasy cover: Jet transformed into a red airplane - his joyful face as the nose, his arms stretched wide as actual wings, his body the fuselage. He soars through bright blue sky with fluffy white clouds. Below, a tiny green hill where a small boy shape once sat. Pure magic and freedom. Warm watercolor style.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nYoung boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts\nWoman with dark hair in ponytail, blue sundress\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/if-i-could-only-be-an-airplane/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:08:10.685733",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
     },
     {
       "page": 2,
@@ -232,7 +250,7 @@
     "sheets": {
       "base": {
         "path": "books/references/if-i-could-only-be-an-airplane_multi/if-i-could-only-be-an-airplane_base.png",
-        "model": "nano-banana",
+        "model": "nano-banana-pro",
         "type": "T2I",
         "description": "9-panel style guide with characters, settings, and key moments"
       },
@@ -242,7 +260,13 @@
         "type": "I2I",
         "reference": "base",
         "description": "First half scenes (1-5): Hill observation and beginning of dream",
-        "use_for_pages": [1, 2, 3, 4, 5]
+        "use_for_pages": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
       },
       "scenes_part2": {
         "path": "books/references/if-i-could-only-be-an-airplane_multi/if-i-could-only-be-an-airplane_scenes_part2.png",
@@ -250,7 +274,13 @@
         "type": "I2I",
         "reference": "base",
         "description": "Second half scenes (6-10): Flying fantasy and return to reality",
-        "use_for_pages": [6, 7, 8, 9, 10]
+        "use_for_pages": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
       }
     }
   },

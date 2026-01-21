@@ -285,7 +285,7 @@ def generate_scenes_for_book(slug: str, dry_run: bool = False, force: bool = Fal
     print(f"Story pages: {len(story_pages)}")
     print(f"End pages: {len(end_pages)}")
 
-    # Check which pages need scenes
+    # Check which story pages need scenes
     pages_to_update = []
     for page in story_pages:
         scene = page.get("scene", "")
@@ -297,16 +297,31 @@ def generate_scenes_for_book(slug: str, dry_run: bool = False, force: bool = Fal
         if needs_update or force:
             pages_to_update.append(page)
 
-    if not pages_to_update:
+    # Check which end pages need scenes
+    end_pages_to_update = []
+    for page in end_pages:
+        scene = page.get("scene", "")
+        needs_update = (
+            not scene or
+            scene.startswith("[PLACEHOLDER") or
+            len(scene) < 80
+        )
+        if needs_update or force:
+            end_pages_to_update.append(page)
+
+    if not pages_to_update and not end_pages_to_update:
         print("\n✅ All pages already have proper scene descriptions")
         return True
 
-    print(f"Pages to update: {len(pages_to_update)}")
+    print(f"Story pages to update: {len(pages_to_update)}")
+    print(f"End pages to update: {len(end_pages_to_update)}")
 
     if dry_run:
         print("\n[DRY RUN] Would update these pages:")
         for p in pages_to_update:
             print(f"  - Page {p.get('page')} (story {p.get('story_page')}): {p.get('text', '')[:50]}...")
+        for p in end_pages_to_update:
+            print(f"  - Page {p.get('page')} (end): The End")
         return True
 
     # Generate scenes
@@ -335,28 +350,17 @@ def generate_scenes_for_book(slug: str, dry_run: bool = False, force: bool = Fal
         prev_context = f"Page {story_pnum}: {text[:100]}"
 
     # Process end pages
-    for end_page in end_pages:
+    for end_page in end_pages_to_update:
         pnum = end_page.get('page')
-        scene = end_page.get("scene", "")
-        needs_update = (
-            not scene or
-            scene.startswith("[PLACEHOLDER") or
-            len(scene) < 80
-        )
-
-        if needs_update or force:
-            if dry_run:
-                print(f"\n[DRY RUN] Would update end page {pnum}")
-            else:
-                print(f"\n[END] Generating scene for end page {pnum}...")
-                try:
-                    scene = generate_end_page_scene(book, story_pages)
-                    end_page['scene'] = scene
-                    updated += 1
-                    print(f"   ✓ Generated ({len(scene)} chars)")
-                    print(f"   Preview: {scene[:100]}...")
-                except Exception as e:
-                    print(f"   ✗ Error: {e}")
+        print(f"\n[END] Generating scene for end page {pnum}...")
+        try:
+            scene = generate_end_page_scene(book, story_pages)
+            end_page['scene'] = scene
+            updated += 1
+            print(f"   ✓ Generated ({len(scene)} chars)")
+            print(f"   Preview: {scene[:100]}...")
+        except Exception as e:
+            print(f"   ✗ Error: {e}")
 
     # Save updated book
     if updated > 0:

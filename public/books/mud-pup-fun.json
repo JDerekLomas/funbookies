@@ -199,7 +199,17 @@
     {
       "page": 18,
       "type": "end",
-      "text": "The End"
+      "text": "The End",
+      "scene": "Golden retriever puppy Max snuggles in his mom's lap in the sunny backyard. Mom gently strokes Max's clean, fluffy fur. Max closes his eyes with a happy smile. Sunlight warms the green grass around them. A gentle breeze rustles leaves on nearby garden plants.\nNO TEXT anywhere in image.",
+      "image_prompt": "Single scene illustration: Golden retriever puppy Max snuggles in his mom's lap in the sunny backyard. Mom gently strokes Max's clean, fluffy fur. Max closes his eyes with a happy smile. Sunlight warms the green grass around them. A gentle breeze rustles leaves on nearby garden plants.\nNO TEXT anywhere in image.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nSmall golden retriever puppy with floppy ears\nKind woman with brown hair in ponytail\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges and bright, cheerful colors\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/mud-pup-fun/page18.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:06:08.629302",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
     },
     {
       "page": 19,
@@ -244,7 +254,14 @@
         "type": "I2I",
         "reference": "base",
         "description": "First half scenes (1-6): Outdoor mud play",
-        "use_for_pages": [1, 2, 3, 4, 5, 6],
+        "use_for_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "generated_at": "2026-01-20T16:07:00.000000"
       },
       "scenes_part2": {
@@ -253,7 +270,14 @@
         "type": "I2I",
         "reference": "base",
         "description": "Second half scenes (7-12): Bath time",
-        "use_for_pages": [7, 8, 9, 10, 11, 12],
+        "use_for_pages": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
         "generated_at": "2026-01-20T16:08:00.000000"
       }
     }

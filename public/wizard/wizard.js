@@ -1696,9 +1696,10 @@ async function generateMultiRefSheet(sheetType) {
     let reference = null;
 
     if (sheetType === 'styleGuide') {
-        // Style Guide uses nano-banana (T2I)
+        // Style Guide uses model from dropdown (default nano-banana-pro)
         prompt = buildStyleGuidePrompt();
-        model = 'nano-banana-pro';
+        const modelSelect = document.getElementById('refModelSelect');
+        model = modelSelect ? modelSelect.value : 'nano-banana-pro';
     } else {
         // Opening/Closing Scenes use wan 2.6 I2I with styleGuide as reference
         if (!state.multiRefs.styleGuide) {
@@ -1820,12 +1821,16 @@ async function doGenerateReference() {
     document.getElementById('genRefBtn').disabled = true;
 
     try {
+        // Get selected model from dropdown (default to nano-banana-pro)
+        const modelSelect = document.getElementById('refModelSelect');
+        const model = modelSelect ? modelSelect.value : 'nano-banana-pro';
+
         const response = await fetch('/api/generate-image', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 prompt: prompt,
-                model: 'gemini-flash',  // More reliable than nano-banana-pro
+                model: model,
                 slug: state.slug,
                 page: 'reference'
             })

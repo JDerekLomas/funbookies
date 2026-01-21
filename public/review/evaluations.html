@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Evaluations - Quality Review</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+        }
+        .header {
+            background: #16213e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #0f3460;
+        }
+        .header h1 { font-size: 1.5rem; }
+        .header-actions { display: flex; gap: 1rem; align-items: center; }
+        .stats-bar {
+            background: #0f3460;
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .stat-value { font-size: 1.5rem; font-weight: bold; }
+        .stat-label { font-size: 0.8rem; color: #888; }
+        .stat.good .stat-value { color: #4ade80; }
+        .stat.needs-improvement .stat-value { color: #fbbf24; }
+        .stat.poor .stat-value { color: #f87171; }
+
+        .container {
+            display: flex;
+            height: calc(100vh - 120px);
+        }
+        .sidebar {
+            width: 300px;
+            background: #16213e;
+            border-right: 1px solid #0f3460;
+            overflow-y: auto;
+        }
+        .filter-bar {
+            padding: 0.75rem;
+            border-bottom: 1px solid #0f3460;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            background: #0f3460;
+            color: #ccc;
+        }
+        .filter-btn.active { background: #e94560; color: white; }
+        .filter-btn:hover { background: #1a1a4e; }
+
+        .book-list { padding: 0.5rem; }
+        .book-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: #1a1a2e;
+            border-radius: 6px;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+        }
+        .book-item:hover { background: #252545; }
+        .book-item.selected { background: #252545; border-color: #e94560; }
+        .book-item.good { border-left-color: #4ade80; }
+        .book-item.needs_improvement { border-left-color: #fbbf24; }
+        .book-item.poor { border-left-color: #f87171; }
+        .book-item.not-evaluated { border-left-color: #666; opacity: 0.7; }
+
+        .book-item-title { font-weight: 500; margin-bottom: 0.25rem; }
+        .book-item-meta { font-size: 0.8rem; color: #888; display: flex; gap: 1rem; }
+        .book-item-score { font-weight: bold; }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            color: #666;
+        }
+
+        .eval-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+        .eval-title { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .eval-meta { color: #888; font-size: 0.9rem; }
+        .eval-verdict {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        .eval-verdict.good { background: #166534; color: #4ade80; }
+        .eval-verdict.needs_improvement { background: #854d0e; color: #fbbf24; }
+        .eval-verdict.poor { background: #991b1b; color: #f87171; }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .score-card {
+            background: #16213e;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        .score-card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .score-card-label { font-weight: 500; text-transform: capitalize; }
+        .score-card-value { font-weight: bold; font-size: 1.25rem; }
+        .score-bar {
+            height: 6px;
+            background: #0f3460;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .score-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+        .score-bar-fill.high { background: #4ade80; }
+        .score-bar-fill.medium { background: #fbbf24; }
+        .score-bar-fill.low { background: #f87171; }
+
+        .section {
+            background: #16213e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #e94560;
+        }
+        .section p { line-height: 1.6; color: #ccc; }
+
+        .list-items { list-style: none; }
+        .list-items li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #ccc;
+        }
+        .list-items li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.85rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .list-items.strengths li::before { background: #4ade80; }
+        .list-items.issues li::before { background: #f87171; }
+
+        .tech-checks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.75rem;
+        }
+        .tech-check {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .tech-check .icon { font-size: 1rem; }
+        .tech-check.pass .icon { color: #4ade80; }
+        .tech-check.fail .icon { color: #f87171; }
+
+        .phonics-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+        .phonics-stat {
+            text-align: center;
+            padding: 0.75rem;
+            background: #0f3460;
+            border-radius: 6px;
+        }
+        .phonics-stat-value { font-size: 1.25rem; font-weight: bold; }
+        .phonics-stat-label { font-size: 0.75rem; color: #888; }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .btn-primary { background: #e94560; color: white; }
+        .btn-primary:hover { background: #d63d56; }
+        .btn-secondary { background: #0f3460; color: #ccc; }
+        .btn-secondary:hover { background: #1a1a4e; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .actions-row {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #888;
+        }
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #333;
+            border-top-color: #e94560;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .progress-bar {
+            background: #0f3460;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #e94560;
+            transition: width 0.3s;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal {
+            background: #16213e;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+        }
+        .modal-title { font-size: 1.25rem; margin-bottom: 1rem; }
+        .modal-actions { display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: flex-end; }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Book Quality Evaluations</h1>
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="exportResults()">Export CSV</button>
+            <button class="btn btn-primary" id="runBatchBtn" onclick="showBatchModal()">Run Batch Evaluation</button>
+        </div>
+    </div>
+
+    <div class="stats-bar" id="statsBar">
+        <div class="stat">
+            <span class="stat-value" id="totalCount">-</span>
+            <span class="stat-label">Total Evaluated</span>
+        </div>
+        <div class="stat good">
+            <span class="stat-value" id="goodCount">-</span>
+            <span class="stat-label">Good</span>
+        </div>
+        <div class="stat needs-improvement">
+            <span class="stat-value" id="needsCount">-</span>
+            <span class="stat-label">Needs Work</span>
+        </div>
+        <div class="stat poor">
+            <span class="stat-value" id="poorCount">-</span>
+            <span class="stat-label">Poor</span>
+        </div>
+        <div class="stat">
+            <span class="stat-value" id="avgScore">-</span>
+            <span class="stat-label">Avg Score</span>
+        </div>
+        <div class="stat">
+            <span class="stat-value" id="notEvaluated">-</span>
+            <span class="stat-label">Not Evaluated</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="good">Good</button>
+                <button class="filter-btn" data-filter="needs_improvement">Needs Work</button>
+                <button class="filter-btn" data-filter="poor">Poor</button>
+                <button class="filter-btn" data-filter="not-evaluated">Not Evaluated</button>
+            </div>
+            <div class="book-list" id="bookList">
+                <div class="loading"><div class="spinner"></div> Loading...</div>
+            </div>
+        </div>
+
+        <div class="main-content" id="mainContent">
+            <div class="empty-state">
+                <p>Select a book from the list to view its evaluation</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Batch Modal -->
+    <div class="modal-overlay hidden" id="batchModal">
+        <div class="modal">
+            <h2 class="modal-title">Run Batch Evaluation</h2>
+            <p>This will evaluate all books that haven't been evaluated yet using Claude AI.</p>
+            <div id="batchProgress" class="hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <p id="progressText">Starting...</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeBatchModal()">Cancel</button>
+                <button class="btn btn-primary" id="startBatchBtn" onclick="runBatchEvaluation()">Start Evaluation</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allBooks = [];
+        let evaluations = {};
+        let currentFilter = 'all';
+        let selectedSlug = null;
+
+        // Load data on init
+        async function init() {
+            await Promise.all([
+                loadManifest(),
+                loadEvaluations()
+            ]);
+            renderBookList();
+            updateStats();
+        }
+
+        async function loadManifest() {
+            try {
+                const res = await fetch('/books/manifest.json');
+                const manifest = await res.json();
+                allBooks = manifest.filter(b => !b.slug.startsWith('_'));
+            } catch (err) {
+                console.error('Failed to load manifest:', err);
+            }
+        }
+
+        async function loadEvaluations() {
+            try {
+                const res = await fetch('/api/get-evaluations');
+                const data = await res.json();
+                if (data.success) {
+                    evaluations = data.evaluations || {};
+                }
+            } catch (err) {
+                console.error('Failed to load evaluations:', err);
+            }
+        }
+
+        function updateStats() {
+            const evalList = Object.values(evaluations);
+            const evaluated = evalList.length;
+            const notEval = allBooks.length - evaluated;
+
+            document.getElementById('totalCount').textContent = evaluated;
+            document.getElementById('goodCount').textContent = evalList.filter(e => e.overall?.verdict === 'good').length;
+            document.getElementById('needsCount').textContent = evalList.filter(e => e.overall?.verdict === 'needs_improvement').length;
+            document.getElementById('poorCount').textContent = evalList.filter(e => e.overall?.verdict === 'poor').length;
+            document.getElementById('avgScore').textContent = evaluated > 0
+                ? (evalList.reduce((s, e) => s + (e.overall?.score || 0), 0) / evaluated).toFixed(1)
+                : '-';
+            document.getElementById('notEvaluated').textContent = notEval;
+        }
+
+        function renderBookList() {
+            const listEl = document.getElementById('bookList');
+
+            // Build combined list with evaluation data
+            const items = allBooks.map(book => {
+                const evaluation = evaluations[book.slug];
+                return {
+                    ...book,
+                    evaluation,
+                    verdict: evaluation?.overall?.verdict || 'not-evaluated',
+                    score: evaluation?.overall?.score
+                };
+            });
+
+            // Sort: evaluated first (by score desc), then not-evaluated
+            items.sort((a, b) => {
+                if (a.evaluation && !b.evaluation) return -1;
+                if (!a.evaluation && b.evaluation) return 1;
+                if (a.score && b.score) return b.score - a.score;
+                return 0;
+            });
+
+            // Filter
+            const filtered = items.filter(item => {
+                if (currentFilter === 'all') return true;
+                if (currentFilter === 'not-evaluated') return !item.evaluation;
+                return item.verdict === currentFilter;
+            });
+
+            listEl.innerHTML = filtered.map(item => `
+                <div class="book-item ${item.verdict} ${item.slug === selectedSlug ? 'selected' : ''}"
+                     onclick="selectBook('${item.slug}')">
+                    <div class="book-item-title">${item.title || item.slug}</div>
+                    <div class="book-item-meta">
+                        <span>${item.level || '-'}</span>
+                        ${item.score ? `<span class="book-item-score">${item.score.toFixed(1)}</span>` : '<span>Not evaluated</span>'}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectBook(slug) {
+            selectedSlug = slug;
+            renderBookList();
+
+            const evaluation = evaluations[slug];
+            const book = allBooks.find(b => b.slug === slug);
+
+            if (!evaluation) {
+                renderNotEvaluated(book);
+            } else {
+                renderEvaluation(evaluation, book);
+            }
+        }
+
+        function renderNotEvaluated(book) {
+            const content = document.getElementById('mainContent');
+            content.innerHTML = `
+                <div class="eval-header">
+                    <div>
+                        <h2 class="eval-title">${book?.title || selectedSlug}</h2>
+                        <div class="eval-meta">Level: ${book?.level || 'Unknown'}</div>
+                    </div>
+                    <span class="eval-verdict needs_improvement">Not Evaluated</span>
+                </div>
+                <div class="empty-state">
+                    <p>This book has not been evaluated yet.</p>
+                    <div class="actions-row" style="justify-content: center;">
+                        <button class="btn btn-primary" onclick="evaluateSingle('${selectedSlug}')">Evaluate Now</button>
+                        <a href="/reader.html?book=${selectedSlug}" target="_blank" class="btn btn-secondary">Open in Reader</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderEvaluation(evaluation, book) {
+            const content = document.getElementById('mainContent');
+            const story = evaluation.story || {};
+            const technical = evaluation.technical || {};
+            const phonics = evaluation.phonics || {};
+            const overall = evaluation.overall || {};
+
+            content.innerHTML = `
+                <div class="eval-header">
+                    <div>
+                        <h2 class="eval-title">${evaluation.title || selectedSlug}</h2>
+                        <div class="eval-meta">
+                            Level: ${evaluation.level || 'Unknown'} |
+                            Evaluated: ${evaluation.evaluated_at ? new Date(evaluation.evaluated_at).toLocaleDateString() : 'Unknown'}
+                        </div>
+                    </div>
+                    <span class="eval-verdict ${overall.verdict || ''}">${formatVerdict(overall.verdict)}</span>
+                </div>
+
+                <!-- Overall Score -->
+                <div class="section">
+                    <div class="section-title">Overall Score: ${overall.score?.toFixed(1) || '-'} / 5</div>
+                    <div class="score-grid">
+                        <div class="score-card">
+                            <div class="score-card-header">
+                                <span class="score-card-label">Story</span>
+                                <span class="score-card-value">${overall.breakdown?.story?.toFixed(1) || '-'}</span>
+                            </div>
+                            <div class="score-bar">
+                                <div class="score-bar-fill ${getScoreClass(overall.breakdown?.story)}"
+                                     style="width: ${(overall.breakdown?.story || 0) * 20}%"></div>
+                            </div>
+                        </div>
+                        <div class="score-card">
+                            <div class="score-card-header">
+                                <span class="score-card-label">Technical</span>
+                                <span class="score-card-value">${overall.breakdown?.technical || '-'}</span>
+                            </div>
+                            <div class="score-bar">
+                                <div class="score-bar-fill ${getScoreClass(overall.breakdown?.technical)}"
+                                     style="width: ${(overall.breakdown?.technical || 0) * 20}%"></div>
+                            </div>
+                        </div>
+                        <div class="score-card">
+                            <div class="score-card-header">
+                                <span class="score-card-label">Phonics</span>
+                                <span class="score-card-value">${overall.breakdown?.phonics || '-'}</span>
+                            </div>
+                            <div class="score-bar">
+                                <div class="score-bar-fill ${getScoreClass(overall.breakdown?.phonics)}"
+                                     style="width: ${(overall.breakdown?.phonics || 0) * 20}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Story Evaluation -->
+                ${story.scores ? `
+                <div class="section">
+                    <div class="section-title">Story Quality</div>
+                    <div class="score-grid">
+                        ${Object.entries(story.scores).map(([key, val]) => `
+                            <div class="score-card">
+                                <div class="score-card-header">
+                                    <span class="score-card-label">${formatLabel(key)}</span>
+                                    <span class="score-card-value">${val}</span>
+                                </div>
+                                <div class="score-bar">
+                                    <div class="score-bar-fill ${getScoreClass(val)}" style="width: ${val * 20}%"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    ${story.summary ? `<p style="margin-top: 1rem;">${story.summary}</p>` : ''}
+
+                    ${story.strengths?.length ? `
+                        <div style="margin-top: 1rem;">
+                            <strong>Strengths:</strong>
+                            <ul class="list-items strengths">
+                                ${story.strengths.map(s => `<li>${s}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+
+                    ${story.issues?.length ? `
+                        <div style="margin-top: 1rem;">
+                            <strong>Issues:</strong>
+                            <ul class="list-items issues">
+                                ${story.issues.map(i => `<li>${i}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+                </div>
+                ` : story.error ? `
+                <div class="section">
+                    <div class="section-title">Story Quality</div>
+                    <p style="color: #f87171;">Error: ${story.error}</p>
+                </div>
+                ` : ''}
+
+                <!-- Technical Evaluation -->
+                <div class="section">
+                    <div class="section-title">Technical Completeness (Score: ${technical.score || '-'})</div>
+                    <div class="tech-checks">
+                        <div class="tech-check ${technical.checks?.has_story_bible ? 'pass' : 'fail'}">
+                            <span class="icon">${technical.checks?.has_story_bible ? '✓' : '✗'}</span>
+                            Story Bible
+                        </div>
+                        <div class="tech-check ${technical.checks?.has_characters ? 'pass' : 'fail'}">
+                            <span class="icon">${technical.checks?.has_characters ? '✓' : '✗'}</span>
+                            Characters
+                        </div>
+                        <div class="tech-check ${technical.checks?.has_reference_prompt ? 'pass' : 'fail'}">
+                            <span class="icon">${technical.checks?.has_reference_prompt ? '✓' : '✗'}</span>
+                            Reference Prompt
+                        </div>
+                        <div class="tech-check ${technical.checks?.has_summary ? 'pass' : 'fail'}">
+                            <span class="icon">${technical.checks?.has_summary ? '✓' : '✗'}</span>
+                            Summary
+                        </div>
+                    </div>
+
+                    ${technical.checks?.scene_descriptions ? `
+                        <div style="margin-top: 1rem;">
+                            <strong>Scenes:</strong>
+                            ${technical.checks.scene_descriptions.with_scenes}/${technical.checks.scene_descriptions.total} complete
+                            ${technical.checks.scene_descriptions.placeholder > 0 ?
+                                `<span style="color: #fbbf24;"> (${technical.checks.scene_descriptions.placeholder} placeholders)</span>` : ''}
+                        </div>
+                    ` : ''}
+
+                    ${technical.issues?.length ? `
+                        <ul class="list-items issues" style="margin-top: 0.5rem;">
+                            ${technical.issues.map(i => `<li>${i}</li>`).join('')}
+                        </ul>
+                    ` : ''}
+                </div>
+
+                <!-- Phonics Evaluation -->
+                <div class="section">
+                    <div class="section-title">Phonics Analysis (Score: ${phonics.score || '-'})</div>
+                    <div class="phonics-stats">
+                        <div class="phonics-stat">
+                            <div class="phonics-stat-value">${phonics.stats?.total_words || 0}</div>
+                            <div class="phonics-stat-label">Total Words</div>
+                        </div>
+                        <div class="phonics-stat">
+                            <div class="phonics-stat-value">${phonics.stats?.unique_words || 0}</div>
+                            <div class="phonics-stat-label">Unique Words</div>
+                        </div>
+                        <div class="phonics-stat">
+                            <div class="phonics-stat-value">${phonics.stats?.avg_word_length || 0}</div>
+                            <div class="phonics-stat-label">Avg Length</div>
+                        </div>
+                        <div class="phonics-stat">
+                            <div class="phonics-stat-value">${phonics.stats?.cvc_words || 0}</div>
+                            <div class="phonics-stat-label">CVC Words</div>
+                        </div>
+                        <div class="phonics-stat">
+                            <div class="phonics-stat-value">${phonics.stats?.sight_words_used || 0}</div>
+                            <div class="phonics-stat-label">Sight Words</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 1rem; color: ${phonics.level_appropriate ? '#4ade80' : '#fbbf24'};">
+                        ${phonics.level_appropriate ? '✓ Appropriate for level' : '⚠ May not be appropriate for level'}
+                    </p>
+                </div>
+
+                <div class="actions-row">
+                    <button class="btn btn-primary" onclick="evaluateSingle('${selectedSlug}', true)">Re-evaluate</button>
+                    <a href="/reader.html?book=${selectedSlug}" target="_blank" class="btn btn-secondary">Open in Reader</a>
+                    <a href="/reader.html?book=${selectedSlug}&mode=edit" target="_blank" class="btn btn-secondary">Edit Book</a>
+                </div>
+            `;
+        }
+
+        function formatVerdict(verdict) {
+            if (!verdict) return 'Unknown';
+            return verdict.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        }
+
+        function formatLabel(key) {
+            return key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        }
+
+        function getScoreClass(score) {
+            if (!score) return 'low';
+            if (score >= 4) return 'high';
+            if (score >= 2.5) return 'medium';
+            return 'low';
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderBookList();
+            });
+        });
+
+        // Single evaluation
+        async function evaluateSingle(slug, forceRefresh = false) {
+            const content = document.getElementById('mainContent');
+            content.innerHTML = `
+                <div class="empty-state">
+                    <div class="loading"><div class="spinner"></div> Evaluating ${slug}...</div>
+                </div>
+            `;
+
+            try {
+                const res = await fetch('/api/evaluate-book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ slug, forceRefresh })
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    evaluations[slug] = data.evaluation;
+                    updateStats();
+                    renderBookList();
+                    renderEvaluation(data.evaluation);
+                } else {
+                    content.innerHTML = `
+                        <div class="empty-state">
+                            <p style="color: #f87171;">Evaluation failed: ${data.error}</p>
+                            <button class="btn btn-secondary" onclick="selectBook('${slug}')">Try Again</button>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                content.innerHTML = `
+                    <div class="empty-state">
+                        <p style="color: #f87171;">Error: ${err.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Batch evaluation
+        function showBatchModal() {
+            document.getElementById('batchModal').classList.remove('hidden');
+            document.getElementById('batchProgress').classList.add('hidden');
+            document.getElementById('startBatchBtn').disabled = false;
+        }
+
+        function closeBatchModal() {
+            document.getElementById('batchModal').classList.add('hidden');
+        }
+
+        async function runBatchEvaluation() {
+            const progressEl = document.getElementById('batchProgress');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            const startBtn = document.getElementById('startBatchBtn');
+
+            progressEl.classList.remove('hidden');
+            startBtn.disabled = true;
+            progressText.textContent = 'Starting batch evaluation...';
+
+            try {
+                const res = await fetch('/api/evaluate-batch', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ all: true, skipCached: true })
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    progressFill.style.width = '100%';
+                    progressText.textContent = `Done! Evaluated ${data.evaluated} books. ${data.failed} failed.`;
+
+                    // Reload evaluations
+                    await loadEvaluations();
+                    updateStats();
+                    renderBookList();
+                } else {
+                    progressText.textContent = `Error: ${data.error}`;
+                }
+            } catch (err) {
+                progressText.textContent = `Error: ${err.message}`;
+            }
+
+            startBtn.disabled = false;
+            startBtn.textContent = 'Close';
+            startBtn.onclick = closeBatchModal;
+        }
+
+        // Export to CSV
+        function exportResults() {
+            const rows = [['Slug', 'Title', 'Level', 'Overall Score', 'Verdict', 'Story', 'Technical', 'Phonics', 'Evaluated']];
+
+            Object.entries(evaluations).forEach(([slug, eval_]) => {
+                rows.push([
+                    slug,
+                    eval_.title || '',
+                    eval_.level || '',
+                    eval_.overall?.score || '',
+                    eval_.overall?.verdict || '',
+                    eval_.overall?.breakdown?.story || '',
+                    eval_.overall?.breakdown?.technical || '',
+                    eval_.overall?.breakdown?.phonics || '',
+                    eval_.evaluated_at || ''
+                ]);
+            });
+
+            const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `book-evaluations-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+
+            URL.revokeObjectURL(url);
+        }
+
+        // Init
+        init();
+    </script>
+</body>
+</html>

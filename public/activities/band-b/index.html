@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Band B: Phonics Foundation - FunBookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <style>
+        .page-header {
+            padding-top: var(--space-md);
+        }
+
+        .band-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #a8e6cf, #88d8b0);
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .band-info {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .band-info h2 {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .band-info p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .band-meta {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-sm);
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .section-title {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin: var(--space-lg) 0 var(--space-sm);
+        }
+
+        .section-title:first-of-type {
+            margin-top: var(--space-md);
+        }
+
+        .activity-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .activity-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mastery-section {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+
+        .mastery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .mastery-header h3 {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .mastery-percent {
+            font-weight: 600;
+            color: var(--color-sage-dark);
+        }
+
+        .mastery-bar {
+            height: 12px;
+            background: var(--color-cream);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: var(--space-sm);
+        }
+
+        .mastery-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-sage), var(--color-sage-dark));
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .mastery-activities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+        }
+
+        .mastery-activity {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: var(--color-cream);
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .mastery-activity.complete {
+            background: var(--color-sage-light);
+            color: var(--color-sage-dark);
+        }
+
+        .mastery-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-border);
+        }
+
+        .mastery-activity.complete .mastery-dot {
+            background: var(--color-sage);
+        }
+
+        .promotion-banner {
+            background: linear-gradient(135deg, var(--color-sage-light), #d4f0dc);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+            display: none;
+        }
+
+        .promotion-banner.visible {
+            display: block;
+        }
+
+        .promotion-banner h3 {
+            margin-bottom: var(--space-xs);
+            color: var(--color-sage-dark);
+        }
+
+        .promotion-banner p {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .books-link {
+            background: var(--color-terracotta-light);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .books-link:hover {
+            background: var(--color-terracotta);
+            transform: translateY(-2px);
+        }
+
+        .books-link-icon {
+            font-size: 2rem;
+        }
+
+        .books-link-text h3 {
+            margin-bottom: 4px;
+        }
+
+        .books-link-text p {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin: 0;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: var(--space-sm);
+        }
+
+        .skill-tag {
+            padding: 4px 10px;
+            background: var(--color-sage-light);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: var(--color-sage-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="container-narrow">
+        <div class="page-header">
+            <a href="/activities/" class="back-link">← All Activities</a>
+            <div class="band-badge">Band B</div>
+            <h1 class="page-title">Phonics Foundation</h1>
+            <p class="page-subtitle">Systematic phonics - full alphabetic decoding</p>
+        </div>
+
+        <div class="band-info">
+            <h2>What you'll learn</h2>
+            <p>Decode CVC words, blend sounds together, recognize digraphs and vowel teams, build automatic word recognition.</p>
+            <div class="band-meta">
+                <span>Grades: K-1</span>
+                <span>Levels: B1-B9</span>
+                <span>Target: 20-70 wpm</span>
+            </div>
+            <div class="skill-tags">
+                <span class="skill-tag">CVC Words</span>
+                <span class="skill-tag">Blends</span>
+                <span class="skill-tag">Digraphs</span>
+                <span class="skill-tag">Silent E</span>
+                <span class="skill-tag">Vowel Teams</span>
+                <span class="skill-tag">R-Controlled</span>
+            </div>
+        </div>
+
+        <h2 class="section-title">Blending & Decoding</h2>
+        <div class="grid-auto">
+            <a href="/activities/sound-boxes.html" class="activity-card" data-activity="sound-boxes">
+                <div class="activity-icon" style="background: linear-gradient(135deg, #a29bfe, #6c5ce7); display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">
+                    📦
+                </div>
+                <div class="activity-info">
+                    <h3>Sound Boxes</h3>
+                    <p>Drag sounds into Elkonin boxes - phoneme segmentation</p>
+                </div>
+            </a>
+
+            <a href="/activities/blend-it.html" class="activity-card" data-activity="blend-it">
+                <div class="activity-icon">
+                    <img src="/images/icons/icon-blend-it.png" alt="">
+                </div>
+                <div class="activity-info">
+                    <h3>Blend It</h3>
+                    <p>Sound out words segment by segment</p>
+                </div>
+            </a>
+
+            <a href="/activities/voice-blend.html" class="activity-card" data-activity="voice-blend">
+                <div class="activity-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c); display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">
+                    🔊
+                </div>
+                <div class="activity-info">
+                    <h3>Blend It Out</h3>
+                    <p>Hear sounds, say the blended word aloud</p>
+                </div>
+            </a>
+
+            <a href="/activities/word-builder.html" class="activity-card" data-activity="word-builder">
+                <div class="activity-icon">
+                    <img src="/images/icons/icon-word-builder.png" alt="">
+                </div>
+                <div class="activity-info">
+                    <h3>Word Builder</h3>
+                    <p>Build CVC words letter by letter</p>
+                </div>
+            </a>
+        </div>
+
+        <h2 class="section-title">Word Practice</h2>
+        <div class="grid-auto">
+            <a href="/activities/word-chains.html" class="activity-card" data-activity="word-chains">
+                <div class="activity-icon" style="background: linear-gradient(135deg, #fd79a8, #e84393); display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">
+                    🔗
+                </div>
+                <div class="activity-info">
+                    <h3>Word Chains</h3>
+                    <p>Change one letter at a time: cat → hat → hot</p>
+                </div>
+            </a>
+
+            <a href="/activities/word-families.html" class="activity-card" data-activity="word-families">
+                <div class="activity-icon">
+                    <img src="/images/icons/icon-word-families.png" alt="">
+                </div>
+                <div class="activity-info">
+                    <h3>Word Families</h3>
+                    <p>Practice -at, -an, -ig, -op patterns</p>
+                </div>
+            </a>
+
+            <a href="/activities/monster-munch.html" class="activity-card" data-activity="monster-munch">
+                <div class="activity-icon" style="background: linear-gradient(135deg, #c8e6c9, #81c784); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                    👾
+                </div>
+                <div class="activity-info">
+                    <h3>Monster Munch</h3>
+                    <p>Feed the monster words with the right sounds!</p>
+                </div>
+            </a>
+
+            <a href="/activities/sight-words.html" class="activity-card" data-activity="sight-words">
+                <div class="activity-icon">
+                    <img src="/images/icons/icon-sight-words.png" alt="">
+                </div>
+                <div class="activity-info">
+                    <h3>Sight Words</h3>
+                    <p>Practice high-frequency words (my, see, the, is)</p>
+                </div>
+            </a>
+        </div>
+
+        <h2 class="section-title">Fluency Practice</h2>
+        <div class="grid-auto">
+            <a href="/activities/letter-drill.html" class="activity-card" data-activity="letter-drill">
+                <div class="activity-icon" style="background: linear-gradient(135deg, #ffeaa7, #fdcb6e); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                    🔤
+                </div>
+                <div class="activity-info">
+                    <h3>Letter Sound Drill</h3>
+                    <p>Fast-paced flashcards for automaticity</p>
+                </div>
+            </a>
+        </div>
+
+        <a href="/books.html?band=B" class="books-link">
+            <div class="books-link-icon">📚</div>
+            <div class="books-link-text">
+                <h3>Band B Books</h3>
+                <p>Decodable readers with CVC words, blends, and digraphs</p>
+            </div>
+        </a>
+
+        <div class="mastery-section">
+            <div class="mastery-header">
+                <h3>Band B Progress</h3>
+                <span class="mastery-percent" id="mastery-percent">0%</span>
+            </div>
+            <div class="mastery-bar">
+                <div class="mastery-fill" id="mastery-fill" style="width: 0%"></div>
+            </div>
+            <div class="mastery-activities" id="mastery-activities">
+                <div class="mastery-activity" data-activity="sound-boxes">
+                    <span class="mastery-dot"></span>
+                    Sound Boxes
+                </div>
+                <div class="mastery-activity" data-activity="blend-it">
+                    <span class="mastery-dot"></span>
+                    Blend It
+                </div>
+                <div class="mastery-activity" data-activity="word-builder">
+                    <span class="mastery-dot"></span>
+                    Word Builder
+                </div>
+                <div class="mastery-activity" data-activity="word-chains">
+                    <span class="mastery-dot"></span>
+                    Word Chains
+                </div>
+                <div class="mastery-activity" data-activity="monster-munch">
+                    <span class="mastery-dot"></span>
+                    Monster Munch
+                </div>
+            </div>
+        </div>
+
+        <div class="promotion-banner" id="promotion-banner">
+            <h3>Ready for Band C!</h3>
+            <p>You've built a solid phonics foundation. Time to tackle multi-syllable words and word study!</p>
+            <a href="/activities/band-c/" class="btn btn-secondary">Start Band C →</a>
+        </div>
+
+        <div style="height: var(--space-xl);"></div>
+    </div>
+
+    <script src="/js/progress-tracker.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof ProgressTracker !== 'undefined') {
+                ProgressTracker.updateBandUI('B');
+            }
+        });
+    </script>
+</body>
+</html>

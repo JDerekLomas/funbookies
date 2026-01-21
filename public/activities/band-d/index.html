@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Band D: Fluent Reading - FunBookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <style>
+        .page-header {
+            padding-top: var(--space-md);
+        }
+
+        .band-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #dda0dd, #ba55d3);
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .band-info {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .band-info h2 {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .band-info p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .band-meta {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-sm);
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .section-title {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin: var(--space-lg) 0 var(--space-sm);
+        }
+
+        .section-title:first-of-type {
+            margin-top: var(--space-md);
+        }
+
+        .activity-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .activity-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mastery-section {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+
+        .mastery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .mastery-header h3 {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .mastery-percent {
+            font-weight: 600;
+            color: var(--color-sage-dark);
+        }
+
+        .mastery-bar {
+            height: 12px;
+            background: var(--color-cream);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: var(--space-sm);
+        }
+
+        .mastery-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ba55d3, #9932cc);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .mastery-activities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+        }
+
+        .mastery-activity {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: var(--color-cream);
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .mastery-activity.complete {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .mastery-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-border);
+        }
+
+        .mastery-activity.complete .mastery-dot {
+            background: #ba55d3;
+        }
+
+        .celebration-banner {
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+            display: none;
+            text-align: center;
+        }
+
+        .celebration-banner.visible {
+            display: block;
+        }
+
+        .celebration-banner h3 {
+            margin-bottom: var(--space-xs);
+            color: #7b1fa2;
+        }
+
+        .celebration-banner p {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .books-link {
+            background: var(--color-terracotta-light);
+            border-radius: var(--border-radius-lg);
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .books-link:hover {
+            background: var(--color-terracotta);
+            transform: translateY(-2px);
+        }
+
+        .books-link-icon {
+            font-size: 2rem;
+        }
+
+        .books-link-text h3 {
+            margin-bottom: 4px;
+        }
+
+        .books-link-text p {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin: 0;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: var(--space-sm);
+        }
+
+        .skill-tag {
+            padding: 4px 10px;
+            background: #f3e5f5;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: #7b1fa2;
+        }
+
+        .coming-soon {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 2px 8px;
+            background: var(--color-text-muted);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+
+        .activity-card {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-narrow">
+        <div class="page-header">
+            <a href="/activities/" class="back-link">← All Activities</a>
+            <div class="band-badge">Band D</div>
+            <h1 class="page-title">Fluent Reading</h1>
+            <p class="page-subtitle">Fluency, comprehension, reading to learn</p>
+        </div>
+
+        <div class="band-info">
+            <h2>What you'll learn</h2>
+            <p>Read with expression and automaticity, make inferences, understand figurative language, and build vocabulary through Latin and Greek roots.</p>
+            <div class="band-meta">
+                <span>Grades: 3-6</span>
+                <span>Levels: D1-D6</span>
+                <span>Target: 105-145 wpm</span>
+            </div>
+            <div class="skill-tags">
+                <span class="skill-tag">Sentence Variety</span>
+                <span class="skill-tag">Inference</span>
+                <span class="skill-tag">Latin Roots</span>
+                <span class="skill-tag">Greek Roots</span>
+                <span class="skill-tag">Figurative Language</span>
+                <span class="skill-tag">Comprehension</span>
+            </div>
+        </div>
+
+        <h2 class="section-title">Fluency Practice</h2>
+        <div class="grid-auto">
+            <a href="/activities/read-aloud.html?band=D" class="activity-card" data-activity="read-aloud-d">
+                <div class="activity-icon" style="background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">
+                    🎤
+                </div>
+                <div class="activity-info">
+                    <h3>Read Aloud</h3>
+                    <p>Build fluency with expression and WCPM tracking</p>
+                </div>
+            </a>
+
+            <a href="/activities/sentence-scramble.html?level=D" class="activity-card" data-activity="sentence-scramble-d">
+                <div class="activity-icon">
+                    <img src="/images/icons/icon-sentence-scramble.png" alt="">
+                </div>
+                <div class="activity-info">
+                    <h3>Sentence Scramble (Complex)</h3>
+                    <p>Arrange compound-complex sentences</p>
+                </div>
+            </a>
+        </div>
+
+        <h2 class="section-title">Vocabulary Building</h2>
+        <div class="grid-auto">
+            <a href="/activities/word-roots.html?type=latin" class="activity-card coming-soon" data-activity="latin-roots">
+                <span class="coming-soon-badge">Coming Soon</span>
+                <div class="activity-icon" style="background: linear-gradient(135deg, #f5af19, #f12711); display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">
+                    🏛️
+                </div>
+                <div class="activity-info">
+                    <h3>Latin Roots</h3>
+                    <p>Learn struct, port, dict, ject and more</p>
+                </div>
+            </a>
+
+            <a href="/activities/word-roots.html?type=greek" class="activity-card coming-soon" data-activity="greek-roots">
+                <span class="coming-soon-badge">Coming Soon</span>
+                <div class="activity-icon" style="background: linear-gradient(135deg, #11998e, #38ef7d); display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">
+                    🏺
+                </div>
+                <div class="activity-info">
+                    <h3>Greek Roots</h3>
+                    <p>Master graph, phon, bio, geo and more</p>
+                </div>
+            </a>
+
+            <a href="/activities/word-chains.html?level=D" class="activity-card" data-activity="word-chains-d">
+                <div class="activity-icon" style="background: linear-gradient(135deg, #fd79a8, #e84393); display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">
+                    🔗
+                </div>
+                <div class="activity-info">
+                    <h3>Word Chains (Expert)</h3>
+                    <p>Chain words with morphological changes</p>
+                </div>
+            </a>
+        </div>
+
+        <h2 class="section-title">Comprehension</h2>
+        <div class="grid-auto">
+            <a href="/activities/inference-challenge.html" class="activity-card coming-soon" data-activity="inference">
+                <span class="coming-soon-badge">Coming Soon</span>
+                <div class="activity-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe); display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">
+                    🔍
+                </div>
+                <div class="activity-info">
+                    <h3>Inference Challenge</h3>
+                    <p>Read between the lines and draw conclusions</p>
+                </div>
+            </a>
+
+            <a href="/activities/figurative-language.html" class="activity-card coming-soon" data-activity="figurative">
+                <span class="coming-soon-badge">Coming Soon</span>
+                <div class="activity-icon" style="background: linear-gradient(135deg, #fa709a, #fee140); display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">
+                    🎭
+                </div>
+                <div class="activity-info">
+                    <h3>Figurative Language</h3>
+                    <p>Similes, metaphors, idioms and more</p>
+                </div>
+            </a>
+        </div>
+
+        <a href="/books.html?band=D" class="books-link">
+            <div class="books-link-icon">📚</div>
+            <div class="books-link-text">
+                <h3>Band D Books</h3>
+                <p>Chapter books with complex themes, rich vocabulary, and literary devices</p>
+            </div>
+        </a>
+
+        <div class="mastery-section">
+            <div class="mastery-header">
+                <h3>Band D Progress</h3>
+                <span class="mastery-percent" id="mastery-percent">0%</span>
+            </div>
+            <div class="mastery-bar">
+                <div class="mastery-fill" id="mastery-fill" style="width: 0%"></div>
+            </div>
+            <div class="mastery-activities" id="mastery-activities">
+                <div class="mastery-activity" data-activity="read-aloud-d">
+                    <span class="mastery-dot"></span>
+                    Read Aloud
+                </div>
+                <div class="mastery-activity" data-activity="sentence-scramble-d">
+                    <span class="mastery-dot"></span>
+                    Sentence Scramble
+                </div>
+                <div class="mastery-activity" data-activity="word-chains-d">
+                    <span class="mastery-dot"></span>
+                    Word Chains
+                </div>
+            </div>
+        </div>
+
+        <div class="celebration-banner" id="celebration-banner">
+            <h3>Congratulations!</h3>
+            <p>You've completed the FunBookies reading journey! You're now a fluent reader ready for any book.</p>
+            <a href="/books.html" class="btn btn-primary">Explore All Books</a>
+        </div>
+
+        <div style="height: var(--space-xl);"></div>
+    </div>
+
+    <script src="/js/progress-tracker.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof ProgressTracker !== 'undefined') {
+                ProgressTracker.updateBandUI('D');
+            }
+        });
+    </script>
+</body>
+</html>

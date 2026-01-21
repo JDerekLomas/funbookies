@@ -12,6 +12,7 @@
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="/js/progress-tracker.js"></script>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -679,6 +680,34 @@
       const correctInRound = useRef(0);
       const monsterRef = useRef(null);
       const wordRefs = useRef({});
+
+      // Progress tracking
+      const sessionStats = useRef({ correct: 0, wrong: 0, totalAttempts: 0 });
+
+      // Record session progress
+      const recordProgress = useCallback((finalLevel, finalScore) => {
+        if (typeof ProgressTracker === 'undefined') return;
+
+        const stats = sessionStats.current;
+        const totalAttempts = stats.correct + stats.wrong;
+        if (totalAttempts === 0) return;
+
+        const accuracy = stats.correct / totalAttempts;
+
+        const result = ProgressTracker.recordSession('monster-munch', 'B', accuracy, {
+          level: finalLevel,
+          score: finalScore,
+          correct: stats.correct,
+          wrong: stats.wrong,
+          levelsCompleted: Math.floor(finalLevel / 3)
+        });
+
+        // Check if ready for next band
+        const promotion = ProgressTracker.checkBandPromotion('B');
+        if (promotion.ready && promotion.justUnlocked) {
+          console.log('Band C unlocked!');
+        }
+      }, []);
 
       const { playCorrect, playWrong, playMunch, playGulp, playLevelUp } = useSound();
 

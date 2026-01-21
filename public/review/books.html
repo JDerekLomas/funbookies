@@ -344,6 +344,199 @@
             font-size: 1.1rem;
             opacity: 0.7;
         }
+
+        /* Book Rating Styles */
+        .book-rating-buttons {
+            display: flex;
+            gap: 6px;
+            margin-bottom: var(--space-xs);
+        }
+
+        .book-rating-btn {
+            flex: 1;
+            padding: 8px 4px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--border-radius);
+            background: white;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .book-rating-btn .rating-icon { font-size: 1.1rem; }
+        .book-rating-btn span:last-child { color: var(--color-text-muted); }
+
+        .book-rating-btn:hover { transform: translateY(-1px); }
+
+        .book-rating-btn.good:hover,
+        .book-rating-btn.good.selected { background: #e8f5e9; border-color: #4caf50; }
+        .book-rating-btn.good.selected .rating-icon { color: #4caf50; }
+
+        .book-rating-btn.improve:hover,
+        .book-rating-btn.improve.selected { background: #fff3e0; border-color: #ff9800; }
+        .book-rating-btn.improve.selected .rating-icon { color: #ff9800; }
+
+        .book-rating-btn.discard:hover,
+        .book-rating-btn.discard.selected { background: #ffebee; border-color: #f44336; }
+        .book-rating-btn.discard.selected .rating-icon { color: #f44336; }
+
+        .book-notes { height: 60px; }
+
+        .book-rating-status {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin-top: 4px;
+        }
+
+        .story-item-book-rating {
+            font-size: 0.7rem;
+            margin-left: auto;
+        }
+
+        .story-item-book-rating.good { color: #4caf50; }
+        .story-item-book-rating.improve { color: #ff9800; }
+        .story-item-book-rating.discard { color: #f44336; }
+
+        /* Summary Modal */
+        .summary-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-md);
+        }
+
+        .summary-modal.active { display: flex; }
+
+        .summary-content {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            max-width: 800px;
+            width: 100%;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .summary-header {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .summary-header h2 { margin: 0; font-size: 1.1rem; }
+
+        .summary-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-text-muted);
+        }
+
+        .summary-body {
+            padding: var(--space-md);
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .summary-section {
+            margin-bottom: var(--space-md);
+        }
+
+        .summary-section h3 {
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .summary-section h3 .count {
+            background: var(--color-cream);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        .summary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            background: var(--color-cream);
+            border-radius: var(--border-radius);
+            font-size: 0.85rem;
+        }
+
+        .summary-item .level {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            min-width: 24px;
+        }
+
+        .summary-item .notes {
+            color: var(--color-text-muted);
+            font-size: 0.8rem;
+            margin-left: auto;
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .summary-footer {
+            padding: var(--space-md);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .summary-stats {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+            padding: var(--space-sm);
+            background: var(--color-cream);
+            border-radius: var(--border-radius);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+        }
+
+        .stat-item.good .stat-value { color: #4caf50; }
+        .stat-item.improve .stat-value { color: #ff9800; }
+        .stat-item.discard .stat-value { color: #f44336; }
+        .stat-item.unrated .stat-value { color: var(--color-text-muted); }
     </style>
 </head>
 <body>
@@ -382,6 +575,26 @@
         </div>
 
         <div class="info-panel" id="infoPanel">
+            <div class="panel-section book-rating-section">
+                <h3>Book Rating</h3>
+                <div class="book-rating-buttons">
+                    <button class="book-rating-btn good" onclick="setBookRating('good')">
+                        <span class="rating-icon">✓</span>
+                        <span>Good</span>
+                    </button>
+                    <button class="book-rating-btn improve" onclick="setBookRating('improve')">
+                        <span class="rating-icon">↻</span>
+                        <span>Improve</span>
+                    </button>
+                    <button class="book-rating-btn discard" onclick="setBookRating('discard')">
+                        <span class="rating-icon">✗</span>
+                        <span>Discard</span>
+                    </button>
+                </div>
+                <textarea class="notes-input book-notes" id="bookNotesInput" placeholder="What needs to change? (story, images, etc.)..." onchange="saveBookNotes()"></textarea>
+                <div class="book-rating-status" id="bookRatingStatus"></div>
+            </div>
+
             <div class="panel-section">
                 <h3>Page Info</h3>
                 <div id="pageInfo">
@@ -415,6 +628,7 @@
                 <div class="action-buttons">
                     <a class="btn btn-sm btn-secondary" id="openReaderBtn" href="#" target="_blank">Open in Reader</a>
                     <button class="btn btn-sm btn-ghost" onclick="exportFeedback()">Export</button>
+                    <button class="btn btn-sm" onclick="showSummary()">Summary</button>
                 </div>
             </div>
         </div>
@@ -424,14 +638,31 @@
         <img id="lightboxImg" src="" alt="Enlarged view">
     </div>
 
+    <div class="summary-modal" id="summaryModal">
+        <div class="summary-content">
+            <div class="summary-header">
+                <h2>Book Quality Summary</h2>
+                <button class="summary-close" onclick="closeSummary()">&times;</button>
+            </div>
+            <div class="summary-body" id="summaryBody"></div>
+            <div class="summary-footer">
+                <button class="btn btn-secondary" onclick="closeSummary()">Close</button>
+                <button class="btn btn-secondary" onclick="copyBookRatingsMarkdown()">Copy Markdown</button>
+                <button class="btn" onclick="exportBookRatingsJSON()">Export JSON</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const STORAGE_KEY = 'book-review-feedback-v1';
+        const BOOK_RATINGS_KEY = 'book-quality-ratings-v1';
         const GITHUB_REPO = 'dereklomas/lilbookies';
 
         let manifest = [];
         let currentBook = null;
         let currentPage = 0;
         let feedback = {};
+        let bookRatings = {}; // { slug: { rating: 'good'|'improve'|'discard', notes: '', timestamp: '' } }
 
         // Load feedback from localStorage
         function loadFeedback() {
@@ -443,6 +674,291 @@
 
         function saveFeedback() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(feedback));
+        }
+
+        // Book rating functions
+        let syncStatus = 'idle'; // 'idle' | 'saving' | 'saved' | 'error'
+
+        async function loadBookRatings() {
+            // Try to load from API first
+            try {
+                const response = await fetch('/api/book-ratings');
+                const data = await response.json();
+
+                if (data.success && data.ratings && Object.keys(data.ratings).length > 0) {
+                    bookRatings = data.ratings;
+                    // Also save to localStorage as backup
+                    localStorage.setItem(BOOK_RATINGS_KEY, JSON.stringify(bookRatings));
+                    console.log('Loaded ratings from Supabase');
+                    return;
+                }
+            } catch (err) {
+                console.warn('Could not load from API, using localStorage:', err);
+            }
+
+            // Fallback to localStorage
+            try {
+                const saved = localStorage.getItem(BOOK_RATINGS_KEY);
+                if (saved) bookRatings = JSON.parse(saved);
+            } catch { bookRatings = {}; }
+        }
+
+        async function saveBookRatings() {
+            // Always save to localStorage first (instant)
+            localStorage.setItem(BOOK_RATINGS_KEY, JSON.stringify(bookRatings));
+
+            // Then sync to Supabase
+            syncStatus = 'saving';
+            updateSyncIndicator();
+
+            try {
+                const response = await fetch('/api/book-ratings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ratings: bookRatings })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    syncStatus = 'saved';
+                    console.log('Ratings synced to Supabase');
+                } else {
+                    throw new Error(data.error || 'Save failed');
+                }
+            } catch (err) {
+                console.error('Failed to sync to Supabase:', err);
+                syncStatus = 'error';
+            }
+
+            updateSyncIndicator();
+            setTimeout(() => {
+                if (syncStatus !== 'error') {
+                    syncStatus = 'idle';
+                    updateSyncIndicator();
+                }
+            }, 2000);
+        }
+
+        function updateSyncIndicator() {
+            const statusEl = document.getElementById('bookRatingStatus');
+            if (!statusEl) return;
+
+            const icons = {
+                'idle': '',
+                'saving': 'Syncing...',
+                'saved': 'Synced to cloud',
+                'error': 'Sync failed (saved locally)'
+            };
+
+            if (syncStatus !== 'idle') {
+                statusEl.textContent = icons[syncStatus];
+                statusEl.style.color = syncStatus === 'error' ? 'var(--color-error)' : '';
+            }
+        }
+
+        function setBookRating(rating) {
+            if (!currentBook) return;
+
+            const slug = currentBook.slug;
+            const current = bookRatings[slug];
+
+            if (current?.rating === rating) {
+                // Toggle off if clicking same button
+                delete bookRatings[slug];
+            } else {
+                bookRatings[slug] = {
+                    rating,
+                    notes: document.getElementById('bookNotesInput').value,
+                    title: currentBook.title,
+                    level: currentBook.level,
+                    timestamp: new Date().toISOString()
+                };
+            }
+
+            saveBookRatings();
+            updateBookRatingUI();
+            updateSidebarBookRatings();
+
+            const statusEl = document.getElementById('bookRatingStatus');
+            statusEl.textContent = bookRatings[slug] ? `Saved as "${rating}"` : 'Rating cleared';
+            setTimeout(() => { statusEl.textContent = ''; }, 2000);
+        }
+
+        function saveBookNotes() {
+            if (!currentBook || !bookRatings[currentBook.slug]) return;
+            bookRatings[currentBook.slug].notes = document.getElementById('bookNotesInput').value;
+            saveBookRatings();
+        }
+
+        function updateBookRatingUI() {
+            const goodBtn = document.querySelector('.book-rating-btn.good');
+            const improveBtn = document.querySelector('.book-rating-btn.improve');
+            const discardBtn = document.querySelector('.book-rating-btn.discard');
+            const notesInput = document.getElementById('bookNotesInput');
+
+            goodBtn.classList.remove('selected');
+            improveBtn.classList.remove('selected');
+            discardBtn.classList.remove('selected');
+            notesInput.value = '';
+
+            if (currentBook && bookRatings[currentBook.slug]) {
+                const br = bookRatings[currentBook.slug];
+                if (br.rating === 'good') goodBtn.classList.add('selected');
+                if (br.rating === 'improve') improveBtn.classList.add('selected');
+                if (br.rating === 'discard') discardBtn.classList.add('selected');
+                notesInput.value = br.notes || '';
+            }
+        }
+
+        function updateSidebarBookRatings() {
+            document.querySelectorAll('.story-item').forEach(item => {
+                const slug = item.dataset.slug;
+                let ratingEl = item.querySelector('.story-item-book-rating');
+
+                if (!ratingEl) {
+                    ratingEl = document.createElement('span');
+                    ratingEl.className = 'story-item-book-rating';
+                    item.appendChild(ratingEl);
+                }
+
+                const br = bookRatings[slug];
+                if (!br) {
+                    ratingEl.textContent = '';
+                    ratingEl.className = 'story-item-book-rating';
+                    return;
+                }
+
+                const icons = { good: '✓', improve: '↻', discard: '✗' };
+                ratingEl.textContent = icons[br.rating] || '';
+                ratingEl.className = `story-item-book-rating ${br.rating}`;
+            });
+        }
+
+        function showSummary() {
+            const body = document.getElementById('summaryBody');
+
+            const good = [], improve = [], discard = [];
+            for (const [slug, data] of Object.entries(bookRatings)) {
+                const item = { slug, ...data };
+                if (data.rating === 'good') good.push(item);
+                else if (data.rating === 'improve') improve.push(item);
+                else if (data.rating === 'discard') discard.push(item);
+            }
+
+            const ratedCount = good.length + improve.length + discard.length;
+            const unratedCount = manifest.length - ratedCount;
+
+            body.innerHTML = `
+                <div class="summary-stats">
+                    <div class="stat-item good"><div class="stat-value">${good.length}</div><div class="stat-label">Good</div></div>
+                    <div class="stat-item improve"><div class="stat-value">${improve.length}</div><div class="stat-label">Improve</div></div>
+                    <div class="stat-item discard"><div class="stat-value">${discard.length}</div><div class="stat-label">Discard</div></div>
+                    <div class="stat-item unrated"><div class="stat-value">${unratedCount}</div><div class="stat-label">Unrated</div></div>
+                </div>
+
+                ${renderSummarySection('Good', good, '#4caf50')}
+                ${renderSummarySection('Needs Improvement', improve, '#ff9800')}
+                ${renderSummarySection('Discard', discard, '#f44336')}
+            `;
+
+            document.getElementById('summaryModal').classList.add('active');
+        }
+
+        function renderSummarySection(title, items, color) {
+            if (items.length === 0) return '';
+
+            items.sort((a, b) => (a.level || '').localeCompare(b.level || ''));
+
+            return `
+                <div class="summary-section">
+                    <h3 style="color: ${color}">
+                        ${title}
+                        <span class="count">${items.length}</span>
+                    </h3>
+                    <div class="summary-list">
+                        ${items.map(item => `
+                            <div class="summary-item">
+                                <span class="level">${item.level || '?'}</span>
+                                <span class="title">${item.title || item.slug}</span>
+                                ${item.notes ? `<span class="notes">${item.notes}</span>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function closeSummary() {
+            document.getElementById('summaryModal').classList.remove('active');
+        }
+
+        function exportBookRatingsJSON() {
+            const data = {
+                generated: new Date().toISOString(),
+                totalBooks: manifest.length,
+                ratings: bookRatings
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `book-ratings-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function copyBookRatingsMarkdown() {
+            const good = [], improve = [], discard = [];
+            for (const [slug, data] of Object.entries(bookRatings)) {
+                const item = { slug, ...data };
+                if (data.rating === 'good') good.push(item);
+                else if (data.rating === 'improve') improve.push(item);
+                else if (data.rating === 'discard') discard.push(item);
+            }
+
+            let md = `# Book Quality Assessment\n`;
+            md += `Generated: ${new Date().toLocaleString()}\n\n`;
+            md += `## Summary\n`;
+            md += `- Good: ${good.length}\n`;
+            md += `- Needs Improvement: ${improve.length}\n`;
+            md += `- Discard: ${discard.length}\n`;
+            md += `- Unrated: ${manifest.length - good.length - improve.length - discard.length}\n\n`;
+
+            if (good.length > 0) {
+                md += `## Good (${good.length})\n`;
+                good.sort((a, b) => (a.level || '').localeCompare(b.level || ''));
+                good.forEach(item => {
+                    md += `- [${item.level || '?'}] ${item.title || item.slug}\n`;
+                });
+                md += '\n';
+            }
+
+            if (improve.length > 0) {
+                md += `## Needs Improvement (${improve.length})\n`;
+                improve.sort((a, b) => (a.level || '').localeCompare(b.level || ''));
+                improve.forEach(item => {
+                    md += `- [${item.level || '?'}] ${item.title || item.slug}`;
+                    if (item.notes) md += ` - ${item.notes}`;
+                    md += '\n';
+                });
+                md += '\n';
+            }
+
+            if (discard.length > 0) {
+                md += `## Discard (${discard.length})\n`;
+                discard.sort((a, b) => (a.level || '').localeCompare(b.level || ''));
+                discard.forEach(item => {
+                    md += `- [${item.level || '?'}] ${item.title || item.slug}`;
+                    if (item.notes) md += ` - ${item.notes}`;
+                    md += '\n';
+                });
+            }
+
+            navigator.clipboard.writeText(md).then(() => {
+                alert('Copied to clipboard!');
+            });
         }
 
         function getFeedbackKey() {
@@ -552,6 +1068,7 @@
             `).join('');
 
             updateBookStatus();
+            updateSidebarBookRatings();
         }
 
         async function selectBook(slug) {
@@ -569,6 +1086,7 @@
 
             buildPageSelect();
             renderPage();
+            updateBookRatingUI();
         }
 
         function getStoryPagesWithIndex() {
@@ -812,13 +1330,20 @@ ${rejected.join('\n') || '(none)'}`;
 
         // Keyboard navigation
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'Escape') {
+                closeLightbox();
+                closeSummary();
+            }
             if (e.key === 'ArrowLeft' && currentBook) prevPage();
             if (e.key === 'ArrowRight' && currentBook) nextPage();
         });
 
-        loadFeedback();
-        loadManifest();
+        // Initialize
+        (async function init() {
+            loadFeedback();
+            await loadBookRatings();
+            await loadManifest();
+        })();
     </script>
 </body>
 </html>

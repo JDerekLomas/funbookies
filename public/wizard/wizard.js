@@ -1,0 +1,2009 @@
+// ===================
+// STATE MANAGEMENT
+// ===================
+
+const STATE_KEY_PREFIX = 'wizard_state_';
+
+// Story ideas loaded from JSON
+let storyIdeasData = null;
+let storyIdeasVisible = true;
+let selectedIdeaIndex = null;
+
+let state = {
+    slug: null,
+    currentPhase: 1,
+    phaseStatus: { 1: 'in_progress', 2: 'pending', 3: 'pending', 4: 'pending', 5: 'pending', 6: 'pending' },
+    outline: null,  // Beat-by-beat story outline from Phase 1
+    book: null,
+    referenceImage: null,
+    // Prompt tracking - stores custom/edited prompts
+    prompts: {
+        story: null,           // Custom story prompt (null = use default)
+        styleGuide: null,      // Custom style guide prompt
+        openingScenes: null,   // Custom opening scenes prompt
+        closingScenes: null    // Custom closing scenes prompt
+    },
+    // Multi-ref support (3-ref cascade)
+    refStrategy: 'single', // 'single' or 'multi'
+    multiRefs: {
+        styleGuide: null,    // 9-panel (nano-banana T2I)
+        openingScenes: null, // First half pages (wan 2.6 I2I)
+        closingScenes: null  // Second half pages (wan 2.6 I2I)
+    },
+    pendingTasks: [],
+    checkpointApprovals: {},
+    formData: {
+        level: 'B1',
+        concept: '',
+        setting: '',
+        words: []
+    }
+};
+
+// ===================
+// INITIALIZATION
+// ===================
+
+async function init() {
+    // Load story ideas
+    await loadStoryIdeas();
+
+    // Check URL params for existing book
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('slug');
+    const phase = parseInt(params.get('phase')) || 1;
+
+    if (slug) {
+        loadState(slug);
+        if (state.book) {
+            goToPhase(phase);
+        }
+    }
+
+    setupEventListeners();
+    updateUI();
+
+    // Render initial story ideas for default level
+    renderStoryIdeas();
+}
+
+function setupEventListeners() {
+    // Word input
+    document.getElementById('wordInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const word = e.target.value.trim().toLowerCase();
+            if (word && !state.formData.words.includes(word)) {
+                state.formData.words.push(word);
+                renderWordTags();
+            }
+            e.target.value = '';
+        }
+    });
+
+    // Level select
+    document.getElementById('levelSelect').addEventListener('change', (e) => {
+        state.formData.level = e.target.value;
+        selectedIdeaIndex = null; // Clear selection when level changes
+        renderStoryIdeas();
+    });
+
+    // Stepper navigation - click on completed/active steps to navigate
+    document.getElementById('stepper').addEventListener('click', (e) => {
+        const step = e.target.closest('.step');
+        if (step && step.classList.contains('clickable')) {
+            const phase = parseInt(step.dataset.phase);
+            if (phase && phase !== state.currentPhase) {
+                goToPhase(phase);
+            }
+        }
+    });
+}
+
+// ===================
+// STATE PERSISTENCE
+// ===================
+
+function saveState() {
+    if (state.slug) {
+        localStorage.setItem(STATE_KEY_PREFIX + state.slug, JSON.stringify(state));
+        updateURL();
+    }
+}
+
+// Save book to Supabase (called after each phase)
+async function saveToSupabase() {
+    if (!state.slug || !state.book) return;
+
+    try {
+        const bookData = {
+            ...state.book,
+            slug: state.slug,
+            referenceImage: state.referenceImage,
+            wizardPhase: state.currentPhase,
+            updatedAt: new Date().toISOString()
+        };
+
+        const response = await fetch('/api/save-book', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                slug: state.slug,
+                fullBook: bookData
+            })
+        });
+
+        if (!response.ok) {
+            console.warn('Failed to save to Supabase:', await response.text());
+        } else {
+            console.log('Book saved to Supabase (phase ' + state.currentPhase + ')');
+        }
+    } catch (error) {
+        console.warn('Supabase save error:', error);
+    }
+}
+
+function loadState(slug) {
+    const saved = localStorage.getItem(STATE_KEY_PREFIX + slug);
+    if (saved) {
+        state = JSON.parse(saved);
+    }
+}
+
+function updateURL() {
+    const url = new URL(window.location);
+    if (state.slug) {
+        url.searchParams.set('slug', state.slug);
+    }
+    url.searchParams.set('phase', state.currentPhase);
+    window.history.replaceState({}, '', url);
+}
+
+function generateSlug(title) {
+    return title.toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+}
+
+// ===================
+// UI UPDATES
+// ===================
+
+function updateUI() {
+    updateStepper();
+    renderWordTags();
+
+    // Show book info if we have a slug
+    if (state.slug) {
+        document.getElementById('bookInfo').classList.remove('hidden');
+        document.getElementById('bookSlug').textContent = state.slug;
+    } else {
+        document.getElementById('bookInfo').classList.add('hidden');
+    }
+}
+
+function updateStepper() {
+    document.querySelectorAll('.step').forEach(step => {
+        const phase = parseInt(step.dataset.phase);
+        step.classList.remove('active', 'completed', 'clickable');
+
+        if (phase === state.currentPhase) {
+            step.classList.add('active', 'clickable');
+        } else if (state.phaseStatus[phase] === 'complete') {
+            step.classList.add('completed', 'clickable');
+            step.querySelector('.step-indicator').innerHTML = '&#10003;';
+        } else {
+            // Reset indicator number if not completed
+            step.querySelector('.step-indicator').textContent = phase;
+        }
+    });
+}
+
+function goToPhase(phase) {
+    // Hide all phases
+    document.querySelectorAll('.phase-content').forEach(el => el.classList.remove('active'));
+
+    // Show target phase
+    document.getElementById(`phase${phase}`).classList.add('active');
+    state.currentPhase = phase;
+    state.phaseStatus[phase] = 'in_progress';
+
+    updateStepper();
+    updateURL();
+
+    // Render phase-specific content
+    if (phase === 2 && state.outline) {
+        renderOutlinePhase();
+    } else if (phase === 3 && state.book) {
+        renderPhase2Content();
+    } else if (phase === 4 && state.book) {
+        renderReferencePhase();
+    } else if (phase === 5 && state.book) {
+        renderPageImagesGrid();
+    } else if (phase === 6 && state.book) {
+        renderReviewPhase();
+    }
+}
+
+function renderWordTags() {
+    const container = document.getElementById('wordTags');
+    container.innerHTML = state.formData.words.map(w =>
+        `<span class="word-tag">${w}<button onclick="removeWord('${w}')">&times;</button></span>`
+    ).join('');
+}
+
+function removeWord(word) {
+    state.formData.words = state.formData.words.filter(w => w !== word);
+    renderWordTags();
+}
+
+// ===================
+// STORY IDEAS
+// ===================
+
+async function loadStoryIdeas() {
+    try {
+        const response = await fetch('/data/story-ideas.json');
+        if (response.ok) {
+            storyIdeasData = await response.json();
+            console.log('Loaded story ideas:', Object.keys(storyIdeasData.ideas).length, 'levels');
+        }
+    } catch (error) {
+        console.warn('Could not load story ideas:', error);
+    }
+}
+
+function renderStoryIdeas() {
+    const grid = document.getElementById('storyIdeasGrid');
+    const countEl = document.getElementById('storyIdeasCount');
+    const level = document.getElementById('levelSelect').value;
+
+    if (!storyIdeasData || !storyIdeasData.ideas) {
+        grid.innerHTML = '<div class="no-ideas-message">Could not load story ideas</div>';
+        countEl.textContent = '';
+        return;
+    }
+
+    const ideas = storyIdeasData.ideas[level] || [];
+
+    // Update count display
+    countEl.textContent = ideas.length > 0 ? `(${ideas.length} ideas)` : '';
+
+    if (ideas.length === 0) {
+        grid.innerHTML = '<div class="no-ideas-message">No pre-made ideas for this level yet. Write your own below!</div>';
+        return;
+    }
+
+    grid.innerHTML = ideas.map((idea, index) => `
+        <div class="story-idea-card ${selectedIdeaIndex === index ? 'selected' : ''}"
+             onclick="selectStoryIdea(${index})">
+            <div class="story-idea-title">${idea.title}</div>
+            <div class="story-idea-concept">${idea.concept}</div>
+            <div class="story-idea-meta">
+                <span class="story-idea-tag">${idea.character}</span>
+                ${idea.theme ? `<span class="story-idea-tag theme">${idea.theme}</span>` : ''}
+            </div>
+        </div>
+    `).join('');
+
+    // Update visibility
+    grid.style.display = storyIdeasVisible ? 'grid' : 'none';
+    document.getElementById('toggleIdeas').textContent = storyIdeasVisible ? 'Hide' : 'Show';
+}
+
+function selectStoryIdea(index) {
+    const level = document.getElementById('levelSelect').value;
+    const ideas = storyIdeasData?.ideas[level] || [];
+    const idea = ideas[index];
+
+    if (!idea) return;
+
+    // Toggle selection
+    if (selectedIdeaIndex === index) {
+        // Deselect
+        selectedIdeaIndex = null;
+        document.getElementById('conceptInput').value = '';
+        document.getElementById('settingInput').value = '';
+        state.formData.words = [];
+    } else {
+        // Select this idea
+        selectedIdeaIndex = index;
+
+        // Populate form fields
+        document.getElementById('conceptInput').value = idea.concept;
+        document.getElementById('settingInput').value = idea.setting || '';
+
+        // Add sample words if available
+        if (idea.sample_words && idea.sample_words.length > 0) {
+            state.formData.words = [...idea.sample_words];
+        }
+    }
+
+    renderStoryIdeas();
+    renderWordTags();
+}
+
+function toggleStoryIdeas() {
+    storyIdeasVisible = !storyIdeasVisible;
+    const grid = document.getElementById('storyIdeasGrid');
+    grid.style.display = storyIdeasVisible ? 'grid' : 'none';
+    document.getElementById('toggleIdeas').textContent = storyIdeasVisible ? 'Hide' : 'Show';
+}
+
+// ===================
+// PHASE 1: OUTLINE GENERATION
+// ===================
+
+function generateOutline() {
+    state.formData.concept = document.getElementById('conceptInput').value.trim();
+    state.formData.setting = document.getElementById('settingInput').value.trim();
+    state.formData.level = document.getElementById('levelSelect').value;
+
+    if (!state.formData.concept) {
+        alert('Please enter a story concept.');
+        return;
+    }
+
+    if (state.outline) {
+        showConfirmModal(
+            'Generate New Outline?',
+            'This will replace your current outline and all progress. Continue?',
+            doGenerateOutline
+        );
+    } else {
+        doGenerateOutline();
+    }
+}
+
+async function doGenerateOutline() {
+    document.getElementById('phase1Form').classList.add('hidden');
+    document.getElementById('phase1Loading').classList.remove('hidden');
+    document.getElementById('phase1LoadingText').textContent = 'Generating story outline...';
+
+    try {
+        const response = await fetch('/api/generate-story', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                prompt: buildOutlinePrompt(),
+                mode: 'outline'
+            })
+        });
+
+        if (!response.ok) throw new Error('Failed to generate outline');
+
+        const outline = await response.json();
+        state.slug = generateSlug(outline.title);
+        state.outline = outline;
+        state.outline.level = state.formData.level;
+        saveState();
+
+        state.phaseStatus[1] = 'complete';
+        state.checkpointApprovals[1] = { approved: true, timestamp: new Date().toISOString() };
+        saveState();
+
+        document.getElementById('phase1Loading').classList.add('hidden');
+        goToPhase(2);
+        renderOutlinePhase();
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to generate outline. Please try again.');
+        document.getElementById('phase1Form').classList.remove('hidden');
+        document.getElementById('phase1Loading').classList.add('hidden');
+    }
+}
+
+function buildOutlinePrompt() {
+    const customPrompt = document.getElementById('storyPromptTextarea').value.trim();
+    if (customPrompt) {
+        state.prompts.story = customPrompt;
+        return customPrompt;
+    }
+    return buildDefaultOutlinePrompt();
+}
+
+function buildDefaultOutlinePrompt() {
+    const level = state.formData.level;
+    const band = level.charAt(0); // A, B, C, or D
+
+    const levelDescriptions = {
+        'A0': 'Concept of Print. 0-2 words per page. UPPERCASE only.',
+        'A1': 'Letter Recognition. 1 word per page. Labels only.',
+        'A2': 'CV/VC Words. 2-3 words per page. Max 3 words per sentence.',
+        'A3': 'CVC Words. 3-4 words per page. Max 4 words per sentence.',
+        'A4': 'CVC Fluency. 4-5 words per page. Max 5 words per sentence.',
+        'B1': 'Beginning blends (st, sp, cr, fl). Max 5-6 words per sentence.',
+        'B2': 'Ending blends (mp, nd, st). Max 6 words per sentence.',
+        'B3': 'Digraphs (sh, ch, th, wh). Max 6 words per sentence.',
+        'B4': 'Short vowel mastery. Max 7 words per sentence.',
+        'B5': 'Silent e (CVCe). Max 7 words per sentence.',
+        'B6': 'Soft c and g. Max 8 words per sentence.',
+        'B7': 'R-controlled vowels. Max 8 words per sentence.',
+        'B8': 'Vowel teams (ai, ea, oa). Max 9 words per sentence.',
+        'B9': 'Diphthongs (oi, ou, ow). Max 9 words per sentence.',
+        'C1': 'Two-syllable compound words. Max 10 words per sentence.',
+        'C2': 'Open syllables. Max 10 words per sentence.',
+        'C3': 'Two-syllable closed (kitten, rabbit). Max 12 words per sentence.',
+        'C4': 'Consonant -le (table, little). Max 12 words per sentence.',
+        'C5': 'Prefixes (un-, re-, pre-). Natural sentence length.',
+        'C6': 'Suffixes (-ful, -less, -ness). Natural sentence length.',
+        'C7': 'Latin roots. Natural sentence length.',
+        'C8': 'Greek combining forms. Natural sentence length.',
+        'D1': 'Chapter books intro. Natural sentence length.',
+        'D2': 'Complex narratives. Natural sentence length.',
+        'D3': 'Multiple viewpoints. Natural sentence length.',
+        'D4': 'Abstract themes. Natural sentence length.',
+        'D5': 'Literary devices. Natural sentence length.',
+        'D6': 'Independent reading. Natural sentence length.'
+    };
+
+    const bandStyles = {
+        'A': 'Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors. Gentle, comforting, bright mood.',
+        'B': 'Playful watercolor illustration, expressive characters, vibrant colors. Energetic, fun, adventurous mood.',
+        'C': 'Rich watercolor, more detailed characters and settings, dynamic compositions. Exciting, imaginative mood.',
+        'D': 'Sophisticated watercolor style, detailed environments, nuanced lighting. Atmospheric, immersive mood.'
+    };
+
+    return `You are a master children's book author. Generate a story OUTLINE for a decodable book.
+
+READING LEVEL: ${level} - ${levelDescriptions[level] || 'Age-appropriate vocabulary'}
+CONCEPT: ${state.formData.concept}
+SETTING: ${state.formData.setting || 'appropriate for the story'}
+${state.formData.words.length > 0 ? `WORDS TO INCLUDE: ${state.formData.words.join(', ')}` : ''}
+
+## WHAT MAKES A GOOD STORY
+
+1. CHARACTER WANT - The character wants something specific and clear
+2. OBSTACLE - A real problem blocks them (not manufactured drama)
+3. TRY-FAIL - Genuine attempt that fails for a logical reason
+4. RESOLUTION - Satisfying and earned ending
+5. CAUSATION - Each event causes the next (not random scenes)
+
+## VISUAL STYLE FOR BAND ${band}
+
+${bandStyles[band] || bandStyles['B']}
+
+## OUTPUT FORMAT (JSON only, no other text)
+
+{
+  "title": "Story Title (2-4 catchy words)",
+  "character": {
+    "name": "Character Name",
+    "type": "animal/child/creature",
+    "visual_shorthand": "small orange tabby kitten with white paws",
+    "distinctive_features": ["bright green eyes", "fluffy striped tail", "white mittens on paws"]
+  },
+  "setting": "Detailed setting description with visual elements",
+  "visual_style": "${bandStyles[band] || bandStyles['B']}",
+  "beats": [
+    { "page": 1, "beat": "INTRODUCE: Character introduced in setting with their WANT established" },
+    { "page": 2, "beat": "WANT: Character actively pursuing their goal" },
+    { "page": 3, "beat": "OBSTACLE: Problem or challenge appears" },
+    { "page": 4, "beat": "TRY: First attempt to solve problem" },
+    { "page": 5, "beat": "FAIL: Attempt doesn't work, complication" },
+    { "page": 6, "beat": "TRY AGAIN: New approach or idea" },
+    { "page": 7, "beat": "PROGRESS: Getting closer to goal" },
+    { "page": 8, "beat": "CLIMAX: Key moment of tension or discovery" },
+    { "page": 9, "beat": "RESOLUTION: Problem solved satisfyingly" },
+    { "page": 10, "beat": "ENDING: Warm conclusion showing growth or happiness" }
+  ],
+  "arc": "Brief description: [Character] wants [goal] but [obstacle]. They try [attempts] and finally [resolution]."
+}
+
+Create 8-12 beats. Each beat should clearly connect to the next through cause and effect.`;
+}
+
+// ===================
+// PHASE 2: OUTLINE REVIEW
+// ===================
+
+function renderOutlinePhase() {
+    if (!state.outline) return;
+    document.getElementById('outlineTitle').value = state.outline.title || '';
+
+    // Rich character display
+    const char = state.outline.character;
+    if (char) {
+        let charText = char.name;
+        if (char.visual_shorthand) charText += ` - ${char.visual_shorthand}`;
+        else if (char.type) charText += ` the ${char.type}`;
+        if (char.distinctive_features && char.distinctive_features.length) {
+            charText += ` (${char.distinctive_features.slice(0, 3).join(', ')})`;
+        }
+        document.getElementById('outlineCharacter').textContent = charText;
+    } else {
+        document.getElementById('outlineCharacter').textContent = 'Not set';
+    }
+
+    document.getElementById('outlineSetting').textContent = state.outline.setting || 'Not set';
+    document.getElementById('outlineArc').textContent = state.outline.arc || 'Not set';
+    renderBeats();
+}
+
+function renderBeats() {
+    const container = document.getElementById('beatsList');
+    if (!state.outline || !state.outline.beats) {
+        container.innerHTML = '<p class="hint">No beats yet. Generate an outline first.</p>';
+        return;
+    }
+    container.innerHTML = state.outline.beats.map((beat, index) => `
+        <div class="beat-item" data-index="${index}">
+            <div class="beat-number">${beat.page}</div>
+            <div class="beat-content">
+                <textarea class="beat-input" onchange="updateBeat(${index}, this.value)">${beat.beat}</textarea>
+            </div>
+            <div class="beat-actions">
+                <button onclick="moveBeatUp(${index})" ${index === 0 ? 'disabled' : ''}>↑</button>
+                <button onclick="moveBeatDown(${index})" ${index === state.outline.beats.length - 1 ? 'disabled' : ''}>↓</button>
+                <button onclick="deleteBeat(${index})">×</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function updateOutlineTitle(value) {
+    if (state.outline) {
+        state.outline.title = value;
+        state.slug = generateSlug(value);
+        saveState();
+    }
+}
+
+function updateBeat(index, value) {
+    if (state.outline && state.outline.beats[index]) {
+        state.outline.beats[index].beat = value;
+        saveState();
+    }
+}
+
+function addBeat() {
+    if (!state.outline) return;
+    state.outline.beats.push({ page: state.outline.beats.length + 1, beat: '' });
+    renderBeats();
+    saveState();
+}
+
+function deleteBeat(index) {
+    if (!state.outline || state.outline.beats.length <= 1) return;
+    state.outline.beats.splice(index, 1);
+    state.outline.beats.forEach((b, i) => b.page = i + 1);
+    renderBeats();
+    saveState();
+}
+
+function moveBeatUp(index) {
+    if (!state.outline || index <= 0) return;
+    [state.outline.beats[index - 1], state.outline.beats[index]] = [state.outline.beats[index], state.outline.beats[index - 1]];
+    state.outline.beats.forEach((b, i) => b.page = i + 1);
+    renderBeats();
+    saveState();
+}
+
+function moveBeatDown(index) {
+    if (!state.outline || index >= state.outline.beats.length - 1) return;
+    [state.outline.beats[index], state.outline.beats[index + 1]] = [state.outline.beats[index + 1], state.outline.beats[index]];
+    state.outline.beats.forEach((b, i) => b.page = i + 1);
+    renderBeats();
+    saveState();
+}
+
+function regenerateOutline() {
+    showConfirmModal('Regenerate Outline?', 'This will replace your current outline.', doGenerateOutline);
+}
+
+// ===================
+// PHASE 2→3: EXPAND TO FULL STORY
+// ===================
+
+async function expandToFullStory() {
+    if (!state.outline) {
+        alert('No outline to expand.');
+        return;
+    }
+
+    document.getElementById('phase2Content').classList.add('hidden');
+    document.getElementById('phase2Loading').classList.remove('hidden');
+    document.getElementById('phase2LoadingText').textContent = 'Expanding to full story...';
+
+    try {
+        const response = await fetch('/api/generate-story', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                prompt: buildFullStoryPrompt(),
+                mode: 'full',
+                outline: state.outline
+            })
+        });
+
+        if (!response.ok) throw new Error('Failed to expand story');
+
+        const book = await response.json();
+        state.book = book;
+        state.book.slug = state.slug;
+        state.book.level = state.formData.level;
+        state.book.setting = state.formData.setting;
+
+        state.phaseStatus[2] = 'complete';
+        state.checkpointApprovals[2] = { approved: true, timestamp: new Date().toISOString() };
+        saveState();
+        saveToSupabase();
+
+        document.getElementById('phase2Loading').classList.add('hidden');
+        goToPhase(3);
+        renderPhase2Content();
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to expand story.');
+        document.getElementById('phase2Content').classList.remove('hidden');
+        document.getElementById('phase2Loading').classList.add('hidden');
+    }
+}
+
+function buildFullStoryPrompt() {
+    const level = state.formData.level;
+    const band = level.charAt(0);
+    const outline = state.outline;
+
+    const levelConstraints = {
+        'A0': { maxWords: 2, pages: '6-8', guidance: 'Wordless or 1-2 word labels. Pictures carry all meaning.' },
+        'A1': { maxWords: 2, pages: '8', guidance: 'Labels only: "A [noun]" or "I [verb]". One word per page.' },
+        'A2': { maxWords: 3, pages: '8', guidance: 'Simple patterns: "I see a [noun]." Repetitive structure.' },
+        'A3': { maxWords: 4, pages: '8-10', guidance: 'CVC words in simple sentences. "The cat sat."' },
+        'A4': { maxWords: 5, pages: '10', guidance: 'CVC fluency. Short predictable sentences.' },
+        'B1': { maxWords: 6, pages: '10-12', guidance: 'Beginning blends. "The frog stops."' },
+        'B2': { maxWords: 6, pages: '10-12', guidance: 'Ending blends. "The ant went fast."' },
+        'B3': { maxWords: 6, pages: '10-12', guidance: 'Digraphs. "The ship is big."' },
+        'B4': { maxWords: 7, pages: '10-12', guidance: 'Short vowel mastery. Varied sentence patterns.' },
+        'B5': { maxWords: 7, pages: '10-12', guidance: 'Silent e. "The cake is on the plate."' },
+        'B6': { maxWords: 8, pages: '12', guidance: 'Soft c/g. "The mice race to the fence."' },
+        'B7': { maxWords: 8, pages: '12', guidance: 'R-controlled. "The bird sat on her perch."' },
+        'B8': { maxWords: 9, pages: '12', guidance: 'Vowel teams. "The boat floats on the sea."' },
+        'B9': { maxWords: 9, pages: '12', guidance: 'Diphthongs. "The cow found a coin."' },
+        'C1': { maxWords: 10, pages: '12', guidance: 'Compound words. "The sunflower grew tall."' },
+        'C2': { maxWords: 10, pages: '12', guidance: 'Open syllables. "The tiny baby spider..."' },
+        'C3': { maxWords: 12, pages: '12', guidance: 'Chapter-style. "The kitten was hidden in the basket."' },
+        'C4': { maxWords: 12, pages: '12', guidance: 'Consonant-le. "The little turtle..."' },
+        'D1': { maxWords: 15, pages: '12-16', guidance: 'Chapter book style. Complex narratives.' },
+        'D2': { maxWords: 15, pages: '12-16', guidance: 'Rich vocabulary. Nuanced storytelling.' }
+    };
+
+    const constraints = levelConstraints[level] || { maxWords: 10, pages: '12', guidance: 'Age-appropriate.' };
+
+    const bandStyles = {
+        'A': 'Simple bold shapes, soft watercolor, minimal detail, warm pastels.',
+        'B': 'Playful watercolor, expressive characters, vibrant colors.',
+        'C': 'Rich watercolor, detailed characters/settings, dynamic compositions.',
+        'D': 'Sophisticated watercolor, detailed environments, nuanced lighting.'
+    };
+
+    const charDesc = outline.character ?
+        `${outline.character.name}: ${outline.character.visual_shorthand || outline.character.type}` +
+        (outline.character.distinctive_features ? ` (${outline.character.distinctive_features.join(', ')})` : '') :
+        'Main character';
+
+    return `You are a master children's book author. Expand this outline into a complete decodable book.
+
+## STORY OUTLINE
+Title: ${outline.title}
+Character: ${charDesc}
+Setting: ${outline.setting}
+Visual Style: ${outline.visual_style || bandStyles[band]}
+Arc: ${outline.arc}
+
+Beats:
+${outline.beats.map(b => `Page ${b.page}: ${b.beat}`).join('\n')}
+
+## LEVEL CONSTRAINTS: ${level}
+- Maximum ${constraints.maxWords} words per sentence (STRICT - count every word!)
+- 2-3 sentences per page
+- Level guidance: ${constraints.guidance}
+
+## CRITICAL: LOGIC AND CONTINUITY
+
+Every sentence MUST make logical sense. Check cause and effect.
+
+LOGIC ERRORS TO AVOID:
+- "He got wet in the sun." (sun doesn't make you wet)
+- "Now Max is not wet." (after a bath? he'd be soaking wet!)
+- "The cat ran to sit." (awkward phrasing)
+
+GOOD LOGIC:
+- "Max jumped in the mud. Mud splashed on his nose!" (cause → effect)
+- "Mom dried Max with a towel. Now his fur was fluffy." (action → result)
+
+CONTINUITY: Track character state across pages:
+- If muddy on page 4, still muddy on page 5 (unless cleaned)
+- If in bath, they're WET when they get out
+- Each scene visually connects to the previous one
+
+## SCENE DESCRIPTION FORMAT
+
+Each scene must include WHO/WHERE/WHAT/STATE:
+- WHO: Character with EXACT visual details (use character description above)
+- WHERE: Specific setting with lighting/atmosphere
+- WHAT: Active verb describing current action
+- STATE: Character's current physical state (wet? muddy? tired? happy expression?)
+- Shot type: Wide/Medium/Close-up
+
+SCENE RULES:
+- PHYSICAL descriptions only (not emotional - "eyes wide" not "scared")
+- NEVER use negations ("no ball" makes a ball appear!)
+- End every scene with: NO TEXT, NO WORDS, NO LETTERS
+
+## OUTPUT FORMAT (JSON only)
+
+{
+  "title": "${outline.title}",
+  "summary": "One sentence story description",
+  "characters": {
+    "main": {
+      "name": "${outline.character?.name || 'Character'}",
+      "visual_shorthand": "${outline.character?.visual_shorthand || 'description'}",
+      "distinctive_features": ${JSON.stringify(outline.character?.distinctive_features || [])}
+    }
+  },
+  "setting_context": "${outline.setting}",
+  "visual_style": "${outline.visual_style || bandStyles[band]}",
+  "pages": [
+    {
+      "story_page": 1,
+      "text": "<line>First sentence here.</line><line>Second sentence.</line>",
+      "scene": "Wide shot: ${outline.character?.name || 'Character'}, ${outline.character?.visual_shorthand || 'with visual details'}, [ACTION verb-ing] in [WHERE with specifics]. [Mood/lighting]. NO TEXT, NO WORDS, NO LETTERS."
+    }
+  ],
+  "word_list": {
+    "sound_out": ["decodable", "phonics", "words"],
+    "sight": ["the", "is", "a"],
+    "heart": ["emotional", "vocabulary", "words"]
+  },
+  "reference_prompt": "9-panel children's book reference sheet, grid layout (3x3), consistent ${bandStyles[band]} throughout all panels:\\n\\nRow 1 - ${outline.character?.name || 'MAIN CHARACTER'}:\\n[1] ${outline.character?.name || 'Character'}, ${outline.character?.visual_shorthand || 'full visual description'}, front view, friendly expression, cream background\\n[2] Same character [action from story], side view\\n[3] Same character [different expression/action]\\n\\nRow 2 - Supporting Elements:\\n[4] [Key object or secondary character from story]\\n[5] **KEY MOMENT** - [Hero shot: main character in central story moment]\\n[6] [Another key prop from story]\\n\\nRow 3 - Settings:\\n[7] [First setting], [lighting/mood]\\n[8] [Second setting or different time]\\n[9] [Final heartwarming scene]\\n\\nSTYLE: ${bandStyles[band]} Soft edges, muted earthy palette.\\nFORMAT: Square 1:1, 3x3 grid, thin white borders.\\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere."
+}
+
+Write the COMPLETE story with ALL pages. Use level-appropriate vocabulary only.`;
+}
+
+// Legacy compatibility
+function generateStory() { generateOutline(); }
+
+// Internal scene generation
+async function generateScenesInternal() {
+    const response = await fetch('/api/generate-scenes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ book: state.book })
+    });
+    if (!response.ok) throw new Error('Failed to generate scenes');
+    const result = await response.json();
+    result.pages.forEach((newPage, i) => {
+        if (state.book.pages[i]) state.book.pages[i].scene = newPage.scene;
+    });
+    saveState();
+}
+
+function buildStoryPrompt() {
+    const customPrompt = document.getElementById('storyPromptTextarea').value.trim();
+    if (customPrompt) {
+        state.prompts.story = customPrompt;
+        return customPrompt;
+    }
+    return buildDefaultOutlinePrompt();
+}
+
+function resetPhase1() {
+    state.book = null;
+    state.slug = null;
+    document.getElementById('phase1Form').classList.remove('hidden');
+    updateUI();
+}
+
+// ===================
+// PROMPT EDITOR FUNCTIONS
+// ===================
+
+// Build the default story prompt (without using custom)
+function buildDefaultStoryPrompt() {
+    const levelDescriptions = {
+        'A1': 'Simple CVC words only (cat, dog, sun). 3-4 words per sentence.',
+        'A2': 'CVC words with basic sight words (the, a, is). 4-5 words per sentence.',
+        'B1': 'Beginning consonant blends (stop, flag, crab). 5-6 words per sentence.',
+        'B2': 'Ending blends (jump, help, fast). 6-7 words per sentence.',
+        'C1': 'Digraphs (ship, chat, thin). 7-8 words per sentence.',
+        'C2': 'Silent e words (cake, bike, home). Longer sentences OK.',
+        'D1': 'Vowel teams (rain, boat, see). Complex sentences OK.',
+        'D2': 'R-controlled vowels (car, bird, corn). Natural sentence length.'
+    };
+
+    return `You are writing a decodable book for a beginning reader. Generate a short story (8-12 pages) following these STRICT constraints:
+
+READING LEVEL: ${state.formData.level} - ${levelDescriptions[state.formData.level] || 'Age-appropriate vocabulary'}
+
+SETTING: ${state.formData.setting || 'appropriate for the story'}
+CONCEPT: ${state.formData.concept}
+${state.formData.words.length > 0 ? `WORDS TO INCLUDE: ${state.formData.words.join(', ')}` : ''}
+
+Create an appropriate main character (can be a child, animal, or friendly creature) that fits the story concept.
+
+CRITICAL RULES:
+1. Use ONLY words appropriate for the reading level. No words the child cannot decode.
+2. Keep sentences short and simple. One idea per sentence.
+3. Make the story engaging with a simple problem and resolution.
+4. Each page should have 1-3 short sentences.
+5. Use predictable patterns where possible.
+6. The story must have a clear beginning, middle, and end.
+
+OUTPUT FORMAT (JSON):
+{
+  "title": "Story title (2-4 words)",
+  "level": "${state.formData.level}",
+  "pages": [
+    {"page": 1, "text": "Page 1 text here.", "scene": "Brief scene description"},
+    {"page": 2, "text": "Page 2 text here.", "scene": "Brief scene description"},
+    ...
+  ],
+  "word_list": {
+    "sound_out": ["list", "of", "decodable", "words"],
+    "sight": ["list", "of", "sight", "words"]
+  }
+}
+
+Return ONLY the JSON, no other text.`;
+}
+
+// Preview the story prompt in the editor
+function previewStoryPrompt() {
+    // First update form data from inputs
+    state.formData.concept = document.getElementById('conceptInput').value.trim();
+    state.formData.setting = document.getElementById('settingInput').value.trim();
+    state.formData.level = document.getElementById('levelSelect').value;
+
+    const prompt = buildDefaultStoryPrompt();
+    document.getElementById('storyPromptTextarea').value = prompt;
+}
+
+// Reset story prompt to default
+function resetStoryPrompt() {
+    state.prompts.story = null;
+    previewStoryPrompt();
+}
+
+// Preview style guide prompt
+function previewStyleGuidePrompt() {
+    const prompt = buildDefaultReferencePrompt();
+    document.getElementById('styleGuidePromptTextarea').value = prompt;
+}
+
+// Reset style guide prompt
+function resetStyleGuidePrompt() {
+    state.prompts.styleGuide = null;
+    previewStyleGuidePrompt();
+}
+
+// Preview opening scenes prompt
+function previewOpeningScenesPrompt() {
+    const prompt = buildDefaultOpeningScenesPrompt();
+    document.getElementById('openingScenesPromptTextarea').value = prompt;
+}
+
+// Reset opening scenes prompt
+function resetOpeningScenesPrompt() {
+    state.prompts.openingScenes = null;
+    previewOpeningScenesPrompt();
+}
+
+// Preview closing scenes prompt
+function previewClosingScenesPrompt() {
+    const prompt = buildDefaultClosingScenesPrompt();
+    document.getElementById('closingScenesPromptTextarea').value = prompt;
+}
+
+// Reset closing scenes prompt
+function resetClosingScenesPrompt() {
+    state.prompts.closingScenes = null;
+    previewClosingScenesPrompt();
+}
+
+// Build default reference prompt
+function buildDefaultReferencePrompt() {
+    const character = state.book?.characterName || 'the character';
+    const characterType = state.book?.character || 'animal';
+    const setting = state.book?.setting || 'the scene';
+
+    return `Create a 3x3 grid style reference sheet for a children's book character:
+
+GRID LAYOUT (9 panels total):
+Row 1: [1] ${character} front view, [2] ${character} expressions (happy, surprised, worried), [3] ${character} in action pose
+Row 2: [4] Secondary elements/props from story, [5] KEY SCENE: ${character} in main story moment, [6] Important objects/items
+Row 3: [7] ${setting} background element, [8] Another setting element, [9] ${character} resolution pose
+
+CHARACTER DESIGN for ${character} the ${characterType}:
+- Soft, friendly, rounded shapes
+- Clear, simple features easy to recognize
+- Consistent color palette throughout all panels
+- Expressive but simple face
+
+STYLE: Soft watercolor children's book illustration, warm colors, gentle lighting, Eric Carle inspired textures.
+
+IMPORTANT: This is a reference sheet with 9 distinct panels arranged in a 3x3 grid. Each panel should be clearly separated.
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+}
+
+// Build default opening scenes prompt
+function buildDefaultOpeningScenesPrompt() {
+    if (!state.book) return '';
+    const pages = state.book.pages || [];
+    const storyPages = pages.filter(p => p.type === 'story' && p.scene);
+    const midPoint = Math.ceil(storyPages.length / 2);
+    const openingPages = storyPages.slice(0, midPoint);
+
+    const scenes = openingPages
+        .filter(p => !p.scene.includes('Illustration for:'))
+        .slice(0, 6)
+        .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 150)}`);
+
+    while (scenes.length < 6) {
+        scenes.push(`[${scenes.length + 1}] Key moment from opening`);
+    }
+
+    return `9-PANEL OPENING SCENES REFERENCE for '${state.book.title}'
+
+Using the style from the reference image, create a 3x3 grid showing scenes from the FIRST HALF of the story.
+
+Row 1:
+${scenes[0]}
+${scenes[1]}
+${scenes[2]}
+
+Row 2:
+${scenes[3]}
+${scenes[4]}
+${scenes[5]}
+
+Row 3 - Key moments from first half:
+[7] Establishing shot of main setting
+[8] Character interaction moment
+[9] Transition scene leading to second half
+
+STYLE: Match the watercolor style from the reference image exactly.
+Consistent characters across all panels.
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+}
+
+// Build default closing scenes prompt
+function buildDefaultClosingScenesPrompt() {
+    if (!state.book) return '';
+    const pages = state.book.pages || [];
+    const storyPages = pages.filter(p => p.type === 'story' && p.scene);
+    const midPoint = Math.ceil(storyPages.length / 2);
+    const closingPages = storyPages.slice(midPoint);
+
+    const scenes = closingPages
+        .filter(p => !p.scene.includes('Illustration for:'))
+        .slice(0, 6)
+        .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 150)}`);
+
+    while (scenes.length < 6) {
+        scenes.push(`[${scenes.length + 1}] Key moment from closing`);
+    }
+
+    return `9-PANEL CLOSING SCENES REFERENCE for '${state.book.title}'
+
+Using the style from the reference image, create a 3x3 grid showing scenes from the SECOND HALF of the story.
+
+Row 1:
+${scenes[0]}
+${scenes[1]}
+${scenes[2]}
+
+Row 2:
+${scenes[3]}
+${scenes[4]}
+${scenes[5]}
+
+Row 3 - Key moments from second half:
+[7] Climax scene
+[8] Resolution moment
+[9] Final happy ending
+
+STYLE: Match the watercolor style from the reference image exactly.
+Consistent characters across all panels.
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+}
+
+// ===================
+// CONFIRMATION MODAL
+// ===================
+
+let pendingConfirmAction = null;
+
+function showConfirmModal(title, message, actionCallback) {
+    document.getElementById('confirmTitle').textContent = title;
+    document.getElementById('confirmMessage').textContent = message;
+    pendingConfirmAction = actionCallback;
+    document.getElementById('confirmModal').classList.add('visible');
+}
+
+function closeConfirmModal() {
+    document.getElementById('confirmModal').classList.remove('visible');
+    pendingConfirmAction = null;
+}
+
+function executeConfirmedAction() {
+    if (pendingConfirmAction) {
+        pendingConfirmAction();
+    }
+    closeConfirmModal();
+}
+
+// ===================
+// PHASE 2: STORY REVIEW (Split View)
+// ===================
+
+function renderPhase2Content() {
+    if (!state.book) return;
+
+    // Show content, hide loading
+    document.getElementById('phase2Loading').classList.add('hidden');
+    document.getElementById('phase2Content').classList.remove('hidden');
+    document.getElementById('phase2Actions').classList.remove('hidden');
+
+    // Render editable story (left panel)
+    renderEditableStory();
+
+    // Render scene list (right panel)
+    renderSceneList();
+}
+
+function renderEditableStory() {
+    // Set title
+    document.getElementById('editableTitle').value = state.book.title || '';
+
+    // Render pages
+    const container = document.getElementById('editablePages');
+    container.innerHTML = state.book.pages.map((page, i) => `
+        <div class="editable-page">
+            <label>Page ${page.page}</label>
+            <textarea onchange="updatePageText(${i}, this.value)">${page.text || ''}</textarea>
+        </div>
+    `).join('');
+}
+
+function updatePageText(index, newText) {
+    if (state.book.pages[index]) {
+        state.book.pages[index].text = newText;
+        saveState();
+    }
+}
+
+function updateTitle(newTitle) {
+    state.book.title = newTitle;
+    state.slug = generateSlug(newTitle);
+    state.book.slug = state.slug;
+    saveState();
+}
+
+// Wrapper that shows confirmation before regenerating
+function regenerateStoryAndScenes() {
+    showConfirmModal(
+        'Regenerate Story?',
+        'This will replace your current story and all scene descriptions. Any edits you\'ve made will be lost.',
+        doRegenerateStoryAndScenes
+    );
+}
+
+async function doRegenerateStoryAndScenes() {
+    // Show loading
+    document.getElementById('phase2Content').classList.add('hidden');
+    document.getElementById('phase2Actions').classList.add('hidden');
+    document.getElementById('phase2Loading').classList.remove('hidden');
+    document.getElementById('phase2LoadingText').textContent = 'Regenerating story...';
+
+    try {
+        // Regenerate story
+        const response = await fetch('/api/generate-story', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                prompt: buildStoryPrompt()
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to generate story');
+        }
+
+        const book = await response.json();
+        state.slug = generateSlug(book.title);
+        state.book = book;
+        state.book.slug = state.slug;
+        state.book.level = state.formData.level;
+        state.book.setting = state.formData.setting;
+        saveState();
+
+        // Regenerate scenes
+        document.getElementById('phase2LoadingText').textContent = 'Regenerating scene descriptions...';
+        await generateScenesInternal();
+
+        renderPhase2Content();
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to regenerate. Please try again.');
+        renderPhase2Content();
+    }
+}
+
+async function generateScenes() {
+    document.getElementById('phase2Content').classList.add('hidden');
+    document.getElementById('phase2Actions').classList.add('hidden');
+    document.getElementById('phase2Loading').classList.remove('hidden');
+    document.getElementById('phase2LoadingText').textContent = 'Generating scene descriptions...';
+
+    try {
+        await generateScenesInternal();
+        renderPhase2Content();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to generate scenes. Please try again.');
+        renderPhase2Content();
+    }
+}
+
+function renderSceneList() {
+    const container = document.getElementById('sceneList');
+
+    container.innerHTML = state.book.pages.map((page, i) => {
+        const validation = validateScene(page.scene);
+        const statusClass = validation.valid ? 'valid' : 'invalid';
+
+        return `
+            <div class="scene-item ${statusClass}" data-page="${i}">
+                <div class="scene-header">
+                    <strong>Page ${page.page}</strong>
+                    <div style="display: flex; gap: var(--space-xs); align-items: center;">
+                        <span class="scene-status ${statusClass}">${validation.valid ? 'Valid' : validation.issues[0]}</span>
+                        <button class="btn btn-sm btn-ghost" onclick="regenerateSingleScene(${i})" title="Regenerate this scene">&#x21bb;</button>
+                    </div>
+                </div>
+                <div class="scene-page-text">"${page.text}"</div>
+                <textarea class="scene-textarea" onchange="updateScene(${i}, this.value)"
+                    placeholder="Describe what we see in this illustration...">${page.scene || ''}</textarea>
+            </div>
+        `;
+    }).join('');
+}
+
+async function regenerateSingleScene(index) {
+    const page = state.book.pages[index];
+    const item = document.querySelector(`.scene-item[data-page="${index}"]`);
+    const textarea = item.querySelector('.scene-textarea');
+
+    textarea.disabled = true;
+    textarea.placeholder = 'Regenerating...';
+
+    try {
+        // Create a mini-book with just this page for the API
+        const miniBook = {
+            ...state.book,
+            pages: [page]
+        };
+
+        const response = await fetch('/api/generate-scenes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ book: miniBook })
+        });
+
+        if (!response.ok) throw new Error('Failed to regenerate scene');
+
+        const result = await response.json();
+        if (result.pages && result.pages[0]) {
+            state.book.pages[index].scene = result.pages[0].scene;
+            saveState();
+            renderSceneList();
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to regenerate scene');
+        textarea.disabled = false;
+        textarea.placeholder = 'Describe what we see in this illustration...';
+    }
+}
+
+function updateScene(index, value) {
+    state.book.pages[index].scene = value;
+    saveState();
+
+    // Update validation status
+    const item = document.querySelector(`.scene-item[data-page="${index}"]`);
+    const validation = validateScene(value);
+    const statusClass = validation.valid ? 'valid' : 'invalid';
+    item.className = `scene-item ${statusClass}`;
+    item.querySelector('.scene-status').className = `scene-status ${statusClass}`;
+    item.querySelector('.scene-status').textContent = validation.valid ? 'Valid' : validation.issues[0];
+}
+
+function validateScene(scene) {
+    const issues = [];
+
+    if (!scene || scene.length < 50) {
+        issues.push('Too short');
+    }
+
+    if (scene && scene.toLowerCase().includes('illustration for:')) {
+        issues.push('Placeholder text');
+    }
+
+    // Check for negations (except NO TEXT)
+    const negationPattern = /\b(no|not|without|never)\b(?!\s+text)/gi;
+    if (scene && negationPattern.test(scene)) {
+        issues.push('Contains negation');
+    }
+
+    return {
+        valid: issues.length === 0,
+        issues
+    };
+}
+
+function validateAndApprovePhase2() {
+    const issues = [];
+
+    state.book.pages.forEach((page, i) => {
+        const validation = validateScene(page.scene);
+        if (!validation.valid) {
+            issues.push(`Page ${page.page}: ${validation.issues.join(', ')}`);
+        }
+    });
+
+    if (issues.length > 0) {
+        document.getElementById('validationMessages').classList.remove('hidden');
+        document.getElementById('validationList').innerHTML = issues.map(i => `<li>${i}</li>`).join('');
+        return;
+    }
+
+    document.getElementById('validationMessages').classList.add('hidden');
+    state.phaseStatus[2] = 'complete';
+    state.checkpointApprovals[2] = { approved: true, timestamp: new Date().toISOString() };
+    saveState();
+    saveToSupabase(); // Persist to database
+    goToPhase(3);
+}
+
+// ===================
+// PHASE 3: REFERENCE
+// ===================
+
+function renderReferencePhase() {
+    // Generate default reference prompt if none exists
+    if (!state.book.referencePrompt) {
+        state.book.referencePrompt = buildReferencePrompt();
+    }
+
+    document.getElementById('referencePrompt').value = state.book.referencePrompt;
+
+    // Populate multi-ref prompt editors with defaults or saved values
+    const styleGuideEl = document.getElementById('styleGuidePromptTextarea');
+    const openingEl = document.getElementById('openingScenesPromptTextarea');
+    const closingEl = document.getElementById('closingScenesPromptTextarea');
+
+    if (styleGuideEl) {
+        styleGuideEl.value = state.prompts.styleGuide || buildDefaultReferencePrompt();
+    }
+    if (openingEl) {
+        openingEl.value = state.prompts.openingScenes || buildDefaultOpeningScenesPrompt();
+    }
+    if (closingEl) {
+        closingEl.value = state.prompts.closingScenes || buildDefaultClosingScenesPrompt();
+    }
+
+    // Restore strategy toggle state
+    setRefStrategy(state.refStrategy || 'single', false);
+
+    // Show existing reference image if we have one (single strategy)
+    if (state.referenceImage && state.refStrategy === 'single') {
+        showReferenceImage(state.referenceImage);
+        document.getElementById('approveRefBtn').disabled = false;
+    }
+
+    // Show existing multi-ref images
+    if (state.refStrategy === 'multi') {
+        renderMultiRefState();
+    }
+}
+
+function setRefStrategy(strategy, save = true) {
+    state.refStrategy = strategy;
+
+    // Update toggle buttons
+    document.querySelectorAll('.strategy-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.strategy === strategy);
+    });
+
+    // Show/hide views
+    document.getElementById('singleRefView').classList.toggle('hidden', strategy !== 'single');
+    document.getElementById('multiRefView').classList.toggle('hidden', strategy !== 'multi');
+
+    // Update approve button state
+    updateApproveButtonState();
+
+    if (save) saveState();
+}
+
+function updateApproveButtonState() {
+    const btn = document.getElementById('approveRefBtn');
+    if (state.refStrategy === 'single') {
+        btn.disabled = !state.referenceImage;
+    } else {
+        // Multi: need all 3 sheets
+        const hasAll = state.multiRefs.styleGuide && state.multiRefs.openingScenes && state.multiRefs.closingScenes;
+        btn.disabled = !hasAll;
+    }
+}
+
+function renderMultiRefState() {
+    ['styleGuide', 'openingScenes', 'closingScenes'].forEach(sheet => {
+        const url = state.multiRefs[sheet];
+        const capitalizedSheet = sheet.charAt(0).toUpperCase() + sheet.slice(1);
+        const imgContainer = document.getElementById(`img${capitalizedSheet}`);
+        const statusEl = document.getElementById(`status${capitalizedSheet}`);
+
+        if (url) {
+            imgContainer.innerHTML = `<img src="${url}" alt="${sheet}">`;
+            statusEl.textContent = 'Complete';
+            statusEl.className = 'card-status complete';
+        }
+    });
+
+    // Enable cascade buttons based on what's generated
+    if (state.multiRefs.styleGuide) {
+        document.getElementById('btnOpeningScenes').disabled = false;
+        document.getElementById('btnClosingScenes').disabled = false;
+    }
+
+    updateApproveButtonState();
+}
+
+function buildReferencePrompt() {
+    const character = state.book.characterName || 'the character';
+    const characterType = state.book.character || 'animal';
+    const setting = state.book.setting || 'the scene';
+
+    return `Create a 3x3 grid style reference sheet for a children's book character:
+
+GRID LAYOUT (9 panels total):
+Row 1: [1] ${character} front view, [2] ${character} expressions (happy, surprised, worried), [3] ${character} in action pose
+Row 2: [4] Secondary elements/props from story, [5] KEY SCENE: ${character} in main story moment, [6] Important objects/items
+Row 3: [7] ${setting} background element, [8] Another setting element, [9] ${character} resolution pose
+
+CHARACTER DESIGN for ${character} the ${characterType}:
+- Soft, friendly, rounded shapes
+- Clear, simple features easy to recognize
+- Consistent color palette throughout all panels
+- Expressive but simple face
+
+STYLE: Soft watercolor children's book illustration, warm colors, gentle lighting, Eric Carle inspired textures.
+
+IMPORTANT: This is a reference sheet with 9 distinct panels arranged in a 3x3 grid. Each panel should be clearly separated.
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+}
+
+// Multi-ref prompt builders (3-ref cascade)
+// These check for edited values in textareas first, then fall back to defaults
+
+// 1. Style Guide - 9-panel reference using same prompt as single ref
+function buildStyleGuidePrompt() {
+    // Check multi-ref textarea first
+    const customPrompt = document.getElementById('styleGuidePromptTextarea')?.value.trim();
+    if (customPrompt) {
+        state.prompts.styleGuide = customPrompt;
+        return customPrompt;
+    }
+    // Fall back to single ref textarea or default
+    return document.getElementById('referencePrompt').value || buildReferencePrompt();
+}
+
+// 2. Opening Scenes - first half of the book (9-panel grid)
+function buildOpeningScenesPrompt() {
+    // Check textarea for custom prompt
+    const customPrompt = document.getElementById('openingScenesPromptTextarea')?.value.trim();
+    if (customPrompt) {
+        state.prompts.openingScenes = customPrompt;
+        return customPrompt;
+    }
+    // Otherwise use default
+    return buildDefaultOpeningScenesPrompt();
+}
+
+// 3. Closing Scenes - second half of the book (9-panel grid)
+function buildClosingScenesPrompt() {
+    // Check textarea for custom prompt
+    const customPrompt = document.getElementById('closingScenesPromptTextarea')?.value.trim();
+    if (customPrompt) {
+        state.prompts.closingScenes = customPrompt;
+        return customPrompt;
+    }
+    // Otherwise use default
+    return buildDefaultClosingScenesPrompt();
+}
+
+async function generateMultiRefSheet(sheetType) {
+    // Map sheetType to proper capitalization for element IDs
+    const capitalizedType = sheetType.charAt(0).toUpperCase() + sheetType.slice(1);
+    const statusEl = document.getElementById(`status${capitalizedType}`);
+    const imgContainer = document.getElementById(`img${capitalizedType}`);
+
+    statusEl.textContent = 'Generating...';
+    statusEl.className = 'card-status generating';
+
+    // Build prompt and determine model based on sheet type
+    let prompt;
+    let model;
+    let reference = null;
+
+    if (sheetType === 'styleGuide') {
+        // Style Guide uses nano-banana (T2I)
+        prompt = buildStyleGuidePrompt();
+        model = 'nano-banana-pro';
+    } else {
+        // Opening/Closing Scenes use wan 2.6 I2I with styleGuide as reference
+        if (!state.multiRefs.styleGuide) {
+            alert('Generate Style Guide first (cascade dependency)');
+            statusEl.textContent = 'Pending';
+            statusEl.className = 'card-status';
+            return;
+        }
+        prompt = sheetType === 'openingScenes' ? buildOpeningScenesPrompt() : buildClosingScenesPrompt();
+        model = 'wan2.6-image';
+        reference = state.multiRefs.styleGuide;
+    }
+
+    try {
+        const response = await fetch('/api/generate-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                prompt: prompt,
+                model: model,
+                reference: reference,
+                referenceIsUrl: reference && reference.startsWith('http'),
+                slug: state.slug,
+                page: `ref-${sheetType}`
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.pending && result.taskId) {
+            await pollForImage(result.taskId, result.statusEndpoint, (url) => {
+                state.multiRefs[sheetType] = url;
+                saveState();
+                imgContainer.innerHTML = `<img src="${url}" alt="${sheetType}">`;
+                statusEl.textContent = 'Complete';
+                statusEl.className = 'card-status complete';
+
+                // Enable cascade buttons if styleGuide done
+                if (sheetType === 'styleGuide') {
+                    document.getElementById('btnOpeningScenes').disabled = false;
+                    document.getElementById('btnClosingScenes').disabled = false;
+                }
+                updateApproveButtonState();
+            });
+        } else if (result.url) {
+            state.multiRefs[sheetType] = result.url;
+            saveState();
+            imgContainer.innerHTML = `<img src="${result.url}" alt="${sheetType}">`;
+            statusEl.textContent = 'Complete';
+            statusEl.className = 'card-status complete';
+
+            if (sheetType === 'styleGuide') {
+                document.getElementById('btnOpeningScenes').disabled = false;
+                document.getElementById('btnClosingScenes').disabled = false;
+            }
+            updateApproveButtonState();
+        } else {
+            throw new Error(result.error || 'Failed to generate');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        statusEl.textContent = 'Error';
+        statusEl.className = 'card-status';
+        alert(`Failed to generate ${sheetType}: ${error.message}`);
+    }
+}
+
+async function generateAllMultiRefs() {
+    document.getElementById('genAllRefsBtn').disabled = true;
+    document.getElementById('phase3LoadingText').textContent = 'Generating style guide (1/3)...';
+    document.getElementById('phase3Loading').classList.remove('hidden');
+    document.getElementById('phase3Actions').classList.add('hidden');
+
+    try {
+        // Step 1: Style Guide (T2I)
+        await generateMultiRefSheet('styleGuide');
+
+        // Step 2: Opening Scenes (I2I from style guide)
+        document.getElementById('phase3LoadingText').textContent = 'Generating opening scenes (2/3)...';
+        await generateMultiRefSheet('openingScenes');
+
+        // Step 3: Closing Scenes (I2I from style guide)
+        document.getElementById('phase3LoadingText').textContent = 'Generating closing scenes (3/3)...';
+        await generateMultiRefSheet('closingScenes');
+
+    } catch (error) {
+        console.error('Error in cascade generation:', error);
+    }
+
+    document.getElementById('phase3Loading').classList.add('hidden');
+    document.getElementById('phase3Actions').classList.remove('hidden');
+    document.getElementById('genAllRefsBtn').disabled = false;
+}
+
+function generateReference() {
+    // Show confirmation if there's already a reference image
+    if (state.referenceImage) {
+        showConfirmModal(
+            'Regenerate Reference Image?',
+            'This will replace your existing reference image. Continue?',
+            doGenerateReference
+        );
+    } else {
+        doGenerateReference();
+    }
+}
+
+async function doGenerateReference() {
+    const prompt = document.getElementById('referencePrompt').value;
+    state.book.referencePrompt = prompt;
+    saveState();
+
+    document.getElementById('phase3Actions').classList.add('hidden');
+    document.getElementById('phase3Loading').classList.remove('hidden');
+    document.getElementById('genRefBtn').disabled = true;
+
+    try {
+        const response = await fetch('/api/generate-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                prompt: prompt,
+                model: 'nano-banana-pro',
+                slug: state.slug,
+                page: 'reference'
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.pending && result.taskId) {
+            // Poll for result
+            await pollForImage(result.taskId, result.statusEndpoint, (url) => {
+                state.referenceImage = url;
+                saveState();
+                showReferenceImage(url);
+            });
+        } else if (result.url) {
+            state.referenceImage = result.url;
+            saveState();
+            showReferenceImage(result.url);
+        } else {
+            throw new Error(result.error || 'Failed to generate reference');
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to generate reference image: ' + error.message);
+    }
+
+    document.getElementById('phase3Loading').classList.add('hidden');
+    document.getElementById('phase3Actions').classList.remove('hidden');
+    document.getElementById('genRefBtn').disabled = false;
+}
+
+function showReferenceImage(url) {
+    document.getElementById('referenceImageContainer').innerHTML = `<img src="${url}" alt="Reference image">`;
+    document.getElementById('approveRefBtn').disabled = false;
+}
+
+function approvePhase3() {
+    if (state.refStrategy === 'single') {
+        if (!state.referenceImage) {
+            alert('Please generate a reference image first.');
+            return;
+        }
+    } else {
+        // Multi-ref: need all 3 sheets
+        if (!state.multiRefs.closingScenesGuide || !state.multiRefs.openingScenes || !state.multiRefs.closingScenes) {
+            alert('Please generate all 3 reference sheets (Characters, Settings, Style).');
+            return;
+        }
+    }
+
+    state.phaseStatus[3] = 'complete';
+    state.checkpointApprovals[3] = { approved: true, timestamp: new Date().toISOString() };
+    saveState();
+    saveToSupabase(); // Persist to database
+    goToPhase(4);
+}
+
+// ===================
+// PHASE 4: PAGE IMAGES
+// ===================
+
+function renderPageImagesGrid() {
+    const grid = document.getElementById('pageImagesGrid');
+
+    grid.innerHTML = state.book.pages.map((page, i) => {
+        const hasImage = page.image && page.image.startsWith('data:');
+        const status = hasImage ? 'complete' : 'pending';
+        const statusLabel = hasImage ? 'Complete' : 'Pending';
+
+        return `
+            <div class="page-image-card" data-page="${i}">
+                <div class="page-image-container">
+                    ${hasImage ?
+                        `<img src="${page.image}" alt="Page ${page.page}">` :
+                        `<div class="page-image-placeholder">Page ${page.page}</div>`
+                    }
+                </div>
+                <div class="page-image-info">
+                    <span>Page ${page.page}</span>
+                    <span class="page-image-status ${status}">${statusLabel}</span>
+                </div>
+                <div style="padding: 0 var(--space-xs) var(--space-xs);">
+                    <button class="btn btn-sm btn-ghost" onclick="generatePageImage(${i})" style="width: 100%;">
+                        ${hasImage ? 'Regenerate' : 'Generate'}
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    updatePageProgress();
+}
+
+function updatePageProgress() {
+    const total = state.book.pages.length;
+    const complete = state.book.pages.filter(p => p.image && p.image.startsWith('data:')).length;
+
+    document.getElementById('pageProgress').textContent = `${complete} / ${total} complete`;
+    document.getElementById('finishBtn').disabled = complete < total;
+}
+
+async function generatePageImage(index) {
+    const page = state.book.pages[index];
+    const card = document.querySelector(`.page-image-card[data-page="${index}"]`);
+    const statusEl = card.querySelector('.page-image-status');
+
+    statusEl.className = 'page-image-status generating';
+    statusEl.textContent = 'Generating...';
+
+    const prompt = buildPageImagePrompt(page);
+
+    // Build reference payload based on strategy
+    let requestBody;
+    if (state.refStrategy === 'multi' && state.multiRefs.closingScenesGuide) {
+        // Multi-ref: pass array of references (up to 3)
+        const refArray = [
+            state.multiRefs.closingScenesGuide,
+            state.multiRefs.openingScenes,
+            state.multiRefs.closingScenes
+        ].filter(Boolean);
+
+        requestBody = {
+            prompt: prompt,
+            model: 'wan2.6-image',
+            reference: refArray, // API accepts array for wan2.6-image
+            referenceIsUrl: true,
+            slug: state.slug,
+            page: page.page
+        };
+    } else {
+        // Single ref: use original format
+        requestBody = {
+            prompt: prompt,
+            model: 'wan2.6-image',
+            reference: state.referenceImage,
+            referenceIsUrl: state.referenceImage && state.referenceImage.startsWith('http'),
+            slug: state.slug,
+            page: page.page
+        };
+    }
+
+    try {
+        const response = await fetch('/api/generate-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+        });
+
+        const result = await response.json();
+
+        if (result.pending && result.taskId) {
+            await pollForImage(result.taskId, result.statusEndpoint, (url) => {
+                page.image = url;
+                saveState();
+                updatePageImageCard(index, url);
+            });
+        } else if (result.url) {
+            page.image = result.url;
+            saveState();
+            updatePageImageCard(index, result.url);
+        } else {
+            throw new Error(result.error || 'Failed to generate image');
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+        statusEl.className = 'page-image-status error';
+        statusEl.textContent = 'Error';
+    }
+}
+
+function buildPageImagePrompt(page) {
+    return `Single scene illustration: ${page.scene}
+
+CHARACTERS (draw EXACTLY as described):
+${state.book.characterName} the ${state.book.character} - soft, rounded, friendly appearance with expressive face
+
+COMPOSITION: One cohesive illustration filling the entire canvas.
+Full-bleed image with the scene filling edge to edge.
+
+STYLE: Soft watercolor children's book illustration, warm colors, gentle lighting, matching the reference style.
+
+CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.`;
+}
+
+function updatePageImageCard(index, url) {
+    const card = document.querySelector(`.page-image-card[data-page="${index}"]`);
+    const container = card.querySelector('.page-image-container');
+    const statusEl = card.querySelector('.page-image-status');
+    const btn = card.querySelector('button');
+
+    container.innerHTML = `<img src="${url}" alt="Page ${state.book.pages[index].page}">`;
+    statusEl.className = 'page-image-status complete';
+    statusEl.textContent = 'Complete';
+    btn.textContent = 'Regenerate';
+
+    updatePageProgress();
+}
+
+async function generateAllPageImages() {
+    document.getElementById('genAllPagesBtn').disabled = true;
+
+    for (let i = 0; i < state.book.pages.length; i++) {
+        const page = state.book.pages[i];
+        if (!page.image || !page.image.startsWith('data:')) {
+            await generatePageImage(i);
+            // Small delay between requests
+            await new Promise(r => setTimeout(r, 1000));
+        }
+    }
+
+    document.getElementById('genAllPagesBtn').disabled = false;
+}
+
+// ===================
+// POLLING
+// ===================
+
+async function pollForImage(taskId, endpoint, onComplete, maxAttempts = 60) {
+    for (let i = 0; i < maxAttempts; i++) {
+        await new Promise(r => setTimeout(r, 3000));
+
+        try {
+            const response = await fetch(`/api/check-status?taskId=${taskId}&endpoint=${encodeURIComponent(endpoint)}`);
+            const result = await response.json();
+
+            if (result.completed && result.url) {
+                onComplete(result.url);
+                return;
+            }
+
+            if (!result.success && !result.pending) {
+                throw new Error(result.error || 'Task failed');
+            }
+        } catch (error) {
+            console.error('Poll error:', error);
+            throw error;
+        }
+    }
+
+    throw new Error('Timeout waiting for image');
+}
+
+// ===================
+// DOWNLOAD
+// ===================
+
+function openImagePromptsReview() {
+    if (!state.slug) {
+        alert('No book loaded.');
+        return;
+    }
+    window.open(`/review/image-prompts.html?book=${state.slug}`, '_blank');
+}
+
+function downloadBookJSON() {
+    if (!state.book) {
+        alert('No book data to download.');
+        return;
+    }
+
+    const bookData = {
+        ...state.book,
+        slug: state.slug,
+        referenceImage: state.referenceImage,
+        refStrategy: state.refStrategy,
+        multiRefs: state.refStrategy === 'multi' ? state.multiRefs : undefined,
+        exportedAt: new Date().toISOString()
+    };
+
+    const dataStr = JSON.stringify(bookData, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${state.slug || 'book'}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// ===================
+// PHASE 5: REVIEW & PUBLISH
+// ===================
+
+function approvePhase4() {
+    // Check that at least some images are generated
+    const pagesWithImages = state.book.pages.filter(p => p.image && p.image.startsWith('data:')).length;
+    if (pagesWithImages === 0) {
+        alert('Please generate at least some page images before continuing.');
+        return;
+    }
+
+    state.phaseStatus[4] = 'complete';
+    state.checkpointApprovals[4] = { approved: true, timestamp: new Date().toISOString() };
+    saveState();
+    saveToSupabase();
+    goToPhase(5);
+}
+
+function renderReviewPhase() {
+    // Update summary
+    const summary = document.getElementById('reviewSummary');
+    const pagesWithImages = state.book.pages.filter(p => p.image && p.image.startsWith('data:')).length;
+    const totalPages = state.book.pages.length;
+
+    summary.innerHTML = `
+        <p><strong>Title:</strong> ${state.book.title || 'Untitled'}</p>
+        <p><strong>Level:</strong> ${state.book.level || 'Unknown'}</p>
+        <p><strong>Pages:</strong> ${totalPages} (${pagesWithImages} with images)</p>
+        <p><strong>Slug:</strong> ${state.slug}</p>
+    `;
+
+    // Update links
+    document.getElementById('readerLink').href = `/reader.html?book=${state.slug}`;
+    document.getElementById('editLink').href = `/reader.html?book=${state.slug}&mode=edit`;
+
+    // Reset checklist
+    document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb => cb.checked = false);
+}
+
+async function saveAndPublish() {
+    // Prepare book with reference image(s)
+    const finalBook = {
+        ...state.book,
+        referenceImage: state.referenceImage,
+        refStrategy: state.refStrategy,
+        multiRefs: state.refStrategy === 'multi' ? state.multiRefs : undefined,
+        publishedAt: new Date().toISOString(),
+        createdWith: 'wizard'
+    };
+
+    try {
+        const response = await fetch('/api/save-book', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                slug: state.slug,
+                fullBook: finalBook
+            })
+        });
+
+        if (!response.ok) {
+            const result = await response.json();
+            alert('Could not save book: ' + (result.error || 'Unknown error'));
+            return;
+        }
+
+        alert('Book saved to library successfully!');
+        state.book = finalBook;
+        saveState();
+
+    } catch (error) {
+        console.error('Save error:', error);
+        alert('Error saving book: ' + error.message);
+    }
+}
+
+// ===================
+// FINISH
+// ===================
+
+async function finishWizard() {
+    // Prepare book with reference image(s)
+    const finalBook = {
+        ...state.book,
+        referenceImage: state.referenceImage,
+        refStrategy: state.refStrategy,
+        multiRefs: state.refStrategy === 'multi' ? state.multiRefs : undefined,
+        createdAt: new Date().toISOString(),
+        createdWith: 'wizard'
+    };
+
+    // Save the book JSON to Supabase
+    try {
+        const response = await fetch('/api/save-book', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                slug: state.slug,
+                fullBook: finalBook
+            })
+        });
+
+        if (!response.ok) {
+            const result = await response.json();
+            console.warn('Could not save book to server:', result.error || 'Unknown error');
+            // Still continue - book is in localStorage
+        } else {
+            console.log('Book saved to Supabase successfully');
+        }
+    } catch (error) {
+        console.warn('Could not save book:', error);
+    }
+
+    // Update local state
+    state.book = finalBook;
+    state.phaseStatus[5] = 'complete';
+    state.checkpointApprovals[5] = { approved: true, timestamp: new Date().toISOString() };
+    saveState();
+
+    // Redirect to reader
+    window.location.href = `/reader.html?book=${state.slug}`;
+}
+
+// ===================
+// CHECKPOINT MODAL
+// ===================
+
+let checkpointCallback = null;
+
+function showCheckpoint(title, message, callback) {
+    document.getElementById('checkpointTitle').textContent = title;
+    document.getElementById('checkpointMessage').textContent = message;
+    document.getElementById('checkpointModal').classList.add('visible');
+    checkpointCallback = callback;
+}
+
+function closeCheckpoint() {
+    document.getElementById('checkpointModal').classList.remove('visible');
+    checkpointCallback = null;
+}
+
+function confirmCheckpoint() {
+    closeCheckpoint();
+    if (checkpointCallback) {
+        checkpointCallback();
+    }
+}
+
+// ===================
+// INIT
+// ===================
+
+init();

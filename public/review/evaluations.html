@@ -378,11 +378,10 @@
 
         async function loadManifest() {
             try {
-                const res = await fetch('/books/manifest.json');
-                const manifest = await res.json();
-                allBooks = manifest.filter(b => !b.slug.startsWith('_'));
+                const res = await fetch('/api/list-books');
+                allBooks = await res.json();
             } catch (err) {
-                console.error('Failed to load manifest:', err);
+                console.error('Failed to load books:', err);
             }
         }
 

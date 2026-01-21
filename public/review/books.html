@@ -1036,7 +1036,7 @@
         }
 
         async function loadManifest() {
-            const res = await fetch('/books/manifest.json');
+            const res = await fetch('/api/list-books');
             manifest = await res.json();
             manifest.sort((a, b) => (a.level || '').localeCompare(b.level || ''));
             renderBookList();

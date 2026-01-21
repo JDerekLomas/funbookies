@@ -1111,14 +1111,22 @@
             `).join('');
         }
 
-        // Load books from manifest
+        // Load books from API (Supabase)
         async function loadBooks() {
             try {
-                const response = await fetch('/books/manifest.json');
+                const response = await fetch('/api/list-books');
                 bookData = await response.json();
                 renderBooks();
             } catch (e) {
-                console.error('Failed to load books manifest:', e);
+                console.error('Failed to load books:', e);
+                // Fallback to manifest
+                try {
+                    const fallback = await fetch('/books/manifest.json');
+                    bookData = await fallback.json();
+                    renderBooks();
+                } catch (e2) {
+                    console.error('Fallback also failed:', e2);
+                }
             }
         }
 

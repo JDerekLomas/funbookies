@@ -43,13 +43,16 @@ async function generateScenes(book) {
         `Page ${i + 1}: "${p.text}"`
     ).join('\n');
 
+    // Get art style - prefer visual_style (from outline), fall back to style
+    const artStylePrompt = book.visual_style || book.style || 'warm watercolor children\'s book illustration, soft edges, gentle colors';
+
     const prompt = `Generate detailed scene descriptions for this children's book.
 
 TITLE: "${book.title}"
 CHARACTER: ${book.characterName || 'main character'}
 CHARACTER DESCRIPTION: ${book.characterDescription || 'a friendly character with expressive features'}
 SETTING: ${book.setting || 'colorful setting'}
-ART STYLE: ${book.style || 'warm watercolor children\'s book illustration, soft edges, gentle colors'}
+ART STYLE: ${artStylePrompt}
 
 STORY TEXT:
 ${pagesText}
@@ -90,12 +93,14 @@ async function enhanceScenes(book) {
         `Page ${i + 1}:\nText: "${p.text}"\nCurrent scene: ${p.scene || '(missing)'}`
     ).join('\n\n');
 
+    const artStylePrompt = book.visual_style || book.style || 'warm watercolor children\'s book illustration';
+
     const prompt = `Review and enhance these scene descriptions for AI image generation.
 
 TITLE: "${book.title}"
 CHARACTER: ${book.characterName || 'main character'}
 SETTING: ${book.setting}
-STYLE: ${book.style || 'warm watercolor children\'s book illustration'}
+STYLE: ${artStylePrompt}
 
 CURRENT SCENES:
 ${pagesContext}
@@ -138,11 +143,13 @@ async function enhanceSingleScene(book, pageIndex) {
         })
         .join('\n\n');
 
+    const artStylePrompt = book.visual_style || book.style || 'warm watercolor children\'s book illustration';
+
     const prompt = `Enhance this single scene description for AI image generation.
 
 BOOK: "${book.title}"
 CHARACTER: ${book.characterName}
-STYLE: ${book.style || 'warm watercolor children\'s book illustration'}
+STYLE: ${artStylePrompt}
 
 CONTEXT (surrounding pages):
 ${contextPages}

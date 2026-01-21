@@ -4,6 +4,84 @@ Development session notes and changes.
 
 ---
 
+## 2026-01-21: Story Types & Art Styles in Wizard
+
+### Summary
+Added story type and art style selectors to the wizard, allowing users to choose narrative structures and visual styles for their books.
+
+### Story Types (12 options)
+| ID | Name | Example |
+|----|------|---------|
+| problem-solution | Problem-Solution | Curious George, Corduroy |
+| fantasy-dream | Fantasy/Dream | Where the Wild Things Are |
+| journey | Journey/Adventure | The Snowy Day, Rosie's Walk |
+| slice-of-life | Slice of Life | Owl Moon |
+| cumulative | Cumulative/Pattern | Brown Bear, Very Hungry Caterpillar |
+| friendship | Friendship | Frog and Toad |
+| overcoming-fear | Overcoming Fear | The Kissing Hand |
+| helping | Helping Others | Rainbow Fish |
+| discovery | Discovery/Learning | Ada Twist Scientist |
+| silly-chain | Silly Chain | If You Give a Mouse a Cookie |
+| bedtime | Bedtime/Routine | Goodnight Moon |
+| lost-found | Lost & Found | Knuffle Bunny |
+
+Each story type includes:
+- Description of the narrative structure
+- Specific beats (INTRODUCE → WANT → OBSTACLE → etc.)
+- Classic examples
+- "Good for" notes (vocabulary focus areas)
+
+### Art Styles (12 options)
+| ID | Name | Example |
+|----|------|---------|
+| warm-watercolor | Warm Watercolor | Guess How Much I Love You |
+| bold-graphic | Bold & Graphic | Miffy (Dick Bruna) |
+| collage | Paper Collage | Eric Carle books |
+| sketchy-whimsical | Sketchy Whimsical | Quentin Blake |
+| retro-midcentury | Retro Mid-Century | Madeline, vintage Golden Books |
+| cozy-detailed | Cozy & Detailed | Jan Brett books |
+| soft-digital | Soft Digital | Modern Pixar-influenced |
+| minimalist | Minimalist | Press Here |
+| folk-art | Folk Art | Strega Nona |
+| dreamy-magical | Dreamy & Magical | Polar Express |
+| cheerful-cartoon | Cheerful Cartoon | Pete the Cat |
+| nature-realistic | Nature Realistic | Owl Moon |
+
+Each art style includes:
+- Description
+- Prompt text for image generation
+- Mood keywords
+
+### Implementation
+1. Created JSON data files:
+   - `public/data/story-types.json`
+   - `public/data/art-styles.json`
+
+2. Added UI in wizard Phase 1:
+   - Side-by-side dropdowns for story type and art style
+   - Info box shows selected story type's beats and "good for" notes
+   - Updates dynamically on selection
+
+3. Updated `wizard.js`:
+   - Added `storyType` and `artStyle` to `state.formData`
+   - Load JSON data on init
+   - Event listeners update state
+   - `buildDefaultOutlinePrompt()` now uses selected story type beats and art style prompt
+
+4. Updated APIs to use `book.visual_style`:
+   - `api/enhance-scenes.js` - uses art style in scene generation
+   - `api/generate-ref-prompt.js` - includes art style and story type in context
+
+### Files Changed
+- `public/data/story-types.json` (NEW)
+- `public/data/art-styles.json` (NEW)
+- `public/wizard/index.html` - Story type and art style dropdowns
+- `public/wizard/wizard.js` - State management, data loading, prompt building
+- `api/enhance-scenes.js` - Use visual_style from book
+- `api/generate-ref-prompt.js` - Include art style and story type in context
+
+---
+
 ## 2026-01-21: Wizard Model Fallback & Cascade Error Handling
 
 **Commits:** `7069511`, `d9c5b35`

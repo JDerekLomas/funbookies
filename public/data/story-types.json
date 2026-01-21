@@ -1,0 +1,100 @@
+{
+  "storyTypes": [
+    {
+      "id": "problem-solution",
+      "name": "Problem-Solution",
+      "description": "Character wants something, faces obstacle, tries and fails, finally succeeds",
+      "classic": "Curious George, Corduroy",
+      "beats": ["INTRODUCE", "WANT", "OBSTACLE", "TRY", "FAIL", "RESOLVE", "CELEBRATE"],
+      "goodFor": "Action verbs, cause/effect"
+    },
+    {
+      "id": "fantasy-dream",
+      "name": "Fantasy/Dream",
+      "description": "Character wishes to be something else, transforms, experiences magic, returns to reality",
+      "classic": "Where the Wild Things Are, Harold and the Purple Crayon",
+      "beats": ["ORDINARY", "WISH", "TRANSFORM", "EXPERIENCE", "EXPERIENCE", "EXPERIENCE", "RETURN", "LINGER"],
+      "goodFor": "Imagination, sensory words"
+    },
+    {
+      "id": "journey",
+      "name": "Journey/Adventure",
+      "description": "Character leaves home, travels through places, discovers something, returns changed",
+      "classic": "The Snowy Day, Rosie's Walk",
+      "beats": ["HOME", "DEPART", "TRAVEL", "DISCOVER", "CHALLENGE", "RETURN", "CHANGED"],
+      "goodFor": "Settings, movement verbs, prepositions"
+    },
+    {
+      "id": "slice-of-life",
+      "name": "Slice of Life",
+      "description": "Simple moments in a day, sensory experiences, gentle observations",
+      "classic": "Owl Moon, The Snowy Day",
+      "beats": ["MOMENT", "SENSE", "SENSE", "SENSE", "WONDER", "PEACE"],
+      "goodFor": "Sensory words, descriptive language"
+    },
+    {
+      "id": "cumulative",
+      "name": "Cumulative/Pattern",
+      "description": "Repeating structure that builds, same pattern with variations",
+      "classic": "Brown Bear Brown Bear, The Very Hungry Caterpillar",
+      "beats": ["INTRODUCE", "PATTERN", "PATTERN", "PATTERN", "PATTERN", "TWIST", "CONCLUDE"],
+      "goodFor": "Repetition, early readers, predictable text"
+    },
+    {
+      "id": "friendship",
+      "name": "Friendship",
+      "description": "Two characters meet, discover differences, work through conflict, become friends",
+      "classic": "Frog and Toad, George and Martha",
+      "beats": ["MEET", "DIFFERENCE", "MISUNDERSTAND", "CONFLICT", "REALIZE", "BOND"],
+      "goodFor": "Dialogue, feelings, social skills"
+    },
+    {
+      "id": "overcoming-fear",
+      "name": "Overcoming Fear",
+      "description": "Character faces something scary, avoids it, must confront it, finds courage",
+      "classic": "The Kissing Hand, There's a Nightmare in My Closet",
+      "beats": ["SAFE", "FEAR APPEARS", "AVOID", "MUST FACE", "COURAGE", "RELIEF", "GROWTH"],
+      "goodFor": "Emotions, bravery, growth mindset"
+    },
+    {
+      "id": "helping",
+      "name": "Helping Others",
+      "description": "Character sees someone in need, decides to help, overcomes challenges to help",
+      "classic": "The Rainbow Fish, Stone Soup",
+      "beats": ["ENCOUNTER", "SEE NEED", "DECIDE TO HELP", "TRY", "SUCCEED", "GRATITUDE"],
+      "goodFor": "Kindness, action verbs, empathy"
+    },
+    {
+      "id": "discovery",
+      "name": "Discovery/Learning",
+      "description": "Character wonders about something, explores, experiments, learns",
+      "classic": "What Do You Do With an Idea?, Ada Twist Scientist",
+      "beats": ["WONDER", "QUESTION", "EXPLORE", "TRY", "UNDERSTAND", "APPLY"],
+      "goodFor": "Curiosity, science, questions"
+    },
+    {
+      "id": "silly-chain",
+      "name": "Silly Chain",
+      "description": "One thing leads to another in increasingly absurd consequences",
+      "classic": "If You Give a Mouse a Cookie, There Was an Old Lady",
+      "beats": ["TRIGGER", "CONSEQUENCE", "CONSEQUENCE", "CONSEQUENCE", "CONSEQUENCE", "LOOP"],
+      "goodFor": "Cause/effect, humor, prediction"
+    },
+    {
+      "id": "bedtime",
+      "name": "Bedtime/Routine",
+      "description": "Following a calming routine, winding down, peaceful ending",
+      "classic": "Goodnight Moon, Time for Bed",
+      "beats": ["BEGIN ROUTINE", "STEP", "STEP", "STEP", "WIND DOWN", "SLEEP"],
+      "goodFor": "Routines, calming, repetition"
+    },
+    {
+      "id": "lost-found",
+      "name": "Lost & Found",
+      "description": "Something precious is lost, character searches, emotional reunion",
+      "classic": "Knuffle Bunny, Corduroy",
+      "beats": ["HAVE", "LOSE", "REALIZE", "SEARCH", "SEARCH", "FIND", "REUNION"],
+      "goodFor": "Emotions, searching, places"
+    }
+  ]
+}

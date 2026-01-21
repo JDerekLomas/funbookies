@@ -781,8 +781,8 @@
 
         async function loadBookRecommendations(level) {
             try {
-                // Fetch the books manifest
-                const res = await fetch('/books/manifest.json');
+                // Fetch books from API
+                const res = await fetch('/api/list-books');
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const books = await res.json();
 

@@ -9,6 +9,10 @@ let storyIdeasData = null;
 let storyIdeasVisible = true;
 let selectedIdeaIndex = null;
 
+// Story types and art styles loaded from JSON
+let storyTypesData = null;
+let artStylesData = null;
+
 let state = {
     slug: null,
     currentPhase: 1,
@@ -43,7 +47,9 @@ let state = {
         level: 'B1',
         concept: '',
         setting: '',
-        words: []
+        words: [],
+        storyType: 'problem-solution',
+        artStyle: 'warm-watercolor'
     }
 };
 
@@ -52,8 +58,12 @@ let state = {
 // ===================
 
 async function init() {
-    // Load story ideas
-    await loadStoryIdeas();
+    // Load story ideas, story types, and art styles
+    await Promise.all([
+        loadStoryIdeas(),
+        loadStoryTypes(),
+        loadArtStyles()
+    ]);
 
     // Check URL params for existing book
     const params = new URLSearchParams(window.location.search);
@@ -103,6 +113,17 @@ function setupEventListeners() {
         state.formData.level = e.target.value;
         selectedIdeaIndex = null; // Clear selection when level changes
         renderStoryIdeas();
+    });
+
+    // Story type select
+    document.getElementById('storyTypeSelect').addEventListener('change', (e) => {
+        state.formData.storyType = e.target.value;
+        updateStoryTypeInfo();
+    });
+
+    // Art style select
+    document.getElementById('artStyleSelect').addEventListener('change', (e) => {
+        state.formData.artStyle = e.target.value;
     });
 
     // Stepper navigation - click on completed/active steps to navigate
@@ -354,6 +375,60 @@ async function loadStoryIdeas() {
     }
 }
 
+async function loadStoryTypes() {
+    try {
+        const response = await fetch('/data/story-types.json');
+        if (response.ok) {
+            storyTypesData = await response.json();
+            console.log('Loaded story types:', storyTypesData.storyTypes.length);
+            updateStoryTypeInfo(); // Initialize info box
+        }
+    } catch (error) {
+        console.warn('Could not load story types:', error);
+    }
+}
+
+async function loadArtStyles() {
+    try {
+        const response = await fetch('/data/art-styles.json');
+        if (response.ok) {
+            artStylesData = await response.json();
+            console.log('Loaded art styles:', artStylesData.artStyles.length);
+        }
+    } catch (error) {
+        console.warn('Could not load art styles:', error);
+    }
+}
+
+function updateStoryTypeInfo() {
+    const infoBox = document.getElementById('storyTypeInfo');
+    if (!infoBox || !storyTypesData) return;
+
+    const selectedType = document.getElementById('storyTypeSelect').value;
+    const typeData = storyTypesData.storyTypes.find(t => t.id === selectedType);
+
+    if (typeData) {
+        const beats = typeData.beats.join(' → ');
+        infoBox.innerHTML = `
+            <strong>${typeData.name}:</strong> ${typeData.description}
+            <br><span style="color: var(--color-text-muted);">Beats: ${beats}</span>
+            <br><span style="color: var(--color-text-muted); font-size: 0.8rem;">Good for: ${typeData.goodFor}</span>
+        `;
+    }
+}
+
+function getSelectedStoryType() {
+    if (!storyTypesData) return null;
+    const selectedType = state.formData.storyType;
+    return storyTypesData.storyTypes.find(t => t.id === selectedType);
+}
+
+function getSelectedArtStyle() {
+    if (!artStylesData) return null;
+    const selectedStyle = state.formData.artStyle;
+    return artStylesData.artStyles.find(s => s.id === selectedStyle);
+}
+
 function renderStoryIdeas() {
     const grid = document.getElementById('storyIdeasGrid');
     const countEl = document.getElementById('storyIdeasCount');
@@ -439,6 +514,8 @@ function generateOutline() {
     state.formData.concept = document.getElementById('conceptInput').value.trim();
     state.formData.setting = document.getElementById('settingInput').value.trim();
     state.formData.level = document.getElementById('levelSelect').value;
+    state.formData.storyType = document.getElementById('storyTypeSelect').value;
+    state.formData.artStyle = document.getElementById('artStyleSelect').value;
 
     if (!state.formData.concept) {
         alert('Please enter a story concept.');
@@ -539,12 +616,25 @@ function buildDefaultOutlinePrompt() {
         'D6': 'Independent reading. Natural sentence length.'
     };
 
-    const bandStyles = {
-        'A': 'Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors. Gentle, comforting, bright mood.',
-        'B': 'Playful watercolor illustration, expressive characters, vibrant colors. Energetic, fun, adventurous mood.',
-        'C': 'Rich watercolor, more detailed characters and settings, dynamic compositions. Exciting, imaginative mood.',
-        'D': 'Sophisticated watercolor style, detailed environments, nuanced lighting. Atmospheric, immersive mood.'
-    };
+    // Get selected story type and art style
+    const storyType = getSelectedStoryType();
+    const artStyle = getSelectedArtStyle();
+
+    // Build story type section
+    const storyTypeName = storyType?.name || 'Problem-Solution';
+    const storyTypeDesc = storyType?.description || 'Character wants something, faces obstacle, tries and fails, finally succeeds';
+    const storyTypeBeats = storyType?.beats || ['INTRODUCE', 'WANT', 'OBSTACLE', 'TRY', 'FAIL', 'RESOLVE', 'CELEBRATE'];
+    const storyTypeGoodFor = storyType?.goodFor || 'Action verbs, cause/effect';
+
+    // Build art style section
+    const artStyleName = artStyle?.name || 'Warm Watercolor';
+    const artStylePrompt = artStyle?.prompt || 'Warm watercolor illustration, soft edges, gentle color washes, luminous quality, traditional children\'s book art';
+    const artStyleMood = artStyle?.mood || 'Gentle, cozy, nostalgic';
+
+    // Generate beats template based on story type
+    const beatsTemplate = storyTypeBeats.map((beat, i) => {
+        return `    { "page": ${i + 1}, "beat": "${beat}: [describe what happens]" }`;
+    }).join(',\n');
 
     return `You are a master children's book author. Generate a story OUTLINE for a decodable book.
 
@@ -553,17 +643,20 @@ CONCEPT: ${state.formData.concept}
 SETTING: ${state.formData.setting || 'appropriate for the story'}
 ${state.formData.words.length > 0 ? `WORDS TO INCLUDE: ${state.formData.words.join(', ')}` : ''}
 
-## WHAT MAKES A GOOD STORY
+## STORY TYPE: ${storyTypeName}
 
-1. CHARACTER WANT - The character wants something specific and clear
-2. OBSTACLE - A real problem blocks them (not manufactured drama)
-3. TRY-FAIL - Genuine attempt that fails for a logical reason
-4. RESOLUTION - Satisfying and earned ending
-5. CAUSATION - Each event causes the next (not random scenes)
+${storyTypeDesc}
 
-## VISUAL STYLE FOR BAND ${band}
+This type is good for: ${storyTypeGoodFor}
 
-${bandStyles[band] || bandStyles['B']}
+Follow this beat structure:
+${storyTypeBeats.map((beat, i) => `${i + 1}. ${beat}`).join('\n')}
+
+## ART STYLE: ${artStyleName}
+
+${artStylePrompt}
+
+Mood: ${artStyleMood}
 
 ## OUTPUT FORMAT (JSON only, no other text)
 
@@ -576,23 +669,15 @@ ${bandStyles[band] || bandStyles['B']}
     "distinctive_features": ["bright green eyes", "fluffy striped tail", "white mittens on paws"]
   },
   "setting": "Detailed setting description with visual elements",
-  "visual_style": "${bandStyles[band] || bandStyles['B']}",
+  "visual_style": "${artStylePrompt}",
+  "story_type": "${storyType?.id || 'problem-solution'}",
   "beats": [
-    { "page": 1, "beat": "INTRODUCE: Character introduced in setting with their WANT established" },
-    { "page": 2, "beat": "WANT: Character actively pursuing their goal" },
-    { "page": 3, "beat": "OBSTACLE: Problem or challenge appears" },
-    { "page": 4, "beat": "TRY: First attempt to solve problem" },
-    { "page": 5, "beat": "FAIL: Attempt doesn't work, complication" },
-    { "page": 6, "beat": "TRY AGAIN: New approach or idea" },
-    { "page": 7, "beat": "PROGRESS: Getting closer to goal" },
-    { "page": 8, "beat": "CLIMAX: Key moment of tension or discovery" },
-    { "page": 9, "beat": "RESOLUTION: Problem solved satisfyingly" },
-    { "page": 10, "beat": "ENDING: Warm conclusion showing growth or happiness" }
+${beatsTemplate}
   ],
   "arc": "Brief description: [Character] wants [goal] but [obstacle]. They try [attempts] and finally [resolution]."
 }
 
-Create 8-12 beats. Each beat should clearly connect to the next through cause and effect.`;
+Create ${storyTypeBeats.length}-${storyTypeBeats.length + 4} beats following the ${storyTypeName} structure. Each beat should clearly connect to the next.`;
 }
 
 // ===================
@@ -725,6 +810,8 @@ async function expandToFullStory() {
         state.book.slug = state.slug;
         state.book.level = state.formData.level;
         state.book.setting = state.formData.setting;
+        state.book.storyType = state.formData.storyType;
+        state.book.artStyle = state.formData.artStyle;
 
         state.phaseStatus[2] = 'complete';
         state.checkpointApprovals[2] = { approved: true, timestamp: new Date().toISOString() };
@@ -959,6 +1046,8 @@ function previewStoryPrompt() {
     state.formData.concept = document.getElementById('conceptInput').value.trim();
     state.formData.setting = document.getElementById('settingInput').value.trim();
     state.formData.level = document.getElementById('levelSelect').value;
+    state.formData.storyType = document.getElementById('storyTypeSelect').value;
+    state.formData.artStyle = document.getElementById('artStyleSelect').value;
 
     const prompt = buildDefaultStoryPrompt();
     document.getElementById('storyPromptTextarea').value = prompt;
@@ -1147,10 +1236,10 @@ function executeConfirmedAction() {
 function renderPhase2Content() {
     if (!state.book) return;
 
-    // Show content, hide loading
-    document.getElementById('phase2Loading').classList.add('hidden');
-    document.getElementById('phase2Content').classList.remove('hidden');
-    document.getElementById('phase2Actions').classList.remove('hidden');
+    // Show content, hide loading (Phase 3 elements)
+    document.getElementById('phase3Loading').classList.add('hidden');
+    document.getElementById('phase3Content').classList.remove('hidden');
+    document.getElementById('phase3Actions').classList.remove('hidden');
 
     // Render editable story (left panel)
     renderEditableStory();
@@ -1165,12 +1254,15 @@ function renderEditableStory() {
 
     // Render pages
     const container = document.getElementById('editablePages');
-    container.innerHTML = state.book.pages.map((page, i) => `
-        <div class="editable-page">
-            <label>Page ${page.page}</label>
-            <textarea onchange="updatePageText(${i}, this.value)">${page.text || ''}</textarea>
-        </div>
-    `).join('');
+    container.innerHTML = state.book.pages.map((page, i) => {
+        const pageNum = page.page || page.story_page || (i + 1);
+        return `
+            <div class="editable-page">
+                <label>Page ${pageNum}</label>
+                <textarea onchange="updatePageText(${i}, this.value)">${page.text || ''}</textarea>
+            </div>
+        `;
+    }).join('');
 }
 
 function updatePageText(index, newText) {
@@ -1197,11 +1289,11 @@ function regenerateStoryAndScenes() {
 }
 
 async function doRegenerateStoryAndScenes() {
-    // Show loading
-    document.getElementById('phase2Content').classList.add('hidden');
-    document.getElementById('phase2Actions').classList.add('hidden');
-    document.getElementById('phase2Loading').classList.remove('hidden');
-    document.getElementById('phase2LoadingText').textContent = 'Regenerating story...';
+    // Show loading (Phase 3 elements)
+    document.getElementById('phase3Content').classList.add('hidden');
+    document.getElementById('phase3Actions').classList.add('hidden');
+    document.getElementById('phase3Loading').classList.remove('hidden');
+    document.getElementById('phase3LoadingText').textContent = 'Regenerating story...';
 
     try {
         // Regenerate story
@@ -1223,10 +1315,12 @@ async function doRegenerateStoryAndScenes() {
         state.book.slug = state.slug;
         state.book.level = state.formData.level;
         state.book.setting = state.formData.setting;
+        state.book.storyType = state.formData.storyType;
+        state.book.artStyle = state.formData.artStyle;
         saveState();
 
         // Regenerate scenes
-        document.getElementById('phase2LoadingText').textContent = 'Regenerating scene descriptions...';
+        document.getElementById('phase3LoadingText').textContent = 'Regenerating scene descriptions...';
         await generateScenesInternal();
 
         renderPhase2Content();
@@ -1239,10 +1333,10 @@ async function doRegenerateStoryAndScenes() {
 }
 
 async function generateScenes() {
-    document.getElementById('phase2Content').classList.add('hidden');
-    document.getElementById('phase2Actions').classList.add('hidden');
-    document.getElementById('phase2Loading').classList.remove('hidden');
-    document.getElementById('phase2LoadingText').textContent = 'Generating scene descriptions...';
+    document.getElementById('phase3Content').classList.add('hidden');
+    document.getElementById('phase3Actions').classList.add('hidden');
+    document.getElementById('phase3Loading').classList.remove('hidden');
+    document.getElementById('phase3LoadingText').textContent = 'Generating scene descriptions...';
 
     try {
         await generateScenesInternal();
@@ -1260,17 +1354,20 @@ function renderSceneList() {
     container.innerHTML = state.book.pages.map((page, i) => {
         const validation = validateScene(page.scene);
         const statusClass = validation.valid ? 'valid' : 'invalid';
+        const pageNum = page.page || page.story_page || (i + 1);
+        // Clean text - remove XML tags for display
+        const displayText = (page.text || '').replace(/<\/?line>/g, ' ').replace(/\s+/g, ' ').trim();
 
         return `
             <div class="scene-item ${statusClass}" data-page="${i}">
                 <div class="scene-header">
-                    <strong>Page ${page.page}</strong>
+                    <strong>Page ${pageNum}</strong>
                     <div style="display: flex; gap: var(--space-xs); align-items: center;">
                         <span class="scene-status ${statusClass}">${validation.valid ? 'Valid' : validation.issues[0]}</span>
                         <button class="btn btn-sm btn-ghost" onclick="regenerateSingleScene(${i})" title="Regenerate this scene">&#x21bb;</button>
                     </div>
                 </div>
-                <div class="scene-page-text">"${page.text}"</div>
+                <div class="scene-page-text">"${displayText}"</div>
                 <textarea class="scene-textarea" onchange="updateScene(${i}, this.value)"
                     placeholder="Describe what we see in this illustration...">${page.scene || ''}</textarea>
             </div>

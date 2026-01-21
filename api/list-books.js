@@ -1,7 +1,8 @@
 /**
  * List all available books
  *
- * Returns array of book metadata for the wizard book selector.
+ * Returns array of book metadata from Supabase.
+ * Books are stored with slug as key and full book JSON in `data` column.
  */
 
 export default async function handler(req, res) {
@@ -10,26 +11,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    // In production, this would fetch from Supabase or scan the filesystem
-    // For now, return a static list based on known books
-
-    // Fetch the books index from the static file
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'http://localhost:3000';
-
-    // Try to get list of books from filesystem via glob
-    // Since we're on Vercel, we need to use a different approach
-    // For now, hardcode some known books or return empty
-
-    // Check if we have Supabase configured
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
 
     if (supabaseUrl && supabaseKey) {
-      // Fetch from Supabase
+      // Fetch all books from Supabase
+      // Data is stored in JSONB `data` column, so we select slug, data, updated_at
       const response = await fetch(
-        `${supabaseUrl}/rest/v1/books?select=slug,title,level&order=title`,
+        `${supabaseUrl}/rest/v1/books?select=slug,data,updated_at&order=updated_at.desc`,
         {
           headers: {
             'apikey': supabaseKey,
@@ -39,21 +28,51 @@ export default async function handler(req, res) {
       );
 
       if (response.ok) {
-        const books = await response.json();
+        const rows = await response.json();
+
+        // Filter out special slugs (start with _) and extract metadata from data JSONB
+        const books = rows
+          .filter(row => row.slug && !row.slug.startsWith('_') && row.data)
+          .map(row => ({
+            slug: row.slug,
+            jsonFile: `${row.slug}.json`,
+            title: row.data.title || row.slug,
+            level: row.data.level || '?',
+            band: row.data.band || null,
+            skill: row.data.skill || row.data.targetPhonics || '',
+            coverImg: row.data.coverImage || `/images/covers/${row.slug}.png`,
+            created: row.data.created || null,
+            updated_at: row.updated_at
+          }));
+
         return res.status(200).json(books);
+      } else {
+        console.error('Supabase query failed:', await response.text());
       }
     }
 
-    // Fallback: return known books from recent generation
-    const knownBooks = [
-      { slug: 'mud-pup-fun', title: 'Mud Pup Fun', level: 'B1' },
-      { slug: 'pip-gets-a-hit', title: 'Pip Gets a Hit', level: 'B1' },
-      { slug: 'pup-in-mud', title: 'Pup in Mud', level: 'B1' },
-      { slug: 'the-big-pig', title: 'The Big Pig', level: 'B1' },
-      { slug: 'sam-the-cat', title: 'Sam the Cat', level: 'B1' },
-    ];
+    // Fallback: fetch from static manifest
+    try {
+      const manifestResponse = await fetch('https://funbookies.com/books/manifest.json');
+      if (manifestResponse.ok) {
+        const manifest = await manifestResponse.json();
+        const books = manifest.map(book => ({
+          slug: book.slug,
+          jsonFile: book.jsonFile || `${book.slug}.json`,
+          title: book.title,
+          level: book.level,
+          band: book.band,
+          skill: book.skill || '',
+          coverImg: book.coverImg || `/images/covers/${book.slug}.png`
+        }));
+        return res.status(200).json(books);
+      }
+    } catch (e) {
+      console.error('Manifest fallback failed:', e);
+    }
 
-    return res.status(200).json(knownBooks);
+    // Final fallback: empty array
+    return res.status(200).json([]);
 
   } catch (error) {
     console.error('List books error:', error);

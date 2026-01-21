@@ -404,7 +404,7 @@
                 const [specsRes, phonicsRes, manifestRes] = await Promise.all([
                     fetch('/data/level-specs.json'),
                     fetch('/data/phonics-words.json'),
-                    fetch('/books/manifest.json')
+                    fetch('/api/list-books')
                 ]);
 
                 levelSpecs = await specsRes.json();

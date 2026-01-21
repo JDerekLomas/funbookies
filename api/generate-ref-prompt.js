@@ -73,6 +73,17 @@ function buildBookContext(book) {
         lines.push(`MAIN CHARACTER: ${book.characterName}`);
     }
 
+    // Include art style
+    const artStyle = book.visual_style || book.style;
+    if (artStyle) {
+        lines.push(`ART STYLE: ${artStyle}`);
+    }
+
+    // Include story type for context
+    if (book.storyType) {
+        lines.push(`STORY TYPE: ${book.storyType}`);
+    }
+
     lines.push('');
     lines.push('PAGES:');
 

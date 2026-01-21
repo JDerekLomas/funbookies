@@ -342,12 +342,12 @@
             'D1': 22, 'D2': 23, 'D3': 24, 'D4': 25, 'D5': 26, 'D6': 27
         };
 
-        // Load books from manifest
+        // Load books from API (Supabase)
         async function loadBooks() {
             try {
-                // Load both manifest and level specs
+                // Load both books and level specs
                 const [booksRes, specsRes] = await Promise.all([
-                    fetch('/books/manifest.json'),
+                    fetch('/api/list-books'),
                     fetch('/data/level-specs.json')
                 ]);
                 allBooks = await booksRes.json();

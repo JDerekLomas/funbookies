@@ -1,0 +1,100 @@
+{
+  "artStyles": [
+    {
+      "id": "warm-watercolor",
+      "name": "Warm Watercolor",
+      "description": "Soft, dreamy, gentle color washes with warm tones",
+      "classic": "Guess How Much I Love You, The Velveteen Rabbit",
+      "prompt": "Warm watercolor illustration, soft edges, gentle color washes, luminous quality, traditional children's book art",
+      "mood": "Gentle, cozy, nostalgic"
+    },
+    {
+      "id": "bold-graphic",
+      "name": "Bold & Graphic",
+      "description": "Strong colors, simple shapes, clean lines, high contrast",
+      "classic": "Miffy (Dick Bruna), Maisy Mouse",
+      "prompt": "Bold graphic illustration, simple geometric shapes, strong primary colors, clean black outlines, minimal detail, modern children's book style",
+      "mood": "Cheerful, clear, modern"
+    },
+    {
+      "id": "collage",
+      "name": "Paper Collage",
+      "description": "Cut paper textures, layered shapes, tactile feel",
+      "classic": "The Very Hungry Caterpillar, Eric Carle books",
+      "prompt": "Paper collage illustration style, cut and layered tissue paper textures, vibrant colors, handmade tactile quality, Eric Carle inspired",
+      "mood": "Playful, textured, crafty"
+    },
+    {
+      "id": "sketchy-whimsical",
+      "name": "Sketchy Whimsical",
+      "description": "Loose ink lines with watercolor washes, energetic and expressive",
+      "classic": "Quentin Blake illustrations, Roald Dahl books",
+      "prompt": "Loose sketchy ink illustration with watercolor washes, energetic expressive lines, whimsical proportions, Quentin Blake inspired style",
+      "mood": "Energetic, funny, expressive"
+    },
+    {
+      "id": "retro-midcentury",
+      "name": "Retro Mid-Century",
+      "description": "1950s-60s aesthetic, limited palette, stylized shapes",
+      "classic": "Madeline, vintage Golden Books",
+      "prompt": "Mid-century modern illustration style, limited color palette, stylized geometric shapes, vintage 1950s children's book aesthetic, retro charm",
+      "mood": "Classic, charming, timeless"
+    },
+    {
+      "id": "cozy-detailed",
+      "name": "Cozy & Detailed",
+      "description": "Rich details, intricate borders, warm inviting scenes",
+      "classic": "Jan Brett books, The Mitten",
+      "prompt": "Detailed cozy illustration, intricate patterns and borders, rich warm colors, inviting scenes full of small details to discover, Jan Brett inspired",
+      "mood": "Warm, detailed, immersive"
+    },
+    {
+      "id": "soft-digital",
+      "name": "Soft Digital",
+      "description": "Modern digital illustration, soft lighting, rounded forms",
+      "classic": "Modern Pixar-influenced picture books",
+      "prompt": "Soft digital illustration, gentle gradients, rounded friendly forms, warm lighting, contemporary children's book style",
+      "mood": "Modern, friendly, approachable"
+    },
+    {
+      "id": "minimalist",
+      "name": "Minimalist",
+      "description": "Simple, lots of white space, essential elements only",
+      "classic": "Press Here, Little Blue and Little Yellow",
+      "prompt": "Minimalist illustration, simple shapes on white background, essential elements only, bold color accents, plenty of negative space",
+      "mood": "Clean, focused, calm"
+    },
+    {
+      "id": "folk-art",
+      "name": "Folk Art",
+      "description": "Traditional patterns, cultural motifs, handcrafted feel",
+      "classic": "Strega Nona, Tomie dePaola books",
+      "prompt": "Folk art illustration style, traditional patterns and motifs, warm earthy colors, handcrafted naive quality, decorative borders",
+      "mood": "Traditional, warm, cultural"
+    },
+    {
+      "id": "dreamy-magical",
+      "name": "Dreamy & Magical",
+      "description": "Ethereal, glowing, fantasy atmosphere with soft focus",
+      "classic": "The Polar Express, Where the Wild Things Are",
+      "prompt": "Dreamy magical illustration, soft glowing light, ethereal atmosphere, fantasy quality, rich shadows and highlights, painterly style",
+      "mood": "Magical, mysterious, wonder"
+    },
+    {
+      "id": "cheerful-cartoon",
+      "name": "Cheerful Cartoon",
+      "description": "Bright, bouncy, expressive characters with bold outlines",
+      "classic": "Pete the Cat, Elephant & Piggie",
+      "prompt": "Cheerful cartoon illustration, bright saturated colors, expressive characters, bold clean outlines, fun energetic style",
+      "mood": "Fun, energetic, silly"
+    },
+    {
+      "id": "nature-realistic",
+      "name": "Nature Realistic",
+      "description": "Detailed nature scenes, accurate but child-friendly",
+      "classic": "Owl Moon, The Lorax",
+      "prompt": "Naturalistic children's book illustration, detailed flora and fauna, accurate but softened for children, rich environmental scenes, gentle realism",
+      "mood": "Natural, educational, serene"
+    }
+  ]
+}

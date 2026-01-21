@@ -126,6 +126,51 @@
                             </select>
                         </div>
 
+                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+                            <div class="form-group">
+                                <label>Story Type</label>
+                                <p class="hint">What kind of story structure?</p>
+                                <select class="select" id="storyTypeSelect">
+                                    <option value="problem-solution">Problem-Solution (Curious George)</option>
+                                    <option value="fantasy-dream">Fantasy/Dream (Where the Wild Things Are)</option>
+                                    <option value="journey">Journey (The Snowy Day)</option>
+                                    <option value="slice-of-life">Slice of Life (Owl Moon)</option>
+                                    <option value="cumulative">Cumulative/Pattern (Brown Bear)</option>
+                                    <option value="friendship">Friendship (Frog and Toad)</option>
+                                    <option value="overcoming-fear">Overcoming Fear (The Kissing Hand)</option>
+                                    <option value="helping">Helping Others (Rainbow Fish)</option>
+                                    <option value="discovery">Discovery/Learning (Ada Twist)</option>
+                                    <option value="silly-chain">Silly Chain (If You Give a Mouse...)</option>
+                                    <option value="bedtime">Bedtime/Routine (Goodnight Moon)</option>
+                                    <option value="lost-found">Lost & Found (Knuffle Bunny)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Art Style</label>
+                                <p class="hint">Visual style for illustrations</p>
+                                <select class="select" id="artStyleSelect">
+                                    <option value="warm-watercolor">Warm Watercolor (Guess How Much I Love You)</option>
+                                    <option value="bold-graphic">Bold & Graphic (Miffy)</option>
+                                    <option value="collage">Paper Collage (Eric Carle)</option>
+                                    <option value="sketchy-whimsical">Sketchy Whimsical (Quentin Blake)</option>
+                                    <option value="retro-midcentury">Retro Mid-Century (Madeline)</option>
+                                    <option value="cozy-detailed">Cozy & Detailed (Jan Brett)</option>
+                                    <option value="soft-digital">Soft Digital (Modern)</option>
+                                    <option value="minimalist">Minimalist (Press Here)</option>
+                                    <option value="folk-art">Folk Art (Strega Nona)</option>
+                                    <option value="dreamy-magical">Dreamy & Magical (Polar Express)</option>
+                                    <option value="cheerful-cartoon">Cheerful Cartoon (Pete the Cat)</option>
+                                    <option value="nature-realistic">Nature Realistic (Owl Moon)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="storyTypeInfo" class="info-box" style="margin-bottom: var(--space-md); padding: var(--space-sm); background: var(--color-surface); border-radius: var(--border-radius-sm); font-size: 0.85rem;">
+                            <strong>Problem-Solution:</strong> Character wants something, faces obstacle, tries and fails, finally succeeds.
+                            <br><span style="color: var(--color-text-muted);">Beats: INTRODUCE → WANT → OBSTACLE → TRY → FAIL → RESOLVE</span>
+                        </div>
+
                         <!-- Story Ideas Section -->
                         <div class="story-ideas-section" id="storyIdeasSection">
                             <div class="story-ideas-header">

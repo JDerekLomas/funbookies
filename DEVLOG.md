@@ -4,6 +4,38 @@ Development session notes and changes.
 
 ---
 
+## 2026-01-21: Wizard Model Fallback & Cascade Error Handling
+
+**Commits:** `7069511`, `d9c5b35`
+
+### Summary
+Fixed issues with wizard multi-ref cascade when external services are unavailable.
+
+### Model Selector for Multi-Ref
+- Added `#multiRefModelSelect` dropdown to multi-ref view
+- nano-banana-pro can fail with error 3002 ("Service temporary unavailable")
+- Users can now switch to gemini-flash ($0.04) as fallback
+- Single-ref already had selector; now multi-ref has its own
+
+### Cascade Error Handling
+- **Problem**: If styleGuide generation failed, cascade continued trying openingScenes/closingScenes
+- **Fix**: Re-throw errors from `generateMultiRefSheet()` so the cascade stops
+- Also fixed phase loading indicators (was referencing phase3, should be phase4)
+
+### localStorage Quota Handling
+- **Problem**: `QuotaExceededError` when saving large wizard state
+- **Fix**: Wrap localStorage in try-catch, clear old wizard states on quota error
+- Falls back to Supabase as source of truth
+
+### Files Changed
+- `public/wizard/index.html` - Added multi-ref model selector
+- `public/wizard/wizard.js` - Error handling, localStorage resilience
+
+### Documentation
+- Created `.claude/handoffs/2026-01-21-wizard-automation.md` - Guide for automating wizard with Claude Code
+
+---
+
 ## 2026-01-21: C3 Book, Missing Phonemes, Supabase Wizard Sync
 
 **Commit:** `71de8a7`

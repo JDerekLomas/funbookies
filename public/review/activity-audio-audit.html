@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activity Audio Audit - FunBookies</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .review-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: var(--space-md);
+    }
+
+    .review-nav a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: var(--border-radius);
+    }
+
+    .review-nav a:hover { background: var(--color-cream); color: var(--color-charcoal); }
+
+    .page-title { text-align: center; margin-bottom: var(--space-xs); }
+    .subtitle { text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-md); }
+
+    .scan-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: var(--space-md);
+    }
+
+    .scan-btn {
+      padding: 10px 20px;
+      background: var(--color-sage);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .scan-btn:hover { background: var(--color-sage-dark); }
+    .scan-btn:disabled { opacity: 0.5; cursor: wait; }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--color-border);
+      border-radius: 4px;
+      margin-bottom: var(--space-md);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--color-sage);
+      transition: width 0.3s;
+      width: 0%;
+    }
+
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .summary-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: var(--space-md);
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .summary-card h3 { font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 8px; }
+    .summary-card .value { font-size: 2rem; font-weight: bold; }
+    .summary-card .value.good { color: var(--color-sage-dark); }
+    .summary-card .value.warning { color: #f39c12; }
+    .summary-card .value.bad { color: var(--color-error); }
+
+    .audio-category {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      margin-bottom: var(--space-md);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+
+    .category-header {
+      padding: var(--space-md);
+      background: var(--color-cream);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .category-header h2 { font-size: 1.1rem; margin: 0; }
+
+    .category-badge {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .category-badge.all-good { background: var(--color-sage-light); color: var(--color-sage-dark); }
+    .category-badge.has-tts { background: #fff3cd; color: #856404; }
+    .category-badge.mostly-tts { background: #ffebee; color: var(--color-error); }
+
+    .category-content {
+      padding: var(--space-md);
+    }
+
+    .audio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 10px;
+    }
+
+    .audio-item {
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius);
+      padding: 10px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .audio-item.available {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .audio-item.tts-fallback {
+      border-color: #f39c12;
+      background: #fff3cd;
+    }
+
+    .audio-item.missing {
+      border-color: var(--color-error);
+      background: #ffebee;
+    }
+
+    .audio-item .sound {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .audio-item .source {
+      font-size: 0.65rem;
+      color: var(--color-text-muted);
+      margin-top: 4px;
+    }
+
+    .audio-item .play-icon {
+      font-size: 0.8rem;
+      opacity: 0.6;
+    }
+
+    .audio-item:hover { transform: translateY(-2px); }
+    .audio-item.playing { border-color: var(--color-charcoal); }
+
+    .path-info {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+      padding: 10px;
+      background: var(--color-cream);
+      border-radius: var(--border-radius);
+    }
+
+    .path-info code {
+      background: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+    }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+
+    .legend-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 2px solid;
+    }
+
+    .legend-dot.available { border-color: var(--color-sage); background: var(--color-sage-light); }
+    .legend-dot.tts { border-color: #f39c12; background: #fff3cd; }
+    .legend-dot.missing { border-color: var(--color-error); background: #ffebee; }
+
+    .tts-list {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      background: #fff3cd;
+      border-radius: var(--border-radius);
+      border: 1px solid #f39c12;
+    }
+
+    .tts-list h3 { font-size: 0.9rem; margin-bottom: var(--space-sm); color: #856404; }
+    .tts-list ul { margin: 0; padding-left: 20px; }
+    .tts-list li { font-size: 0.85rem; margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="review-nav">
+      <a href="/review/">&larr; Review Hub</a>
+      <a href="/review/letter-sounds-production.html">Production Files</a>
+    </nav>
+
+    <h1 class="page-title">Activity Audio Audit</h1>
+    <p class="subtitle">Check which sounds are used in activities and which fall back to TTS</p>
+
+    <div class="scan-controls">
+      <button class="scan-btn" id="scanBtn" onclick="runAudit()">Run Full Audit</button>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress"></div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot available"></span> Audio file found</div>
+      <div class="legend-item"><span class="legend-dot tts"></span> Falls back to TTS</div>
+      <div class="legend-item"><span class="legend-dot missing"></span> Not available</div>
+    </div>
+
+    <div class="summary-cards" id="summaryCards">
+      <div class="summary-card">
+        <h3>Letter Sounds</h3>
+        <div class="value" id="letterSoundsCount">-</div>
+      </div>
+      <div class="summary-card">
+        <h3>Letter Names</h3>
+        <div class="value" id="letterNamesCount">-</div>
+      </div>
+      <div class="summary-card">
+        <h3>Phonemes</h3>
+        <div class="value" id="phonemesCount">-</div>
+      </div>
+      <div class="summary-card">
+        <h3>Words</h3>
+        <div class="value" id="wordsCount">-</div>
+      </div>
+      <div class="summary-card">
+        <h3>TTS Fallbacks</h3>
+        <div class="value" id="ttsCount">-</div>
+      </div>
+    </div>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    // Audio paths from AudioUtils
+    const PATHS = {
+      letterSounds: '/activities/letter-sounds/openai-us/sounds',
+      letterSoundsFallback: '/audio/sounds',
+      letterNames: '/activities/letter-sounds/openai-us/names',
+      phonemes: '/audio/phonemes',
+      words: '/audio/words',
+      instructions: '/audio/instructions'
+    };
+
+    const LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+    const PHONEMES = [
+      // Blends
+      'bl', 'br', 'cl', 'cr', 'dr', 'fl', 'fr', 'gl', 'gr', 'pl', 'pr',
+      'sk', 'sl', 'sm', 'sn', 'sp', 'st', 'sw', 'tr', 'tw',
+      // Digraphs
+      'sh', 'ch', 'wh', 'ph', 'ck', 'ng', 'th_voiceless', 'th_voiced',
+      // R-controlled
+      'ar', 'er', 'ir', 'or', 'ur',
+      // Vowel teams
+      'ai', 'ay', 'ea', 'ee', 'ie', 'oa', 'oe', 'ou', 'ue', 'ui',
+      'oo_long', 'oo_short', 'ow_long', 'ow_short',
+      // Magic e
+      'a_e', 'e_e', 'i_e', 'o_e', 'u_e',
+      // Short vowels
+      'short_a', 'short_e', 'short_i', 'short_o', 'short_u'
+    ];
+
+    // Common words used in activities
+    const COMMON_WORDS = [
+      // CVC words from word-builder
+      'cat', 'dog', 'pig', 'bat', 'rat', 'fox', 'hat', 'cup', 'bed', 'pot',
+      'pan', 'pen', 'bus', 'net', 'fan', 'rug', 'log', 'map', 'sun', 'mug',
+      'can', 'van', 'man', 'wig', 'fig', 'pin', 'bin', 'fin', 'cot', 'mop',
+      'top', 'bug', 'jug', 'tub', 'cub', 'sub', 'bun', 'hen', 'web',
+      // Blends
+      'frog', 'crab', 'flag', 'drum', 'plum', 'crib', 'sled', 'twig', 'plug',
+      'stem', 'clog', 'brim', 'grill', 'brick', 'clock', 'truck',
+      // Digraphs
+      'ship', 'fish', 'dish', 'shop', 'shed', 'chin', 'chip', 'chest', 'bench',
+      'path', 'moth', 'bath', 'ring', 'king', 'wing', 'gong', 'song',
+      // Magic e
+      'cake', 'lake', 'cane', 'mane', 'cape', 'tape', 'bike', 'kite', 'hive',
+      'vine', 'pine', 'bone', 'cone', 'hose', 'nose', 'rose', 'cube', 'tube', 'mule'
+    ];
+
+    let auditResults = {
+      letterSounds: {},
+      letterNames: {},
+      phonemes: {},
+      words: {}
+    };
+
+    let currentAudio = null;
+
+    async function checkFile(url) {
+      try {
+        const res = await fetch(url, { method: 'HEAD' });
+        return res.ok;
+      } catch {
+        return false;
+      }
+    }
+
+    async function runAudit() {
+      const btn = document.getElementById('scanBtn');
+      const progress = document.getElementById('progress');
+      btn.disabled = true;
+      btn.textContent = 'Scanning...';
+
+      auditResults = {
+        letterSounds: {},
+        letterNames: {},
+        phonemes: {},
+        words: {}
+      };
+
+      const totalChecks = LETTERS.length * 2 + PHONEMES.length + COMMON_WORDS.length;
+      let completed = 0;
+
+      function updateProgress() {
+        completed++;
+        progress.style.width = `${(completed / totalChecks) * 100}%`;
+      }
+
+      // Check letter sounds
+      for (const letter of LETTERS) {
+        const primaryExists = await checkFile(`${PATHS.letterSounds}/${letter}.mp3`);
+        const fallbackExists = await checkFile(`${PATHS.letterSoundsFallback}/${letter}.mp3`);
+
+        auditResults.letterSounds[letter] = {
+          primary: primaryExists,
+          fallback: fallbackExists,
+          source: primaryExists ? 'primary' : (fallbackExists ? 'fallback' : 'tts')
+        };
+        updateProgress();
+      }
+
+      // Check letter names
+      for (const letter of LETTERS) {
+        const exists = await checkFile(`${PATHS.letterNames}/${letter}.mp3`);
+        auditResults.letterNames[letter] = {
+          primary: exists,
+          source: exists ? 'primary' : 'tts'
+        };
+        updateProgress();
+      }
+
+      // Check phonemes
+      for (const phoneme of PHONEMES) {
+        const exists = await checkFile(`${PATHS.phonemes}/${phoneme}.mp3`);
+        auditResults.phonemes[phoneme] = {
+          primary: exists,
+          source: exists ? 'primary' : 'tts'
+        };
+        updateProgress();
+      }
+
+      // Check words
+      for (const word of COMMON_WORDS) {
+        const exists = await checkFile(`${PATHS.words}/${word}.mp3`);
+        auditResults.words[word] = {
+          primary: exists,
+          source: exists ? 'primary' : 'tts'
+        };
+        updateProgress();
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Run Full Audit';
+      progress.style.width = '100%';
+
+      renderResults();
+    }
+
+    function renderResults() {
+      // Update summary cards
+      const letterSoundsOk = Object.values(auditResults.letterSounds).filter(r => r.source !== 'tts').length;
+      const letterNamesOk = Object.values(auditResults.letterNames).filter(r => r.source !== 'tts').length;
+      const phonemesOk = Object.values(auditResults.phonemes).filter(r => r.source !== 'tts').length;
+      const wordsOk = Object.values(auditResults.words).filter(r => r.source !== 'tts').length;
+
+      const ttsCount =
+        Object.values(auditResults.letterSounds).filter(r => r.source === 'tts').length +
+        Object.values(auditResults.letterNames).filter(r => r.source === 'tts').length +
+        Object.values(auditResults.phonemes).filter(r => r.source === 'tts').length +
+        Object.values(auditResults.words).filter(r => r.source === 'tts').length;
+
+      document.getElementById('letterSoundsCount').textContent = `${letterSoundsOk}/26`;
+      document.getElementById('letterSoundsCount').className = 'value ' + (letterSoundsOk === 26 ? 'good' : 'warning');
+
+      document.getElementById('letterNamesCount').textContent = `${letterNamesOk}/26`;
+      document.getElementById('letterNamesCount').className = 'value ' + (letterNamesOk === 26 ? 'good' : 'warning');
+
+      document.getElementById('phonemesCount').textContent = `${phonemesOk}/${PHONEMES.length}`;
+      document.getElementById('phonemesCount').className = 'value ' + (phonemesOk === PHONEMES.length ? 'good' : (phonemesOk > PHONEMES.length / 2 ? 'warning' : 'bad'));
+
+      document.getElementById('wordsCount').textContent = `${wordsOk}/${COMMON_WORDS.length}`;
+      document.getElementById('wordsCount').className = 'value ' + (wordsOk === COMMON_WORDS.length ? 'good' : (wordsOk > COMMON_WORDS.length / 2 ? 'warning' : 'bad'));
+
+      document.getElementById('ttsCount').textContent = ttsCount;
+      document.getElementById('ttsCount').className = 'value ' + (ttsCount === 0 ? 'good' : (ttsCount < 20 ? 'warning' : 'bad'));
+
+      // Render detailed results
+      const resultsEl = document.getElementById('results');
+      resultsEl.innerHTML = '';
+
+      // Letter Sounds
+      resultsEl.innerHTML += renderCategory('Letter Sounds (a-z)', auditResults.letterSounds, LETTERS, `${PATHS.letterSounds}/{letter}.mp3`);
+
+      // Letter Names
+      resultsEl.innerHTML += renderCategory('Letter Names (A-Z)', auditResults.letterNames, LETTERS, `${PATHS.letterNames}/{letter}.mp3`, true);
+
+      // Phonemes
+      resultsEl.innerHTML += renderCategory('Phonemes (blends, digraphs, vowel teams)', auditResults.phonemes, PHONEMES, `${PATHS.phonemes}/{phoneme}.mp3`);
+
+      // Words
+      resultsEl.innerHTML += renderCategory('Words', auditResults.words, COMMON_WORDS, `${PATHS.words}/{word}.mp3`);
+
+      // TTS fallback list
+      const ttsFallbacks = [];
+      for (const [key, val] of Object.entries(auditResults.letterSounds)) {
+        if (val.source === 'tts') ttsFallbacks.push(`Letter sound: ${key}`);
+      }
+      for (const [key, val] of Object.entries(auditResults.letterNames)) {
+        if (val.source === 'tts') ttsFallbacks.push(`Letter name: ${key.toUpperCase()}`);
+      }
+      for (const [key, val] of Object.entries(auditResults.phonemes)) {
+        if (val.source === 'tts') ttsFallbacks.push(`Phoneme: ${key}`);
+      }
+      for (const [key, val] of Object.entries(auditResults.words)) {
+        if (val.source === 'tts') ttsFallbacks.push(`Word: ${key}`);
+      }
+
+      if (ttsFallbacks.length > 0) {
+        resultsEl.innerHTML += `
+          <div class="tts-list">
+            <h3>Items falling back to browser TTS (${ttsFallbacks.length})</h3>
+            <ul>
+              ${ttsFallbacks.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+    }
+
+    function renderCategory(title, results, items, pathPattern, uppercase = false) {
+      const okCount = Object.values(results).filter(r => r.source !== 'tts').length;
+      const ttsCount = Object.values(results).filter(r => r.source === 'tts').length;
+
+      let badgeClass = 'all-good';
+      if (ttsCount > items.length / 2) badgeClass = 'mostly-tts';
+      else if (ttsCount > 0) badgeClass = 'has-tts';
+
+      const gridItems = items.map(item => {
+        const result = results[item];
+        let itemClass = 'available';
+        let sourceText = 'Audio OK';
+
+        if (!result) {
+          itemClass = 'missing';
+          sourceText = 'Not checked';
+        } else if (result.source === 'tts') {
+          itemClass = 'tts-fallback';
+          sourceText = 'TTS fallback';
+        } else if (result.source === 'fallback') {
+          itemClass = 'available';
+          sourceText = 'Fallback path';
+        }
+
+        const displayItem = uppercase ? item.toUpperCase() : item;
+
+        return `
+          <div class="audio-item ${itemClass}" onclick="playSound('${item}', '${title}')">
+            <div class="sound">${displayItem}</div>
+            <div class="source">${sourceText}</div>
+            <div class="play-icon">▶</div>
+          </div>
+        `;
+      }).join('');
+
+      return `
+        <div class="audio-category">
+          <div class="category-header">
+            <h2>${title}</h2>
+            <span class="category-badge ${badgeClass}">${okCount}/${items.length} audio, ${ttsCount} TTS</span>
+          </div>
+          <div class="category-content">
+            <div class="path-info">
+              Path pattern: <code>${pathPattern}</code>
+            </div>
+            <div class="audio-grid">
+              ${gridItems}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function playSound(item, category) {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+      }
+
+      let path;
+      if (category.includes('Letter Sounds')) {
+        const result = auditResults.letterSounds[item];
+        path = result?.primary ? `${PATHS.letterSounds}/${item}.mp3` :
+               result?.fallback ? `${PATHS.letterSoundsFallback}/${item}.mp3` : null;
+      } else if (category.includes('Letter Names')) {
+        path = auditResults.letterNames[item]?.primary ? `${PATHS.letterNames}/${item}.mp3` : null;
+      } else if (category.includes('Phonemes')) {
+        path = auditResults.phonemes[item]?.primary ? `${PATHS.phonemes}/${item}.mp3` : null;
+      } else if (category.includes('Words')) {
+        path = auditResults.words[item]?.primary ? `${PATHS.words}/${item}.mp3` : null;
+      }
+
+      if (path) {
+        currentAudio = new Audio(path);
+        currentAudio.play().catch(() => {
+          // Fall back to TTS
+          speakTTS(item);
+        });
+      } else {
+        // Use TTS
+        speakTTS(item);
+      }
+    }
+
+    function speakTTS(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.8;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // Auto-run audit on load
+    runAudit();
+  </script>
+</body>
+</html>

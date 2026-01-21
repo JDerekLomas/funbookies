@@ -58,19 +58,23 @@ async function init() {
     // Check URL params for existing book
     const params = new URLSearchParams(window.location.search);
     const slug = params.get('slug');
-    const phase = parseInt(params.get('phase')) || 1;
+    const phase = parseInt(params.get('phase')) || null;
+    const refresh = params.get('refresh') === 'true';
 
     if (slug) {
-        // Try localStorage first
-        loadState(slug);
-
-        // If not in localStorage, try Supabase
-        if (!state.book) {
-            await loadFromSupabase(slug);
+        // Always try Supabase first (source of truth for cross-device sync)
+        // Use localStorage only as fallback if Supabase fails
+        if (!refresh) {
+            loadState(slug); // Load localStorage as initial state
         }
 
+        // Always fetch from Supabase to get latest state
+        await loadFromSupabase(slug);
+
         if (state.book) {
-            goToPhase(phase);
+            // Use URL phase param if provided, otherwise use saved phase
+            const targetPhase = phase || state.currentPhase;
+            goToPhase(targetPhase);
         }
     }
 
@@ -129,12 +133,24 @@ async function saveToSupabase() {
     if (!state.slug || !state.book) return;
 
     try {
+        // Save full wizard state alongside book data
         const bookData = {
             ...state.book,
             slug: state.slug,
             referenceImage: state.referenceImage,
             wizardPhase: state.currentPhase,
-            updatedAt: new Date().toISOString()
+            updatedAt: new Date().toISOString(),
+            // Wizard state - stored with book for cross-device sync
+            wizardState: {
+                phaseStatus: state.phaseStatus,
+                checkpointApprovals: state.checkpointApprovals,
+                prompts: state.prompts,
+                metaprompts: state.metaprompts,
+                refStrategy: state.refStrategy,
+                multiRefs: state.multiRefs,
+                outline: state.outline,
+                formData: state.formData
+            }
         };
 
         const response = await fetch('/api/save-book', {
@@ -149,7 +165,7 @@ async function saveToSupabase() {
         if (!response.ok) {
             console.warn('Failed to save to Supabase:', await response.text());
         } else {
-            console.log('Book saved to Supabase (phase ' + state.currentPhase + ')');
+            console.log('Book + wizard state saved to Supabase (phase ' + state.currentPhase + ')');
         }
     } catch (error) {
         console.warn('Supabase save error:', error);
@@ -172,9 +188,23 @@ async function loadFromSupabase(slug) {
             state.referenceImage = result.book.referenceImage;
             state.currentPhase = result.book.wizardPhase || 1;
 
-            // Mark completed phases
-            for (let i = 1; i < state.currentPhase; i++) {
-                state.phaseStatus[i] = 'complete';
+            // Restore full wizard state if available
+            if (result.book.wizardState) {
+                const ws = result.book.wizardState;
+                state.phaseStatus = ws.phaseStatus || state.phaseStatus;
+                state.checkpointApprovals = ws.checkpointApprovals || {};
+                state.prompts = ws.prompts || state.prompts;
+                state.metaprompts = ws.metaprompts || state.metaprompts;
+                state.refStrategy = ws.refStrategy || 'single';
+                state.multiRefs = ws.multiRefs || state.multiRefs;
+                state.outline = ws.outline || null;
+                state.formData = ws.formData || state.formData;
+                console.log('Restored full wizard state from Supabase');
+            } else {
+                // Fallback: Mark completed phases based on wizardPhase
+                for (let i = 1; i < state.currentPhase; i++) {
+                    state.phaseStatus[i] = 'complete';
+                }
             }
             state.phaseStatus[state.currentPhase] = 'in_progress';
 
@@ -1726,13 +1756,17 @@ async function generateMultiRefSheet(sheetType) {
             }
             updateApproveButtonState();
         } else {
-            throw new Error(result.error || 'Failed to generate');
+            const errMsg = typeof result.error === 'object'
+                ? JSON.stringify(result.error)
+                : (result.error || 'Failed to generate');
+            throw new Error(errMsg);
         }
     } catch (error) {
         console.error('Error:', error);
         statusEl.textContent = 'Error';
         statusEl.className = 'card-status';
-        alert(`Failed to generate ${sheetType}: ${error.message}`);
+        const msg = error.message || (typeof error === 'object' ? JSON.stringify(error) : String(error));
+        alert(`Failed to generate ${sheetType}: ${msg}`);
     }
 }
 
@@ -1791,7 +1825,7 @@ async function doGenerateReference() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 prompt: prompt,
-                model: 'nano-banana-pro',
+                model: 'gemini-flash',  // More reliable than nano-banana-pro
                 slug: state.slug,
                 page: 'reference'
             })
@@ -2029,7 +2063,10 @@ async function pollForImage(taskId, endpoint, onComplete, maxAttempts = 60) {
             }
 
             if (!result.success && !result.pending) {
-                throw new Error(result.error || 'Task failed');
+                const errMsg = typeof result.error === 'object'
+                    ? JSON.stringify(result.error)
+                    : (result.error || 'Task failed');
+                throw new Error(errMsg);
             }
         } catch (error) {
             console.error('Poll error:', error);

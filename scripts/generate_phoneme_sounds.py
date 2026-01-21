@@ -73,6 +73,8 @@ PHONEMES = {
     "ph": ('<phoneme alphabet="ipa" ph="f">ph</phoneme>', "ph as in phone"),
     "ng": ('<phoneme alphabet="ipa" ph="ŋ">ng</phoneme>', "ng as in ring"),
     "ck": ('<phoneme alphabet="ipa" ph="k">ck</phoneme>', "ck as in duck"),
+    "qu": ('<phoneme alphabet="ipa" ph="kw">qu</phoneme>', "qu as in queen"),
+    "nk": ('<phoneme alphabet="ipa" ph="ŋk">nk</phoneme>', "nk as in sink"),
 
     # === R-CONTROLLED VOWELS ===
     "ar": ('<phoneme alphabet="ipa" ph="ɑɹ">ar</phoneme>', "ar as in car"),
@@ -88,6 +90,7 @@ PHONEMES = {
     "ea": ('<phoneme alphabet="ipa" ph="i">ea</phoneme>', "ea as in read"),
     "ee": ('<phoneme alphabet="ipa" ph="i">ee</phoneme>', "ee as in tree"),
     "ie": ('<phoneme alphabet="ipa" ph="aɪ">ie</phoneme>', "ie as in pie"),
+    "igh": ('<phoneme alphabet="ipa" ph="aɪ">igh</phoneme>', "igh as in night"),
     "oa": ('<phoneme alphabet="ipa" ph="oʊ">oa</phoneme>', "oa as in boat"),
     "oe": ('<phoneme alphabet="ipa" ph="oʊ">oe</phoneme>', "oe as in toe"),
     "oo_long": ('<phoneme alphabet="ipa" ph="u">oo</phoneme>', "oo as in moon"),

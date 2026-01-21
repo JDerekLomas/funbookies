@@ -123,9 +123,32 @@ function setupEventListeners() {
 
 function saveState() {
     if (state.slug) {
-        localStorage.setItem(STATE_KEY_PREFIX + state.slug, JSON.stringify(state));
+        try {
+            localStorage.setItem(STATE_KEY_PREFIX + state.slug, JSON.stringify(state));
+        } catch (e) {
+            // localStorage quota exceeded - clear old wizard states and try again
+            console.warn('localStorage quota exceeded, clearing old wizard states');
+            clearOldWizardStates();
+            try {
+                localStorage.setItem(STATE_KEY_PREFIX + state.slug, JSON.stringify(state));
+            } catch (e2) {
+                console.error('Still cannot save to localStorage, relying on Supabase');
+            }
+        }
         updateURL();
     }
+}
+
+function clearOldWizardStates() {
+    // Remove all wizard states except current one
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith(STATE_KEY_PREFIX) && key !== STATE_KEY_PREFIX + state.slug) {
+            keysToRemove.push(key);
+        }
+    }
+    keysToRemove.forEach(key => localStorage.removeItem(key));
 }
 
 // Save book to Supabase (called after each phase)
@@ -1768,33 +1791,35 @@ async function generateMultiRefSheet(sheetType) {
         statusEl.className = 'card-status';
         const msg = error.message || (typeof error === 'object' ? JSON.stringify(error) : String(error));
         alert(`Failed to generate ${sheetType}: ${msg}`);
+        throw error; // Re-throw to stop cascade
     }
 }
 
 async function generateAllMultiRefs() {
     document.getElementById('genAllRefsBtn').disabled = true;
-    document.getElementById('phase3LoadingText').textContent = 'Generating style guide (1/3)...';
-    document.getElementById('phase3Loading').classList.remove('hidden');
-    document.getElementById('phase3Actions').classList.add('hidden');
+    document.getElementById('phase4LoadingText').textContent = 'Generating style guide (1/3)...';
+    document.getElementById('phase4Loading').classList.remove('hidden');
+    document.getElementById('phase4Actions').classList.add('hidden');
 
     try {
         // Step 1: Style Guide (T2I)
         await generateMultiRefSheet('styleGuide');
 
         // Step 2: Opening Scenes (I2I from style guide)
-        document.getElementById('phase3LoadingText').textContent = 'Generating opening scenes (2/3)...';
+        document.getElementById('phase4LoadingText').textContent = 'Generating opening scenes (2/3)...';
         await generateMultiRefSheet('openingScenes');
 
         // Step 3: Closing Scenes (I2I from style guide)
-        document.getElementById('phase3LoadingText').textContent = 'Generating closing scenes (3/3)...';
+        document.getElementById('phase4LoadingText').textContent = 'Generating closing scenes (3/3)...';
         await generateMultiRefSheet('closingScenes');
 
     } catch (error) {
         console.error('Error in cascade generation:', error);
+        // Cascade stopped - error already shown by generateMultiRefSheet
     }
 
-    document.getElementById('phase3Loading').classList.add('hidden');
-    document.getElementById('phase3Actions').classList.remove('hidden');
+    document.getElementById('phase4Loading').classList.add('hidden');
+    document.getElementById('phase4Actions').classList.remove('hidden');
     document.getElementById('genAllRefsBtn').disabled = false;
 }
 

@@ -1,4 +1,37 @@
-# Wizard Automation Session - 2026-01-21
+# Wizard Simplification Session - 2026-01-21
+
+## Summary
+
+Replaced complex procedural logic with LLM-powered API endpoints. The wizard now uses Claude for:
+- Reference prompt generation
+- Book validation (continuity, scene quality)
+- Scene description generation/enhancement
+- Page image prompt building
+
+## New API Endpoints
+
+| Endpoint | Purpose | Replaces |
+|----------|---------|----------|
+| `/api/lib/claude.js` | Shared Claude utilities | JSON extraction regex |
+| `/api/generate-ref-prompt` | Reference prompt generation | Metaprompt templates |
+| `/api/validate-text-v2` | Text level validation | 520 lines of rules |
+| `/api/validate-book-v2` | Book continuity validation | State machine tracking |
+| `/api/enhance-scenes` | Scene generation/enhancement | prompt_enhancer.py |
+| `/api/build-image-prompt` | Page image prompts | Template filling |
+
+## Key Insight
+
+The codebase had accumulated **procedural logic** that an LLM handles better:
+- Regex extraction → Structured outputs
+- Template placeholders → Context-aware generation
+- State machines → Story understanding
+- Rule lists → Semantic comprehension
+
+**Pattern:** Feed Claude context, let it understand, validate output instead of inputs.
+
+---
+
+# Wizard Automation Session - 2026-01-21 (Earlier)
 
 ## What We Did
 

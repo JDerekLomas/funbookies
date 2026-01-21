@@ -23,6 +23,13 @@ let state = {
         openingScenes: null,   // Custom opening scenes prompt
         closingScenes: null    // Custom closing scenes prompt
     },
+    // Metaprompts - templates with placeholders that generate final prompts
+    // Placeholders: {title}, {name}, {description}, {traits}, {setting}
+    metaprompts: {
+        reference: null,       // Reference sheet metaprompt (null = use default)
+        openingScenes: null,   // Opening scenes metaprompt
+        closingScenes: null    // Closing scenes metaprompt
+    },
     // Multi-ref support (3-ref cascade)
     refStrategy: 'single', // 'single' or 'multi'
     multiRefs: {
@@ -54,7 +61,14 @@ async function init() {
     const phase = parseInt(params.get('phase')) || 1;
 
     if (slug) {
+        // Try localStorage first
         loadState(slug);
+
+        // If not in localStorage, try Supabase
+        if (!state.book) {
+            await loadFromSupabase(slug);
+        }
+
         if (state.book) {
             goToPhase(phase);
         }
@@ -139,6 +153,37 @@ async function saveToSupabase() {
         }
     } catch (error) {
         console.warn('Supabase save error:', error);
+    }
+}
+
+// Load book from Supabase (fallback when localStorage is empty)
+async function loadFromSupabase(slug) {
+    try {
+        const response = await fetch(`/api/get-book?slug=${slug}`);
+        if (!response.ok) {
+            console.log('Book not found in Supabase:', slug);
+            return;
+        }
+
+        const result = await response.json();
+        if (result.book) {
+            state.slug = slug;
+            state.book = result.book;
+            state.referenceImage = result.book.referenceImage;
+            state.currentPhase = result.book.wizardPhase || 1;
+
+            // Mark completed phases
+            for (let i = 1; i < state.currentPhase; i++) {
+                state.phaseStatus[i] = 'complete';
+            }
+            state.phaseStatus[state.currentPhase] = 'in_progress';
+
+            // Also save to localStorage for future loads
+            saveState();
+            console.log('Loaded book from Supabase:', slug);
+        }
+    } catch (error) {
+        console.warn('Failed to load from Supabase:', error);
     }
 }
 
@@ -933,7 +978,8 @@ NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
 function buildDefaultOpeningScenesPrompt() {
     if (!state.book) return '';
     const pages = state.book.pages || [];
-    const storyPages = pages.filter(p => p.type === 'story' && p.scene);
+    // Filter for pages with scenes (type may be 'story' or undefined for older books)
+    const storyPages = pages.filter(p => p.scene && p.scene.length > 20);
     const midPoint = Math.ceil(storyPages.length / 2);
     const openingPages = storyPages.slice(0, midPoint);
 
@@ -974,7 +1020,8 @@ NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
 function buildDefaultClosingScenesPrompt() {
     if (!state.book) return '';
     const pages = state.book.pages || [];
-    const storyPages = pages.filter(p => p.type === 'story' && p.scene);
+    // Filter for pages with scenes (type may be 'story' or undefined for older books)
+    const storyPages = pages.filter(p => p.scene && p.scene.length > 20);
     const midPoint = Math.ceil(storyPages.length / 2);
     const closingPages = storyPages.slice(midPoint);
 
@@ -1235,10 +1282,14 @@ function validateScene(scene) {
         issues.push('Placeholder text');
     }
 
-    // Check for negations (except NO TEXT)
-    const negationPattern = /\b(no|not|without|never)\b(?!\s+text)/gi;
-    if (scene && negationPattern.test(scene)) {
-        issues.push('Contains negation');
+    // Check for negations (excluding the required "NO TEXT, NO WORDS, NO LETTERS" suffix)
+    if (scene) {
+        // Remove the required suffix before checking for negations
+        const sceneWithoutSuffix = scene.replace(/NO TEXT,?\s*NO WORDS,?\s*NO LETTERS\.?/gi, '');
+        const negationPattern = /\b(no|not|without|never)\b/gi;
+        if (negationPattern.test(sceneWithoutSuffix)) {
+            issues.push('Contains negation');
+        }
     }
 
     return {
@@ -1271,16 +1322,55 @@ function validateAndApprovePhase2() {
     goToPhase(3);
 }
 
+// Alias for Phase 3 button (Story Review -> Reference)
+function validateAndApprovePhase3() {
+    // Phase 3 is Story Review, validates scenes and proceeds to Phase 4 (Reference)
+    const issues = [];
+
+    state.book.pages.forEach((page, i) => {
+        const validation = validateScene(page.scene);
+        if (!validation.valid) {
+            issues.push(`Page ${page.page}: ${validation.issues.join(', ')}`);
+        }
+    });
+
+    if (issues.length > 0) {
+        document.getElementById('validationMessages').classList.remove('hidden');
+        document.getElementById('validationList').innerHTML = issues.map(i => `<li>${i}</li>`).join('');
+        return;
+    }
+
+    document.getElementById('validationMessages').classList.add('hidden');
+    state.phaseStatus[3] = 'complete';
+    state.checkpointApprovals[3] = { approved: true, timestamp: new Date().toISOString() };
+    saveState();
+    saveToSupabase();
+    goToPhase(4);
+}
+
 // ===================
 // PHASE 3: REFERENCE
 // ===================
 
 function renderReferencePhase() {
-    // Generate default reference prompt if none exists
-    if (!state.book.referencePrompt) {
-        state.book.referencePrompt = buildReferencePrompt();
+    // Always regenerate the prompt from metaprompt + story data
+    // This ensures fresh prompts based on current story content
+    state.book.referencePrompt = buildReferencePrompt();
+
+    // Populate metaprompt template
+    const metapromptEl = document.getElementById('metapromptTemplate');
+    if (metapromptEl) {
+        metapromptEl.value = getReferenceMetaprompt();
     }
 
+    // Populate story data preview
+    const storyDataEl = document.getElementById('storyDataPreview');
+    if (storyDataEl) {
+        const data = getStoryData();
+        storyDataEl.textContent = JSON.stringify(data, null, 2);
+    }
+
+    // Populate generated prompt
     document.getElementById('referencePrompt').value = state.book.referencePrompt;
 
     // Populate multi-ref prompt editors with defaults or saved values
@@ -1365,19 +1455,83 @@ function renderMultiRefState() {
     updateApproveButtonState();
 }
 
-function buildReferencePrompt() {
-    const character = state.book.characterName || 'the character';
-    const characterType = state.book.character || 'animal';
-    const setting = state.book.setting || 'the scene';
+// Extract character details from scene descriptions
+function extractCharacterFromScenes() {
+    if (!state.book?.pages?.length) {
+        return { name: 'the character', description: '', traits: [] };
+    }
 
-    return `Create a 3x3 grid style reference sheet for a children's book character:
+    // Scene descriptions typically start with "Shot type: CharacterName, description, action..."
+    // e.g. "Wide shot: Spot, fluffy gray and white cat with distinctive black spots, stretching..."
+    const firstScene = state.book.pages[0]?.scene || '';
+
+    // Try to extract character name and description from first scene
+    // Pattern: "Shot type: Name, description (species/animal type with features), action..."
+    // e.g. "Wide shot: Spot, fluffy gray and white cat with distinctive black spots, stretching..."
+    // e.g. "Medium shot: Little Bear, a small brown bear with round ears, walking..."
+
+    // First prefer explicit characterName from book data if set
+    let name = state.book.characterName || '';
+    let description = '';
+
+    // Regex handles multi-word names: "Shot: Name Name, description,"
+    // Captures: group 1 = character name (words before first comma after colon)
+    //           group 2 = description (text after first comma until next comma or -ing verb)
+    const sceneMatch = firstScene.match(/(?:shot:\s*)([^,]+),\s*([^,]+)/i);
+
+    if (sceneMatch) {
+        // Only use extracted name if we don't have one from book data
+        if (!name) {
+            name = sceneMatch[1].trim();
+        }
+        // Clean up description - stop at action verbs (-ing words that start actions)
+        let desc = sceneMatch[2].trim();
+        desc = desc.replace(/\s+\b\w+ing\b.*$/, '');
+        description = desc;
+    }
+
+    // Final fallback
+    if (!name) name = 'the character';
+
+    // Collect unique physical traits from all scenes (eyes, nose, fur, etc.)
+    const traits = new Set();
+    const traitPatterns = [
+        /\b(amber|blue|green|brown|golden)\s+eyes\b/gi,
+        /\b(pink|black|brown)\s+nose\b/gi,
+        /\b(fluffy|soft|sleek|furry)\s+(belly|tail|fur|coat)\b/gi,
+        /\b(spotted|striped|tabby|calico)\b/gi,
+        /\b(extra fluffy|bushy|long|short)\s+\w+/gi
+    ];
+
+    for (const page of state.book.pages) {
+        const scene = page.scene || '';
+        for (const pattern of traitPatterns) {
+            const matches = scene.match(pattern);
+            if (matches) {
+                matches.forEach(m => traits.add(m.toLowerCase()));
+            }
+        }
+    }
+
+    return { name, description, traits: Array.from(traits) };
+}
+
+// ===================
+// METAPROMPT SYSTEM
+// ===================
+
+// Default metaprompt template for reference sheets
+// Placeholders: {title}, {name}, {NAME}, {description}, {traits}, {setting}
+const DEFAULT_REFERENCE_METAPROMPT = `Create a 3x3 grid style reference sheet for "{title}":
 
 GRID LAYOUT (9 panels total):
-Row 1: [1] ${character} front view, [2] ${character} expressions (happy, surprised, worried), [3] ${character} in action pose
-Row 2: [4] Secondary elements/props from story, [5] KEY SCENE: ${character} in main story moment, [6] Important objects/items
-Row 3: [7] ${setting} background element, [8] Another setting element, [9] ${character} resolution pose
+Row 1: [1] {name} front view, [2] {name} expressions (happy, surprised, worried), [3] {name} in action pose
+Row 2: [4] Secondary elements/props from story, [5] KEY SCENE: {name} in main story moment, [6] Important objects/items
+Row 3: [7] {setting} background element, [8] Another setting element, [9] {name} resolution pose
 
-CHARACTER DESIGN for ${character} the ${characterType}:
+CHARACTER DESIGN - {NAME}:
+- {description}
+- Physical details: {traits}
 - Soft, friendly, rounded shapes
 - Clear, simple features easy to recognize
 - Consistent color palette throughout all panels
@@ -1387,6 +1541,75 @@ STYLE: Soft watercolor children's book illustration, warm colors, gentle lightin
 
 IMPORTANT: This is a reference sheet with 9 distinct panels arranged in a 3x3 grid. Each panel should be clearly separated.
 NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
+
+// Get story data for filling metaprompts
+function getStoryData() {
+    const { name, description, traits } = extractCharacterFromScenes();
+    return {
+        title: state.book?.title || "children's book",
+        name: name,
+        NAME: name.toUpperCase(),
+        description: description || 'friendly character with expressive features',
+        traits: traits.length > 0 ? traits.join(', ') : 'expressive eyes, distinctive features',
+        setting: state.book?.setting || 'the scene'
+    };
+}
+
+// Fill a metaprompt template with story data
+function fillMetaprompt(template, data) {
+    let result = template;
+    for (const [key, value] of Object.entries(data)) {
+        result = result.replace(new RegExp(`\\{${key}\\}`, 'g'), value);
+    }
+    return result;
+}
+
+// Get the current reference metaprompt (custom or default)
+function getReferenceMetaprompt() {
+    return state.metaprompts?.reference || DEFAULT_REFERENCE_METAPROMPT;
+}
+
+// Build the final reference prompt from metaprompt + story data
+function buildReferencePrompt() {
+    const metaprompt = getReferenceMetaprompt();
+    const data = getStoryData();
+    return fillMetaprompt(metaprompt, data);
+}
+
+// UI: Apply edited metaprompt template and regenerate prompt
+function regenerateFromMetaprompt() {
+    const metapromptEl = document.getElementById('metapromptTemplate');
+    if (metapromptEl) {
+        // Save custom metaprompt
+        state.metaprompts = state.metaprompts || {};
+        state.metaprompts.reference = metapromptEl.value;
+        saveState();
+
+        // Regenerate and update the generated prompt
+        const newPrompt = buildReferencePrompt();
+        state.book.referencePrompt = newPrompt;
+        document.getElementById('referencePrompt').value = newPrompt;
+    }
+}
+
+// UI: Reset metaprompt to default template
+function resetMetaprompt() {
+    // Clear custom metaprompt
+    if (state.metaprompts) {
+        state.metaprompts.reference = null;
+    }
+    saveState();
+
+    // Update UI
+    const metapromptEl = document.getElementById('metapromptTemplate');
+    if (metapromptEl) {
+        metapromptEl.value = DEFAULT_REFERENCE_METAPROMPT;
+    }
+
+    // Regenerate prompt with default template
+    const newPrompt = buildReferencePrompt();
+    state.book.referencePrompt = newPrompt;
+    document.getElementById('referencePrompt').value = newPrompt;
 }
 
 // Multi-ref prompt builders (3-ref cascade)
@@ -1588,12 +1811,16 @@ async function doGenerateReference() {
             saveState();
             showReferenceImage(result.url);
         } else {
-            throw new Error(result.error || 'Failed to generate reference');
+            const errorMsg = typeof result.error === 'object'
+                ? JSON.stringify(result.error)
+                : (result.error || 'Failed to generate reference');
+            throw new Error(errorMsg);
         }
 
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to generate reference image: ' + error.message);
+        const msg = error.message || (typeof error === 'object' ? JSON.stringify(error) : String(error));
+        alert('Failed to generate reference image: ' + msg);
     }
 
     document.getElementById('phase3Loading').classList.add('hidden');

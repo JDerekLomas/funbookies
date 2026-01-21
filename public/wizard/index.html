@@ -315,8 +315,26 @@
                             </div>
 
                             <div class="reference-prompt-editor">
-                                <label style="font-weight: 600;">Reference Prompt</label>
-                                <p class="hint">9-panel style guide for consistent characters</p>
+                                <!-- Metaprompt Template (collapsible) -->
+                                <details class="metaprompt-section">
+                                    <summary>Metaprompt Template</summary>
+                                    <p class="hint">Template with placeholders: {title}, {name}, {NAME}, {description}, {traits}, {setting}</p>
+                                    <textarea id="metapromptTemplate" placeholder="Metaprompt template..." rows="12"></textarea>
+                                    <div style="display: flex; gap: var(--space-sm); margin-top: var(--space-sm);">
+                                        <button class="btn btn-sm btn-ghost" onclick="regenerateFromMetaprompt()">Apply Template</button>
+                                        <button class="btn btn-sm btn-ghost" onclick="resetMetaprompt()">Reset to Default</button>
+                                    </div>
+                                </details>
+
+                                <!-- Story Data Preview -->
+                                <details class="story-data-section">
+                                    <summary>Extracted Story Data</summary>
+                                    <pre id="storyDataPreview" class="story-data-preview"></pre>
+                                </details>
+
+                                <!-- Generated Prompt -->
+                                <label style="font-weight: 600;">Generated Prompt</label>
+                                <p class="hint">Final prompt sent to image generator (editable)</p>
                                 <textarea id="referencePrompt" placeholder="Reference prompt will be generated based on your story..."></textarea>
                                 <div style="display: flex; gap: var(--space-sm);">
                                     <button class="btn btn-secondary" onclick="generateReference()" id="genRefBtn">Generate Reference</button>

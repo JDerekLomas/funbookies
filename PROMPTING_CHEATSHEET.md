@@ -12,8 +12,28 @@ Quick reference for all FunBookies prompting knowledge. For details, see linked 
 | [STORY_CONTENT_GUIDE.md](STORY_CONTENT_GUIDE.md) | Narrative principles | Writing story text |
 | [STORY_RUBRIC.md](STORY_RUBRIC.md) | Quality checklist | Reviewing story quality |
 | [IMAGE_GENERATION_WORKFLOW.md](IMAGE_GENERATION_WORKFLOW.md) | Multi-ref architecture | Understanding the pipeline |
-| [REFERENCE_IMAGE_PROMPTS.md](REFERENCE_IMAGE_PROMPTS.md) | 9-panel templates | Creating reference sheets |
+| [REFERENCE_IMAGE_PROMPTS.md](REFERENCE_IMAGE_PROMPTS.md) | 9-panel templates, **metaprompts** | Creating reference sheets |
 | [BOOK_GENERATION_GUIDE.md](BOOK_GENERATION_GUIDE.md) | Conversational workflow | Step-by-step generation |
+
+---
+
+## Metaprompt System
+
+Reference prompts are generated from a **metaprompt template** + **story data**:
+
+```
+Metaprompt: "Create a 3x3 grid for {title}: CHARACTER: {name} - {description}..."
+     +
+Story Data: {title: "Spot Finds Sun", name: "Spot", description: "fluffy gray cat..."}
+     =
+Generated: "Create a 3x3 grid for Spot Finds Sun: CHARACTER: Spot - fluffy gray cat..."
+```
+
+**Placeholders:** `{title}`, `{name}`, `{NAME}`, `{description}`, `{traits}`, `{setting}`
+
+**Data extraction:** Character details auto-extracted from scene descriptions.
+
+See [REFERENCE_IMAGE_PROMPTS.md](REFERENCE_IMAGE_PROMPTS.md#metaprompt-system) for details.
 
 ---
 

@@ -2,6 +2,60 @@
 
 9-panel reference sheets for AI image generation consistency.
 
+## Metaprompt System
+
+The wizard uses a **metaprompt** architecture for generating reference prompts:
+
+### How It Works
+
+```
+┌─────────────────────────────────────────┐
+│ Metaprompt Template (editable)          │
+│                                         │
+│ "Create a 3x3 grid for {title}:         │
+│  CHARACTER: {name} - {description}..."  │
+└─────────────────────────────────────────┘
+                    ↓
+            + Story Data (extracted)
+                    ↓
+┌─────────────────────────────────────────┐
+│ Generated Prompt (sent to AI)           │
+│                                         │
+│ "Create a 3x3 grid for Spot Finds Sun:  │
+│  CHARACTER: Spot - fluffy gray cat..."  │
+└─────────────────────────────────────────┘
+```
+
+### Placeholders
+
+| Placeholder | Description | Example |
+|-------------|-------------|---------|
+| `{title}` | Book title | "Spot Finds Sun" |
+| `{name}` | Character name | "Spot" |
+| `{NAME}` | Character name (uppercase) | "SPOT" |
+| `{description}` | Character description | "fluffy gray and white cat with distinctive black spots" |
+| `{traits}` | Physical traits | "amber eyes, pink nose, fluffy belly" |
+| `{setting}` | Story setting | "cozy house" |
+
+### Data Extraction
+
+Story data is automatically extracted from scene descriptions:
+- **Character name**: Parsed from first scene (e.g., "Wide shot: **Spot**, fluffy gray...")
+- **Description**: Character details after name in scene
+- **Traits**: Physical features found across all scenes (eyes, nose, fur patterns)
+- **Setting**: From book metadata
+
+### Wizard UI
+
+In Phase 4 (Reference), users can:
+1. **View/edit the metaprompt template** - Customize the structure
+2. **See extracted story data** - Verify what placeholders will contain
+3. **Preview generated prompt** - Final prompt before sending to AI
+4. **Apply Template** - Regenerate from edited metaprompt
+5. **Reset to Default** - Restore the default metaprompt
+
+---
+
 ## Style Block (Use for All)
 
 ```

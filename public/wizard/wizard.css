@@ -1156,3 +1156,52 @@
     gap: var(--space-sm);
     justify-content: flex-end;
 }
+
+/* Metaprompt System */
+.metaprompt-section,
+.story-data-section {
+    margin-bottom: var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    padding: var(--space-sm);
+    background: var(--color-background);
+}
+
+.metaprompt-section summary,
+.story-data-section summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    user-select: none;
+}
+
+.metaprompt-section summary:hover,
+.story-data-section summary:hover {
+    color: var(--color-primary);
+}
+
+.metaprompt-section[open],
+.story-data-section[open] {
+    padding: var(--space-md);
+}
+
+.metaprompt-section textarea {
+    font-family: monospace;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    background: var(--color-white);
+}
+
+.story-data-preview {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    padding: var(--space-sm);
+    font-family: monospace;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    margin: var(--space-sm) 0 0 0;
+}

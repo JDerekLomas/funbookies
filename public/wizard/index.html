@@ -430,8 +430,14 @@
                             </details>
                         </div>
 
-                        <div style="display: flex; gap: var(--space-sm); margin-bottom: var(--space-md);">
+                        <div style="display: flex; gap: var(--space-sm); align-items: center; margin-bottom: var(--space-md);">
                             <button class="btn btn-secondary" onclick="generateAllMultiRefs()" id="genAllRefsBtn">Generate All (Cascade)</button>
+                            <label style="font-size: 0.85rem; color: var(--color-text-muted);">Style Guide Model:</label>
+                            <select id="multiRefModelSelect" style="padding: 0.5rem; border-radius: var(--border-radius-sm); border: 1px solid var(--color-border);">
+                                <option value="nano-banana-pro">nano-banana-pro ($0.15)</option>
+                                <option value="gemini-flash">gemini-flash ($0.04)</option>
+                                <option value="gemini-3-pro">gemini-3-pro ($0.07)</option>
+                            </select>
                         </div>
                     </div>
 

@@ -1698,7 +1698,7 @@ async function generateMultiRefSheet(sheetType) {
     if (sheetType === 'styleGuide') {
         // Style Guide uses model from dropdown (default nano-banana-pro)
         prompt = buildStyleGuidePrompt();
-        const modelSelect = document.getElementById('refModelSelect');
+        const modelSelect = document.getElementById('multiRefModelSelect');
         model = modelSelect ? modelSelect.value : 'nano-banana-pro';
     } else {
         // Opening/Closing Scenes use wan 2.6 I2I with styleGuide as reference

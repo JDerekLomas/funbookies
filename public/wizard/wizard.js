@@ -289,14 +289,18 @@ function updateStepper() {
         } else if (state.phaseStatus[phase] === 'complete') {
             step.classList.add('completed', 'clickable');
             step.querySelector('.step-indicator').innerHTML = '&#10003;';
+        } else if (state.phaseStatus[phase] === 'in_progress') {
+            // Allow clicking on phases that have been started (even if not complete)
+            step.classList.add('clickable');
+            step.querySelector('.step-indicator').textContent = phase;
         } else {
-            // Reset indicator number if not completed
+            // Reset indicator number if not started
             step.querySelector('.step-indicator').textContent = phase;
         }
     });
 }
 
-function goToPhase(phase) {
+async function goToPhase(phase) {
     // Hide all phases
     document.querySelectorAll('.phase-content').forEach(el => el.classList.remove('active'));
 
@@ -314,7 +318,7 @@ function goToPhase(phase) {
     } else if (phase === 3 && state.book) {
         renderPhase2Content();
     } else if (phase === 4 && state.book) {
-        renderReferencePhase();
+        await renderReferencePhase();
     } else if (phase === 5 && state.book) {
         renderPageImagesGrid();
     } else if (phase === 6 && state.book) {
@@ -1405,34 +1409,74 @@ function validateAndApprovePhase3() {
 // PHASE 3: REFERENCE
 // ===================
 
-function renderReferencePhase() {
-    // Always regenerate the prompt from metaprompt + story data
-    // This ensures fresh prompts based on current story content
-    state.book.referencePrompt = buildReferencePrompt();
+async function renderReferencePhase() {
+    const promptEl = document.getElementById('referencePrompt');
+    const loadingEl = document.getElementById('phase4Loading');
+    const loadingTextEl = document.getElementById('phase4LoadingText');
 
-    // Populate metaprompt template
-    const metapromptEl = document.getElementById('metapromptTemplate');
-    if (metapromptEl) {
-        metapromptEl.value = getReferenceMetaprompt();
-    }
+    // Generate prompt using LLM if we don't have one yet (or if it looks like the old generic template)
+    const needsNewPrompt = !state.book.referencePrompt ||
+        state.book.referencePrompt.includes('{title}') ||
+        state.book.referencePrompt.includes('the character') ||
+        state.book.referencePrompt.includes('{name}');
 
-    // Populate story data preview
-    const storyDataEl = document.getElementById('storyDataPreview');
-    if (storyDataEl) {
-        const data = getStoryData();
-        storyDataEl.textContent = JSON.stringify(data, null, 2);
+    if (needsNewPrompt) {
+        // Show loading state
+        loadingEl.classList.remove('hidden');
+        loadingTextEl.textContent = 'Generating reference prompt with AI...';
+        promptEl.value = 'Generating prompt...';
+
+        try {
+            const response = await fetch('/api/generate-ref-prompt', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ book: state.book })
+            });
+
+            const result = await response.json();
+
+            if (result.success && result.prompt) {
+                state.book.referencePrompt = result.prompt;
+                saveState();
+            } else {
+                // Fall back to old method if API fails
+                console.warn('API failed, falling back to template:', result.error);
+                state.book.referencePrompt = buildReferencePrompt();
+            }
+        } catch (error) {
+            console.error('Error generating prompt:', error);
+            // Fall back to old method
+            state.book.referencePrompt = buildReferencePrompt();
+        }
+
+        loadingEl.classList.add('hidden');
     }
 
     // Populate generated prompt
-    document.getElementById('referencePrompt').value = state.book.referencePrompt;
+    promptEl.value = state.book.referencePrompt;
 
-    // Populate multi-ref prompt editors with defaults or saved values
+    // Populate story data preview (for debugging/transparency)
+    const storyDataEl = document.getElementById('storyDataPreview');
+    if (storyDataEl) {
+        // Show book summary instead of extracted data
+        const summary = {
+            title: state.book.title,
+            setting: state.book.setting,
+            characterName: state.book.characterName,
+            pageCount: state.book.pages?.length || 0,
+            firstScene: state.book.pages?.[0]?.scene?.substring(0, 100) + '...'
+        };
+        storyDataEl.textContent = JSON.stringify(summary, null, 2);
+    }
+
+    // Populate multi-ref prompt editors
     const styleGuideEl = document.getElementById('styleGuidePromptTextarea');
     const openingEl = document.getElementById('openingScenesPromptTextarea');
     const closingEl = document.getElementById('closingScenesPromptTextarea');
 
     if (styleGuideEl) {
-        styleGuideEl.value = state.prompts.styleGuide || buildDefaultReferencePrompt();
+        // Use the same LLM-generated prompt for style guide
+        styleGuideEl.value = state.prompts.styleGuide || state.book.referencePrompt;
     }
     if (openingEl) {
         openingEl.value = state.prompts.openingScenes || buildDefaultOpeningScenesPrompt();

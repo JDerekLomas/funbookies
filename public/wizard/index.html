@@ -2078,41 +2078,94 @@
         }
 
         function buildDefaultOutlinePrompt() {
+            const level = state.formData.level;
+            const band = level.charAt(0); // A, B, C, or D
+
             const levelDescriptions = {
-                'A0': 'Pre-reading with picture support. 2-3 words per page.',
-                'A1': 'Simple CVC words only (cat, dog, sun). 3-4 words per sentence.',
-                'A2': 'CVC words with basic sight words (the, a, is). 4-5 words per sentence.',
-                'B1': 'Beginning consonant blends (stop, flag, crab). 5-6 words per sentence.',
-                'B2': 'Ending blends (jump, help, fast). 6-7 words per sentence.',
-                'C1': 'Digraphs (ship, chat, thin). 7-8 words per sentence.',
-                'C2': 'Silent e words (cake, bike, home). Longer sentences OK.',
-                'D1': 'Vowel teams (rain, boat, see). Complex sentences OK.',
-                'D2': 'R-controlled vowels (car, bird, corn). Natural sentence length.'
+                'A0': 'Concept of Print. 0-2 words per page. UPPERCASE only.',
+                'A1': 'Letter Recognition. 1 word per page. Labels only.',
+                'A2': 'CV/VC Words. 2-3 words per page. Max 3 words per sentence.',
+                'A3': 'CVC Words. 3-4 words per page. Max 4 words per sentence.',
+                'A4': 'CVC Fluency. 4-5 words per page. Max 5 words per sentence.',
+                'B1': 'Beginning blends (st, sp, cr, fl). Max 5-6 words per sentence.',
+                'B2': 'Ending blends (mp, nd, st). Max 6 words per sentence.',
+                'B3': 'Digraphs (sh, ch, th, wh). Max 6 words per sentence.',
+                'B4': 'Short vowel mastery. Max 7 words per sentence.',
+                'B5': 'Silent e (CVCe). Max 7 words per sentence.',
+                'B6': 'Soft c and g. Max 8 words per sentence.',
+                'B7': 'R-controlled vowels. Max 8 words per sentence.',
+                'B8': 'Vowel teams (ai, ea, oa). Max 9 words per sentence.',
+                'B9': 'Diphthongs (oi, ou, ow). Max 9 words per sentence.',
+                'C1': 'Two-syllable compound words. Max 10 words per sentence.',
+                'C2': 'Open syllables. Max 10 words per sentence.',
+                'C3': 'Two-syllable closed (kitten, rabbit). Max 12 words per sentence.',
+                'C4': 'Consonant -le (table, little). Max 12 words per sentence.',
+                'C5': 'Prefixes (un-, re-, pre-). Natural sentence length.',
+                'C6': 'Suffixes (-ful, -less, -ness). Natural sentence length.',
+                'C7': 'Latin roots. Natural sentence length.',
+                'C8': 'Greek combining forms. Natural sentence length.',
+                'D1': 'Chapter books intro. Natural sentence length.',
+                'D2': 'Complex narratives. Natural sentence length.',
+                'D3': 'Multiple viewpoints. Natural sentence length.',
+                'D4': 'Abstract themes. Natural sentence length.',
+                'D5': 'Literary devices. Natural sentence length.',
+                'D6': 'Independent reading. Natural sentence length.'
             };
 
-            return `Generate a story OUTLINE (not full text) for a decodable children's book.
+            const bandStyles = {
+                'A': 'Simple bold shapes, soft watercolor, very minimal detail, warm pastel colors. Gentle, comforting, bright mood.',
+                'B': 'Playful watercolor illustration, expressive characters, vibrant colors. Energetic, fun, adventurous mood.',
+                'C': 'Rich watercolor, more detailed characters and settings, dynamic compositions. Exciting, imaginative mood.',
+                'D': 'Sophisticated watercolor style, detailed environments, nuanced lighting. Atmospheric, immersive mood.'
+            };
 
-READING LEVEL: ${state.formData.level} - ${levelDescriptions[state.formData.level] || 'Age-appropriate vocabulary'}
+            return `You are a master children's book author. Generate a story OUTLINE for a decodable book.
+
+READING LEVEL: ${level} - ${levelDescriptions[level] || 'Age-appropriate vocabulary'}
 CONCEPT: ${state.formData.concept}
 SETTING: ${state.formData.setting || 'appropriate for the story'}
 ${state.formData.words.length > 0 ? `WORDS TO INCLUDE: ${state.formData.words.join(', ')}` : ''}
 
-Create a beat-by-beat breakdown:
-- 8-12 pages total
-- Each beat is 1 sentence describing what happens on that page
-- Include: character introduction, inciting incident, attempts/journey, climax, resolution
+## WHAT MAKES A GOOD STORY
 
-OUTPUT FORMAT (JSON only):
+1. CHARACTER WANT - The character wants something specific and clear
+2. OBSTACLE - A real problem blocks them (not manufactured drama)
+3. TRY-FAIL - Genuine attempt that fails for a logical reason
+4. RESOLUTION - Satisfying and earned ending
+5. CAUSATION - Each event causes the next (not random scenes)
+
+## VISUAL STYLE FOR BAND ${band}
+
+${bandStyles[band] || bandStyles['B']}
+
+## OUTPUT FORMAT (JSON only, no other text)
+
 {
-  "title": "Story Title (2-4 words)",
-  "character": { "name": "Name", "type": "animal/child/creature", "traits": ["curious", "friendly"] },
-  "setting": "Brief setting description",
+  "title": "Story Title (2-4 catchy words)",
+  "character": {
+    "name": "Character Name",
+    "type": "animal/child/creature",
+    "visual_shorthand": "small orange tabby kitten with white paws",
+    "distinctive_features": ["bright green eyes", "fluffy striped tail", "white mittens on paws"]
+  },
+  "setting": "Detailed setting description with visual elements",
+  "visual_style": "${bandStyles[band] || bandStyles['B']}",
   "beats": [
-    { "page": 1, "beat": "What happens on page 1" },
-    { "page": 2, "beat": "What happens on page 2" }
+    { "page": 1, "beat": "INTRODUCE: Character introduced in setting with their WANT established" },
+    { "page": 2, "beat": "WANT: Character actively pursuing their goal" },
+    { "page": 3, "beat": "OBSTACLE: Problem or challenge appears" },
+    { "page": 4, "beat": "TRY: First attempt to solve problem" },
+    { "page": 5, "beat": "FAIL: Attempt doesn't work, complication" },
+    { "page": 6, "beat": "TRY AGAIN: New approach or idea" },
+    { "page": 7, "beat": "PROGRESS: Getting closer to goal" },
+    { "page": 8, "beat": "CLIMAX: Key moment of tension or discovery" },
+    { "page": 9, "beat": "RESOLUTION: Problem solved satisfyingly" },
+    { "page": 10, "beat": "ENDING: Warm conclusion showing growth or happiness" }
   ],
-  "arc": "Brief description of the story arc"
-}`;
+  "arc": "Brief description: [Character] wants [goal] but [obstacle]. They try [attempts] and finally [resolution]."
+}
+
+Create 8-12 beats. Each beat should clearly connect to the next through cause and effect.`;
         }
 
         // ===================
@@ -2122,8 +2175,21 @@ OUTPUT FORMAT (JSON only):
         function renderOutlinePhase() {
             if (!state.outline) return;
             document.getElementById('outlineTitle').value = state.outline.title || '';
-            document.getElementById('outlineCharacter').textContent =
-                state.outline.character ? `${state.outline.character.name} the ${state.outline.character.type}` : 'Not set';
+
+            // Rich character display
+            const char = state.outline.character;
+            if (char) {
+                let charText = char.name;
+                if (char.visual_shorthand) charText += ` - ${char.visual_shorthand}`;
+                else if (char.type) charText += ` the ${char.type}`;
+                if (char.distinctive_features && char.distinctive_features.length) {
+                    charText += ` (${char.distinctive_features.slice(0, 3).join(', ')})`;
+                }
+                document.getElementById('outlineCharacter').textContent = charText;
+            } else {
+                document.getElementById('outlineCharacter').textContent = 'Not set';
+            }
+
             document.getElementById('outlineSetting').textContent = state.outline.setting || 'Not set';
             document.getElementById('outlineArc').textContent = state.outline.arc || 'Not set';
             renderBeats();
@@ -2251,48 +2317,126 @@ OUTPUT FORMAT (JSON only):
         }
 
         function buildFullStoryPrompt() {
-            const levelDescriptions = {
-                'A0': 'Pre-reading. 2-3 words per page.',
-                'A1': 'Simple CVC words. 3-4 words per sentence.',
-                'B1': 'Beginning blends. 5-6 words per sentence.',
-                'C1': 'Digraphs. 7-8 words per sentence.',
-                'D1': 'Vowel teams. Complex sentences OK.'
+            const level = state.formData.level;
+            const band = level.charAt(0);
+            const outline = state.outline;
+
+            const levelConstraints = {
+                'A0': { maxWords: 2, pages: '6-8', guidance: 'Wordless or 1-2 word labels. Pictures carry all meaning.' },
+                'A1': { maxWords: 2, pages: '8', guidance: 'Labels only: "A [noun]" or "I [verb]". One word per page.' },
+                'A2': { maxWords: 3, pages: '8', guidance: 'Simple patterns: "I see a [noun]." Repetitive structure.' },
+                'A3': { maxWords: 4, pages: '8-10', guidance: 'CVC words in simple sentences. "The cat sat."' },
+                'A4': { maxWords: 5, pages: '10', guidance: 'CVC fluency. Short predictable sentences.' },
+                'B1': { maxWords: 6, pages: '10-12', guidance: 'Beginning blends. "The frog stops."' },
+                'B2': { maxWords: 6, pages: '10-12', guidance: 'Ending blends. "The ant went fast."' },
+                'B3': { maxWords: 6, pages: '10-12', guidance: 'Digraphs. "The ship is big."' },
+                'B4': { maxWords: 7, pages: '10-12', guidance: 'Short vowel mastery. Varied sentence patterns.' },
+                'B5': { maxWords: 7, pages: '10-12', guidance: 'Silent e. "The cake is on the plate."' },
+                'B6': { maxWords: 8, pages: '12', guidance: 'Soft c/g. "The mice race to the fence."' },
+                'B7': { maxWords: 8, pages: '12', guidance: 'R-controlled. "The bird sat on her perch."' },
+                'B8': { maxWords: 9, pages: '12', guidance: 'Vowel teams. "The boat floats on the sea."' },
+                'B9': { maxWords: 9, pages: '12', guidance: 'Diphthongs. "The cow found a coin."' },
+                'C1': { maxWords: 10, pages: '12', guidance: 'Compound words. "The sunflower grew tall."' },
+                'C2': { maxWords: 10, pages: '12', guidance: 'Open syllables. "The tiny baby spider..."' },
+                'C3': { maxWords: 12, pages: '12', guidance: 'Chapter-style. "The kitten was hidden in the basket."' },
+                'C4': { maxWords: 12, pages: '12', guidance: 'Consonant-le. "The little turtle..."' },
+                'D1': { maxWords: 15, pages: '12-16', guidance: 'Chapter book style. Complex narratives.' },
+                'D2': { maxWords: 15, pages: '12-16', guidance: 'Rich vocabulary. Nuanced storytelling.' }
             };
 
-            return `Expand this outline into a complete decodable book.
+            const constraints = levelConstraints[level] || { maxWords: 10, pages: '12', guidance: 'Age-appropriate.' };
 
-OUTLINE:
-${JSON.stringify(state.outline, null, 2)}
+            const bandStyles = {
+                'A': 'Simple bold shapes, soft watercolor, minimal detail, warm pastels.',
+                'B': 'Playful watercolor, expressive characters, vibrant colors.',
+                'C': 'Rich watercolor, detailed characters/settings, dynamic compositions.',
+                'D': 'Sophisticated watercolor, detailed environments, nuanced lighting.'
+            };
 
-LEVEL: ${state.formData.level} - ${levelDescriptions[state.formData.level] || 'Age-appropriate'}
+            const charDesc = outline.character ?
+                `${outline.character.name}: ${outline.character.visual_shorthand || outline.character.type}` +
+                (outline.character.distinctive_features ? ` (${outline.character.distinctive_features.join(', ')})` : '') :
+                'Main character';
 
-For each page generate:
-1. TEXT with <line> tags for each visual line
-2. SCENE in XML format
+            return `You are a master children's book author. Expand this outline into a complete decodable book.
 
-TEXT FORMAT: <line>First sentence.</line><line>Second sentence.</line>
+## STORY OUTLINE
+Title: ${outline.title}
+Character: ${charDesc}
+Setting: ${outline.setting}
+Visual Style: ${outline.visual_style || bandStyles[band]}
+Arc: ${outline.arc}
 
-SCENE XML:
-<scene>
-  <character>WHO: physical description, pose</character>
-  <setting>WHERE: environment details</setting>
-  <action>WHAT: current action</action>
-  <composition>Shot type, framing</composition>
-</scene>
+Beats:
+${outline.beats.map(b => `Page ${b.page}: ${b.beat}`).join('\n')}
 
-RULES:
-- Level-appropriate words only
-- Scene descriptions must be PHYSICAL not emotional
-- NO negations in scenes
-- End each scene with: NO TEXT, NO WORDS, NO LETTERS
+## LEVEL CONSTRAINTS: ${level}
+- Maximum ${constraints.maxWords} words per sentence (STRICT - count every word!)
+- 2-3 sentences per page
+- Level guidance: ${constraints.guidance}
 
-OUTPUT (JSON only):
+## CRITICAL: LOGIC AND CONTINUITY
+
+Every sentence MUST make logical sense. Check cause and effect.
+
+LOGIC ERRORS TO AVOID:
+- "He got wet in the sun." (sun doesn't make you wet)
+- "Now Max is not wet." (after a bath? he'd be soaking wet!)
+- "The cat ran to sit." (awkward phrasing)
+
+GOOD LOGIC:
+- "Max jumped in the mud. Mud splashed on his nose!" (cause → effect)
+- "Mom dried Max with a towel. Now his fur was fluffy." (action → result)
+
+CONTINUITY: Track character state across pages:
+- If muddy on page 4, still muddy on page 5 (unless cleaned)
+- If in bath, they're WET when they get out
+- Each scene visually connects to the previous one
+
+## SCENE DESCRIPTION FORMAT
+
+Each scene must include WHO/WHERE/WHAT/STATE:
+- WHO: Character with EXACT visual details (use character description above)
+- WHERE: Specific setting with lighting/atmosphere
+- WHAT: Active verb describing current action
+- STATE: Character's current physical state (wet? muddy? tired? happy expression?)
+- Shot type: Wide/Medium/Close-up
+
+SCENE RULES:
+- PHYSICAL descriptions only (not emotional - "eyes wide" not "scared")
+- NEVER use negations ("no ball" makes a ball appear!)
+- End every scene with: NO TEXT, NO WORDS, NO LETTERS
+
+## OUTPUT FORMAT (JSON only)
+
 {
-  "title": "${state.outline.title}",
-  "pages": [{ "page": 1, "text": "<line>...</line>", "scene": "<scene>...</scene>" }],
-  "reference_prompt": "9-panel reference sheet...",
-  "word_list": { "sound_out": [], "sight": [] }
-}`;
+  "title": "${outline.title}",
+  "summary": "One sentence story description",
+  "characters": {
+    "main": {
+      "name": "${outline.character?.name || 'Character'}",
+      "visual_shorthand": "${outline.character?.visual_shorthand || 'description'}",
+      "distinctive_features": ${JSON.stringify(outline.character?.distinctive_features || [])}
+    }
+  },
+  "setting_context": "${outline.setting}",
+  "visual_style": "${outline.visual_style || bandStyles[band]}",
+  "pages": [
+    {
+      "story_page": 1,
+      "text": "<line>First sentence here.</line><line>Second sentence.</line>",
+      "scene": "Wide shot: ${outline.character?.name || 'Character'}, ${outline.character?.visual_shorthand || 'with visual details'}, [ACTION verb-ing] in [WHERE with specifics]. [Mood/lighting]. NO TEXT, NO WORDS, NO LETTERS."
+    }
+  ],
+  "word_list": {
+    "sound_out": ["decodable", "phonics", "words"],
+    "sight": ["the", "is", "a"],
+    "heart": ["emotional", "vocabulary", "words"]
+  },
+  "reference_prompt": "9-panel children's book reference sheet, grid layout (3x3), consistent ${bandStyles[band]} throughout all panels:\\n\\nRow 1 - ${outline.character?.name || 'MAIN CHARACTER'}:\\n[1] ${outline.character?.name || 'Character'}, ${outline.character?.visual_shorthand || 'full visual description'}, front view, friendly expression, cream background\\n[2] Same character [action from story], side view\\n[3] Same character [different expression/action]\\n\\nRow 2 - Supporting Elements:\\n[4] [Key object or secondary character from story]\\n[5] **KEY MOMENT** - [Hero shot: main character in central story moment]\\n[6] [Another key prop from story]\\n\\nRow 3 - Settings:\\n[7] [First setting], [lighting/mood]\\n[8] [Second setting or different time]\\n[9] [Final heartwarming scene]\\n\\nSTYLE: ${bandStyles[band]} Soft edges, muted earthy palette.\\nFORMAT: Square 1:1, 3x3 grid, thin white borders.\\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere."
+}
+
+Write the COMPLETE story with ALL pages. Use level-appropriate vocabulary only.`;
         }
 
         // Legacy compatibility

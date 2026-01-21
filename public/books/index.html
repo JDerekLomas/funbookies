@@ -344,14 +344,34 @@
         }
 
         // Switch active band
-        function switchToBand(band) {
+        function switchToBand(band, updateUrl = true) {
             document.querySelectorAll('.band-tab').forEach(tab => {
                 tab.classList.toggle('active', tab.dataset.band === band);
             });
             document.querySelectorAll('.band-panel').forEach(panel => {
                 panel.classList.toggle('active', panel.id === `panel${band}`);
             });
+
+            // Update URL without reload
+            if (updateUrl) {
+                const url = new URL(window.location);
+                url.searchParams.set('band', band);
+                history.pushState({band}, '', url);
+            }
         }
+
+        // Get band from URL
+        function getBandFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            const band = params.get('band')?.toUpperCase();
+            return ['A', 'B', 'C', 'D'].includes(band) ? band : 'A';
+        }
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', (e) => {
+            const band = e.state?.band || getBandFromUrl();
+            switchToBand(band, false);
+        });
 
         // Render a band's books
         function renderBand(band, books) {
@@ -379,6 +399,8 @@
         });
 
         // Initialize
+        const initialBand = getBandFromUrl();
+        switchToBand(initialBand, false);
         loadBooks();
     </script>
 </body>

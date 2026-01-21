@@ -70,11 +70,11 @@ export async function loadReferenceVersions() {
             div.dataset.refPath = webPath;
             div.title = 'Click to select, double-click to view full size';
             div.innerHTML = `
+                <button class="zoom-btn" onclick="event.stopPropagation(); window._openReferenceLightbox('${webPath}')">🔍</button>
                 <img src="${webPath}" alt="${label}" onerror="this.parentElement.style.display='none'">
                 <span class="version-label">${label}</span>
             `;
             div.onclick = () => toggleMultiReference(div);
-            div.ondblclick = (e) => { e.stopPropagation(); window.open(webPath, '_blank'); };
             container.appendChild(div);
             if (isSelected) {
                 selectedReferences.push(webPath);
@@ -96,13 +96,13 @@ export async function loadReferenceVersions() {
         versions.forEach(v => {
             const div = document.createElement('div');
             div.className = `reference-version ${v.version === activeVersion ? 'active' : ''}`;
-            div.title = 'Click to select, double-click to view full size';
+            div.title = 'Click to select';
             div.innerHTML = `
+                <button class="zoom-btn" onclick="event.stopPropagation(); window._openReferenceLightbox('${v.path}')">🔍</button>
                 <img src="${v.path}" alt="Reference ${v.label}" onerror="this.parentElement.style.display='none'">
                 <span class="version-label">${v.label}${v.version === activeVersion ? ' ✓' : ''}</span>
             `;
             div.onclick = () => selectReference(v.path, v.version, div);
-            div.ondblclick = (e) => { e.stopPropagation(); window.open(v.path, '_blank'); };
             container.appendChild(div);
         });
 
@@ -170,10 +170,23 @@ export function handleReferenceUpload(event) {
 
         const div = document.createElement('div');
         div.className = 'reference-version custom active';
-        div.innerHTML = `
-            <img src="${uploadedReferenceData}" alt="Custom reference">
-            <span class="version-label">custom</span>
-        `;
+        div.dataset.imgSrc = uploadedReferenceData;
+        const zoomBtn = document.createElement('button');
+        zoomBtn.className = 'zoom-btn';
+        zoomBtn.textContent = '🔍';
+        zoomBtn.onclick = (e) => { e.stopPropagation(); openReferenceLightbox(uploadedReferenceData); };
+
+        const img = document.createElement('img');
+        img.src = uploadedReferenceData;
+        img.alt = 'Custom reference';
+
+        const label = document.createElement('span');
+        label.className = 'version-label';
+        label.textContent = 'custom';
+
+        div.appendChild(zoomBtn);
+        div.appendChild(img);
+        div.appendChild(label);
         div.onclick = () => selectReference(null, 'custom', div);
         container.insertBefore(div, uploadBtn);
 
@@ -184,3 +197,33 @@ export function handleReferenceUpload(event) {
     };
     reader.readAsDataURL(file);
 }
+
+// Lightbox functions
+export function openReferenceLightbox(imagePath) {
+    const lightbox = document.getElementById('referenceLightbox');
+    const lightboxImg = document.getElementById('lightboxImage');
+    if (lightbox && lightboxImg) {
+        lightboxImg.src = imagePath;
+        lightbox.style.display = 'flex';
+        // Close on Escape key
+        document.addEventListener('keydown', handleLightboxEscape);
+    }
+}
+
+export function closeReferenceLightbox() {
+    const lightbox = document.getElementById('referenceLightbox');
+    if (lightbox) {
+        lightbox.style.display = 'none';
+        document.removeEventListener('keydown', handleLightboxEscape);
+    }
+}
+
+function handleLightboxEscape(e) {
+    if (e.key === 'Escape') {
+        closeReferenceLightbox();
+    }
+}
+
+// Expose lightbox functions globally for onclick handlers
+window._openReferenceLightbox = openReferenceLightbox;
+window.closeReferenceLightbox = closeReferenceLightbox;

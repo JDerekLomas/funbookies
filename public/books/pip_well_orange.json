@@ -185,45 +185,10 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know",
-      "sections": {
-        "sound_it_out": [
-          "hop",
-          "got",
-          "sat",
-          "well",
-          "yell",
-          "wish",
-          "drip",
-          "drop",
-          "splash",
-          "pal"
-        ],
-        "know_by_heart": [
-          "the",
-          "said",
-          "was",
-          "to",
-          "I",
-          "a",
-          "it",
-          "is"
-        ],
-        "new_words": [
-          "well",
-          "water",
-          "echo",
-          "Pip"
-        ]
-      }
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "Pip had no pals. Pip was sad.",
@@ -232,7 +197,7 @@
       "scene": "WIDE SHOT: A small teal-green toad (Pip) sitting alone on a simple hill. Large dark eyes with blue highlights, cream belly, blue spot on left cheek. Lots of empty space around him. His expression is peaceful but wistful. Simple flat cartoon style, bold black outlines, soft blue-green palette. NO TEXT."
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "Then Pip saw a well!",
@@ -241,7 +206,7 @@
       "scene": "MEDIUM SHOT: Pip (teal-green toad, cream belly, blue cheek spot) looking alert and curious at an old stone well. The well is circular, made of weathered gray stones. Pip's head is tilted with interest. Simple grass, soft blue sky. Bold black outlines, flat colors. NO TEXT."
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "Hop, hop, hop! Pip got to the top.",
@@ -250,7 +215,7 @@
       "scene": "DYNAMIC SHOT: Pip shown hopping toward the well with motion lines. Joyful expression, legs extended mid-hop. The well is on the right side. Small dust puffs behind him. Enthusiastic energy. Bold black outlines, flat colors. NO TEXT."
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "It was big! Pip sat on the well.",
@@ -259,7 +224,7 @@
       "scene": "MEDIUM SHOT: Pip perched on the stone rim of the well, looking down into the dark opening. We see him from the side. The well drops into deep blue-black. Pip looks small against the ancient stones. Expression of wonder and slight nervousness. Bold black outlines. NO TEXT."
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "\"Hello?\" said Pip.",
@@ -268,7 +233,7 @@
       "scene": "CLOSE-UP: Pip leaning over the well edge, mouth slightly open as if speaking into it. Large curious eyes. His blue cheek spot visible. Expression is hopeful, questioning. Stone rim visible below his chin. Bold black outlines. NO TEXT."
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "\"...hello... hello... hello...\" it said!",
@@ -277,7 +242,7 @@
       "scene": "ATMOSPHERIC SHOT: Visual representation of the echo rising from the well. Concentric circles of blue-white ripples emanating from the dark center. Pip visible small at the top, head tilted in surprise. Sound waves made visible. Magical and strange. Bold black outlines. NO TEXT."
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "Did it talk? Yes! It did!",
@@ -286,7 +251,7 @@
       "scene": "CLOSE-UP on Pip's face: Expression of pure astonishment - eyes HUGE, mouth in surprised 'o'. One front foot raised in an 'oh my' gesture. His blue cheek spot prominent. Confused but delighted. Bold black outlines. NO TEXT."
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "\"I am Pip!\" Pip did yell.",
@@ -295,7 +260,7 @@
       "scene": "DYNAMIC SHOT: Pip standing UP on his back legs on the well rim, front legs raised, mouth WIDE open, yelling into the well with gusto. Eyes squeezed with effort, body leaning over. Coming out of his shell, being loud and proud. Motion lines suggest his voice going down. Bold black outlines. NO TEXT."
     },
     {
-      "page": 14,
+      "page": 13,
       "story_page": 9,
       "type": "story",
       "text": "\"...Pip... Pip... Pip...\" it said!",
@@ -304,7 +269,7 @@
       "scene": "EMOTIONAL MOMENT: Pip listening with eyes closed, soft smile. Gentle blue-white ripples frame his peaceful face. He's hearing his own name spoken back. For a lonely toad, being called by name means something. Tender, not silly. Bold black outlines. NO TEXT."
     },
     {
-      "page": 15,
+      "page": 14,
       "story_page": 10,
       "type": "story",
       "text": "Splash! Drip, drip, drop! Pip got wet!",
@@ -313,7 +278,7 @@
       "scene": "ACTION SHOT: Pip on the well rim getting splashed by water droplets rising FROM the well! Surprised delight - eyes wide, laughing grin, droplets on his face. His cream belly visible, droplets sparkling. The well is playful, greeting him. Magical and silly. Bold black outlines. NO TEXT."
     },
     {
-      "page": 16,
+      "page": 15,
       "story_page": 11,
       "type": "story",
       "text": "\"I wish I had a pal,\" said Pip.",
@@ -322,7 +287,7 @@
       "scene": "TENDER CLOSE-UP: Pip (still slightly damp) looking into the well with a softer expression. He's sharing something real - longing and hope in his large eyes. His blue cheek spot more prominent. Intimate composition - just Pip and the dark well opening. Bold black outlines. NO TEXT."
     },
     {
-      "page": 17,
+      "page": 16,
       "story_page": 12,
       "type": "story",
       "text": "\"...pal... pal... pal...\" it said!",
@@ -331,7 +296,7 @@
       "scene": "MAGICAL MOMENT: The echo rises, but the ripples form a gentle embrace-like pattern around Pip. The word feels like a promise. Pip surrounded by warm blue-white ripples curving around him protectively. Wonder on his face. Did the well just agree? Bold black outlines. NO TEXT."
     },
     {
-      "page": 18,
+      "page": 17,
       "story_page": 13,
       "type": "story",
       "text": "The well said pal! It can be a pal!",
@@ -340,7 +305,7 @@
       "scene": "PEACEFUL SHOT: Pip sitting contentedly on the well rim, bathed in soft blue light rising from the well. Relaxed posture, serene smile. The well's glow envelops him gently, like being welcomed. Sunset colors in sky. Pip has found his friend. Bold black outlines. NO TEXT."
     },
     {
-      "page": 19,
+      "page": 18,
       "story_page": 14,
       "type": "story",
       "text": "Pip had a pal at last! The well was it!",
@@ -349,22 +314,22 @@
       "scene": "JOYFUL FINAL SHOT: Pip in a happy pose on the well rim - little jump or arms raised. Big grin, bright eyes. The well glows softly beside him. Warm sunset colors. Pip waves one small foot toward the viewer, sharing his wonderful secret. Bold black outlines. NO TEXT."
     },
     {
-      "page": 20,
+      "page": 19,
       "type": "end",
       "text": "The End",
       "image_prompt": "END PAGE: Wide shot of Pip and the well silhouetted against a starry night sky. Pip sits peacefully on the rim, a small happy figure. Soft blue glow from the well. Stars twinkle. Peaceful, complete. Bold black outlines. NO TEXT.",
       "scene": "END PAGE: Wide shot of Pip and the well silhouetted against a starry night sky. Pip sits peacefully on the rim, a small happy figure. Soft blue glow from the well. Stars twinkle. Peaceful, complete. Bold black outlines. NO TEXT."
     },
     {
-      "page": 21,
+      "page": 20,
       "type": "wordsearch"
     },
     {
-      "page": 22,
+      "page": 21,
       "type": "series_info"
     },
     {
-      "page": 23,
+      "page": 22,
       "type": "back_cover",
       "text": ""
     }

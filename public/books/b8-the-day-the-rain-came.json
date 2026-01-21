@@ -184,18 +184,10 @@
     },
     {
       "page": 4,
-      "type": "level_info",
-      "text": null,
-      "scene": null
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know",
-      "scene": null
-    },
-    {
-      "page": 6,
       "type": "story",
       "story_page": 1,
       "text": "Kay had a dream. She would grow a green bean in her garden.",
@@ -210,7 +202,7 @@
       }
     },
     {
-      "page": 7,
+      "page": 6,
       "type": "story",
       "story_page": 2,
       "text": "She put the seed in the clay. \"Grow, seed, grow!\" Kay said.",
@@ -225,7 +217,7 @@
       }
     },
     {
-      "page": 8,
+      "page": 7,
       "type": "story",
       "story_page": 3,
       "text": "Kay had to wait. Day one came. The sky was gray. No rain.",
@@ -240,7 +232,7 @@
       }
     },
     {
-      "page": 9,
+      "page": 8,
       "type": "story",
       "story_page": 4,
       "text": "Day two came. The sky was still gray. Kay ran to see her seed. No green leaf yet.",
@@ -255,7 +247,7 @@
       }
     },
     {
-      "page": 10,
+      "page": 9,
       "type": "story",
       "story_page": 5,
       "text": "On the trail, Kay saw a snail. By the road, she saw a toad. But still no rain.",
@@ -270,7 +262,7 @@
       }
     },
     {
-      "page": 11,
+      "page": 10,
       "type": "story",
       "story_page": 6,
       "text": "\"Mom, will the rain come?\" Kay asked. \"Wait and see,\" said Mom. \"It will find its way.\"",
@@ -285,7 +277,7 @@
       }
     },
     {
-      "page": 12,
+      "page": 11,
       "type": "story",
       "story_page": 7,
       "text": "That night, Kay had a dream. She saw a green leaf, a bee on a pea, and rain on the sea.",
@@ -300,7 +292,7 @@
       }
     },
     {
-      "page": 13,
+      "page": 12,
       "type": "story",
       "story_page": 8,
       "text": "Kay woke up. The day was gray. She felt so sad. Would the rain stay away?",
@@ -315,7 +307,7 @@
       }
     },
     {
-      "page": 14,
+      "page": 13,
       "type": "story",
       "story_page": 9,
       "text": "But Kay had an idea! She got her pail. \"I will not wait. I will help my seed!\"",
@@ -330,7 +322,7 @@
       }
     },
     {
-      "page": 15,
+      "page": 14,
       "type": "story",
       "story_page": 10,
       "text": "Then\u2014drip, drop! Rain! Kay put on her coat and ran to the road. \"The rain came! The rain came!\"",
@@ -345,7 +337,7 @@
       }
     },
     {
-      "page": 16,
+      "page": 15,
       "type": "story",
       "story_page": 11,
       "text": "The rain fell on the trail. It fell on the snail. It fell on Kay's garden.",
@@ -360,7 +352,7 @@
       }
     },
     {
-      "page": 17,
+      "page": 16,
       "type": "story",
       "story_page": 12,
       "text": "Days went by. Kay went to see her garden. And there it was\u2014a tiny green leaf!",
@@ -375,7 +367,7 @@
       }
     },
     {
-      "page": 18,
+      "page": 17,
       "type": "story",
       "story_page": 13,
       "text": "Kay's dream came true. She sat by her leaf and smiled. Good things need time.",
@@ -390,7 +382,7 @@
       }
     },
     {
-      "page": 19,
+      "page": 18,
       "type": "end",
       "text": "The End",
       "scene": "Kay waving goodbye, her small green plant visible beside her. Sunny day, garden in bloom. Warm, satisfied ending.",
@@ -404,7 +396,7 @@
       }
     },
     {
-      "page": 20,
+      "page": 19,
       "type": "back_cover",
       "text": "Kay planted a seed and waited for rain. Would her dream of a green garden come true?",
       "scene": "Simple illustration of a seed, raindrops, and a green leaf in sequence. Soft watercolor style.",

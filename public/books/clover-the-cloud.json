@@ -152,15 +152,10 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "Clover is a little cloud. She sits in the sun.",
@@ -168,7 +163,7 @@
       "shot_type": "medium"
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "BOOM! The big clouds got loud. Clover hid!",
@@ -176,7 +171,7 @@
       "shot_type": "wide"
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "Clover did not run to the storm. She was sad.",
@@ -184,7 +179,7 @@
       "shot_type": "medium"
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "Gus the Gust ran up. \"The boom is fun!\" he said.",
@@ -192,7 +187,7 @@
       "shot_type": "close"
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "Clover did not get it. \"Boom is too loud!\"",
@@ -200,7 +195,7 @@
       "shot_type": "close"
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "Gus and Clover sat on a hill. They saw the ground.",
@@ -208,7 +203,7 @@
       "shot_type": "wide"
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "The flowers on the ground! They were sad. They had no rain.",
@@ -216,7 +211,7 @@
       "shot_type": "close"
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "Clover got sad. \"I can help! But the boom...\"",
@@ -224,7 +219,7 @@
       "shot_type": "medium"
     },
     {
-      "page": 14,
+      "page": 13,
       "story_page": 9,
       "type": "story",
       "text": "Clover ran to the storm. She was not little now!",
@@ -232,7 +227,7 @@
       "shot_type": "wide"
     },
     {
-      "page": 15,
+      "page": 14,
       "story_page": 10,
       "type": "story",
       "text": "BOOM! Clover hid her eyes. It was SO loud!",
@@ -240,7 +235,7 @@
       "shot_type": "close"
     },
     {
-      "page": 16,
+      "page": 15,
       "story_page": 11,
       "type": "story",
       "text": "But then\u2014Clover felt it! Her rain fell down, down, down.",
@@ -248,7 +243,7 @@
       "shot_type": "medium"
     },
     {
-      "page": 17,
+      "page": 16,
       "story_page": 12,
       "type": "story",
       "text": "The flowers got wet! They got big! They grew and grew!",
@@ -256,7 +251,7 @@
       "shot_type": "wide"
     },
     {
-      "page": 18,
+      "page": 17,
       "story_page": 13,
       "type": "story",
       "text": "BOOM! Clover did not run. The boom was like a clap!",
@@ -264,7 +259,7 @@
       "shot_type": "medium"
     },
     {
-      "page": 19,
+      "page": 18,
       "story_page": 14,
       "type": "story",
       "text": "Now Clover loves the storm! Her rain helps flowers grow!",
@@ -272,22 +267,22 @@
       "shot_type": "wide"
     },
     {
-      "page": 20,
+      "page": 19,
       "type": "end",
       "text": "The End",
       "scene": "Clover resting peacefully after the storm, a gentle smile on her face. The sky is clearing to beautiful sunset colors. Below, the garden of flowers sways happily. A faint rainbow in the background. Peaceful, satisfied, complete.",
       "shot_type": "wide"
     },
     {
-      "page": 21,
+      "page": 20,
       "type": "wordsearch"
     },
     {
-      "page": 22,
+      "page": 21,
       "type": "series_info"
     },
     {
-      "page": 23,
+      "page": 22,
       "type": "back_cover",
       "text": "Clover is a little cloud who is afraid of thunder. Can she learn that storms help flowers grow?"
     }

@@ -164,15 +164,10 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "The fireflies lit up the night. Glow, glow, glow!",
@@ -188,7 +183,7 @@
       }
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "But Flicker was dim. Her glow was not big.",
@@ -204,7 +199,7 @@
       }
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "Flicker hid. She sat in the grass.",
@@ -220,7 +215,7 @@
       }
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "\"Help! Help!\" It was a little moth. She was lost!",
@@ -236,7 +231,7 @@
       }
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "The moth was sad. \"I can not see! It is too dim!\"",
@@ -252,7 +247,7 @@
       }
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "Flicker saw her. \"I can help! But my glow...\"",
@@ -268,7 +263,7 @@
       }
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "Flicker got up. Her little light lit up!",
@@ -284,7 +279,7 @@
       }
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "\"Follow me, Dot!\" Flicker led the way.",
@@ -300,7 +295,7 @@
       }
     },
     {
-      "page": 14,
+      "page": 13,
       "story_page": 9,
       "type": "story",
       "text": "Bit by bit, they got to the log. Dot was home!",
@@ -316,7 +311,7 @@
       }
     },
     {
-      "page": 15,
+      "page": 14,
       "story_page": 10,
       "type": "story",
       "text": "Dot hugged Flicker. \"You did it! Your light was just right!\"",
@@ -332,7 +327,7 @@
       }
     },
     {
-      "page": 16,
+      "page": 15,
       "story_page": 11,
       "type": "story",
       "text": "Flicker got it. She was not too dim. She was just right!",
@@ -348,7 +343,7 @@
       }
     },
     {
-      "page": 17,
+      "page": 16,
       "story_page": 12,
       "type": "story",
       "text": "Now Flicker glows with the rest. She does not hid!",
@@ -364,7 +359,7 @@
       }
     },
     {
-      "page": 18,
+      "page": 17,
       "type": "end",
       "text": "The End",
       "scene": "Small firefly in night sky with other fireflies. Gray moth waving from log home below. Meadow, forest edge, starry sky. Peaceful. Watercolor.",
@@ -379,15 +374,15 @@
       }
     },
     {
-      "page": 19,
+      "page": 18,
       "type": "wordsearch"
     },
     {
-      "page": 20,
+      "page": 19,
       "type": "series_info"
     },
     {
-      "page": 21,
+      "page": 20,
       "type": "back_cover",
       "text": "Flicker thinks her light is too dim. But when a lost moth needs help, Flicker discovers that even the smallest glow can guide someone home."
     }

@@ -5,7 +5,18 @@
   "level": "B2",
   "band": "B",
   "targetPhonics": "CVC short o, u, e",
-  "wordFamilies": ["-ot", "-op", "-un", "-up", "-ug", "-ut", "-ud", "-ip", "-ig", "-in"],
+  "wordFamilies": [
+    "-ot",
+    "-op",
+    "-un",
+    "-up",
+    "-ug",
+    "-ut",
+    "-ud",
+    "-ip",
+    "-ig",
+    "-in"
+  ],
   "skill": "CVC Short o, u, e (All 5 short vowels)",
   "skill_description": "Practice reading CVC words with all five short vowels, with 'tractor' and 'airplane' as high-interest heart words.",
   "age_range": "K-1",
@@ -18,9 +29,69 @@
   },
   "setting_context": "Rural Estonia: traditional wooden farmhouses with steep shingled roofs, golden barley fields, birch forests in the distance, old red tractors common in the countryside",
   "word_list": {
-    "sound_out": ["sits", "hot", "sun", "red", "digs", "mud", "shuts", "rum", "tugs", "big", "log", "legs", "not", "quit", "hum", "up", "zips", "grins", "zip", "tips", "dips", "hills", "fast", "pop", "runs", "but"],
-    "sight": ["a", "I", "the", "is", "in", "if", "could", "only", "be", "she", "her", "eyes", "and", "from", "by", "close", "small", "free", "part", "of", "still"],
-    "heart": ["tractor", "airplane", "clouds", "dinner", "belly", "strong", "loud", "open", "left", "right"]
+    "sound_out": [
+      "sits",
+      "hot",
+      "sun",
+      "red",
+      "digs",
+      "mud",
+      "shuts",
+      "rum",
+      "tugs",
+      "big",
+      "log",
+      "legs",
+      "not",
+      "quit",
+      "hum",
+      "up",
+      "zips",
+      "grins",
+      "zip",
+      "tips",
+      "dips",
+      "hills",
+      "fast",
+      "pop",
+      "runs",
+      "but"
+    ],
+    "sight": [
+      "a",
+      "I",
+      "the",
+      "is",
+      "in",
+      "if",
+      "could",
+      "only",
+      "be",
+      "she",
+      "her",
+      "eyes",
+      "and",
+      "from",
+      "by",
+      "close",
+      "small",
+      "free",
+      "part",
+      "of",
+      "still"
+    ],
+    "heart": [
+      "tractor",
+      "airplane",
+      "clouds",
+      "dinner",
+      "belly",
+      "strong",
+      "loud",
+      "open",
+      "left",
+      "right"
+    ]
   },
   "story_elements": {
     "airplane": 5,
@@ -28,8 +99,32 @@
     "clouds": 8,
     "farmhouse": 9
   },
-  "sightWordsUsed": ["a", "I", "the", "is", "in", "if", "could", "only", "be", "she", "her", "and", "from", "by"],
-  "wordsearch_words": ["tractor", "airplane", "mud", "sun", "fast", "big", "red", "up"],
+  "sightWordsUsed": [
+    "a",
+    "I",
+    "the",
+    "is",
+    "in",
+    "if",
+    "could",
+    "only",
+    "be",
+    "she",
+    "her",
+    "and",
+    "from",
+    "by"
+  ],
+  "wordsearch_words": [
+    "tractor",
+    "airplane",
+    "mud",
+    "sun",
+    "fast",
+    "big",
+    "red",
+    "up"
+  ],
   "pages": [
     {
       "page": 1,
@@ -47,99 +142,94 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "Tiia sits in the hot sun.\nA red tractor digs in the mud.",
       "scene": "Single scene illustration: Tiia, a small blonde girl (5-6) with wispy hair in blue overalls, sits cross-legged in tall golden barley. Bright summer sun overhead. In the field behind her, an old red tractor with large wheels digs through dark brown muddy soil. Estonian countryside with birch trees at the edge of the field. Warm watercolor style."
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "\"If I could only be a red tractor!\"\nTiia shuts her eyes.",
       "scene": "Single scene illustration: Close-up of Tiia, a small blonde girl (5-6) with wispy hair in blue overalls. Her eyes are squeezed shut, a big hopeful smile on her face. Golden sunlight glows on her hair. The red tractor is visible but blurred in the background field. Warm watercolor style."
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "RUM, RUM, RUM!\nShe tugs a big log.",
       "scene": "Single scene illustration: Fantasy scene - a cheerful red tractor with Tiia's smiling blonde face as its front grille, big blue eyes on the hood. The tractor-Tiia pulls a heavy log through muddy field. Her face shows effort and determination. Surreal children's book fantasy style. Golden field, birch trees. Warm watercolor style."
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "She is strong! She is loud!\nMud on her legs. Mud on her belly.",
       "scene": "Single scene illustration: Fantasy scene - a red tractor with Tiia's joyful face as its front grille, splashing through deep mud. Mud flies everywhere on the tractor's wheels and body. Her face shows pure joy and laughter - she feels strong and loud! Surreal children's book fantasy. Golden field. Warm watercolor style."
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "She does not quit.\nA hum comes from up, up, up.\nAn airplane zips by!",
       "scene": "Single scene illustration: Fantasy scene showing the red tractor with Tiia's face in the cab window, stopped in the muddy field, looking upward at the sky. A small white airplane with a single propeller flies overhead, leaving a faint white trail against the blue sky. Her expression shows wonder and longing. Warm watercolor style."
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "\"If I could only be an airplane!\"\nTiia grins. ZIP! She is UP!",
       "scene": "Single scene illustration: Fantasy transformation - Tiia's body becomes an airplane, her arms stretched out as wings, her smiling face as the nose. She lifts off from the golden field into blue sky. Hair streaming behind. Pure joy. Surreal children's book fantasy. Warm watercolor style."
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "She tips left. She dips right.\nThe sun is close. The hills are small.",
       "scene": "Single scene illustration: Tiia, a small blonde girl (5-6) in blue overalls, running through the golden barley field with arms stretched wide like airplane wings. She tilts left then right, banking like a plane. Delighted expression. The golden sun is warm and close. The distant hills look small from her imaginary height. Motion blur shows speed. Warm watercolor style."
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "She is fast. She is free.\n\"Tiia! Dinner!\"",
       "scene": "Single scene illustration: Fantasy scene - Tiia merged with a small airplane, her smiling face as the nose, arms as wings, soaring through fluffy clouds. Golden sunset light. She feels fast and free. Far below, a tiny farmhouse. Peaceful expression. Surreal children's book fantasy. Warm watercolor style."
     },
     {
-      "page": 14,
+      "page": 13,
       "story_page": 9,
       "type": "story",
       "text": "Her eyes pop open.\nShe runs in.",
       "scene": "Single scene illustration: Back to reality showing Tiia, a small blonde girl (5-6) in blue overalls, jumping up from the golden barley field with surprised wide eyes. She runs toward a traditional Estonian wooden farmhouse with a steep shingled roof. Warm evening golden-hour light. Dust kicks up behind her feet. Warm watercolor style."
     },
     {
-      "page": 15,
+      "page": 14,
       "story_page": 10,
       "type": "story",
       "text": "But part of her?\nStill up in the clouds.",
       "scene": "Single scene illustration: Tiia, a small blonde girl (5-6) in blue overalls, sits at a simple wooden dinner table inside a cozy Estonian farmhouse. She gazes dreamily out the window at the evening sky where the first stars appear. A small toy red tractor and a toy airplane sit on the table beside her plate. Warm lamplight inside, blue twilight outside. Wistful, peaceful expression. Warm watercolor style."
     },
     {
-      "page": 16,
+      "page": 15,
       "type": "end",
       "text": "The End",
       "scene": "Single scene illustration: Tiia, a small blonde girl (5-6) in blue overalls, asleep in a cozy bed. Through the window, stars twinkle in the night sky. On her nightstand, the toy red tractor and toy airplane. A peaceful smile on her sleeping face, still dreaming. Warm watercolor style."
     },
     {
-      "page": 17,
+      "page": 16,
       "type": "wordsearch"
     },
     {
-      "page": 18,
+      "page": 17,
       "type": "series_info"
     },
     {
-      "page": 19,
+      "page": 18,
       "type": "back_cover",
       "text": ""
     }
@@ -150,7 +240,10 @@
     "wordCount": 95,
     "decodabilityTarget": "85%+",
     "storyPages": 10,
-    "heartWords": ["tractor", "airplane"]
+    "heartWords": [
+      "tractor",
+      "airplane"
+    ]
   },
   "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's book illustration\n\nFOCUS: Character design, setting elements, and color palette. NOT story scenes.\nIMPORTANT: Character in CENTER PANEL for maximum style influence.\n\nRow 1 - OBJECTS AND CHARACTER INTRO:\n[1] Red tractor: Old-style bright red farm tractor with large black wheels, friendly rounded shape, slightly worn and well-used look\n[2] Tiia expressions: Small blonde girl (5-6) showing three small face portraits - eyes closed peaceful smile, wide-eyed wonder, joyful laughing\n[3] Small airplane: White single-propeller airplane in corner, simple friendly design, small size\n\nRow 2 - CHARACTER FOCUS (center):\n[4] Tiia standing: Small blonde girl (5-6), wispy light blonde hair, blue denim overalls over cream shirt, friendly round face, standing in golden grass\n[5] TIIA FULL FIGURE (CENTER): Same blonde girl in blue overalls, running joyfully through golden barley field, hair flowing, biggest and most detailed panel\n[6] Tiia dreaming: Same girl sitting with eyes closed, peaceful smile, hands in lap, soft afternoon light on her face\n\nRow 3 - ESTONIAN SETTING:\n[7] Farmhouse: Traditional Estonian wooden farmhouse with steep shingled roof, weathered gray-brown wood, surrounded by golden barley\n[8] Countryside: Estonian rural landscape - golden barley fields, birch forest with white trunks, blue sky\n[9] Cozy interior: Simple farmhouse interior - wooden table, warm lamplight, window showing twilight sky\n\nSTYLE: Warm soft watercolor illustration. Muted earthy palette: sage green, terracotta, warm cream, soft gold, dusty blue. Soft painterly edges, no hard outlines. Gentle natural lighting. Friendly rounded shapes.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure visual reference only.",
   "parent_tips": {

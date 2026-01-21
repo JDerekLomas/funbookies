@@ -157,15 +157,10 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "**Sail Day**\nWait... wait... wait...",
@@ -181,7 +176,7 @@
       }
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "The bay is slow and gray.",
@@ -197,7 +192,7 @@
       }
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "Then\u2014\nWind wakes!",
@@ -213,7 +208,7 @@
       }
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "My sail grows fat with air,\npulls the boat ahead",
@@ -229,7 +224,7 @@
       }
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "through water that goes\n*swish... swish... swish...*",
@@ -245,7 +240,7 @@
       }
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "The chain clinks on the rail.",
@@ -261,7 +256,7 @@
       }
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "Waves tap the bow like rain\non glass.",
@@ -277,7 +272,7 @@
       }
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "Salt spray kisses my cheek.",
@@ -293,7 +288,7 @@
       }
     },
     {
-      "page": 14,
+      "page": 13,
       "story_page": 9,
       "type": "story",
       "text": "Sail full, sail proud,\nlike a sheet on the line\u2014",
@@ -309,7 +304,7 @@
       }
     },
     {
-      "page": 15,
+      "page": 14,
       "story_page": 10,
       "type": "story",
       "text": "wind fills it up,\npushes me ahead.",
@@ -325,7 +320,7 @@
       }
     },
     {
-      "page": 16,
+      "page": 15,
       "story_page": 11,
       "type": "story",
       "text": "The boat cuts a trail\nthrough the green bay.",
@@ -341,7 +336,7 @@
       }
     },
     {
-      "page": 17,
+      "page": 16,
       "story_page": 12,
       "type": "story",
       "text": "Wind sings low and sweet.",
@@ -357,7 +352,7 @@
       }
     },
     {
-      "page": 18,
+      "page": 17,
       "story_page": 13,
       "type": "story",
       "text": "I float past the coast,\npast the beach,",
@@ -373,7 +368,7 @@
       }
     },
     {
-      "page": 19,
+      "page": 18,
       "story_page": 14,
       "type": "story",
       "text": "while my white sail\ntakes me far.",
@@ -389,7 +384,7 @@
       }
     },
     {
-      "page": 20,
+      "page": 19,
       "story_page": 15,
       "type": "story",
       "text": "*Swish... swish... swish...*\nThe bay breathes slow.",
@@ -405,20 +400,20 @@
       }
     },
     {
-      "page": 21,
+      "page": 20,
       "type": "end",
       "text": "The End"
     },
     {
-      "page": 22,
+      "page": 21,
       "type": "wordsearch"
     },
     {
-      "page": 23,
+      "page": 22,
       "type": "series_info"
     },
     {
-      "page": 24,
+      "page": 23,
       "type": "back_cover",
       "text": ""
     }

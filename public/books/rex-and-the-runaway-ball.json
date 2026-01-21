@@ -167,15 +167,10 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "Rex the pup loved to play in the meadow. His pal Rosie hopped by to join him.",
@@ -192,7 +187,7 @@
       "image_prompt": "Generate an image using the style of image 1.\n\nGolden fluffy puppy and white rabbit playing together in sunny meadow, bright red ball on grass nearby. Both smiling, happy. Green grass, yellow wildflowers, warm sunshine, blue sky with fluffy clouds. Wide shot showing meadow setting.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall fluffy golden puppy with floppy ears, big brown eyes, black nose, wagging tail\nsmall white rabbit with pink inner ears, bright pink nose, fluffy cotton tail\n\nSTYLE: Warm, cheerful watercolor illustration style. Golden yellows and warm greens for sunny outdoor scenes. Dark blues and grays for tunnel scenes with a spot of red (the ball) as focal point. Friendly, rounded character designs with expressive faces. Soft edges, gentle lighting.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "Rex had a red ball. He loved his ball! Boing, boing, boing!",
@@ -208,7 +203,7 @@
       }
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "One big boing! The ball went up, up, up... and then it rolled away!",
@@ -224,7 +219,7 @@
       }
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "The ball rolled into a dark tunnel. Rex ran to look. It was so dark!",
@@ -240,7 +235,7 @@
       }
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "\"I can not go in. It is too dark!\" said Rex. He was scared.",
@@ -257,7 +252,7 @@
       "image_prompt": "Generate an image using the style of image 1.\n\nClose-up of golden puppy's face showing fear. Eyes wide with worry, eyebrows raised, ears flattened back, mouth slightly open in worried expression. Dark tunnel entrance visible behind him - completely black inside, ball NOT visible (too dark to see). Puppy looking toward viewer with scared expression.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall fluffy golden puppy with floppy ears, big brown eyes, black nose, wagging tail\nsmall white rabbit with pink inner ears, bright pink nose, fluffy cotton tail\n\nSTYLE: Warm, cheerful watercolor illustration style. Golden yellows and warm greens for sunny outdoor scenes. Dark blues and grays for tunnel scenes with a spot of red (the ball) as focal point. Friendly, rounded character designs with expressive faces. Soft edges, gentle lighting.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "Rosie hopped over. \"You can do it, Rex! You are brave!\" she said.",
@@ -274,7 +269,7 @@
       "image_prompt": "Generate an image using the style of image 1.\n\nWhite rabbit standing next to golden puppy near tunnel entrance. Dark tunnel behind them - completely black inside, ball NOT visible (too dark to see). Rabbit has encouraging expression - eyes bright, slight smile. Rabbit's paw reaching toward puppy supportively. Puppy looking at rabbit with uncertain but hopeful expression.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nsmall fluffy golden puppy with floppy ears, big brown eyes, black nose, wagging tail\nsmall white rabbit with pink inner ears, bright pink nose, fluffy cotton tail\n\nSTYLE: Warm, cheerful watercolor illustration style. Golden yellows and warm greens for sunny outdoor scenes. Dark blues and grays for tunnel scenes with a spot of red (the ball) as focal point. Friendly, rounded character designs with expressive faces. Soft edges, gentle lighting.\n\nIMPORTANT: NO TEXT, NO WORDS, NO LETTERS in the image. Visual storytelling only."
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "Rex took a big breath. He walked into the dark tunnel. Step, step, step.",
@@ -290,7 +285,7 @@
       }
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "It was dark and cold. But Rex kept going. He saw his red ball!",
@@ -306,7 +301,7 @@
       }
     },
     {
-      "page": 14,
+      "page": 13,
       "story_page": 9,
       "type": "story",
       "text": "Rex got the ball! He ran back out into the sun. \"I did it!\"",
@@ -322,7 +317,7 @@
       }
     },
     {
-      "page": 15,
+      "page": 14,
       "story_page": 10,
       "type": "story",
       "text": "\"You are so brave!\" said Rosie. Rex wagged his tail. He felt big and brave!",
@@ -338,7 +333,7 @@
       }
     },
     {
-      "page": 16,
+      "page": 15,
       "type": "end",
       "text": "The End",
       "scene": "Golden puppy and white rabbit sitting together watching sunset over meadow, red ball between them. Warm orange and pink sky. Peaceful, happy ending. Friends together.",
@@ -353,15 +348,15 @@
       }
     },
     {
-      "page": 17,
+      "page": 16,
       "type": "wordsearch"
     },
     {
-      "page": 18,
+      "page": 17,
       "type": "series_info"
     },
     {
-      "page": 19,
+      "page": 18,
       "type": "back_cover",
       "text": "Rex loves his red ball. But when it rolls into a dark scary tunnel, can Rex be brave enough to get it back?"
     }

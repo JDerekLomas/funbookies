@@ -88,95 +88,90 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "The cat is here.",
       "scene": "A cat standing in a room, looking at the viewer."
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "I see the cat.",
       "scene": "A child pointing at the cat with delight."
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "The cat sat.",
       "scene": "The cat sitting down on the floor."
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "It sat on a mat.",
       "scene": "The cat sitting on a colorful mat."
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "The cat ran to me.",
       "scene": "The cat running toward a child."
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "I see a hat.",
       "scene": "A child looking at a hat on a table."
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "The cat ran to it.",
       "scene": "The cat running toward the hat."
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "The cat sat on it.",
       "scene": "The cat sitting on top of the hat."
     },
     {
-      "page": 14,
+      "page": 13,
       "story_page": 9,
       "type": "story",
       "text": "The cat is here!",
       "scene": "A child laughing at the cat on the hat."
     },
     {
-      "page": 15,
+      "page": 14,
       "story_page": 10,
       "type": "story",
       "text": "I see the cat!",
       "scene": "A child hugging the cat happily."
     },
     {
-      "page": 16,
+      "page": 15,
       "type": "end",
       "text": "The End",
       "scene": "A child and cat cuddled together on the mat."
     },
     {
-      "page": 17,
+      "page": 16,
       "type": "wordsearch"
     },
     {
-      "page": 18,
+      "page": 17,
       "type": "back_cover",
       "text": ""
     }

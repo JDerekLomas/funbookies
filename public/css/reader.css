@@ -252,6 +252,131 @@
             padding: 4px 8px;
         }
 
+        /* Combined Level + Wordlist page */
+        .page-level-wordlist {
+            position: absolute;
+            top: var(--page-margin);
+            left: var(--page-margin);
+            right: var(--page-margin);
+            bottom: var(--page-margin);
+            background: var(--color-sage-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px 24px;
+            gap: 12px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .page-level-wordlist .level-header-compact {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .page-level-wordlist .level-badge {
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            margin-bottom: 0;
+        }
+
+        .page-level-wordlist .skill-compact {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--color-white);
+            padding: 6px 12px;
+            border-radius: 16px;
+        }
+
+        .page-level-wordlist .skill-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-sage);
+        }
+
+        .page-level-wordlist .skill-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-charcoal);
+        }
+
+        .page-level-wordlist .wordlist-combined {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            flex: 1;
+            overflow: auto;
+        }
+
+        .page-level-wordlist .wordlist-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--color-soft-black);
+            margin-bottom: 4px;
+        }
+
+        .page-level-wordlist .wordlist-section {
+            background: var(--color-white);
+            padding: 8px 12px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .page-level-wordlist .wordlist-section h4 {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+            font-weight: 700;
+            color: var(--color-sage);
+        }
+
+        .page-level-wordlist .wordlist-section .words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .page-level-wordlist .word-box {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-charcoal);
+            background: var(--color-sage-light);
+            padding: 4px 8px;
+            border-radius: 5px;
+        }
+
+        .page-level-wordlist .word-box.heart {
+            background: #FFEBEE;
+            color: #D32F2F;
+        }
+
+        .page-level-wordlist .wordlist-section.compact .word-box {
+            font-size: 0.85rem;
+            padding: 3px 6px;
+        }
+
+        .page-level-wordlist .ready-text-compact {
+            font-size: 0.8rem;
+            color: var(--color-charcoal);
+            text-align: center;
+            padding-top: 8px;
+        }
+
+        .page-level-wordlist .ready-text-compact strong {
+            color: var(--color-terracotta);
+        }
+
         /* Copyright page with print-safe margins */
         .page-copyright {
             position: absolute;

@@ -93,15 +93,10 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "Jane likes to bake a cake.\nShe asks, \"Mom, can we bake?\"",
@@ -109,7 +104,7 @@
       "image_prompt": "Full detailed prompt for image generation: Medium shot: Jane, a girl (5-6) with bright red pigtails and a yellow sundress, looks up with eager eyes at her Mom in a sunny yellow kitchen; Mom is a woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, looking down at Jane with a smile. Jane gestures with her hands as if asking a question. They are standing near a kitchen counter. The kitchen is bright yellow with sunshine streaming in through a window above the sink. A mixing bowl and a few utensils are visible on the counter. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "Mom said, \"Yes, Jane, we can.\nIt will be the best cake!\"",
@@ -117,7 +112,7 @@
       "image_prompt": "Full detailed prompt for image generation: Medium shot: Mom, woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, kneels down so she's eye-level with Jane, a girl (5-6) with bright red pigtails and a yellow sundress. Mom smiles warmly at Jane and gestures with both hands as she speaks. The sunny yellow kitchen with sunshine streaming in through a window above the sink is visible behind them. A mixing bowl and a few utensils are visible on the counter. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "Jane gets the big bowl.\nShe puts it on the table.",
@@ -125,7 +120,7 @@
       "image_prompt": "Full detailed prompt for image generation: Medium shot: Jane, a girl (5-6) with bright red pigtails and a yellow sundress, drags a large, bright blue mixing bowl towards herself on a wooden kitchen table. She is focused and determined. The table is in the sunny yellow kitchen with sunshine streaming in through a window above the sink. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "Mom gets the milk and eggs.\nShe sets them on the table.",
@@ -133,15 +128,15 @@
       "image_prompt": "Full detailed prompt for image generation: Medium shot: Mom, a woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, carries a carton of milk and a bowl filled with three brown eggs. She sets them gently onto the wooden kitchen table. The sunny yellow kitchen with sunshine streaming in through a window above the sink is visible behind her. The blue mixing bowl is also on the table. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
-      "text": "“We bake the cake with care,\" said Mom.\n\"Jane, can you get the flour?\"",
+      "text": "\u201cWe bake the cake with care,\" said Mom.\n\"Jane, can you get the flour?\"",
       "scene": "Medium shot: Mom, a woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, looks towards Jane, a girl (5-6) with bright red pigtails and a yellow sundress, with a knowing smile and one hand on her hip. Jane looks up at Mom, listening intently. The wooden kitchen table and sunny yellow kitchen are in the background. One cohesive illustration filling the entire canvas. Warm, friendly children's book illustration with bold shapes and bright colors. NO TEXT anywhere in image.",
       "image_prompt": "Full detailed prompt for image generation: Medium shot: Mom, a woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, looks towards Jane, a girl (5-6) with bright red pigtails and a yellow sundress, with a knowing smile and one hand on her hip. Jane looks up at Mom, listening intently. The wooden kitchen table with a blue mixing bowl, a carton of milk, and a bowl of eggs are in the background in the sunny yellow kitchen. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "Jane gets the big bag of flour.\nShe adds it to the bowl.",
@@ -149,7 +144,7 @@
       "image_prompt": "Full detailed prompt for image generation: Medium shot: Jane, a girl (5-6) with bright red pigtails and a yellow sundress, struggles to lift a large bag of white flour labeled \"Flour\" in simple, bold letters (stylized, illustration-style, not readable text). She tips the bag, and flour spills into the bright blue mixing bowl on the wooden table. The sunny yellow kitchen with sunshine streaming in through a window above the sink is visible in the background. Mom, a woman with warm brown hair, is watching nearby. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "Mom adds two eggs to the mix.\nJane adds the milk from the bowl.",
@@ -157,7 +152,7 @@
       "image_prompt": "Full detailed prompt for image generation: Medium shot: Mom, a woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, gently cracks two eggs into the blue mixing bowl. Beside her, Jane, a girl (5-6) with bright red pigtails and a yellow sundress, carefully pours milk from the carton into the mixing bowl. Flour is already in the bowl. The wooden kitchen table and sunny yellow kitchen with sunshine streaming in through a window above the sink are visible. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "\"Now we blend,\" said Jane's mom.\n\"Blend, blend, blend, goes the mix!\"",
@@ -165,7 +160,7 @@
       "image_prompt": "Full detailed prompt for image generation: Close-up: Jane's mom, a woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, holds a hand mixer over the blue mixing bowl and smiles warmly. The mixer is on and the cake mix inside the bowl is slightly blurred, showing it's being mixed. Bits of flour are on her cheek. Sunny yellow kitchen with sunshine streaming in through a window above the sink background. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 14,
+      "page": 13,
       "story_page": 9,
       "type": "story",
       "text": "Jane blends. The mix is lumpy.\nOh no! The mix is a mess!",
@@ -173,15 +168,15 @@
       "image_prompt": "Full detailed prompt for image generation: Close-up: Jane, a girl (5-6) with bright red pigtails and a yellow sundress, uses the hand mixer to blend the cake mix, but the mix is lumpy and some spatters on her face. She frowns slightly and looks concerned. The blue mixing bowl filled with a lumpy cake mixture sits on the wooden kitchen table, with the sunny yellow kitchen with sunshine streaming in through a window above the sink behind. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 15,
+      "page": 14,
       "story_page": 10,
       "type": "story",
-      "text": "Mom said, “We can fix this.”\nShe adds a bit more milk.",
+      "text": "Mom said, \u201cWe can fix this.\u201d\nShe adds a bit more milk.",
       "scene": "Medium shot: Mom, a woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, pours a small amount of milk from the carton into the blue mixing bowl. Jane, a girl (5-6) with bright red pigtails and a yellow sundress, watches her carefully. The wooden kitchen table is in the sunny yellow kitchen. One cohesive illustration filling the entire canvas. Warm, friendly children's book illustration with bold shapes and bright colors. NO TEXT anywhere in image.",
       "image_prompt": "Full detailed prompt for image generation: Medium shot: Mom, a woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, pours a small amount of milk from the carton into the blue mixing bowl. Jane, a girl (5-6) with bright red pigtails and a yellow sundress, watches her carefully, with a slightly worried expression. The lumpy cake mixture is visible in the bowl. The wooden kitchen table is in the sunny yellow kitchen with sunshine streaming in through a window above the sink. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 16,
+      "page": 15,
       "story_page": 11,
       "type": "story",
       "text": "Now the cake mix is not lumpy!\nJane and Mom smile. It is good.",
@@ -189,7 +184,7 @@
       "image_prompt": "Full detailed prompt for image generation: Close-up: Jane, a girl (5-6) with bright red pigtails and a yellow sundress, and her mom, a woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, smile at each other over the blue mixing bowl. The cake mix in the bowl is now smooth and creamy. A hand mixer rests on the side of the bowl. The sunny yellow kitchen with sunshine streaming in through a window above the sink is in soft focus in the background. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 17,
+      "page": 16,
       "story_page": 12,
       "type": "story",
       "text": "Mom puts the cake in the oven.\n\"We bake it for a long time.\"",
@@ -197,7 +192,7 @@
       "image_prompt": "Full detailed prompt for image generation: Medium shot: Mom, a woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, carefully places a cake pan filled with cake mix into a warm oven. The oven light is on, and the interior is glowing. Jane, a girl (5-6) with bright red pigtails and a yellow sundress, watches with anticipation, holding her hands together. The wooden kitchen table and sunny yellow kitchen with sunshine streaming in through a window above the sink are around them. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 18,
+      "page": 17,
       "story_page": 13,
       "type": "story",
       "text": "The cake bakes. It smells good.\nJane likes the smell of cake.",
@@ -205,7 +200,7 @@
       "image_prompt": "Full detailed prompt for image generation: Wide shot: Jane, a girl (5-6) with bright red pigtails and a yellow sundress, sits at the wooden kitchen table, resting her chin on her hands and looking towards the oven with a dreamy expression. Sunlight streams through the window in the sunny yellow kitchen with sunshine streaming in through a window above the sink. A wisp of steam comes from the oven, and a warm, inviting glow emanates from it. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 19,
+      "page": 18,
       "story_page": 14,
       "type": "story",
       "text": "The cake is done! Mom gets it.\nShe lets the cake cool.",
@@ -213,7 +208,7 @@
       "image_prompt": "Full detailed prompt for image generation: Medium shot: Mom, a woman (30s) with warm brown hair pulled back in a ponytail, wearing blue oven mitts, pulls a golden-brown cake from the oven. A small cloud of steam rises from the cake. Jane, a girl (5-6) with bright red pigtails and a yellow sundress, stands nearby, watching with excitement and clapping her hands. The sunny yellow kitchen with sunshine streaming in through a window above the sink is visible. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 20,
+      "page": 19,
       "story_page": 15,
       "type": "story",
       "text": "Jane helps Mom ice the cake.\nIt is the best cake ever!",
@@ -221,7 +216,7 @@
       "image_prompt": "Full detailed prompt for image generation: Medium shot: Jane, a girl (5-6) with bright red pigtails and a yellow sundress, carefully spreads white icing on a cooled cake with a spatula. Mom, a woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, smiles and guides her hand. The cake is on a plate on the wooden kitchen table, with the sunny yellow kitchen with sunshine streaming in through a window above the sink in the background. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 21,
+      "page": 20,
       "story_page": 16,
       "type": "story",
       "text": "Jane and Mom ate the cake.\nThey like to bake. It is bliss!",
@@ -229,20 +224,20 @@
       "image_prompt": "Full detailed prompt for image generation: Medium shot: Jane, a girl (5-6) with bright red pigtails and a yellow sundress, and Mom, a woman (30s) with warm brown hair pulled back in a ponytail, wearing a blue apron, sit at the wooden kitchen table, each holding a slice of cake on a plate. They smile at each other, enjoying the cake. Crumbs are on their faces, and the rest of the cake sits on a plate between them. The sunny yellow kitchen with sunshine streaming in through a window above the sink is visible. Warm, friendly children's book illustration with bold shapes and bright colors. One cohesive illustration filling the entire canvas. NO TEXT anywhere in image."
     },
     {
-      "page": 22,
+      "page": 21,
       "type": "end",
       "text": "The End"
     },
     {
-      "page": 23,
+      "page": 22,
       "type": "wordsearch"
     },
     {
-      "page": 24,
+      "page": 23,
       "type": "series_info"
     },
     {
-      "page": 25,
+      "page": 24,
       "type": "back_cover",
       "text": ""
     }

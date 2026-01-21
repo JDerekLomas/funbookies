@@ -141,99 +141,193 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "Jet sits on a big hill.\nAn airplane zips by!",
-      "scene": "Wide shot: Jet, a young boy (5-6) with messy brown hair in a red t-shirt, sits in tall green grass on a hilltop. A small white airplane soars across the bright blue sky above him. His head tilts back, watching with wonder. Warm watercolor style."
+      "scene": "Wide shot: Jet, a young boy (5-6) with messy brown hair in a red t-shirt, sits in tall green grass on a hilltop. A small white airplane soars across the bright blue sky above him. His head tilts back, watching with wonder. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Wide shot: Jet, a young boy (5-6) with messy brown hair in a red t-shirt, sits in tall green grass on a hilltop. A small white airplane soars across the bright blue sky above him. His head tilts back, watching with wonder. Warm watercolor style.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nYoung boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts\nWoman with dark hair in ponytail, blue sundress\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/if-i-could-only-be-an-airplane/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:08:47.529454",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "\"If I could only be an airplane!\"\nJet shuts his eyes.",
-      "scene": "Close-up: Jet's face with eyes squeezed tightly shut, big hopeful smile. Messy brown hair, freckles. Golden sunlight on his skin. Above his head, a glowing thought bubble begins to form with airplane wings. Dreaming intensely. Warm watercolor style."
+      "scene": "Close-up: Jet's face with eyes squeezed tightly shut, big hopeful smile. Messy brown hair, freckles. Golden sunlight on his skin. Above his head, a glowing thought bubble begins to form with airplane wings. Dreaming intensely. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Close-up: Jet's face with eyes squeezed tightly shut, big hopeful smile. Messy brown hair, freckles. Golden sunlight on his skin. Above his head, a glowing thought bubble begins to form with airplane wings. Dreaming intensely. Warm watercolor style.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nYoung boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts\nWoman with dark hair in ponytail, blue sundress\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/if-i-could-only-be-an-airplane/page07.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:35:48.147171",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "ZIP! Jet is an airplane!\nHis arms are wings!",
-      "scene": "Fantasy transformation: Jet's body has become a small red airplane. His smiling face is the nose cone, his arms stretched wide ARE the wings - actual airplane wings growing from his shoulders. His legs have become the tail. He lifts off from the hilltop, grass bending in the wind. Surreal magical transformation. Warm watercolor style."
+      "scene": "Fantasy transformation: Jet's body has become a small red airplane. His smiling face is the nose cone, his arms stretched wide ARE the wings - actual airplane wings growing from his shoulders. His legs have become the tail. He lifts off from the hilltop, grass bending in the wind. Surreal magical transformation. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Fantasy transformation: Jet's body has become a small red airplane. His smiling face is the nose cone, his arms stretched wide ARE the wings - actual airplane wings growing from his shoulders. His legs have become the tail. He lifts off from the hilltop, grass bending in the wind. Surreal magical transformation. Warm watercolor style.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nYoung boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts\nWoman with dark hair in ponytail, blue sundress\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/if-i-could-only-be-an-airplane/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:37:31.004939",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "He zooms up, up, up!\nThe wind hums on his wings.",
-      "scene": "Fantasy scene: Jet-as-airplane rocketing upward through bright blue sky. His wing-arms cut through fluffy white clouds. Wind streaks past his smiling airplane-face. His red airplane body gleams in sunlight. Pure exhilaration and speed. Surreal children's book fantasy. Warm watercolor style."
+      "scene": "Fantasy scene: Jet-as-airplane rocketing upward through bright blue sky. His wing-arms cut through fluffy white clouds. Wind streaks past his smiling airplane-face. His red airplane body gleams in sunlight. Pure exhilaration and speed. Surreal children's book fantasy. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Fantasy scene: Jet-as-airplane rocketing upward through bright blue sky. His wing-arms cut through fluffy white clouds. Wind streaks past his smiling airplane-face. His red airplane body gleams in sunlight. Pure exhilaration and speed. Surreal children's book fantasy. Warm watercolor style.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nYoung boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts\nWoman with dark hair in ponytail, blue sundress\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/if-i-could-only-be-an-airplane/page09.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:39:42.855915",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "He dips into a cloud.\nIt is wet and soft!",
-      "scene": "Fantasy scene: Jet-as-airplane diving playfully INTO a giant fluffy cloud. White cloud wisps wrap around his wings. His face peeks out from the cloud fluff, laughing with delight. Droplets on his airplane nose. Magical and tactile. Surreal children's book fantasy. Warm watercolor style."
+      "scene": "Fantasy scene: Jet-as-airplane diving playfully INTO a giant fluffy cloud. White cloud wisps wrap around his wings. His face peeks out from the cloud fluff, laughing with delight. Droplets on his airplane nose. Magical and tactile. Surreal children's book fantasy. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Fantasy scene: Jet-as-airplane diving playfully INTO a giant fluffy cloud. White cloud wisps wrap around his wings. His face peeks out from the cloud fluff, laughing with delight. Droplets on his airplane nose. Magical and tactile. Surreal children's book fantasy. Warm watercolor style.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nYoung boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts\nWoman with dark hair in ponytail, blue sundress\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/if-i-could-only-be-an-airplane/page10.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:58:05.989885",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "He tips left! He tips right!\nHe spins and spins!",
-      "scene": "Fantasy scene: Jet-as-airplane doing barrel rolls and banking turns through open sky. Motion blur shows his spinning. His face shows wild joy - dizzy and thrilled. Clouds spiral around him. Blue sky tilts at crazy angles. Dynamic action. Surreal children's book fantasy. Warm watercolor style."
+      "scene": "Fantasy scene: Jet-as-airplane doing barrel rolls and banking turns through open sky. Motion blur shows his spinning. His face shows wild joy - dizzy and thrilled. Clouds spiral around him. Blue sky tilts at crazy angles. Dynamic action. Surreal children's book fantasy. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Fantasy scene: Jet-as-airplane doing barrel rolls and banking turns through open sky. Motion blur shows his spinning. His face shows wild joy - dizzy and thrilled. Clouds spiral around him. Blue sky tilts at crazy angles. Dynamic action. Surreal children's book fantasy. Warm watercolor style.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nYoung boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts\nWoman with dark hair in ponytail, blue sundress\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/if-i-could-only-be-an-airplane/page11.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:49:28.404083",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "The hills are small. The sun is close!\nJet is fast. Jet is FREE!",
-      "scene": "Fantasy scene: Jet-as-airplane soaring at incredible height. Far below, tiny patchwork fields, miniature houses, roads like ribbons. The huge golden sun blazes nearby, warming his wings. His airplane-face radiates pure freedom and joy. Epic sense of scale. Surreal children's book fantasy. Warm watercolor style."
+      "scene": "Fantasy scene: Jet-as-airplane soaring at incredible height. Far below, tiny patchwork fields, miniature houses, roads like ribbons. The huge golden sun blazes nearby, warming his wings. His airplane-face radiates pure freedom and joy. Epic sense of scale. Surreal children's book fantasy. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Fantasy scene: Jet-as-airplane soaring at incredible height. Far below, tiny patchwork fields, miniature houses, roads like ribbons. The huge golden sun blazes nearby, warming his wings. His airplane-face radiates pure freedom and joy. Epic sense of scale. Surreal children's book fantasy. Warm watercolor style.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nYoung boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts\nWoman with dark hair in ponytail, blue sundress\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/if-i-could-only-be-an-airplane/page12.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:52:54.117983",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "\"Jet! Time to go!\"\nHis eyes pop open.",
-      "scene": "Snap back to reality: Jet sits up suddenly in the grass, eyes wide, gasping. His arms are just arms again. The real sky above, a distant airplane flying away. At the bottom of the hill, Mom waves. The magic fades but lingers in his expression. Warm afternoon light. Warm watercolor style."
+      "scene": "Snap back to reality: Jet sits up suddenly in the grass, eyes wide, gasping. His arms are just arms again. The real sky above, a distant airplane flying away. At the bottom of the hill, Mom waves. The magic fades but lingers in his expression. Warm afternoon light. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Snap back to reality: Jet sits up suddenly in the grass, eyes wide, gasping. His arms are just arms again. The real sky above, a distant airplane flying away. At the bottom of the hill, Mom waves. The magic fades but lingers in his expression. Warm afternoon light. Warm watercolor style.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nYoung boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts\nWoman with dark hair in ponytail, blue sundress\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/if-i-could-only-be-an-airplane/page13.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:59:03.819540",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
-      "page": 14,
+      "page": 13,
       "story_page": 9,
       "type": "story",
       "text": "Jet runs to Mom.\nHis arms go out like wings!",
-      "scene": "Wide shot: Jet running joyfully down the grassy hill toward Mom, arms stretched straight out like airplane wings. He banks and dips as he runs, making airplane sounds. Mom laughs and opens her arms. His red shirt bright against green grass. Warm watercolor style."
+      "scene": "Wide shot: Jet running joyfully down the grassy hill toward Mom, arms stretched straight out like airplane wings. He banks and dips as he runs, making airplane sounds. Mom laughs and opens her arms. His red shirt bright against green grass. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Wide shot: Jet running joyfully down the grassy hill toward Mom, arms stretched straight out like airplane wings. He banks and dips as he runs, making airplane sounds. Mom laughs and opens her arms. His red shirt bright against green grass. Warm watercolor style.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nYoung boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts\nWoman with dark hair in ponytail, blue sundress\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/if-i-could-only-be-an-airplane/page14.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:59:45.574269",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
     },
     {
-      "page": 15,
+      "page": 14,
       "story_page": 10,
       "type": "story",
       "text": "But up in the clouds?\nPart of Jet still zips and zooms.",
-      "scene": "Split scene: Below, Jet hugs Mom at the bottom of the hill, small and warm and real. Above in the sunset sky, a ghostly transparent Jet-as-airplane still soars joyfully through golden-pink clouds - a piece of his imagination forever flying free. Magical bittersweet ending. Warm watercolor style."
+      "scene": "Split scene: Below, Jet hugs Mom at the bottom of the hill, small and warm and real. Above in the sunset sky, a ghostly transparent Jet-as-airplane still soars joyfully through golden-pink clouds - a piece of his imagination forever flying free. Magical bittersweet ending. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Split scene: Below, Jet hugs Mom at the bottom of the hill, small and warm and real. Above in the sunset sky, a ghostly transparent Jet-as-airplane still soars joyfully through golden-pink clouds - a piece of his imagination forever flying free. Magical bittersweet ending. Warm watercolor style.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nYoung boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts\nWoman with dark hair in ponytail, blue sundress\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/if-i-could-only-be-an-airplane/page15.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:44:15.746117",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
+    },
+    {
+      "page": 15,
+      "type": "end",
+      "text": "The End",
+      "scene": "Jet asleep in his bed, peaceful smile. Moonlight through the window. On his pillow beside him, a toy red airplane clutched in his hand. Above his sleeping head, a dream bubble shows Jet-as-airplane soaring through starry night clouds, still flying free. Cozy bedroom, magical dreams. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Jet asleep in his bed, peaceful smile. Moonlight through the window. On his pillow beside him, a toy red airplane clutched in his hand. Above his sleeping head, a dream bubble shows Jet-as-airplane soaring through starry night clouds, still flying free. Cozy bedroom, magical dreams. Warm watercolor style.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nYoung boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts\nWoman with dark hair in ponytail, blue sundress\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/if-i-could-only-be-an-airplane/page16.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-21T09:44:58.401805",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
     },
     {
       "page": 16,
-      "type": "end",
-      "text": "The End",
-      "scene": "Jet asleep in his bed, peaceful smile. Moonlight through the window. On his pillow beside him, a toy red airplane clutched in his hand. Above his sleeping head, a dream bubble shows Jet-as-airplane soaring through starry night clouds, still flying free. Cozy bedroom, magical dreams. Warm watercolor style."
-    },
-    {
-      "page": 17,
       "type": "wordsearch"
     },
     {
-      "page": 18,
+      "page": 17,
       "type": "series_info"
     },
     {
-      "page": 19,
+      "page": 18,
       "type": "back_cover",
       "text": ""
     }

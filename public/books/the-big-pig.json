@@ -93,15 +93,10 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "Tim had a big pig.\nThe pig was his.\nHe sat in the sun.",
@@ -109,7 +104,7 @@
       "image_prompt": "A young boy named Tim, around 6 years old with short brown hair, wearing blue overalls, sits on the green grass and smiles at his large pink pig, who is lying down beside him. It is a sunny day on a farm with a red barn in the background. Warm and friendly children's book illustration with bold shapes and bright colors."
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "The big pig naps.\nTim sat with him.\nIt was a hot day.",
@@ -117,7 +112,7 @@
       "image_prompt": "A large pink pig sleeps soundly in the grass on a hot sunny day. A young boy, Tim, wearing blue overalls, sits next to the pig, leaning on his hand with a sleepy expression. A farmyard with a wooden fence sits in the background. Warm and friendly children's book illustration with bold shapes and bright colors."
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "Tim fans the big pig.\nThe pig can get hot.\nHe had to fan him.",
@@ -125,7 +120,7 @@
       "image_prompt": "Tim, a young boy, uses a large leaf as a fan to cool down his large pink pig. The pig is lying down, looking calm. The background is a farmyard with a pigpen. Warm and friendly children's book illustration with bold shapes and bright colors."
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "Tim had a plan.\nHe can dig a pit.\nA big pit for the pig!",
@@ -133,7 +128,7 @@
       "image_prompt": "A young boy, Tim, is standing in a sunny farmyard with his hand on his chin, looking thoughtful. A patch of dirt is visible in the foreground. A red barn is in the background. Warm and friendly children's book illustration with bold shapes and bright colors."
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "Tim digs. The pig naps.\nDip, dip, dip, he digs.\nThe pit was fat and big.",
@@ -141,15 +136,15 @@
       "image_prompt": "A young boy, Tim, digs a large round pit in the dirt with a small red shovel. He is sweating. In the background, a large pink pig naps near a wooden fence. Warm and friendly children's book illustration with bold shapes and bright colors."
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
-      "text": "“Pig, get in!” said Tim.\nThe pig did not budge.\nHe did not sit in it.",
+      "text": "\u201cPig, get in!\u201d said Tim.\nThe pig did not budge.\nHe did not sit in it.",
       "scene": "Medium shot: Tim, the boy (5-6) in blue overalls, stands beside a large, newly dug pit and gestures towards it with his hands, saying \"Pig, get in!\". The large pink pig stands a few feet away, looking stubbornly in the opposite direction. A sun-drenched farmyard with a red barn provides the backdrop. One cohesive illustration filling the entire canvas. Warm, friendly children's book illustration with bold shapes and bright colors. NO TEXT, NO WORDS, NO LETTERS anywhere in image.",
       "image_prompt": "A young boy, Tim, stands beside a newly dug pit gesturing towards it, telling his pig to get in. The large pink pig stands stubbornly a few feet away, looking in the other direction. Sunny farmyard in the background. Warm and friendly children's book illustration with bold shapes and bright colors."
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "Tim was sad. Did it fail?\nThe pig can be bad.\nTim got mad at that.",
@@ -157,7 +152,7 @@
       "image_prompt": "A close-up of a young boy, Tim, sitting on the edge of a pit, looking sad and frustrated. His lower lip is poking out. His large pink pig is in the background, facing away. Warm and friendly children's book illustration with bold shapes and bright colors."
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "Tim had an idea yet.\nHe ran in the barn.\nTim can get him bags.",
@@ -165,7 +160,7 @@
       "image_prompt": "A young boy, Tim, runs toward a red barn with a determined expression. A dirt path leads to the open barn door. Warm and friendly children's book illustration with bold shapes and bright colors."
     },
     {
-      "page": 14,
+      "page": 13,
       "story_page": 9,
       "type": "story",
       "text": "Tim sat a bag in it.\nHe sat a bag on him.\nThen he put jam in.",
@@ -173,7 +168,7 @@
       "image_prompt": "A young boy, Tim, puts a blue bag in the pit. He puts another blue bag on the back of the pig, who is standing still. Tim is pouring red jam into the bag in the pit. Warm and friendly children's book illustration with bold shapes and bright colors."
     },
     {
-      "page": 15,
+      "page": 14,
       "story_page": 10,
       "type": "story",
       "text": "The pig sat in the pit!\nHe laps at the jam.\nTim pats him on his hip.",
@@ -181,7 +176,7 @@
       "image_prompt": "A large pink pig is happily sitting in a pit lined with a blue bag, licking red jam. A young boy, Tim, is patting the pig on the hip and smiling. A sunny farmyard in the background. Warm and friendly children's book illustration with bold shapes and bright colors."
     },
     {
-      "page": 16,
+      "page": 15,
       "story_page": 11,
       "type": "story",
       "text": "The pig is not hot.\nHe can sit in the pit.\nThe bag had a fan.",
@@ -189,7 +184,7 @@
       "image_prompt": "A large pink pig is sitting in the pit, lined with a blue bag, with a small fan gently blowing air. A young boy, Tim, stands beside the pit, watching his pig. Warm and friendly children's book illustration with bold shapes and bright colors."
     },
     {
-      "page": 17,
+      "page": 16,
       "story_page": 12,
       "type": "story",
       "text": "Tim sat by him and pat.\nThe pig did win!\nA nap in a cool pit.",
@@ -197,20 +192,20 @@
       "image_prompt": "A young boy, Tim, sits next to a pit and gently pats his large pink pig, who looks content. The sun is shining in the farmyard. Warm and friendly children's book illustration with bold shapes and bright colors."
     },
     {
-      "page": 18,
+      "page": 17,
       "type": "end",
       "text": "The End"
     },
     {
-      "page": 19,
+      "page": 18,
       "type": "wordsearch"
     },
     {
-      "page": 20,
+      "page": 19,
       "type": "series_info"
     },
     {
-      "page": 21,
+      "page": 20,
       "type": "back_cover",
       "text": ""
     }

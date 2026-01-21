@@ -395,6 +395,9 @@ export function renderPage(setImageAsCurrent) {
         case 'wordlist':
             renderWordlist(bookPage);
             break;
+        case 'level_wordlist':
+            renderLevelWordlist(bookPage, color, colorDisplay);
+            break;
         case 'wordsearch':
             renderWordsearch(bookPage, page);
             break;
@@ -586,6 +589,50 @@ function renderWordlist(bookPage) {
                     <div class="words">${wl.new.map(w => `<span class="word-box">${w}</span>`).join('')}</div>
                 </div>
             ` : ''}
+        </div>
+    `;
+}
+
+function renderLevelWordlist(bookPage, color, colorDisplay) {
+    const lvlInfo = levelReadiness[color] || levelReadiness['orange'];
+    const targetPhonics = currentBook.targetPhonics || currentBook.skill || 'Reading practice';
+    const wl = currentBook.word_list || {};
+    const totalWords = (wl.sound_out?.length || 0) + (wl.sight?.length || 0) + (wl.heart?.length || 0);
+    const compactClass = totalWords > 12 ? 'compact' : '';
+
+    bookPage.innerHTML = `
+        <div class="page-level-wordlist">
+            <div class="level-header-compact">
+                <span class="level-badge ${color}">${colorDisplay}</span>
+                <div class="skill-compact">
+                    <span class="skill-label">Focus:</span>
+                    <span class="skill-title">${targetPhonics}</span>
+                </div>
+            </div>
+            <div class="wordlist-combined">
+                <h3 class="wordlist-title">Words to Know</h3>
+                ${wl.sound_out?.length ? `
+                    <div class="wordlist-section ${compactClass}">
+                        <h4>Sound Out</h4>
+                        <div class="words">${wl.sound_out.map(w => `<span class="word-box">${w}</span>`).join('')}</div>
+                    </div>
+                ` : ''}
+                ${wl.sight?.length ? `
+                    <div class="wordlist-section ${compactClass}">
+                        <h4>Sight Words</h4>
+                        <div class="words">${wl.sight.map(w => `<span class="word-box">${w}</span>`).join('')}</div>
+                    </div>
+                ` : ''}
+                ${wl.heart?.length ? `
+                    <div class="wordlist-section ${compactClass}">
+                        <h4>Heart Words</h4>
+                        <div class="words">${wl.heart.map(w => `<span class="word-box heart">${w}</span>`).join('')}</div>
+                    </div>
+                ` : ''}
+            </div>
+            <div class="ready-text-compact">
+                Let's read <strong>${currentBook.title}</strong>!
+            </div>
         </div>
     `;
 }

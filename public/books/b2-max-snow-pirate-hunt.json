@@ -5,7 +5,16 @@
   "level": "B2",
   "band": "B",
   "targetPhonics": "Consonant blends, digraphs",
-  "wordFamilies": ["-un", "-ip", "-op", "-ig", "-ump", "-ick", "-est", "-ap"],
+  "wordFamilies": [
+    "-un",
+    "-ip",
+    "-op",
+    "-ig",
+    "-ump",
+    "-ick",
+    "-est",
+    "-ap"
+  ],
   "skill": "Initial and final consonant blends, digraphs",
   "skill_description": "Practice reading words with consonant blends (sn-, st-, tr-, cr-, fl-, bl-, gr-, sp-) and digraphs (ch-, sh-, th-). High-interest aspiration words: pirate, treasure, trampoline.",
   "age_range": "K-1",
@@ -19,9 +28,78 @@
   },
   "setting_context": "Amsterdam Zuid, winter: Dutch brick row houses with large windows, wooden garden fences, snowy backyard with trampoline, bare elm tree, small hill with tree stump",
   "word_list": {
-    "sound_out": ["Max", "six", "Dad", "box", "map", "let", "go", "step", "crunch", "first", "tree", "digs", "flag", "clue", "then", "hill", "runs", "fast", "spots", "stump", "cloth", "chest", "sweets", "snacks", "yes", "stack", "sticks", "snap", "crack", "pop", "best", "day"],
-    "sight": ["was", "now", "he", "is", "want", "to", "play", "hands", "a", "the", "into", "snow", "and", "red", "one", "up", "where", "black", "two", "so", "slips", "gets", "this", "it", "small", "they", "set", "on", "top", "ever"],
-    "heart": ["seven", "pirate", "treasure", "trampoline"]
+    "sound_out": [
+      "Max",
+      "six",
+      "Dad",
+      "box",
+      "map",
+      "let",
+      "go",
+      "step",
+      "crunch",
+      "first",
+      "tree",
+      "digs",
+      "flag",
+      "clue",
+      "then",
+      "hill",
+      "runs",
+      "fast",
+      "spots",
+      "stump",
+      "cloth",
+      "chest",
+      "sweets",
+      "snacks",
+      "yes",
+      "stack",
+      "sticks",
+      "snap",
+      "crack",
+      "pop",
+      "best",
+      "day"
+    ],
+    "sight": [
+      "was",
+      "now",
+      "he",
+      "is",
+      "want",
+      "to",
+      "play",
+      "hands",
+      "a",
+      "the",
+      "into",
+      "snow",
+      "and",
+      "red",
+      "one",
+      "up",
+      "where",
+      "black",
+      "two",
+      "so",
+      "slips",
+      "gets",
+      "this",
+      "it",
+      "small",
+      "they",
+      "set",
+      "on",
+      "top",
+      "ever"
+    ],
+    "heart": [
+      "seven",
+      "pirate",
+      "treasure",
+      "trampoline"
+    ]
   },
   "story_elements": {
     "flag": 5,
@@ -33,8 +111,33 @@
     "candy": 11,
     "fire": 13
   },
-  "sightWordsUsed": ["was", "now", "he", "is", "want", "to", "play", "the", "a", "into", "and", "where", "so", "they", "on"],
-  "wordsearch_words": ["snow", "pirate", "clue", "flag", "hill", "chest", "sweets", "best"],
+  "sightWordsUsed": [
+    "was",
+    "now",
+    "he",
+    "is",
+    "want",
+    "to",
+    "play",
+    "the",
+    "a",
+    "into",
+    "and",
+    "where",
+    "so",
+    "they",
+    "on"
+  ],
+  "wordsearch_words": [
+    "snow",
+    "pirate",
+    "clue",
+    "flag",
+    "hill",
+    "chest",
+    "sweets",
+    "best"
+  ],
   "pages": [
     {
       "page": 1,
@@ -52,119 +155,114 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "Max was six.\nNow he is seven!",
       "image": "images/b2-max-snow-pirate-hunt_page01.png"
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "\"Want to play snow pirates?\"\nDad hands Max a box.",
       "image": "images/b2-max-snow-pirate-hunt_page02.png"
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "A map!\n\"Let's go!\"",
       "image": "images/b2-max-snow-pirate-hunt_page03.png"
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "Crunch, crunch, crunch!\n\"First, the tree!\"",
       "image": "images/b2-max-snow-pirate-hunt_page04.png"
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "Max digs and digs.\nA red flag!\n\"Clue one!\"",
       "image": "images/b2-max-snow-pirate-hunt_page05.png"
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "\"Then, the hill!\"\nMax runs fast.",
       "image": "images/b2-max-snow-pirate-hunt_page06.png"
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "\"Where is the clue?\"\nMax spots a stump.",
       "image": "images/b2-max-snow-pirate-hunt_page07.png"
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "Max digs.\nA black cloth!\n\"Clue two!\"",
       "image": "images/b2-max-snow-pirate-hunt_page08.png"
     },
     {
-      "page": 14,
+      "page": 13,
       "story_page": 9,
       "type": "story",
       "text": "\"The trampoline!\"\nMax runs so fast he slips.",
       "image": "images/b2-max-snow-pirate-hunt_page09.png"
     },
     {
-      "page": 15,
+      "page": 14,
       "story_page": 10,
       "type": "story",
       "text": "Max digs.\nA chest!",
       "image": "images/b2-max-snow-pirate-hunt_page10.png"
     },
     {
-      "page": 16,
+      "page": 15,
       "story_page": 11,
       "type": "story",
       "text": "Sweets and snacks!\n\"YES!\"",
       "image": "images/b2-max-snow-pirate-hunt_page11.png"
     },
     {
-      "page": 17,
+      "page": 16,
       "story_page": 12,
       "type": "story",
       "text": "Dad and Max stack sticks.\nThey set the chest on top.",
       "image": "images/b2-max-snow-pirate-hunt_page12.png"
     },
     {
-      "page": 18,
+      "page": 17,
       "story_page": 13,
       "type": "story",
       "text": "Snap! Crack! Pop!\nBest. Day. Ever.",
       "image": "images/b2-max-snow-pirate-hunt_page13.png"
     },
     {
-      "page": 19,
+      "page": 18,
       "type": "end",
       "text": "The End"
     },
     {
-      "page": 20,
+      "page": 19,
       "type": "wordsearch"
     },
     {
-      "page": 21,
+      "page": 20,
       "type": "series_info"
     },
     {
-      "page": 22,
+      "page": 21,
       "type": "back_cover",
       "text": ""
     }
@@ -175,7 +273,12 @@
     "wordCount": 72,
     "decodabilityTarget": "85%+",
     "storyPages": 13,
-    "heartWords": ["seven", "pirate", "treasure", "trampoline"]
+    "heartWords": [
+      "seven",
+      "pirate",
+      "treasure",
+      "trampoline"
+    ]
   },
   "parent_tips": {
     "before_reading": "Preview the cover together. Ask: What do you think this treasure hunt is about? Have you ever been on a treasure hunt? Look for our special 'heart words': pirate, treasure, trampoline.",

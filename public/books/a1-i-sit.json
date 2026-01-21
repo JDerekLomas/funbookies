@@ -48,77 +48,72 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "I SIT.",
       "scene": "A child sitting on the floor with legs crossed."
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "I SAT.",
       "scene": "A child who has just sat down on a chair."
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "A MAT.",
       "scene": "A colorful mat on the floor."
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "I SIT.",
       "scene": "A child sitting on the mat."
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "A MAT.",
       "scene": "A different patterned mat."
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "I SAT.",
       "scene": "A child sitting happily on the new mat."
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "I SIT.",
       "scene": "A child sitting contentedly, smiling."
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "I SAT!",
       "scene": "A child sitting triumphantly with arms raised."
     },
     {
-      "page": 14,
+      "page": 13,
       "type": "end",
       "text": "THE END",
       "scene": "A happy child resting on a cozy mat."
     },
     {
-      "page": 15,
+      "page": 14,
       "type": "back_cover",
       "text": ""
     }

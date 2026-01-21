@@ -1,0 +1,214 @@
+{
+  "id": "kittens-hidden-basket",
+  "title": "Kitten's Hidden Basket",
+  "slug": "kittens-hidden-basket",
+  "level": "C3",
+  "band": "C",
+  "targetPhonics": "Level C3 patterns",
+  "skill": "Level C3",
+  "skill_description": "A curious kitten discovers a mysterious basket hidden in a cottage and finds a wonderful surprise inside.",
+  "age_range": "1-3",
+  "created": "2026-01-21",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "A curious kitten discovers a mysterious basket hidden in a cottage and finds a wonderful surprise inside.",
+  "characters": {
+    "mittens": {
+      "name": "Mittens",
+      "visual_shorthand": "small orange tabby kitten with white paws",
+      "distinctive_features": [
+        "bright green eyes",
+        "white mittens on paws",
+        "fluffy striped tail"
+      ]
+    }
+  },
+  "setting_context": "A warm, cozy cottage with wooden floors, soft rugs, and hidden nooks perfect for exploration",
+  "story_bible": {
+    "premise": "A curious kitten discovers a mysterious basket hidden in a cottage and finds a wonderful surprise inside.",
+    "setting": "A warm, cozy cottage with wooden floors, soft rugs, and hidden nooks perfect for exploration",
+    "visual_style": "Rich watercolor illustrations with detailed cottage interiors, warm golden lighting, and dynamic compositions showing a kitten's curious adventures"
+  },
+  "reference_prompt": "9-panel children's book reference sheet, grid layout (3x3), consistent rich watercolor style throughout all panels:\n\nRow 1 - MITTENS:\n[1] Mittens, small orange tabby kitten with white paws and bright green eyes, front view, alert curious expression, cream background\n[2] Same kitten prowling low in hunting posture, side view, whiskers forward and tail up\n[3] Same kitten jumping up with paws extended, mid-leap with surprised happy expression\n\nRow 2 - Supporting Elements:\n[4] Small brown rabbit sitting upright with long ears and fluffy tail, detailed fur texture\n[5] **KEY MOMENT** - Mittens looking down into woven basket at sleeping rabbit inside secret wall compartment\n[6] Decorative woven basket with intricate patterns, open top showing soft fabric lining\n\nRow 3 - Settings:\n[7] Cozy cottage living room interior with wooden floors, fireplace, and warm afternoon light\n[8] Secret wall compartment opened revealing hidden space, mysterious dim lighting\n[9] Mittens and rabbit playing together on cottage floor, heartwarming golden light\n\nSTYLE: Rich watercolor illustrations with detailed cottage interiors, warm golden lighting. Soft edges, muted earthy palette (sage, terracotta, cream, soft gold).\nFORMAT: Square 1:1, 3x3 grid, thin white borders between panels.\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in any panel. Pure illustration only.",
+  "word_list": {
+    "sound_out": [
+      "kitten",
+      "hidden",
+      "basket",
+      "button",
+      "sudden",
+      "happen",
+      "better",
+      "dinner",
+      "funny",
+      "happy",
+      "puppy",
+      "rabbit"
+    ],
+    "sight": [
+      "little",
+      "something",
+      "nothing",
+      "was",
+      "the",
+      "in",
+      "and"
+    ],
+    "heart": [
+      "surprise",
+      "friend",
+      "cozy",
+      "warm"
+    ]
+  },
+  "sightWordsUsed": [
+    "little",
+    "something",
+    "nothing",
+    "was",
+    "the",
+    "in",
+    "and"
+  ],
+  "wordsearch_words": [
+    "kitten",
+    "hidden",
+    "basket",
+    "button",
+    "sudden",
+    "happen",
+    "better",
+    "dinner"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Kitten's Hidden Basket"
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_wordlist"
+    },
+    {
+      "page": 5,
+      "story_page": 1,
+      "type": "story",
+      "text": "Mittens was a little kitten. She lived in a cozy cottage.",
+      "scene": "Wide shot: Small orange tabby kitten with white paws sitting on wooden cottage floor near a fireplace. Warm golden afternoon light streaming through windows."
+    },
+    {
+      "page": 6,
+      "story_page": 2,
+      "type": "story",
+      "text": "Mittens liked to look for fun things. She wanted something to play with.",
+      "scene": "Medium shot: Mittens prowling low with bright green eyes alert, exploring under furniture in the cottage living room. Curious hunting posture."
+    },
+    {
+      "page": 7,
+      "story_page": 3,
+      "type": "story",
+      "text": "She looked under the bed. Nothing was there but dust.",
+      "scene": "Close-up: Mittens peering under a wooden bed frame, whiskers twitching, with dust particles floating in dim light underneath."
+    },
+    {
+      "page": 8,
+      "story_page": 4,
+      "type": "story",
+      "text": "She looked in the kitchen. Nothing but her dinner dish.",
+      "scene": "Medium shot: Mittens sitting disappointed next to her empty food bowl on kitchen floor tiles. Afternoon light from kitchen window."
+    },
+    {
+      "page": 9,
+      "story_page": 5,
+      "type": "story",
+      "text": "Then Mittens saw something odd. A button was on the wall.",
+      "scene": "Close-up: Mittens staring up at a small wooden button or knob protruding from the cottage wall paneling. Intrigued expression."
+    },
+    {
+      "page": 10,
+      "story_page": 6,
+      "type": "story",
+      "text": "She jumped up and hit the button. Something happened very fast!",
+      "scene": "Medium shot: Mittens leaping up with paws extended toward the wall button, mid-jump with dynamic motion. Surprised expression."
+    },
+    {
+      "page": 11,
+      "story_page": 7,
+      "type": "story",
+      "text": "The wall opened up! It was a hidden spot.",
+      "scene": "Wide shot: A secret panel in the cottage wall sliding open, revealing a dark hidden compartment. Mittens crouched low in amazement."
+    },
+    {
+      "page": 12,
+      "story_page": 8,
+      "type": "story",
+      "text": "Inside the hidden spot was a basket. It was very pretty.",
+      "scene": "Medium shot: Mittens peering into the secret compartment at a woven basket with decorative patterns. Soft mysterious lighting."
+    },
+    {
+      "page": 13,
+      "story_page": 9,
+      "type": "story",
+      "text": "Mittens got closer to the basket. What was in it?",
+      "scene": "Close-up: Mittens cautiously approaching the basket with one paw extended, whiskers forward, eyes wide with curiosity."
+    },
+    {
+      "page": 14,
+      "story_page": 10,
+      "type": "story",
+      "text": "She looked inside the basket. A little rabbit was sleeping!",
+      "scene": "Close-up: Mittens looking down into the basket at a small sleeping brown rabbit curled up on soft fabric. Gentle surprise on her face."
+    },
+    {
+      "page": 15,
+      "story_page": 11,
+      "type": "story",
+      "text": "The rabbit woke up and hopped out. It was very happy!",
+      "scene": "Medium shot: Small brown rabbit hopping out of the basket while Mittens watches with delight. Both animals showing joy and excitement."
+    },
+    {
+      "page": 16,
+      "story_page": 12,
+      "type": "story",
+      "text": "Now Mittens had a new friend. They played together every day.",
+      "scene": "Wide shot: Mittens and the rabbit playing together on the cottage floor in warm golden light. Both animals happy and energetic."
+    },
+    {
+      "page": 17,
+      "type": "end",
+      "text": "The End"
+    },
+    {
+      "page": 18,
+      "type": "wordsearch"
+    },
+    {
+      "page": 19,
+      "type": "series_info"
+    },
+    {
+      "page": 20,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-21T09:41:30.973844",
+    "storyPages": 12,
+    "generation_prompt": "You are a master children's book author creating stories that are BOTH phonetically appropriate AND emotionally compelling.\n\nCreate a 12-page story for level C3 (Two-Syllable Closed) readers.\n\nConcept: A kitten finds a hidden basket\nSetting: a cozy cottage\nSuggest a catchy title (2-4 words)\n\n## WORD PALETTE (inspiration, not constraint)\n\nPHONICS PATTERNS:\n  VC/CV division: rab-bit, kit-ten, hap-pen, but-ton, mit-ten, sud-den\n  Double consonant: better, butter, dinner, funny, happy, puppy, silly, ladder\nSIGHT WORDS: ['Previous + little, something, nothing']\n\n## CRITICAL RULE: LOGIC AND CONTINUITY\n\nEvery sentence MUST make logical sense. Check cause and effect. Check physical reality.\n\nLOGIC ERRORS TO AVOID:\n- \"He got wet in the sun.\" (sun doesn't make you wet)\n- \"Now Max is not wet.\" (after a bath? he'd be soaking wet!)\n- \"He is wet and red.\" (why red? makes no sense)\n- \"The cat ran to sit.\" (awkward phrasing)\n\nGOOD LOGIC:\n- \"Max jumped in the mud. Mud splashed on his nose!\" (cause \u2192 effect)\n- \"Mom dried Max with a towel. Now his fur was fluffy.\" (action \u2192 result)\n- \"The pup ran fast. He wanted that ball!\" (motivation \u2192 action)\n\nCONTINUITY CHECK - Before writing each page, ask:\n- What state is the character in from the previous page?\n- What would logically happen next?\n- Does this follow from what just happened?\n\nIf a phonics word doesn't fit naturally, DON'T USE IT.\n\n## REQUIREMENTS\n\nLevel guidance: Chapter-style. 'The kitten was hidden in the basket. It happened so suddenly!'\n- Max 12 words per sentence (STRICT - count every word!)\n- 12 story pages, 2-3 short sentences each\n- Use SIMPLE words from the palette - avoid multi-syllable words\n- Every sentence must pass the \"does this make sense?\" test\n\nVOCABULARY CHECK - these are TOO HARD for early levels:\n- \"washes\" \u2192 use \"gets\" or \"rubs\"\n- \"ready\" \u2192 use \"set\"\n- \"water\" \u2192 ok as sight word but keep sentences short\n- \"towel\" \u2192 ok but keep it simple\n\nAWKWARD PHRASING TO AVOID:\n- \"has not got\" \u2192 use \"wants\" or \"needs\"\n- \"can not get\" \u2192 use \"did not get\" or restructure\n- \"is wet and has mud\" \u2192 use \"is wet with mud\"\n- Double negatives or clunky constructions\n- Sentences that sound like grammar exercises\nWrite like you're talking to a child, not filling in blanks.\n\n## VISUAL STYLE FOR THIS BAND (C)\n\nRich watercolor, more detailed characters and settings, dynamic compositions. Exciting, imaginative mood.\n\nUse this style guidance for visual_style field and all scene descriptions.\n\n## WHAT MAKES A GOOD STORY\n\n1. CHARACTER WANT - wants something specific and clear\n2. OBSTACLE - a real problem (not manufactured drama)\n3. TRY-FAIL - genuine attempt that fails for a logical reason\n4. RESOLUTION - satisfying and earned\n5. CAUSATION - each event causes the next (not random scenes)\n\n## OUTPUT: JSON only\n\n```json\n{{\n  \"title\": \"Story Title\",\n  \"summary\": \"One sentence description\",\n  \"characters\": {{\n    \"char_id\": {{\n      \"name\": \"Name\",\n      \"visual_shorthand\": \"brief visual description\",\n      \"distinctive_features\": [\"feature1\", \"feature2\"]\n    }}\n  }},\n  \"setting_context\": \"Setting description\",\n  \"visual_style\": \"Describe your art style based on the VISUAL STYLE section above\",\n  \"word_list\": {{\"sound_out\": [], \"sight\": [], \"heart\": []}},\n  \"pages\": [\n    {{\n      \"story_page\": 1,\n      \"text\": \"Story text here.\",\n      \"scene\": \"Medium shot: [WHO with visual details] [ACTION verb-ing] in [WHERE with specifics]. [Mood/lighting].\"\n    }}\n  ],\n  \"reference_prompt\": \"[Full 9-panel reference sheet prompt - see instructions below]\"\n}}\n```\n\nSCENE RULES:\n- WHO: Character with exact visual details from characters section\n- WHERE: Specific setting with lighting/atmosphere\n- WHAT: Active verb describing the action\n- STATE: Show character's current physical state (wet? muddy? clean? tired?)\n- Shot type: Wide/Medium/Close-up\n- NEVER use negations (\"no ball\" makes ball appear)\n- Keep scenes CLEAN - no \"NO TEXT\" instructions (added later)\n\nSCENE CONTINUITY - scenes must flow like a movie:\n- If character got muddy on page 4, they're STILL muddy on page 5 (unless cleaned)\n- If character is in the bath, they'll be WET when they get out\n- Track: location changes, character state changes, time of day\n- Each scene should visually connect to the previous one\n\nREFERENCE_PROMPT (write this LAST, after completing all pages):\n\nWrite a complete 9-panel reference sheet prompt using this EXACT structure:\n\n```\n9-panel children's book reference sheet, grid layout (3x3), consistent [your visual_style] throughout all panels:\n\nRow 1 - [MAIN CHARACTER NAME]:\n[1] [Name], [full visual description], front view, [expression], cream background\n[2] Same [character] [doing action from story], side view, [pose details]\n[3] Same [character] [different action/expression from story], [pose details]\n\nRow 2 - [Supporting Elements]:\n[4] [Secondary character OR key object from YOUR story], [detailed visual description]\n[5] **KEY MOMENT** - [Main character(s) in central story moment - this is the HERO SHOT]\n[6] [Another key object/prop from YOUR story], [detailed visual description]\n\nRow 3 - Settings:\n[7] [First setting from story], [specific details], [lighting/mood]\n[8] [Second setting OR different time of day], [specific details]\n[9] [Final heartwarming scene with character(s)], [resolution mood]\n\nSTYLE: [Your visual_style]. Soft edges, muted earthy palette (sage, terracotta, cream, soft gold).\nFORMAT: Square 1:1, 3x3 grid, thin white borders between panels.\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in any panel. Pure illustration only.\n```\n\nUse SPECIFIC details from YOUR story - actual character names, actual objects, actual settings.\n\nOutput ONLY valid JSON."
+  },
+  "parent_tips": {
+    "before_reading": "Look at the cover.",
+    "during_reading": "Help sound out words.",
+    "after_reading": "What was your favorite part?"
+  }
+}

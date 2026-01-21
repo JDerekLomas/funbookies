@@ -4,6 +4,79 @@ Development session notes and changes.
 
 ---
 
+## 2026-01-21: CLI-Driven Book Wizard Skill
+
+### Summary
+Created `/book-wizard` skill that lets Claude Code automate the wizard UI through the chrome-devtools MCP. The skill drives each phase of book creation while pausing at checkpoints for user review and approval.
+
+### Workflow
+```
+/book-wizard <level> "<concept>" "<setting>"
+```
+
+The skill navigates through all 6 wizard phases:
+1. **Concept Input** - Fills level, concept, setting fields → Generate Outline
+2. **Outline Review** - Shows beats, waits for approval → Expand to Full Story
+3. **Story Review** - Shows text + scenes split view → Continue to Reference
+4. **Reference Image** - Generates style guide (~$0.15) → Approve & Continue
+5. **Page Images** - Generates all pages (~$0.03 each) → Continue to Review
+6. **Publish** - Final review → Complete & View Book
+
+### Files Created
+- `.claude/skills/book-wizard.md` - Skill definition with:
+  - Chrome DevTools MCP tool usage patterns
+  - Element ID reference for all wizard phases
+  - Checkpoint workflow with user approval gates
+  - Error handling guidance
+
+### Key Features
+- Uses `mcp__chrome-devtools__*` tools for browser automation
+- Takes snapshots at each phase to show progress
+- Pauses with `AskUserQuestion` at each checkpoint
+- Documents all wizard element IDs for form filling and button clicking
+
+---
+
+## 2026-01-21: Combined Level + Wordlist Page & New Book "If I Could Only Be an Airplane"
+
+### New Book
+Created **If I Could Only Be an Airplane** (Level B2) - a surreal fantasy about a boy named Jet who transforms INTO an airplane (not just rides one). Used scene-split multi-reference strategy with nano-banana-pro for base reference and wan2.6-image I2I for page images.
+
+### Combined Front Matter Page
+Reduced pages before story starts by combining `level_info` and `wordlist` into single `level_wordlist` page type.
+
+**Old structure (5 pages before story):**
+1. Cover
+2. Copyright
+3. Parent Guide (Reading Tips)
+4. Level Info
+5. Words to Know
+6. Story begins
+
+**New structure (4 pages before story):**
+1. Cover
+2. Copyright
+3. Reading Tips
+4. **Level + Words to Know** (combined)
+5. Story begins
+
+### Files Changed
+- `public/js/reader/render.js` - Added `level_wordlist` case and `renderLevelWordlist()` function
+- `public/css/reader.css` - Added styles for `.page-level-wordlist`
+- `public/books/if-i-could-only-be-an-airplane.json` - New book with combined page type
+
+### Usage
+To use in book JSON:
+```json
+{
+  "page": 4,
+  "type": "level_wordlist"
+}
+```
+Replaces separate `level_info` and `wordlist` pages.
+
+---
+
 ## 2026-01-20: Image Prompts Review Page with Cascade Reference Workflow
 
 ### Summary

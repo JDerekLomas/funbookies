@@ -101,15 +101,10 @@
     },
     {
       "page": 4,
-      "type": "level_info"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Know"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "Plip.\nPlop.\nSplash.\n\nCrisp spring air snaps.\nSpots on the blacktop\u2014\nbig, wet spots that grin up at me.",
@@ -125,7 +120,7 @@
       }
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "Step, step, step to the best spot.\nStop.\nStomp!",
@@ -141,7 +136,7 @@
       }
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "Water grins up, up, UP\u2014\ndrops like glass bits\nsnap back down.\nPlip-plop-plip.",
@@ -157,7 +152,7 @@
       }
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "\"I can make it jump!\"\nStomp, stomp.\nThe spot grabs my boot,\nscrubs the mud off,\nspits wet drops that spin and\u2014\nsplat.",
@@ -173,7 +168,7 @@
       }
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "Snap of wet steps on blacktop.\nCrisp drops stick to my hands,\ncold as morning breath.",
@@ -189,7 +184,7 @@
       }
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "Just one plan.\nTrust the plop.\nTrust the way water\nsplits apart\nbut snaps back\nto one glad spot.",
@@ -205,7 +200,7 @@
       }
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "Plip.\nPlop.\nStill.",
@@ -221,20 +216,20 @@
       }
     },
     {
-      "page": 13,
+      "page": 12,
       "type": "end",
       "text": "The End"
     },
     {
-      "page": 14,
+      "page": 13,
       "type": "wordsearch"
     },
     {
-      "page": 15,
+      "page": 14,
       "type": "series_info"
     },
     {
-      "page": 16,
+      "page": 15,
       "type": "back_cover",
       "text": ""
     }

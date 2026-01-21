@@ -117,16 +117,10 @@
     },
     {
       "page": 4,
-      "type": "level_info",
-      "text": "Level B3: Consonant Blends"
+      "type": "level_wordlist"
     },
     {
       "page": 5,
-      "type": "wordlist",
-      "text": "Words to Practice:\nPip, plop, spot, stop\nsnap, step, stomp\ncroc, scrub, trust\ngrin, glad, best"
-    },
-    {
-      "page": 6,
       "story_page": 1,
       "type": "story",
       "text": "Pip was a small plover bird.\nShe was so, so hungry.",
@@ -141,7 +135,7 @@
       }
     },
     {
-      "page": 7,
+      "page": 6,
       "story_page": 2,
       "type": "story",
       "text": "She spots a big crocodile.\nHe was on the sand.",
@@ -156,7 +150,7 @@
       }
     },
     {
-      "page": 8,
+      "page": 7,
       "story_page": 3,
       "type": "story",
       "text": "His big jaws! His big snap!\nPip did not trust him.",
@@ -171,7 +165,7 @@
       }
     },
     {
-      "page": 9,
+      "page": 8,
       "story_page": 4,
       "type": "story",
       "text": "But what was that?\nBits of crust! Bits of crisp!",
@@ -186,7 +180,7 @@
       }
     },
     {
-      "page": 10,
+      "page": 9,
       "story_page": 5,
       "type": "story",
       "text": "Pip took a step.\nStop! Will he snap?",
@@ -201,7 +195,7 @@
       }
     },
     {
-      "page": 11,
+      "page": 10,
       "story_page": 6,
       "type": "story",
       "text": "The croc did not snap.\nHe just sat still.",
@@ -216,7 +210,7 @@
       }
     },
     {
-      "page": 12,
+      "page": 11,
       "story_page": 7,
       "type": "story",
       "text": "Pip took a step. And a step.\nShe hop on his snout!",
@@ -231,7 +225,7 @@
       }
     },
     {
-      "page": 13,
+      "page": 12,
       "story_page": 8,
       "type": "story",
       "text": "The croc grins.\n\"Scrub my chomps, Pip!\"",
@@ -246,7 +240,7 @@
       }
     },
     {
-      "page": 14,
+      "page": 13,
       "story_page": 9,
       "type": "story",
       "text": "Pip hop in!\nShe scrubs and picks. Scrub, scrub, scrub!",
@@ -261,7 +255,7 @@
       }
     },
     {
-      "page": 15,
+      "page": 14,
       "story_page": 10,
       "type": "story",
       "text": "Pip got a snack.\nThe croc got crisp, fresh chomps!",
@@ -276,7 +270,7 @@
       }
     },
     {
-      "page": 16,
+      "page": 15,
       "story_page": 11,
       "type": "story",
       "text": "\"I can trust you,\" said Pip.\n\"Best pals!\" said the croc.",
@@ -291,21 +285,21 @@
       }
     },
     {
-      "page": 17,
+      "page": 16,
       "type": "end",
       "text": "The End"
     },
     {
-      "page": 18,
+      "page": 17,
       "type": "funfact",
       "text": "Fun Fact!\nThis is real! Plover birds really do clean crocodile teeth. The bird gets food, and the croc gets clean teeth. They help each other!"
     },
     {
-      "page": 19,
+      "page": 18,
       "type": "wordsearch"
     },
     {
-      "page": 20,
+      "page": 19,
       "type": "comprehension"
     }
   ],

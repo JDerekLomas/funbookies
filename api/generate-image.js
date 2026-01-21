@@ -206,15 +206,15 @@ export default async function handler(req, res) {
         }
         throw new Error('No image in Gemini response');
 
-      case 'wan2.6-image':
+      case 'wan2.6-image': {
         // Image-to-image with reference(s) - supports up to 3
         endpoint = '/vendors/alibaba/v1/wan2.6-image/generation';
 
         // Handle array of references or single reference
         let referenceImages = [];
-        const refArray = Array.isArray(reference) ? reference : (reference ? [reference] : []);
+        const refs = Array.isArray(reference) ? reference : (reference ? [reference] : []);
 
-        for (const ref of refArray.slice(0, 3)) { // Max 3 refs for wan2.6
+        for (const ref of refs.slice(0, 3)) { // Max 3 refs for wan2.6
           if (referenceIsUrl) {
             console.log(`Fetching reference image from URL: ${ref}`);
             try {
@@ -244,6 +244,7 @@ export default async function handler(req, res) {
           n: 1
         };
         break;
+      }
 
       case 'wan2.6-t2i':
         // Text-to-image only

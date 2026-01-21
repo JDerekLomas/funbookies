@@ -139,6 +139,18 @@ def generate_cover_fal(slug: str, fal_client: FalClient) -> bool:
         print(f"  Generated: {result.url[:60]}...")
 
         if download_image(result.url, output_path):
+            log_image_generation(
+                model=model,
+                prompt=prompt,
+                parameters={"size": "1024x1024", "type": "cover"},
+                source="generate_covers.py",
+                book_slug=slug,
+                cost=0.03,
+                status="completed",
+                result_url=result.url,
+                reference_images=[str(ref_path)],
+            )
+
             # Save metadata to book JSON
             with open(book_path) as f:
                 book = json.load(f)
@@ -158,9 +170,29 @@ def generate_cover_fal(slug: str, fal_client: FalClient) -> bool:
 
             print(f"  Metadata saved to book JSON")
             return True
+        log_image_generation(
+            model=model,
+            prompt=prompt,
+            parameters={"size": "1024x1024", "type": "cover"},
+            source="generate_covers.py",
+            book_slug=slug,
+            status="failed",
+            error="Download failed",
+            reference_images=[str(ref_path)],
+        )
         return False
     else:
         print(f"  Failed: {result.error}")
+        log_image_generation(
+            model=model,
+            prompt=prompt,
+            parameters={"size": "1024x1024", "type": "cover"},
+            source="generate_covers.py",
+            book_slug=slug,
+            status="failed",
+            error=result.error,
+            reference_images=[str(ref_path)],
+        )
         return False
 
 
@@ -221,6 +253,18 @@ def generate_cover_mulerouter(slug: str, config) -> bool:
             print(f"  Generated: {url}")
 
             if download_image(url, output_path):
+                log_image_generation(
+                    model=model,
+                    prompt=prompt,
+                    parameters={"size": "1024x1024", "type": "cover"},
+                    source="generate_covers.py",
+                    book_slug=slug,
+                    cost=0.12,
+                    status="completed",
+                    result_url=url,
+                    reference_images=[str(ref_path)],
+                )
+
                 # Save metadata to book JSON
                 with open(book_path) as f:
                     book = json.load(f)
@@ -239,9 +283,29 @@ def generate_cover_mulerouter(slug: str, config) -> bool:
 
                 print(f"  Metadata saved to book JSON")
                 return True
+            log_image_generation(
+                model=model,
+                prompt=prompt,
+                parameters={"size": "1024x1024", "type": "cover"},
+                source="generate_covers.py",
+                book_slug=slug,
+                status="failed",
+                error="Download failed",
+                reference_images=[str(ref_path)],
+            )
             return False
         else:
             print(f"  Failed: {result.error}")
+            log_image_generation(
+                model=model,
+                prompt=prompt,
+                parameters={"size": "1024x1024", "type": "cover"},
+                source="generate_covers.py",
+                book_slug=slug,
+                status="failed",
+                error=result.error,
+                reference_images=[str(ref_path)],
+            )
             return False
 
 

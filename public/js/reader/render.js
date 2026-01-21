@@ -715,7 +715,7 @@ function renderCover(bookPage, page, colorDisplay) {
     const coverTitle = page.text || currentBook.title || 'Untitled';
     const authorName = currentBook.author || '';
     bookPage.innerHTML = `
-        <div class="page-cover" style="display: block; position: relative;">
+        <div class="page-cover">
             <div class="cover-corner-tab">
                 <div class="corner-ribbon">
                     <span class="brand-name">FunBookies</span>
@@ -725,7 +725,7 @@ function renderCover(bookPage, page, colorDisplay) {
             <div class="cover-logo">
                 <img src="/images/funbookies_icon.png" alt="FunBookies">
             </div>
-            <div class="cover-image" style="height: 100%;">
+            <div class="cover-image">
                 <img src="${coverImgPath}" alt="${coverTitle}" decoding="async" fetchpriority="high" onerror="document.getElementById('${coverPlaceholderId}').style.display='flex'; this.style.display='none';">
                 <div id="${coverPlaceholderId}" class="page-image-placeholder" style="display: none;">
                     <div class="scene-icon">📚</div>

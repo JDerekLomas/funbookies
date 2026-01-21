@@ -40,6 +40,7 @@ from image_utils import (
     BOOKS_DIR, REFS_DIR, IMAGES_DIR,
     image_to_base64_uri, find_reference_image, find_best_references, get_character_block
 )
+from image_log import log_image_generation
 
 
 def validate_scene(scene: str, page_num: int) -> list:
@@ -189,6 +190,20 @@ def generate_image_fal(
             urllib.request.urlretrieve(result.url, local_path)
             print(f"    Saved: {local_path.name}")
 
+            # Log successful generation
+            log_image_generation(
+                model=model,
+                prompt=prompt,
+                parameters={"size": "1024x1024", "reference_strategy": ref_strategy, "num_refs": len(ref_paths)},
+                source="generate_page_images.py",
+                book_slug=slug,
+                page=page_num,
+                cost=0.03 if model == "wan2.6-image" else 0.15,
+                status="completed",
+                result_url=result.url,
+                reference_images=[str(p) for p in ref_paths] if ref_paths else [],
+            )
+
             # Path format for reader: "images/{slug}/page{nn}.png"
             return {
                 "url": result.url,
@@ -205,9 +220,31 @@ def generate_image_fal(
             }
         except Exception as e:
             print(f"    Download error: {e}")
+            log_image_generation(
+                model=model,
+                prompt=prompt,
+                parameters={"size": "1024x1024"},
+                source="generate_page_images.py",
+                book_slug=slug,
+                page=page_num,
+                status="failed",
+                error=f"Download error: {e}",
+                reference_images=[str(p) for p in ref_paths] if ref_paths else [],
+            )
             return None
     else:
         print(f"    Failed: {result.error}")
+        log_image_generation(
+            model=model,
+            prompt=prompt,
+            parameters={"size": "1024x1024"},
+            source="generate_page_images.py",
+            book_slug=slug,
+            page=page_num,
+            status="failed",
+            error=result.error,
+            reference_images=[str(p) for p in ref_paths] if ref_paths else [],
+        )
         return None
 
 
@@ -287,6 +324,20 @@ def generate_image_mulerouter(
                 urllib.request.urlretrieve(url, local_path)
                 print(f"    Saved: {local_path.name}")
 
+                # Log successful generation
+                log_image_generation(
+                    model=model,
+                    prompt=prompt,
+                    parameters={"size": "1024x1024", "reference_version": ref_version},
+                    source="generate_page_images.py",
+                    book_slug=slug,
+                    page=page_num,
+                    cost=0.03 if model == "wan2.6-image" else 0.15,
+                    status="completed",
+                    result_url=url,
+                    reference_images=[str(ref_path)] if ref_path else [],
+                )
+
                 # Path format for reader: "images/{slug}/page{nn}.png"
                 return {
                     "url": url,
@@ -301,9 +352,31 @@ def generate_image_mulerouter(
                 }
             except Exception as e:
                 print(f"    Download error: {e}")
+                log_image_generation(
+                    model=model,
+                    prompt=prompt,
+                    parameters={"size": "1024x1024"},
+                    source="generate_page_images.py",
+                    book_slug=slug,
+                    page=page_num,
+                    status="failed",
+                    error=f"Download error: {e}",
+                    reference_images=[str(ref_path)] if ref_path else [],
+                )
                 return None
         else:
             print(f"    Failed: {result.error}")
+            log_image_generation(
+                model=model,
+                prompt=prompt,
+                parameters={"size": "1024x1024"},
+                source="generate_page_images.py",
+                book_slug=slug,
+                page=page_num,
+                status="failed",
+                error=result.error,
+                reference_images=[str(ref_path)] if ref_path else [],
+            )
             return None
 
 

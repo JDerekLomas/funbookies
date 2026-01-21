@@ -5,6 +5,8 @@
  * Returns the generated image URL (user downloads/saves manually).
  */
 
+import { logImageGeneration, MODEL_COSTS } from './_lib/log-image.js';
+
 const MULEROUTER_API_URL = 'https://api.mulerouter.ai';
 
 export default async function handler(req, res) {
@@ -26,12 +28,18 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'API key not configured' });
   }
 
+  const startTime = Date.now();
+
   try {
     const { prompt, model, slug, page, reference, referenceIsUrl } = req.body;
 
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt is required' });
     }
+
+    // Prepare reference info for logging
+    const refArray = Array.isArray(reference) ? reference : (reference ? [reference] : []);
+    const refCount = refArray.length;
 
     // Build the API endpoint based on model
     let endpoint;
@@ -114,6 +122,22 @@ export default async function handler(req, res) {
               if (part.inlineData) {
                 // Return as data URL
                 const imageUrl = `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+
+                // Log successful generation
+                logImageGeneration({
+                  model,
+                  prompt,
+                  parameters: { with_reference: true },
+                  source: 'api/generate-image',
+                  book_slug: slug,
+                  page,
+                  cost: MODEL_COSTS[model] || null,
+                  status: 'completed',
+                  result_url: `[data URL - ${slug}_page_${page}.png]`,
+                  duration_ms: Date.now() - startTime,
+                  reference_images: refArray.map(r => referenceIsUrl ? r : '[base64]'),
+                });
+
                 return res.status(200).json({
                   success: true,
                   url: imageUrl,
@@ -155,6 +179,22 @@ export default async function handler(req, res) {
           for (const part of t2iCandidates[0].content.parts) {
             if (part.inlineData) {
               const imageUrl = `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+
+              // Log successful generation
+              logImageGeneration({
+                model,
+                prompt,
+                parameters: { with_reference: false },
+                source: 'api/generate-image',
+                book_slug: slug,
+                page,
+                cost: MODEL_COSTS[model] || null,
+                status: 'completed',
+                result_url: `[data URL - ${slug}_page_${page}.png]`,
+                duration_ms: Date.now() - startTime,
+                reference_images: [],
+              });
+
               return res.status(200).json({
                 success: true,
                 url: imageUrl,
@@ -318,6 +358,20 @@ export default async function handler(req, res) {
     }
 
     if (taskId) {
+      // Log pending generation (will be updated when status is checked)
+      logImageGeneration({
+        model,
+        prompt,
+        parameters: { size: body.size || body.aspect_ratio || '1024x1024', task_id: taskId },
+        source: 'api/generate-image',
+        book_slug: slug,
+        page,
+        cost: MODEL_COSTS[model] || null,
+        status: 'pending',
+        duration_ms: Date.now() - startTime,
+        reference_images: refArray.map(r => referenceIsUrl ? r : '[base64]'),
+      });
+
       // Return task info for frontend polling (Vercel has timeout limits)
       // Status is checked by GET {endpoint}/{taskId} - append taskId to generation endpoint
       return res.status(200).json({
@@ -332,9 +386,26 @@ export default async function handler(req, res) {
     // For sync APIs, result is immediate - check various response formats
     const images = submitResult.images || submitResult.output?.images || submitResult.data?.images;
     if (images && images.length > 0) {
+      const resultUrl = images[0].url || images[0];
+
+      // Log successful generation
+      logImageGeneration({
+        model,
+        prompt,
+        parameters: { size: body.size || body.aspect_ratio || '1024x1024' },
+        source: 'api/generate-image',
+        book_slug: slug,
+        page,
+        cost: MODEL_COSTS[model] || null,
+        status: 'completed',
+        result_url: resultUrl,
+        duration_ms: Date.now() - startTime,
+        reference_images: refArray.map(r => referenceIsUrl ? r : '[base64]'),
+      });
+
       return res.status(200).json({
         success: true,
-        url: images[0].url || images[0],
+        url: resultUrl,
         path: `${slug}_page_${page}.png`,
         message: 'Image generated. Right-click to save.'
       });
@@ -345,6 +416,23 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('Generation error:', error);
+
+    // Log failed generation
+    const { prompt, model, slug, page, reference, referenceIsUrl } = req.body || {};
+    const refArray = Array.isArray(reference) ? reference : (reference ? [reference] : []);
+    logImageGeneration({
+      model: model || 'unknown',
+      prompt: prompt || '',
+      parameters: {},
+      source: 'api/generate-image',
+      book_slug: slug,
+      page,
+      status: 'failed',
+      error: error.message,
+      duration_ms: Date.now() - startTime,
+      reference_images: refArray.map(r => referenceIsUrl ? r : '[base64]'),
+    });
+
     return res.status(500).json({
       success: false,
       error: error.message || 'Generation failed'

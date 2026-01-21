@@ -1,0 +1,284 @@
+{
+  "id": "if-i-could-only-be-an-airplane",
+  "title": "If I Could Only Be an Airplane",
+  "slug": "if-i-could-only-be-an-airplane",
+  "level": "B2",
+  "band": "B",
+  "targetPhonics": "CVC short vowels (a, e, i, o, u)",
+  "wordFamilies": ["-et", "-it", "-ill", "-ip", "-in", "-un", "-up", "-ot"],
+  "skill": "CVC Short Vowels",
+  "skill_description": "Practice reading CVC words with all five short vowels, with 'airplane' as a high-interest heart word.",
+  "age_range": "K-1",
+  "created": "2026-01-21",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "A boy named Jet dreams of being an airplane, soaring through clouds and flying free over tiny hills below.",
+  "characters": {
+    "jet": {
+      "name": "Jet",
+      "visual_shorthand": "Young boy (5-6) with messy brown hair, red t-shirt, khaki cargo shorts",
+      "distinctive_features": [
+        "messy brown hair",
+        "bright curious eyes",
+        "red t-shirt",
+        "khaki cargo shorts",
+        "energetic posture"
+      ]
+    },
+    "mom": {
+      "name": "Mom",
+      "visual_shorthand": "Woman with dark hair in ponytail, blue sundress",
+      "distinctive_features": [
+        "dark hair in ponytail",
+        "warm smile",
+        "blue sundress"
+      ]
+    }
+  },
+  "setting_context": "Grassy green hill overlooking a small airfield with a windsock. Blue sky with puffy white clouds. Sense of openness and freedom.",
+  "story_bible": {
+    "premise": "A boy who loves watching airplanes dreams of flying free through the clouds.",
+    "setting": "Grassy hill overlooking small airfield, blue sky with fluffy clouds",
+    "visual_style": "Warm watercolor with soft edges, bright blue sky tones, fluffy white clouds, sense of height and freedom"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE SHEET for children's book illustration\n\nFOCUS: Character design INCLUDING TRANSFORMATION, setting elements, color palette.\nIMPORTANT: Transformation design in CENTER PANEL.\n\nRow 1 - CHARACTER (normal):\n[1] Jet standing: Young boy (5-6), messy brown hair, red t-shirt, khaki shorts, arms out like wings\n[2] Jet expressions: Three small portraits - eyes shut dreaming, wide-eyed wonder, laughing joyfully\n[3] Jet running: Same boy running through grass, arms stretched wide, hair blowing\n\nRow 2 - TRANSFORMATION (center):\n[4] Transformation start: Jet's arms beginning to become airplane wings, magical glow around him\n[5] JET-AS-AIRPLANE (CENTER - biggest panel): Boy fully transformed into red airplane - his smiling face IS the nose cone, his arms ARE the wings, his body is the fuselage. Flying through blue sky. Surreal magical design.\n[6] Jet-as-airplane flying: Same transformed airplane-boy soaring through fluffy white clouds, joyful expression\n\nRow 3 - SETTING:\n[7] Grassy hilltop: Green hill with tall grass, blue sky, where Jet sits and dreams\n[8] Cloud interior: Inside a fluffy white cloud, soft and magical, droplets visible\n[9] High altitude view: Tiny patchwork fields, miniature houses far below, clouds at eye level, golden sun\n\nSTYLE: Warm soft watercolor. Bright palette: sky blue, grass green, cloud white, RED (airplane/shirt). Surreal magical transformation aesthetic. Soft edges, no hard outlines.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere.",
+  "word_list": {
+    "sound_out": [
+      "Jet",
+      "sits",
+      "hill",
+      "hot",
+      "sun",
+      "hum",
+      "up",
+      "zips",
+      "dips",
+      "tips",
+      "spins",
+      "fast",
+      "fun",
+      "runs",
+      "but"
+    ],
+    "sight": [
+      "a",
+      "I",
+      "the",
+      "is",
+      "in",
+      "if",
+      "could",
+      "only",
+      "be",
+      "he",
+      "his",
+      "and",
+      "of"
+    ],
+    "heart": [
+      "airplane",
+      "clouds",
+      "eyes"
+    ]
+  },
+  "sightWordsUsed": [
+    "a",
+    "I",
+    "the",
+    "is",
+    "in",
+    "if",
+    "could",
+    "only",
+    "be",
+    "he",
+    "his",
+    "and",
+    "of"
+  ],
+  "wordsearch_words": [
+    "Jet",
+    "airplane",
+    "hill",
+    "sun",
+    "up",
+    "fast",
+    "fun",
+    "clouds"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "If I Could Only Be an Airplane",
+      "scene": "Surreal fantasy cover: Jet transformed into a red airplane - his joyful face as the nose, his arms stretched wide as actual wings, his body the fuselage. He soars through bright blue sky with fluffy white clouds. Below, a tiny green hill where a small boy shape once sat. Pure magic and freedom. Warm watercolor style."
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_info"
+    },
+    {
+      "page": 5,
+      "type": "wordlist",
+      "text": "Words to Know"
+    },
+    {
+      "page": 6,
+      "story_page": 1,
+      "type": "story",
+      "text": "Jet sits on a big hill.\nAn airplane zips by!",
+      "scene": "Wide shot: Jet, a young boy (5-6) with messy brown hair in a red t-shirt, sits in tall green grass on a hilltop. A small white airplane soars across the bright blue sky above him. His head tilts back, watching with wonder. Warm watercolor style."
+    },
+    {
+      "page": 7,
+      "story_page": 2,
+      "type": "story",
+      "text": "\"If I could only be an airplane!\"\nJet shuts his eyes.",
+      "scene": "Close-up: Jet's face with eyes squeezed tightly shut, big hopeful smile. Messy brown hair, freckles. Golden sunlight on his skin. Above his head, a glowing thought bubble begins to form with airplane wings. Dreaming intensely. Warm watercolor style."
+    },
+    {
+      "page": 8,
+      "story_page": 3,
+      "type": "story",
+      "text": "ZIP! Jet is an airplane!\nHis arms are wings!",
+      "scene": "Fantasy transformation: Jet's body has become a small red airplane. His smiling face is the nose cone, his arms stretched wide ARE the wings - actual airplane wings growing from his shoulders. His legs have become the tail. He lifts off from the hilltop, grass bending in the wind. Surreal magical transformation. Warm watercolor style."
+    },
+    {
+      "page": 9,
+      "story_page": 4,
+      "type": "story",
+      "text": "He zooms up, up, up!\nThe wind hums on his wings.",
+      "scene": "Fantasy scene: Jet-as-airplane rocketing upward through bright blue sky. His wing-arms cut through fluffy white clouds. Wind streaks past his smiling airplane-face. His red airplane body gleams in sunlight. Pure exhilaration and speed. Surreal children's book fantasy. Warm watercolor style."
+    },
+    {
+      "page": 10,
+      "story_page": 5,
+      "type": "story",
+      "text": "He dips into a cloud.\nIt is wet and soft!",
+      "scene": "Fantasy scene: Jet-as-airplane diving playfully INTO a giant fluffy cloud. White cloud wisps wrap around his wings. His face peeks out from the cloud fluff, laughing with delight. Droplets on his airplane nose. Magical and tactile. Surreal children's book fantasy. Warm watercolor style."
+    },
+    {
+      "page": 11,
+      "story_page": 6,
+      "type": "story",
+      "text": "He tips left! He tips right!\nHe spins and spins!",
+      "scene": "Fantasy scene: Jet-as-airplane doing barrel rolls and banking turns through open sky. Motion blur shows his spinning. His face shows wild joy - dizzy and thrilled. Clouds spiral around him. Blue sky tilts at crazy angles. Dynamic action. Surreal children's book fantasy. Warm watercolor style."
+    },
+    {
+      "page": 12,
+      "story_page": 7,
+      "type": "story",
+      "text": "The hills are small. The sun is close!\nJet is fast. Jet is FREE!",
+      "scene": "Fantasy scene: Jet-as-airplane soaring at incredible height. Far below, tiny patchwork fields, miniature houses, roads like ribbons. The huge golden sun blazes nearby, warming his wings. His airplane-face radiates pure freedom and joy. Epic sense of scale. Surreal children's book fantasy. Warm watercolor style."
+    },
+    {
+      "page": 13,
+      "story_page": 8,
+      "type": "story",
+      "text": "\"Jet! Time to go!\"\nHis eyes pop open.",
+      "scene": "Snap back to reality: Jet sits up suddenly in the grass, eyes wide, gasping. His arms are just arms again. The real sky above, a distant airplane flying away. At the bottom of the hill, Mom waves. The magic fades but lingers in his expression. Warm afternoon light. Warm watercolor style."
+    },
+    {
+      "page": 14,
+      "story_page": 9,
+      "type": "story",
+      "text": "Jet runs to Mom.\nHis arms go out like wings!",
+      "scene": "Wide shot: Jet running joyfully down the grassy hill toward Mom, arms stretched straight out like airplane wings. He banks and dips as he runs, making airplane sounds. Mom laughs and opens her arms. His red shirt bright against green grass. Warm watercolor style."
+    },
+    {
+      "page": 15,
+      "story_page": 10,
+      "type": "story",
+      "text": "But up in the clouds?\nPart of Jet still zips and zooms.",
+      "scene": "Split scene: Below, Jet hugs Mom at the bottom of the hill, small and warm and real. Above in the sunset sky, a ghostly transparent Jet-as-airplane still soars joyfully through golden-pink clouds - a piece of his imagination forever flying free. Magical bittersweet ending. Warm watercolor style."
+    },
+    {
+      "page": 16,
+      "type": "end",
+      "text": "The End",
+      "scene": "Jet asleep in his bed, peaceful smile. Moonlight through the window. On his pillow beside him, a toy red airplane clutched in his hand. Above his sleeping head, a dream bubble shows Jet-as-airplane soaring through starry night clouds, still flying free. Cozy bedroom, magical dreams. Warm watercolor style."
+    },
+    {
+      "page": 17,
+      "type": "wordsearch"
+    },
+    {
+      "page": 18,
+      "type": "series_info"
+    },
+    {
+      "page": 19,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-21T00:00:00.000Z",
+    "storyPages": 10
+  },
+  "multi_reference_metadata": {
+    "strategy": "scene-split",
+    "description": "Base style guide + scene refs split by story half to prevent content contamination",
+    "generated_at": "2026-01-21T00:00:00.000Z",
+    "provider": "mulerouter",
+    "sheets": {
+      "base": {
+        "path": "books/references/if-i-could-only-be-an-airplane_multi/if-i-could-only-be-an-airplane_base.png",
+        "model": "nano-banana",
+        "type": "T2I",
+        "description": "9-panel style guide with characters, settings, and key moments"
+      },
+      "scenes_part1": {
+        "path": "books/references/if-i-could-only-be-an-airplane_multi/if-i-could-only-be-an-airplane_scenes_part1.png",
+        "model": "wan2.6-image",
+        "type": "I2I",
+        "reference": "base",
+        "description": "First half scenes (1-5): Hill observation and beginning of dream",
+        "use_for_pages": [1, 2, 3, 4, 5]
+      },
+      "scenes_part2": {
+        "path": "books/references/if-i-could-only-be-an-airplane_multi/if-i-could-only-be-an-airplane_scenes_part2.png",
+        "model": "wan2.6-image",
+        "type": "I2I",
+        "reference": "base",
+        "description": "Second half scenes (6-10): Flying fantasy and return to reality",
+        "use_for_pages": [6, 7, 8, 9, 10]
+      }
+    }
+  },
+  "parent_tips": {
+    "before_reading": "Preview the cover together. Ask: What do you think this boy is dreaming about? Have you ever wished you could fly? Look for our special 'heart word': airplane.",
+    "during_reading": "Help your child with 'airplane' and 'clouds' - these are special words we learn as wholes. Sound out the CVC words like: Jet, sits, hill, hot, sun, zips, dips, tips, spins, fast, fun, runs.",
+    "after_reading": "Discuss: What did Jet imagine? How do you think it felt to fly so high? What would YOU see if you could fly like an airplane?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Where does Jet sit at the beginning?",
+      "answer": "On a big hill in the sun"
+    },
+    {
+      "question": "What does Jet wish he could be?",
+      "answer": "An airplane"
+    },
+    {
+      "question": "What does Jet do when he imagines being an airplane?",
+      "answer": "He zips, dips, spins, and tips through the clouds"
+    },
+    {
+      "question": "What brings Jet back to reality?",
+      "answer": "His mom calling him - time to go"
+    },
+    {
+      "question": "What is still up in the clouds at the end?",
+      "answer": "Part of Jet (his imagination/dreams)"
+    }
+  ]
+}

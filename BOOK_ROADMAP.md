@@ -1,14 +1,14 @@
 # Book Roadmap
 
-Generated: 2026-01-20 16:24
+Generated: 2026-01-21 08:48
 
 ## Summary
 
-- **Total books:** 66
-- **Complete:** 42
-- **Partial images:** 12
+- **Total books:** 67
+- **Complete:** 43
+- **Partial images:** 11
 - **Has reference:** 6
-- **Has prompt only:** 3
+- **Has prompt only:** 4
 - **Has story only:** 1
 - **Minimal:** 2
 
@@ -42,11 +42,12 @@ Generated: 2026-01-20 16:24
 | a2-i-see-it | A2 | 16 | 34 | RP | 9-panel | ✅ 9 | complete | 2 | P3 |
 | a3-the-cat-is-here | A3 | 18 | 52 | RP | 9-panel | ✅ 11 | complete | 2 | P3 |
 | a4-sam-and-the-hat | A4 | 20 | 63 | RP | 9-panel | ✅ 13 | complete | 4 | P2 |
-| the-big-pig | B1 | 21 | 194 | SB,CH,RP | 9p+multi | 12/13 | partial | 9 | P1 |
+| the-big-pig | B1 | 21 | 194 | SB,CH,RP | 9p+multi | ✅ 13 | complete | 9 | P1 |
 | pip-gets-a-hit | B1 | 21 | 131 | SB,CH | - | - | has-story | 8 | P1 |
 | b1-sam-and-the-cat | B1 | 21 | 80 | RP | 9-panel | ✅ 13 | complete | 5 | P2 |
 | fit-it-in | B1 | 26 | 95 | RP | 9p+multi | - | has-ref | 2 | P3 |
 | frog-gets-fun | B2 | 21 | 117 | SB,CH,RP | - | - | has-prompt | 9 | P1 |
+| if-i-could-only-be-an-airplane | B2 | 19 | 117 | SB,CH,RP | - | - | has-prompt | 9 | P1 |
 | mud-pup-fun | B2 | 21 | 113 | SB,CH,RP | - | - | has-prompt | 9 | P1 |
 | pup-in-mud | B2 | 21 | 171 | SB,CH,RP | - | - | has-prompt | 9 | P1 |
 | rats-in-the-castle | B2 | 27 | 134 | SB,CH,RP | 9-panel | 1/19 | partial | 9 | P1 |
@@ -116,13 +117,14 @@ Generated: 2026-01-20 16:24
 - ✅ **a3-the-cat-is-here** - The Cat Is Here (complete)
 - ✅ **a4-sam-and-the-hat** - Sam and the Hat (complete)
 
-### Band B (42 books, 23 complete)
+### Band B (43 books, 24 complete)
 
-- 🔶 **the-big-pig** - The Big Pig (partial)
+- ✅ **the-big-pig** - The Big Pig (complete)
 - 📖 **pip-gets-a-hit** - Pip Gets a Hit (has-story)
 - ✅ **b1-sam-and-the-cat** - Sam and the Cat (complete)
 - 🖼️ **fit-it-in** - Fit It In (has-ref)
 - 📝 **frog-gets-fun** - Frog Gets Fun (has-prompt)
+- 📝 **if-i-could-only-be-an-airplane** - If I Could Only Be an Airplane (has-prompt)
 - 📝 **mud-pup-fun** - Mud Pup Fun (has-prompt)
 - 📝 **pup-in-mud** - Pup in Mud (has-prompt)
 - 🔶 **rats-in-the-castle** - Rats in the Castle (partial)

@@ -37,6 +37,7 @@ from image_utils import (
     BOOKS_DIR, COVERS_DIR, REFS_DIR,
     image_to_base64_uri, find_reference_image, get_character_block
 )
+from image_log import log_image_generation
 
 
 def download_image(url: str, output_path: Path) -> bool:

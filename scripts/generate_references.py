@@ -37,6 +37,7 @@ from fal_client import FalClient
 
 # Import shared utilities
 from image_utils import BOOKS_DIR, REFS_DIR, get_character_block
+from image_log import log_image_generation
 
 # Style templates based on reading level/band
 STYLE_TEMPLATES = {
@@ -482,12 +483,31 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
     if not result.success:
         print(f"    Failed: {result.error}")
         print(f"    Cannot continue without characters sheet")
+        log_image_generation(
+            model="nano-banana-pro",
+            prompt=prompt,
+            parameters={"size": "square_hd", "type": "characters_reference"},
+            source="generate_references.py",
+            book_slug=slug,
+            status="failed",
+            error=result.error,
+        )
         return False
 
     print(f"    Generated: {result.url[:60]}...")
     try:
         urllib.request.urlretrieve(result.url, characters_path)
         print(f"    Saved: {characters_path.name}")
+        log_image_generation(
+            model="nano-banana-pro",
+            prompt=prompt,
+            parameters={"size": "square_hd", "type": "characters_reference"},
+            source="generate_references.py",
+            book_slug=slug,
+            cost=0.15,
+            status="completed",
+            result_url=result.url,
+        )
         results["characters"] = {
             "path": str(characters_path.relative_to(REFS_DIR.parent.parent)),
             "prompt": prompt,
@@ -497,6 +517,15 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
         total_cost += 0.15
     except Exception as e:
         print(f"    Download error: {e}")
+        log_image_generation(
+            model="nano-banana-pro",
+            prompt=prompt,
+            parameters={"size": "square_hd", "type": "characters_reference"},
+            source="generate_references.py",
+            book_slug=slug,
+            status="failed",
+            error=f"Download error: {e}",
+        )
         return False
 
     # Step 2 & 3: Generate settings and style with I2I using characters as reference
@@ -528,6 +557,17 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
             try:
                 urllib.request.urlretrieve(result.url, output_path)
                 print(f"    Saved: {output_path.name}")
+                log_image_generation(
+                    model="wan2.6-image",
+                    prompt=prompt,
+                    parameters={"size": "1024x1024", "type": f"{sheet_name}_reference"},
+                    source="generate_references.py",
+                    book_slug=slug,
+                    cost=0.03,
+                    status="completed",
+                    result_url=result.url,
+                    reference_images=[str(characters_path)],
+                )
                 results[sheet_name] = {
                     "path": str(output_path.relative_to(REFS_DIR.parent.parent)),
                     "prompt": prompt,
@@ -538,8 +578,28 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
                 total_cost += 0.03
             except Exception as e:
                 print(f"    Download error: {e}")
+                log_image_generation(
+                    model="wan2.6-image",
+                    prompt=prompt,
+                    parameters={"size": "1024x1024", "type": f"{sheet_name}_reference"},
+                    source="generate_references.py",
+                    book_slug=slug,
+                    status="failed",
+                    error=f"Download error: {e}",
+                    reference_images=[str(characters_path)],
+                )
         else:
             print(f"    Failed: {result.error}")
+            log_image_generation(
+                model="wan2.6-image",
+                prompt=prompt,
+                parameters={"size": "1024x1024", "type": f"{sheet_name}_reference"},
+                source="generate_references.py",
+                book_slug=slug,
+                status="failed",
+                error=result.error,
+                reference_images=[str(characters_path)],
+            )
 
     success_count = len(results)
 
@@ -624,6 +684,15 @@ def generate_multi_refs_mulerouter(slug: str, config) -> bool:
         if not result.results:
             print(f"    Failed: {result.error}")
             print(f"    Cannot continue without characters sheet")
+            log_image_generation(
+                model="nano-banana-pro",
+                prompt=prompt,
+                parameters={"size": "1024x1024", "type": "characters_reference"},
+                source="generate_references.py",
+                book_slug=slug,
+                status="failed",
+                error=result.error,
+            )
             return False
 
         url = result.results[0]
@@ -631,6 +700,16 @@ def generate_multi_refs_mulerouter(slug: str, config) -> bool:
         try:
             urllib.request.urlretrieve(url, characters_path)
             print(f"    Saved: {characters_path.name}")
+            log_image_generation(
+                model="nano-banana-pro",
+                prompt=prompt,
+                parameters={"size": "1024x1024", "type": "characters_reference"},
+                source="generate_references.py",
+                book_slug=slug,
+                cost=0.15,
+                status="completed",
+                result_url=url,
+            )
             results["characters"] = {
                 "path": str(characters_path.relative_to(REFS_DIR.parent.parent)),
                 "prompt": prompt,
@@ -640,6 +719,15 @@ def generate_multi_refs_mulerouter(slug: str, config) -> bool:
             total_cost += 0.15
         except Exception as e:
             print(f"    Download error: {e}")
+            log_image_generation(
+                model="nano-banana-pro",
+                prompt=prompt,
+                parameters={"size": "1024x1024", "type": "characters_reference"},
+                source="generate_references.py",
+                book_slug=slug,
+                status="failed",
+                error=f"Download error: {e}",
+            )
             return False
 
         # Step 2 & 3: Generate settings and style with I2I using characters as reference
@@ -682,6 +770,17 @@ def generate_multi_refs_mulerouter(slug: str, config) -> bool:
                 try:
                     urllib.request.urlretrieve(url, output_path)
                     print(f"    Saved: {output_path.name}")
+                    log_image_generation(
+                        model="wan2.6-image",
+                        prompt=prompt,
+                        parameters={"size": "1024x1024", "type": f"{sheet_name}_reference"},
+                        source="generate_references.py",
+                        book_slug=slug,
+                        cost=0.12,
+                        status="completed",
+                        result_url=url,
+                        reference_images=[str(characters_path)],
+                    )
                     results[sheet_name] = {
                         "path": str(output_path.relative_to(REFS_DIR.parent.parent)),
                         "prompt": prompt,
@@ -692,8 +791,28 @@ def generate_multi_refs_mulerouter(slug: str, config) -> bool:
                     total_cost += 0.12
                 except Exception as e:
                     print(f"    Download error: {e}")
+                    log_image_generation(
+                        model="wan2.6-image",
+                        prompt=prompt,
+                        parameters={"size": "1024x1024", "type": f"{sheet_name}_reference"},
+                        source="generate_references.py",
+                        book_slug=slug,
+                        status="failed",
+                        error=f"Download error: {e}",
+                        reference_images=[str(characters_path)],
+                    )
             else:
                 print(f"    Failed: {result.error}")
+                log_image_generation(
+                    model="wan2.6-image",
+                    prompt=prompt,
+                    parameters={"size": "1024x1024", "type": f"{sheet_name}_reference"},
+                    source="generate_references.py",
+                    book_slug=slug,
+                    status="failed",
+                    error=result.error,
+                    reference_images=[str(characters_path)],
+                )
 
     success_count = len(results)
 
@@ -760,6 +879,17 @@ def generate_reference_fal(slug: str, fal_client: FalClient) -> bool:
             urllib.request.urlretrieve(result.url, output_path)
             print(f"  Saved to: {output_path}")
 
+            log_image_generation(
+                model=model,
+                prompt=prompt,
+                parameters={"size": "square_hd", "type": "single_reference"},
+                source="generate_references.py",
+                book_slug=slug,
+                cost=0.15,
+                status="completed",
+                result_url=result.url,
+            )
+
             # Save metadata to book JSON
             book_path = BOOKS_DIR / f"{slug}.json"
             with open(book_path) as f:
@@ -781,9 +911,27 @@ def generate_reference_fal(slug: str, fal_client: FalClient) -> bool:
             return True
         except Exception as e:
             print(f"  Download error: {e}")
+            log_image_generation(
+                model=model,
+                prompt=prompt,
+                parameters={"size": "square_hd", "type": "single_reference"},
+                source="generate_references.py",
+                book_slug=slug,
+                status="failed",
+                error=f"Download error: {e}",
+            )
             return False
     else:
         print(f"  Failed: {result.error}")
+        log_image_generation(
+            model=model,
+            prompt=prompt,
+            parameters={"size": "square_hd", "type": "single_reference"},
+            source="generate_references.py",
+            book_slug=slug,
+            status="failed",
+            error=result.error,
+        )
         return False
 
 
@@ -843,6 +991,17 @@ def generate_reference_mulerouter(slug: str, config) -> bool:
                 urllib.request.urlretrieve(url, output_path)
                 print(f"  Saved to: {output_path}")
 
+                log_image_generation(
+                    model=model,
+                    prompt=prompt,
+                    parameters={"size": "1024x1024", "type": "single_reference"},
+                    source="generate_references.py",
+                    book_slug=slug,
+                    cost=0.15,
+                    status="completed",
+                    result_url=url,
+                )
+
                 # Save metadata to book JSON
                 book_path = BOOKS_DIR / f"{slug}.json"
                 with open(book_path) as f:
@@ -863,9 +1022,27 @@ def generate_reference_mulerouter(slug: str, config) -> bool:
                 return True
             except Exception as e:
                 print(f"  Download error: {e}")
+                log_image_generation(
+                    model=model,
+                    prompt=prompt,
+                    parameters={"size": "1024x1024", "type": "single_reference"},
+                    source="generate_references.py",
+                    book_slug=slug,
+                    status="failed",
+                    error=f"Download error: {e}",
+                )
                 return False
         else:
             print(f"  Failed: {result.error}")
+            log_image_generation(
+                model=model,
+                prompt=prompt,
+                parameters={"size": "1024x1024", "type": "single_reference"},
+                source="generate_references.py",
+                book_slug=slug,
+                status="failed",
+                error=result.error,
+            )
             return False
 
 

@@ -8,6 +8,8 @@
  * Cost: $0.03 per image via wan2.6-image
  */
 
+import { logImageGeneration, MODEL_COSTS } from './_lib/log-image.js';
+
 const MULEROUTER_API_URL = 'https://api.mulerouter.ai';
 
 export default async function handler(req, res) {
@@ -99,6 +101,19 @@ export default async function handler(req, res) {
     // Check for async task
     const taskId = result.task_id || result.task_info?.task_id;
     if (taskId) {
+      // Log pending I2I generation
+      logImageGeneration({
+        model: 'wan2.6-image',
+        prompt: body.prompt,
+        parameters: { size: '1024*1024', type: `${refType}_reference`, task_id: taskId },
+        source: 'api/generate-ref-i2i',
+        book_slug: slug,
+        page: null,
+        cost: MODEL_COSTS['wan2.6-image'] || 0.03,
+        status: 'pending',
+        reference_images: [referenceIsUrl ? referenceImage : '[base64]'],
+      });
+
       return res.status(200).json({
         success: true,
         pending: true,
@@ -113,9 +128,25 @@ export default async function handler(req, res) {
     // Sync result
     const images = result.images || result.output?.images;
     if (images && images.length > 0) {
+      const resultUrl = images[0].url || images[0];
+
+      // Log successful I2I generation
+      logImageGeneration({
+        model: 'wan2.6-image',
+        prompt: body.prompt,
+        parameters: { size: '1024*1024', type: `${refType}_reference` },
+        source: 'api/generate-ref-i2i',
+        book_slug: slug,
+        page: null,
+        cost: MODEL_COSTS['wan2.6-image'] || 0.03,
+        status: 'completed',
+        result_url: resultUrl,
+        reference_images: [referenceIsUrl ? referenceImage : '[base64]'],
+      });
+
       return res.status(200).json({
         success: true,
-        url: images[0].url || images[0],
+        url: resultUrl,
         refType,
         slug,
         path: `${slug}_${refType || 'ref'}.png`
@@ -126,6 +157,21 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('I2I generation error:', error);
+
+    // Log failed generation
+    const { prompt, slug, refType, referenceImage, referenceIsUrl } = req.body || {};
+    logImageGeneration({
+      model: 'wan2.6-image',
+      prompt: prompt || '',
+      parameters: { type: `${refType}_reference` },
+      source: 'api/generate-ref-i2i',
+      book_slug: slug,
+      page: null,
+      status: 'failed',
+      error: error.message,
+      reference_images: referenceImage ? [referenceIsUrl ? referenceImage : '[base64]'] : [],
+    });
+
     return res.status(500).json({
       success: false,
       error: error.message || 'I2I generation failed'

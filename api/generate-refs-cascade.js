@@ -9,6 +9,8 @@
  * Total: $0.21 for 3 consistent reference images
  */
 
+import { logImageGeneration, MODEL_COSTS } from './_lib/log-image.js';
+
 const MULEROUTER_API_URL = 'https://api.mulerouter.ai';
 
 export default async function handler(req, res) {
@@ -89,6 +91,19 @@ export default async function handler(req, res) {
 
       const taskId = t2iResult.task_id || t2iResult.task_info?.task_id;
       if (taskId) {
+        // Log the T2I generation for characters reference
+        logImageGeneration({
+          model: 'wan2.6-t2i',
+          prompt: t2iBody.prompt,
+          parameters: { size: '1024*1024', type: 'characters_reference', task_id: taskId },
+          source: 'api/generate-refs-cascade',
+          book_slug: slug,
+          page: null,
+          cost: MODEL_COSTS['wan2.6-t2i'] || 0.03,
+          status: 'pending',
+          reference_images: [],
+        });
+
         results.tasks.characters = {
           taskId,
           endpoint: t2iEndpoint,

@@ -406,6 +406,86 @@
             color: var(--color-error);
         }
 
+        /* Beats list for Phase 2 (Outline) */
+        .beats-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .beat-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            background: var(--color-cream);
+            border-radius: var(--border-radius);
+            padding: var(--space-sm);
+            border-left: 3px solid var(--color-sage);
+        }
+
+        .beat-number {
+            background: var(--color-sage);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .beat-content {
+            flex: 1;
+        }
+
+        .beat-input {
+            width: 100%;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-sm);
+            padding: 8px;
+            font-size: 0.9rem;
+            resize: none;
+            min-height: 40px;
+        }
+
+        .beat-input:focus {
+            outline: none;
+            border-color: var(--color-sage);
+            box-shadow: 0 0 0 3px var(--color-sage-light);
+        }
+
+        .beat-actions {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .beat-actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            color: var(--color-text-muted);
+            border-radius: 4px;
+        }
+
+        .beat-actions button:hover {
+            background: var(--color-border);
+            color: var(--color-charcoal);
+        }
+
+        .outline-meta {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        .outline-meta strong {
+            color: var(--color-charcoal);
+        }
+
         /* Reference image preview */
         .reference-preview {
             display: grid;
@@ -1068,7 +1148,7 @@
         <div class="page-header">
             <a href="/" class="back-link">&larr; Back to Home</a>
             <h1 class="page-title">Book Creation Wizard</h1>
-            <p class="page-subtitle">Create a complete book in 4 steps</p>
+            <p class="page-subtitle">Create a complete book in 6 steps</p>
         </div>
 
         <div class="wizard-layout">
@@ -1086,26 +1166,33 @@
                     <li class="step" data-phase="2">
                         <div class="step-indicator">2</div>
                         <div class="step-content">
-                            <div class="step-title">Story</div>
-                            <div class="step-subtitle">Edit text & scenes</div>
+                            <div class="step-title">Outline</div>
+                            <div class="step-subtitle">Review beats</div>
                         </div>
                     </li>
                     <li class="step" data-phase="3">
                         <div class="step-indicator">3</div>
                         <div class="step-content">
-                            <div class="step-title">Reference</div>
-                            <div class="step-subtitle">Style images</div>
+                            <div class="step-title">Story</div>
+                            <div class="step-subtitle">Full text & scenes</div>
                         </div>
                     </li>
                     <li class="step" data-phase="4">
                         <div class="step-indicator">4</div>
                         <div class="step-content">
-                            <div class="step-title">Pages</div>
-                            <div class="step-subtitle">Generate images</div>
+                            <div class="step-title">Reference</div>
+                            <div class="step-subtitle">Style images</div>
                         </div>
                     </li>
                     <li class="step" data-phase="5">
                         <div class="step-indicator">5</div>
+                        <div class="step-content">
+                            <div class="step-title">Pages</div>
+                            <div class="step-subtitle">Generate images</div>
+                        </div>
+                    </li>
+                    <li class="step" data-phase="6">
+                        <div class="step-indicator">6</div>
                         <div class="step-content">
                             <div class="step-title">Publish</div>
                             <div class="step-subtitle">Preview & publish</div>
@@ -1223,22 +1310,73 @@
                         <div class="action-bar">
                             <div class="action-bar-left"></div>
                             <div class="action-bar-right">
-                                <button class="btn btn-primary" onclick="generateStory()">Generate Story</button>
+                                <button class="btn btn-primary" onclick="generateOutline()">Generate Outline</button>
                             </div>
                         </div>
                     </div>
 
                     <div id="phase1Loading" class="loading-state hidden">
                         <div class="spinner"></div>
-                        <p id="phase1LoadingText">Generating your story...</p>
-                        <p style="font-size: 0.85rem; color: var(--color-text-muted);">This may take 20-30 seconds</p>
+                        <p id="phase1LoadingText">Generating story outline...</p>
+                        <p style="font-size: 0.85rem; color: var(--color-text-muted);">This may take 10-15 seconds</p>
                     </div>
                 </div>
 
-                <!-- Phase 2: Story Review (Split View) -->
+                <!-- Phase 2: Outline Review -->
                 <div class="phase-content" id="phase2">
                     <div class="wizard-header">
-                        <h2>Step 2: Review Story</h2>
+                        <h2>Step 2: Review Outline</h2>
+                    </div>
+
+                    <div id="phase2Loading" class="loading-state hidden">
+                        <div class="spinner"></div>
+                        <p id="phase2LoadingText">Processing...</p>
+                    </div>
+
+                    <div id="phase2Content">
+                        <div class="outline-header">
+                            <div class="form-group" style="margin-bottom: var(--space-sm);">
+                                <label>Title</label>
+                                <input type="text" class="input" id="outlineTitle" placeholder="Story title" onchange="updateOutlineTitle(this.value)">
+                            </div>
+                            <div class="outline-meta" style="display: flex; gap: var(--space-md); margin-bottom: var(--space-md);">
+                                <div>
+                                    <strong>Character:</strong> <span id="outlineCharacter"></span>
+                                </div>
+                                <div>
+                                    <strong>Setting:</strong> <span id="outlineSetting"></span>
+                                </div>
+                                <div>
+                                    <strong>Arc:</strong> <span id="outlineArc"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Story Beats</h3>
+                        <p class="hint" style="margin-bottom: var(--space-sm);">Edit, reorder, or add/remove beats before expanding to full story</p>
+
+                        <div id="beatsList" class="beats-list"></div>
+
+                        <button class="btn btn-ghost btn-sm" onclick="addBeat()" style="margin-top: var(--space-sm);">
+                            + Add Beat
+                        </button>
+                    </div>
+
+                    <div class="action-bar" id="phase2Actions">
+                        <div class="action-bar-left">
+                            <button class="btn btn-ghost" onclick="goToPhase(1)">Back to Concept</button>
+                        </div>
+                        <div class="action-bar-right">
+                            <button class="btn btn-secondary" onclick="regenerateOutline()">Regenerate Outline</button>
+                            <button class="btn btn-primary" onclick="expandToFullStory()">Expand to Full Story</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3: Story Review (Split View) -->
+                <div class="phase-content" id="phase3">
+                    <div class="wizard-header">
+                        <h2>Step 3: Review Story</h2>
                     </div>
 
                     <div id="validationMessages" class="validation-messages hidden">
@@ -1246,12 +1384,12 @@
                         <ul id="validationList"></ul>
                     </div>
 
-                    <div id="phase2Loading" class="loading-state hidden">
+                    <div id="phase3Loading" class="loading-state hidden">
                         <div class="spinner"></div>
-                        <p id="phase2LoadingText">Generating story and scenes...</p>
+                        <p id="phase3LoadingText">Expanding to full story...</p>
                     </div>
 
-                    <div id="phase2Content" class="hidden">
+                    <div id="phase3Content" class="hidden">
                         <div class="split-view">
                             <!-- Left: Editable Story Text -->
                             <div class="split-panel">
@@ -1265,28 +1403,28 @@
 
                             <!-- Right: Scene Descriptions -->
                             <div class="split-panel">
-                                <h3>Scene Descriptions</h3>
-                                <p class="hint" style="margin-bottom: var(--space-sm);">These descriptions guide image generation</p>
+                                <h3>Scene Descriptions (XML)</h3>
+                                <p class="hint" style="margin-bottom: var(--space-sm);">Structured descriptions for image generation</p>
                                 <div id="sceneList" class="scene-list"></div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="action-bar" id="phase2Actions">
+                    <div class="action-bar" id="phase3Actions">
                         <div class="action-bar-left">
-                            <button class="btn btn-ghost" onclick="goToPhase(1)">Back to Concept</button>
+                            <button class="btn btn-ghost" onclick="goToPhase(2)">Back to Outline</button>
                         </div>
                         <div class="action-bar-right">
                             <button class="btn btn-secondary" onclick="regenerateStoryAndScenes()">Regenerate</button>
-                            <button class="btn btn-primary" onclick="validateAndApprovePhase2()">Continue to Reference</button>
+                            <button class="btn btn-primary" onclick="validateAndApprovePhase3()">Continue to Reference</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Phase 3: Reference Image -->
-                <div class="phase-content" id="phase3">
+                <!-- Phase 4: Reference Image -->
+                <div class="phase-content" id="phase4">
                     <div class="wizard-header">
-                        <h2>Step 3: Reference Image</h2>
+                        <h2>Step 4: Reference Image</h2>
                     </div>
 
                     <!-- Strategy Toggle -->
@@ -1406,26 +1544,26 @@
                         </div>
                     </div>
 
-                    <div id="phase3Loading" class="loading-state hidden">
+                    <div id="phase4Loading" class="loading-state hidden">
                         <div class="spinner"></div>
-                        <p id="phase3LoadingText">Generating reference image...</p>
+                        <p id="phase4LoadingText">Generating reference image...</p>
                         <p style="font-size: 0.85rem; color: var(--color-text-muted);">This may take 30-60 seconds</p>
                     </div>
 
-                    <div class="action-bar" id="phase3Actions">
+                    <div class="action-bar" id="phase4Actions">
                         <div class="action-bar-left">
-                            <button class="btn btn-ghost" onclick="goToPhase(2)">Back to Scenes</button>
+                            <button class="btn btn-ghost" onclick="goToPhase(3)">Back to Story</button>
                         </div>
                         <div class="action-bar-right">
-                            <button class="btn btn-primary" onclick="approvePhase3()" id="approveRefBtn" disabled>Approve &amp; Continue</button>
+                            <button class="btn btn-primary" onclick="approvePhase4()" id="approveRefBtn" disabled>Approve &amp; Continue</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Phase 4: Page Images -->
-                <div class="phase-content" id="phase4">
+                <!-- Phase 5: Page Images -->
+                <div class="phase-content" id="phase5">
                     <div class="wizard-header">
-                        <h2>Step 4: Generate Page Images</h2>
+                        <h2>Step 5: Generate Page Images</h2>
                         <div>
                             <span id="pageProgress">0 / 0 complete</span>
                         </div>
@@ -1435,21 +1573,21 @@
 
                     <div class="action-bar">
                         <div class="action-bar-left">
-                            <button class="btn btn-ghost" onclick="goToPhase(3)">Back to Reference</button>
+                            <button class="btn btn-ghost" onclick="goToPhase(4)">Back to Reference</button>
                             <button class="btn btn-ghost" onclick="downloadBookJSON()">Download JSON</button>
                             <button class="btn btn-ghost" onclick="openImagePromptsReview()">Review Prompts</button>
                         </div>
                         <div class="action-bar-right">
                             <button class="btn btn-secondary" onclick="generateAllPageImages()" id="genAllPagesBtn">Generate All Pages</button>
-                            <button class="btn btn-primary" onclick="approvePhase4()" id="phase4NextBtn">Continue to Review</button>
+                            <button class="btn btn-primary" onclick="approvePhase5()" id="phase5NextBtn">Continue to Review</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Phase 5: Review & Publish -->
-                <div class="phase-content" id="phase5">
+                <!-- Phase 6: Review & Publish -->
+                <div class="phase-content" id="phase6">
                     <div class="wizard-header">
-                        <h2>Step 5: Review & Publish</h2>
+                        <h2>Step 6: Review & Publish</h2>
                     </div>
 
                     <div id="reviewContent">
@@ -1504,7 +1642,7 @@
 
                     <div class="action-bar">
                         <div class="action-bar-left">
-                            <button class="btn btn-ghost" onclick="goToPhase(4)">Back to Pages</button>
+                            <button class="btn btn-ghost" onclick="goToPhase(5)">Back to Pages</button>
                         </div>
                         <div class="action-bar-right">
                             <button class="btn btn-primary" onclick="finishWizard()">Complete & View Book</button>
@@ -1554,7 +1692,8 @@
         let state = {
             slug: null,
             currentPhase: 1,
-            phaseStatus: { 1: 'in_progress', 2: 'pending', 3: 'pending', 4: 'pending', 5: 'pending' },
+            phaseStatus: { 1: 'in_progress', 2: 'pending', 3: 'pending', 4: 'pending', 5: 'pending', 6: 'pending' },
+            outline: null,  // Beat-by-beat story outline from Phase 1
             book: null,
             referenceImage: null,
             // Prompt tracking - stores custom/edited prompts

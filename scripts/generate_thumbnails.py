@@ -14,7 +14,7 @@ import textwrap
 
 BOOKS_DIR = Path("/Users/dereklomas/lilbookies/public/books")
 COVERS_DIR = Path("/Users/dereklomas/lilbookies/public/images/covers")
-THUMBS_DIR = Path("/Users/dereklomas/lilbookies/public/images/thumbnails")
+THUMBS_DIR = Path("/Users/dereklomas/lilbookies/public/images/thumbs")
 
 # Font settings
 FONT_PATH = "/System/Library/Fonts/Supplemental/Georgia Bold.ttf"
@@ -47,7 +47,7 @@ def generate_thumbnail(slug: str, title: str, size: int = 512) -> bool:
     """Generate a thumbnail for a book."""
 
     cover_path = COVERS_DIR / f"{slug}.png"
-    thumb_path = THUMBS_DIR / f"{slug}.png"
+    thumb_path = THUMBS_DIR / f"{slug}.jpg"
 
     if not cover_path.exists():
         print(f"  ⚠ No cover image: {cover_path.name}")
@@ -123,9 +123,9 @@ def generate_thumbnail(slug: str, title: str, size: int = 512) -> bool:
                 outline_width=2
             )
 
-        # Save as PNG
+        # Save as JPEG
         img = img.convert("RGB")
-        img.save(thumb_path, "PNG", quality=95)
+        img.save(thumb_path, "JPEG", quality=85)
         print(f"  ✓ {thumb_path.name}")
         return True
 

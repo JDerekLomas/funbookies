@@ -226,6 +226,68 @@
     .tts-list h3 { font-size: 0.9rem; margin-bottom: var(--space-sm); color: #856404; }
     .tts-list ul { margin: 0; padding-left: 20px; }
     .tts-list li { font-size: 0.85rem; margin-bottom: 4px; }
+
+    .activities-section {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-md);
+      margin-top: var(--space-lg);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .activities-section h2 {
+      font-size: 1.1rem;
+      border-bottom: 2px solid var(--color-sage);
+      padding-bottom: 8px;
+      margin-bottom: var(--space-md);
+    }
+
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .activity-card {
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius);
+      padding: var(--space-sm);
+    }
+
+    .activity-card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .activity-card h3 a {
+      color: var(--color-charcoal);
+      text-decoration: none;
+    }
+
+    .activity-card h3 a:hover { color: var(--color-sage-dark); }
+
+    .audio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .audio-tag {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 10px;
+      background: var(--color-cream);
+      color: var(--color-text-muted);
+    }
+
+    .audio-tag.letter-sounds { background: #e3f2fd; color: #1565c0; }
+    .audio-tag.letter-names { background: #f3e5f5; color: #7b1fa2; }
+    .audio-tag.phonemes { background: #e8f5e9; color: #2e7d32; }
+    .audio-tag.words { background: #fff3e0; color: #ef6c00; }
+    .audio-tag.tts { background: #fff3cd; color: #856404; }
   </style>
 </head>
 <body>
@@ -276,6 +338,124 @@
     </div>
 
     <div id="results"></div>
+
+    <div class="activities-section">
+      <h2>Activities Using These Sounds</h2>
+      <div class="activity-grid">
+        <div class="activity-card">
+          <h3><a href="/activities/word-builder.html">Word Builder</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag letter-sounds">Letter Sounds</span>
+            <span class="audio-tag letter-names">Letter Names</span>
+            <span class="audio-tag words">Words</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/blend-it.html">Blend It</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag letter-sounds">Letter Sounds</span>
+            <span class="audio-tag phonemes">Phonemes</span>
+            <span class="audio-tag words">Words</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/chop-it-up.html">Chop It Up</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag letter-sounds">Letter Sounds</span>
+            <span class="audio-tag phonemes">Phonemes</span>
+            <span class="audio-tag words">Words</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/letter-drill.html">Letter Drill</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag letter-sounds">Letter Sounds</span>
+            <span class="audio-tag letter-names">Letter Names</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/say-the-sound.html">Say the Sound</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag letter-sounds">Letter Sounds</span>
+            <span class="audio-tag phonemes">Phonemes</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/sound-boxes.html">Sound Boxes</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag letter-sounds">Letter Sounds</span>
+            <span class="audio-tag words">Words</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/voice-blend.html">Voice Blend</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag letter-sounds">Letter Sounds</span>
+            <span class="audio-tag phonemes">Phonemes</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/word-chains.html">Word Chains</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag letter-sounds">Letter Sounds</span>
+            <span class="audio-tag words">Words</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/word-families.html">Word Families</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag words">Words</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/rhyme-match.html">Rhyme Match</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag words">Words</span>
+            <span class="audio-tag tts">TTS for rhymes</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/sight-words.html">Sight Words</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag words">Words</span>
+            <span class="audio-tag tts">TTS fallback</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/sentence-scramble.html">Sentence Scramble</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag tts">TTS for sentences</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/read-aloud.html">Read Aloud</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag tts">TTS for passages</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/early-reader/first-sounds.html">First Sounds</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag letter-sounds">Letter Sounds</span>
+            <span class="audio-tag words">Words</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/early-reader/rhyme-time.html">Rhyme Time</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag words">Words</span>
+            <span class="audio-tag tts">TTS fallback</span>
+          </div>
+        </div>
+        <div class="activity-card">
+          <h3><a href="/activities/early-reader/syllable-clap.html">Syllable Clap</a></h3>
+          <div class="audio-tags">
+            <span class="audio-tag words">Words</span>
+            <span class="audio-tag tts">TTS fallback</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>

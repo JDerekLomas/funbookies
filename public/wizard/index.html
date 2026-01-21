@@ -1891,13 +1891,15 @@
             updateURL();
 
             // Render phase-specific content
-            if (phase === 2 && state.book) {
-                renderPhase2Content();
+            if (phase === 2 && state.outline) {
+                renderOutlinePhase();
             } else if (phase === 3 && state.book) {
-                renderReferencePhase();
+                renderPhase2Content();
             } else if (phase === 4 && state.book) {
-                renderPageImagesGrid();
+                renderReferencePhase();
             } else if (phase === 5 && state.book) {
+                renderPageImagesGrid();
+            } else if (phase === 6 && state.book) {
                 renderReviewPhase();
             }
         }
@@ -2003,11 +2005,10 @@
         }
 
         // ===================
-        // PHASE 1: STORY
+        // PHASE 1: OUTLINE GENERATION
         // ===================
 
-        function generateStory() {
-            // Get form values for validation
+        function generateOutline() {
             state.formData.concept = document.getElementById('conceptInput').value.trim();
             state.formData.setting = document.getElementById('settingInput').value.trim();
             state.formData.level = document.getElementById('levelSelect').value;
@@ -2017,108 +2018,308 @@
                 return;
             }
 
-            // Show confirmation if there's already a book
-            if (state.book) {
+            if (state.outline) {
                 showConfirmModal(
-                    'Generate New Story?',
-                    'This will replace your current story and all progress. Continue?',
-                    doGenerateStory
+                    'Generate New Outline?',
+                    'This will replace your current outline and all progress. Continue?',
+                    doGenerateOutline
                 );
             } else {
-                doGenerateStory();
+                doGenerateOutline();
             }
         }
 
-        async function doGenerateStory() {
-            // Show loading in Phase 1
+        async function doGenerateOutline() {
             document.getElementById('phase1Form').classList.add('hidden');
             document.getElementById('phase1Loading').classList.remove('hidden');
-            document.getElementById('phase1LoadingText').textContent = 'Generating your story...';
+            document.getElementById('phase1LoadingText').textContent = 'Generating story outline...';
 
             try {
-                // Step 1: Generate story
                 const response = await fetch('/api/generate-story', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        prompt: buildStoryPrompt()
+                        prompt: buildOutlinePrompt(),
+                        mode: 'outline'
                     })
                 });
 
-                if (!response.ok) {
-                    throw new Error('Failed to generate story');
-                }
+                if (!response.ok) throw new Error('Failed to generate outline');
 
-                const book = await response.json();
-
-                // Generate slug from title
-                state.slug = generateSlug(book.title);
-                state.book = book;
-
-                // Add metadata
-                state.book.slug = state.slug;
-                state.book.level = state.formData.level;
-                state.book.setting = state.formData.setting;
-
+                const outline = await response.json();
+                state.slug = generateSlug(outline.title);
+                state.outline = outline;
+                state.outline.level = state.formData.level;
                 saveState();
 
-                // Step 2: Generate scene descriptions
-                document.getElementById('phase1LoadingText').textContent = 'Generating scene descriptions...';
-
-                await generateScenesInternal();
-
-                // Mark phase 1 complete and go to phase 2
                 state.phaseStatus[1] = 'complete';
                 state.checkpointApprovals[1] = { approved: true, timestamp: new Date().toISOString() };
                 saveState();
-                saveToSupabase();
 
                 document.getElementById('phase1Loading').classList.add('hidden');
                 goToPhase(2);
-                renderPhase2Content();
+                renderOutlinePhase();
 
             } catch (error) {
                 console.error('Error:', error);
-                alert('Failed to generate story. Please try again.');
+                alert('Failed to generate outline. Please try again.');
                 document.getElementById('phase1Form').classList.remove('hidden');
                 document.getElementById('phase1Loading').classList.add('hidden');
             }
         }
 
-        // Internal scene generation (no UI updates)
+        function buildOutlinePrompt() {
+            const customPrompt = document.getElementById('storyPromptTextarea').value.trim();
+            if (customPrompt) {
+                state.prompts.story = customPrompt;
+                return customPrompt;
+            }
+            return buildDefaultOutlinePrompt();
+        }
+
+        function buildDefaultOutlinePrompt() {
+            const levelDescriptions = {
+                'A0': 'Pre-reading with picture support. 2-3 words per page.',
+                'A1': 'Simple CVC words only (cat, dog, sun). 3-4 words per sentence.',
+                'A2': 'CVC words with basic sight words (the, a, is). 4-5 words per sentence.',
+                'B1': 'Beginning consonant blends (stop, flag, crab). 5-6 words per sentence.',
+                'B2': 'Ending blends (jump, help, fast). 6-7 words per sentence.',
+                'C1': 'Digraphs (ship, chat, thin). 7-8 words per sentence.',
+                'C2': 'Silent e words (cake, bike, home). Longer sentences OK.',
+                'D1': 'Vowel teams (rain, boat, see). Complex sentences OK.',
+                'D2': 'R-controlled vowels (car, bird, corn). Natural sentence length.'
+            };
+
+            return `Generate a story OUTLINE (not full text) for a decodable children's book.
+
+READING LEVEL: ${state.formData.level} - ${levelDescriptions[state.formData.level] || 'Age-appropriate vocabulary'}
+CONCEPT: ${state.formData.concept}
+SETTING: ${state.formData.setting || 'appropriate for the story'}
+${state.formData.words.length > 0 ? `WORDS TO INCLUDE: ${state.formData.words.join(', ')}` : ''}
+
+Create a beat-by-beat breakdown:
+- 8-12 pages total
+- Each beat is 1 sentence describing what happens on that page
+- Include: character introduction, inciting incident, attempts/journey, climax, resolution
+
+OUTPUT FORMAT (JSON only):
+{
+  "title": "Story Title (2-4 words)",
+  "character": { "name": "Name", "type": "animal/child/creature", "traits": ["curious", "friendly"] },
+  "setting": "Brief setting description",
+  "beats": [
+    { "page": 1, "beat": "What happens on page 1" },
+    { "page": 2, "beat": "What happens on page 2" }
+  ],
+  "arc": "Brief description of the story arc"
+}`;
+        }
+
+        // ===================
+        // PHASE 2: OUTLINE REVIEW
+        // ===================
+
+        function renderOutlinePhase() {
+            if (!state.outline) return;
+            document.getElementById('outlineTitle').value = state.outline.title || '';
+            document.getElementById('outlineCharacter').textContent =
+                state.outline.character ? `${state.outline.character.name} the ${state.outline.character.type}` : 'Not set';
+            document.getElementById('outlineSetting').textContent = state.outline.setting || 'Not set';
+            document.getElementById('outlineArc').textContent = state.outline.arc || 'Not set';
+            renderBeats();
+        }
+
+        function renderBeats() {
+            const container = document.getElementById('beatsList');
+            if (!state.outline || !state.outline.beats) {
+                container.innerHTML = '<p class="hint">No beats yet. Generate an outline first.</p>';
+                return;
+            }
+            container.innerHTML = state.outline.beats.map((beat, index) => `
+                <div class="beat-item" data-index="${index}">
+                    <div class="beat-number">${beat.page}</div>
+                    <div class="beat-content">
+                        <textarea class="beat-input" onchange="updateBeat(${index}, this.value)">${beat.beat}</textarea>
+                    </div>
+                    <div class="beat-actions">
+                        <button onclick="moveBeatUp(${index})" ${index === 0 ? 'disabled' : ''}>↑</button>
+                        <button onclick="moveBeatDown(${index})" ${index === state.outline.beats.length - 1 ? 'disabled' : ''}>↓</button>
+                        <button onclick="deleteBeat(${index})">×</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateOutlineTitle(value) {
+            if (state.outline) {
+                state.outline.title = value;
+                state.slug = generateSlug(value);
+                saveState();
+            }
+        }
+
+        function updateBeat(index, value) {
+            if (state.outline && state.outline.beats[index]) {
+                state.outline.beats[index].beat = value;
+                saveState();
+            }
+        }
+
+        function addBeat() {
+            if (!state.outline) return;
+            state.outline.beats.push({ page: state.outline.beats.length + 1, beat: '' });
+            renderBeats();
+            saveState();
+        }
+
+        function deleteBeat(index) {
+            if (!state.outline || state.outline.beats.length <= 1) return;
+            state.outline.beats.splice(index, 1);
+            state.outline.beats.forEach((b, i) => b.page = i + 1);
+            renderBeats();
+            saveState();
+        }
+
+        function moveBeatUp(index) {
+            if (!state.outline || index <= 0) return;
+            [state.outline.beats[index - 1], state.outline.beats[index]] = [state.outline.beats[index], state.outline.beats[index - 1]];
+            state.outline.beats.forEach((b, i) => b.page = i + 1);
+            renderBeats();
+            saveState();
+        }
+
+        function moveBeatDown(index) {
+            if (!state.outline || index >= state.outline.beats.length - 1) return;
+            [state.outline.beats[index], state.outline.beats[index + 1]] = [state.outline.beats[index + 1], state.outline.beats[index]];
+            state.outline.beats.forEach((b, i) => b.page = i + 1);
+            renderBeats();
+            saveState();
+        }
+
+        function regenerateOutline() {
+            showConfirmModal('Regenerate Outline?', 'This will replace your current outline.', doGenerateOutline);
+        }
+
+        // ===================
+        // PHASE 2→3: EXPAND TO FULL STORY
+        // ===================
+
+        async function expandToFullStory() {
+            if (!state.outline) {
+                alert('No outline to expand.');
+                return;
+            }
+
+            document.getElementById('phase2Content').classList.add('hidden');
+            document.getElementById('phase2Loading').classList.remove('hidden');
+            document.getElementById('phase2LoadingText').textContent = 'Expanding to full story...';
+
+            try {
+                const response = await fetch('/api/generate-story', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        prompt: buildFullStoryPrompt(),
+                        mode: 'full',
+                        outline: state.outline
+                    })
+                });
+
+                if (!response.ok) throw new Error('Failed to expand story');
+
+                const book = await response.json();
+                state.book = book;
+                state.book.slug = state.slug;
+                state.book.level = state.formData.level;
+                state.book.setting = state.formData.setting;
+
+                state.phaseStatus[2] = 'complete';
+                state.checkpointApprovals[2] = { approved: true, timestamp: new Date().toISOString() };
+                saveState();
+                saveToSupabase();
+
+                document.getElementById('phase2Loading').classList.add('hidden');
+                goToPhase(3);
+                renderPhase2Content();
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to expand story.');
+                document.getElementById('phase2Content').classList.remove('hidden');
+                document.getElementById('phase2Loading').classList.add('hidden');
+            }
+        }
+
+        function buildFullStoryPrompt() {
+            const levelDescriptions = {
+                'A0': 'Pre-reading. 2-3 words per page.',
+                'A1': 'Simple CVC words. 3-4 words per sentence.',
+                'B1': 'Beginning blends. 5-6 words per sentence.',
+                'C1': 'Digraphs. 7-8 words per sentence.',
+                'D1': 'Vowel teams. Complex sentences OK.'
+            };
+
+            return `Expand this outline into a complete decodable book.
+
+OUTLINE:
+${JSON.stringify(state.outline, null, 2)}
+
+LEVEL: ${state.formData.level} - ${levelDescriptions[state.formData.level] || 'Age-appropriate'}
+
+For each page generate:
+1. TEXT with <line> tags for each visual line
+2. SCENE in XML format
+
+TEXT FORMAT: <line>First sentence.</line><line>Second sentence.</line>
+
+SCENE XML:
+<scene>
+  <character>WHO: physical description, pose</character>
+  <setting>WHERE: environment details</setting>
+  <action>WHAT: current action</action>
+  <composition>Shot type, framing</composition>
+</scene>
+
+RULES:
+- Level-appropriate words only
+- Scene descriptions must be PHYSICAL not emotional
+- NO negations in scenes
+- End each scene with: NO TEXT, NO WORDS, NO LETTERS
+
+OUTPUT (JSON only):
+{
+  "title": "${state.outline.title}",
+  "pages": [{ "page": 1, "text": "<line>...</line>", "scene": "<scene>...</scene>" }],
+  "reference_prompt": "9-panel reference sheet...",
+  "word_list": { "sound_out": [], "sight": [] }
+}`;
+        }
+
+        // Legacy compatibility
+        function generateStory() { generateOutline(); }
+
+        // Internal scene generation
         async function generateScenesInternal() {
             const response = await fetch('/api/generate-scenes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ book: state.book })
             });
-
-            if (!response.ok) {
-                throw new Error('Failed to generate scenes');
-            }
-
+            if (!response.ok) throw new Error('Failed to generate scenes');
             const result = await response.json();
-
-            // Update book with new scenes
             result.pages.forEach((newPage, i) => {
-                if (state.book.pages[i]) {
-                    state.book.pages[i].scene = newPage.scene;
-                }
+                if (state.book.pages[i]) state.book.pages[i].scene = newPage.scene;
             });
-
             saveState();
         }
 
         function buildStoryPrompt() {
-            // Check if user has edited the prompt in the textarea
             const customPrompt = document.getElementById('storyPromptTextarea').value.trim();
             if (customPrompt) {
-                // Store for reference
                 state.prompts.story = customPrompt;
                 return customPrompt;
             }
-            // Otherwise use the default
-            return buildDefaultStoryPrompt();
+            return buildDefaultOutlinePrompt();
         }
 
         function resetPhase1() {

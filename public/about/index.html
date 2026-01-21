@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>About - FunBookies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-cream: #FAF8F5;
+            --color-white: #FFFFFF;
+            --color-charcoal: #2C2D26;
+            --color-soft-black: #1A1A1A;
+            --color-sage: #7FB08A;
+            --color-sage-light: #E8F2EB;
+            --color-dusty-blue: #6B8CAE;
+            --color-terracotta: #D4856A;
+            --color-text-muted: #6B6B63;
+            --font-display: 'Fraunces', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, sans-serif;
+            --radius: 16px;
+            --radius-sm: 8px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-cream);
+            min-height: 100vh;
+            color: var(--color-soft-black);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            margin-bottom: 48px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-soft-black);
+            letter-spacing: -0.02em;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        .header-nav a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            color: var(--color-text-muted);
+            transition: color 0.2s;
+        }
+
+        .header-nav a:hover {
+            color: var(--color-soft-black);
+        }
+
+        /* Content */
+        .page-title {
+            margin-bottom: 32px;
+        }
+
+        .page-title h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .page-title .tagline {
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+        }
+
+        section {
+            margin-bottom: 48px;
+        }
+
+        section h2 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        section p {
+            margin-bottom: 16px;
+            color: var(--color-charcoal);
+        }
+
+        /* Cards */
+        .link-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .link-card {
+            background: var(--color-white);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .link-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .link-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .link-card p {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin: 0;
+        }
+
+        .link-card .arrow {
+            margin-left: auto;
+            color: var(--color-dusty-blue);
+        }
+
+        /* Principles */
+        .principles {
+            background: var(--color-white);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-top: 24px;
+        }
+
+        .principles ul {
+            list-style: none;
+        }
+
+        .principles li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            display: flex;
+            gap: 12px;
+        }
+
+        .principles li:last-child {
+            border-bottom: none;
+        }
+
+        .principles .icon {
+            font-size: 1.2rem;
+        }
+
+        .principles strong {
+            color: var(--color-soft-black);
+        }
+
+        /* Contact */
+        .contact-box {
+            background: linear-gradient(135deg, var(--color-sage-light) 0%, #E8EEF4 100%);
+            border-radius: var(--radius);
+            padding: 32px;
+            text-align: center;
+        }
+
+        .contact-box h2 {
+            margin-bottom: 12px;
+        }
+
+        .contact-box p {
+            margin-bottom: 20px;
+        }
+
+        .contact-box a.btn {
+            display: inline-block;
+            background: var(--color-soft-black);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .contact-box a.btn:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 48px 0;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .page-title h1 { font-size: 1.8rem; }
+            .header-nav { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <a href="/" class="logo">
+                <img src="/images/funbookies_icon.png" alt="" class="logo-icon">
+                <span class="logo-text">FunBookies</span>
+            </a>
+            <nav class="header-nav">
+                <a href="/books/">Books</a>
+                <a href="/activities/">Activities</a>
+            </nav>
+        </header>
+
+        <div class="page-title">
+            <h1>About FunBookies</h1>
+            <p class="tagline">Science of Reading aligned decodable books for emerging readers</p>
+        </div>
+
+        <section>
+            <h2>What We Do</h2>
+            <p>FunBookies creates decodable books that follow a systematic phonics progression. Unlike traditional leveled readers, our books are designed so that children can decode every word using the phonics patterns they've already learned.</p>
+            <p>Each book is carefully crafted to introduce one new phonics element at a time, building confidence and reinforcing the neural pathways that lead to fluent reading.</p>
+        </section>
+
+        <section>
+            <h2>Our Approach</h2>
+            <div class="principles">
+                <ul>
+                    <li>
+                        <span class="icon">1</span>
+                        <div><strong>One Change Rule</strong> &mdash; Each level introduces only one new phonics element</div>
+                    </li>
+                    <li>
+                        <span class="icon">2</span>
+                        <div><strong>Decodability First</strong> &mdash; 85-100% of words can be sounded out with taught patterns</div>
+                    </li>
+                    <li>
+                        <span class="icon">3</span>
+                        <div><strong>Orthographic Mapping</strong> &mdash; Target words appear 4+ times for automatic recognition</div>
+                    </li>
+                    <li>
+                        <span class="icon">4</span>
+                        <div><strong>Sight Word Discipline</strong> &mdash; High-frequency words introduced gradually with explicit caps</div>
+                    </li>
+                    <li>
+                        <span class="icon">5</span>
+                        <div><strong>Engaging Stories</strong> &mdash; Real narratives with characters, problems, and resolutions</div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Learn More</h2>
+            <div class="link-cards">
+                <a href="/levels/" class="link-card">
+                    <h3>Reading Level Alignment <span class="arrow">&rarr;</span></h3>
+                    <p>See how our A0&ndash;D6 levels compare to Fountas & Pinnell, Lexile, DRA, and other systems</p>
+                </a>
+                <a href="/books/" class="link-card">
+                    <h3>Browse Books <span class="arrow">&rarr;</span></h3>
+                    <p>Explore our library of decodable books organized by reading band</p>
+                </a>
+                <a href="/activities/" class="link-card">
+                    <h3>Activities <span class="arrow">&rarr;</span></h3>
+                    <p>Interactive phonics activities to reinforce letter sounds and word patterns</p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <div class="contact-box">
+                <h2>Questions or Feedback?</h2>
+                <p>We'd love to hear from educators, parents, and reading specialists.</p>
+                <a href="mailto:hello@funbookies.com" class="btn">Get in Touch</a>
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2025 FunBookies. Science of Reading aligned decodable books.
+        </footer>
+    </div>
+</body>
+</html>

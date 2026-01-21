@@ -164,6 +164,37 @@
             color: var(--color-soft-black);
         }
 
+        /* Sub-level sections */
+        .level-section {
+            margin-bottom: 32px;
+        }
+
+        .level-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .level-badge {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--color-soft-black);
+        }
+
+        .level-name {
+            font-weight: 600;
+            color: var(--color-soft-black);
+        }
+
+        .level-desc {
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+
         /* Books Grid */
         .books-grid {
             display: grid;
@@ -300,6 +331,7 @@
     <script>
         // Global state
         let allBooks = [];
+        let levelSpecs = null;
         let booksByBand = { A: [], B: [], C: [], D: [] };
 
         // Level order for sorting
@@ -313,8 +345,13 @@
         // Load books from manifest
         async function loadBooks() {
             try {
-                const res = await fetch('/books/manifest.json');
-                allBooks = await res.json();
+                // Load both manifest and level specs
+                const [booksRes, specsRes] = await Promise.all([
+                    fetch('/books/manifest.json'),
+                    fetch('/data/level-specs.json')
+                ]);
+                allBooks = await booksRes.json();
+                levelSpecs = await specsRes.json();
 
                 // Group by band
                 booksByBand = { A: [], B: [], C: [], D: [] };
@@ -373,24 +410,52 @@
             switchToBand(band, false);
         });
 
-        // Render a band's books
+        // Render a band's books grouped by sub-level
         function renderBand(band, books) {
-            const grid = document.getElementById(`books${band}`);
+            const container = document.getElementById(`books${band}`);
+            const bandInfo = levelSpecs?.bands?.[band];
+            const levels = bandInfo?.levels || [];
 
-            if (books.length === 0) {
-                grid.innerHTML = '<div class="empty-band">More books coming soon!</div>';
+            if (books.length === 0 && levels.length === 0) {
+                container.innerHTML = '<div class="empty-band">More books coming soon!</div>';
                 return;
             }
 
-            grid.innerHTML = books.map(book => {
-                // Use optimized thumbnail (256px JPEG, ~25KB each)
-                const thumbImg = `/images/thumbs/${book.slug}.jpg`;
-                return `
-                    <a class="book-card" href="/reader.html?book=${book.slug}">
-                        <img src="${thumbImg}" alt="${book.title}" loading="lazy">
-                    </a>
+            // Group books by level
+            const booksByLevel = {};
+            books.forEach(book => {
+                const level = book.level || 'Unknown';
+                if (!booksByLevel[level]) booksByLevel[level] = [];
+                booksByLevel[level].push(book);
+            });
+
+            // Render each sub-level section
+            let html = '';
+            for (const level of levels) {
+                const spec = levelSpecs?.levels?.[level];
+                const levelBooks = booksByLevel[level] || [];
+                const name = spec?.name || level;
+                const desc = spec?.readerCan || '';
+
+                html += `
+                    <div class="level-section">
+                        <div class="level-header">
+                            <span class="level-badge">${level}</span>
+                            <span class="level-name">${name}</span>
+                            <span class="level-desc">${desc}</span>
+                        </div>
+                        <div class="books-grid">
+                            ${levelBooks.length > 0 ? levelBooks.map(book => `
+                                <a class="book-card" href="/reader.html?book=${book.slug}">
+                                    <img src="/images/thumbs/${book.slug}.jpg" alt="${book.title}" loading="lazy">
+                                </a>
+                            `).join('') : '<div class="empty-band" style="grid-column: 1/-1; padding: 24px;">Coming soon</div>'}
+                        </div>
+                    </div>
                 `;
-            }).join('');
+            }
+
+            container.innerHTML = html;
         }
 
         // Tab click handlers

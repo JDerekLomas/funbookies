@@ -1,0 +1,275 @@
+{
+  "id": "the-box-fort",
+  "title": "The Box Fort",
+  "slug": "the-box-fort",
+  "level": "B3",
+  "band": "B",
+  "targetPhonics": "CVC short vowels (o, i, e)",
+  "wordFamilies": [
+    "-ox",
+    "-ot",
+    "-ig",
+    "-op",
+    "-et",
+    "-ip"
+  ],
+  "skill": "CVC Short Vowels",
+  "skill_description": "Practice reading CVC words with short vowels. Focus on -ox, -ot, -ig word families.",
+  "age_range": "K-1",
+  "created": "2026-01-23",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Two siblings turn a big cardboard box into an incredible fort that transforms through their imagination into a castle, rocket ship, and submarine before becoming home again.",
+  "characters": {
+    "max": {
+      "name": "Max",
+      "visual_shorthand": "Boy (6) with messy red hair, striped blue and white shirt, jeans, always has a marker in hand",
+      "distinctive_features": [
+        "messy red hair",
+        "striped blue and white shirt",
+        "jeans",
+        "marker in hand for drawing controls",
+        "energetic leader pose"
+      ]
+    },
+    "dot": {
+      "name": "Dot",
+      "visual_shorthand": "Girl (3) with blonde hair with bangs, blue eyes, yellow dress with red polka dots, carries a stuffed yellow star",
+      "distinctive_features": [
+        "blonde hair with bangs",
+        "blue eyes",
+        "yellow dress with red polka dots",
+        "stuffed yellow star toy",
+        "big curious eyes",
+        "follows her brother"
+      ]
+    }
+  },
+  "setting_context": "Living room with a huge cardboard box, then imagination transforms it into castle/rocket/submarine environments. Warm home feeling contrasts with epic adventure scenes.",
+  "story_bible": {
+    "premise": "Two siblings discover that a big cardboard box can become anything their imagination desires - a castle, a rocket, a submarine - before returning home to their cozy fort.",
+    "setting": "Family living room transforms through imagination into medieval castle, outer space, deep ocean",
+    "visual_style": "Cardboard Dreamscape style: Real world in warm soft watercolors. Imagination scenes transform the WORLD around the kids while the box keeps visible cardboard texture. Bold adventure colors for fantasy scenes. The cardboard box always shows tape, flaps, and brown texture even when it is a castle or rocket.",
+    "themes": [
+      "imagination",
+      "sibling bond",
+      "play",
+      "creativity"
+    ],
+    "emotional_arc": "excitement at discovery \u2192 epic adventures \u2192 cozy return home"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE for children's book 'The Box Fort'\n\nVISUAL STYLE: Cardboard Dreamscape - warm realistic watercolors for home, bold fantastical colors for imagination scenes. Cardboard texture always visible on the box.\n\nRow 1 - CHARACTER MAX:\n[1] Max standing: Boy (6) with messy red hair, striped blue and white shirt, jeans. Holding a marker. Confident leader pose. Warm home lighting.\n[2] Max as knight: Same boy, now wearing cardboard armor and crown, marker is his sword. Castle fantasy colors behind him.\n[3] Max as astronaut: Same boy, cardboard helmet on head, excited pointing pose. Starry space behind him.\n\nRow 2 - CHARACTER DOT:\n[4] Dot standing: Girl (3) with blonde white hair with bangs, polka-dot pink dress, hugging a stuffed yellow star. Big curious eyes. Warm home lighting.\n[5] Dot as princess: Same girl, cardboard tiara, still has her star. Castle colors behind her.\n[6] Dot in submarine: Same girl, looking through cardboard porthole with wonder. Blue ocean colors.\n\nRow 3 - THE BOX & SETTINGS:\n[7] The big cardboard box: Large brown cardboard box with tape, flaps, shipping labels. Living room setting. Warm afternoon light.\n[8] Box as castle: Same box shape but door cut out, cardboard turrets added. Stone castle walls visible around it. Medieval fantasy colors.\n[9] Box as rocket: Same box with cardboard fins and nose cone. Stars and planets around it. Deep space purples and blues.\n\nSTYLE: Warm watercolors, cardboard texture always visible. NO TEXT.",
+  "word_list": {
+    "sound_out": [
+      "box",
+      "big",
+      "got",
+      "cut",
+      "top",
+      "hot",
+      "stop",
+      "ship",
+      "trip",
+      "wet",
+      "jet",
+      "dig",
+      "pop",
+      "hop"
+    ],
+    "sight": [
+      "the",
+      "a",
+      "is",
+      "it",
+      "we",
+      "can",
+      "be",
+      "said",
+      "look",
+      "this",
+      "into",
+      "our"
+    ],
+    "heart": [
+      "castle",
+      "rocket",
+      "ocean"
+    ]
+  },
+  "sightWordsUsed": [
+    "the",
+    "a",
+    "is",
+    "it",
+    "we",
+    "can",
+    "be",
+    "said",
+    "look",
+    "this",
+    "into",
+    "our"
+  ],
+  "wordsearch_words": [
+    "box",
+    "fort",
+    "ship",
+    "big",
+    "cut",
+    "hot",
+    "trip",
+    "jet"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "The Box Fort",
+      "scene": "Children's book cover, Cardboard Dreamscape style. A huge cardboard box with a door cut in it sits in a living room. Peeking out from inside: Max (6, messy red hair, striped blue-white shirt) holding a marker like a sword, and Dot (3, blonde hair with bangs, blue eyes, yellow dress with red polka dots) hugging a stuffed yellow star. Around the box, imagination bleeds into reality - one side shows castle stones, another shows rocket flames, another shows ocean bubbles. Warm magical lighting. The cardboard texture is visible throughout. Playful and inviting.",
+      "image": "images/the-box-fort/page01.png"
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_wordlist"
+    },
+    {
+      "page": 5,
+      "story_page": 1,
+      "type": "story",
+      "text": "Max and Dot got a big box.\n\"Look at this!\" said Max.",
+      "scene": "Children's book illustration, warm soft watercolors. A sunny living room. Max (6, messy red hair, striped blue-white shirt, jeans) and Dot (3, blonde hair with bangs, blue eyes, yellow dress with red polka dots, holding stuffed yellow star) stand next to a HUGE cardboard delivery box - taller than both of them. The box has shipping tape, labels, cardboard flaps. Max points excitedly at it. Dot looks up with big curious eyes. Cozy home feeling, afternoon light through window.",
+      "image": "images/the-box-fort/page05.png"
+    },
+    {
+      "page": 6,
+      "story_page": 2,
+      "type": "story",
+      "text": "They cut a big hole.\n\"We can hop in!\" said Dot.",
+      "scene": "Children's book illustration, warm watercolors. Max (messy red hair, striped shirt) uses safety scissors to cut a door-shaped hole in the big cardboard box. Dot (blonde bangs, polka-dot dress, yellow star toy) watches eagerly, bouncing on her toes. Cardboard scraps on the floor. The box now has a rough-cut doorway. Living room setting, warm light.",
+      "image": "images/the-box-fort/page06.png"
+    },
+    {
+      "page": 7,
+      "story_page": 3,
+      "type": "story",
+      "text": "Max got his markers.\nHe made dots and spots.",
+      "scene": "Children's book illustration, warm watercolors. Inside the cardboard box looking out at Max (messy red hair, striped shirt) drawing on the inside walls with colorful markers. He's drawn buttons, dials, and controls. Dot (blonde bangs, polka-dot dress) sits inside hugging her yellow star, watching her brother draw. Cardboard texture visible on walls. Cozy fort feeling.",
+      "image": "images/the-box-fort/page07.png"
+    },
+    {
+      "page": 8,
+      "story_page": 4,
+      "type": "story",
+      "text": "\"This can be a castle!\"\nMax put on a cardboard crown.",
+      "scene": "Children's book illustration, IMAGINATION TRANSITION. The cardboard box is transforming - still clearly cardboard with tape and texture, but now has crude cardboard turrets on top. Max (messy red hair, striped shirt) wears a cardboard crown, holding his marker like a sword. Behind the box, the living room walls are fading into stone castle walls. Colors shifting from warm home tones to bold medieval purples and golds. Magical mid-transformation moment.",
+      "image": "images/the-box-fort/page08.png"
+    },
+    {
+      "page": 9,
+      "story_page": 5,
+      "type": "story",
+      "text": "Dot got a crown, too.\n\"I am a princess!\" she said.",
+      "scene": "Children's book illustration, FULL IMAGINATION - Castle scene. The cardboard box is now a castle tower, but still shows cardboard texture and tape. Max (cardboard crown, striped shirt visible under cardboard armor) and Dot (cardboard tiara, polka-dot dress, yellow star) stand on battlements. Behind them: a fantastical medieval landscape with purple mountains, golden flags. Bold fairy-tale colors. But the cardboard is always visible - this is imagination made real.",
+      "image": "images/the-box-fort/page09.png"
+    },
+    {
+      "page": 10,
+      "story_page": 6,
+      "type": "story",
+      "text": "\"Now it is a rocket ship!\"\nMax made a big blast-off spot.",
+      "scene": "Children's book illustration, IMAGINATION TRANSITION. The box is transforming again - cardboard fins appear, a cardboard nose cone on top. Max (messy red hair, striped shirt, cardboard helmet) draws rocket flames on the side with his marker. Dot (blonde bangs, polka-dot dress) peers out a cut-out porthole. The living room is fading into starry space. Cardboard texture visible throughout. Magical transformation moment.",
+      "image": "images/the-box-fort/page10.png"
+    },
+    {
+      "page": 11,
+      "story_page": 7,
+      "type": "story",
+      "text": "\"3, 2, 1... BLAST OFF!\"\nUp, up into the hot sun!",
+      "scene": "Children's book illustration, FULL IMAGINATION - Space scene. The cardboard rocket (visible tape, brown texture, hand-drawn controls) soars through deep purple space. Through the cardboard portholes, Max (red hair, striped shirt, cardboard helmet) pilots and Dot (blonde bangs, yellow dress with red polka dots, yellow star) points excitedly at passing planets. Stars, moons, and colorful nebulas surround them. Bold space adventure colors. Cardboard texture on the rocket.",
+      "image": "images/the-box-fort/page11.png"
+    },
+    {
+      "page": 12,
+      "story_page": 8,
+      "type": "story",
+      "text": "\"Let's go on a wet trip!\"\nThe box became a submarine.",
+      "scene": "Children's book illustration, IMAGINATION TRANSITION. The cardboard box is transforming into a submarine - still showing cardboard flaps and tape, but now with a cardboard periscope and propeller. Max (red hair, striped shirt) turns a marker into a steering wheel. Dot (blonde bangs, polka-dot dress, yellow star) looks through a porthole. The room dissolves into deep blue ocean. Bubbles rise around them. Mid-transformation magic.",
+      "image": "images/the-box-fort/page12.png"
+    },
+    {
+      "page": 13,
+      "story_page": 9,
+      "type": "story",
+      "text": "Fish swam past the window.\n\"Look at that big one!\" said Dot.",
+      "scene": "Children's book illustration, FULL IMAGINATION - Ocean scene. The cardboard submarine (visible texture, tape, hand-drawn gauges) glides through beautiful blue-green ocean. Through the cardboard porthole, Dot (blonde bangs, yellow dress with red polka dots, yellow star pressed to the glass) stares in wonder at a huge friendly fish swimming by. Max (red hair, striped shirt) operates cardboard controls. Colorful coral, jellyfish, and sea life surround them. Underwater adventure colors.",
+      "image": "images/the-box-fort/page13.png"
+    },
+    {
+      "page": 14,
+      "story_page": 10,
+      "type": "story",
+      "text": "The sun set. Time to stop.\nMax and Dot sat in the box fort.",
+      "scene": "Children's book illustration, warm soft watercolors, BACK TO REALITY. The cardboard box is just a box again - in the cozy living room, sunset light through the window. Max (messy red hair, striped shirt) and Dot (blonde bangs, polka-dot dress, hugging yellow star) sit inside their fort, tired and happy. Cardboard shows all their marker drawings from the adventures. Blankets and pillows now inside. Warm, peaceful, home feeling. The magic of imagination lingers in their smiles.",
+      "image": "images/the-box-fort/page14.png"
+    },
+    {
+      "page": 15,
+      "type": "end",
+      "text": "The End",
+      "scene": "Children's book illustration, warm nighttime watercolors. The cardboard box fort sits in the dim living room, a string of fairy lights now draped over it. Through the cut-out door, we see Max (red hair, striped shirt) and Dot (blonde bangs, polka-dot dress, yellow star) curled up together inside on pillows, peacefully asleep. The marker drawings on the cardboard walls show castles, rockets, and fish. Moonlight through window. Cozy, magical ending.",
+      "image": "images/the-box-fort/page15.png"
+    },
+    {
+      "page": 16,
+      "type": "wordsearch"
+    },
+    {
+      "page": 17,
+      "type": "series_info"
+    },
+    {
+      "page": 18,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-23T00:00:00.000Z",
+    "storyPages": 10
+  },
+  "parent_tips": {
+    "before_reading": "Ask: Have you ever played with a big box? What did you pretend it was? Look at the cover - what adventures do you think Max and Dot will have?",
+    "during_reading": "Help with 'castle', 'rocket', and 'ocean' - these are heart words. Sound out: box, big, got, cut, top, hot, ship, trip, wet, jet, dig, pop, hop.",
+    "after_reading": "Find a box and play! What can you turn it into? Draw controls and windows like Max and Dot."
+  },
+  "comprehension_questions": [
+    {
+      "question": "What did Max and Dot find?",
+      "answer": "A big cardboard box"
+    },
+    {
+      "question": "What three things did the box become?",
+      "answer": "A castle, a rocket ship, and a submarine"
+    },
+    {
+      "question": "What did Dot see through the submarine window?",
+      "answer": "A big fish"
+    },
+    {
+      "question": "Where did Max and Dot end up at the end?",
+      "answer": "Back in their cozy box fort at home"
+    },
+    {
+      "question": "What made the box transform into different things?",
+      "answer": "Their imagination"
+    }
+  ]
+}

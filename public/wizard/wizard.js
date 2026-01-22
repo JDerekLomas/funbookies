@@ -720,6 +720,7 @@ async function doGenerateOutline() {
         state.phaseStatus[1] = 'complete';
         state.checkpointApprovals[1] = { approved: true, timestamp: new Date().toISOString() };
         saveState();
+        saveToSupabase(); // Save draft to Supabase after Phase 1
 
         document.getElementById('phase1Loading').classList.add('hidden');
         goToPhase(2);

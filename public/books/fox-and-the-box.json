@@ -1,0 +1,145 @@
+{
+  "title": "Fox and the Box",
+  "slug": "fox-and-the-box",
+  "level": "B2",
+  "characterName": "Fox",
+  "characterDescription": "small orange fox with fluffy tail, bright curious eyes, white chest and paws",
+  "setting": "sunny forest clearing with tall green trees, wildflowers, and a dirt path",
+  "storyType": "discovery",
+  "visual_style": "warm watercolor children's book illustration, soft edges, gentle lighting, cozy forest atmosphere",
+  "pages": [
+    {
+      "page": 0,
+      "text": "Fox and the Box",
+      "scene": "Title page: A small orange fox with fluffy tail sits in a sunny forest clearing, looking curiously at a red wooden box. Tall green trees frame the scene. Wildflowers dot the grass. Warm watercolor style, soft golden sunlight filtering through leaves.",
+      "image_prompt": "Single scene illustration: Title page: A small orange fox with fluffy tail sits in a sunny forest clearing, looking curiously at a red wooden box. Tall green trees frame the scene. Wildflowers dot the grass. Warm watercolor style, soft golden sunlight filtering through leaves.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: warm watercolor children's book illustration, soft edges, gentle lighting, cozy forest atmosphere\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/fox-and-the-box/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T13:11:57.831772",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 1,
+      "text": "Fox runs in the sun.",
+      "scene": "Wide shot: Small orange fox with fluffy tail and white chest running joyfully through a sunny forest clearing. Bright green grass, wildflowers, tall trees in background. Fox has happy expression, legs mid-stride. Warm watercolor style, dappled sunlight.",
+      "image_prompt": "Single scene illustration: Wide shot: Small orange fox with fluffy tail and white chest running joyfully through a sunny forest clearing. Bright green grass, wildflowers, tall trees in background. Fox has happy expression, legs mid-stride. Warm watercolor style, dappled sunlight.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: warm watercolor children's book illustration, soft edges, gentle lighting, cozy forest atmosphere\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/fox-and-the-box/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T13:12:37.025765",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 2,
+      "text": "Fox sees a box.",
+      "scene": "Medium shot: Orange fox stopped on dirt path, head tilted curiously, looking at a red wooden box sitting in the grass ahead. Forest clearing setting, afternoon light. Fox's ears perked forward with interest. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Medium shot: Orange fox stopped on dirt path, head tilted curiously, looking at a red wooden box sitting in the grass ahead. Forest clearing setting, afternoon light. Fox's ears perked forward with interest. Warm watercolor style.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: warm watercolor children's book illustration, soft edges, gentle lighting, cozy forest atmosphere\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/fox-and-the-box/page02.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T13:13:15.965507",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 3,
+      "text": "What is in the box?",
+      "scene": "Close-up: Orange fox's face showing curiosity, wide bright eyes, nose close to the red wooden box. Fox sniffing the box. Forest floor with grass and small flowers visible. Warm watercolor style, soft focus background.",
+      "image_prompt": "Single scene illustration: Close-up: Orange fox's face showing curiosity, wide bright eyes, nose close to the red wooden box. Fox sniffing the box. Forest floor with grass and small flowers visible. Warm watercolor style, soft focus background.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: warm watercolor children's book illustration, soft edges, gentle lighting, cozy forest atmosphere\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/fox-and-the-box/page03.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T13:13:54.142784",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 4,
+      "text": "Fox taps the box.",
+      "scene": "Medium shot: Orange fox with one white paw raised, gently tapping the top of the red wooden box. Tail slightly raised with excitement. Sunny forest clearing background. Warm watercolor style, playful moment.",
+      "image_prompt": "Single scene illustration: Medium shot: Orange fox with one white paw raised, gently tapping the top of the red wooden box. Tail slightly raised with excitement. Sunny forest clearing background. Warm watercolor style, playful moment.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: warm watercolor children's book illustration, soft edges, gentle lighting, cozy forest atmosphere\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/fox-and-the-box/page04.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T13:14:32.479127",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 5,
+      "text": "Pop! The box opens.",
+      "scene": "Dynamic shot: Red wooden box lid popping open with small motion lines. Orange fox jumping back slightly in surprise, eyes wide, tail puffed. Forest clearing setting. Warm watercolor style, sense of movement and surprise.",
+      "image_prompt": "Single scene illustration: Dynamic shot: Red wooden box lid popping open with small motion lines. Orange fox jumping back slightly in surprise, eyes wide, tail puffed. Forest clearing setting. Warm watercolor style, sense of movement and surprise.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: warm watercolor children's book illustration, soft edges, gentle lighting, cozy forest atmosphere\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/fox-and-the-box/page05.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T13:18:57.082526",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 6,
+      "text": "A hat is in the box!",
+      "scene": "Medium shot: Orange fox peering into the open red box, discovering a small blue hat inside. Fox's expression shows delight and wonder. Sunny forest clearing. Warm watercolor style, magical discovery moment.",
+      "image_prompt": "Single scene illustration: Medium shot: Orange fox peering into the open red box, discovering a small blue hat inside. Fox's expression shows delight and wonder. Sunny forest clearing. Warm watercolor style, magical discovery moment.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: warm watercolor children's book illustration, soft edges, gentle lighting, cozy forest atmosphere\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/fox-and-the-box/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T13:16:03.283237",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 7,
+      "text": "Fox puts on the hat.",
+      "scene": "Close-up: Orange fox wearing the small blue hat on head, looking pleased and proud. Hat sits at a jaunty angle between fox's ears. Fox has happy smile. Forest background softly blurred. Warm watercolor style.",
+      "image_prompt": "Single scene illustration: Close-up: Orange fox wearing the small blue hat on head, looking pleased and proud. Hat sits at a jaunty angle between fox's ears. Fox has happy smile. Forest background softly blurred. Warm watercolor style.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: warm watercolor children's book illustration, soft edges, gentle lighting, cozy forest atmosphere\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/fox-and-the-box/page07.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T13:16:41.397047",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 8,
+      "text": "Fox looks so fun!",
+      "scene": "Wide shot: Orange fox prancing happily through the forest clearing wearing the blue hat. Tail swishing, paws dancing. Wildflowers and tall trees around. Golden afternoon sunlight. Warm watercolor style, joyful ending scene.",
+      "image_prompt": "Single scene illustration: Wide shot: Orange fox prancing happily through the forest clearing wearing the blue hat. Tail swishing, paws dancing. Wildflowers and tall trees around. Golden afternoon sunlight. Warm watercolor style, joyful ending scene.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: warm watercolor children's book illustration, soft edges, gentle lighting, cozy forest atmosphere\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/fox-and-the-box/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T13:17:19.815528",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    }
+  ],
+  "reference_metadata": {
+    "generated_at": "2026-01-22T13:11:05.345055",
+    "model": "nano-banana-pro",
+    "provider": "mulerouter",
+    "prompt": "9-PANEL REFERENCE SHEET for 'Fox and the Box'\n\nCreate a 3x3 grid. PANEL 5 (CENTER) is the HERO SHOT - most important!\n\nStyle: Playful watercolor illustration, expressive characters, vibrant colors, child-friendly art style\nMood: energetic, fun, adventurous\n\nPANEL LAYOUT:\nPanel 1: Title page: A small orange fox with fluffy tail sits in a sunny forest clearing,...\nPanel 2: Wide shot: Small orange fox with fluffy tail and white chest running joyfully th...\nPanel 3: Medium shot: Orange fox stopped on dirt path, head tilted curiously, looking at ...\nPanel 4: Close-up: Orange fox's face showing curiosity, wide bright eyes, nose close to t...\nPanel 5: **CENTER** - Medium shot: Orange fox with one white paw raised, gently tapping the top of the...\nPanel 6: Dynamic shot: Red wooden box lid popping open with small motion lines. Orange fo...\nPanel 7: Medium shot: Orange fox peering into the open red box, discovering a small blue ...\nPanel 8: Close-up: Orange fox wearing the small blue hat on head, looking pleased and pro...\nPanel 9: Wide shot: Orange fox prancing happily through the forest clearing wearing the b...\n\nConsistent art style across all panels. Each panel is a square vignette.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+    "output_path": "books/references/fox-and-the-box_reference.png"
+  }
+}

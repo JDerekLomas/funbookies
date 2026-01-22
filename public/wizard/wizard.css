@@ -887,6 +887,51 @@
     color: var(--color-sage-dark);
 }
 
+/* Page prompt editor in cards */
+.page-prompt-details {
+    padding: 0 var(--space-xs);
+    font-size: 0.8rem;
+}
+
+.page-prompt-details summary {
+    cursor: pointer;
+    color: var(--color-text-muted);
+    padding: var(--space-xs) 0;
+}
+
+.page-prompt-details summary:hover {
+    color: var(--color-primary);
+}
+
+.page-prompt-content {
+    padding: var(--space-xs) 0;
+}
+
+.page-prompt-content label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-xs);
+}
+
+.page-text-preview {
+    background: var(--color-white);
+    padding: var(--space-xs);
+    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--space-xs);
+    font-size: 0.8rem;
+}
+
+.page-scene-textarea {
+    width: 100%;
+    font-size: 0.75rem;
+    padding: var(--space-xs);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    resize: vertical;
+    font-family: inherit;
+}
+
 /* Review phase */
 .review-section {
     background: var(--color-white);

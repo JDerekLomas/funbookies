@@ -507,8 +507,8 @@
 
                         <!-- Multi-ref Prompt Editors -->
                         <div class="prompt-accordion">
-                            <details class="prompt-editor" id="styleGuidePromptEditor">
-                                <summary>Edit Style Guide Prompt</summary>
+                            <details class="prompt-editor" id="styleGuidePromptEditor" open>
+                                <summary>Style Guide Prompt (character sheet)</summary>
                                 <div class="prompt-editor-content">
                                     <p class="prompt-editor-hint">9-panel character reference sheet (nano-banana T2I)</p>
                                     <textarea id="styleGuidePromptTextarea" placeholder="Style guide prompt will be generated when you load this phase..."></textarea>
@@ -518,10 +518,10 @@
                                     </div>
                                 </div>
                             </details>
-                            <details class="prompt-editor" id="openingScenesPromptEditor">
-                                <summary>Edit Opening Scenes Prompt</summary>
+                            <details class="prompt-editor" id="openingScenesPromptEditor" open>
+                                <summary>Opening Scenes Prompt (pages 2-6)</summary>
                                 <div class="prompt-editor-content">
-                                    <p class="prompt-editor-hint">First half of story scenes (wan 2.6 I2I)</p>
+                                    <p class="prompt-editor-hint">First half of story scenes (wan 2.6 I2I from style guide)</p>
                                     <textarea id="openingScenesPromptTextarea" placeholder="Opening scenes prompt will be generated when you load this phase..."></textarea>
                                     <div class="prompt-actions">
                                         <button type="button" class="btn btn-ghost btn-sm" onclick="previewOpeningScenesPrompt()">Preview</button>
@@ -529,10 +529,10 @@
                                     </div>
                                 </div>
                             </details>
-                            <details class="prompt-editor" id="closingScenesPromptEditor">
-                                <summary>Edit Closing Scenes Prompt</summary>
+                            <details class="prompt-editor" id="closingScenesPromptEditor" open>
+                                <summary>Closing Scenes Prompt (pages 7+)</summary>
                                 <div class="prompt-editor-content">
-                                    <p class="prompt-editor-hint">Second half of story scenes (wan 2.6 I2I)</p>
+                                    <p class="prompt-editor-hint">Second half of story scenes (wan 2.6 I2I from style guide)</p>
                                     <textarea id="closingScenesPromptTextarea" placeholder="Closing scenes prompt will be generated when you load this phase..."></textarea>
                                     <div class="prompt-actions">
                                         <button type="button" class="btn btn-ghost btn-sm" onclick="previewClosingScenesPrompt()">Preview</button>

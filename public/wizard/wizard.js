@@ -12,6 +12,38 @@ function toFullUrl(path) {
     return `${window.location.origin}${path.startsWith('/') ? '' : '/'}${path}`;
 }
 
+function escapeHtml(text) {
+    if (!text) return '';
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+function savePageScene(index) {
+    const textarea = document.querySelector(`.page-scene-textarea[data-page-index="${index}"]`);
+    if (textarea && state.book.pages[index]) {
+        state.book.pages[index].scene = textarea.value;
+        saveState();
+        alert('Scene saved. Click Generate to create image with updated prompt.');
+    }
+}
+
+function saveCoverScene() {
+    const textarea = document.querySelector('.page-scene-textarea[data-page-index="cover"]');
+    if (textarea && state.book.pages) {
+        // Find cover page and update its scene
+        const coverPage = state.book.pages.find(p => p.type === 'cover') || state.book.pages[0];
+        if (coverPage) {
+            coverPage.scene = textarea.value;
+            saveState();
+            alert('Cover scene saved. Click Generate to create image with updated prompt.');
+        }
+    }
+}
+
 // Story ideas loaded from JSON
 let storyIdeasData = null;
 let storyIdeasVisible = true;
@@ -1449,7 +1481,7 @@ function buildDefaultOpeningScenesPrompt() {
     const scenes = openingPages
         .filter(p => !p.scene.includes('Illustration for:'))
         .slice(0, 6)
-        .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 150)}`);
+        .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 300)}`);
 
     while (scenes.length < 6) {
         scenes.push(`[${scenes.length + 1}] Key moment from opening`);
@@ -1491,7 +1523,7 @@ function buildDefaultClosingScenesPrompt() {
     const scenes = closingPages
         .filter(p => !p.scene.includes('Illustration for:'))
         .slice(0, 6)
-        .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 150)}`);
+        .map((p, i) => `[${i + 1}] ${p.scene.substring(0, 300)}`);
 
     while (scenes.length < 6) {
         scenes.push(`[${scenes.length + 1}] Key moment from closing`);
@@ -2326,14 +2358,17 @@ async function generateMultiRefSheet(sheetType) {
     }
 
     try {
+        // Convert relative paths to full URLs for reference images
+        const fullReference = reference ? toFullUrl(reference) : null;
+
         const response = await fetch('/api/generate-image', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 prompt: prompt,
                 model: model,
-                reference: reference,
-                referenceIsUrl: reference && reference.startsWith('http'),
+                reference: fullReference,
+                referenceIsUrl: !!fullReference,
                 slug: state.slug,
                 page: `ref-${sheetType}`
             })
@@ -2539,6 +2574,11 @@ function renderPageImagesGrid() {
 
     // Cover image card
     const hasCover = state.book.cover_image;
+    // Find cover page data (type: "cover" or first page)
+    const coverPage = state.book.pages.find(p => p.type === 'cover') || state.book.pages[0] || {};
+    const coverScene = coverPage.scene || '';
+    const coverText = coverPage.text || state.book.title || '';
+
     const coverCard = `
         <div class="page-image-card cover-card" data-type="cover">
             <div class="page-image-container">
@@ -2551,6 +2591,15 @@ function renderPageImagesGrid() {
                 <span>Cover</span>
                 <span class="page-image-status ${hasCover ? 'complete' : 'pending'}">${hasCover ? 'Complete' : 'Pending'}</span>
             </div>
+            <details class="page-prompt-details">
+                <summary>Text & Scene</summary>
+                <div class="page-prompt-content">
+                    <div class="page-text-preview"><strong>Title:</strong> ${escapeHtml(coverText)}</div>
+                    <label>Cover scene prompt:</label>
+                    <textarea class="page-scene-textarea" data-page-index="cover" rows="4">${escapeHtml(coverScene)}</textarea>
+                    <button class="btn btn-sm btn-ghost" onclick="saveCoverScene()" style="margin-top: 4px;">Save</button>
+                </div>
+            </details>
             <div style="padding: 0 var(--space-xs) var(--space-xs);">
                 <button class="btn btn-sm btn-ghost" onclick="generateCoverImage()" style="width: 100%;">
                     ${hasCover ? 'Regenerate' : 'Generate'}
@@ -2567,6 +2616,8 @@ function renderPageImagesGrid() {
         const status = hasImage ? 'complete' : 'pending';
         const statusLabel = hasImage ? 'Complete' : 'Pending';
         const isEndPage = i === lastPageIdx;
+        const sceneText = page.scene || '';
+        const pageText = page.text || '';
 
         return `
             <div class="page-image-card ${isEndPage ? 'end-page' : ''}" data-page="${i}">
@@ -2580,6 +2631,15 @@ function renderPageImagesGrid() {
                     <span>Page ${pageNum}${isEndPage ? ' (End)' : ''}</span>
                     <span class="page-image-status ${status}">${statusLabel}</span>
                 </div>
+                <details class="page-prompt-details">
+                    <summary>Text & Scene</summary>
+                    <div class="page-prompt-content">
+                        <div class="page-text-preview"><strong>Text:</strong> ${escapeHtml(pageText)}</div>
+                        <label>Scene prompt:</label>
+                        <textarea class="page-scene-textarea" data-page-index="${i}" rows="4">${escapeHtml(sceneText)}</textarea>
+                        <button class="btn btn-sm btn-ghost" onclick="savePageScene(${i})" style="margin-top: 4px;">Save</button>
+                    </div>
+                </details>
                 <div style="padding: 0 var(--space-xs) var(--space-xs);">
                     <button class="btn btn-sm btn-ghost" onclick="generatePageImage(${i})" style="width: 100%;">
                         ${hasImage ? 'Regenerate' : 'Generate'}
@@ -2638,8 +2698,8 @@ async function generatePageImage(index) {
         requestBody = {
             prompt: prompt,
             model: 'wan2.6-image',
-            reference: state.referenceImage,
-            referenceIsUrl: state.referenceImage && state.referenceImage.startsWith('http'),
+            reference: toFullUrl(state.referenceImage),
+            referenceIsUrl: !!state.referenceImage,
             slug: state.slug,
             page: page.page
         };
@@ -2659,11 +2719,14 @@ async function generatePageImage(index) {
                 page.image = url;
                 saveState();
                 updatePageImageCard(index, url);
+                saveBookToServer(); // Fire and forget
             });
         } else if (result.url) {
             page.image = result.url;
             saveState();
             updatePageImageCard(index, result.url);
+            // Persist to server
+            await saveBookToServer();
         } else {
             throw new Error(result.error || 'Failed to generate image');
         }
@@ -2675,16 +2738,43 @@ async function generatePageImage(index) {
     }
 }
 
+async function saveBookToServer() {
+    if (!state.book || !state.slug) return;
+
+    try {
+        const response = await fetch('/api/save-book', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                slug: state.slug,
+                book: state.book
+            })
+        });
+
+        if (!response.ok) {
+            console.error('Failed to save book to server:', await response.text());
+        } else {
+            console.log('Book saved to server');
+        }
+    } catch (error) {
+        console.error('Error saving book to server:', error);
+    }
+}
+
 function buildPageImagePrompt(page) {
+    const charName = state.book?.characterName || 'Main character';
+    const charDesc = state.book?.characterDescription || state.book?.character || 'friendly character';
+    const style = state.book?.visual_style || 'Soft watercolor children\'s book illustration, warm colors, gentle lighting';
+
     return `Single scene illustration: ${page.scene}
 
 CHARACTERS (draw EXACTLY as described):
-${state.book.characterName} the ${state.book.character} - soft, rounded, friendly appearance with expressive face
+${charName}: ${charDesc}
 
 COMPOSITION: One cohesive illustration filling the entire canvas.
 Full-bleed image with the scene filling edge to edge.
 
-STYLE: Soft watercolor children's book illustration, warm colors, gentle lighting, matching the reference style.
+STYLE: ${style}
 
 CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere. Pure illustration only.`;
 }
@@ -2727,8 +2817,8 @@ async function generateCoverImage() {
         requestBody = {
             prompt: coverPrompt,
             model: 'wan2.6-image',
-            reference: state.referenceImage,
-            referenceIsUrl: state.referenceImage && state.referenceImage.startsWith('http'),
+            reference: toFullUrl(state.referenceImage),
+            referenceIsUrl: !!state.referenceImage,
             slug: state.slug,
             page: 'cover'
         };
@@ -2748,11 +2838,14 @@ async function generateCoverImage() {
                 state.book.cover_image = url;
                 saveState();
                 updateCoverImageCard(url);
+                saveBookToServer(); // Fire and forget
             });
         } else if (result.url) {
             state.book.cover_image = result.url;
             saveState();
             updateCoverImageCard(result.url);
+            // Persist to server
+            await saveBookToServer();
         } else {
             throw new Error(result.error || 'Failed to generate cover image');
         }
@@ -2765,17 +2858,35 @@ async function generateCoverImage() {
 }
 
 function buildCoverImagePrompt() {
+    // Use the cover page's scene if available
+    const coverPage = state.book?.pages?.find(p => p.type === 'cover') || state.book?.pages?.[0];
+    const coverScene = coverPage?.scene || '';
+
+    // If we have a custom scene, use it
+    if (coverScene && coverScene.length > 20) {
+        return `Single scene illustration: ${coverScene}
+
+COMPOSITION: One cohesive illustration filling the entire canvas.
+Full-bleed image with the scene filling edge to edge.
+
+STYLE: ${state.book?.visual_style || 'Soft watercolor children\'s book illustration, warm colors, gentle lighting'}
+
+CRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.`;
+    }
+
+    // Fallback to generic cover prompt
     const char = state.outline?.character || {};
-    const charDesc = char.visual_shorthand || `${char.type || 'character'}`;
+    const charDesc = char.visual_shorthand || state.book?.characterDescription || `${char.type || 'character'}`;
+    const charName = char.name || state.book?.characterName || 'Main character';
     const setting = state.outline?.setting || state.book?.setting || '';
 
     return `Book cover illustration for "${state.book.title}":
 
-SCENE: ${char.name || 'Main character'} (${charDesc}) prominently featured, looking directly at viewer with warm, inviting expression. Setting: ${setting}
+SCENE: ${charName} (${charDesc}) prominently featured, looking directly at viewer with warm, inviting expression. Setting: ${setting}
 
 COMPOSITION: Dynamic, eye-catching cover design. Character fills most of the frame, slightly off-center. Vibrant background suggesting the story's world.
 
-STYLE: Soft watercolor children's book illustration, warm inviting colors, friendly and appealing for young readers, matching the reference style.
+STYLE: ${state.book?.visual_style || 'Soft watercolor children\'s book illustration, warm inviting colors, friendly and appealing for young readers'}
 
 CRITICAL: NO TEXT, NO WORDS, NO LETTERS, NO TITLE anywhere. Pure illustration only - text will be added separately.`;
 }

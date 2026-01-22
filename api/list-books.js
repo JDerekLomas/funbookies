@@ -30,9 +30,23 @@ export default async function handler(req, res) {
       if (response.ok) {
         const rows = await response.json();
 
-        // Filter out special slugs (start with _) and extract metadata from data JSONB
+        // Filter out special slugs (start with _), drafts, and extract metadata from data JSONB
+        // Only show published books (status === 'published') or legacy books without status field
+        // Also filter out incomplete books (no level, level is '?'/'unknown', or no story pages)
         const books = rows
           .filter(row => row.slug && !row.slug.startsWith('_') && row.data)
+          .filter(row => !row.data.status || row.data.status === 'published')
+          .filter(row => row.data.level && row.data.level !== '?' && row.data.level !== 'unknown')
+          .filter(row => {
+            // Must have pages array with at least one story page
+            const pages = row.data.pages || [];
+            return pages.some(p => p.type === 'story' && p.text);
+          })
+          .filter(row => {
+            // Exclude specific incomplete books (have content but no images)
+            const incompleteBooks = ['kittens-hidden-basket', 'friends-at-the-pond', 'game-quest', 'fern_gust_orange_bible'];
+            return !incompleteBooks.includes(row.slug);
+          })
           .map(row => ({
             slug: row.slug,
             jsonFile: `${row.slug}.json`,

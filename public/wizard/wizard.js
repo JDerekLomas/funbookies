@@ -169,9 +169,11 @@ async function saveToSupabase() {
 
     try {
         // Save full wizard state alongside book data
+        // Status is 'draft' until explicitly published
         const bookData = {
             ...state.book,
             slug: state.slug,
+            status: 'draft',
             referenceImage: state.referenceImage,
             wizardPhase: state.currentPhase,
             updatedAt: new Date().toISOString(),
@@ -2870,9 +2872,19 @@ function renderReviewPhase() {
 }
 
 async function saveAndPublish() {
-    // Prepare book with reference image(s)
+    // Build proper page structure with cover and copyright
+    const storyPages = state.book.pages || [];
+    const fullPages = [
+        { page: 1, type: 'cover', text: state.book.title },
+        { page: 2, type: 'copyright' },
+        ...storyPages.map((p, i) => ({ ...p, page: i + 3 }))
+    ];
+
+    // Prepare book with reference image(s) and published status
     const finalBook = {
         ...state.book,
+        pages: fullPages,
+        status: 'published',
         referenceImage: state.referenceImage,
         refStrategy: state.refStrategy,
         multiRefs: state.refStrategy === 'multi' ? state.multiRefs : undefined,
@@ -2911,9 +2923,19 @@ async function saveAndPublish() {
 // ===================
 
 async function finishWizard() {
-    // Prepare book with reference image(s)
+    // Build proper page structure with cover and copyright
+    const storyPages = state.book.pages || [];
+    const fullPages = [
+        { page: 1, type: 'cover', text: state.book.title },
+        { page: 2, type: 'copyright' },
+        ...storyPages.map((p, i) => ({ ...p, page: i + 3 }))
+    ];
+
+    // Prepare book with reference image(s) and published status
     const finalBook = {
         ...state.book,
+        pages: fullPages,
+        status: 'published',
         referenceImage: state.referenceImage,
         refStrategy: state.refStrategy,
         multiRefs: state.refStrategy === 'multi' ? state.multiRefs : undefined,

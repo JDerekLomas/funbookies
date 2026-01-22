@@ -3,8 +3,6 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 
-const anthropic = new Anthropic();
-
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
@@ -15,6 +13,19 @@ export default async function handler(req, res) {
     if (!book || !book.pages) {
         return res.status(400).json({ error: 'Book data with pages required' });
     }
+
+    // Check for API key
+    if (!process.env.ANTHROPIC_API_KEY) {
+        // Return a fallback prompt without LLM
+        const fallbackPrompt = buildFallbackPrompt(book);
+        return res.status(200).json({
+            success: true,
+            prompt: fallbackPrompt,
+            source: 'fallback'
+        });
+    }
+
+    const anthropic = new Anthropic();
 
     try {
         // Build context from book data
@@ -54,10 +65,44 @@ Output ONLY the prompt, no explanation or preamble.`
 
     } catch (error) {
         console.error('Error generating reference prompt:', error);
-        return res.status(500).json({
-            error: error.message || 'Failed to generate reference prompt'
+        // Return fallback prompt on error
+        const fallbackPrompt = buildFallbackPrompt(book);
+        return res.status(200).json({
+            success: true,
+            prompt: fallbackPrompt,
+            source: 'fallback',
+            warning: error.message
         });
     }
+}
+
+function buildFallbackPrompt(book) {
+    const title = book.title || 'Untitled';
+    const setting = book.setting || 'various settings';
+    const character = book.characterName || 'main character';
+    const artStyle = book.visual_style || book.style || 'Soft watercolor children\'s book illustration, warm colors, gentle lighting';
+
+    // Extract character details from first scene if available
+    const firstScene = book.pages?.[0]?.scene || '';
+
+    return `Create a 3x3 grid style reference sheet for "${title}":
+
+GRID LAYOUT (9 panels total):
+Row 1: [1] ${character} front view, [2] ${character} expressions (happy, surprised, worried), [3] ${character} in action pose
+Row 2: [4] Secondary elements/props from story, [5] KEY SCENE: ${character} in main story moment, [6] Important objects/items
+Row 3: [7] ${setting} background element, [8] Another setting element, [9] ${character} resolution pose
+
+CHARACTER DESIGN - ${character.toUpperCase()}:
+- Physical details: expressive eyes, distinctive features
+- Soft, friendly, rounded shapes
+- Clear, simple features easy to recognize
+- Consistent color palette throughout all panels
+- Expressive but simple face
+
+STYLE: ${artStyle}
+
+IMPORTANT: This is a reference sheet with 9 distinct panels arranged in a 3x3 grid. Each panel should be clearly separated.
+NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
 }
 
 function buildBookContext(book) {

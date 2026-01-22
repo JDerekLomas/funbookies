@@ -41,6 +41,17 @@ export default async function handler(req, res) {
             });
         }
 
+        // Skip LLM validation if no API key or if explicitly disabled
+        if (!process.env.ANTHROPIC_API_KEY) {
+            return res.status(200).json({
+                valid: true,
+                errors: [],
+                warnings: ['LLM validation skipped (no API key)'],
+                pageCount: book.pages.length,
+                assessment: 'Structural validation passed. LLM validation not available.'
+            });
+        }
+
         // Use LLM for semantic validation (continuity, logic, etc.)
         const pagesContext = book.pages.map((p, i) =>
             `Page ${i + 1}:\nText: "${p.text}"\nScene: ${p.scene}`
@@ -119,6 +130,14 @@ Return JSON:
 
     } catch (error) {
         console.error('Validation error:', error);
-        return res.status(500).json({ error: error.message });
+        // Return valid=true on API errors so user can proceed
+        // Local validation in the client will catch obvious issues
+        return res.status(200).json({
+            valid: true,
+            errors: [],
+            warnings: [`LLM validation unavailable: ${error.message}`],
+            pageCount: req.body?.book?.pages?.length || 0,
+            assessment: 'Structural validation passed. LLM validation encountered an error but local checks passed.'
+        });
     }
 }

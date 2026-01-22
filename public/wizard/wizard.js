@@ -765,22 +765,17 @@ function renderOutlinePhase() {
     if (!state.outline) return;
     document.getElementById('outlineTitle').value = state.outline.title || '';
 
-    // Rich character display
-    const char = state.outline.character;
-    if (char) {
-        let charText = char.name;
-        if (char.visual_shorthand) charText += ` - ${char.visual_shorthand}`;
-        else if (char.type) charText += ` the ${char.type}`;
-        if (char.distinctive_features && char.distinctive_features.length) {
-            charText += ` (${char.distinctive_features.slice(0, 3).join(', ')})`;
-        }
-        document.getElementById('outlineCharacter').textContent = charText;
-    } else {
-        document.getElementById('outlineCharacter').textContent = 'Not set';
-    }
+    // Editable character fields
+    const char = state.outline.character || {};
+    document.getElementById('charName').value = char.name || '';
+    document.getElementById('charVisual').value = char.visual_shorthand || '';
+    document.getElementById('charFeatures').value = (char.distinctive_features || []).join(', ');
 
-    document.getElementById('outlineSetting').textContent = state.outline.setting || 'Not set';
-    document.getElementById('outlineArc').textContent = state.outline.arc || 'Not set';
+    // Editable setting, style, and arc
+    document.getElementById('outlineSetting').value = state.outline.setting || '';
+    document.getElementById('outlineStyle').value = state.outline.visual_style || '';
+    document.getElementById('outlineArc').value = state.outline.arc || '';
+
     renderBeats();
 }
 
@@ -811,6 +806,36 @@ function updateOutlineTitle(value) {
         state.slug = generateSlug(value);
         saveState();
     }
+}
+
+function updateCharacter(field, value) {
+    if (!state.outline) return;
+    if (!state.outline.character) state.outline.character = {};
+
+    if (field === 'distinctive_features') {
+        state.outline.character[field] = value.split(',').map(f => f.trim()).filter(f => f);
+    } else {
+        state.outline.character[field] = value;
+    }
+    saveState();
+}
+
+function updateOutlineSetting(value) {
+    if (!state.outline) return;
+    state.outline.setting = value;
+    saveState();
+}
+
+function updateOutlineStyle(value) {
+    if (!state.outline) return;
+    state.outline.visual_style = value;
+    saveState();
+}
+
+function updateOutlineArc(value) {
+    if (!state.outline) return;
+    state.outline.arc = value;
+    saveState();
 }
 
 function updateBeat(index, value) {
@@ -1429,6 +1454,9 @@ function renderPhase2Content() {
 
     // Render scene list (right panel)
     renderSceneList();
+
+    // Render metadata panels (word_list and story_bible)
+    renderMetadataPanels();
 }
 
 function renderEditableStory() {
@@ -1556,6 +1584,48 @@ function renderSceneList() {
             </div>
         `;
     }).join('');
+}
+
+function renderMetadataPanels() {
+    // Render word list
+    const wordList = state.book.word_list || {};
+    const soundOut = wordList.sound_out || [];
+    const sight = wordList.sight || [];
+    const heart = wordList.heart || [];
+    const totalWords = soundOut.length + sight.length + heart.length;
+
+    document.getElementById('wordListCount').textContent = `${totalWords} words`;
+    document.getElementById('wordListSoundOut').innerHTML = soundOut.length
+        ? soundOut.map(w => `<span class="word-chip">${w}</span>`).join('')
+        : '<span class="hint">None</span>';
+    document.getElementById('wordListSight').innerHTML = sight.length
+        ? sight.map(w => `<span class="word-chip">${w}</span>`).join('')
+        : '<span class="hint">None</span>';
+    document.getElementById('wordListHeart').innerHTML = heart.length
+        ? heart.map(w => `<span class="word-chip">${w}</span>`).join('')
+        : '<span class="hint">None</span>';
+
+    // Render story bible
+    const bible = state.book.story_bible || {};
+
+    document.getElementById('biblePremise').textContent = bible.premise || 'Not generated';
+
+    const characters = bible.characters || [];
+    document.getElementById('bibleCharacters').innerHTML = characters.length
+        ? characters.map(c => `
+            <div class="bible-character">
+                <div class="bible-character-name">${c.name} (${c.role || 'character'})</div>
+                <div class="bible-character-desc">${c.description || ''}</div>
+            </div>
+        `).join('')
+        : '<span class="hint">No characters defined</span>';
+
+    const themes = bible.themes || [];
+    document.getElementById('bibleThemes').innerHTML = themes.length
+        ? themes.map(t => `<span class="bible-chip">${t}</span>`).join('')
+        : '<span class="hint">No themes defined</span>';
+
+    document.getElementById('bibleEmotionalArc').textContent = bible.emotional_arc || 'Not defined';
 }
 
 async function regenerateSingleScene(index) {
@@ -2356,16 +2426,41 @@ function getImageSrc(page) {
 
 function renderPageImagesGrid() {
     const grid = document.getElementById('pageImagesGrid');
+    const lastPageIdx = state.book.pages.length - 1;
 
-    grid.innerHTML = state.book.pages.map((page, i) => {
+    // Cover image card
+    const hasCover = state.book.cover_image;
+    const coverCard = `
+        <div class="page-image-card cover-card" data-type="cover">
+            <div class="page-image-container">
+                ${hasCover ?
+                    `<img src="${state.book.cover_image}" alt="Cover">` :
+                    `<div class="page-image-placeholder">Cover</div>`
+                }
+            </div>
+            <div class="page-image-info">
+                <span>Cover</span>
+                <span class="page-image-status ${hasCover ? 'complete' : 'pending'}">${hasCover ? 'Complete' : 'Pending'}</span>
+            </div>
+            <div style="padding: 0 var(--space-xs) var(--space-xs);">
+                <button class="btn btn-sm btn-ghost" onclick="generateCoverImage()" style="width: 100%;">
+                    ${hasCover ? 'Regenerate' : 'Generate'}
+                </button>
+            </div>
+        </div>
+    `;
+
+    // Page image cards
+    const pageCards = state.book.pages.map((page, i) => {
         const pageNum = page.page || page.story_page || (i + 1);
         const hasImage = hasValidImage(page);
         const imageSrc = getImageSrc(page);
         const status = hasImage ? 'complete' : 'pending';
         const statusLabel = hasImage ? 'Complete' : 'Pending';
+        const isEndPage = i === lastPageIdx;
 
         return `
-            <div class="page-image-card" data-page="${i}">
+            <div class="page-image-card ${isEndPage ? 'end-page' : ''}" data-page="${i}">
                 <div class="page-image-container">
                     ${hasImage ?
                         `<img src="${imageSrc}" alt="Page ${pageNum}">` :
@@ -2373,7 +2468,7 @@ function renderPageImagesGrid() {
                     }
                 </div>
                 <div class="page-image-info">
-                    <span>Page ${pageNum}</span>
+                    <span>Page ${pageNum}${isEndPage ? ' (End)' : ''}</span>
                     <span class="page-image-status ${status}">${statusLabel}</span>
                 </div>
                 <div style="padding: 0 var(--space-xs) var(--space-xs);">
@@ -2384,6 +2479,8 @@ function renderPageImagesGrid() {
             </div>
         `;
     }).join('');
+
+    grid.innerHTML = coverCard + pageCards;
 
     updatePageProgress();
 }
@@ -2490,6 +2587,97 @@ function updatePageImageCard(index, url) {
     const btn = card.querySelector('button');
 
     container.innerHTML = `<img src="${url}" alt="Page ${state.book.pages[index].page}">`;
+    statusEl.className = 'page-image-status complete';
+    statusEl.textContent = 'Complete';
+    btn.textContent = 'Regenerate';
+
+    updatePageProgress();
+}
+
+async function generateCoverImage() {
+    const card = document.querySelector('.page-image-card.cover-card');
+    const statusEl = card.querySelector('.page-image-status');
+
+    statusEl.className = 'page-image-status generating';
+    statusEl.textContent = 'Generating...';
+
+    const coverPrompt = buildCoverImagePrompt();
+
+    // Use reference for consistent style
+    let requestBody;
+    if (state.refStrategy === 'multi' && state.multiRefs.styleGuide) {
+        requestBody = {
+            prompt: coverPrompt,
+            model: 'wan2.6-image',
+            reference: [state.multiRefs.styleGuide].filter(Boolean),
+            referenceIsUrl: true,
+            slug: state.slug,
+            page: 'cover'
+        };
+    } else {
+        requestBody = {
+            prompt: coverPrompt,
+            model: 'wan2.6-image',
+            reference: state.referenceImage,
+            referenceIsUrl: state.referenceImage && state.referenceImage.startsWith('http'),
+            slug: state.slug,
+            page: 'cover'
+        };
+    }
+
+    try {
+        const response = await fetch('/api/generate-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+        });
+
+        const result = await response.json();
+
+        if (result.pending && result.taskId) {
+            await pollForImage(result.taskId, result.statusEndpoint, (url) => {
+                state.book.cover_image = url;
+                saveState();
+                updateCoverImageCard(url);
+            });
+        } else if (result.url) {
+            state.book.cover_image = result.url;
+            saveState();
+            updateCoverImageCard(result.url);
+        } else {
+            throw new Error(result.error || 'Failed to generate cover image');
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+        statusEl.className = 'page-image-status error';
+        statusEl.textContent = 'Error';
+    }
+}
+
+function buildCoverImagePrompt() {
+    const char = state.outline?.character || {};
+    const charDesc = char.visual_shorthand || `${char.type || 'character'}`;
+    const setting = state.outline?.setting || state.book?.setting || '';
+
+    return `Book cover illustration for "${state.book.title}":
+
+SCENE: ${char.name || 'Main character'} (${charDesc}) prominently featured, looking directly at viewer with warm, inviting expression. Setting: ${setting}
+
+COMPOSITION: Dynamic, eye-catching cover design. Character fills most of the frame, slightly off-center. Vibrant background suggesting the story's world.
+
+STYLE: Soft watercolor children's book illustration, warm inviting colors, friendly and appealing for young readers, matching the reference style.
+
+CRITICAL: NO TEXT, NO WORDS, NO LETTERS, NO TITLE anywhere. Pure illustration only - text will be added separately.`;
+}
+
+function updateCoverImageCard(url) {
+    const card = document.querySelector('.page-image-card.cover-card');
+    const container = card.querySelector('.page-image-container');
+    const statusEl = card.querySelector('.page-image-status');
+    const btn = card.querySelector('button');
+
+    container.innerHTML = `<img src="${url}" alt="Cover">`;
     statusEl.className = 'page-image-status complete';
     statusEl.textContent = 'Complete';
     btn.textContent = 'Regenerate';
@@ -2630,13 +2818,48 @@ function renderReviewPhase() {
     const summary = document.getElementById('reviewSummary');
     const pagesWithImages = state.book.pages.filter(p => hasValidImage(p)).length;
     const totalPages = state.book.pages.length;
+    const hasCover = state.book.cover_image ? 'Yes' : 'No';
 
     summary.innerHTML = `
         <p><strong>Title:</strong> ${state.book.title || 'Untitled'}</p>
         <p><strong>Level:</strong> ${state.book.level || 'Unknown'}</p>
         <p><strong>Pages:</strong> ${totalPages} (${pagesWithImages} with images)</p>
+        <p><strong>Cover:</strong> ${hasCover}</p>
         <p><strong>Slug:</strong> ${state.slug}</p>
     `;
+
+    // Update word list
+    const wordList = state.book.word_list || {};
+    const soundOut = wordList.sound_out || [];
+    const sight = wordList.sight || [];
+    const heart = wordList.heart || [];
+
+    document.getElementById('reviewSoundOut').innerHTML = soundOut.length
+        ? soundOut.map(w => `<span class="word-chip">${w}</span>`).join('')
+        : '<span class="hint">None</span>';
+    document.getElementById('reviewSight').innerHTML = sight.length
+        ? sight.map(w => `<span class="word-chip">${w}</span>`).join('')
+        : '<span class="hint">None</span>';
+    document.getElementById('reviewHeart').innerHTML = heart.length
+        ? heart.map(w => `<span class="word-chip">${w}</span>`).join('')
+        : '<span class="hint">None</span>';
+
+    // Update story bible
+    const bible = state.book.story_bible || {};
+
+    document.getElementById('reviewPremise').textContent = bible.premise || 'Not generated';
+
+    const themes = bible.themes || [];
+    document.getElementById('reviewThemes').innerHTML = themes.length
+        ? themes.map(t => `<span class="bible-chip">${t}</span>`).join('')
+        : '<span class="hint">None</span>';
+
+    document.getElementById('reviewEmotionalArc').textContent = bible.emotional_arc || 'Not defined';
+
+    const characters = bible.characters || [];
+    document.getElementById('reviewCharacters').innerHTML = characters.length
+        ? characters.map(c => `<div class="bible-character-item"><strong>${c.name}</strong> (${c.role || 'character'}): ${c.description || '-'}</div>`).join('')
+        : '<span class="hint">No characters defined</span>';
 
     // Update links
     document.getElementById('readerLink').href = `/reader.html?book=${state.slug}`;

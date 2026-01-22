@@ -1,0 +1,338 @@
+{
+  "id": "my-shadow-ran-away",
+  "title": "My Shadow Ran Away",
+  "slug": "my-shadow-ran-away",
+  "level": "B2",
+  "band": "B",
+  "targetPhonics": "CVC short vowels (a, i, o, u)",
+  "wordFamilies": [
+    "-un",
+    "-an",
+    "-op",
+    "-ot",
+    "-id",
+    "-ig",
+    "-ip",
+    "-at"
+  ],
+  "skill": "CVC Short Vowels",
+  "skill_description": "Practice reading CVC words with short vowels. 'Shadow' is a heart word learned as a whole.",
+  "age_range": "K-1",
+  "created": "2026-01-22",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Sunny's shadow gets bored and runs away to have its own adventures. She chases it across the neighborhood until sunset, when they finally reunite.",
+  "characters": {
+    "sunny": {
+      "name": "Sunny",
+      "visual_shorthand": "Girl (5) with wild curly brown hair, yellow sundress, bare feet, determined expression",
+      "distinctive_features": [
+        "wild curly brown hair",
+        "yellow sundress",
+        "bare feet",
+        "energetic posture",
+        "determined expression"
+      ]
+    },
+    "shadow": {
+      "name": "Shadow",
+      "visual_shorthand": "Bold black silhouette figure, stretchy and expressive, simple shape but full of personality",
+      "distinctive_features": [
+        "solid black silhouette",
+        "no features except outline",
+        "stretchy proportions",
+        "expressive poses",
+        "can be tall/thin or squat/round"
+      ]
+    }
+  },
+  "setting_context": "Sunny neighborhood in golden hour light. Grassy yards, a big tree, a small pond, a friendly dog. Warm summer evening feeling. Long dramatic shadows everywhere.",
+  "story_bible": {
+    "premise": "A child's shadow comes alive and runs away to have its own fun, leading to a chase across the neighborhood that ends in reunion at sunset.",
+    "setting": "Suburban neighborhood bathed in golden hour light - warm grass, big oak tree, small pond, picket fences",
+    "visual_style": "Golden Hour Silhouette style: Warm sunset palette (golden yellows, soft oranges, dusty pinks, deep purples). Shadow is always bold black silhouette. World rendered in soft, hazy watercolor washes. Long dramatic shadows. Colors shift warmer as sun sets, building visual tension.",
+    "themes": [
+      "independence",
+      "belonging",
+      "adventure",
+      "coming home"
+    ],
+    "emotional_arc": "playful mischief \u2192 exciting chase \u2192 worry as sun sets \u2192 warm reunion"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE for children's book 'My Shadow Ran Away'\n\nVISUAL STYLE: Golden Hour Silhouette - warm sunset palette, soft watercolor washes, bold black silhouettes for shadows. Nostalgic summer evening light.\n\nRow 1 - CHARACTER SUNNY:\n[1] Sunny standing: Girl (5) with wild curly brown hair, yellow sundress, bare feet. Hands on hips, determined look. Golden afternoon light bathes her. Her shadow stretches long beside her.\n[2] Sunny running: Same girl mid-stride, arms pumping, hair bouncing. Chasing something. Warm orange light. Dynamic pose.\n[3] Sunny kneeling: Gentle expression, arms open welcoming. Soft pink sunset light on her face. Caring, relieved.\n\nRow 2 - CHARACTER SHADOW:\n[4] Shadow standing: Bold black silhouette figure on golden grass. Simple but expressive - you can see attitude in the pose. Hands on hips mimicking Sunny.\n[5] Shadow playful: Same black silhouette but stretched tall and thin, arms up in joy, clearly having fun. Mischievous energy.\n[6] Shadow scared: Silhouette becoming faint and wispy, hunched over, reaching out. Translucent edges showing it's fading.\n\nRow 3 - SETTINGS & COLOR:\n[7] Golden afternoon: Grassy yard, big oak tree, picket fence. Sun high, warm yellow light, long shadows on grass.\n[8] Sunset pond: Small pond with reeds, water reflecting orange and pink sky. Ripples, scattered ducks.\n[9] Deep sunset: Big orange sun on horizon, sky in bands of gold, orange, pink, purple. Silhouettes of trees. Magic hour.\n\nSTYLE: Soft watercolor washes, warm nostalgic palette, bold black silhouettes. NO TEXT.",
+  "word_list": {
+    "sound_out": [
+      "sun",
+      "sat",
+      "ran",
+      "fun",
+      "big",
+      "hid",
+      "hop",
+      "dog",
+      "got",
+      "dip",
+      "wet",
+      "sad",
+      "thin",
+      "back"
+    ],
+    "sight": [
+      "my",
+      "the",
+      "I",
+      "is",
+      "it",
+      "in",
+      "a",
+      "to",
+      "said",
+      "was",
+      "come",
+      "want",
+      "her"
+    ],
+    "heart": [
+      "shadow",
+      "away",
+      "laughed"
+    ]
+  },
+  "sightWordsUsed": [
+    "my",
+    "the",
+    "I",
+    "is",
+    "it",
+    "in",
+    "a",
+    "to",
+    "said",
+    "was",
+    "come",
+    "want",
+    "her"
+  ],
+  "wordsearch_words": [
+    "sun",
+    "ran",
+    "fun",
+    "shadow",
+    "dog",
+    "wet",
+    "back",
+    "tree"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "My Shadow Ran Away",
+      "scene": "Dramatic cover scene: Sunny mid-chase, reaching forward, yellow sundress flowing. Her shadow has detached and runs ahead as a playful black silhouette figure with arms outstretched in freedom. Golden hour light, long shadows stretching across grass. Warm oranges and yellows. The shadow looks back mischievously. Sense of motion and adventure. Golden Hour Silhouette style with soft watercolor washes.",
+      "image_prompt": "Single scene illustration: Dramatic cover scene: Sunny mid-chase, reaching forward, yellow sundress flowing. Her shadow has detached and runs ahead as a playful black silhouette figure with arms outstretched in freedom. Golden hour light, long shadows stretching across grass. Warm oranges and yellows. The shadow looks back mischievously. Sense of motion and adventure. Golden Hour Silhouette style with soft watercolor washes.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nGirl (5) with wild curly brown hair, yellow sundress, bare feet, determined expression\nBold black silhouette figure, stretchy and expressive, simple shape but full of personality\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Golden Hour Silhouette style: Warm sunset palette (golden yellows, soft oranges, dusty pinks, deep purples). Shadow is always bold black silhouette. World rendered in soft, hazy watercolor washes. Long dramatic shadows. Colors shift warmer as sun sets, building visual tension.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/my-shadow-ran-away/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T12:55:59.769712",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_wordlist"
+    },
+    {
+      "page": 5,
+      "story_page": 1,
+      "type": "story",
+      "text": "Sunny sat in the sun.\nHer shadow sat, too.",
+      "scene": "Wide peaceful shot: Sunny, a 5-year-old girl with wild curly brown hair in a yellow sundress, sits cross-legged on warm golden grass. Bare feet. Her black shadow stretches beside her, perfectly mimicking her pose. Warm afternoon golden light. Big oak tree in background. The shadow is solid, content, still. Soft watercolor style with golden yellows and warm oranges.",
+      "image_prompt": "Single scene illustration: Wide peaceful shot: Sunny, a 5-year-old girl with wild curly brown hair in a yellow sundress, sits cross-legged on warm golden grass. Bare feet. Her black shadow stretches beside her, perfectly mimicking her pose. Warm afternoon golden light. Big oak tree in background. The shadow is solid, content, still. Soft watercolor style with golden yellows and warm oranges.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nGirl (5) with wild curly brown hair, yellow sundress, bare feet, determined expression\nBold black silhouette figure, stretchy and expressive, simple shape but full of personality\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Golden Hour Silhouette style: Warm sunset palette (golden yellows, soft oranges, dusty pinks, deep purples). Shadow is always bold black silhouette. World rendered in soft, hazy watercolor washes. Long dramatic shadows. Colors shift warmer as sun sets, building visual tension.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/my-shadow-ran-away/page05.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T12:57:44.576851",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 6,
+      "story_page": 2,
+      "type": "story",
+      "text": "\"This is dull,\" said Shadow.\n\"I want to have fun!\"",
+      "scene": "Close-up on the ground: The black shadow silhouette is shifting, stretching restlessly on the golden grass. Small motion lines suggest it's coming alive. One shadow-arm reaches up as if to break free. Sunny visible at edge of frame, looking at a butterfly, unaware. Warm golden light. The shadow's pose shows impatience and longing.",
+      "image_prompt": "Single scene illustration: Close-up on the ground: The black shadow silhouette is shifting, stretching restlessly on the golden grass. Small motion lines suggest it's coming alive. One shadow-arm reaches up as if to break free. Sunny visible at edge of frame, looking at a butterfly, unaware. Warm golden light. The shadow's pose shows impatience and longing.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nGirl (5) with wild curly brown hair, yellow sundress, bare feet, determined expression\nBold black silhouette figure, stretchy and expressive, simple shape but full of personality\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Golden Hour Silhouette style: Warm sunset palette (golden yellows, soft oranges, dusty pinks, deep purples). Shadow is always bold black silhouette. World rendered in soft, hazy watercolor washes. Long dramatic shadows. Colors shift warmer as sun sets, building visual tension.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/my-shadow-ran-away/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T12:58:25.588977",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 7,
+      "story_page": 3,
+      "type": "story",
+      "text": "ZIP! Shadow ran away!\nIt ran up a big hill.",
+      "scene": "Dynamic action shot: The shadow has peeled off the ground and become a running black silhouette figure, bounding up a grassy hill with stretchy legs. Sunny spins around in shock, arms reaching out, mouth open in surprise. Golden afternoon light creates long shadows from trees. Motion blur on the running shadow. Energy and surprise.",
+      "image_prompt": "Single scene illustration: Dynamic action shot: The shadow has peeled off the ground and become a running black silhouette figure, bounding up a grassy hill with stretchy legs. Sunny spins around in shock, arms reaching out, mouth open in surprise. Golden afternoon light creates long shadows from trees. Motion blur on the running shadow. Energy and surprise.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nGirl (5) with wild curly brown hair, yellow sundress, bare feet, determined expression\nBold black silhouette figure, stretchy and expressive, simple shape but full of personality\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Golden Hour Silhouette style: Warm sunset palette (golden yellows, soft oranges, dusty pinks, deep purples). Shadow is always bold black silhouette. World rendered in soft, hazy watercolor washes. Long dramatic shadows. Colors shift warmer as sun sets, building visual tension.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/my-shadow-ran-away/page07.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T12:59:07.767347",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 8,
+      "story_page": 4,
+      "type": "story",
+      "text": "\"Come back!\" Sunny yelled.\nBut Shadow did not stop.",
+      "scene": "Chase scene: Sunny running hard up the hill, yellow sundress flowing, curly hair bouncing, determined expression. Shadow ahead of her as a playful silhouette, looking back over its shoulder. Dust kicks up from their feet. Warm orange tones. Picket fences and houses in background. The gap between them shows Shadow is faster.",
+      "image_prompt": "Single scene illustration: Chase scene: Sunny running hard up the hill, yellow sundress flowing, curly hair bouncing, determined expression. Shadow ahead of her as a playful silhouette, looking back over its shoulder. Dust kicks up from their feet. Warm orange tones. Picket fences and houses in background. The gap between them shows Shadow is faster.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nGirl (5) with wild curly brown hair, yellow sundress, bare feet, determined expression\nBold black silhouette figure, stretchy and expressive, simple shape but full of personality\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Golden Hour Silhouette style: Warm sunset palette (golden yellows, soft oranges, dusty pinks, deep purples). Shadow is always bold black silhouette. World rendered in soft, hazy watercolor washes. Long dramatic shadows. Colors shift warmer as sun sets, building visual tension.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/my-shadow-ran-away/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T12:59:50.757948",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 9,
+      "story_page": 5,
+      "type": "story",
+      "text": "Shadow hid in a big tree.\nIt sat on a branch and laughed!",
+      "scene": "Shadow draped playfully over a thick oak branch, silhouette against golden sky. It's in a lounging pose, one leg dangling, clearly having the time of its life. Sunny at the bottom of the tree trunk looking up, hands on hips, frustrated but determined. Leaves golden and orange. Dappled light through branches.",
+      "image_prompt": "Single scene illustration: Shadow draped playfully over a thick oak branch, silhouette against golden sky. It's in a lounging pose, one leg dangling, clearly having the time of its life. Sunny at the bottom of the tree trunk looking up, hands on hips, frustrated but determined. Leaves golden and orange. Dappled light through branches.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nGirl (5) with wild curly brown hair, yellow sundress, bare feet, determined expression\nBold black silhouette figure, stretchy and expressive, simple shape but full of personality\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Golden Hour Silhouette style: Warm sunset palette (golden yellows, soft oranges, dusty pinks, deep purples). Shadow is always bold black silhouette. World rendered in soft, hazy watercolor washes. Long dramatic shadows. Colors shift warmer as sun sets, building visual tension.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/my-shadow-ran-away/page09.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T13:00:49.557999",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 10,
+      "story_page": 6,
+      "type": "story",
+      "text": "Shadow hopped on a dog.\nThe dog ran and ran!",
+      "scene": "Comic moment: Shadow riding on a golden retriever's back like a cowboy, silhouette arms up in wild joy. The dog looks confused but happy, running fast. Sunny chases behind, arms pumping. Suburban neighborhood backdrop - lawns, fences. Late afternoon light shifting to orange. Motion and humor. The shadow is having pure fun.",
+      "image_prompt": "Single scene illustration: Comic moment: Shadow riding on a golden retriever's back like a cowboy, silhouette arms up in wild joy. The dog looks confused but happy, running fast. Sunny chases behind, arms pumping. Suburban neighborhood backdrop - lawns, fences. Late afternoon light shifting to orange. Motion and humor. The shadow is having pure fun.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nGirl (5) with wild curly brown hair, yellow sundress, bare feet, determined expression\nBold black silhouette figure, stretchy and expressive, simple shape but full of personality\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Golden Hour Silhouette style: Warm sunset palette (golden yellows, soft oranges, dusty pinks, deep purples). Shadow is always bold black silhouette. World rendered in soft, hazy watercolor washes. Long dramatic shadows. Colors shift warmer as sun sets, building visual tension.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/my-shadow-ran-away/page10.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T13:01:47.958984",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 11,
+      "story_page": 7,
+      "type": "story",
+      "text": "Shadow dipped in the pond.\nSPLASH! It got wet!",
+      "scene": "Shadow diving into a small neighborhood pond, creating a big splash. Water droplets catch the golden-orange light. Reeds and cattails at edges. Ducks scatter in alarm. Sunny at the pond's edge, one foot in water, reaching. Beautiful reflections of pink and orange sunset sky on the water surface. Playful chaos.",
+      "image_prompt": "Single scene illustration: Shadow diving into a small neighborhood pond, creating a big splash. Water droplets catch the golden-orange light. Reeds and cattails at edges. Ducks scatter in alarm. Sunny at the pond's edge, one foot in water, reaching. Beautiful reflections of pink and orange sunset sky on the water surface. Playful chaos.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nGirl (5) with wild curly brown hair, yellow sundress, bare feet, determined expression\nBold black silhouette figure, stretchy and expressive, simple shape but full of personality\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Golden Hour Silhouette style: Warm sunset palette (golden yellows, soft oranges, dusty pinks, deep purples). Shadow is always bold black silhouette. World rendered in soft, hazy watercolor washes. Long dramatic shadows. Colors shift warmer as sun sets, building visual tension.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "images/my-shadow-ran-away/page11.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T13:04:17.731524",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_version": "v1"
+      }
+    },
+    {
+      "page": 12,
+      "story_page": 8,
+      "type": "story",
+      "text": "The sun got low.\nShadow got thin and sad.",
+      "scene": "Mood shift: The sun is now a large orange ball low on the horizon. Shadow has become stretched impossibly long and thin, its silhouette fading at the edges, becoming translucent. It looks down at itself with worry - hunched posture, arms wrapped around itself. Colors are deep orange, pink, purple. Long dramatic shadows everywhere. Melancholy beauty."
+    },
+    {
+      "page": 13,
+      "story_page": 9,
+      "type": "story",
+      "text": "\"I am fading!\" Shadow cried.\n\"I want to come back!\"",
+      "scene": "Emotional moment: Shadow reaching desperately toward Sunny, its form wispy and faint, barely visible against the deep sunset colors. Fear in its pose. Sunny kneels down with open arms, soft caring expression, welcoming. Deep pink and purple sky. The shadow is almost ghost-like. Tenderness and worry."
+    },
+    {
+      "page": 14,
+      "story_page": 10,
+      "type": "story",
+      "text": "Sunny held out her hand.\nShadow came back home.",
+      "scene": "Reunion: Sunny and her shadow reconnected - Shadow is now properly attached to her feet again, solid and dark. They walk together toward home as silhouettes against a gorgeous deep orange and pink sunset sky. Sunny's hand reaches down to touch where her shadow meets her feet. Peace and belonging. Houses silhouetted in distance. Perfect golden hour ending."
+    },
+    {
+      "page": 15,
+      "type": "end",
+      "text": "The End",
+      "scene": "Sunny in bed, moonlight through window casting a gentle shadow on the wall beside her. She sleeps peacefully with a small smile. On the wall, her shadow gives a tiny wave - still alive, still connected, but content now. Soft blue moonlight, cozy bedroom, stuffed animals. The shadow and girl are together."
+    },
+    {
+      "page": 16,
+      "type": "wordsearch"
+    },
+    {
+      "page": 17,
+      "type": "series_info"
+    },
+    {
+      "page": 18,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-22T00:00:00.000Z",
+    "storyPages": 10
+  },
+  "parent_tips": {
+    "before_reading": "Look at the cover together. Ask: What do you think is happening? Why would a shadow run away? Have you ever noticed your shadow doing funny things?",
+    "during_reading": "Help with 'shadow' and 'away' - these are heart words we learn as wholes. Sound out words like: sun, sat, ran, fun, big, hid, hop, dog, got, dip, wet, sad.",
+    "after_reading": "Go outside and play with shadows! What happens to your shadow when the sun is high? When it's low? Can you make your shadow do funny poses?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "Why did Shadow run away?",
+      "answer": "Shadow was bored and wanted to have fun"
+    },
+    {
+      "question": "What did Shadow do in the tree?",
+      "answer": "It sat on a branch and laughed"
+    },
+    {
+      "question": "What happened when the sun got low?",
+      "answer": "Shadow got thin and started to fade"
+    },
+    {
+      "question": "How did Sunny get Shadow back?",
+      "answer": "She held out her hand and welcomed it home"
+    },
+    {
+      "question": "What do you think Shadow learned?",
+      "answer": "That it's fun to adventure but also good to belong with Sunny"
+    }
+  ]
+}

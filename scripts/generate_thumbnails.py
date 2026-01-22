@@ -15,6 +15,7 @@ import textwrap
 BOOKS_DIR = Path("/Users/dereklomas/lilbookies/public/books")
 COVERS_DIR = Path("/Users/dereklomas/lilbookies/public/images/covers")
 THUMBS_DIR = Path("/Users/dereklomas/lilbookies/public/images/thumbs")
+BOOK_IMAGES_DIR = Path("/Users/dereklomas/lilbookies/public/books/images")
 
 # Font settings
 FONT_PATH = "/System/Library/Fonts/Supplemental/Georgia Bold.ttf"
@@ -43,19 +44,50 @@ def draw_text_with_outline(draw, position, text, font, fill="white", outline="bl
     draw.text((x, y), text, font=font, fill=fill, anchor="mm")
 
 
+def find_source_image(slug: str) -> Path | None:
+    """Find a source image for thumbnail generation.
+
+    Priority:
+    1. Cover in covers directory (PNG or JPG)
+    2. page01.png in book images directory
+    3. First available page image
+    """
+    # Check covers directory
+    for ext in [".png", ".jpg", ".jpeg"]:
+        cover_path = COVERS_DIR / f"{slug}{ext}"
+        if cover_path.exists():
+            return cover_path
+
+    # Check book images directory
+    book_images = BOOK_IMAGES_DIR / slug
+    if book_images.exists():
+        # Try page01 first
+        page01 = book_images / "page01.png"
+        if page01.exists():
+            return page01
+
+        # Find first available page
+        pages = sorted(book_images.glob("page*.png"))
+        if pages:
+            return pages[0]
+
+    return None
+
+
 def generate_thumbnail(slug: str, title: str, size: int = 512) -> bool:
     """Generate a thumbnail for a book."""
 
-    cover_path = COVERS_DIR / f"{slug}.png"
+    source_path = find_source_image(slug)
     thumb_path = THUMBS_DIR / f"{slug}.jpg"
 
-    if not cover_path.exists():
-        print(f"  ⚠ No cover image: {cover_path.name}")
+    if not source_path:
+        print(f"  ⚠ No source image found")
         return False
 
     try:
-        # Load and resize cover to square
-        img = Image.open(cover_path)
+        # Load and resize source image to square
+        img = Image.open(source_path)
+        print(f"  Using: {source_path.relative_to(source_path.parent.parent.parent)}")
 
         # Crop to square (center crop)
         w, h = img.size
@@ -134,20 +166,39 @@ def generate_thumbnail(slug: str, title: str, size: int = 512) -> bool:
         return False
 
 
+def load_books_from_json_files() -> list[dict]:
+    """Load book metadata from individual JSON files."""
+    books = []
+    for json_file in BOOKS_DIR.glob("*.json"):
+        if json_file.name in ["manifest.json", "index.json"]:
+            continue
+        try:
+            with open(json_file) as f:
+                data = json.load(f)
+                slug = json_file.stem
+                title = data.get("title", slug)
+                level = data.get("level", "")
+                books.append({"slug": slug, "title": title, "level": level})
+        except Exception as e:
+            print(f"Warning: Could not load {json_file.name}: {e}")
+    return books
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--slug", help="Generate for specific book only")
     parser.add_argument("--size", type=int, default=512, help="Thumbnail size (default: 512)")
+    parser.add_argument("--missing", action="store_true", help="Only generate missing thumbnails")
+    parser.add_argument("--band", help="Filter by band (A, B, C, D)")
     args = parser.parse_args()
 
     # Ensure output dir exists
     THUMBS_DIR.mkdir(parents=True, exist_ok=True)
 
-    # Load manifest
-    manifest_path = BOOKS_DIR / "manifest.json"
-    with open(manifest_path) as f:
-        books = json.load(f)
+    # Load books from JSON files instead of manifest
+    books = load_books_from_json_files()
+    print(f"Found {len(books)} books from JSON files\n")
 
     print(f"Generating thumbnails ({args.size}x{args.size})...\n")
 
@@ -157,6 +208,15 @@ def main():
         if not books:
             print(f"Book not found: {args.slug}")
             return
+
+    # Filter by band if specified
+    if args.band:
+        books = [b for b in books if b.get("level", "").startswith(args.band.upper())]
+
+    # Filter to missing only if specified
+    if args.missing:
+        books = [b for b in books if not (THUMBS_DIR / f"{b['slug']}.jpg").exists()]
+        print(f"Filtering to {len(books)} books without thumbnails\n")
 
     success = 0
     for book in books:

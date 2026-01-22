@@ -307,6 +307,7 @@
   <script src="/js/student-picker.js"></script>
   <script src="/js/audio-utils.js"></script>
   <script src="/js/toast.js"></script>
+  <script src="/js/progress-tracker.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -429,6 +430,30 @@
     let draggedTile = null;
     let draggedLetter = null;
 
+    // Progress tracking
+    let sessionStats = { correct: 0, wrong: 0, attempts: 0 };
+
+    function recordProgressToTracker() {
+      if (typeof ProgressTracker === 'undefined') return;
+      if (sessionStats.attempts === 0) return;
+
+      const accuracy = sessionStats.correct / sessionStats.attempts;
+
+      ProgressTracker.recordSession('sound-boxes', 'B', accuracy, {
+        level: currentLevel,
+        score: score,
+        correct: sessionStats.correct,
+        wrong: sessionStats.wrong,
+        wordsCompleted: wordIndex
+      });
+
+      // Check for band promotion
+      const promotion = ProgressTracker.checkBandPromotion('B');
+      if (promotion.ready && promotion.justUnlocked) {
+        Toast.success('Great work! Band C is now unlocked!');
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       setupLevelButtons();
       setupDragAndDrop();
@@ -453,6 +478,13 @@
 
       sessionStartTime = Date.now();
       startRound();
+
+      // Save progress when leaving
+      window.addEventListener('beforeunload', () => {
+        if (sessionStats.attempts > 0) {
+          recordProgressToTracker();
+        }
+      });
 
       // Play audio intro on first visit
       const lastIntro = localStorage.getItem('sound-boxes-intro');
@@ -487,6 +519,8 @@
       wordIndex = 0;
       const bank = wordBanks[currentLevel] || wordBanks['A4'];
       roundWords = [...bank].sort(() => Math.random() - 0.5).slice(0, 6);
+      // Reset session stats for new round
+      sessionStats = { correct: 0, wrong: 0, attempts: 0 };
       renderProgress();
       loadWord();
     }
@@ -760,7 +794,13 @@
         }
       });
 
+      // Track attempt
+      sessionStats.attempts++;
+
       if (allCorrect) {
+        // Track correct answer
+        sessionStats.correct++;
+
         score++;
         document.getElementById('score').textContent = score;
         document.getElementById('feedback').innerHTML = `<span>Correct! <strong>${currentWord.word.toUpperCase()}</strong></span>`;
@@ -774,6 +814,8 @@
             wordIndex++;
             if (wordIndex >= roundWords.length) {
               document.getElementById('feedback').textContent = 'Round complete! Great job!';
+              // Record progress when round completes
+              recordProgressToTracker();
               saveActivity();
               setTimeout(startRound, 2000);
             } else {
@@ -782,6 +824,9 @@
           }, 800);
         });
       } else {
+        // Track wrong answer
+        sessionStats.wrong++;
+
         document.getElementById('feedback').textContent = 'Not quite - try again!';
         document.getElementById('feedback').className = 'feedback incorrect';
 

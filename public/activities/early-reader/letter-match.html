@@ -338,6 +338,7 @@
 <body>
   <script src="/js/data-service.js"></script>
   <script src="/js/student-picker.js"></script>
+  <script src="/js/progress-tracker.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/early-reader/" class="back-link">&larr; Back to Early Reader</a>
@@ -417,6 +418,9 @@
     let matchedPairs = 0;
     let moves = 0;
     let canFlip = true;
+
+    // Progress tracking for Band A mastery
+    let sessionStats = { correct: 0, wrong: 0, attempts: 0 };
 
     document.addEventListener('DOMContentLoaded', async () => {
       setupModeButtons();
@@ -630,6 +634,10 @@
       score++;
       streak++;
 
+      // Track for progress tracker
+      sessionStats.correct++;
+      sessionStats.attempts++;
+
       if (!completedLetters.has(currentIndex)) {
         completedLetters.add(currentIndex);
       }
@@ -664,6 +672,10 @@
     function handleIncorrect(letter) {
       streak = 0;
       document.getElementById('streakBadge').classList.add('hidden');
+
+      // Track for progress tracker
+      sessionStats.wrong++;
+      sessionStats.attempts++;
 
       document.getElementById('feedback').innerHTML =
         `Not quite! <span class="letter-pair"><span class="upper">${letter}</span> matches <span class="lower">${letter.toLowerCase()}</span></span>`;
@@ -727,6 +739,9 @@
       matchedPairs = 0;
       moves = 0;
       canFlip = true;
+
+      // Reset session stats for new game
+      sessionStats = { correct: 0, wrong: 0, attempts: 0 };
 
       document.getElementById('movesCount').textContent = '0';
       document.getElementById('pairsFound').textContent = '0';
@@ -805,6 +820,10 @@
           cardEl2.classList.add('matched');
           matchedPairs++;
 
+          // Track for progress tracker
+          sessionStats.correct++;
+          sessionStats.attempts++;
+
           document.getElementById('pairsFound').textContent = matchedPairs;
           document.getElementById('memoryFeedback').textContent =
             `🎉 Match! ${card1.letter.toUpperCase()} and ${card1.letter.toLowerCase()}`;
@@ -827,6 +846,7 @@
               document.getElementById('memoryFeedback').textContent =
                 `🎉 Amazing! You found all pairs in ${moves} moves!`;
               saveProgress();
+              recordProgressToTracker();
             }, 500);
           }
         } else {
@@ -835,6 +855,10 @@
           cardEl2.classList.add('wrong');
           streak = 0;
           document.getElementById('streakBadge').classList.add('hidden');
+
+          // Track for progress tracker
+          sessionStats.wrong++;
+          sessionStats.attempts++;
 
           document.getElementById('memoryFeedback').textContent = 'Not a match. Try again!';
           document.getElementById('memoryFeedback').className = 'feedback incorrect';
@@ -886,8 +910,34 @@
       }
     }
 
+    // Record progress to Band A mastery tracker
+    function recordProgressToTracker() {
+      if (typeof ProgressTracker === 'undefined') return;
+      if (sessionStats.attempts === 0) return;
+
+      const accuracy = sessionStats.correct / sessionStats.attempts;
+      ProgressTracker.recordSession('letter-match', 'A', accuracy, {
+        mode: mode,
+        score: score,
+        correct: sessionStats.correct,
+        wrong: sessionStats.wrong,
+        lettersCompleted: completedLetters.size,
+        streak: streak,
+        duration: Math.round((Date.now() - sessionStartTime) / 1000)
+      });
+
+      // Check for band promotion
+      const promotion = ProgressTracker.checkBandPromotion('A');
+      if (promotion.ready && promotion.justUnlocked) {
+        alert('Amazing progress! Band B is now unlocked! 🎉');
+      }
+    }
+
     // Save progress when leaving
-    window.addEventListener('beforeunload', saveProgress);
+    window.addEventListener('beforeunload', () => {
+      saveProgress();
+      recordProgressToTracker();
+    });
   </script>
 </body>
 </html>

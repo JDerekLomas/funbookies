@@ -711,6 +711,17 @@
 
       const { playCorrect, playWrong, playMunch, playGulp, playLevelUp } = useSound();
 
+      // Save progress when leaving the page
+      useEffect(() => {
+        const handleBeforeUnload = () => {
+          if (gameStarted && sessionStats.current.totalAttempts > 0) {
+            recordProgress(level, score);
+          }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+      }, [gameStarted, level, score, recordProgress]);
+
       const startGame = () => {
         setGameStarted(true);
         setLevel(0);
@@ -719,6 +730,8 @@
         setRound(generateRound(0));
         setEatenWords(new Set());
         correctInRound.current = 0;
+        // Reset session stats
+        sessionStats.current = { correct: 0, wrong: 0, totalAttempts: 0 };
       };
 
       const getMouthPosition = () => {
@@ -742,7 +755,12 @@
         if (eatenWords.has(wordObj.id) || processingClick) return;
         setProcessingClick(true);
 
+        // Track attempt
+        sessionStats.current.totalAttempts++;
+
         if (wordObj.isTarget) {
+          // Track correct answer
+          sessionStats.current.correct++;
           const startPos = getWordPosition(wordObj.id);
           const endPos = getMouthPosition();
 
@@ -783,6 +801,9 @@
                     setTimeout(() => {
                       const nextLevel = level + 1;
                       if (nextLevel % 3 === 0) {
+                        // Record progress on level up
+                        recordProgress(nextLevel, score + (10 * (streak + 1)));
+
                         playLevelUp();
                         setShowLevelUp(true);
                         setMonsterState('excited');
@@ -808,6 +829,9 @@
           }, 450);
 
         } else {
+          // Track wrong answer
+          sessionStats.current.wrong++;
+
           // No sound on wrong - just visual feedback
           setStreak(0);
           setMonsterState('yuck');

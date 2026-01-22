@@ -692,6 +692,26 @@
     color: var(--color-error);
 }
 
+/* Cover card styling */
+.page-image-card.cover-card {
+    border: 2px solid var(--color-primary);
+}
+
+.page-image-card.cover-card .page-image-info span:first-child {
+    font-weight: 600;
+    color: var(--color-primary-dark);
+}
+
+/* End page indicator */
+.page-image-card.end-page {
+    border: 2px dashed var(--color-sage);
+}
+
+.page-image-card.end-page .page-image-info span:first-child {
+    font-weight: 500;
+    color: var(--color-sage-dark);
+}
+
 /* Review phase */
 .review-section {
     background: var(--color-white);
@@ -724,6 +744,75 @@
     display: flex;
     gap: var(--space-sm);
     margin-top: var(--space-sm);
+}
+
+/* Review Word List */
+.review-word-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.word-category-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+}
+
+.category-label {
+    font-weight: 500;
+    font-size: 0.85rem;
+    min-width: 100px;
+    color: var(--color-text-muted);
+}
+
+/* Review Story Bible */
+.story-bible-review {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.bible-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+}
+
+.bible-label {
+    font-weight: 500;
+    font-size: 0.85rem;
+    min-width: 100px;
+    color: var(--color-text-muted);
+}
+
+.bible-value {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    line-height: 1.5;
+}
+
+.bible-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.bible-character-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.bible-character-item {
+    font-size: 0.85rem;
+    background: var(--color-cream);
+    padding: 6px 10px;
+    border-radius: var(--border-radius-sm);
+}
+
+.bible-character-item strong {
+    color: var(--color-text);
 }
 
 .checklist {
@@ -1204,4 +1293,203 @@
     overflow-x: auto;
     white-space: pre-wrap;
     margin: var(--space-sm) 0 0 0;
+}
+
+/* Style Cards Grid */
+.style-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+}
+
+.style-cards-grid.art-style-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+
+.style-card {
+    background: var(--color-white);
+    border: 2px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    padding: var(--space-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+}
+
+.style-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.style-card.selected {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+.style-card-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--space-xs);
+    background: var(--color-surface);
+}
+
+.style-card-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text);
+    line-height: 1.2;
+}
+
+.style-card-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-xs);
+}
+
+/* Info box styling */
+.info-box {
+    margin-bottom: var(--space-md);
+    padding: var(--space-sm);
+    background: var(--color-surface);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.85rem;
+    border-left: 3px solid var(--color-primary);
+}
+
+.info-box:empty {
+    display: none;
+}
+
+/* =================== */
+/* Metadata Panels (Phase 3) */
+/* =================== */
+
+.metadata-panels {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+}
+
+.metadata-panel {
+    background: var(--color-white);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+}
+
+.metadata-panel summary {
+    padding: var(--space-sm) var(--space-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    user-select: none;
+}
+
+.metadata-panel summary:hover {
+    background: var(--color-cream);
+}
+
+.metadata-panel[open] summary {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.metadata-panel .badge {
+    font-size: 0.75rem;
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+/* Word List Content */
+.word-list-content {
+    padding: var(--space-md);
+    display: grid;
+    gap: var(--space-md);
+}
+
+.word-category h4 {
+    font-size: 0.85rem;
+    margin-bottom: var(--space-xs);
+    color: var(--color-text);
+}
+
+.word-category .hint {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xs);
+}
+
+.word-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.word-chip {
+    font-size: 0.8rem;
+    background: var(--color-cream);
+    border: 1px solid var(--color-border);
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-family: var(--font-body);
+}
+
+/* Story Bible Content */
+.story-bible-content {
+    padding: var(--space-md);
+    display: grid;
+    gap: var(--space-md);
+}
+
+.bible-section h4 {
+    font-size: 0.85rem;
+    margin-bottom: var(--space-xs);
+    color: var(--color-text);
+}
+
+.bible-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+}
+
+.bible-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.bible-character {
+    background: var(--color-cream);
+    padding: var(--space-sm);
+    border-radius: var(--border-radius-sm);
+}
+
+.bible-character-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.bible-character-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.bible-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.bible-chip {
+    font-size: 0.8rem;
+    background: var(--color-primary-soft);
+    color: var(--color-primary-dark);
+    padding: 4px 12px;
+    border-radius: 14px;
 }

@@ -10,7 +10,7 @@
 
 const EVALUATIONS_SLUG = '_book-evaluations';
 
-const EVALUATION_PROMPT = `You are evaluating a children's early reader book for quality. Analyze the story and provide scores and feedback.
+const EVALUATION_PROMPT = `You are a HARSH CRITIC evaluating children's early reader books. Your job is to find problems, not to be nice. Most books have serious flaws - identify them.
 
 **Book Title:** {title}
 **Reading Level:** {level}
@@ -22,14 +22,52 @@ const EVALUATION_PROMPT = `You are evaluating a children's early reader book for
 **Story Bible/Background (if available):**
 {story_bible}
 
-Evaluate on these criteria (score 1-5, where 5 is excellent):
+## SCORING RULES - BE STRICT
 
-1. **COHERENCE** - Does the story make logical sense? Are there plot holes or confusing jumps?
-2. **ENGAGEMENT** - Is it interesting? Would a child want to keep reading/hear it again?
-3. **CLARITY** - Is the narrative easy to follow? Is it clear what's happening?
-4. **EMOTIONAL_ARC** - Does the story have satisfying progression? Beginning, middle, end?
-5. **AGE_APPROPRIATE** - Is content, vocabulary, and complexity right for early readers?
-6. **EDUCATIONAL_VALUE** - Does it teach something or reinforce reading skills?
+Score 1-5 where 3 is AVERAGE, 4 is GOOD, 5 is EXCEPTIONAL (rare).
+Default to 2-3 unless the story genuinely excels. A score of 4+ requires clear justification.
+
+### COHERENCE (Does the story make logical sense?)
+- Score 1-2 if: Characters appear without introduction, events happen for no reason, setting is unclear, "what is happening?" moments
+- Score 3 if: Basic logic holds but connections are weak
+- Score 4-5 if: Every element is clearly connected and motivated
+
+### ENGAGEMENT (Would a child want to hear this again?)
+- Score 1-2 if: Nothing happens, no tension/curiosity, just characters existing
+- Score 3 if: Some mild interest but forgettable
+- Score 4-5 if: Genuine hooks, surprises, or emotional moments
+
+### CLARITY (Is it clear what's happening?)
+- Score 1-2 if: Reader must guess what characters are doing, vague actions like "went" without destination, unclear relationships
+- Score 3 if: Followable but requires effort
+- Score 4-5 if: Crystal clear on every page
+
+### EMOTIONAL_ARC (Beginning, middle, end with progression?)
+- Score 1-2 if: No change occurs, characters end where they started, no problem/resolution
+- Score 3 if: Minimal arc exists
+- Score 4-5 if: Clear setup, development, and satisfying resolution
+
+### AGE_APPROPRIATE
+- Score based on vocabulary and concept fit for ages 4-7
+- This is the ONE category where being simple is good
+
+### EDUCATIONAL_VALUE
+- Score 1-2 if: No lesson, no skill reinforcement, just filler
+- Score 3 if: Basic reading practice only
+- Score 4-5 if: Teaches concepts, models behavior, or builds specific skills
+
+## EXAMPLES OF BAD STORIES (should score 2-3 overall):
+- Characters sitting around talking with no plot
+- "Zee went slow. Pip went fast." - went WHERE? doing WHAT?
+- Random events that don't connect: "ZIP! A bird!" with no relevance
+- Stories that are just descriptions of scenes with no conflict
+
+## VERDICT THRESHOLDS
+- "good": Average score 4.0+ (genuinely well-crafted story)
+- "needs_improvement": Average score 2.5-3.9 (functional but flawed)
+- "poor": Average score below 2.5 (fundamental problems)
+
+Be specific in your issues. Don't say "could be more engaging" - say exactly what's wrong: "Character Pip appears on page 4 with no introduction" or "The story has no conflict - characters just sit and talk."
 
 Respond in this exact JSON format:
 {
@@ -44,8 +82,8 @@ Respond in this exact JSON format:
   "overall_score": <1-5 average>,
   "verdict": "good" | "needs_improvement" | "poor",
   "strengths": ["strength 1", "strength 2"],
-  "issues": ["issue 1", "issue 2"],
-  "summary": "One paragraph summary of the evaluation"
+  "issues": ["specific issue 1", "specific issue 2"],
+  "summary": "One paragraph honest assessment - lead with the problems"
 }`;
 
 export default async function handler(req, res) {

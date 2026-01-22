@@ -79,11 +79,13 @@ def build_image_prompt(book: dict, page: dict, for_fal: bool = True) -> str:
     if not scene:
         return ""
 
-    # Get art style - priority: story_bible.visual_style > art_direction.style > default
+    # Get art style - priority: visual_style > story_bible.visual_style > art_direction.style > default
     story_bible = book.get("story_bible", {})
     art_dir = book.get("art_direction", {})
 
-    if story_bible.get("visual_style"):
+    if book.get("visual_style"):
+        style = book["visual_style"]
+    elif story_bible.get("visual_style"):
         style = story_bible["visual_style"]
     elif art_dir.get("style"):
         style = art_dir["style"]
@@ -488,8 +490,8 @@ def main():
     print("-" * 50)
 
     updated = 0
-    for page in pages:
-        page_num = page["page"]
+    for i, page in enumerate(pages):
+        page_num = page.get("page") or page.get("story_page") or (i + 1)
         scene = page.get("scene", "")
 
         # Skip pages without scenes

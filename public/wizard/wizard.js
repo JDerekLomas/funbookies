@@ -115,16 +115,7 @@ function setupEventListeners() {
         renderStoryIdeas();
     });
 
-    // Story type select
-    document.getElementById('storyTypeSelect').addEventListener('change', (e) => {
-        state.formData.storyType = e.target.value;
-        updateStoryTypeInfo();
-    });
-
-    // Art style select
-    document.getElementById('artStyleSelect').addEventListener('change', (e) => {
-        state.formData.artStyle = e.target.value;
-    });
+    // Story type and art style cards are handled via onclick in the rendered HTML
 
     // Stepper navigation - click on completed/active steps to navigate
     document.getElementById('stepper').addEventListener('click', (e) => {
@@ -231,6 +222,13 @@ async function loadFromSupabase(slug) {
             state.book = result.book;
             state.referenceImage = result.book.referenceImage;
             state.currentPhase = result.book.wizardPhase || 1;
+
+            // Load multiRefs from book JSON if present (CLI-generated)
+            if (result.book.multiRefs) {
+                state.multiRefs = result.book.multiRefs;
+                state.refStrategy = 'multi';
+                console.log('Loaded multiRefs from book JSON:', state.multiRefs);
+            }
 
             // Restore full wizard state if available
             if (result.book.wizardState) {
@@ -381,7 +379,8 @@ async function loadStoryTypes() {
         if (response.ok) {
             storyTypesData = await response.json();
             console.log('Loaded story types:', storyTypesData.storyTypes.length);
-            updateStoryTypeInfo(); // Initialize info box
+            renderStoryTypeCards();
+            updateStoryTypeInfo();
         }
     } catch (error) {
         console.warn('Could not load story types:', error);
@@ -394,17 +393,96 @@ async function loadArtStyles() {
         if (response.ok) {
             artStylesData = await response.json();
             console.log('Loaded art styles:', artStylesData.artStyles.length);
+            renderArtStyleCards();
         }
     } catch (error) {
         console.warn('Could not load art styles:', error);
     }
 }
 
+// Story type icons (emoji fallbacks)
+const storyTypeIcons = {
+    'problem-solution': '🎯',
+    'fantasy-dream': '✨',
+    'journey': '🚶',
+    'slice-of-life': '🌸',
+    'cumulative': '📚',
+    'friendship': '🤝',
+    'overcoming-fear': '💪',
+    'helping': '❤️',
+    'discovery': '🔍',
+    'silly-chain': '🎪',
+    'bedtime': '🌙',
+    'lost-found': '🔎'
+};
+
+function renderStoryTypeCards() {
+    const container = document.getElementById('storyTypeCards');
+    if (!container || !storyTypesData) return;
+
+    container.innerHTML = storyTypesData.storyTypes.map(type => {
+        const isSelected = state.formData.storyType === type.id;
+        const icon = storyTypeIcons[type.id] || '📖';
+        return `
+            <div class="style-card ${isSelected ? 'selected' : ''}"
+                 data-type="${type.id}"
+                 onclick="selectStoryType('${type.id}')">
+                <div class="style-card-icon">${icon}</div>
+                <div class="style-card-name">${type.name}</div>
+            </div>
+        `;
+    }).join('');
+}
+
+function selectStoryType(typeId) {
+    state.formData.storyType = typeId;
+    document.getElementById('storyTypeSelect').value = typeId;
+
+    // Update card selection visuals
+    document.querySelectorAll('#storyTypeCards .style-card').forEach(card => {
+        card.classList.toggle('selected', card.dataset.type === typeId);
+    });
+
+    updateStoryTypeInfo();
+}
+
+function renderArtStyleCards() {
+    const container = document.getElementById('artStyleCards');
+    if (!container || !artStylesData) return;
+
+    container.innerHTML = artStylesData.artStyles.map(style => {
+        const isSelected = state.formData.artStyle === style.id;
+        const imagePath = `/images/art-styles/${style.id}.png`;
+        return `
+            <div class="style-card ${isSelected ? 'selected' : ''}"
+                 data-style="${style.id}"
+                 onclick="selectArtStyle('${style.id}')">
+                <img class="style-card-image"
+                     src="${imagePath}"
+                     alt="${style.name}"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="style-card-icon" style="display:none;">🎨</div>
+                <div class="style-card-name">${style.name}</div>
+            </div>
+        `;
+    }).join('');
+}
+
+function selectArtStyle(styleId) {
+    state.formData.artStyle = styleId;
+    document.getElementById('artStyleSelect').value = styleId;
+
+    // Update card selection visuals
+    document.querySelectorAll('#artStyleCards .style-card').forEach(card => {
+        card.classList.toggle('selected', card.dataset.style === styleId);
+    });
+}
+
 function updateStoryTypeInfo() {
     const infoBox = document.getElementById('storyTypeInfo');
     if (!infoBox || !storyTypesData) return;
 
-    const selectedType = document.getElementById('storyTypeSelect').value;
+    const selectedType = state.formData.storyType;
     const typeData = storyTypesData.storyTypes.find(t => t.id === selectedType);
 
     if (typeData) {
@@ -412,7 +490,6 @@ function updateStoryTypeInfo() {
         infoBox.innerHTML = `
             <strong>${typeData.name}:</strong> ${typeData.description}
             <br><span style="color: var(--color-text-muted);">Beats: ${beats}</span>
-            <br><span style="color: var(--color-text-muted); font-size: 0.8rem;">Good for: ${typeData.goodFor}</span>
         `;
     }
 }
@@ -813,6 +890,12 @@ async function expandToFullStory() {
         state.book.storyType = state.formData.storyType;
         state.book.artStyle = state.formData.artStyle;
 
+        // Ensure story_bible is preserved (generated by LLM in full story expansion)
+        if (book.story_bible) {
+            state.book.story_bible = book.story_bible;
+            console.log('Story bible generated:', state.book.story_bible);
+        }
+
         state.phaseStatus[2] = 'complete';
         state.checkpointApprovals[2] = { approved: true, timestamp: new Date().toISOString() };
         saveState();
@@ -836,26 +919,26 @@ function buildFullStoryPrompt() {
     const outline = state.outline;
 
     const levelConstraints = {
-        'A0': { maxWords: 2, pages: '6-8', guidance: 'Wordless or 1-2 word labels. Pictures carry all meaning.' },
-        'A1': { maxWords: 2, pages: '8', guidance: 'Labels only: "A [noun]" or "I [verb]". One word per page.' },
-        'A2': { maxWords: 3, pages: '8', guidance: 'Simple patterns: "I see a [noun]." Repetitive structure.' },
-        'A3': { maxWords: 4, pages: '8-10', guidance: 'CVC words in simple sentences. "The cat sat."' },
-        'A4': { maxWords: 5, pages: '10', guidance: 'CVC fluency. Short predictable sentences.' },
-        'B1': { maxWords: 6, pages: '10-12', guidance: 'Beginning blends. "The frog stops."' },
-        'B2': { maxWords: 6, pages: '10-12', guidance: 'Ending blends. "The ant went fast."' },
-        'B3': { maxWords: 6, pages: '10-12', guidance: 'Digraphs. "The ship is big."' },
-        'B4': { maxWords: 7, pages: '10-12', guidance: 'Short vowel mastery. Varied sentence patterns.' },
-        'B5': { maxWords: 7, pages: '10-12', guidance: 'Silent e. "The cake is on the plate."' },
-        'B6': { maxWords: 8, pages: '12', guidance: 'Soft c/g. "The mice race to the fence."' },
-        'B7': { maxWords: 8, pages: '12', guidance: 'R-controlled. "The bird sat on her perch."' },
-        'B8': { maxWords: 9, pages: '12', guidance: 'Vowel teams. "The boat floats on the sea."' },
-        'B9': { maxWords: 9, pages: '12', guidance: 'Diphthongs. "The cow found a coin."' },
-        'C1': { maxWords: 10, pages: '12', guidance: 'Compound words. "The sunflower grew tall."' },
-        'C2': { maxWords: 10, pages: '12', guidance: 'Open syllables. "The tiny baby spider..."' },
-        'C3': { maxWords: 12, pages: '12', guidance: 'Chapter-style. "The kitten was hidden in the basket."' },
-        'C4': { maxWords: 12, pages: '12', guidance: 'Consonant-le. "The little turtle..."' },
-        'D1': { maxWords: 15, pages: '12-16', guidance: 'Chapter book style. Complex narratives.' },
-        'D2': { maxWords: 15, pages: '12-16', guidance: 'Rich vocabulary. Nuanced storytelling.' }
+        'A0': { maxWords: 2, pages: '8-12', guidance: 'Wordless or 1-2 word labels. Pictures carry all meaning.' },
+        'A1': { maxWords: 2, pages: '10-12', guidance: 'Labels only: "A [noun]" or "I [verb]". One word per page.' },
+        'A2': { maxWords: 3, pages: '10-12', guidance: 'Simple patterns: "I see a [noun]." Repetitive structure.' },
+        'A3': { maxWords: 4, pages: '12-14', guidance: 'CVC words in simple sentences. "The cat sat."' },
+        'A4': { maxWords: 5, pages: '12-14', guidance: 'CVC fluency. Short predictable sentences.' },
+        'B1': { maxWords: 6, pages: '12-16', guidance: 'Beginning blends. "The frog stops."' },
+        'B2': { maxWords: 6, pages: '12-16', guidance: 'Ending blends. "The ant went fast."' },
+        'B3': { maxWords: 6, pages: '12-16', guidance: 'Digraphs. "The ship is big."' },
+        'B4': { maxWords: 7, pages: '14-16', guidance: 'Short vowel mastery. Varied sentence patterns.' },
+        'B5': { maxWords: 7, pages: '14-16', guidance: 'Silent e. "The cake is on the plate."' },
+        'B6': { maxWords: 8, pages: '14-16', guidance: 'Soft c/g. "The mice race to the fence."' },
+        'B7': { maxWords: 8, pages: '14-16', guidance: 'R-controlled. "The bird sat on her perch."' },
+        'B8': { maxWords: 9, pages: '14-16', guidance: 'Vowel teams. "The boat floats on the sea."' },
+        'B9': { maxWords: 9, pages: '14-16', guidance: 'Diphthongs. "The cow found a coin."' },
+        'C1': { maxWords: 10, pages: '16-20', guidance: 'Compound words. "The sunflower grew tall."' },
+        'C2': { maxWords: 10, pages: '16-20', guidance: 'Open syllables. "The tiny baby spider..."' },
+        'C3': { maxWords: 12, pages: '16-20', guidance: 'Chapter-style. "The kitten was hidden in the basket."' },
+        'C4': { maxWords: 12, pages: '16-20', guidance: 'Consonant-le. "The little turtle..."' },
+        'D1': { maxWords: 15, pages: '20-24', guidance: 'Chapter book style. Complex narratives.' },
+        'D2': { maxWords: 15, pages: '20-24', guidance: 'Rich vocabulary. Nuanced storytelling.' }
     };
 
     const constraints = levelConstraints[level] || { maxWords: 10, pages: '12', guidance: 'Age-appropriate.' };
@@ -888,6 +971,25 @@ ${outline.beats.map(b => `Page ${b.page}: ${b.beat}`).join('\n')}
 - Maximum ${constraints.maxWords} words per sentence (STRICT - count every word!)
 - 2-3 sentences per page
 - Level guidance: ${constraints.guidance}
+
+## CRITICAL: NATURAL LANGUAGE
+
+**Every sentence must sound like something a real person would say.**
+
+READ EACH SENTENCE ALOUD before writing it. If it sounds awkward, rewrite it.
+
+BAD (phonics-forced, unnatural):
+- "He feels so free up." ← grammatically wrong
+- "Stan stops at his bed." ← stilted, robotic
+- "Is it wet?" (to a well) ← nobody says this
+
+GOOD (natural speech that uses target sounds):
+- "He felt free as a bird!"
+- "Stan sat on his bed."
+- "Hello? Is anyone there?"
+
+RULE: Prioritize natural-sounding sentences OVER hitting phonics targets.
+A clear story with fewer target words beats awkward text that hits every pattern.
 
 ## CRITICAL: LOGIC AND CONTINUITY
 
@@ -935,6 +1037,26 @@ SCENE RULES:
   },
   "setting_context": "${outline.setting}",
   "visual_style": "${outline.visual_style || bandStyles[band]}",
+  "story_bible": {
+    "premise": "2-3 sentence summary of the story's core concept and emotional journey",
+    "setting": "Detailed description of where/when the story takes place",
+    "characters": [
+      {
+        "name": "${outline.character?.name || 'Character'}",
+        "role": "main",
+        "description": "Full visual description: physical appearance, clothing, distinctive features, personality"
+      }
+    ],
+    "themes": ["Primary theme", "Secondary theme"],
+    "character_arcs": {
+      "${outline.character?.name || 'Character'}": "Character's emotional/growth journey from start to end"
+    },
+    "emotional_arc": "Overall story emotional journey",
+    "emotional_beats": [
+      { "page": 1, "beat": "emotion or story beat for this page" }
+    ],
+    "level_adaptation": "Notes on how the story was adapted for reading level ${level}"
+  },
   "pages": [
     {
       "story_page": 1,
@@ -996,48 +1118,109 @@ function buildDefaultStoryPrompt() {
     const levelDescriptions = {
         'A1': 'Simple CVC words only (cat, dog, sun). 3-4 words per sentence.',
         'A2': 'CVC words with basic sight words (the, a, is). 4-5 words per sentence.',
-        'B1': 'Beginning consonant blends (stop, flag, crab). 5-6 words per sentence.',
-        'B2': 'Ending blends (jump, help, fast). 6-7 words per sentence.',
-        'C1': 'Digraphs (ship, chat, thin). 7-8 words per sentence.',
+        'B1': 'Beginning consonant blends (st-, fl-, cr-, etc.). 5-6 words per sentence.',
+        'B2': 'Ending blends (-mp, -lp, -st). 6-7 words per sentence.',
+        'C1': 'Digraphs (sh, ch, th). 7-8 words per sentence.',
         'C2': 'Silent e words (cake, bike, home). Longer sentences OK.',
         'D1': 'Vowel teams (rain, boat, see). Complex sentences OK.',
         'D2': 'R-controlled vowels (car, bird, corn). Natural sentence length.'
     };
 
-    return `You are writing a decodable book for a beginning reader. Generate a short story (8-12 pages) following these STRICT constraints:
+    // Get story type info
+    const storyType = storyTypesData?.storyTypes?.find(t => t.id === state.formData.storyType);
+    const storyTypeSection = storyType ? `
+STORY TYPE: ${storyType.name}
+Structure: ${storyType.description}
+Beats to follow: ${storyType.beats.join(' → ')}
+` : '';
+
+    return `You are writing a decodable book for beginning readers. Your goal is to create a story that is BOTH phonetically appropriate AND narratively compelling.
 
 READING LEVEL: ${state.formData.level} - ${levelDescriptions[state.formData.level] || 'Age-appropriate vocabulary'}
-
-SETTING: ${state.formData.setting || 'appropriate for the story'}
 CONCEPT: ${state.formData.concept}
+SETTING: ${state.formData.setting || 'appropriate for the story'}
 ${state.formData.words.length > 0 ? `WORDS TO INCLUDE: ${state.formData.words.join(', ')}` : ''}
+${storyTypeSection}
+== NARRATIVE REQUIREMENTS (CRITICAL) ==
 
-Create an appropriate main character (can be a child, animal, or friendly creature) that fits the story concept.
+1. **CHARACTER WANT**: The main character must want something specific and clear
+   - Good: "Pip wants a friend"
+   - Bad: "Pip is sad" (vague mood, not a want)
 
-CRITICAL RULES:
-1. Use ONLY words appropriate for the reading level. No words the child cannot decode.
-2. Keep sentences short and simple. One idea per sentence.
-3. Make the story engaging with a simple problem and resolution.
-4. Each page should have 1-3 short sentences.
-5. Use predictable patterns where possible.
-6. The story must have a clear beginning, middle, and end.
+2. **OBSTACLE**: There must be a real problem preventing the want
+   - Good: "The ball rolled into a dark cave"
+   - Bad: Random events that don't block the goal
 
-OUTPUT FORMAT (JSON):
+3. **CAUSATION**: Each page must cause the next. If any page could be removed without breaking the story, it doesn't belong.
+
+4. **RESOLUTION**: The ending must directly solve the problem from page 1
+   - Setup: "Fox had no pals" → Ending: "Fox had a pal at last!"
+   - NOT: Random happy ending unrelated to the problem
+
+== LANGUAGE QUALITY (CRITICAL) ==
+
+**Every sentence must sound like something a real person would say.**
+
+BAD (phonics-forced, unnatural):
+- "He feels so free up."
+- "Stan stops at his bed."
+- "Is it wet?" (to a well)
+
+GOOD (natural speech that happens to use target sounds):
+- "He felt free as a bird!"
+- "Stan sat on his bed."
+- "Hello? Is anyone there?"
+
+Rules:
+- Read each sentence aloud. If it sounds awkward, rewrite it.
+- Prioritize natural language OVER hitting every phonics target.
+- A clear story with slightly fewer target words beats a confusing story that hits every pattern.
+- One idea per sentence. Short and punchy.
+
+== EMOTIONAL CLARITY ==
+
+You should be able to name the emotion on each page:
+- Page 1: SAD (lonely)
+- Page 2: CURIOUS (what's that?)
+- Page 3: HOPEFUL (maybe this will work)
+- etc.
+
+If you can't name the emotion, the page isn't working.
+
+== PHONICS CONSTRAINTS ==
+
+Level ${state.formData.level}: ${levelDescriptions[state.formData.level] || 'Age-appropriate'}
+
+- Use decodable words appropriate for this level
+- Sight words allowed: the, a, is, was, to, I, he, she, we, they, said, have, do, what
+- 1-2 "reach words" OK if picturable (like "helicopter" with clear illustration)
+- If a phonics word doesn't fit naturally, DON'T USE IT
+
+== OUTPUT FORMAT ==
+
+Generate 8 pages. Return ONLY valid JSON:
+
 {
-  "title": "Story title (2-4 words)",
+  "title": "2-4 word title",
   "level": "${state.formData.level}",
+  "character": {
+    "name": "Character name",
+    "type": "child/animal/creature",
+    "visual_shorthand": "brief visual description for illustrations"
+  },
   "pages": [
-    {"page": 1, "text": "Page 1 text here.", "scene": "Brief scene description"},
-    {"page": 2, "text": "Page 2 text here.", "scene": "Brief scene description"},
+    {"page": 1, "text": "Natural sentence here.", "emotion": "SAD"},
+    {"page": 2, "text": "Next sentence.", "emotion": "CURIOUS"},
     ...
   ],
   "word_list": {
-    "sound_out": ["list", "of", "decodable", "words"],
-    "sight": ["list", "of", "sight", "words"]
+    "sound_out": ["decodable", "words", "used"],
+    "sight": ["sight", "words", "used"],
+    "heart": ["emotional", "theme", "words"]
   }
 }
 
-Return ONLY the JSON, no other text.`;
+Return ONLY the JSON, no explanation.`;
 }
 
 // Preview the story prompt in the editor
@@ -2149,11 +2332,35 @@ function approvePhase3() {
 // PHASE 4: PAGE IMAGES
 // ===================
 
+function hasValidImage(page) {
+    // Check for base64 data URL or file path
+    if (!page.image) return false;
+    if (page.image.startsWith('data:')) return true;
+    if (page.image.startsWith('images/')) return true;
+    if (page.image.startsWith('/books/')) return true;
+    if (page.image.startsWith('http')) return true;
+    return false;
+}
+
+function getImageSrc(page) {
+    if (!page.image) return null;
+    if (page.image.startsWith('data:') || page.image.startsWith('http')) {
+        return page.image;
+    }
+    // Convert relative path to absolute
+    if (page.image.startsWith('images/')) {
+        return `/books/${page.image}`;
+    }
+    return page.image;
+}
+
 function renderPageImagesGrid() {
     const grid = document.getElementById('pageImagesGrid');
 
     grid.innerHTML = state.book.pages.map((page, i) => {
-        const hasImage = page.image && page.image.startsWith('data:');
+        const pageNum = page.page || page.story_page || (i + 1);
+        const hasImage = hasValidImage(page);
+        const imageSrc = getImageSrc(page);
         const status = hasImage ? 'complete' : 'pending';
         const statusLabel = hasImage ? 'Complete' : 'Pending';
 
@@ -2161,12 +2368,12 @@ function renderPageImagesGrid() {
             <div class="page-image-card" data-page="${i}">
                 <div class="page-image-container">
                     ${hasImage ?
-                        `<img src="${page.image}" alt="Page ${page.page}">` :
-                        `<div class="page-image-placeholder">Page ${page.page}</div>`
+                        `<img src="${imageSrc}" alt="Page ${pageNum}">` :
+                        `<div class="page-image-placeholder">Page ${pageNum}</div>`
                     }
                 </div>
                 <div class="page-image-info">
-                    <span>Page ${page.page}</span>
+                    <span>Page ${pageNum}</span>
                     <span class="page-image-status ${status}">${statusLabel}</span>
                 </div>
                 <div style="padding: 0 var(--space-xs) var(--space-xs);">
@@ -2183,10 +2390,13 @@ function renderPageImagesGrid() {
 
 function updatePageProgress() {
     const total = state.book.pages.length;
-    const complete = state.book.pages.filter(p => p.image && p.image.startsWith('data:')).length;
+    const complete = state.book.pages.filter(p => hasValidImage(p)).length;
 
-    document.getElementById('pageProgress').textContent = `${complete} / ${total} complete`;
-    document.getElementById('finishBtn').disabled = complete < total;
+    const progressEl = document.getElementById('pageProgress');
+    const finishBtn = document.getElementById('finishBtn');
+
+    if (progressEl) progressEl.textContent = `${complete} / ${total} complete`;
+    if (finishBtn) finishBtn.disabled = complete < total;
 }
 
 async function generatePageImage(index) {
@@ -2201,10 +2411,10 @@ async function generatePageImage(index) {
 
     // Build reference payload based on strategy
     let requestBody;
-    if (state.refStrategy === 'multi' && state.multiRefs.closingScenesGuide) {
+    if (state.refStrategy === 'multi' && state.multiRefs.styleGuide) {
         // Multi-ref: pass array of references (up to 3)
         const refArray = [
-            state.multiRefs.closingScenesGuide,
+            state.multiRefs.styleGuide,
             state.multiRefs.openingScenes,
             state.multiRefs.closingScenes
         ].filter(Boolean);
@@ -2292,7 +2502,7 @@ async function generateAllPageImages() {
 
     for (let i = 0; i < state.book.pages.length; i++) {
         const page = state.book.pages[i];
-        if (!page.image || !page.image.startsWith('data:')) {
+        if (!hasValidImage(page)) {
             await generatePageImage(i);
             // Small delay between requests
             await new Promise(r => setTimeout(r, 1000));
@@ -2379,11 +2589,18 @@ function downloadBookJSON() {
 // ===================
 
 function approvePhase4() {
-    // Check that at least some images are generated
-    const pagesWithImages = state.book.pages.filter(p => p.image && p.image.startsWith('data:')).length;
-    if (pagesWithImages === 0) {
-        alert('Please generate at least some page images before continuing.');
-        return;
+    // Phase 4 is Reference - check that reference images are generated
+    if (state.refStrategy === 'single') {
+        if (!state.referenceImage) {
+            alert('Please generate a reference image first.');
+            return;
+        }
+    } else {
+        // Multi-ref: need at least the style guide
+        if (!state.multiRefs?.styleGuide) {
+            alert('Please generate at least the style guide reference sheet.');
+            return;
+        }
     }
 
     state.phaseStatus[4] = 'complete';
@@ -2393,10 +2610,25 @@ function approvePhase4() {
     goToPhase(5);
 }
 
+function approvePhase5() {
+    // Phase 5 is Page Images - check that at least some images are generated
+    const pagesWithImages = state.book.pages.filter(p => hasValidImage(p)).length;
+    if (pagesWithImages === 0) {
+        alert('Please generate at least some page images before continuing.');
+        return;
+    }
+
+    state.phaseStatus[5] = 'complete';
+    state.checkpointApprovals[5] = { approved: true, timestamp: new Date().toISOString() };
+    saveState();
+    saveToSupabase();
+    goToPhase(6);
+}
+
 function renderReviewPhase() {
     // Update summary
     const summary = document.getElementById('reviewSummary');
-    const pagesWithImages = state.book.pages.filter(p => p.image && p.image.startsWith('data:')).length;
+    const pagesWithImages = state.book.pages.filter(p => hasValidImage(p)).length;
     const totalPages = state.book.pages.length;
 
     summary.innerHTML = `

@@ -4,6 +4,58 @@ Development session notes and changes.
 
 ---
 
+## 2026-01-22: API-First Book Creation Skill
+
+### Summary
+Refactored book-wizard skill to use APIs/scripts directly instead of browser automation. The wizard is now a display layer only - Claude Code does the work via files/scripts, wizard shows results.
+
+### Changes Made
+
+**skills/book-wizard/skill.md**
+- Rewrote to API-first approach
+- Uses Python scripts directly instead of MCP browser automation
+- Uses `open` command for URLs instead of MCP clicks
+- Deploys with `vercel --prod` after each generation step
+- Added Supabase sync step (API prefers Supabase over static files)
+- Added troubleshooting section
+
+**public/wizard/wizard.js**
+- Fixed bug: `state.multiRefs.closingScenesGuide` → `state.multiRefs.styleGuide`
+- This was preventing multi-ref page generation from working
+
+**scripts/generate_references.py**
+- Updated file naming to match wizard expectations:
+  - `{slug}_characters.png` → `style_guide.png`
+  - `{slug}_settings.png` → `opening_scenes.png`
+  - `{slug}_style.png` → `closing_scenes.png`
+- Added `multiRefs` object to book JSON after generation
+- Updated both fal.ai and mulerouter code paths
+
+### Workflow
+```
+1. Claude generates book JSON → public/books/{slug}.json
+2. Deploy → vercel --prod
+3. Open → wizard/?slug={slug}&phase=3 (user reviews story)
+4. Run → python scripts/generate_references.py --book {slug}
+5. Deploy → vercel --prod
+6. Open → wizard/?slug={slug}&phase=4 (user reviews refs)
+7. Run → python scripts/generate_page_images.py {slug}
+8. Sync to Supabase → curl -X POST .../api/save-book ...
+9. Deploy → vercel --prod
+10. Open → reader.html?book={slug}
+```
+
+### Key Learning
+The API at `/api/get-book` prefers Supabase over static files. After generating images locally, must sync to Supabase for wizard/reader to see them.
+
+### Files Modified
+- `skills/book-wizard/skill.md`
+- `public/wizard/wizard.js`
+- `scripts/generate_references.py`
+- `public/books/jean-s-cloud-house.json` (test book)
+
+---
+
 ## 2026-01-21: Story Types & Art Styles in Wizard
 
 ### Summary

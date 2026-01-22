@@ -467,9 +467,9 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
     characters_path = None
     total_cost = 0.0
 
-    # Step 1: Generate characters sheet with T2I (establishes style)
-    print(f"\n  [1/3 characters] - nano-banana-pro T2I ($0.15)")
-    characters_path = multi_dir / f"{slug}_characters.png"
+    # Step 1: Generate style guide sheet with T2I (establishes style)
+    print(f"\n  [1/3 style_guide] - nano-banana-pro T2I ($0.15)")
+    characters_path = multi_dir / "style_guide.png"
     prompt = build_characters_prompt(slug, book_info)
     print(f"    Prompt preview: {prompt[:100]}...")
 
@@ -508,7 +508,7 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
             status="completed",
             result_url=result.url,
         )
-        results["characters"] = {
+        results["style_guide"] = {
             "path": str(characters_path.relative_to(REFS_DIR.parent.parent)),
             "prompt": prompt,
             "model": "nano-banana-pro",
@@ -528,15 +528,15 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
         )
         return False
 
-    # Step 2 & 3: Generate settings and style with I2I using characters as reference
+    # Step 2 & 3: Generate scene reference sheets with I2I using style guide as reference
     i2i_sheets = [
-        ("settings", build_settings_prompt),
-        ("style", build_style_prompt),
+        ("opening_scenes", build_settings_prompt),  # Uses settings prompt for opening scenes
+        ("closing_scenes", build_style_prompt),     # Uses style prompt for closing scenes
     ]
 
     for idx, (sheet_name, prompt_builder) in enumerate(i2i_sheets, start=2):
         print(f"\n  [{idx}/3 {sheet_name}] - wan2.6-image I2I ($0.03)")
-        output_path = multi_dir / f"{slug}_{sheet_name}.png"
+        output_path = multi_dir / f"{sheet_name}.png"
         prompt = prompt_builder(slug, book_info)
 
         # Add style reference instruction for I2I
@@ -603,7 +603,7 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
 
     success_count = len(results)
 
-    # Save metadata to book JSON
+    # Save metadata and multiRefs to book JSON
     if success_count > 0:
         book_path = BOOKS_DIR / f"{slug}.json"
         with open(book_path) as f:
@@ -617,10 +617,18 @@ def generate_multi_refs_fal(slug: str, fal_client: FalClient) -> bool:
             "sheets": results,
         }
 
+        # Add multiRefs for wizard compatibility (web-accessible paths)
+        book["multiRefs"] = {
+            "styleGuide": f"/books/references/{slug}_multi/style_guide.png",
+            "openingScenes": f"/books/references/{slug}_multi/opening_scenes.png",
+            "closingScenes": f"/books/references/{slug}_multi/closing_scenes.png",
+        }
+
         with open(book_path, 'w') as f:
             json.dump(book, f, indent=2)
 
         print(f"\n  Metadata saved to book JSON")
+        print(f"  multiRefs added for wizard compatibility")
 
     print(f"\n  Total cost: ${total_cost:.2f}")
     return success_count == 3
@@ -659,9 +667,9 @@ def generate_multi_refs_mulerouter(slug: str, config) -> bool:
     total_cost = 0.0
 
     with APIClient(config) as client:
-        # Step 1: Generate characters sheet with T2I (establishes style)
-        print(f"\n  [1/3 characters] - nano-banana-pro T2I ($0.15)")
-        characters_path = multi_dir / f"{slug}_characters.png"
+        # Step 1: Generate style guide sheet with T2I (establishes style)
+        print(f"\n  [1/3 style_guide] - nano-banana-pro T2I ($0.15)")
+        characters_path = multi_dir / "style_guide.png"
         prompt = build_characters_prompt(slug, book_info)
         print(f"    Prompt preview: {prompt[:100]}...")
 
@@ -710,7 +718,7 @@ def generate_multi_refs_mulerouter(slug: str, config) -> bool:
                 status="completed",
                 result_url=url,
             )
-            results["characters"] = {
+            results["style_guide"] = {
                 "path": str(characters_path.relative_to(REFS_DIR.parent.parent)),
                 "prompt": prompt,
                 "model": "nano-banana-pro",
@@ -730,10 +738,10 @@ def generate_multi_refs_mulerouter(slug: str, config) -> bool:
             )
             return False
 
-        # Step 2 & 3: Generate settings and style with I2I using characters as reference
+        # Step 2 & 3: Generate scene reference sheets with I2I using style guide as reference
         i2i_sheets = [
-            ("settings", build_settings_prompt),
-            ("style", build_style_prompt),
+            ("opening_scenes", build_settings_prompt),  # Uses settings prompt for opening scenes
+            ("closing_scenes", build_style_prompt),     # Uses style prompt for closing scenes
         ]
 
         # Load reference image as base64 for I2I
@@ -742,7 +750,7 @@ def generate_multi_refs_mulerouter(slug: str, config) -> bool:
 
         for idx, (sheet_name, prompt_builder) in enumerate(i2i_sheets, start=2):
             print(f"\n  [{idx}/3 {sheet_name}] - wan2.6-image I2I ($0.12)")
-            output_path = multi_dir / f"{slug}_{sheet_name}.png"
+            output_path = multi_dir / f"{sheet_name}.png"
             prompt = prompt_builder(slug, book_info)
             print(f"    Prompt preview: {prompt[:100]}...")
             print(f"    Reference: {characters_path.name}")
@@ -816,7 +824,7 @@ def generate_multi_refs_mulerouter(slug: str, config) -> bool:
 
     success_count = len(results)
 
-    # Save metadata to book JSON
+    # Save metadata and multiRefs to book JSON
     if success_count > 0:
         book_path = BOOKS_DIR / f"{slug}.json"
         with open(book_path) as f:
@@ -830,10 +838,18 @@ def generate_multi_refs_mulerouter(slug: str, config) -> bool:
             "sheets": results,
         }
 
+        # Add multiRefs for wizard compatibility (web-accessible paths)
+        book["multiRefs"] = {
+            "styleGuide": f"/books/references/{slug}_multi/style_guide.png",
+            "openingScenes": f"/books/references/{slug}_multi/opening_scenes.png",
+            "closingScenes": f"/books/references/{slug}_multi/closing_scenes.png",
+        }
+
         with open(book_path, 'w') as f:
             json.dump(book, f, indent=2)
 
         print(f"\n  Metadata saved to book JSON")
+        print(f"  multiRefs added for wizard compatibility")
 
     print(f"\n  Total cost: ${total_cost:.2f}")
     return success_count == 3
@@ -1052,10 +1068,10 @@ def main():
     parser.add_argument("--book", help="Single book slug to generate")
     parser.add_argument("--all-missing", action="store_true", help="Generate for all books missing references")
     parser.add_argument("--force", action="store_true", help="Regenerate even if reference exists")
-    parser.add_argument("--provider", choices=["fal", "mulerouter"], default="fal",
-                        help="API provider (default: fal)")
-    parser.add_argument("--strategy", choices=["single", "multi"], default="single",
-                        help="Reference strategy: single (1 sheet) or multi (3 sheets)")
+    parser.add_argument("--provider", choices=["fal", "mulerouter"], default="mulerouter",
+                        help="API provider (default: mulerouter)")
+    parser.add_argument("--strategy", choices=["single", "multi"], default="multi",
+                        help="Reference strategy: single (1 sheet) or multi (3 sheets, default)")
     args = parser.parse_args()
 
     if args.book:

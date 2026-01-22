@@ -4,6 +4,14 @@
 
 const STATE_KEY_PREFIX = 'wizard_state_';
 
+// Helper to convert relative paths to full URLs for API calls
+function toFullUrl(path) {
+    if (!path) return path;
+    if (path.startsWith('http')) return path;
+    // Convert relative path to full URL
+    return `${window.location.origin}${path.startsWith('/') ? '' : '/'}${path}`;
+}
+
 // Story ideas loaded from JSON
 let storyIdeasData = null;
 let storyIdeasVisible = true;
@@ -244,8 +252,11 @@ async function loadFromSupabase(slug) {
                 state.checkpointApprovals = ws.checkpointApprovals || {};
                 state.prompts = ws.prompts || state.prompts;
                 state.metaprompts = ws.metaprompts || state.metaprompts;
-                state.refStrategy = ws.refStrategy || 'single';
-                state.multiRefs = ws.multiRefs || state.multiRefs;
+                // Don't override refStrategy if book has multiRefs (CLI-generated takes precedence)
+                if (!result.book.multiRefs) {
+                    state.refStrategy = ws.refStrategy || 'single';
+                    state.multiRefs = ws.multiRefs || state.multiRefs;
+                }
                 state.outline = ws.outline || null;
                 state.formData = ws.formData || state.formData;
                 console.log('Restored full wizard state from Supabase');
@@ -719,6 +730,19 @@ async function doGenerateOutline() {
 
         state.phaseStatus[1] = 'complete';
         state.checkpointApprovals[1] = { approved: true, timestamp: new Date().toISOString() };
+
+        // Initialize minimal book object for Supabase save
+        // Full book data is created in Phase 3, but we need something to save the draft
+        state.book = {
+            title: outline.title,
+            level: state.formData.level,
+            setting: state.formData.setting,
+            storyType: state.formData.storyType,
+            artStyle: state.formData.artStyle,
+            characterName: outline.characterName || outline.character?.name,
+            pages: [] // Empty until Phase 3
+        };
+
         saveState();
         saveToSupabase(); // Save draft to Supabase after Phase 1
 
@@ -2599,7 +2623,7 @@ async function generatePageImage(index) {
             state.multiRefs.styleGuide,
             state.multiRefs.openingScenes,
             state.multiRefs.closingScenes
-        ].filter(Boolean);
+        ].filter(Boolean).map(toFullUrl);
 
         requestBody = {
             prompt: prompt,
@@ -2694,7 +2718,7 @@ async function generateCoverImage() {
         requestBody = {
             prompt: coverPrompt,
             model: 'wan2.6-image',
-            reference: [state.multiRefs.styleGuide].filter(Boolean),
+            reference: [state.multiRefs.styleGuide].filter(Boolean).map(toFullUrl),
             referenceIsUrl: true,
             slug: state.slug,
             page: 'cover'

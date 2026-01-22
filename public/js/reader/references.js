@@ -36,8 +36,30 @@ export async function loadReferenceVersions() {
         // No multi-ref available
     }
 
+    // Also check for new-style multi-refs (style_guide, opening_scenes, closing_scenes)
+    const newStyleRefs = [
+        { key: 'style_guide', path: `/books/references/${slug}_multi/style_guide.png`, label: 'Style Guide' },
+        { key: 'opening_scenes', path: `/books/references/${slug}_multi/opening_scenes.png`, label: 'Opening Scenes' },
+        { key: 'closing_scenes', path: `/books/references/${slug}_multi/closing_scenes.png`, label: 'Closing Scenes' }
+    ];
+
+    // Check if new-style refs exist
+    let hasNewStyleRefs = false;
+    const existingNewRefs = [];
+    for (const ref of newStyleRefs) {
+        try {
+            const resp = await fetch(ref.path, { method: 'HEAD' });
+            if (resp.ok) {
+                existingNewRefs.push(ref);
+                hasNewStyleRefs = true;
+            }
+        } catch (e) {
+            // Not found
+        }
+    }
+
     if (multiRefs && multiRefs.references) {
-        // Display multi-ref images
+        // Display multi-ref images from manifest
         const refs = multiRefs.references;
         selectedReferences = [];
 
@@ -79,6 +101,28 @@ export async function loadReferenceVersions() {
             if (isSelected) {
                 selectedReferences.push(webPath);
             }
+        });
+
+        // Set selectedReference to first one for backwards compat
+        selectedReference = selectedReferences[0] || null;
+    } else if (hasNewStyleRefs) {
+        // Display new-style multi-refs (no manifest needed)
+        selectedReferences = [];
+
+        existingNewRefs.forEach((ref, index) => {
+            const div = document.createElement('div');
+            div.className = 'reference-version active'; // Select all by default
+            div.dataset.refKey = ref.key;
+            div.dataset.refPath = ref.path;
+            div.title = 'Click to select, double-click to view full size';
+            div.innerHTML = `
+                <button class="zoom-btn" onclick="event.stopPropagation(); window._openReferenceLightbox('${ref.path}')">🔍</button>
+                <img src="${ref.path}" alt="${ref.label}" onerror="this.parentElement.style.display='none'">
+                <span class="version-label">${ref.label}</span>
+            `;
+            div.onclick = () => toggleMultiReference(div);
+            container.appendChild(div);
+            selectedReferences.push(ref.path);
         });
 
         // Set selectedReference to first one for backwards compat

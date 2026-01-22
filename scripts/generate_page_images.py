@@ -209,7 +209,7 @@ def generate_image_fal(
             # Path format for reader: "images/{slug}/page{nn}.png"
             return {
                 "url": result.url,
-                "image_path": f"images/{slug}/page{page_num:02d}.png",
+                "image_path": f"/books/images/{slug}/page{page_num:02d}.png",
                 "metadata": {
                     "generated_at": datetime.now().isoformat(),
                     "model": model,
@@ -268,12 +268,13 @@ def generate_image_mulerouter(
     print(f"  Generating page {page_num} via MuleRouter...")
 
     model = "nano-banana-pro"
-    ref_path, ref_version = None, None
+    ref_paths = []
+    ref_strategy = "none"
 
     if use_reference:
-        ref_path, ref_version = find_reference_image(slug)
-        if ref_path:
-            print(f"    Using reference: {ref_version}")
+        ref_paths, ref_strategy = find_best_references(slug)
+        if ref_paths:
+            print(f"    Using {len(ref_paths)} reference(s): {ref_strategy}")
             model = "wan2.6-image"
         else:
             print(f"    No reference found, using T2I")
@@ -282,9 +283,10 @@ def generate_image_mulerouter(
     clean_prompt = prompt.replace("Generate an image using the style of image 1.\n\n", "")
 
     # Build request body based on model type
-    if model == "wan2.6-image" and ref_path:
-        # Image-to-image with reference
-        ref_uri = image_to_base64_uri(Path(ref_path))
+    if model == "wan2.6-image" and ref_paths:
+        # Image-to-image with reference(s)
+        # Use first reference for MuleRouter (wan2.6 only supports 1 ref)
+        ref_uri = image_to_base64_uri(Path(ref_paths[0]))
         body = {
             "prompt": clean_prompt,
             "images": [ref_uri],
@@ -330,26 +332,26 @@ def generate_image_mulerouter(
                 log_image_generation(
                     model=model,
                     prompt=prompt,
-                    parameters={"size": "1024x1024", "reference_version": ref_version},
+                    parameters={"size": "1024x1024", "reference_strategy": ref_strategy},
                     source="generate_page_images.py",
                     book_slug=slug,
                     page=page_num,
                     cost=0.03 if model == "wan2.6-image" else 0.15,
                     status="completed",
                     result_url=url,
-                    reference_images=[str(ref_path)] if ref_path else [],
+                    reference_images=[str(p) for p in ref_paths] if ref_paths else [],
                 )
 
                 # Path format for reader: "images/{slug}/page{nn}.png"
                 return {
                     "url": url,
-                    "image_path": f"images/{slug}/page{page_num:02d}.png",
+                    "image_path": f"/books/images/{slug}/page{page_num:02d}.png",
                     "metadata": {
                         "generated_at": datetime.now().isoformat(),
                         "model": model,
                         "provider": "mulerouter",
-                        "used_reference": bool(ref_path and use_reference),
-                        "reference_version": ref_version if (ref_path and use_reference) else None,
+                        "used_reference": bool(ref_paths and use_reference),
+                        "reference_strategy": ref_strategy if (ref_paths and use_reference) else None,
                     }
                 }
             except Exception as e:
@@ -363,7 +365,7 @@ def generate_image_mulerouter(
                     page=page_num,
                     status="failed",
                     error=f"Download error: {e}",
-                    reference_images=[str(ref_path)] if ref_path else [],
+                    reference_images=[str(p) for p in ref_paths] if ref_paths else [],
                 )
                 return None
         else:
@@ -377,7 +379,7 @@ def generate_image_mulerouter(
                 page=page_num,
                 status="failed",
                 error=result.error,
-                reference_images=[str(ref_path)] if ref_path else [],
+                reference_images=[str(p) for p in ref_paths] if ref_paths else [],
             )
             return None
 

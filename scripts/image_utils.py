@@ -59,25 +59,34 @@ def find_reference_image(slug: str) -> tuple[Path | None, str | None]:
 def find_multi_references(slug: str) -> tuple[list[Path], str | None]:
     """Find multi-ref images for a book (3-ref strategy).
 
-    Looks for the {slug}_multi/ directory with characters, settings, style sheets.
+    Looks for the {slug}_multi/ directory with style_guide, opening_scenes, closing_scenes.
 
     Args:
         slug: Book slug (e.g., "mud-pup-fun")
 
     Returns:
         Tuple of (list of paths, strategy) or ([], None) if not found.
-        Returns paths in order: [characters, settings, style]
+        Returns paths in order: [style_guide, opening_scenes, closing_scenes]
     """
     multi_dir = REFS_DIR / f"{slug}_multi"
     if not multi_dir.exists():
         return [], None
 
     paths = []
-    sheet_types = ["characters", "settings", "style"]
-    for sheet_type in sheet_types:
-        path = multi_dir / f"{slug}_{sheet_type}.png"
+    # New naming: style_guide, opening_scenes, closing_scenes
+    sheet_files = ["style_guide.png", "opening_scenes.png", "closing_scenes.png"]
+    for filename in sheet_files:
+        path = multi_dir / filename
         if path.exists():
             paths.append(path)
+
+    # Backwards compatibility: old naming {slug}_characters, {slug}_settings, {slug}_style
+    if not paths:
+        old_sheet_types = ["characters", "settings", "style"]
+        for sheet_type in old_sheet_types:
+            path = multi_dir / f"{slug}_{sheet_type}.png"
+            if path.exists():
+                paths.append(path)
 
     if len(paths) == 3:
         return paths, "multi-3ref"

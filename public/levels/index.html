@@ -113,6 +113,193 @@
             margin: 0 auto;
         }
 
+        /* Region Toggle */
+        .region-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .region-btn {
+            padding: 12px 28px;
+            border: 2px solid var(--color-charcoal-light);
+            background: var(--color-white);
+            border-radius: 100px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .region-btn:hover {
+            border-color: var(--color-sage);
+        }
+
+        .region-btn.active {
+            background: var(--color-soft-black);
+            color: white;
+            border-color: var(--color-soft-black);
+        }
+
+        .region-btn .flag {
+            font-size: 1.2rem;
+        }
+
+        /* Hide/show based on region */
+        .uk-only, .us-only { display: none; }
+        body.region-uk .uk-only { display: table-cell; }
+        body.region-uk .uk-only-block { display: block; }
+        body.region-us .us-only { display: table-cell; }
+        body.region-us .us-only-block { display: block; }
+        body.region-uk .us-only, body.region-uk .us-only-block { display: none; }
+        body.region-us .uk-only, body.region-us .uk-only-block { display: none; }
+
+        /* UK Pathway Grid */
+        .pathway-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .pathway-phase {
+            background: var(--color-white);
+            border: 1px solid var(--color-charcoal-light);
+            border-radius: var(--radius);
+            padding: 16px;
+        }
+
+        .pathway-phase h3 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: var(--color-soft-black);
+        }
+
+        .pathway-phase .phase-desc {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: 12px;
+        }
+
+        .pathway-levels {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .pathway-note {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            font-style: italic;
+        }
+
+        .phase-tip {
+            font-size: 0.8rem;
+            color: var(--color-sage-dark);
+            margin-top: 10px;
+            padding: 8px;
+            background: var(--color-sage-light);
+            border-radius: 6px;
+        }
+
+        /* Science of Reading Sections */
+        .sor-section {
+            background: var(--color-white);
+            border: 1px solid var(--color-charcoal-light);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .sor-section h3 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--color-soft-black);
+        }
+
+        .sor-section p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        .ehri-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .ehri-table th,
+        .ehri-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-charcoal-light);
+        }
+
+        .ehri-table th {
+            background: var(--color-dusty-blue-light);
+            font-weight: 600;
+        }
+
+        .ehri-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .heart-word-example {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            background: var(--color-peach-light);
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .heart-word-example .heart {
+            color: #e74c3c;
+        }
+
+        .ortho-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .ortho-step {
+            background: var(--color-dusty-blue-light);
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .ortho-step .step-num {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            background: var(--color-soft-black);
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .ortho-step p {
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
         /* Key Distinction Box */
         .distinction-box {
             background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-dusty-blue-light) 100%);
@@ -421,7 +608,17 @@
 
         <div class="page-title">
             <h1>Reading Level Alignment</h1>
-            <p>How FunBookies levels compare to other reading level systems, and why our Science of Reading approach differs from traditional leveled readers.</p>
+            <p>How FunBookies levels compare to reading level systems, and why our Science of Reading approach differs from traditional leveled readers.</p>
+        </div>
+
+        <!-- Region Toggle -->
+        <div class="region-toggle">
+            <button class="region-btn active" data-region="uk">
+                <span class="flag">🇬🇧</span> UK
+            </button>
+            <button class="region-btn" data-region="us">
+                <span class="flag">🇺🇸</span> US
+            </button>
         </div>
 
         <!-- Key Distinction -->
@@ -429,12 +626,12 @@
             <h2>Decodable vs. Leveled: A Critical Difference</h2>
             <div class="distinction-grid">
                 <div class="distinction-card">
-                    <h3><span class="badge-sor">Science of Reading</span> Decodable Books</h3>
-                    <p>Text is controlled by <strong>phonics patterns taught</strong>. A B3 book only uses blends and patterns from levels A0-B3. Students can decode every word using skills they've learned. This builds the phonological pathway in the brain.</p>
+                    <h3><span class="badge-sor">Systematic Phonics</span> Decodable Books</h3>
+                    <p>Text is controlled by <strong>phonics patterns taught</strong>. A B3 book only uses blends and patterns from levels A0-B3. In UK terms, a Phase 4 book uses only Phase 2&ndash;4 graphemes. Students decode every word using skills they've learned.</p>
                 </div>
                 <div class="distinction-card">
                     <h3><span class="badge-trad">Traditional</span> Leveled Readers</h3>
-                    <p>Text is leveled by <strong>complexity factors</strong> (sentence length, vocabulary, picture support). May include words students can't decode yet, encouraging guessing from pictures or context&mdash;which research shows is less effective.</p>
+                    <p>Text is leveled by <strong>complexity factors</strong> (sentence length, vocabulary, picture support). May include words students can't decode yet, encouraging guessing from pictures or context&mdash;which UK and US research shows is less effective.</p>
                 </div>
             </div>
         </div>
@@ -446,23 +643,176 @@
                 <div class="band-card">
                     <h3><span class="level-badge band-a">A</span> Pre-Reader</h3>
                     <p class="purpose">Visual discrimination, print awareness, letter mastery</p>
-                    <p class="meta"><strong>Levels:</strong> A0&ndash;A4<br><strong>Grades:</strong> Pre-K to early K<br><strong>Lexile:</strong> BR</p>
+                    <p class="meta"><strong>Levels:</strong> A0&ndash;A4<br><strong>UK:</strong> Nursery&ndash;Reception (Phase 1&ndash;2)<br><strong>US:</strong> Pre-K to early K</p>
                 </div>
                 <div class="band-card">
                     <h3><span class="level-badge band-b">B</span> Phonics</h3>
                     <p class="purpose">Systematic phonics&mdash;full alphabetic decoding</p>
-                    <p class="meta"><strong>Levels:</strong> B1&ndash;B9<br><strong>Grades:</strong> K&ndash;1<br><strong>Lexile:</strong> BR&ndash;200L</p>
+                    <p class="meta"><strong>Levels:</strong> B1&ndash;B9<br><strong>UK:</strong> Reception&ndash;Year 2 (Phase 2&ndash;5)<br><strong>US:</strong> K&ndash;Grade 1</p>
                 </div>
                 <div class="band-card">
                     <h3><span class="level-badge band-c">C</span> Word Study</h3>
                     <p class="purpose">Morphology, syllabication, word analysis</p>
-                    <p class="meta"><strong>Levels:</strong> C1&ndash;C8<br><strong>Grades:</strong> 1&ndash;3<br><strong>Lexile:</strong> 200L&ndash;450L</p>
+                    <p class="meta"><strong>Levels:</strong> C1&ndash;C8<br><strong>UK:</strong> Year 2&ndash;Year 4 (Phase 5&ndash;6)<br><strong>US:</strong> Grades 1&ndash;3</p>
                 </div>
                 <div class="band-card">
                     <h3><span class="level-badge band-d">D</span> Fluent</h3>
                     <p class="purpose">Fluency, comprehension, reading to learn</p>
-                    <p class="meta"><strong>Levels:</strong> D1&ndash;D6<br><strong>Grades:</strong> 3&ndash;6<br><strong>Lexile:</strong> 450L&ndash;800L</p>
+                    <p class="meta"><strong>Levels:</strong> D1&ndash;D6<br><strong>UK:</strong> Year 4&ndash;Year 7 (beyond Phase 6)<br><strong>US:</strong> Grades 3&ndash;6</p>
                 </div>
+            </div>
+        </section>
+
+        <!-- UK Reading Order (UK only) -->
+        <section class="uk-only-block">
+            <h2>UK Letters and Sounds Pathway</h2>
+            <p style="color: var(--color-text-muted); margin-bottom: 20px;">
+                For teachers following the Letters and Sounds framework, here is the recommended order for using FunBookies levels:
+            </p>
+            <div class="pathway-grid">
+                <div class="pathway-phase">
+                    <h3>Phase 2</h3>
+                    <p class="phase-desc">First graphemes, CVC blending</p>
+                    <div class="pathway-levels">
+                        <span class="level-badge band-a">A2</span>
+                        <span class="level-badge band-a">A3</span>
+                        <span class="level-badge band-a">A4</span>
+                        <span class="level-badge band-b">B1</span>
+                        <span class="level-badge band-b">B2</span>
+                    </div>
+                </div>
+                <div class="pathway-phase">
+                    <h3>Phase 3</h3>
+                    <p class="phase-desc">Consonant digraphs + vowel digraphs</p>
+                    <div class="pathway-levels">
+                        <span class="level-badge band-b">B5</span>
+                        <span class="pathway-note">+ vowel digraphs (ai, ee, igh, oa, oo, ar, or, ur, ow, oi)</span>
+                    </div>
+                    <p class="phase-tip"><strong>Tip:</strong> Supplement B5 with early B7 content for full Phase 3 vowel coverage, or use dedicated vowel digraph practice materials.</p>
+                </div>
+                <div class="pathway-phase">
+                    <h3>Phase 4</h3>
+                    <p class="phase-desc">Consonant blends (CCVC/CVCC)</p>
+                    <div class="pathway-levels">
+                        <span class="level-badge band-b">B3</span>
+                        <span class="level-badge band-b">B4</span>
+                    </div>
+                </div>
+                <div class="pathway-phase">
+                    <h3>Phase 5</h3>
+                    <p class="phase-desc">Split digraphs, alternative spellings</p>
+                    <div class="pathway-levels">
+                        <span class="level-badge band-b">B6</span>
+                        <span class="level-badge band-b">B7</span>
+                        <span class="level-badge band-b">B8</span>
+                        <span class="level-badge band-b">B9</span>
+                    </div>
+                </div>
+                <div class="pathway-phase">
+                    <h3>Phase 6</h3>
+                    <p class="phase-desc">Fluency, suffixes, spelling patterns</p>
+                    <div class="pathway-levels">
+                        <span class="level-badge band-c">C1</span>
+                        <span class="level-badge band-c">C2</span>
+                        <span class="level-badge band-c">C3</span>
+                        <span class="level-badge band-c">C4</span>
+                        <span class="level-badge band-c">C5</span>
+                        <span class="level-badge band-c">C6</span>
+                    </div>
+                </div>
+            </div>
+            <p style="color: var(--color-text-muted); margin-top: 20px; font-size: 0.9rem;">
+                <strong>Key difference:</strong> FunBookies teaches blends (B3&ndash;B4) before digraphs (B5) in its standard sequence. UK teachers should use B5 <em>before</em> B3&ndash;B4 to align with Letters and Sounds phases.
+            </p>
+        </section>
+
+        <!-- Science of Reading Framework -->
+        <section>
+            <h2>Science of Reading Framework</h2>
+            <p style="color: var(--color-text-muted); margin-bottom: 24px;">
+                FunBookies is built on research-based reading instruction principles. Here's how our levels connect to key concepts from the Science of Reading.
+            </p>
+
+            <!-- Ehri's Phases -->
+            <div class="sor-section">
+                <h3>Ehri's Phases of Word Reading</h3>
+                <p>Dr. Linnea Ehri's research shows how children progress from non-readers to fluent sight-word readers. FunBookies levels are designed to support each phase:</p>
+                <table class="ehri-table">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>What Readers Do</th>
+                            <th>FunBookies Levels</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Pre-Alphabetic</strong></td>
+                            <td>Recognise words by visual cues (logos, shape)</td>
+                            <td><span class="level-badge band-a">A0</span> <span class="level-badge band-a">A1</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Partial Alphabetic</strong></td>
+                            <td>Use some letter-sound connections (first/last letters)</td>
+                            <td><span class="level-badge band-a">A2</span> <span class="level-badge band-a">A3</span> <span class="level-badge band-a">A4</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Full Alphabetic</strong></td>
+                            <td>Decode using all grapheme-phoneme correspondences</td>
+                            <td><span class="level-badge band-b">B1</span> <span class="level-badge band-b">B2</span> <span class="level-badge band-b">B3</span> <span class="level-badge band-b">B4</span> <span class="level-badge band-b">B5</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Consolidated</strong></td>
+                            <td>Recognise larger spelling patterns and chunks</td>
+                            <td><span class="level-badge band-b">B6</span> <span class="level-badge band-b">B7</span> <span class="level-badge band-b">B8</span> <span class="level-badge band-b">B9</span> <span class="level-badge band-c">C1</span>&ndash;<span class="level-badge band-c">C8</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Automatic</strong></td>
+                            <td>Read fluently with instant word recognition</td>
+                            <td><span class="level-badge band-d">D1</span>&ndash;<span class="level-badge band-d">D6</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Heart Words -->
+            <div class="sor-section">
+                <h3>Heart Words (Tricky Words)</h3>
+                <p>Some high-frequency words have irregular spellings that can't be fully decoded. The Science of Reading approach teaches these as "heart words" &mdash; we learn the regular parts and mark the "heart" (tricky part) that must be learned by heart:</p>
+                <div style="margin-bottom: 16px;">
+                    <span class="heart-word-example">s<span class="heart">ai</span>d</span>
+                    <span class="heart-word-example">w<span class="heart">a</span>s</span>
+                    <span class="heart-word-example"><span class="heart">o</span>f</span>
+                    <span class="heart-word-example">th<span class="heart">e</span>y</span>
+                    <span class="heart-word-example"><span class="heart">o</span>ne</span>
+                    <span class="heart-word-example">c<span class="heart">ou</span>ld</span>
+                </div>
+                <p style="margin-bottom: 0;">Each FunBookies level includes a curated list of sight words appropriate for that stage. Rather than rote memorisation, we encourage pointing out which parts ARE decodable &mdash; this builds phonics connections even for irregular words.</p>
+            </div>
+
+            <!-- Orthographic Mapping -->
+            <div class="sor-section">
+                <h3>Orthographic Mapping</h3>
+                <p>Research by David Share and David Kilpatrick shows that words become "sight words" through <strong>orthographic mapping</strong> &mdash; the process of bonding spellings to pronunciations and meanings in memory. This happens through:</p>
+                <div class="ortho-steps">
+                    <div class="ortho-step">
+                        <span class="step-num">1</span>
+                        <p><strong>Sound it out</strong><br>Decode the word phoneme by phoneme</p>
+                    </div>
+                    <div class="ortho-step">
+                        <span class="step-num">2</span>
+                        <p><strong>Connect meaning</strong><br>Link the sounds to a known word</p>
+                    </div>
+                    <div class="ortho-step">
+                        <span class="step-num">3</span>
+                        <p><strong>Store the spelling</strong><br>Bond letter patterns to memory</p>
+                    </div>
+                    <div class="ortho-step">
+                        <span class="step-num">4</span>
+                        <p><strong>Instant recognition</strong><br>After 1&ndash;4 correct readings, it's a sight word</p>
+                    </div>
+                </div>
+                <p style="margin-top: 16px; margin-bottom: 0;"><strong>Why decodable books matter:</strong> Each successful decoding attempt strengthens orthographic mapping. That's why FunBookies books are carefully controlled &mdash; children encounter words they can decode, building real sight word vocabulary through phonics rather than guessing.</p>
             </div>
         </section>
 
@@ -472,278 +822,311 @@
             <p style="color: var(--color-text-muted); margin-bottom: 20px; font-size: 0.9rem;">
                 These are approximate correlations. Because FunBookies uses decodable progression (phonics-based) rather than text complexity leveling, direct 1:1 mappings don't exist. Use as a general guide only.
             </p>
+            <p class="uk-only-block" style="color: var(--color-text-muted); margin-bottom: 20px; font-size: 0.9rem;">
+                <strong>Note:</strong> The L&S Phase column shows phonics content, not teaching order. See the <a href="#" onclick="document.querySelector('.pathway-grid').scrollIntoView({behavior: 'smooth'}); return false;">UK Letters and Sounds Pathway</a> above for the recommended reading order.
+            </p>
             <table class="alignment-table">
                 <thead>
                     <tr>
                         <th>FunBookies</th>
-                        <th>Grade</th>
-                        <th>F&P</th>
-                        <th>DRA</th>
+                        <th class="uk-only">Year</th>
+                        <th class="uk-only">L&S Phase</th>
+                        <th class="uk-only">Book Band</th>
+                        <th class="us-only">Grade</th>
+                        <th class="us-only">F&P</th>
                         <th>Lexile</th>
-                        <th>Reading Recovery</th>
-                        <th>ATOS/AR</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-a">A0</span> <span class="level-name">Concept of Print</span></div></td>
-                        <td>Pre-K</td>
-                        <td class="approx">A</td>
-                        <td class="approx">A</td>
+                        <td class="uk-only">Nursery</td>
+                        <td class="uk-only approx">Phase 1</td>
+                        <td class="uk-only approx">Lilac</td>
+                        <td class="us-only">Pre-K</td>
+                        <td class="us-only approx">A</td>
                         <td class="approx">BR</td>
-                        <td class="approx">1</td>
-                        <td class="approx">K.0</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-a">A1</span> <span class="level-name">Letter Recognition</span></div></td>
-                        <td>Pre-K</td>
-                        <td class="approx">A</td>
-                        <td class="approx">1</td>
+                        <td class="uk-only">Nursery</td>
+                        <td class="uk-only approx">Phase 1&ndash;2</td>
+                        <td class="uk-only approx">Lilac</td>
+                        <td class="us-only">Pre-K</td>
+                        <td class="us-only approx">A</td>
                         <td class="approx">BR</td>
-                        <td class="approx">1</td>
-                        <td class="approx">K.0</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-a">A2</span> <span class="level-name">CV/VC Words</span></div></td>
-                        <td>K</td>
-                        <td class="approx">A&ndash;B</td>
-                        <td class="approx">1&ndash;2</td>
+                        <td class="uk-only">Reception</td>
+                        <td class="uk-only approx">Phase 2</td>
+                        <td class="uk-only approx">Pink</td>
+                        <td class="us-only">K</td>
+                        <td class="us-only approx">A&ndash;B</td>
                         <td class="approx">BR</td>
-                        <td class="approx">1&ndash;2</td>
-                        <td class="approx">K.2</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-a">A3</span> <span class="level-name">Mixed Case</span></div></td>
-                        <td>K</td>
-                        <td class="approx">B&ndash;C</td>
-                        <td class="approx">2&ndash;3</td>
+                        <td class="uk-only">Reception</td>
+                        <td class="uk-only approx">Phase 2</td>
+                        <td class="uk-only approx">Pink&ndash;Red</td>
+                        <td class="us-only">K</td>
+                        <td class="us-only approx">B&ndash;C</td>
                         <td class="approx">BR</td>
-                        <td class="approx">2&ndash;3</td>
-                        <td class="approx">K.4</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-a">A4</span> <span class="level-name">Emergent Bridge</span></div></td>
-                        <td>K</td>
-                        <td class="approx">C&ndash;D</td>
-                        <td class="approx">3&ndash;4</td>
+                        <td class="uk-only">Reception</td>
+                        <td class="uk-only approx">Phase 2&ndash;3</td>
+                        <td class="uk-only approx">Red</td>
+                        <td class="us-only">K</td>
+                        <td class="us-only approx">C&ndash;D</td>
                         <td class="approx">BR&ndash;50L</td>
-                        <td class="approx">3&ndash;4</td>
-                        <td class="approx">K.6</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-b">B1</span> <span class="level-name">CVC Short a, i</span></div></td>
-                        <td>K&ndash;1</td>
-                        <td class="approx">D&ndash;E</td>
-                        <td class="approx">4&ndash;6</td>
+                        <td class="uk-only">Reception</td>
+                        <td class="uk-only approx">Phase 2</td>
+                        <td class="uk-only approx">Pink&ndash;Red</td>
+                        <td class="us-only">K&ndash;1</td>
+                        <td class="us-only approx">D&ndash;E</td>
                         <td class="approx">50&ndash;100L</td>
-                        <td class="approx">4&ndash;6</td>
-                        <td class="approx">K.8</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-b">B2</span> <span class="level-name">CVC All Vowels</span></div></td>
-                        <td>K&ndash;1</td>
-                        <td class="approx">E&ndash;F</td>
-                        <td class="approx">6&ndash;8</td>
+                        <td class="uk-only">Reception&ndash;Y1</td>
+                        <td class="uk-only approx">Phase 2&ndash;3</td>
+                        <td class="uk-only approx">Red&ndash;Yellow</td>
+                        <td class="us-only">K&ndash;1</td>
+                        <td class="us-only approx">E&ndash;F</td>
                         <td class="approx">100&ndash;150L</td>
-                        <td class="approx">6&ndash;8</td>
-                        <td class="approx">1.0</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-b">B3</span> <span class="level-name">Final Blends</span></div></td>
-                        <td>1</td>
-                        <td class="approx">F&ndash;G</td>
-                        <td class="approx">8&ndash;10</td>
+                        <td class="uk-only">Reception&ndash;Y1</td>
+                        <td class="uk-only approx">Phase 4</td>
+                        <td class="uk-only approx">Yellow</td>
+                        <td class="us-only">1</td>
+                        <td class="us-only approx">F&ndash;G</td>
                         <td class="approx">150&ndash;200L</td>
-                        <td class="approx">8&ndash;10</td>
-                        <td class="approx">1.2</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-b">B4</span> <span class="level-name">Initial Blends</span></div></td>
-                        <td>1</td>
-                        <td class="approx">G&ndash;H</td>
-                        <td class="approx">10&ndash;12</td>
+                        <td class="uk-only">Year 1</td>
+                        <td class="uk-only approx">Phase 4</td>
+                        <td class="uk-only approx">Yellow&ndash;Blue</td>
+                        <td class="us-only">1</td>
+                        <td class="us-only approx">G&ndash;H</td>
                         <td class="approx">200&ndash;250L</td>
-                        <td class="approx">10&ndash;12</td>
-                        <td class="approx">1.4</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-b">B5</span> <span class="level-name">Digraphs</span></div></td>
-                        <td>1</td>
-                        <td class="approx">H&ndash;I</td>
-                        <td class="approx">12&ndash;14</td>
+                        <td class="uk-only">Year 1</td>
+                        <td class="uk-only approx">Phase 3</td>
+                        <td class="uk-only approx">Blue</td>
+                        <td class="us-only">1</td>
+                        <td class="us-only approx">H&ndash;I</td>
                         <td class="approx">250&ndash;300L</td>
-                        <td class="approx">12&ndash;14</td>
-                        <td class="approx">1.6</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-b">B6</span> <span class="level-name">Silent E</span></div></td>
-                        <td>1</td>
-                        <td class="approx">I&ndash;J</td>
-                        <td class="approx">14&ndash;16</td>
+                        <td class="uk-only">Year 1</td>
+                        <td class="uk-only approx">Phase 5</td>
+                        <td class="uk-only approx">Blue&ndash;Green</td>
+                        <td class="us-only">1</td>
+                        <td class="us-only approx">I&ndash;J</td>
                         <td class="approx">300&ndash;350L</td>
-                        <td class="approx">14&ndash;16</td>
-                        <td class="approx">1.8</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-b">B7</span> <span class="level-name">Vowel Teams</span></div></td>
-                        <td>1&ndash;2</td>
-                        <td class="approx">J&ndash;K</td>
-                        <td class="approx">16&ndash;18</td>
+                        <td class="uk-only">Year 1&ndash;2</td>
+                        <td class="uk-only approx">Phase 5</td>
+                        <td class="uk-only approx">Green</td>
+                        <td class="us-only">1&ndash;2</td>
+                        <td class="us-only approx">J&ndash;K</td>
                         <td class="approx">350&ndash;400L</td>
-                        <td class="approx">16&ndash;18</td>
-                        <td class="approx">2.0</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-b">B8</span> <span class="level-name">Diphthongs</span></div></td>
-                        <td>1&ndash;2</td>
-                        <td class="approx">K&ndash;L</td>
-                        <td class="approx">18&ndash;20</td>
+                        <td class="uk-only">Year 1&ndash;2</td>
+                        <td class="uk-only approx">Phase 5</td>
+                        <td class="uk-only approx">Green&ndash;Orange</td>
+                        <td class="us-only">1&ndash;2</td>
+                        <td class="us-only approx">K&ndash;L</td>
                         <td class="approx">400&ndash;450L</td>
-                        <td class="approx">18&ndash;20</td>
-                        <td class="approx">2.2</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-b">B9</span> <span class="level-name">R-Controlled</span></div></td>
-                        <td>1&ndash;2</td>
-                        <td class="approx">L&ndash;M</td>
-                        <td class="approx">20&ndash;24</td>
+                        <td class="uk-only">Year 2</td>
+                        <td class="uk-only approx">Phase 5</td>
+                        <td class="uk-only approx">Orange</td>
+                        <td class="us-only">1&ndash;2</td>
+                        <td class="us-only approx">L&ndash;M</td>
                         <td class="approx">450&ndash;500L</td>
-                        <td class="approx">20</td>
-                        <td class="approx">2.4</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-c">C1</span> <span class="level-name">Silent Letters</span></div></td>
-                        <td>2</td>
-                        <td class="approx">M&ndash;N</td>
-                        <td class="approx">24&ndash;28</td>
+                        <td class="uk-only">Year 2</td>
+                        <td class="uk-only approx">Phase 5&ndash;6</td>
+                        <td class="uk-only approx">Turquoise</td>
+                        <td class="us-only">2</td>
+                        <td class="us-only approx">M&ndash;N</td>
                         <td class="approx">500&ndash;550L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">2.6</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-c">C2</span> <span class="level-name">Soft C and G</span></div></td>
-                        <td>2</td>
-                        <td class="approx">N&ndash;O</td>
-                        <td class="approx">28&ndash;30</td>
+                        <td class="uk-only">Year 2</td>
+                        <td class="uk-only approx">Phase 5</td>
+                        <td class="uk-only approx">Turquoise&ndash;Purple</td>
+                        <td class="us-only">2</td>
+                        <td class="us-only approx">N&ndash;O</td>
                         <td class="approx">550&ndash;600L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">2.8</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-c">C3</span> <span class="level-name">Two-Syllable Closed</span></div></td>
-                        <td>2&ndash;3</td>
-                        <td class="approx">O&ndash;P</td>
-                        <td class="approx">30&ndash;34</td>
+                        <td class="uk-only">Year 2&ndash;3</td>
+                        <td class="uk-only approx">Phase 6</td>
+                        <td class="uk-only approx">Purple</td>
+                        <td class="us-only">2&ndash;3</td>
+                        <td class="us-only approx">O&ndash;P</td>
                         <td class="approx">600&ndash;650L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">3.0</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-c">C4</span> <span class="level-name">Open + Consonant-le</span></div></td>
-                        <td>2&ndash;3</td>
-                        <td class="approx">P&ndash;Q</td>
-                        <td class="approx">34&ndash;38</td>
+                        <td class="uk-only">Year 3</td>
+                        <td class="uk-only approx">Phase 6</td>
+                        <td class="uk-only approx">Gold</td>
+                        <td class="us-only">2&ndash;3</td>
+                        <td class="us-only approx">P&ndash;Q</td>
                         <td class="approx">650&ndash;700L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">3.2</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-c">C5</span> <span class="level-name">Contractions</span></div></td>
-                        <td>3</td>
-                        <td class="approx">Q&ndash;R</td>
-                        <td class="approx">38&ndash;40</td>
+                        <td class="uk-only">Year 3</td>
+                        <td class="uk-only approx">Phase 6</td>
+                        <td class="uk-only approx">Gold&ndash;White</td>
+                        <td class="us-only">3</td>
+                        <td class="us-only approx">Q&ndash;R</td>
                         <td class="approx">700&ndash;750L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">3.4</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-c">C6</span> <span class="level-name">Inflectional Endings</span></div></td>
-                        <td>3</td>
-                        <td class="approx">R&ndash;S</td>
-                        <td class="approx">40</td>
+                        <td class="uk-only">Year 3</td>
+                        <td class="uk-only approx">Phase 6</td>
+                        <td class="uk-only approx">White</td>
+                        <td class="us-only">3</td>
+                        <td class="us-only approx">R&ndash;S</td>
                         <td class="approx">750&ndash;800L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">3.6</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-c">C7</span> <span class="level-name">Derivational Suffixes</span></div></td>
-                        <td>3&ndash;4</td>
-                        <td class="approx">S&ndash;T</td>
-                        <td class="approx">40&ndash;44</td>
+                        <td class="uk-only">Year 3&ndash;4</td>
+                        <td class="uk-only approx">Beyond</td>
+                        <td class="uk-only approx">Lime</td>
+                        <td class="us-only">3&ndash;4</td>
+                        <td class="us-only approx">S&ndash;T</td>
                         <td class="approx">800&ndash;850L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">3.8</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-c">C8</span> <span class="level-name">Prefixes</span></div></td>
-                        <td>3&ndash;4</td>
-                        <td class="approx">T&ndash;U</td>
-                        <td class="approx">44</td>
+                        <td class="uk-only">Year 4</td>
+                        <td class="uk-only approx">Beyond</td>
+                        <td class="uk-only approx">Lime&ndash;Brown</td>
+                        <td class="us-only">3&ndash;4</td>
+                        <td class="us-only approx">T&ndash;U</td>
                         <td class="approx">850&ndash;900L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">4.0</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-d">D1</span> <span class="level-name">Sentence Variety</span></div></td>
-                        <td>4</td>
-                        <td class="approx">U&ndash;V</td>
-                        <td class="approx">44&ndash;50</td>
+                        <td class="uk-only">Year 4</td>
+                        <td class="uk-only approx">Beyond</td>
+                        <td class="uk-only approx">Brown</td>
+                        <td class="us-only">4</td>
+                        <td class="us-only approx">U&ndash;V</td>
                         <td class="approx">450&ndash;500L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">4.2</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-d">D2</span> <span class="level-name">Inference</span></div></td>
-                        <td>4&ndash;5</td>
-                        <td class="approx">V&ndash;W</td>
-                        <td class="approx">50</td>
+                        <td class="uk-only">Year 4&ndash;5</td>
+                        <td class="uk-only approx">Beyond</td>
+                        <td class="uk-only approx">Grey</td>
+                        <td class="us-only">4&ndash;5</td>
+                        <td class="us-only approx">V&ndash;W</td>
                         <td class="approx">500&ndash;550L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">4.5</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-d">D3</span> <span class="level-name">Latin Roots</span></div></td>
-                        <td>5</td>
-                        <td class="approx">W&ndash;X</td>
-                        <td class="approx">&mdash;</td>
+                        <td class="uk-only">Year 5</td>
+                        <td class="uk-only approx">Beyond</td>
+                        <td class="uk-only approx">Dark Blue</td>
+                        <td class="us-only">5</td>
+                        <td class="us-only approx">W&ndash;X</td>
                         <td class="approx">550&ndash;600L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">5.0</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-d">D4</span> <span class="level-name">Greek Roots</span></div></td>
-                        <td>5&ndash;6</td>
-                        <td class="approx">X&ndash;Y</td>
-                        <td class="approx">&mdash;</td>
+                        <td class="uk-only">Year 5&ndash;6</td>
+                        <td class="uk-only approx">Beyond</td>
+                        <td class="uk-only approx">Dark Blue</td>
+                        <td class="us-only">5&ndash;6</td>
+                        <td class="us-only approx">X&ndash;Y</td>
                         <td class="approx">600&ndash;650L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">5.5</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-d">D5</span> <span class="level-name">Figurative Language</span></div></td>
-                        <td>5&ndash;6</td>
-                        <td class="approx">Y&ndash;Z</td>
-                        <td class="approx">&mdash;</td>
+                        <td class="uk-only">Year 6</td>
+                        <td class="uk-only approx">Beyond</td>
+                        <td class="uk-only approx">Dark Red</td>
+                        <td class="us-only">5&ndash;6</td>
+                        <td class="us-only approx">Y&ndash;Z</td>
                         <td class="approx">650&ndash;700L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">6.0</td>
                     </tr>
                     <tr>
                         <td><div class="level-cell"><span class="level-badge band-d">D6</span> <span class="level-name">Grade-Level Prose</span></div></td>
-                        <td>6</td>
-                        <td class="approx">Z</td>
-                        <td class="approx">&mdash;</td>
+                        <td class="uk-only">Year 6&ndash;7</td>
+                        <td class="uk-only approx">Beyond</td>
+                        <td class="uk-only approx">Dark Red+</td>
+                        <td class="us-only">6</td>
+                        <td class="us-only approx">Z</td>
                         <td class="approx">700&ndash;800L</td>
-                        <td class="approx">&mdash;</td>
-                        <td class="approx">6.5</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        <!-- Other Systems -->
-        <section>
-            <h2>Other Reading Level Systems</h2>
+        <!-- UK Systems -->
+        <section class="uk-only-block">
+            <h2>UK Reading Level Systems</h2>
+            <div class="systems-grid">
+                <div class="system-card">
+                    <h3>Letters and Sounds</h3>
+                    <p class="publisher">UK Department for Education</p>
+                    <div class="scale"><strong>Scale:</strong> Phase 1&ndash;6</div>
+                    <p>The UK's systematic synthetic phonics (SSP) framework. Runs from Nursery (age 3) through Year 2 (age 7). Mandated for all state schools. Phase 1 = listening skills, Phases 2-3 = letter-sounds, Phase 4 = blends, Phase 5 = alternative spellings, Phase 6 = fluency.</p>
+                </div>
+                <div class="system-card">
+                    <h3>Book Bands</h3>
+                    <p class="publisher">Institute of Education / BookLife</p>
+                    <div class="scale"><strong>Scale:</strong> Lilac&rarr;Dark Red (17 colours)</div>
+                    <p>Colour-coded reading levels used across UK publishers. Lilac = pre-reader, Pink/Red = Reception, Yellow/Blue = Year 1, Green/Orange = Year 1-2, and so on. Widely used in UK schools for guided reading.</p>
+                </div>
+                <div class="system-card">
+                    <h3>Oxford Reading Tree (ORT)</h3>
+                    <p class="publisher">Oxford University Press</p>
+                    <div class="scale"><strong>Scale:</strong> Levels 1&ndash;20+</div>
+                    <p>Britain's best-known reading scheme. Features Biff, Chip, and Kipper. Levels align with Book Bands. Includes Floppy's Phonics for decodable options. Used in 80%+ of UK primary schools.</p>
+                </div>
+                <div class="system-card">
+                    <h3>Collins Big Cat</h3>
+                    <p class="publisher">HarperCollins</p>
+                    <div class="scale"><strong>Scale:</strong> Book Band colours</div>
+                    <p>Phonics-aligned reading scheme with fully decodable books. Follows Letters and Sounds progression. Popular choice for systematic phonics teaching in UK schools.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="us-only-block">
+            <h2>US Reading Level Systems</h2>
             <div class="systems-grid">
                 <div class="system-card">
                     <h3>Fountas & Pinnell (F&P)</h3>
@@ -781,6 +1164,12 @@
                     <div class="scale"><strong>Scale:</strong> Colors (Yellow&rarr;Black)</div>
                     <p>Color-coded system with "Power Goals" for each level. Used in ARC's 100 Book Challenge. Includes both reading level and specific skill targets.</p>
                 </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>International Systems</h2>
+            <div class="systems-grid">
                 <div class="system-card">
                     <h3>PM Benchmark</h3>
                     <p class="publisher">Cengage / Rigby</p>
@@ -796,6 +1185,19 @@
             </div>
         </section>
 
+        <!-- UK Phonics Phases -->
+        <div class="research-basis uk-only-block">
+            <h3>UK Letters and Sounds Phases Explained</h3>
+            <ul>
+                <li><strong>Phase 1</strong> (Nursery, age 3&ndash;4) &mdash; Listening skills, rhythm, rhyme, oral blending. No letter-sound teaching yet.</li>
+                <li><strong>Phase 2</strong> (Reception, age 4&ndash;5) &mdash; First 20 graphemes: s, a, t, p, i, n, m, d, g, o, c, k, ck, e, u, r, h, b, f, l. CVC word blending.</li>
+                <li><strong>Phase 3</strong> (Reception) &mdash; 25 more graphemes including digraphs (ch, sh, th, ng) and vowel patterns (ai, ee, igh, oa, oo, ar, or, ur, ow, oi).</li>
+                <li><strong>Phase 4</strong> (Year 1) &mdash; No new sounds. Focus on consonant blends (bl, cr, st, mp, nd) and CCVC/CVCC words.</li>
+                <li><strong>Phase 5</strong> (Year 1) &mdash; Alternative spellings (ay, a-e, ea, ey for /ay/) and alternative pronunciations (c as /s/ or /k/).</li>
+                <li><strong>Phase 6</strong> (Year 2) &mdash; Fluency, spelling rules, suffixes (-ing, -ed, -er), prefixes. Children read most words automatically.</li>
+            </ul>
+        </div>
+
         <!-- Research Basis -->
         <div class="research-basis">
             <h3>Our Research Foundation</h3>
@@ -805,19 +1207,31 @@
                 <li><strong>Kilpatrick</strong> (Orthographic Mapping) &mdash; How words become automatic sight words</li>
                 <li><strong>Share</strong> (Self-Teaching Hypothesis) &mdash; Successful decoding leads to orthographic learning</li>
                 <li><strong>Beck</strong> (Vocabulary Tiers) &mdash; Tiered approach to vocabulary instruction</li>
+                <li><strong>Rose</strong> (UK Rose Report, 2006) &mdash; Independent review that led to mandatory systematic phonics in England</li>
+                <li><strong>Stuart & Stainthorp</strong> (UK Reading Research) &mdash; Evidence base for synthetic phonics approach</li>
             </ul>
         </div>
 
         <!-- Sources -->
-        <div class="sources">
-            <h3>Sources & Further Reading</h3>
+        <div class="sources uk-only-block">
+            <h3>Sources</h3>
+            <ul>
+                <li><a href="https://assets.publishing.service.gov.uk/media/5a7aa7b6e5274a34770e630c/Letters_and_Sounds_-_DFES-00281-2007.pdf" target="_blank">Letters and Sounds (DfE PDF)</a></li>
+                <li><a href="https://assets.publishing.service.gov.uk/media/664f600c05e5fe28788fc437/The_reading_framework_.pdf" target="_blank">The Reading Framework (DfE 2023)</a></li>
+                <li><a href="https://home.oxfordowl.co.uk/reading/what-is-letters-and-sounds/" target="_blank">Oxford Owl: What is Letters and Sounds?</a></li>
+                <li><a href="https://booklife.co.uk/pages/book-bands" target="_blank">BookLife: Book Bands Colour Guide</a></li>
+                <li><a href="https://phonicshero.com/phonics-level-reception-kindy-year-1-year-2/" target="_blank">Phonics Hero: Reception&ndash;Year 2 Levels</a></li>
+            </ul>
+        </div>
+
+        <div class="sources us-only-block">
+            <h3>Sources</h3>
             <ul>
                 <li><a href="https://www.readingrockets.org/topics/curriculum-and-instruction/articles/what-are-decodable-books-and-why-are-they-important" target="_blank">Reading Rockets: What Are Decodable Books?</a></li>
                 <li><a href="https://readinguniverse.org/article/explore-teaching-topics/word-recognition/phonics/decodable-texts-for-each-phonics-skill" target="_blank">Reading Universe: Free Decodable Texts</a></li>
                 <li><a href="https://www.hameraypublishing.com/pages/reading-level-correlation-chart" target="_blank">Hameray: Level Correlation Chart</a></li>
                 <li><a href="https://www.readinga-z.com/updates/raz_correlation_chart.pdf" target="_blank">Learning A-Z Correlation Chart (PDF)</a></li>
                 <li><a href="https://www.renaissance.com/edword/atos/" target="_blank">Renaissance: What is ATOS?</a></li>
-                <li><a href="https://www.americanreading.com/leveling/overview/" target="_blank">American Reading Company: IRLA Overview</a></li>
             </ul>
         </div>
 
@@ -825,5 +1239,39 @@
             &copy; 2025 FunBookies. Science of Reading aligned decodable books.
         </footer>
     </div>
+
+    <script>
+        // Region toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.region-btn');
+
+            // Set default region to UK
+            document.body.classList.add('region-uk');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const region = this.dataset.region;
+
+                    // Update button states
+                    buttons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Update body class
+                    document.body.classList.remove('region-uk', 'region-us');
+                    document.body.classList.add('region-' + region);
+
+                    // Save preference
+                    localStorage.setItem('funbookies-region', region);
+                });
+            });
+
+            // Load saved preference
+            const savedRegion = localStorage.getItem('funbookies-region');
+            if (savedRegion) {
+                const btn = document.querySelector(`[data-region="${savedRegion}"]`);
+                if (btn) btn.click();
+            }
+        });
+    </script>
 </body>
 </html>

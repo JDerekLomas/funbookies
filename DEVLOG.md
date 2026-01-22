@@ -4,6 +4,18 @@ Development session notes and changes.
 
 ---
 
+## 2026-01-22: Fix get-book API to merge Supabase + static files
+
+Updated `/api/get-book` to automatically merge content from both Supabase and static files:
+- Fetches from both sources in parallel
+- If both exist, merges: Supabase base + static file images/multiRefs
+- Returns `source: "merged"` when both are combined
+- Eliminates need for manual Supabase sync after CLI image generation
+
+This removes the friction from the API-first workflow - just deploy and the API handles the rest.
+
+---
+
 ## 2026-01-22: API-First Book Creation Skill
 
 ### Summary
@@ -46,7 +58,7 @@ Refactored book-wizard skill to use APIs/scripts directly instead of browser aut
 ```
 
 ### Key Learning
-The API at `/api/get-book` prefers Supabase over static files. After generating images locally, must sync to Supabase for wizard/reader to see them.
+~~The API at `/api/get-book` prefers Supabase over static files.~~ **Fixed:** API now merges both sources automatically.
 
 ### Files Modified
 - `skills/book-wizard/skill.md`

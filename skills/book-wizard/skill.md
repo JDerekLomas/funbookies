@@ -114,20 +114,7 @@ open "https://funbookies.com/wizard/?slug={slug}&phase=5"
 
 **ASK:** "Review the page images. Ready to publish?"
 
-## Step 4: Sync to Supabase
-
-**IMPORTANT:** The API prefers Supabase over static files. After generating images, sync the book JSON to Supabase:
-
-```bash
-# Sync full book to Supabase
-curl -X POST https://funbookies.com/api/save-book \
-  -H "Content-Type: application/json" \
-  -d "{\"slug\": \"{slug}\", \"fullBook\": $(cat public/books/{slug}.json)}"
-```
-
-This ensures the wizard and reader see the latest images.
-
-## Step 5: Publish
+## Step 4: Publish
 
 Final deployment and reader link:
 
@@ -198,23 +185,25 @@ User: Yes
 
 10. Runs: python scripts/generate_page_images.py button-dragon
     (Script automatically adds image paths to book JSON)
-11. Syncs to Supabase: curl -X POST .../api/save-book ...
-12. Deploys: vercel --prod
-13. Opens wizard Phase 5
-14. ASKS: "Review pages. Ready to publish?"
+11. Deploys: vercel --prod
+12. Opens wizard Phase 5
+13. ASKS: "Review pages. Ready to publish?"
 
 User: Yes
 
-15. Opens reader: https://funbookies.com/reader.html?book=button-dragon
+14. Opens reader: https://funbookies.com/reader.html?book=button-dragon
 ```
 
 ## Troubleshooting
 
 ### Images not showing in wizard/reader
-The API prefers Supabase over static files. If images don't show:
-1. Check if book exists in Supabase: `curl https://funbookies.com/api/get-book?slug={slug}`
-2. If source is "supabase", sync the local JSON: use the save-book API
-3. Redeploy and refresh
+The API automatically merges Supabase and static file content. Check:
+1. API source: `curl https://funbookies.com/api/get-book?slug={slug} | jq .source`
+   - "merged" = both sources combined (expected)
+   - "static" = only static file found
+   - "supabase" = only Supabase found
+2. Verify static file has images: `cat public/books/{slug}.json | jq '.pages[0].image'`
+3. Deploy if not deployed: `vercel --prod`
 
 ### Image directory naming
 Ensure the `images/{slug}/` directory name matches the paths in JSON. Common issues:

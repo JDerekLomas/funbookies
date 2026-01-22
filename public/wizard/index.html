@@ -19,6 +19,24 @@
             <p class="page-subtitle">Create a complete book in 6 steps</p>
         </div>
 
+        <!-- My Books Section -->
+        <details class="my-books-section" id="myBooksSection">
+            <summary class="my-books-header">
+                <span class="my-books-title">My Books</span>
+                <span class="my-books-count" id="myBooksCount"></span>
+            </summary>
+            <div class="my-books-content">
+                <div class="my-books-filters">
+                    <button class="filter-btn active" data-filter="all" onclick="filterMyBooks('all')">All</button>
+                    <button class="filter-btn" data-filter="draft" onclick="filterMyBooks('draft')">Drafts</button>
+                    <button class="filter-btn" data-filter="published" onclick="filterMyBooks('published')">Published</button>
+                </div>
+                <div class="my-books-grid" id="myBooksGrid">
+                    <div class="loading-books">Loading your books...</div>
+                </div>
+            </div>
+        </details>
+
         <div class="wizard-layout">
             <!-- Stepper Sidebar -->
             <aside class="stepper-sidebar">

@@ -1506,8 +1506,8 @@ Row 3 - Key moments from first half:
 [8] Character interaction moment
 [9] Transition scene leading to second half
 
-STYLE: Match the watercolor style from the reference image exactly.
-Consistent characters across all panels.
+STYLE: ${state.book.visual_style || 'Soft watercolor children\'s book illustration'}
+Match the style from the reference image exactly. Consistent characters across all panels.
 NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
 }
 
@@ -1548,8 +1548,8 @@ Row 3 - Key moments from second half:
 [8] Resolution moment
 [9] Final happy ending
 
-STYLE: Match the watercolor style from the reference image exactly.
-Consistent characters across all panels.
+STYLE: ${state.book.visual_style || 'Soft watercolor children\'s book illustration'}
+Match the style from the reference image exactly. Consistent characters across all panels.
 NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
 }
 
@@ -2135,33 +2135,34 @@ function extractCharacterFromScenes() {
         return { name: 'the character', description: '', traits: [] };
     }
 
+    // Prefer explicit character data from book JSON (CLI-generated)
+    let name = state.book.characterName || '';
+    let description = state.book.characterDescription || '';
+
+    // If no explicit data, try to extract from scene descriptions
     // Scene descriptions typically start with "Shot type: CharacterName, description, action..."
     // e.g. "Wide shot: Spot, fluffy gray and white cat with distinctive black spots, stretching..."
-    const firstScene = state.book.pages[0]?.scene || '';
+    if (!name || !description) {
+        const firstScene = state.book.pages[0]?.scene || '';
 
-    // Try to extract character name and description from first scene
-    // Pattern: "Shot type: Name, description (species/animal type with features), action..."
-    // e.g. "Wide shot: Spot, fluffy gray and white cat with distinctive black spots, stretching..."
-    // e.g. "Medium shot: Little Bear, a small brown bear with round ears, walking..."
+        // Regex handles multi-word names: "Shot: Name Name, description,"
+        // Captures: group 1 = character name (words before first comma after colon)
+        //           group 2 = description (text after first comma until next comma or -ing verb)
+        const sceneMatch = firstScene.match(/(?:shot:\s*)([^,]+),\s*([^,]+)/i);
 
-    // First prefer explicit characterName from book data if set
-    let name = state.book.characterName || '';
-    let description = '';
-
-    // Regex handles multi-word names: "Shot: Name Name, description,"
-    // Captures: group 1 = character name (words before first comma after colon)
-    //           group 2 = description (text after first comma until next comma or -ing verb)
-    const sceneMatch = firstScene.match(/(?:shot:\s*)([^,]+),\s*([^,]+)/i);
-
-    if (sceneMatch) {
-        // Only use extracted name if we don't have one from book data
-        if (!name) {
-            name = sceneMatch[1].trim();
+        if (sceneMatch) {
+            // Only use extracted name if we don't have one from book data
+            if (!name) {
+                name = sceneMatch[1].trim();
+            }
+            // Only use extracted description if we don't have one from book data
+            if (!description) {
+                // Clean up description - stop at action verbs (-ing words that start actions)
+                let desc = sceneMatch[2].trim();
+                desc = desc.replace(/\s+\b\w+ing\b.*$/, '');
+                description = desc;
+            }
         }
-        // Clean up description - stop at action verbs (-ing words that start actions)
-        let desc = sceneMatch[2].trim();
-        desc = desc.replace(/\s+\b\w+ing\b.*$/, '');
-        description = desc;
     }
 
     // Final fallback
@@ -2195,7 +2196,7 @@ function extractCharacterFromScenes() {
 // ===================
 
 // Default metaprompt template for reference sheets
-// Placeholders: {title}, {name}, {NAME}, {description}, {traits}, {setting}
+// Placeholders: {title}, {name}, {NAME}, {description}, {traits}, {setting}, {style}
 const DEFAULT_REFERENCE_METAPROMPT = `Create a 3x3 grid style reference sheet for "{title}":
 
 GRID LAYOUT (9 panels total):
@@ -2211,7 +2212,7 @@ CHARACTER DESIGN - {NAME}:
 - Consistent color palette throughout all panels
 - Expressive but simple face
 
-STYLE: Soft watercolor children's book illustration, warm colors, gentle lighting, Eric Carle inspired textures.
+STYLE: {style}
 
 IMPORTANT: This is a reference sheet with 9 distinct panels arranged in a 3x3 grid. Each panel should be clearly separated.
 NO TEXT, NO WORDS, NO LETTERS anywhere in the image.`;
@@ -2225,7 +2226,8 @@ function getStoryData() {
         NAME: name.toUpperCase(),
         description: description || 'friendly character with expressive features',
         traits: traits.length > 0 ? traits.join(', ') : 'expressive eyes, distinctive features',
-        setting: state.book?.setting || 'the scene'
+        setting: state.book?.setting || 'the scene',
+        style: state.book?.visual_style || 'Soft watercolor children\'s book illustration, warm colors, gentle lighting'
     };
 }
 

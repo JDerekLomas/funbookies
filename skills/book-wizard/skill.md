@@ -33,6 +33,7 @@ Generate the book data and write directly to file:
   "title": "Book Title",
   "slug": "book-title",
   "level": "B1",
+  "status": "published",
   "characterName": "Character",
   "characterDescription": "visual details for image consistency",
   "setting": "where the story takes place",
@@ -40,14 +41,28 @@ Generate the book data and write directly to file:
   "visual_style": "art style prompt",
   "pages": [
     {
-      "page": 0,
-      "text": "Title Page",
-      "scene": "Title page scene description..."
+      "page": 1,
+      "type": "cover",
+      "text": "Book Title",
+      "scene": "Cover illustration: Character in setting, title composition..."
     },
     {
-      "page": 1,
-      "text": "Story text",
+      "page": 2,
+      "type": "story",
+      "text": "First story text.",
       "scene": "Visual scene description for image generation"
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "Second story text.",
+      "scene": "Visual scene description..."
+    },
+    {
+      "page": 10,
+      "type": "end",
+      "text": "The End",
+      "scene": "Final scene showing resolution..."
     }
   ]
 }
@@ -116,12 +131,26 @@ open "https://funbookies.com/wizard/?slug={slug}&phase=5"
 
 ## Step 4: Publish
 
+Generate thumbnail and set published status:
+
+```bash
+# Generate thumbnail from cover image
+uv run python scripts/generate_thumbnails.py --slug {slug}
+
+# Set status to published (add to book JSON if not present)
+# The book JSON should include: "status": "published"
+```
+
+**Update book JSON** to add `"status": "published"` if not already present.
+
 Final deployment and reader link:
 
 ```bash
 vercel --prod
 open "https://funbookies.com/reader.html?book={slug}"
 ```
+
+The book will now appear in the book listing at `/books/`.
 
 ## Scene Description Rules
 

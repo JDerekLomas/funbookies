@@ -491,7 +491,10 @@ def main():
 
     updated = 0
     for i, page in enumerate(pages):
-        page_num = page.get("page") or page.get("story_page") or (i + 1)
+        # Handle page 0 correctly (0 is falsy, so can't use `or`)
+        page_num = page.get("page")
+        if page_num is None:
+            page_num = page.get("story_page") or (i + 1)
         scene = page.get("scene", "")
 
         # Skip pages without scenes

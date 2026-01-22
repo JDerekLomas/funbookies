@@ -13,6 +13,10 @@ let selectedIdeaIndex = null;
 let storyTypesData = null;
 let artStylesData = null;
 
+// My Books data
+let myBooksData = [];
+let myBooksFilter = 'all';
+
 let state = {
     slug: null,
     currentPhase: 1,
@@ -58,8 +62,9 @@ let state = {
 // ===================
 
 async function init() {
-    // Load story ideas, story types, and art styles
+    // Load my books, story ideas, story types, and art styles
     await Promise.all([
+        loadMyBooks(),
         loadStoryIdeas(),
         loadStoryTypes(),
         loadArtStyles()
@@ -400,6 +405,83 @@ async function loadArtStyles() {
     } catch (error) {
         console.warn('Could not load art styles:', error);
     }
+}
+
+// ===================
+// MY BOOKS
+// ===================
+
+async function loadMyBooks() {
+    try {
+        const response = await fetch('/api/list-books?includeDrafts=true');
+        if (response.ok) {
+            myBooksData = await response.json();
+            console.log('Loaded my books:', myBooksData.length);
+            renderMyBooks();
+        }
+    } catch (error) {
+        console.warn('Could not load my books:', error);
+        document.getElementById('myBooksGrid').innerHTML = '<div class="no-books">Could not load books</div>';
+    }
+}
+
+function renderMyBooks() {
+    const container = document.getElementById('myBooksGrid');
+    const countEl = document.getElementById('myBooksCount');
+    if (!container) return;
+
+    // Filter books based on current filter
+    let filtered = myBooksData;
+    if (myBooksFilter === 'draft') {
+        filtered = myBooksData.filter(b => b.status === 'draft');
+    } else if (myBooksFilter === 'published') {
+        filtered = myBooksData.filter(b => b.status === 'published' || !b.status);
+    }
+
+    // Update count
+    if (countEl) {
+        const draftCount = myBooksData.filter(b => b.status === 'draft').length;
+        const publishedCount = myBooksData.filter(b => b.status === 'published' || !b.status).length;
+        countEl.textContent = `${draftCount} drafts, ${publishedCount} published`;
+    }
+
+    if (filtered.length === 0) {
+        container.innerHTML = `<div class="no-books">${myBooksFilter === 'all' ? 'No books yet. Create your first one below!' : 'No ' + myBooksFilter + ' books found.'}</div>`;
+        return;
+    }
+
+    container.innerHTML = filtered.map(book => {
+        const isDraft = book.status === 'draft';
+        const phaseText = book.wizardPhase ? `Phase ${book.wizardPhase}/6` : '';
+        const updatedDate = book.updated_at ? new Date(book.updated_at).toLocaleDateString() : '';
+
+        return `
+            <a href="?slug=${book.slug}" class="my-book-card ${isDraft ? 'draft' : 'published'}">
+                <div class="book-cover-container">
+                    <img src="${book.coverImg}" alt="${book.title}" class="book-cover" onerror="this.src='/images/placeholder-cover.svg'">
+                    ${isDraft ? `<span class="book-badge draft">${phaseText || 'Draft'}</span>` : ''}
+                </div>
+                <div class="book-info">
+                    <div class="book-title">${book.title}</div>
+                    <div class="book-meta">
+                        <span class="book-level">${book.level}</span>
+                        ${updatedDate ? `<span class="book-date">${updatedDate}</span>` : ''}
+                    </div>
+                </div>
+            </a>
+        `;
+    }).join('');
+}
+
+function filterMyBooks(filter) {
+    myBooksFilter = filter;
+
+    // Update active button
+    document.querySelectorAll('.my-books-filters .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filter);
+    });
+
+    renderMyBooks();
 }
 
 // Story type icons (emoji fallbacks)
@@ -2919,10 +3001,70 @@ async function saveAndPublish() {
 }
 
 // ===================
+// THUMBNAIL GENERATION
+// ===================
+
+async function generateThumbnail() {
+    // Find the first page with an image (cover or first story page)
+    let sourceImageUrl = state.book.cover_image;
+
+    if (!sourceImageUrl && state.book.pages) {
+        const pageWithImage = state.book.pages.find(p => p.image);
+        if (pageWithImage) {
+            sourceImageUrl = getImageUrl(pageWithImage);
+        }
+    }
+
+    if (!sourceImageUrl) {
+        console.warn('No source image available for thumbnail');
+        return null;
+    }
+
+    try {
+        // Create canvas for 512x512 thumbnail
+        const canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 512;
+        const ctx = canvas.getContext('2d');
+
+        // Load the source image
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+
+        await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+            img.src = sourceImageUrl;
+        });
+
+        // Calculate crop to make square (center crop)
+        const size = Math.min(img.width, img.height);
+        const x = (img.width - size) / 2;
+        const y = (img.height - size) / 2;
+
+        // Draw cropped and scaled image
+        ctx.drawImage(img, x, y, size, size, 0, 0, 512, 512);
+
+        // Convert to JPEG data URL (smaller than PNG)
+        const thumbnailDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+        console.log('Thumbnail generated successfully');
+        return thumbnailDataUrl;
+    } catch (error) {
+        console.warn('Failed to generate thumbnail:', error);
+        return null;
+    }
+}
+
+// ===================
 // FINISH
 // ===================
 
 async function finishWizard() {
+    // Generate thumbnail before saving
+    console.log('Generating thumbnail...');
+    const thumbnail = await generateThumbnail();
+
     // Build proper page structure with cover and copyright
     const storyPages = state.book.pages || [];
     const fullPages = [
@@ -2939,6 +3081,7 @@ async function finishWizard() {
         referenceImage: state.referenceImage,
         refStrategy: state.refStrategy,
         multiRefs: state.refStrategy === 'multi' ? state.multiRefs : undefined,
+        thumbnail: thumbnail, // Include generated thumbnail
         createdAt: new Date().toISOString(),
         createdWith: 'wizard'
     };

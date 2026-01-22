@@ -13,6 +13,7 @@ export default async function handler(req, res) {
   try {
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+    const includeDrafts = req.query.includeDrafts === 'true';
 
     if (supabaseUrl && supabaseKey) {
       // Fetch all books from Supabase
@@ -30,36 +31,43 @@ export default async function handler(req, res) {
       if (response.ok) {
         const rows = await response.json();
 
-        // Filter out special slugs (start with _), drafts, and extract metadata from data JSONB
-        // Only show published books (status === 'published') or legacy books without status field
-        // Also filter out incomplete books (no level, level is '?'/'unknown', or no story pages)
-        const books = rows
-          .filter(row => row.slug && !row.slug.startsWith('_') && row.data)
-          .filter(row => !row.data.status || row.data.status === 'published')
-          .filter(row => row.data.level && row.data.level !== '?' && row.data.level !== 'unknown')
-          .filter(row => {
-            // Must have pages array with at least one story page
-            const pages = row.data.pages || [];
-            return pages.some(p => p.type === 'story' && p.text);
-          })
-          .filter(row => {
-            // Exclude specific incomplete books (have content but no images)
-            const incompleteBooks = ['kittens-hidden-basket', 'friends-at-the-pond', 'game-quest', 'fern_gust_orange_bible'];
-            return !incompleteBooks.includes(row.slug);
-          })
-          .map(row => ({
-            slug: row.slug,
-            jsonFile: `${row.slug}.json`,
-            title: row.data.title || row.slug,
-            level: row.data.level || '?',
-            band: row.data.band || null,
-            skill: row.data.skill || row.data.targetPhonics || '',
-            coverImg: row.data.coverImage || `/images/covers/${row.slug}.png`,
-            created: row.data.created || null,
-            updated_at: row.updated_at
-          }));
+        // Filter out special slugs (start with _) and extract metadata from data JSONB
+        let books = rows
+          .filter(row => row.slug && !row.slug.startsWith('_') && row.data);
 
-        return res.status(200).json(books);
+        if (!includeDrafts) {
+          // Default behavior: Only show published books or legacy books without status
+          // Also filter out incomplete books
+          books = books
+            .filter(row => !row.data.status || row.data.status === 'published')
+            .filter(row => row.data.level && row.data.level !== '?' && row.data.level !== 'unknown')
+            .filter(row => {
+              // Must have pages array with at least one story page
+              const pages = row.data.pages || [];
+              return pages.some(p => p.type === 'story' && p.text);
+            })
+            .filter(row => {
+              // Exclude specific incomplete books (have content but no images)
+              const incompleteBooks = ['kittens-hidden-basket', 'friends-at-the-pond', 'game-quest', 'fern_gust_orange_bible'];
+              return !incompleteBooks.includes(row.slug);
+            });
+        }
+
+        const result = books.map(row => ({
+          slug: row.slug,
+          jsonFile: `${row.slug}.json`,
+          title: row.data.title || row.slug,
+          level: row.data.level || '?',
+          band: row.data.band || null,
+          skill: row.data.skill || row.data.targetPhonics || '',
+          coverImg: row.data.coverImage || row.data.thumbnail || `/images/thumbs/${row.slug}.jpg`,
+          created: row.data.created || null,
+          updated_at: row.updated_at,
+          status: row.data.status || 'published',
+          wizardPhase: row.data.wizardPhase || null
+        }));
+
+        return res.status(200).json(result);
       } else {
         console.error('Supabase query failed:', await response.text());
       }
@@ -77,7 +85,7 @@ export default async function handler(req, res) {
           level: book.level,
           band: book.band,
           skill: book.skill || '',
-          coverImg: book.coverImg || `/images/covers/${book.slug}.png`
+          coverImg: book.coverImg || `/images/thumbs/${book.slug}.jpg`
         }));
         return res.status(200).json(books);
       }

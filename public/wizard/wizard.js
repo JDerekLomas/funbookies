@@ -61,7 +61,7 @@ let state = {
     slug: null,
     currentPhase: 1,
     phaseStatus: { 1: 'in_progress', 2: 'pending', 3: 'pending', 4: 'pending', 5: 'pending', 6: 'pending' },
-    outline: null,  // Beat-by-beat story outline from Phase 1
+    outline: null,  // DEPRECATED: Legacy outline format. Use state.book directly.
     book: null,
     referenceImage: null,
     // Prompt tracking - stores custom/edited prompts
@@ -740,51 +740,63 @@ function generateOutline() {
 async function doGenerateOutline() {
     document.getElementById('phase1Form').classList.add('hidden');
     document.getElementById('phase1Loading').classList.remove('hidden');
-    document.getElementById('phase1LoadingText').textContent = 'Generating story outline...';
+    document.getElementById('phase1LoadingText').textContent = 'Generating complete story...';
 
     try {
         const response = await fetch('/api/generate-story', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                prompt: buildOutlinePrompt(),
-                mode: 'outline'
+                prompt: buildDirectBookPrompt(),
+                mode: 'direct'
             })
         });
 
-        if (!response.ok) throw new Error('Failed to generate outline');
+        if (!response.ok) throw new Error('Failed to generate story');
 
-        const outline = await response.json();
-        state.slug = generateSlug(outline.title);
-        state.outline = outline;
-        state.outline.level = state.formData.level;
-        saveState();
+        const book = await response.json();
+        state.slug = generateSlug(book.title);
 
-        state.phaseStatus[1] = 'complete';
-        state.checkpointApprovals[1] = { approved: true, timestamp: new Date().toISOString() };
-
-        // Initialize minimal book object for Supabase save
-        // Full book data is created in Phase 3, but we need something to save the draft
+        // Store directly in state.book (unified data model)
         state.book = {
-            title: outline.title,
+            ...book,
+            slug: state.slug,
             level: state.formData.level,
-            setting: state.formData.setting,
+            status: 'draft',
+            setting: book.setting_context || book.setting || state.formData.setting,
             storyType: state.formData.storyType,
             artStyle: state.formData.artStyle,
-            characterName: outline.characterName || outline.character?.name,
-            pages: [] // Empty until Phase 3
+            // Normalize character fields
+            characterName: book.characterName || book.characters?.main?.name,
+            characterDescription: book.characterDescription || book.characters?.main?.visual_shorthand ||
+                (book.characters?.main?.distinctive_features ?
+                    `${book.characters?.main?.visual_shorthand} (${book.characters?.main?.distinctive_features.join(', ')})` : ''),
         };
 
+        // Normalize pages format
+        if (state.book.pages) {
+            state.book.pages = state.book.pages.map((p, i) => ({
+                page: p.story_page || p.page || i + 1,
+                type: i === 0 ? 'cover' : (i === state.book.pages.length - 1 ? 'end' : 'story'),
+                text: p.text?.replace(/<\/?line>/g, ' ').trim() || p.text,
+                scene: p.scene || ''
+            }));
+        }
+
+        state.phaseStatus[1] = 'complete';
+        state.phaseStatus[2] = 'complete'; // Skip Phase 2
+        state.checkpointApprovals[1] = { approved: true, timestamp: new Date().toISOString() };
+        state.checkpointApprovals[2] = { approved: true, timestamp: new Date().toISOString() };
+
         saveState();
-        saveToSupabase(); // Save draft to Supabase after Phase 1
+        saveToSupabase();
 
         document.getElementById('phase1Loading').classList.add('hidden');
-        goToPhase(2);
-        renderOutlinePhase();
+        goToPhase(3); // Go directly to story review
 
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to generate outline. Please try again.');
+        alert('Failed to generate story. Please try again.');
         document.getElementById('phase1Form').classList.remove('hidden');
         document.getElementById('phase1Loading').classList.add('hidden');
     }
@@ -797,6 +809,109 @@ function buildOutlinePrompt() {
         return customPrompt;
     }
     return buildDefaultOutlinePrompt();
+}
+
+// Generate complete book in one step (unified data model)
+function buildDirectBookPrompt() {
+    const customPrompt = document.getElementById('storyPromptTextarea').value.trim();
+    if (customPrompt) {
+        state.prompts.story = customPrompt;
+        return customPrompt;
+    }
+
+    const level = state.formData.level;
+    const band = level.charAt(0);
+
+    const levelConstraints = {
+        'A0': { maxWords: 2, pages: '8-10', guidance: 'Wordless or 1-2 word labels. Pictures carry all meaning.' },
+        'A1': { maxWords: 2, pages: '8-10', guidance: 'Labels only: "A [noun]" or single words.' },
+        'A2': { maxWords: 3, pages: '8-10', guidance: 'Simple patterns: "I see a [noun]."' },
+        'A3': { maxWords: 4, pages: '10-12', guidance: 'CVC words. "The cat sat."' },
+        'A4': { maxWords: 5, pages: '10-12', guidance: 'CVC fluency. Short predictable sentences.' },
+        'B1': { maxWords: 6, pages: '10-12', guidance: 'Beginning blends (st, sp, cr, fl).' },
+        'B2': { maxWords: 6, pages: '10-12', guidance: 'Ending blends (mp, nd, st).' },
+        'B3': { maxWords: 6, pages: '10-12', guidance: 'Digraphs (sh, ch, th, wh).' },
+        'B4': { maxWords: 7, pages: '12-14', guidance: 'Short vowel mastery.' },
+        'B5': { maxWords: 7, pages: '12-14', guidance: 'Silent e (CVCe).' },
+        'B6': { maxWords: 8, pages: '12-14', guidance: 'Soft c and g.' },
+        'B7': { maxWords: 8, pages: '12-14', guidance: 'R-controlled vowels.' },
+        'B8': { maxWords: 9, pages: '12-14', guidance: 'Vowel teams (ai, ea, oa).' },
+        'B9': { maxWords: 9, pages: '12-14', guidance: 'Diphthongs (oi, ou, ow).' },
+        'C1': { maxWords: 10, pages: '14-16', guidance: 'Compound words.' },
+        'C2': { maxWords: 10, pages: '14-16', guidance: 'Open syllables.' },
+        'D1': { maxWords: 15, pages: '16-20', guidance: 'Chapter book style.' }
+    };
+
+    const constraints = levelConstraints[level] || { maxWords: 8, pages: '10-12', guidance: 'Age-appropriate.' };
+
+    // Get story type and art style
+    const storyType = getSelectedStoryType();
+    const artStyle = getSelectedArtStyle();
+
+    const storyTypeName = storyType?.name || 'Problem-Solution';
+    const storyTypeDesc = storyType?.description || 'Character wants something, faces obstacle, succeeds';
+    const storyTypeBeats = storyType?.beats || ['INTRODUCE', 'WANT', 'OBSTACLE', 'TRY', 'RESOLVE'];
+    const artStylePrompt = artStyle?.prompt || 'Warm watercolor illustration, soft edges, gentle colors';
+
+    return `You are a master children's book author. Generate a COMPLETE decodable book.
+
+## INPUTS
+- CONCEPT: ${state.formData.concept}
+- SETTING: ${state.formData.setting || 'appropriate for story'}
+- READING LEVEL: ${level} - ${constraints.guidance}
+- MAX WORDS PER SENTENCE: ${constraints.maxWords}
+- TARGET PAGES: ${constraints.pages}
+${state.formData.words.length > 0 ? `- WORDS TO INCLUDE: ${state.formData.words.join(', ')}` : ''}
+
+## STORY TYPE: ${storyTypeName}
+${storyTypeDesc}
+Follow these beats: ${storyTypeBeats.join(' → ')}
+
+## VISUAL STYLE
+${artStylePrompt}
+
+## CRITICAL RULES
+
+1. **NATURAL LANGUAGE**: Every sentence must sound like real speech. Read aloud before writing.
+   BAD: "He feels so free up." (unnatural)
+   GOOD: "He felt free as a bird!"
+
+2. **WORD COUNT**: Maximum ${constraints.maxWords} words per sentence. COUNT EVERY WORD.
+
+3. **SCENE DESCRIPTIONS**: Each scene must have:
+   - Shot type (Wide/Medium/Close-up)
+   - Character by name with visual details
+   - Physical action (not emotions)
+   - Setting with lighting
+   - End with: NO TEXT, NO WORDS, NO LETTERS
+
+4. **NEVER USE NEGATIONS** in scenes: "no ball" makes a ball appear!
+
+## OUTPUT FORMAT (JSON only, no other text)
+
+{
+  "title": "Catchy Title (2-4 words)",
+  "characterName": "Character Name",
+  "characterDescription": "detailed visual description for image consistency",
+  "setting_context": "where the story takes place",
+  "visual_style": "${artStylePrompt}",
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Book Title",
+      "scene": "Cover illustration: [Character] with [visual details] in [setting]. [Mood/pose]. NO TEXT, NO WORDS, NO LETTERS."
+    },
+    {
+      "page": 2,
+      "type": "story",
+      "text": "First story sentence.",
+      "scene": "Wide shot: [Character name], [visual details], [action-ing] in [setting]. [Lighting/mood]. NO TEXT, NO WORDS, NO LETTERS."
+    }
+  ]
+}
+
+Generate ${constraints.pages.split('-')[0]}-${constraints.pages.split('-')[1] || constraints.pages.split('-')[0]} pages following the ${storyTypeName} story structure. Include cover (page 1) and "The End" (last page).`;
 }
 
 function buildDefaultOutlinePrompt() {
@@ -899,10 +1014,16 @@ Create ${storyTypeBeats.length}-${storyTypeBeats.length + 4} beats following the
 }
 
 // ===================
-// PHASE 2: OUTLINE REVIEW
+// PHASE 2: OUTLINE REVIEW (Legacy - skipped in unified workflow)
 // ===================
 
 function renderOutlinePhase() {
+    // If we have a full book but no outline, Phase 2 was skipped (unified workflow)
+    if (!state.outline && state.book?.pages?.length > 0) {
+        // Auto-advance to Phase 3
+        goToPhase(3);
+        return;
+    }
     if (!state.outline) return;
     document.getElementById('outlineTitle').value = state.outline.title || '';
 
@@ -1026,8 +1147,18 @@ function regenerateOutline() {
 // ===================
 
 async function expandToFullStory() {
+    // If we already have a full book with pages (from direct generation), just proceed
+    if (state.book?.pages?.length > 0) {
+        state.phaseStatus[2] = 'complete';
+        state.checkpointApprovals[2] = { approved: true, timestamp: new Date().toISOString() };
+        saveState();
+        goToPhase(3);
+        return;
+    }
+
+    // Legacy path: expand from outline (for backward compatibility)
     if (!state.outline) {
-        alert('No outline to expand.');
+        alert('No story data available.');
         return;
     }
 

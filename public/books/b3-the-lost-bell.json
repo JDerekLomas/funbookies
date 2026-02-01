@@ -1,0 +1,339 @@
+{
+  "id": "b3-the-lost-bell",
+  "title": "The Lost Bell",
+  "slug": "b3-the-lost-bell",
+  "level": "B3",
+  "band": "B",
+  "targetPhonics": "Final Blends + FLOSS rule",
+  "wordFamilies": [
+    "-nd",
+    "-mp",
+    "-st",
+    "-nt",
+    "-nk",
+    "-ft",
+    "-lp",
+    "-ll"
+  ],
+  "skill": "Final Blends + FLOSS Rule",
+  "skill_description": "Practice reading words with final consonant blends (-nd, -mp, -st, -nt, -ll) and doubled consonants (ff, ll, ss).",
+  "age_range": "K-1",
+  "created": "2026-02-01",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Ben finds an old bell at a castle ruin. He rings it and goes back in time \u2014 the castle is alive with banners and people. He sees men on the wall, a big gate slamming shut, and a woman at the well. Then the bell rings again and he is back in the quiet ruin.",
+  "visual_style": "Rich watercolor with warm stone textures and golden light. The past is vivid and bustling \u2014 bright banners, warm sun, busy people. The present is quiet, mossy, overgrown. The contrast tells the story.",
+  "characters": {
+    "main": {
+      "name": "Ben",
+      "type": "boy",
+      "visual_shorthand": "Small boy (5-6) with short messy brown hair, a red tunic shirt, and brown boots",
+      "distinctive_features": [
+        "short messy brown hair",
+        "red tunic shirt",
+        "brown shorts",
+        "brown lace-up boots",
+        "round face",
+        "bright curious expression"
+      ]
+    }
+  },
+  "word_list": {
+    "sound_out": [
+      "bell",
+      "well",
+      "wall",
+      "tall",
+      "hill",
+      "fell",
+      "yell",
+      "pond",
+      "land",
+      "sand",
+      "hand",
+      "stand",
+      "must",
+      "just",
+      "best",
+      "fast",
+      "last",
+      "past",
+      "went",
+      "bent",
+      "sent",
+      "left",
+      "soft",
+      "lift",
+      "help",
+      "damp",
+      "moss",
+      "cliff",
+      "stuff",
+      "off",
+      "step",
+      "hid",
+      "big",
+      "did",
+      "had",
+      "got",
+      "can",
+      "ran",
+      "sat",
+      "ring",
+      "back",
+      "men",
+      "shut"
+    ],
+    "floss_words": [
+      "bell",
+      "well",
+      "wall",
+      "tall",
+      "hill",
+      "fell",
+      "yell",
+      "moss",
+      "cliff",
+      "stuff",
+      "off"
+    ],
+    "sight": [
+      "a",
+      "I",
+      "the",
+      "is",
+      "to",
+      "and",
+      "it",
+      "in",
+      "on",
+      "my",
+      "see",
+      "he",
+      "she",
+      "we",
+      "be",
+      "you",
+      "are",
+      "was",
+      "for"
+    ],
+    "new": [
+      "Ben",
+      "castle"
+    ]
+  },
+  "sightWordsUsed": [
+    "a",
+    "I",
+    "the",
+    "is",
+    "to",
+    "and",
+    "it",
+    "in",
+    "on",
+    "see",
+    "he",
+    "was",
+    "for"
+  ],
+  "wordsearch_words": [
+    "bell",
+    "wall",
+    "well",
+    "hill",
+    "pond",
+    "fast",
+    "moss",
+    "sand"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "The Lost Bell",
+      "scene": "A small boy with short messy brown hair wearing a red tunic shirt, brown shorts, and brown boots, standing on a grassy hilltop holding an old bronze bell. Behind him a medieval castle \u2014 the left half is a mossy crumbling ruin, the right half glows golden with colourful banners and torchlight as if alive. Rich watercolor style. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page01.png"
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_wordlist"
+    },
+    {
+      "page": 5,
+      "story_page": 1,
+      "type": "story",
+      "text": "Ben went up the hill.\nAn old castle sat on top, all moss and dust.",
+      "scene": "A small boy with short messy brown hair, red tunic shirt, brown shorts, and brown boots, walking up a grassy hill path alone. At the hilltop a crumbling medieval stone castle covered in moss and ivy, broken walls, empty dark windows. Overcast grey sky. Quiet and still. Muted grey-green watercolor palette. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page05.png"
+    },
+    {
+      "page": 6,
+      "story_page": 2,
+      "type": "story",
+      "text": "He went past the pond.\nIt was still and damp.",
+      "scene": "A small boy with short messy brown hair and red tunic shirt walking along the edge of a dark still pond surrounded by reeds and fallen stones. The pond reflects a crumbling castle wall behind it. Murky green water, algae on the surface. Damp misty atmosphere. Muted grey-green watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page06.png"
+    },
+    {
+      "page": 7,
+      "story_page": 3,
+      "type": "story",
+      "text": "Ben found a bell in the sand.\nIt was old and dull.",
+      "scene": "Close view of a small boy with short messy brown hair and red tunic shirt crouching on sandy ground, brushing sand off a tarnished green-brown bronze bell half buried in the dirt. A moss-covered castle wall rises behind him. The boy looks down at the bell with wide curious eyes. Soft grey light. Watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page07.png"
+    },
+    {
+      "page": 8,
+      "story_page": 4,
+      "type": "story",
+      "text": "He held it up and gave it a ring.\nCLANG!",
+      "scene": "A small boy with short messy brown hair and red tunic shirt standing and holding a bronze bell high above his head with both hands. Bright golden light bursts outward from the bell in all directions like a shockwave. His hair blows back from the force. The grey castle ruin behind him begins to glow warm gold. Dramatic burst of gold against grey-green background. Watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page08.png"
+    },
+    {
+      "page": 9,
+      "story_page": 5,
+      "type": "story",
+      "text": "The moss fell off the walls.\nThe castle was tall and strong!",
+      "scene": "A grand medieval castle with tall intact stone walls, bright red and gold banners hanging from the battlements, flags fluttering in the wind. A clear blue moat surrounds the castle. Bright blue sky, warm golden sunlight. A small boy with short messy brown hair and red tunic shirt stands in the foreground looking up with his mouth wide open in amazement. Vivid warm watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page09.png"
+    },
+    {
+      "page": 10,
+      "story_page": 6,
+      "type": "story",
+      "text": "Ben went in the big gate.\nIt slammed shut. BANG!",
+      "scene": "A massive wooden castle gate with iron studs and heavy iron hinges, closed shut in a thick stone archway. Two medieval guards in leather tunics stand on either side of the gate holding spears. The stone archway is solid and imposing. Warm torchlight on the stone walls. A small boy with short messy brown hair and red tunic shirt looks up at the enormous gate. Warm watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page11.png"
+    },
+    {
+      "page": 11,
+      "story_page": 7,
+      "type": "story",
+      "text": "Men stood on the tall wall.\nThey could see all the land from up on top.",
+      "scene": "Three medieval soldiers in leather tunics standing on top of a castle wall battlement, silhouetted against a bright sky, looking outward over vast green rolling hills and farmland. One soldier points into the distance. Colourful banners flutter beside them. View from below looking up at them. Warm golden sunlight. Watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page10.png"
+    },
+    {
+      "page": 12,
+      "story_page": 8,
+      "type": "story",
+      "text": "Ben went to the well in the middle.\nA woman sent a bucket down, down, down.",
+      "scene": "A medieval woman in a plain linen dress and headscarf standing at a stone well in the centre of a sunny cobblestone castle courtyard, lowering a wooden bucket on a rope down into the well. A small boy with short messy brown hair and red tunic shirt stands beside her, leaning over the well edge and peering down into the darkness. Castle walls and a tower in the background. Warm afternoon sunlight. Watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page12.png"
+    },
+    {
+      "page": 13,
+      "story_page": 9,
+      "type": "story",
+      "text": "The bucket came back up, full to the top.\nThe well held all the water for the castle.",
+      "scene": "A wooden bucket overflowing with clear sparkling water being pulled up over the rim of a stone well by a medieval woman. Water droplets catch the sunlight. A small boy with short messy brown hair and red tunic shirt reaches out one hand to touch the water, smiling. Sunny cobblestone courtyard. Warm watercolor with bright sparkling water details. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page13.png"
+    },
+    {
+      "page": 14,
+      "story_page": 10,
+      "type": "story",
+      "text": "Ben ran up the steps to the top of the wall.\nWind hit him fast.",
+      "scene": "A small boy with short messy brown hair and red tunic shirt standing on top of a castle wall battlement walkway, his hair and shirt blown sideways by strong wind. He grips the stone wall with one hand. Vast green landscape stretches to the horizon \u2014 fields, forest, a winding river. Bright blue sky with white clouds. Golden sunlight. Watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page14.png"
+    },
+    {
+      "page": 15,
+      "story_page": 11,
+      "type": "story",
+      "text": "He could see the pond, the hill, and the land.\nThis was the best spot in the castle!",
+      "scene": "A panoramic landscape view from the top of castle battlements: a clear blue moat circling below, a green hill, patchwork farmland with golden wheat fields, tiny cottages, and distant blue mountains. Stone parapet wall in the foreground. Warm golden-hour light across the entire landscape. Watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page15.png"
+    },
+    {
+      "page": 16,
+      "story_page": 12,
+      "type": "story",
+      "text": "Then the bell rang again. CLANG!\nBen held on fast.",
+      "scene": "A small boy with short messy brown hair and red tunic shirt on top of castle battlements, gripping the stone wall with both hands as golden light bursts from a bronze bell beside him. The castle stones around him are cracking and crumbling. Colourful banners are fading into grey mist. Half the image is warm gold, half is grey-green fog. Dramatic watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page16.png"
+    },
+    {
+      "page": 17,
+      "story_page": 13,
+      "type": "story",
+      "text": "The men and the woman were gone.\nMoss was back on the walls.",
+      "scene": "A small boy with short messy brown hair and red tunic shirt standing alone in an overgrown castle courtyard, holding the bronze bell, looking around. Crumbling stone walls covered in thick moss and ivy. Grass growing between cobblestones. Empty arched doorways. Overcast grey sky. A small bird perched on a fallen stone. Quiet and still. Muted grey-green watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page17.png"
+    },
+    {
+      "page": 18,
+      "story_page": 14,
+      "type": "story",
+      "text": "But Ben still had the bell.\nHe held it to his chest and went back down the hill.",
+      "scene": "A small boy with short messy brown hair and red tunic shirt walking down a grassy hillside path, holding a bronze bell pressed against his chest with both arms. A gentle smile on his round face. The crumbling castle ruin sits on the hilltop behind him. Golden sunset light breaks through clouds, illuminating the boy. Wildflowers along the path. Warm watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page18.png"
+    },
+    {
+      "page": 19,
+      "type": "end",
+      "text": "The End",
+      "scene": "A small boy with short messy brown hair and red tunic shirt sitting on a bed in a cozy bedroom at night. An old bronze bell sits on the bedside table next to a glowing lamp. The boy looks at the bell with a small knowing smile. Through the bedroom window, the dark silhouette of a castle on a distant hill against a starry night sky. Warm cozy lamplight. Watercolor. NO TEXT, NO WORDS, NO LETTERS.",
+      "image": "images/b3-the-lost-bell/page19.png"
+    },
+    {
+      "page": 20,
+      "type": "wordsearch"
+    },
+    {
+      "page": 21,
+      "type": "series_info"
+    },
+    {
+      "page": 22,
+      "type": "back_cover",
+      "text": "Ben finds an old bell at a castle ruin. When he rings it, the castle comes back to life \u2014 guards, banners, and all. What will he see before the bell rings again?"
+    }
+  ],
+  "reference_prompt": "9-panel children's book reference sheet, rich watercolor style with warm stone textures and golden light.\n\nRow 1 - CHARACTER:\n[1] Ben front view: small boy (5-6), short messy brown hair, round face, red tunic shirt, brown shorts, brown lace-up boots, curious bright expression. Standing pose holding a tarnished bronze bell.\n[2] Ben action: running up stone steps, hair bouncing, boots on worn stone, one hand on wall. Dynamic upward movement.\n[3] Ben windswept: standing on castle battlements, wind blowing hair and shirt sideways, one hand gripping stone parapet, looking out at vast green landscape.\n\nRow 2 - KEY ELEMENTS:\n[4] The bronze bell: tarnished green-brown patina, classic bell shape, clapper visible inside. Golden light radiating from it in all directions.\n[5] **HERO SHOT**: The castle alive \u2014 tall clean stone walls with bright red and gold banners, clear blue moat, drawbridge down, warm golden sunlight, blue sky. Vivid and bustling.\n[6] The castle in ruin \u2014 same structure but crumbling, thick moss and ivy covering the walls, empty dark windows, stagnant green moat. Grey-green muted tones. Silent.\n\nRow 3 - SETTINGS:\n[7] Castle wall battlements from below: crenellated walkway at top of tall stone walls, three soldiers silhouetted against sky, colourful banners fluttering. Warm golden light.\n[8] Stone well in courtyard: circular low stone wall, wooden crossbar with rope and bucket, cobblestones around it, a medieval woman in linen dress and headscarf. Warm busy sunlit scene.\n[9] Massive wooden castle gate: heavy timber with iron studs, closed in a thick stone archway, two guards with spears standing beside it. Warm torchlight on stone.\n\nPalette: warm stone grey-brown, moss green, sunset gold, bronze bell patina, Ben's red shirt and brown hair. Past scenes = warm golden. Present scenes = cool grey-green.\nFormat: Square 1:1, 3x3 grid, thin white borders between panels.\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+  "parent_tips": {
+    "before_reading": "Look at the cover together. Ask: What do you see? Why does the castle look two different ways? What do you think the bell does?",
+    "during_reading": "When the castle changes, ask: What is different now? Point out the castle features \u2014 the wall for watching, the gate for keeping people out, the well for water. Ask: Why did castles need these things?",
+    "after_reading": "Talk about what Ben saw in the past. Why did castles have walls so tall? What was the well for? What would it be like to live in a castle? Would you ring the bell again?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "What did Ben find at the castle?",
+      "answer": "An old bell in the sand."
+    },
+    {
+      "question": "What happened when he rang the bell?",
+      "answer": "The castle came back to life \u2014 it was strong and tall again with people in it."
+    },
+    {
+      "question": "What did the men on the wall do?",
+      "answer": "They watched the land from up on top to see who was coming."
+    },
+    {
+      "question": "What was the well for?",
+      "answer": "It held all the water for the castle."
+    },
+    {
+      "question": "What happened at the end?",
+      "answer": "The bell rang again and the castle went back to a ruin, but Ben kept the bell."
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-02-01T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 220,
+    "decodabilityTarget": "85%+",
+    "storyPages": 14
+  }
+}

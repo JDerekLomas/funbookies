@@ -210,6 +210,16 @@
     "coverImg": "/images/covers/b3-pip-and-the-croc.png"
   },
   {
+    "slug": "b3-the-lost-bell",
+    "jsonFile": "b3-the-lost-bell.json",
+    "title": "The Lost Bell",
+    "level": "B3",
+    "band": "B",
+    "color": "Gray",
+    "skill": "Final Blends + FLOSS Rule (-nd, -mp, -st, -nt, -ll, -ss, -ff)",
+    "coverImg": "/books/images/b3-the-lost-bell/page01.png"
+  },
+  {
     "slug": "clover-the-cloud",
     "jsonFile": "clover-the-cloud.json",
     "title": "Clover the Cloud",
@@ -508,5 +518,10 @@
     "color": "Green",
     "skill": "Vowel Teams (ai, ay, ea, ee, oa)",
     "coverImg": "/images/covers/b8-the-day-the-rain-came.png"
+  },
+  {
+    "slug": "a3-dot-and-the-red-pot",
+    "title": "Dot and the Red Pot",
+    "level": "A3"
   }
 ]

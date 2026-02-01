@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Detective - FunBookies</title>
+    <link rel="stylesheet" href="/styles/shared.css">
+    <style>
+        .mission-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .mission-card h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+        }
+
+        .pattern-display {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            border-radius: 12px;
+            display: inline-block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .pattern-hint {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .passage-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .passage-title {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .passage-text {
+            font-size: 1.3rem;
+            line-height: 2;
+            text-align: left;
+        }
+
+        .word {
+            display: inline;
+            padding: 4px 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .word:hover {
+            background: #f0f0f0;
+        }
+
+        .word.selected {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .word.found {
+            background: #4CAF50;
+            color: white;
+            cursor: default;
+        }
+
+        .word.wrong {
+            background: #ff6b6b;
+            color: white;
+            animation: shake 0.3s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .found-words {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .found-words h3 {
+            margin: 0 0 10px 0;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .found-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            min-height: 40px;
+        }
+
+        .found-tag {
+            background: #4CAF50;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 1rem;
+            animation: popIn 0.3s;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            70% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .level-badge {
+            background: rgba(255,255,255,0.3);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .complete-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .complete-overlay.visible {
+            display: flex;
+        }
+
+        .complete-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            animation: bounceIn 0.5s;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .complete-card h2 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .complete-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .complete-stat {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .complete-stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .complete-stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .hint-word {
+            background: #FFA726 !important;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-narrow">
+        <div class="mission-card">
+            <div class="level-badge">Level <span id="levelNum">1</span> / 5</div>
+            <h2>Find words with the pattern:</h2>
+            <div class="pattern-display" id="patternDisplay">-ing</div>
+            <div class="pattern-hint" id="patternHint">Words that end with -ing</div>
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-value" id="foundCount">0</div>
+                    <div class="stat-label">Found</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="targetCount">5</div>
+                    <div class="stat-label">Target</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="scoreDisplay">0</div>
+                    <div class="stat-label">Score</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="passage-card">
+            <div class="passage-title" id="passageTitle">The Park</div>
+            <div class="passage-text" id="passageText"></div>
+        </div>
+
+        <div class="found-words">
+            <h3>Words Found:</h3>
+            <div class="found-list" id="foundList"></div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-secondary btn-sm" id="hintBtn" onclick="showHint()">Show Hint (3 left)</button>
+        </div>
+    </div>
+
+    <div class="complete-overlay" id="completeOverlay">
+        <div class="complete-card">
+            <h2>Great Detective Work!</h2>
+            <p id="completeMessage">You found all the words!</p>
+            <div class="complete-stats">
+                <div class="complete-stat">
+                    <div class="complete-stat-value" id="finalScore">0</div>
+                    <div class="complete-stat-label">Total Score</div>
+                </div>
+                <div class="complete-stat">
+                    <div class="complete-stat-value" id="finalAccuracy">0%</div>
+                    <div class="complete-stat-label">Accuracy</div>
+                </div>
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-primary" onclick="nextLevel()">Next Level</button>
+                <button class="btn btn-secondary" onclick="location.href='/activities/band-d.html'">Back to Band D</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/data-service.js"></script>
+    <script src="/js/student-picker.js"></script>
+    <script src="/js/audio-utils.js"></script>
+    <script src="/js/toast.js"></script>
+    <script src="/js/progress-tracker.js"></script>
+    <script>
+        // Game levels with patterns and passages
+        const LEVELS = [
+            {
+                pattern: '-ing',
+                hint: 'Words that end with -ing',
+                title: 'A Day at the Park',
+                passage: 'The sun was shining bright. Kids were running and playing on the grass. A dog was jumping to catch a ball. Birds were singing in the trees. Everyone was having a wonderful time laughing and smiling together.',
+                targets: ['shining', 'running', 'playing', 'jumping', 'singing', 'having', 'laughing', 'smiling']
+            },
+            {
+                pattern: '-ed',
+                hint: 'Words that end with -ed (past tense)',
+                title: 'The Lost Kitten',
+                passage: 'Yesterday, I walked to the store. On the way, I spotted a tiny kitten. It looked scared and lost. I picked it up and carried it home. Mom called the shelter and they helped find its owner. The kitten purred when we petted it.',
+                targets: ['walked', 'spotted', 'looked', 'scared', 'picked', 'carried', 'called', 'helped', 'purred', 'petted']
+            },
+            {
+                pattern: 'sh-',
+                hint: 'Words that start with sh-',
+                passage: 'At the beach, we found pretty shells in the sand. The ship sailed on the shiny water. We shared our snacks in the shade under a big umbrella. I had to shield my eyes from the sun. What a great day by the shore!',
+                title: 'Beach Day',
+                targets: ['shells', 'ship', 'shiny', 'shared', 'shade', 'shield', 'shore']
+            },
+            {
+                pattern: '-tion',
+                hint: 'Words that end with -tion',
+                title: 'The Science Fair',
+                passage: 'The science fair was full of creation and invention. One station showed a demonstration of electricity. Another had information about space exploration. The decoration was amazing. Everyone paid attention to each presentation.',
+                targets: ['creation', 'invention', 'station', 'demonstration', 'information', 'exploration', 'decoration', 'attention', 'presentation']
+            },
+            {
+                pattern: 'oo',
+                hint: 'Words with the "oo" sound (like moon or book)',
+                title: 'The Library',
+                passage: 'I took a good book from the library. It was about a cool astronaut who went to the moon. I sat in the reading nook all afternoon. Soon I was lost in the story. The food court was too far, so I stayed until the room got dark.',
+                targets: ['took', 'good', 'book', 'cool', 'moon', 'nook', 'afternoon', 'soon', 'food', 'too', 'room']
+            }
+        ];
+
+        let currentLevel = 0;
+        let foundWords = [];
+        let targetWords = [];
+        let score = 0;
+        let totalClicks = 0;
+        let correctClicks = 0;
+        let hintsRemaining = 3;
+
+        // Session stats for progress tracking
+        let sessionStats = {
+            correct: 0,
+            wrong: 0
+        };
+
+        function initGame() {
+            loadLevel(currentLevel);
+        }
+
+        function loadLevel(levelIndex) {
+            const level = LEVELS[levelIndex];
+            foundWords = [];
+            targetWords = [...level.targets];
+            totalClicks = 0;
+            correctClicks = 0;
+
+            // Update UI
+            document.getElementById('levelNum').textContent = levelIndex + 1;
+            document.getElementById('patternDisplay').textContent = level.pattern;
+            document.getElementById('patternHint').textContent = level.hint;
+            document.getElementById('passageTitle').textContent = level.title;
+            document.getElementById('foundCount').textContent = '0';
+            document.getElementById('targetCount').textContent = targetWords.length;
+            document.getElementById('foundList').innerHTML = '';
+
+            // Render passage with clickable words
+            renderPassage(level.passage);
+
+            // Update hint button
+            document.getElementById('hintBtn').textContent = `Show Hint (${hintsRemaining} left)`;
+            document.getElementById('hintBtn').disabled = hintsRemaining <= 0;
+        }
+
+        function renderPassage(text) {
+            const container = document.getElementById('passageText');
+            container.innerHTML = '';
+
+            // Split into words while preserving punctuation
+            const words = text.split(/(\s+)/);
+
+            words.forEach(segment => {
+                if (/^\s+$/.test(segment)) {
+                    // Whitespace - add as text
+                    container.appendChild(document.createTextNode(segment));
+                } else if (segment) {
+                    // Word with possible punctuation
+                    const match = segment.match(/^([.,!?;:'"]*)?(\w+)([.,!?;:'"]*)?$/);
+                    if (match) {
+                        const [, before, word, after] = match;
+
+                        if (before) {
+                            container.appendChild(document.createTextNode(before));
+                        }
+
+                        const span = document.createElement('span');
+                        span.className = 'word';
+                        span.textContent = word;
+                        span.dataset.word = word.toLowerCase();
+                        span.onclick = () => handleWordClick(span);
+                        container.appendChild(span);
+
+                        if (after) {
+                            container.appendChild(document.createTextNode(after));
+                        }
+                    } else {
+                        container.appendChild(document.createTextNode(segment));
+                    }
+                }
+            });
+        }
+
+        function handleWordClick(element) {
+            const word = element.dataset.word;
+
+            // Already found
+            if (element.classList.contains('found')) {
+                return;
+            }
+
+            totalClicks++;
+
+            // Check if it's a target word
+            const targetIndex = targetWords.findIndex(t => t.toLowerCase() === word);
+
+            if (targetIndex !== -1) {
+                // Correct!
+                correctClicks++;
+                sessionStats.correct++;
+                element.classList.add('found');
+                foundWords.push(targetWords[targetIndex]);
+
+                // Update found list
+                const tag = document.createElement('span');
+                tag.className = 'found-tag';
+                tag.textContent = targetWords[targetIndex];
+                document.getElementById('foundList').appendChild(tag);
+
+                // Update score
+                score += 10;
+                document.getElementById('scoreDisplay').textContent = score;
+                document.getElementById('foundCount').textContent = foundWords.length;
+
+                // Play success sound
+                if (window.AudioUtils) {
+                    AudioUtils.playCorrect();
+                }
+
+                // Check if level complete
+                if (foundWords.length >= targetWords.length) {
+                    setTimeout(() => showLevelComplete(), 500);
+                }
+            } else {
+                // Wrong word
+                sessionStats.wrong++;
+                element.classList.add('wrong');
+                setTimeout(() => element.classList.remove('wrong'), 300);
+
+                // Play wrong sound
+                if (window.AudioUtils) {
+                    AudioUtils.playWrong();
+                }
+            }
+        }
+
+        function showHint() {
+            if (hintsRemaining <= 0) return;
+
+            hintsRemaining--;
+            document.getElementById('hintBtn').textContent = `Show Hint (${hintsRemaining} left)`;
+            document.getElementById('hintBtn').disabled = hintsRemaining <= 0;
+
+            // Find an unfound target word and highlight it
+            const unfound = targetWords.filter(t => !foundWords.includes(t));
+            if (unfound.length > 0) {
+                const hintWord = unfound[0].toLowerCase();
+                const wordElements = document.querySelectorAll('.word');
+
+                wordElements.forEach(el => {
+                    if (el.dataset.word === hintWord && !el.classList.contains('found')) {
+                        el.classList.add('hint-word');
+                        setTimeout(() => el.classList.remove('hint-word'), 2000);
+                    }
+                });
+            }
+        }
+
+        function showLevelComplete() {
+            const accuracy = totalClicks > 0 ? Math.round((correctClicks / totalClicks) * 100) : 100;
+
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('finalAccuracy').textContent = accuracy + '%';
+
+            if (currentLevel >= LEVELS.length - 1) {
+                document.getElementById('completeMessage').textContent = 'You completed all levels!';
+                // Record progress at end
+                recordProgressToTracker();
+            } else {
+                document.getElementById('completeMessage').textContent = 'You found all the words!';
+            }
+
+            document.getElementById('completeOverlay').classList.add('visible');
+        }
+
+        function nextLevel() {
+            document.getElementById('completeOverlay').classList.remove('visible');
+
+            if (currentLevel < LEVELS.length - 1) {
+                currentLevel++;
+                loadLevel(currentLevel);
+            } else {
+                // All levels complete - record final progress
+                recordProgressToTracker();
+                // Reset for replay
+                currentLevel = 0;
+                score = 0;
+                hintsRemaining = 3;
+                loadLevel(currentLevel);
+            }
+        }
+
+        function recordProgressToTracker() {
+            if (typeof ProgressTracker !== 'undefined') {
+                const total = sessionStats.correct + sessionStats.wrong;
+                const accuracy = total > 0 ? sessionStats.correct / total : 0;
+
+                ProgressTracker.recordSession('word-detective', 'D', accuracy, {
+                    wordsFound: sessionStats.correct,
+                    wrongClicks: sessionStats.wrong,
+                    levelsCompleted: currentLevel + 1,
+                    score: score
+                });
+
+                // Check for band promotion
+                const promotion = ProgressTracker.checkBandPromotion('D');
+                if (promotion.ready) {
+                    if (window.showToast) {
+                        showToast('Congratulations! You have mastered all bands!', 'success');
+                    }
+                }
+
+                // Reset session stats
+                sessionStats = { correct: 0, wrong: 0 };
+            }
+        }
+
+        // Save progress on page unload
+        window.addEventListener('beforeunload', () => {
+            if (sessionStats.correct > 0 || sessionStats.wrong > 0) {
+                recordProgressToTracker();
+            }
+        });
+
+        // Initialize
+        initGame();
+    </script>
+</body>
+</html>

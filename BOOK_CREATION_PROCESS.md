@@ -22,7 +22,7 @@ Concept → Outline → Full Story → Reference Image → Page Images → Publi
 **6-Phase Wizard Flow:**
 1. **Concept** - Enter level, story idea, setting → Generate beat-by-beat outline
 2. **Outline** - Review/edit story beats (add, delete, reorder)
-3. **Story** - Expand outline to full text with `<line>` tags and `<scene>` XML
+3. **Story** - Expand outline to full text (plain text with newlines) and scene descriptions
 4. **Reference** - Generate 9-panel style reference sheet
 5. **Pages** - Generate individual page images using reference
 6. **Publish** - Review and publish to reader
@@ -121,7 +121,7 @@ curl -X POST https://funbookies.com/api/generate-story \
   "pages": [
     {
       "story_page": 1,
-      "text": "<line>Pip is a pig.</line><line>Pip wants mud.</line>",
+      "text": "Pip is a pig.\nPip wants mud.",
       "scene": "Wide shot: Pip, plump pink pig with floppy ears and curly tail, standing in sunny farmyard looking around. Warm morning light. NO TEXT, NO WORDS, NO LETTERS."
     }
   ],
@@ -171,7 +171,7 @@ Let humans edit the story beats BEFORE generating full text. This prevents waste
 - Level constraints
 
 ### Output
-- Full story text with `<line>` tags
+- Full story text (plain text, newlines between lines)
 - Scene descriptions in WHO/WHERE/WHAT/STATE format
 - Word lists (sound_out, sight, heart)
 - 9-panel reference prompt
@@ -209,6 +209,18 @@ The 9-panel reference sheet establishes:
 
 ### Model
 Use `nano-banana-pro` (text-to-image) for references.
+
+```bash
+# nano-banana-pro is under google/, uses --aspect-ratio and --resolution (not --size)
+cd $SKILL_DIR
+uv run python models/google/nano-banana-pro/generation.py \
+  --prompt "..." --aspect-ratio "1:1" --resolution "1K"
+
+# wan2.6-image is under alibaba/, uses --size and --images for style transfer
+uv run python models/alibaba/wan2.6-image/generation.py \
+  --prompt "..." --images '["https://ref-url.png"]' \
+  --size "1280*960" --n 1
+```
 
 ### Checkpoint: Reference Image Review
 
@@ -422,22 +434,18 @@ bold shapes and textures. NO TEXT.
    - Bad: "not a grid", "single image not panels"
    - Good: "One cohesive illustration filling the entire canvas"
 
-### Emotional → Physical Translation
+### Emotional → Physical Translation (Optional)
 
-**CRITICAL:** Never use mood words in scene descriptions. Translate emotions to physical manifestations:
+Modern image models handle emotion words reasonably well. However, if you want precise control, you can translate emotions to physical descriptions:
 
 | Emotion | Physical Description |
 |---------|---------------------|
-| Scared/Panicked | Eyes wide open, mouth agape, eyebrows raised high, body leaning back |
-| Happy/Joyful | Wide smile showing teeth, eyes crinkled, cheeks raised |
-| Sad/Worried | Downturned mouth, eyebrows furrowed inward, shoulders slumped |
-| Surprised | Mouth O-shaped, eyebrows raised, hands up near face |
-| Determined | Jaw set, eyes focused, chin up, chest out, stepping confidently |
-| Tired/Exhausted | Drooping eyelids, slouched posture, yawning |
-| Stuck in mud | Body buried up to [specific point], only [parts] visible above surface |
-| Running away | Legs extended mid-stride, arms pumping, body leaning forward |
+| Scared | Eyes wide open, mouth agape, body leaning back |
+| Happy | Wide smile, eyes crinkled, cheeks raised |
+| Surprised | Mouth O-shaped, eyebrows raised |
+| Determined | Jaw set, eyes focused, stepping confidently |
 
-**Why:** Image models don't understand emotions—they understand visual features. "Scared" means nothing; "eyes wide, mouth agape" is renderable.
+Using "scared" or "happy" directly in prompts is fine for most cases. Physical descriptions give more precise control when needed.
 
 ### Scene Validation Checklist
 
@@ -486,6 +494,29 @@ Before proceeding to image generation:
 - Include character visual details in every prompt
 - Reference the same reference image for all pages
 - Use explicit "draw EXACTLY as described" language
+
+### Mistake 6: Using `<line>` Tags in Story Text
+**Symptom:** Missing spaces between sentences when rendered in the reader
+**Cause:** `<line>` tags render as unknown inline HTML elements with no whitespace
+**Prevention:** Use plain text with `\n` newlines to separate lines (matches all other books)
+```json
+"text": "Ben went up the hill.\nAn old castle sat on top."
+```
+
+### Mistake 7: Dynamic/Mechanical Scenes
+**Symptom:** Garbled or unrealistic images (e.g., drawbridge mid-lift)
+**Cause:** wan2.6-image struggles with complex mechanical motion or mid-action states
+**Prevention:** Use static compositions instead. Replace "drawbridge being raised" with "gate closed shut with guards standing beside it."
+
+### Mistake 8: Spatial Logic Gaps
+**Symptom:** Character jumps from outside to inside a building with no transition
+**Cause:** Scene sequence doesn't account for physical movement between locations
+**Prevention:** Review story flow for spatial continuity. If character is outside on page N and inside on page N+2, page N+1 should show them entering.
+
+### Mistake 9: Scene Prompts Missing Full Character Description
+**Symptom:** Character appearance drifts or becomes inconsistent across pages
+**Cause:** Scene description relies on reference image alone without explicit character details
+**Prevention:** Every scene prompt should be fully self-contained with complete character description repeated. Don't assume the model remembers from previous pages.
 
 ---
 

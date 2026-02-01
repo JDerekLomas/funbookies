@@ -4,6 +4,33 @@ Development session notes and changes.
 
 ---
 
+## 2026-02-01 — Add "The Lost Bell" (B3) + process doc updates
+
+**Commit:** 2006b0e
+
+### New Book
+- **The Lost Bell** (b3-the-lost-bell) — B3 level, final blends + FLOSS rule
+- Time-travel castle story: Ben finds a bell, rings it, castle comes alive
+- 14 story pages, watercolor style, ~220 words
+- Reference: nano-banana-pro 9-panel → wan2.6-image for all pages
+
+### Process Learnings
+1. **`<line>` tags don't work** — render as inline HTML with no whitespace, causing missing spaces between sentences. Use plain text with `\n` newlines instead (matches all other books).
+2. **nano-banana-pro is under `google/`** not `alibaba/` in the mulerouter skill. Uses `--aspect-ratio` + `--resolution`, not `--size` + `--n`.
+3. **Avoid dynamic/mechanical scenes** in wan2.6 — drawbridge lifting looked bad. Static compositions (closed gate with guards) work much better.
+4. **Each scene prompt must be fully self-contained** — repeat complete character description every time for consistency.
+5. **Check spatial logic** — story flow must account for physical transitions (outside→entering→inside).
+6. **Emotion words are fine** — modern models handle "scared", "happy" etc. Physical descriptions optional for precision.
+
+### Files
+- `public/books/b3-the-lost-bell.json` — book JSON
+- `public/books/images/b3-the-lost-bell/` — 16 page images
+- `public/books/references/the-lost-bell_reference.png` — 9-panel reference
+- `scripts/generate_lost_bell_images.sh` — batch generation script
+- `BOOK_CREATION_PROCESS.md` — updated with new mistakes/learnings
+
+---
+
 ## 2026-01-22: Fix get-book API to merge Supabase + static files
 
 Updated `/api/get-book` to automatically merge content from both Supabase and static files:
@@ -826,3 +853,26 @@ Complete redesign of all non-story pages to improve branding and visual appeal.
 ### Notes
 - Version history only tracks images that were actually used as "current", not every generation attempt
 - Existing pages won't have version history until the next time an image is replaced
+
+## 2026-01-22 - Added "My Shadow Ran Away" book
+
+**Commit:** 0992799
+
+### What changed
+- New Level B2 book: "My Shadow Ran Away"
+- Story about a girl (Sunny) whose shadow comes alive and runs away
+- 10 story pages + cover + end page
+- Golden hour watercolor visual style
+
+### Technical learnings
+- **Shadow rendering problem**: Image models add shadows to everything, including shadow characters
+- **Solution**: Use "black silhouette twin" language instead of "shadow"
+  - Describe as "flat solid black cutout shape, like paper"
+  - Explicitly state "casts nothing on the ground"
+  - Never use the word "shadow" in prompts
+- **nano-banana-pro** follows instructions better than wan2.6-image for this use case
+
+### Files
+- `public/books/my-shadow-ran-away.json`
+- `public/books/images/my-shadow-ran-away/` (12 images)
+- `public/books/references/my-shadow-ran-away_reference.png`

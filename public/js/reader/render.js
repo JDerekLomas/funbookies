@@ -787,6 +787,11 @@ function renderCover(bookPage, page, colorDisplay) {
     `;
 }
 
+function wrapWords(text) {
+    if (!text) return '';
+    return text.replace(/(\S+)/g, '<span class="tap-word">$1</span>');
+}
+
 function renderStoryPage(bookPage, page) {
     const storyImgPath = getImagePath(page);
     const sceneDesc = page.scene || '';
@@ -804,7 +809,7 @@ function renderStoryPage(bookPage, page) {
             </div>
             <div class="page-long-form">
                 <div class="long-form-text">
-                    <p>${page.text || ''}</p>
+                    <p>${wrapWords(page.text)}</p>
                     ${storyPageNum ? `<div class="page-number">Page ${storyPageNum}</div>` : ''}
                 </div>
                 <div class="long-form-image">
@@ -832,10 +837,19 @@ function renderStoryPage(bookPage, page) {
                 </div>
             </div>
             <div class="page-text">
-                <p>${page.text || ''}</p>
+                <p>${wrapWords(page.text)}</p>
             </div>
         `;
     }
+
+    // Tap-to-highlight words
+    bookPage.addEventListener('click', (e) => {
+        const word = e.target.closest('.tap-word');
+        if (!word) return;
+        word.classList.remove('tap-highlight');
+        void word.offsetWidth; // reflow to restart animation
+        word.classList.add('tap-highlight');
+    });
 }
 
 // Gallery functions

@@ -176,6 +176,22 @@
             border-radius: 8px;
         }
 
+        .tap-word {
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.1s;
+        }
+
+        .tap-word.tap-highlight {
+            background-color: #FFEB3B;
+            animation: tap-fade 1.2s ease-out forwards;
+        }
+
+        @keyframes tap-fade {
+            0% { background-color: #FFEB3B; }
+            100% { background-color: transparent; }
+        }
+
         .page-text p {
             font-family: var(--font-display);
             font-size: clamp(1.1rem, 3vw, 1.5rem);

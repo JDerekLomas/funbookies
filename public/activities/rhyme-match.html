@@ -21,34 +21,6 @@
 
     .game-header h1 { font-size: 1.5rem; }
 
-    .score-badge {
-      background: var(--color-terracotta-light);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: 600;
-      color: var(--color-terracotta-dark);
-    }
-
-    .level-select {
-      display: flex;
-      gap: 8px;
-      margin-bottom: var(--space-md);
-      flex-wrap: wrap;
-    }
-
-    .level-group {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-    }
-
-    .level-group-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--color-text-muted);
-      text-transform: uppercase;
-    }
-
     .progress-bar-container {
       background: var(--color-border);
       height: 8px;
@@ -213,19 +185,13 @@
         </div>
 
         <div class="level-select">
-          <div class="level-group">
-            <span class="level-group-label">A:</span>
-            <button class="chip active" data-level="A4">A4</button>
-          </div>
-          <div class="level-group">
-            <span class="level-group-label">B:</span>
-            <button class="chip" data-level="B1">B1</button>
-            <button class="chip" data-level="B2">B2</button>
-            <button class="chip" data-level="B4">B4</button>
-            <button class="chip" data-level="B5">B5</button>
-            <button class="chip" data-level="B6">B6</button>
-            <button class="chip" data-level="B8">B8</button>
-          </div>
+          <button class="chip active" data-level="A4">CVC</button>
+          <button class="chip" data-level="B1">Short a,i</button>
+          <button class="chip" data-level="B2">Short o,u,e</button>
+          <button class="chip" data-level="B4">FLOSS</button>
+          <button class="chip" data-level="B5">Digraphs</button>
+          <button class="chip" data-level="B6">Silent e</button>
+          <button class="chip" data-level="B8">Vowel Teams</button>
         </div>
 
         <div class="progress-bar-container">

@@ -47,3 +47,4 @@ experiments/
 # Story generator experiments
 scripts/story_generator/book_exp_*/
 .env.production
+.env*

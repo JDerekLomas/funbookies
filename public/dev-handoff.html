@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FunBookies - Developer Handoff</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; padding: 2rem 1rem; }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+        .subtitle { color: #666; margin-bottom: 2rem; font-size: 1.1rem; }
+        .repo-link { display: inline-block; background: #24292e; color: #fff; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; font-size: 0.9rem; margin-bottom: 2rem; }
+        .repo-link:hover { background: #444; }
+        h2 { font-size: 1.3rem; margin: 2rem 0 0.75rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e0e0e0; }
+        .game-grid { display: grid; gap: 1rem; }
+        .game { background: #fff; border-radius: 8px; padding: 1rem 1.25rem; border: 1px solid #e0e0e0; }
+        .game-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; }
+        .game h3 { font-size: 1rem; margin: 0; }
+        .game h3 a { color: #0066cc; text-decoration: none; }
+        .game h3 a:hover { text-decoration: underline; }
+        .game p { color: #555; font-size: 0.9rem; margin: 0.25rem 0 0.5rem; }
+        .file-path { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem; color: #888; background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .file-path a { color: #666; text-decoration: none; }
+        .file-path a:hover { color: #0066cc; text-decoration: underline; }
+        .game-screenshot { margin: 0.75rem 0 0.5rem; border-radius: 6px; overflow: hidden; border: 1px solid #e0e0e0; max-width: 320px; }
+        .game-screenshot img { width: 100%; display: block; cursor: pointer; transition: opacity 0.2s; }
+        .game-screenshot img:hover { opacity: 0.85; }
+        .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 99px; font-weight: 600; margin-right: 4px; }
+        .tag-voice { background: #f0e6ff; color: #7c3aed; }
+        .tag-game { background: #dcfce7; color: #16a34a; }
+        .tag-drill { background: #fef3c7; color: #d97706; }
+        .tag-assessment { background: #fee2e2; color: #dc2626; }
+        .tag-pathway { background: #e0f2fe; color: #0284c7; }
+        .tag-generator { background: #f3e8ff; color: #9333ea; }
+        .notes { background: #fffde7; border: 1px solid #fff9c4; border-radius: 8px; padding: 1rem 1.25rem; margin-top: 2rem; font-size: 0.9rem; }
+        .notes h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .notes ul { padding-left: 1.25rem; }
+        .notes li { margin-bottom: 0.25rem; }
+        code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; font-size: 0.85em; }
+        .tabs { display: flex; gap: 0; margin-bottom: 1.5rem; border-bottom: 2px solid #e0e0e0; }
+        .tab { background: none; border: none; padding: 0.75rem 1.25rem; font-size: 1rem; font-weight: 600; color: #888; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+        .tab:hover { color: #333; }
+        .tab.active { color: #0066cc; border-bottom-color: #0066cc; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .asset-section { margin-bottom: 1.5rem; }
+        .asset-section h3 { font-size: 1rem; margin-bottom: 0.5rem; color: #333; }
+        .asset-list { display: grid; gap: 0.5rem; }
+        .asset-item { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+        .asset-item a { color: #0066cc; text-decoration: none; font-weight: 500; }
+        .asset-item a:hover { text-decoration: underline; }
+        .asset-item .asset-path { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.75rem; color: #999; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>FunBookies - Developer Handoff</h1>
+    <p class="subtitle">All interactive games, review UIs, and audio assets</p>
+    <a class="repo-link" href="https://github.com/JDerekLomas/funbookies" target="_blank">github.com/JDerekLomas/funbookies</a>
+
+    <div class="tabs">
+        <button class="tab active" onclick="showTab('games')">Games &amp; Activities</button>
+        <button class="tab" onclick="showTab('review')">Review UIs &amp; Assets</button>
+    </div>
+
+    <div id="tab-games" class="tab-content active">
+    <h2>Games</h2>
+    <div class="game-grid">
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/monster-munch.html" target="_blank">Monster Munch</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Feed the hungry monster words with the right sounds</p>
+            <div class="game-screenshot"><a href="/activities/monster-munch.html" target="_blank"><img src="/images/screenshots/monster-munch.png" alt="Monster Munch screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/monster-munch.html" target="_blank">public/activities/monster-munch.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/word-builder.html" target="_blank">Word Builder</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Build words letter by letter from CVC to blends</p>
+            <div class="game-screenshot"><a href="/activities/word-builder.html" target="_blank"><img src="/images/screenshots/word-builder.png" alt="Word Builder screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/word-builder.html" target="_blank">public/activities/word-builder.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/sound-boxes.html" target="_blank">Sound Boxes</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Drag sounds into Elkonin boxes - phoneme segmentation</p>
+            <div class="game-screenshot"><a href="/activities/sound-boxes.html" target="_blank"><img src="/images/screenshots/sound-boxes.png" alt="Sound Boxes screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/sound-boxes.html" target="_blank">public/activities/sound-boxes.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/word-chains.html" target="_blank">Word Chains</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Change one letter at a time: cat -> hat -> hot -> hop</p>
+            <div class="game-screenshot"><a href="/activities/word-chains.html" target="_blank"><img src="/images/screenshots/word-chains.png" alt="Word Chains screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/word-chains.html" target="_blank">public/activities/word-chains.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/rhyme-match.html" target="_blank">Rhyme Match</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Match words that rhyme for phonemic awareness</p>
+            <div class="game-screenshot"><a href="/activities/rhyme-match.html" target="_blank"><img src="/images/screenshots/rhyme-match.png" alt="Rhyme Match screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/rhyme-match.html" target="_blank">public/activities/rhyme-match.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/word-families.html" target="_blank">Word Families</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Practice -at, -an, -ig, -op word patterns</p>
+            <div class="game-screenshot"><a href="/activities/word-families.html" target="_blank"><img src="/images/screenshots/word-families.png" alt="Word Families screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/word-families.html" target="_blank">public/activities/word-families.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/blend-it.html" target="_blank">Blend It</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Sound out words segment by segment</p>
+            <div class="game-screenshot"><a href="/activities/blend-it.html" target="_blank"><img src="/images/screenshots/blend-it.png" alt="Blend It screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/blend-it.html" target="_blank">public/activities/blend-it.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/sentence-scramble.html" target="_blank">Sentence Scramble</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Arrange words to make sentences</p>
+            <div class="game-screenshot"><a href="/activities/sentence-scramble.html" target="_blank"><img src="/images/screenshots/sentence-scramble.png" alt="Sentence Scramble screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/sentence-scramble.html" target="_blank">public/activities/sentence-scramble.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/read-aloud.html" target="_blank">Read Aloud</a></h3>
+                <span class="tag tag-voice">Voice</span>
+            </div>
+            <p>Read sentences aloud, get fluency feedback with WCPM tracking</p>
+            <div class="game-screenshot"><a href="/activities/read-aloud.html" target="_blank"><img src="/images/screenshots/read-aloud.png" alt="Read Aloud screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/read-aloud.html" target="_blank">public/activities/read-aloud.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/voice-blend.html" target="_blank">Blend It Out</a></h3>
+                <span class="tag tag-voice">Voice</span>
+            </div>
+            <p>Hear sounds, say the blended word - voice-based blending</p>
+            <div class="game-screenshot"><a href="/activities/voice-blend.html" target="_blank"><img src="/images/screenshots/voice-blend.png" alt="Voice Blend screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/voice-blend.html" target="_blank">public/activities/voice-blend.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/chop-it-up.html" target="_blank">Chop It Up</a></h3>
+                <span class="tag tag-voice">Voice</span>
+            </div>
+            <p>Hear a word, say each sound - oral segmenting practice</p>
+            <div class="game-screenshot"><a href="/activities/chop-it-up.html" target="_blank"><img src="/images/screenshots/chop-it-up.png" alt="Chop It Up screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/chop-it-up.html" target="_blank">public/activities/chop-it-up.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/say-the-sound.html" target="_blank">Say the Sound</a></h3>
+                <span class="tag tag-voice">Voice</span>
+            </div>
+            <p>See a letter, say its sound - phoneme recognition practice</p>
+            <div class="game-screenshot"><a href="/activities/say-the-sound.html" target="_blank"><img src="/images/screenshots/say-the-sound.png" alt="Say the Sound screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/say-the-sound.html" target="_blank">public/activities/say-the-sound.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/fill-the-gap.html" target="_blank">Fill the Gap</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Cloze/fill-in-the-blank reading exercise</p>
+            <div class="game-screenshot"><a href="/activities/fill-the-gap.html" target="_blank"><img src="/images/screenshots/fill-the-gap.png" alt="Fill the Gap screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/fill-the-gap.html" target="_blank">public/activities/fill-the-gap.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/spelling-bee.html" target="_blank">Spelling Bee</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Spelling practice game</p>
+            <div class="game-screenshot"><a href="/activities/spelling-bee.html" target="_blank"><img src="/images/screenshots/spelling-bee.png" alt="Spelling Bee screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/spelling-bee.html" target="_blank">public/activities/spelling-bee.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/spelling-challenge.html" target="_blank">Spelling Challenge</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Advanced spelling challenge</p>
+            <div class="game-screenshot"><a href="/activities/spelling-challenge.html" target="_blank"><img src="/images/screenshots/spelling-challenge.png" alt="Spelling Challenge screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/spelling-challenge.html" target="_blank">public/activities/spelling-challenge.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/story-sequencing.html" target="_blank">Story Sequencing</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Put story events in order</p>
+            <div class="game-screenshot"><a href="/activities/story-sequencing.html" target="_blank"><img src="/images/screenshots/story-sequencing.png" alt="Story Sequencing screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/story-sequencing.html" target="_blank">public/activities/story-sequencing.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/word-detective.html" target="_blank">Word Detective</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Find and identify words</p>
+            <div class="game-screenshot"><a href="/activities/word-detective.html" target="_blank"><img src="/images/screenshots/word-detective.png" alt="Word Detective screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/word-detective.html" target="_blank">public/activities/word-detective.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/word-sort.html" target="_blank">Word Sort</a></h3>
+                <span class="tag tag-game">Game</span>
+            </div>
+            <p>Sort words into categories</p>
+            <div class="game-screenshot"><a href="/activities/word-sort.html" target="_blank"><img src="/images/screenshots/word-sort.png" alt="Word Sort screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/word-sort.html" target="_blank">public/activities/word-sort.html</a></span>
+        </div>
+    </div>
+
+    <h2>Assessments</h2>
+    <div class="game-grid">
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/phonics-assessment.html" target="_blank">Phonics Assessment</a></h3>
+                <span class="tag tag-assessment">Assessment</span>
+            </div>
+            <p>Adaptive assessment to find a child's reading level</p>
+            <div class="game-screenshot"><a href="/activities/phonics-assessment.html" target="_blank"><img src="/images/screenshots/phonics-assessment.png" alt="Phonics Assessment screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/phonics-assessment.html" target="_blank">public/activities/phonics-assessment.html</a></span>
+        </div>
+    </div>
+
+    <h2>Practice &amp; Drills</h2>
+    <div class="game-grid">
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/letter-drill.html" target="_blank">Letter Sound Drill</a></h3>
+                <span class="tag tag-drill">Drill</span>
+            </div>
+            <p>Fast-paced flashcards for letter-sound mastery</p>
+            <div class="game-screenshot"><a href="/activities/letter-drill.html" target="_blank"><img src="/images/screenshots/letter-drill.png" alt="Letter Drill screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/letter-drill.html" target="_blank">public/activities/letter-drill.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/sight-words.html" target="_blank">Sight Words Practice</a></h3>
+                <span class="tag tag-drill">Drill</span>
+            </div>
+            <p>High-frequency words with spaced repetition</p>
+            <div class="game-screenshot"><a href="/activities/sight-words.html" target="_blank"><img src="/images/screenshots/sight-words.png" alt="Sight Words screenshot"></a></div>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/activities/sight-words.html" target="_blank">public/activities/sight-words.html</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/generate-story.html" target="_blank">Story Generator</a></h3>
+                <span class="tag tag-generator">Generator</span>
+            </div>
+            <p>Create custom stories with AI</p>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/blob/main/public/generate-story.html" target="_blank">public/generate-story.html</a></span>
+        </div>
+    </div>
+
+    <h2>Learning Band Pathways</h2>
+    <div class="game-grid">
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/band-a/" target="_blank">Band A: Pre-Reader</a></h3>
+                <span class="tag tag-pathway">Pathway</span>
+            </div>
+            <p>Letters, sounds, and print awareness (Pre-K to K)</p>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/tree/main/public/activities/band-a" target="_blank">public/activities/band-a/</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/band-b/" target="_blank">Band B: Phonics Foundation</a></h3>
+                <span class="tag tag-pathway">Pathway</span>
+            </div>
+            <p>CVC words, blends, digraphs (K-1)</p>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/tree/main/public/activities/band-b" target="_blank">public/activities/band-b/</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/band-c/" target="_blank">Band C: Word Study</a></h3>
+                <span class="tag tag-pathway">Pathway</span>
+            </div>
+            <p>Syllables, prefixes, suffixes (Grades 1-3)</p>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/tree/main/public/activities/band-c" target="_blank">public/activities/band-c/</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/band-d/" target="_blank">Band D: Fluent Reading</a></h3>
+                <span class="tag tag-pathway">Pathway</span>
+            </div>
+            <p>Comprehension and vocabulary (Grades 3-6)</p>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/tree/main/public/activities/band-d" target="_blank">public/activities/band-d/</a></span>
+        </div>
+        <div class="game">
+            <div class="game-header">
+                <h3><a href="/activities/early-reader/" target="_blank">Early Reader Pathway</a></h3>
+                <span class="tag tag-pathway">Pathway</span>
+            </div>
+            <p>Original step-by-step journey (ages 3-6) - includes First Sounds, Letter Sounds, Rhyme Time, Letter Match, Syllable Clap, Guided Lesson</p>
+            <span class="file-path"><a href="https://github.com/JDerekLomas/funbookies/tree/main/public/activities/early-reader" target="_blank">public/activities/early-reader/</a></span>
+        </div>
+    </div>
+
+    <div class="notes">
+        <h3>Developer Notes</h3>
+        <ul>
+            <li>All activities are self-contained HTML files in <code>public/activities/</code></li>
+            <li>Shared styles in <code>public/styles/shared.css</code></li>
+            <li>Progress tracking via <code>public/js/progress-tracker.js</code></li>
+            <li>Voice activities use the Web Speech API and/or OpenAI TTS</li>
+            <li>Audio files: letter sounds in <code>public/activities/letter-sounds/</code>, phonemes in <code>public/audio/phonemes/</code></li>
+            <li>"New / Unshipped" activities exist on disk but aren't linked from the main activities index yet</li>
+            <li>Each Band pathway (<code>band-a</code> through <code>band-d</code>) has its own <code>index.html</code> that sequences activities for that level</li>
+        </ul>
+    </div>
+
+    </div><!-- end tab-games -->
+
+    <div id="tab-review" class="tab-content">
+    <h2>Audio Review UIs</h2>
+    <div class="asset-list">
+        <div class="asset-item">
+            <div>
+                <a href="/review/letter-sounds.html" target="_blank">Letter Sounds Review</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Listen to a-z letter sounds across providers (OpenAI US, OpenAI UK, ElevenLabs UK)</p>
+            </div>
+            <span class="asset-path">public/review/letter-sounds.html</span>
+        </div>
+        <div class="asset-item">
+            <div>
+                <a href="/review/letter-sound-variants.html" target="_blank">Letter Sound Variants</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Compare letter sound recordings across different providers side-by-side</p>
+            </div>
+            <span class="asset-path">public/review/letter-sound-variants.html</span>
+        </div>
+        <div class="asset-item">
+            <div>
+                <a href="/review/letter-sounds-production.html" target="_blank">Letter Sounds (Production)</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Production-ready letter sounds review</p>
+            </div>
+            <span class="asset-path">public/review/letter-sounds-production.html</span>
+        </div>
+        <div class="asset-item">
+            <div>
+                <a href="/review/phoneme-sounds.html" target="_blank">Phoneme Sounds Review</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Blends (bl, br, cr...), digraphs (ch, sh, th...), vowel teams (ai, ee, oa...) - ElevenLabs IPA</p>
+            </div>
+            <span class="asset-path">public/review/phoneme-sounds.html</span>
+        </div>
+        <div class="asset-item">
+            <div>
+                <a href="/review/word-audio.html" target="_blank">Word Audio Review</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">450+ individual word pronunciations</p>
+            </div>
+            <span class="asset-path">public/review/word-audio.html</span>
+        </div>
+        <div class="asset-item">
+            <div>
+                <a href="/review/activity-audio-audit.html" target="_blank">Activity Audio Audit</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Audit instruction audio files across all activities</p>
+            </div>
+            <span class="asset-path">public/review/activity-audio-audit.html</span>
+        </div>
+    </div>
+
+    <h2>Icon Review UIs</h2>
+    <div class="asset-list">
+        <div class="asset-item">
+            <div>
+                <a href="/review/activity-icons.html" target="_blank">Activity Icons</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Review activity menu icons (29 PNGs)</p>
+            </div>
+            <span class="asset-path">public/review/activity-icons.html</span>
+        </div>
+        <div class="asset-item">
+            <div>
+                <a href="/review/word-icons.html" target="_blank">Word Icons</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Review generated word illustration icons</p>
+            </div>
+            <span class="asset-path">public/review/word-icons.html</span>
+        </div>
+        <div class="asset-item">
+            <div>
+                <a href="/images/icons/review.html" target="_blank">Icon Assets Review</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Direct icon asset review/comparison page</p>
+            </div>
+            <span class="asset-path">public/images/icons/review.html</span>
+        </div>
+    </div>
+
+    <h2>Book & Content Review UIs</h2>
+    <div class="asset-list">
+        <div class="asset-item">
+            <div>
+                <a href="/review/books.html" target="_blank">Books Review</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Review book content, text, and page structure</p>
+            </div>
+            <span class="asset-path">public/review/books.html</span>
+        </div>
+        <div class="asset-item">
+            <div>
+                <a href="/review/covers.html" target="_blank">Cover Art Review</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Review and approve book cover illustrations</p>
+            </div>
+            <span class="asset-path">public/review/covers.html</span>
+        </div>
+        <div class="asset-item">
+            <div>
+                <a href="/review/references.html" target="_blank">Reference Sheets</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Review 9-panel style reference images used for image generation</p>
+            </div>
+            <span class="asset-path">public/review/references.html</span>
+        </div>
+        <div class="asset-item">
+            <div>
+                <a href="/review/image-prompts.html" target="_blank">Image Prompts</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Review image generation prompts</p>
+            </div>
+            <span class="asset-path">public/review/image-prompts.html</span>
+        </div>
+        <div class="asset-item">
+            <div>
+                <a href="/review/curriculum.html" target="_blank">Curriculum / Scope &amp; Sequence</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Levels, phonics progression, scope and sequence</p>
+            </div>
+            <span class="asset-path">public/review/curriculum.html</span>
+        </div>
+        <div class="asset-item">
+            <div>
+                <a href="/review/evaluations.html" target="_blank">Content Evaluations</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Quality evaluations of book content</p>
+            </div>
+            <span class="asset-path">public/review/evaluations.html</span>
+        </div>
+    </div>
+
+    <h2>Audio Asset Directories</h2>
+    <div class="notes" style="margin-top:0">
+        <ul>
+            <li><strong>Letter sounds</strong> (a-z, 4 variants): <code>public/activities/letter-sounds/{openai-us,openai-uk,elevenlabs-uk}/sounds/</code></li>
+            <li><strong>Letter names</strong> (A-Z, 4 variants): <code>public/activities/letter-sounds/{openai-us,openai-uk,elevenlabs-uk}/names/</code></li>
+            <li><strong>Phonemes</strong> (blends, digraphs, vowel teams): <code>public/audio/phonemes/</code> - ElevenLabs IPA</li>
+            <li><strong>Word audio</strong> (450+ words): <code>public/audio/words/</code></li>
+            <li><strong>Coaching audio</strong> (per-letter + general): <code>public/audio/coaching/</code></li>
+            <li><strong>Activity instructions</strong>: <code>public/audio/instructions/</code></li>
+            <li><strong>Activity icons</strong> (29 PNGs): <code>public/images/icons/</code></li>
+            <li><strong>Word icons</strong>: <code>public/activities/word-icons/</code></li>
+        </ul>
+    </div>
+
+    <h2>Full Review Hub</h2>
+    <div class="asset-list">
+        <div class="asset-item">
+            <div>
+                <a href="/review/" target="_blank">Content Review Hub</a>
+                <p style="margin:0;font-size:0.85rem;color:#555">Central hub with links to all review interfaces (includes book-specific reviews)</p>
+            </div>
+            <span class="asset-path">public/review/index.html</span>
+        </div>
+    </div>
+
+    </div><!-- end tab-review -->
+
+    <div style="height: 2rem;"></div>
+</div>
+<script>
+function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    document.querySelector('[onclick="showTab(\'' + id + '\')"]').classList.add('active');
+}
+</script>
+</body>
+</html>

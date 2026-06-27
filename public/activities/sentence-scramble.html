@@ -21,34 +21,6 @@
 
     .game-header h1 { font-size: 1.5rem; }
 
-    .score-badge {
-      background: rgba(212, 196, 176, 0.4);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: 600;
-      color: #8B7355;
-    }
-
-    .level-select {
-      display: flex;
-      gap: 8px;
-      margin-bottom: var(--space-md);
-      flex-wrap: wrap;
-    }
-
-    .level-group {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-    }
-
-    .level-group-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--color-text-muted);
-      text-transform: uppercase;
-    }
-
     .image-hint {
       text-align: center;
       font-size: 4rem;
@@ -168,6 +140,7 @@
   <script src="/js/student-picker.js"></script>
   <script src="/js/audio-utils.js"></script>
   <script src="/js/toast.js"></script>
+  <script src="/js/progress-tracker.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/" class="back-link">&larr; Back to Activities</a>
@@ -180,19 +153,13 @@
       </div>
 
       <div class="level-select">
-        <div class="level-group">
-          <span class="level-group-label">A:</span>
-          <button class="chip active" data-level="A4">A4</button>
-        </div>
-        <div class="level-group">
-          <span class="level-group-label">B:</span>
-          <button class="chip" data-level="B1">B1</button>
-          <button class="chip" data-level="B2">B2</button>
-          <button class="chip" data-level="B3">B3</button>
-          <button class="chip" data-level="B5">B5</button>
-          <button class="chip" data-level="B6">B6</button>
-          <button class="chip" data-level="B8">B8</button>
-        </div>
+        <button class="chip active" data-level="A4">CVC</button>
+        <button class="chip" data-level="B1">Short a,i</button>
+        <button class="chip" data-level="B2">Short o,u,e</button>
+        <button class="chip" data-level="B3">Blends</button>
+        <button class="chip" data-level="B5">Digraphs</button>
+        <button class="chip" data-level="B6">Silent e</button>
+        <button class="chip" data-level="B8">Vowel Teams</button>
       </div>
 
       <div class="image-hint" id="imageHint" onclick="speakSentence()">&#x1F431;</div>
@@ -449,8 +416,9 @@
         document.getElementById('score').textContent = score;
 
         // Save activity every 5 sentences
-        if (sessionTotal > 0 && sessionTotal % 5 === 0 && currentStudent) {
-          await saveActivity();
+        if (sessionTotal > 0 && sessionTotal % 5 === 0) {
+          if (currentStudent) await saveActivity();
+          recordProgressToTracker();
         }
 
         speakSentence();
@@ -487,7 +455,32 @@
       if (currentStudent && sessionTotal > 0) {
         saveActivity();
       }
+      recordProgressToTracker();
     });
+
+    function recordProgressToTracker() {
+      if (typeof ProgressTracker === 'undefined') return;
+      if (sessionTotal === 0) return;
+
+      const accuracy = sessionCorrect / sessionTotal;
+      ProgressTracker.recordSession('sentence-scramble', 'C', accuracy, {
+        correct: sessionCorrect,
+        total: sessionTotal,
+        level: currentLevel,
+        finalScore: score,
+        duration: Math.round((Date.now() - sessionStartTime) / 1000)
+      });
+
+      // Check for band promotion
+      const promotion = ProgressTracker.checkBandPromotion('C');
+      if (promotion.ready && promotion.justUnlocked) {
+        Toast.success('Amazing progress! Band D is now unlocked!');
+      }
+
+      // Reset session stats after recording
+      sessionCorrect = 0;
+      sessionTotal = 0;
+    }
 
     function skipSentence() {
       document.getElementById('feedback').textContent = `Answer: "${currentSentence.sentence.join(' ')}."`;

@@ -1,0 +1,326 @@
+{
+  "id": "the-nap-map",
+  "title": "The Nap Map",
+  "slug": "the-nap-map",
+  "level": "B4",
+  "band": "B",
+  "targetPhonics": "CVC short vowels (a, e, o)",
+  "wordFamilies": [
+    "-ap",
+    "-op",
+    "-ed",
+    "-ot",
+    "-un",
+    "-ig"
+  ],
+  "skill": "CVC Short Vowels",
+  "skill_description": "Practice reading CVC words with short vowels. Focus on -ap and -ed word families.",
+  "age_range": "K-1",
+  "created": "2026-01-23",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Sleepy Ned finds a magical map under his pillow that promises to lead him to the Best Nap Spot. He journeys through dreamy landscapes before discovering the perfect place was home all along.",
+  "characters": {
+    "ned": {
+      "name": "Ned",
+      "visual_shorthand": "Boy (5) with tousled brown hair, oversized blue pajamas with yellow stars, carries a white pillow, droopy sleepy eyes",
+      "distinctive_features": [
+        "tousled messy brown hair",
+        "oversized blue pajamas with yellow stars",
+        "white fluffy pillow he carries",
+        "droopy sleepy eyes",
+        "bare feet",
+        "yawning expression"
+      ]
+    }
+  },
+  "setting_context": "Dreamy soft-focus landscapes - dandelion fields, cloud hammocks, cozy animal dens, and Ned's bedroom. Everything has a hazy, sleepy quality with muted pastels and warm golden glows.",
+  "story_bible": {
+    "premise": "A sleepy boy follows a magical map through dreamlike locations searching for the perfect nap spot, only to discover it was his own bed all along.",
+    "setting": "Surreal dreamy landscapes that feel like the edge of sleep - soft, hazy, warm, safe",
+    "visual_style": "Soft Focus Dreamscape style: Muted hazy pastels (lavender, soft pink, pale blue, cream, warm gold). Everything slightly fuzzy at edges like seeing through sleepy eyes. Floating elements (feathers, dandelion seeds, tiny stars) drift through scenes. Warm golden glows around cozy spots. Gets progressively softer and hazier as Ned gets sleepier.",
+    "themes": [
+      "comfort",
+      "home",
+      "sleepiness",
+      "magic in the ordinary"
+    ],
+    "emotional_arc": "tired curiosity \u2192 dreamy wandering \u2192 peaceful discovery \u2192 cozy contentment"
+  },
+  "reference_prompt": "9-PANEL STYLE REFERENCE for children's book 'The Nap Map'\n\nVISUAL STYLE: Soft Focus Dreamscape - muted hazy pastels, fuzzy edges, warm golden glows, floating elements. Sleepy, dreamy atmosphere.\n\nRow 1 - CHARACTER NED:\n[1] Ned standing sleepy: Boy (5) with tousled brown hair, oversized blue pajamas with yellow stars, hugging white fluffy pillow, droopy eyes, yawning. Soft bedroom light.\n[2] Ned walking: Same boy shuffling along, pillow dragging, eyes half-closed. Dreamy pastel background.\n[3] Ned sleeping: Same boy curled up peacefully, pillow under head, gentle smile, surrounded by warm golden glow.\n\nRow 2 - DREAMY LOCATIONS:\n[4] Dandelion field: Endless soft white dandelion puffs, seeds floating in air, pale blue sky, hazy and dreamy, warm sunlight filtering through.\n[5] Cloud hammock: Fluffy white clouds forming a hammock shape, soft pink and lavender sky, tiny stars twinkling, floating feathers.\n[6] Cozy den: Warm burrow with sleeping animals (bunny, fox kit), soft mossy bed, golden lantern light, roots forming ceiling.\n\nRow 3 - MAGIC ELEMENTS:\n[7] The magic map: Glowing golden parchment with swirly dream-like path drawn on it, sparkles emanating, held by small hands.\n[8] Ned's bedroom: Cozy bed with star-pattern blanket, soft nightlight glow, window showing moon, warm and inviting, slightly fuzzy edges.\n[9] Golden glow effect: Warm radiating light, floating particles, sense of comfort and sleepiness, soft focus.\n\nSTYLE: Soft pastels, hazy edges, dreamy atmosphere, warm glows. NO TEXT.",
+  "word_list": {
+    "sound_out": [
+      "nap",
+      "map",
+      "bed",
+      "Ned",
+      "got",
+      "not",
+      "hot",
+      "spot",
+      "hop",
+      "top",
+      "run",
+      "sun",
+      "big",
+      "dig"
+    ],
+    "sight": [
+      "the",
+      "a",
+      "is",
+      "it",
+      "to",
+      "I",
+      "my",
+      "said",
+      "was",
+      "here",
+      "this",
+      "will",
+      "find"
+    ],
+    "heart": [
+      "pillow",
+      "sleepy",
+      "perfect"
+    ]
+  },
+  "sightWordsUsed": [
+    "the",
+    "a",
+    "is",
+    "it",
+    "to",
+    "I",
+    "my",
+    "said",
+    "was",
+    "here",
+    "this",
+    "will",
+    "find"
+  ],
+  "wordsearch_words": [
+    "nap",
+    "map",
+    "bed",
+    "spot",
+    "sun",
+    "hop",
+    "run",
+    "top"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "The Nap Map",
+      "scene": "Children's book cover, Soft Focus Dreamscape style. Ned (5, tousled brown hair, oversized blue pajamas with yellow stars) walks through a dreamy landscape holding a glowing golden map in one hand and hugging his white fluffy pillow with the other. His eyes are droopy and sleepy. Around him: soft dandelion puffs float in the air, the path ahead winds through hazy pastel clouds and soft hills. Everything has fuzzy edges and a warm, sleepy glow. Muted lavender, pink, blue, and cream colors. Magical and cozy feeling.",
+      "image_prompt": "Single scene illustration: Children's book cover, Soft Focus Dreamscape style. Ned (5, tousled brown hair, oversized blue pajamas with yellow stars) walks through a dreamy landscape holding a glowing golden map in one hand and hugging his white fluffy pillow with the other. His eyes are droopy and sleepy. Around him: soft dandelion puffs float in the air, the path ahead winds through hazy pastel clouds and soft hills. Everything has fuzzy edges and a warm, sleepy glow. Muted lavender, pink, blue, and cream colors. Magical and cozy feeling.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nBoy (5) with tousled brown hair, oversized blue pajamas with yellow stars, carries a white pillow, droopy sleepy eyes\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Soft Focus Dreamscape style: Muted hazy pastels (lavender, soft pink, pale blue, cream, warm gold). Everything slightly fuzzy at edges like seeing through sleepy eyes. Floating elements (feathers, dandelion seeds, tiny stars) drift through scenes. Warm golden glows around cozy spots. Gets progressively softer and hazier as Ned gets sleepier.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/the-nap-map/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-23T00:09:21.323326",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_strategy": null
+      }
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_wordlist"
+    },
+    {
+      "page": 5,
+      "story_page": 1,
+      "type": "story",
+      "text": "Ned was sleepy.\nHe got into bed.",
+      "scene": "Children's book illustration, Soft Focus Dreamscape style. A cozy bedroom at dusk, soft purple and blue light through the window. Ned (5, tousled brown hair, oversized blue pajamas with yellow stars) climbs into his small bed, yawning widely. His white fluffy pillow waits for him. The room is warm and hazy, slightly fuzzy at the edges. Star-patterned blanket on the bed. Soft nightlight glows. Floating dust motes catch the light. Warm, sleepy atmosphere.",
+      "image_prompt": "Single scene illustration: Children's book illustration, Soft Focus Dreamscape style. A cozy bedroom at dusk, soft purple and blue light through the window. Ned (5, tousled brown hair, oversized blue pajamas with yellow stars) climbs into his small bed, yawning widely. His white fluffy pillow waits for him. The room is warm and hazy, slightly fuzzy at the edges. Star-patterned blanket on the bed. Soft nightlight glows. Floating dust motes catch the light. Warm, sleepy atmosphere.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nBoy (5) with tousled brown hair, oversized blue pajamas with yellow stars, carries a white pillow, droopy sleepy eyes\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Soft Focus Dreamscape style: Muted hazy pastels (lavender, soft pink, pale blue, cream, warm gold). Everything slightly fuzzy at edges like seeing through sleepy eyes. Floating elements (feathers, dandelion seeds, tiny stars) drift through scenes. Warm golden glows around cozy spots. Gets progressively softer and hazier as Ned gets sleepier.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/the-nap-map/page05.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-23T00:09:57.143395",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_strategy": null
+      }
+    },
+    {
+      "page": 6,
+      "story_page": 2,
+      "type": "story",
+      "text": "He felt a bump.\nA map was under his pillow!",
+      "scene": "Children's book illustration, Soft Focus Dreamscape style. Close-up of Ned (tousled brown hair, blue star pajamas) lifting his white pillow with surprised sleepy eyes. Underneath glows a magical golden parchment map, emanating soft light and tiny sparkles. The map shows a winding dotted path with little illustrations. Warm golden glow illuminates Ned's face from below. Bedroom background soft and hazy. Sense of wonder and magic.",
+      "image_prompt": "Single scene illustration: Children's book illustration, Soft Focus Dreamscape style. Close-up of Ned (tousled brown hair, blue star pajamas) lifting his white pillow with surprised sleepy eyes. Underneath glows a magical golden parchment map, emanating soft light and tiny sparkles. The map shows a winding dotted path with little illustrations. Warm golden glow illuminates Ned's face from below. Bedroom background soft and hazy. Sense of wonder and magic.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nBoy (5) with tousled brown hair, oversized blue pajamas with yellow stars, carries a white pillow, droopy sleepy eyes\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Soft Focus Dreamscape style: Muted hazy pastels (lavender, soft pink, pale blue, cream, warm gold). Everything slightly fuzzy at edges like seeing through sleepy eyes. Floating elements (feathers, dandelion seeds, tiny stars) drift through scenes. Warm golden glows around cozy spots. Gets progressively softer and hazier as Ned gets sleepier.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/the-nap-map/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-23T00:10:28.097217",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_strategy": null
+      }
+    },
+    {
+      "page": 7,
+      "story_page": 3,
+      "type": "story",
+      "text": "\"A map to the Best Nap Spot!\"\nsaid Ned. \"I will find it!\"",
+      "scene": "Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas, droopy eyes) holds the glowing golden map up to read it, pillow tucked under his other arm. The map shows a winding path with dreamy locations drawn on it. Golden light from the map illuminates his excited but sleepy face. His bedroom behind him is fading into soft haze. Floating sparkles around the map. Adventure beginning.",
+      "image_prompt": "Single scene illustration: Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas, droopy eyes) holds the glowing golden map up to read it, pillow tucked under his other arm. The map shows a winding path with dreamy locations drawn on it. Golden light from the map illuminates his excited but sleepy face. His bedroom behind him is fading into soft haze. Floating sparkles around the map. Adventure beginning.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nBoy (5) with tousled brown hair, oversized blue pajamas with yellow stars, carries a white pillow, droopy sleepy eyes\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Soft Focus Dreamscape style: Muted hazy pastels (lavender, soft pink, pale blue, cream, warm gold). Everything slightly fuzzy at edges like seeing through sleepy eyes. Floating elements (feathers, dandelion seeds, tiny stars) drift through scenes. Warm golden glows around cozy spots. Gets progressively softer and hazier as Ned gets sleepier.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/the-nap-map/page07.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-23T00:10:58.783654",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_strategy": null
+      }
+    },
+    {
+      "page": 8,
+      "story_page": 4,
+      "type": "story",
+      "text": "The map led to a big, soft spot.\nFluff was all around!",
+      "scene": "Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas, pillow under arm) stands in an endless field of giant white dandelion puffs, soft and dreamy. Dandelion seeds float lazily through the air all around him. Pale blue and lavender sky, everything hazy and soft-focus. He looks around in wonder, still sleepy. The floating seeds catch warm sunlight. Magical, peaceful, soft atmosphere.",
+      "image_prompt": "Single scene illustration: Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas, pillow under arm) stands in an endless field of giant white dandelion puffs, soft and dreamy. Dandelion seeds float lazily through the air all around him. Pale blue and lavender sky, everything hazy and soft-focus. He looks around in wonder, still sleepy. The floating seeds catch warm sunlight. Magical, peaceful, soft atmosphere.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nBoy (5) with tousled brown hair, oversized blue pajamas with yellow stars, carries a white pillow, droopy sleepy eyes\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Soft Focus Dreamscape style: Muted hazy pastels (lavender, soft pink, pale blue, cream, warm gold). Everything slightly fuzzy at edges like seeing through sleepy eyes. Floating elements (feathers, dandelion seeds, tiny stars) drift through scenes. Warm golden glows around cozy spots. Gets progressively softer and hazier as Ned gets sleepier.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/the-nap-map/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-23T00:11:34.502408",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_strategy": null
+      }
+    },
+    {
+      "page": 9,
+      "story_page": 5,
+      "type": "story",
+      "text": "Ned sat in the fluff.\n\"This is not it,\" he said.",
+      "scene": "Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas) sits nestled among giant dandelion puffs, his white pillow beside him. He looks comfortable but slightly disappointed, shaking his head. Dandelion seeds drift around him. Soft pastel colors - white, pale blue, cream. Everything dreamy and hazy. He's cozy but still searching for something better. The magical map glows softly in his lap.",
+      "image_prompt": "Single scene illustration: Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas) sits nestled among giant dandelion puffs, his white pillow beside him. He looks comfortable but slightly disappointed, shaking his head. Dandelion seeds drift around him. Soft pastel colors - white, pale blue, cream. Everything dreamy and hazy. He's cozy but still searching for something better. The magical map glows softly in his lap.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nBoy (5) with tousled brown hair, oversized blue pajamas with yellow stars, carries a white pillow, droopy sleepy eyes\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Soft Focus Dreamscape style: Muted hazy pastels (lavender, soft pink, pale blue, cream, warm gold). Everything slightly fuzzy at edges like seeing through sleepy eyes. Floating elements (feathers, dandelion seeds, tiny stars) drift through scenes. Warm golden glows around cozy spots. Gets progressively softer and hazier as Ned gets sleepier.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/the-nap-map/page09.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-23T00:12:05.371447",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_strategy": null
+      }
+    },
+    {
+      "page": 10,
+      "story_page": 6,
+      "type": "story",
+      "text": "The map led up, up, up.\nNed found a cloud bed!",
+      "scene": "Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas, hugging pillow) discovers a hammock made of fluffy white clouds, suspended in a soft pink and lavender sky. Tiny golden stars twinkle around. White feathers float lazily. Everything is impossibly soft and dreamy, edges completely hazy. Ned looks up at it with wonder, still drowsy. Magical floating atmosphere.",
+      "image_prompt": "Single scene illustration: Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas, hugging pillow) discovers a hammock made of fluffy white clouds, suspended in a soft pink and lavender sky. Tiny golden stars twinkle around. White feathers float lazily. Everything is impossibly soft and dreamy, edges completely hazy. Ned looks up at it with wonder, still drowsy. Magical floating atmosphere.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nBoy (5) with tousled brown hair, oversized blue pajamas with yellow stars, carries a white pillow, droopy sleepy eyes\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Soft Focus Dreamscape style: Muted hazy pastels (lavender, soft pink, pale blue, cream, warm gold). Everything slightly fuzzy at edges like seeing through sleepy eyes. Floating elements (feathers, dandelion seeds, tiny stars) drift through scenes. Warm golden glows around cozy spots. Gets progressively softer and hazier as Ned gets sleepier.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/the-nap-map/page10.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-23T00:12:36.046014",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_strategy": null
+      }
+    },
+    {
+      "page": 11,
+      "story_page": 7,
+      "type": "story",
+      "text": "Ned hopped on the cloud.\n\"This is not it,\" he said.",
+      "scene": "Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas) lies in the cloud hammock, sinking into its softness, his white pillow beside him. He looks comfortable but shakes his head - still searching for the perfect spot. Pink and lavender sky surrounds him, tiny stars twinkling. Floating feathers drift past. His eyes are getting droopier. Dreamy but still searching.",
+      "image_prompt": "Single scene illustration: Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas) lies in the cloud hammock, sinking into its softness, his white pillow beside him. He looks comfortable but shakes his head - still searching for the perfect spot. Pink and lavender sky surrounds him, tiny stars twinkling. Floating feathers drift past. His eyes are getting droopier. Dreamy but still searching.\n\nCHARACTERS (draw EXACTLY as described - these features are KEY for identification):\nBoy (5) with tousled brown hair, oversized blue pajamas with yellow stars, carries a white pillow, droopy sleepy eyes\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: Soft Focus Dreamscape style: Muted hazy pastels (lavender, soft pink, pale blue, cream, warm gold). Everything slightly fuzzy at edges like seeing through sleepy eyes. Floating elements (feathers, dandelion seeds, tiny stars) drift through scenes. Warm golden glows around cozy spots. Gets progressively softer and hazier as Ned gets sleepier.\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/the-nap-map/page11.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-23T00:13:11.824296",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_strategy": null
+      }
+    },
+    {
+      "page": 12,
+      "story_page": 8,
+      "type": "story",
+      "text": "The map led to a cozy den.\nA bunny and a fox napped there.",
+      "scene": "Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas, pillow) peeks into a warm underground den. Inside: a baby bunny and a fox kit curl up together on soft moss, fast asleep. A warm golden lantern glows. Tree roots form the ceiling. Everything is cozy, warm, earthy browns and soft greens with golden light. Hazy, dreamy atmosphere. Peaceful sleeping animals."
+    },
+    {
+      "page": 13,
+      "story_page": 9,
+      "type": "story",
+      "text": "\"This is not my spot,\" said Ned.\nHe was so sleepy now.",
+      "scene": "Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas) stands outside the cozy den, eyes now very droopy, barely open. He hugs his pillow tightly, yawning hugely. The sleeping bunny and fox visible in the warm den behind him. Ned looks exhausted but keeps looking at his map, which glows softly. Everything is very hazy and soft now, reflecting his sleepiness."
+    },
+    {
+      "page": 14,
+      "story_page": 10,
+      "type": "story",
+      "text": "The map led Ned back.\nHis bed began to glow!",
+      "scene": "Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas, barely awake) shuffles back into his bedroom. His own bed now radiates a beautiful warm golden glow, like it's the most magical place in the world. The star-patterned blanket seems to shimmer. Everything else is soft and hazy. The map points directly at the glowing bed. Ned's eyes widen slightly with sleepy recognition. Home was the answer all along."
+    },
+    {
+      "page": 15,
+      "type": "end",
+      "text": "The End",
+      "scene": "Children's book illustration, Soft Focus Dreamscape style. Ned (tousled brown hair, blue star pajamas) curled up peacefully asleep in his glowing bed, white pillow under his head, gentle smile on his face. The magic map lies on the nightstand, still softly glowing. The star blanket covers him. Warm golden light radiates from the bed. The whole scene is extremely soft and hazy, like a perfect dream. Floating tiny stars and soft particles drift in the air. Ultimate cozy contentment."
+    },
+    {
+      "page": 16,
+      "type": "wordsearch"
+    },
+    {
+      "page": 17,
+      "type": "series_info"
+    },
+    {
+      "page": 18,
+      "type": "back_cover",
+      "text": ""
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-01-23T00:00:00.000Z",
+    "storyPages": 10
+  },
+  "parent_tips": {
+    "before_reading": "Ask: Where is your favorite place to take a nap? Do you have a special pillow or blanket? Look at the cover - where do you think the map will lead Ned?",
+    "during_reading": "Help with 'pillow', 'sleepy', and 'perfect' - these are heart words. Sound out: nap, map, bed, Ned, got, not, spot, hop, top, run, sun, big.",
+    "after_reading": "Draw your own nap map! What dreamy places would you visit? What makes your bed the perfect nap spot?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "What did Ned find under his pillow?",
+      "answer": "A magical map to the Best Nap Spot"
+    },
+    {
+      "question": "What was the first dreamy place Ned visited?",
+      "answer": "A field of soft dandelion fluff"
+    },
+    {
+      "question": "Who was sleeping in the cozy den?",
+      "answer": "A bunny and a fox"
+    },
+    {
+      "question": "Where was the Best Nap Spot?",
+      "answer": "His own bed at home"
+    },
+    {
+      "question": "Why do you think Ned's bed was the best spot?",
+      "answer": "Because home is the most comfortable and safe place"
+    }
+  ]
+}

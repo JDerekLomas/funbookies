@@ -21,34 +21,6 @@
 
     .game-header h1 { font-size: 1.5rem; }
 
-    .score-badge {
-      background: var(--color-sage-light);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: 600;
-      color: var(--color-sage-dark);
-    }
-
-    .level-select {
-      display: flex;
-      gap: 8px;
-      margin-bottom: var(--space-md);
-      flex-wrap: wrap;
-    }
-
-    .level-group {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-    }
-
-    .level-group-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--color-text-muted);
-      text-transform: uppercase;
-    }
-
     .activity-area {
       text-align: center;
       padding: var(--space-md) 0;
@@ -258,23 +230,14 @@
       </div>
 
       <div class="level-select">
-        <div class="level-group">
-          <span class="level-group-label">A:</span>
-          <button class="chip active" data-level="A2">A2</button>
-          <button class="chip" data-level="A4">A4</button>
-        </div>
-        <div class="level-group">
-          <span class="level-group-label">B:</span>
-          <button class="chip" data-level="B3">B3</button>
-          <button class="chip" data-level="B5">B5</button>
-          <button class="chip" data-level="B6">B6</button>
-          <button class="chip" data-level="B7">B7</button>
-          <button class="chip" data-level="B8">B8</button>
-        </div>
-        <div class="level-group">
-          <span class="level-group-label">C:</span>
-          <button class="chip" data-level="C1">C1</button>
-        </div>
+        <button class="chip active" data-level="A2">Letters</button>
+        <button class="chip" data-level="A4">CVC</button>
+        <button class="chip" data-level="B3">Blends</button>
+        <button class="chip" data-level="B5">Digraphs</button>
+        <button class="chip" data-level="B6">Silent e</button>
+        <button class="chip" data-level="B7">R-Control</button>
+        <button class="chip" data-level="B8">Vowel Teams</button>
+        <button class="chip" data-level="C1">Silent Ltrs</button>
       </div>
 
       <div class="activity-area">

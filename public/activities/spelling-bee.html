@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Spelling Bee - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .game-header h1 { font-size: 1.4rem; }
+
+    .activity-area {
+      text-align: center;
+      padding: var(--space-sm) 0;
+    }
+
+    .word-prompt {
+      margin-bottom: var(--space-md);
+    }
+
+    .word-image {
+      font-size: 5rem;
+      margin-bottom: var(--space-sm);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .word-image:hover {
+      transform: scale(1.1);
+    }
+
+    .hear-btn {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      font-size: 2rem;
+      margin: 0 auto var(--space-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hint-text {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Letter slots */
+    .letter-slots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: var(--space-md);
+      min-height: 70px;
+      flex-wrap: wrap;
+    }
+
+    .letter-slot {
+      width: 55px;
+      height: 65px;
+      background: white;
+      border: 3px solid var(--color-border);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+      transition: all 0.2s;
+    }
+
+    .letter-slot.filled {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .letter-slot.current {
+      border-color: var(--color-terracotta);
+      animation: pulse-slot 1s infinite;
+    }
+
+    .letter-slot.correct {
+      border-color: var(--color-sage-dark);
+      background: #e8f5e9;
+    }
+
+    .letter-slot.incorrect {
+      border-color: #e74c3c;
+      background: #ffebee;
+      animation: shake 0.3s;
+    }
+
+    @keyframes pulse-slot {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* Letter keyboard */
+    .letter-keyboard {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: var(--space-md);
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .letter-key {
+      width: 42px;
+      height: 48px;
+      background: var(--color-sage);
+      border: none;
+      border-radius: var(--border-radius);
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .letter-key:hover {
+      background: var(--color-sage-dark);
+      transform: translateY(-2px);
+    }
+
+    .letter-key:active {
+      transform: translateY(0) scale(0.95);
+    }
+
+    .letter-key.used {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .letter-key.backspace {
+      width: 70px;
+      background: var(--color-terracotta);
+      font-size: 1.5rem;
+    }
+
+    .letter-key.backspace:hover {
+      background: var(--color-terracotta-dark);
+    }
+
+    /* Feedback */
+    .feedback {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      min-height: 40px;
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback.correct { color: var(--color-sage-dark); }
+    .feedback.incorrect { color: #e74c3c; }
+    .feedback.waiting { color: var(--color-text-muted); }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Celebration */
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      animation: celebrate 0.5s ease-out;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes celebrate {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
+    .streak-display {
+      text-align: center;
+      margin-top: var(--space-md);
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    .streak-display span {
+      color: var(--color-terracotta);
+      font-weight: 700;
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .letter-slot { width: 45px; height: 55px; font-size: 1.6rem; }
+      .letter-key { width: 36px; height: 42px; font-size: 1.1rem; }
+      .word-image { font-size: 4rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <script src="/js/audio-utils.js"></script>
+  <script src="/js/toast.js"></script>
+  <script src="/js/progress-tracker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Spelling Bee <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div class="score-badge">Score: <span id="score">0</span></div>
+      </div>
+
+      <div class="level-select">
+        <button class="chip active" data-level="cvc">CVC</button>
+        <button class="chip" data-level="blends">Blends</button>
+        <button class="chip" data-level="digraphs">Digraphs</button>
+        <button class="chip" data-level="cvce">CVCe</button>
+      </div>
+
+      <div class="activity-area">
+        <div class="word-prompt">
+          <div class="word-image" id="wordImage" onclick="playCurrentWord()">🐱</div>
+          <button class="btn btn-primary hear-btn" onclick="playCurrentWord()">🔊</button>
+          <p class="hint-text" id="hintText">Tap to hear the word</p>
+        </div>
+
+        <div class="letter-slots" id="letterSlots"></div>
+
+        <div class="feedback waiting" id="feedback">Spell the word you hear!</div>
+
+        <div class="letter-keyboard" id="letterKeyboard"></div>
+
+        <div class="controls">
+          <button class="btn btn-secondary" onclick="clearWord()">Clear</button>
+          <button class="btn btn-outline" onclick="skipWord()">Skip</button>
+        </div>
+
+        <div class="streak-display">
+          Streak: <span id="streak">0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Word banks by level
+    const wordBanks = {
+      cvc: [
+        { word: 'cat', image: '🐱' },
+        { word: 'dog', image: '🐕' },
+        { word: 'sun', image: '☀️' },
+        { word: 'hat', image: '🎩' },
+        { word: 'pig', image: '🐷' },
+        { word: 'cup', image: '🥤' },
+        { word: 'bed', image: '🛏️' },
+        { word: 'fox', image: '🦊' },
+        { word: 'map', image: '🗺️' },
+        { word: 'pen', image: '🖊️' },
+        { word: 'bus', image: '🚌' },
+        { word: 'bat', image: '🦇' },
+        { word: 'net', image: '🥅' },
+        { word: 'pot', image: '🍲' },
+        { word: 'fan', image: '🪭' },
+        { word: 'log', image: '🪵' },
+        { word: 'rug', image: '🧶' },
+        { word: 'jam', image: '🍓' },
+        { word: 'web', image: '🕸️' },
+        { word: 'box', image: '📦' },
+      ],
+      blends: [
+        { word: 'frog', image: '🐸' },
+        { word: 'crab', image: '🦀' },
+        { word: 'flag', image: '🚩' },
+        { word: 'drum', image: '🥁' },
+        { word: 'swim', image: '🏊' },
+        { word: 'stop', image: '🛑' },
+        { word: 'clap', image: '👏' },
+        { word: 'snap', image: '🫰' },
+        { word: 'grin', image: '😁' },
+        { word: 'spin', image: '🌀' },
+        { word: 'skip', image: '🦘' },
+        { word: 'plum', image: '🫐' },
+        { word: 'sled', image: '🛷' },
+        { word: 'step', image: '👣' },
+        { word: 'grab', image: '🤏' },
+        { word: 'trip', image: '🧳' },
+      ],
+      digraphs: [
+        { word: 'ship', image: '🚢' },
+        { word: 'fish', image: '🐟' },
+        { word: 'dish', image: '🍽️' },
+        { word: 'shop', image: '🏪' },
+        { word: 'chat', image: '💬' },
+        { word: 'chin', image: '🧔' },
+        { word: 'chop', image: '🪓' },
+        { word: 'chip', image: '🍟' },
+        { word: 'thin', image: '📏' },
+        { word: 'path', image: '🛤️' },
+        { word: 'math', image: '🔢' },
+        { word: 'wish', image: '⭐' },
+        { word: 'ring', image: '💍' },
+        { word: 'sing', image: '🎤' },
+        { word: 'king', image: '👑' },
+        { word: 'wing', image: '🪽' },
+      ],
+      cvce: [
+        { word: 'cake', image: '🎂' },
+        { word: 'bike', image: '🚲' },
+        { word: 'home', image: '🏠' },
+        { word: 'bone', image: '🦴' },
+        { word: 'lake', image: '🏞️' },
+        { word: 'kite', image: '🪁' },
+        { word: 'rose', image: '🌹' },
+        { word: 'cube', image: '🧊' },
+        { word: 'cone', image: '🍦' },
+        { word: 'wave', image: '🌊' },
+        { word: 'fire', image: '🔥' },
+        { word: 'game', image: '🎮' },
+        { word: 'time', image: '⏰' },
+        { word: 'nose', image: '👃' },
+        { word: 'rope', image: '🪢' },
+        { word: 'vine', image: '🍇' },
+      ],
+    };
+
+    // State
+    let currentLevel = 'cvc';
+    let currentWord = null;
+    let typedLetters = [];
+    let score = 0;
+    let streak = 0;
+    let usedWords = new Set();
+    let currentStudent = null;
+    let sessionStartTime = null;
+    let sessionStats = { correct: 0, wrong: 0 };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupLevelButtons();
+      setupKeyboard();
+
+      // Physical keyboard support
+      document.addEventListener('keydown', handleKeyPress);
+
+      // Student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is spelling today?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+        }
+      }
+
+      sessionStartTime = Date.now();
+      loadNewWord();
+
+      // Play intro
+      const lastIntro = localStorage.getItem('spelling-bee-intro');
+      const oneDay = 24 * 60 * 60 * 1000;
+      if (!lastIntro || Date.now() - parseInt(lastIntro) > oneDay) {
+        setTimeout(() => {
+          AudioUtils.playInstruction('spelling-bee-intro', 'Listen to the word, then spell it!');
+          localStorage.setItem('spelling-bee-intro', Date.now().toString());
+        }, 500);
+      }
+    });
+
+    function setupLevelButtons() {
+      document.querySelectorAll('.chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLevel = btn.dataset.level;
+          usedWords.clear();
+          loadNewWord();
+        });
+      });
+    }
+
+    function setupKeyboard() {
+      const keyboard = document.getElementById('letterKeyboard');
+      const letters = 'abcdefghijklmnopqrstuvwxyz';
+
+      letters.split('').forEach(letter => {
+        const key = document.createElement('button');
+        key.className = 'letter-key';
+        key.textContent = letter;
+        key.dataset.letter = letter;
+        key.onclick = () => addLetter(letter);
+        keyboard.appendChild(key);
+      });
+
+      // Backspace key
+      const backspace = document.createElement('button');
+      backspace.className = 'letter-key backspace';
+      backspace.innerHTML = '⌫';
+      backspace.onclick = removeLetter;
+      keyboard.appendChild(backspace);
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === 'Backspace') {
+        removeLetter();
+      } else if (/^[a-zA-Z]$/.test(e.key)) {
+        addLetter(e.key.toLowerCase());
+      }
+    }
+
+    function loadNewWord() {
+      const bank = wordBanks[currentLevel];
+      const available = bank.filter(w => !usedWords.has(w.word));
+
+      if (available.length === 0) {
+        usedWords.clear();
+      }
+
+      const words = available.length > 0 ? available : bank;
+      currentWord = words[Math.floor(Math.random() * words.length)];
+      usedWords.add(currentWord.word);
+
+      typedLetters = [];
+
+      // Update UI
+      document.getElementById('wordImage').textContent = currentWord.image;
+      document.getElementById('feedback').textContent = 'Spell the word you hear!';
+      document.getElementById('feedback').className = 'feedback waiting';
+      document.getElementById('hintText').textContent = 'Tap to hear the word';
+
+      renderLetterSlots();
+      resetKeyboard();
+
+      // Auto-play word
+      setTimeout(() => playCurrentWord(), 400);
+    }
+
+    function renderLetterSlots() {
+      const container = document.getElementById('letterSlots');
+      container.innerHTML = '';
+
+      for (let i = 0; i < currentWord.word.length; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'letter-slot';
+        slot.dataset.index = i;
+
+        if (i < typedLetters.length) {
+          slot.textContent = typedLetters[i];
+          slot.classList.add('filled');
+        } else if (i === typedLetters.length) {
+          slot.classList.add('current');
+        }
+
+        container.appendChild(slot);
+      }
+    }
+
+    function addLetter(letter) {
+      if (typedLetters.length >= currentWord.word.length) return;
+
+      typedLetters.push(letter);
+      renderLetterSlots();
+
+      // Play letter sound
+      AudioUtils.playLetterSound(letter, 'sound').catch(() => {});
+
+      // Check if word is complete
+      if (typedLetters.length === currentWord.word.length) {
+        checkSpelling();
+      }
+    }
+
+    function removeLetter() {
+      if (typedLetters.length === 0) return;
+      typedLetters.pop();
+      renderLetterSlots();
+    }
+
+    function clearWord() {
+      typedLetters = [];
+      renderLetterSlots();
+      resetKeyboard();
+      document.getElementById('feedback').textContent = 'Spell the word you hear!';
+      document.getElementById('feedback').className = 'feedback waiting';
+    }
+
+    function resetKeyboard() {
+      document.querySelectorAll('.letter-key').forEach(key => {
+        key.classList.remove('used');
+      });
+    }
+
+    function checkSpelling() {
+      const spelled = typedLetters.join('');
+      const slots = document.querySelectorAll('.letter-slot');
+
+      if (spelled === currentWord.word) {
+        // Correct!
+        sessionStats.correct++;
+        score += 10 + streak * 2;
+        streak++;
+        document.getElementById('score').textContent = score;
+        document.getElementById('streak').textContent = streak;
+
+        slots.forEach(slot => slot.classList.add('correct'));
+        document.getElementById('feedback').textContent = `Correct! "${currentWord.word}" `;
+        document.getElementById('feedback').className = 'feedback correct';
+
+        showCelebration();
+        playCurrentWord();
+
+        // Record progress every 5 words
+        if (sessionStats.correct % 5 === 0) {
+          recordProgressToTracker();
+        }
+
+        setTimeout(loadNewWord, 1500);
+      } else {
+        // Incorrect
+        sessionStats.wrong++;
+        streak = 0;
+        document.getElementById('streak').textContent = streak;
+
+        slots.forEach((slot, i) => {
+          if (typedLetters[i] !== currentWord.word[i]) {
+            slot.classList.add('incorrect');
+          } else {
+            slot.classList.add('correct');
+          }
+        });
+
+        document.getElementById('feedback').textContent = `Try again! Listen carefully.`;
+        document.getElementById('feedback').className = 'feedback incorrect';
+
+        setTimeout(() => {
+          clearWord();
+          playCurrentWord();
+        }, 1500);
+      }
+    }
+
+    function skipWord() {
+      // Show the answer
+      document.getElementById('feedback').textContent = `The word was: ${currentWord.word}`;
+      document.getElementById('feedback').className = 'feedback waiting';
+      streak = 0;
+      document.getElementById('streak').textContent = streak;
+
+      setTimeout(loadNewWord, 2000);
+    }
+
+    function playCurrentWord() {
+      AudioUtils.playWord(currentWord.word).catch(() => {});
+    }
+
+    function showCelebration() {
+      const emojis = ['⭐', '🌟', '✨', '🎉', '🐝', '🍯'];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      celebration.textContent = emoji;
+      celebration.style.left = (30 + Math.random() * 40) + '%';
+      document.body.appendChild(celebration);
+
+      setTimeout(() => celebration.remove(), 500);
+    }
+
+    function recordProgressToTracker() {
+      if (typeof ProgressTracker === 'undefined') return;
+      const total = sessionStats.correct + sessionStats.wrong;
+      if (total === 0) return;
+
+      const accuracy = sessionStats.correct / total;
+      ProgressTracker.recordSession('spelling-bee', 'C', accuracy, {
+        correct: sessionStats.correct,
+        wrong: sessionStats.wrong,
+        level: currentLevel,
+        score: score,
+        duration: Math.round((Date.now() - sessionStartTime) / 1000)
+      });
+
+      // Check for band promotion
+      const promotion = ProgressTracker.checkBandPromotion('C');
+      if (promotion.ready && promotion.justUnlocked) {
+        Toast.success('Amazing progress! Band D is now unlocked!');
+      }
+    }
+
+    // Save progress on page unload
+    window.addEventListener('beforeunload', () => {
+      recordProgressToTracker();
+      saveActivity();
+    });
+
+    async function saveActivity() {
+      if (!currentStudent || sessionStats.correct === 0) return;
+      try {
+        await window.FunBookiesDB.saveActivity({
+          studentId: currentStudent.id,
+          type: 'spelling-bee',
+          level: currentLevel,
+          score: sessionStats.correct,
+          total: sessionStats.correct + sessionStats.wrong,
+          duration: Math.round((Date.now() - sessionStartTime) / 1000),
+          details: { finalScore: score, bestStreak: streak }
+        });
+      } catch (e) {
+        console.error('Failed to save:', e);
+      }
+    }
+  </script>
+</body>
+</html>

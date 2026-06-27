@@ -1,0 +1,211 @@
+{
+  "title": "Nat the Bat",
+  "slug": "nat-the-bat",
+  "level": "B1",
+  "status": "published",
+  "characterName": "Nat",
+  "characterDescription": "small brown bat with big round eyes, fuzzy body, small pointed ears, and delicate wings folded at sides when not flying",
+  "setting": "cave at dusk transitioning to night, with rocks, moss, and eventually stars visible outside",
+  "storyType": "growth",
+  "visual_style": "soft digital children's book illustration, gentle glowing light, warm cave tones, cozy atmosphere, magical nighttime",
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Nat the Bat",
+      "scene": "Cover illustration: A small brown bat with big round eyes flying through a starry night sky. Wings spread wide. Moon glowing in background. The bat looks curious and happy. Deep blue night with twinkling stars.",
+      "image_prompt": "Single scene illustration: Cover illustration: A small brown bat with big round eyes flying through a starry night sky. Wings spread wide. Moon glowing in background. The bat looks curious and happy. Deep blue night with twinkling stars.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: soft digital children's book illustration, gentle glowing light, warm cave tones, cozy atmosphere, magical nighttime\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/nat-the-bat/page01.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T15:12:53.072342",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
+    },
+    {
+      "page": 2,
+      "type": "story",
+      "text": "Nat is a bat.",
+      "scene": "Medium shot: Small brown bat named Nat hanging upside down from a cave ceiling. Big round eyes, fuzzy body, wings folded. Soft evening light coming from cave entrance. Warm brown cave walls.",
+      "image_prompt": "Single scene illustration: Medium shot: Small brown bat named Nat hanging upside down from a cave ceiling. Big round eyes, fuzzy body, wings folded. Soft evening light coming from cave entrance. Warm brown cave walls.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: soft digital children's book illustration, gentle glowing light, warm cave tones, cozy atmosphere, magical nighttime\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/nat-the-bat/page02.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T15:16:22.515109",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
+    },
+    {
+      "page": 3,
+      "type": "story",
+      "text": "The sun sat low.",
+      "scene": "Wide shot: View from inside cave looking out at sunset. Orange and pink sky visible through cave opening. Nat the bat hanging in foreground, silhouetted. Sun sitting low on horizon.",
+      "image_prompt": "Single scene illustration: Wide shot: View from inside cave looking out at sunset. Orange and pink sky visible through cave opening. Nat the bat hanging in foreground, silhouetted. Sun sitting low on horizon.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: soft digital children's book illustration, gentle glowing light, warm cave tones, cozy atmosphere, magical nighttime\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/nat-the-bat/page03.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T15:28:52.611864",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_strategy": "multi-3ref"
+      }
+    },
+    {
+      "page": 4,
+      "type": "story",
+      "text": "It got dark.",
+      "scene": "Same cave view but now darker. Deep blue twilight sky through cave opening. First stars appearing. Nat the bat still hanging, eyes wide open looking at the darkening sky.",
+      "image_prompt": "Single scene illustration: Same cave view but now darker. Deep blue twilight sky through cave opening. First stars appearing. Nat the bat still hanging, eyes wide open looking at the darkening sky.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: soft digital children's book illustration, gentle glowing light, warm cave tones, cozy atmosphere, magical nighttime\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/nat-the-bat/page04.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T15:22:36.156628",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
+    },
+    {
+      "page": 5,
+      "type": "story",
+      "text": "Nat hid. It was dark!",
+      "scene": "Medium shot: Brown bat Nat curled up tight in a dark corner of the cave, wings wrapped around himself. Eyes squeezed shut. Dark shadows all around him.",
+      "image_prompt": "Single scene illustration: Medium shot: Brown bat Nat curled up tight in a dark corner of the cave, wings wrapped around himself. Eyes squeezed shut. Dark shadows all around him.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: soft digital children's book illustration, gentle glowing light, warm cave tones, cozy atmosphere, magical nighttime\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/nat-the-bat/page05.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T15:29:31.151576",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_strategy": "multi-3ref"
+      }
+    },
+    {
+      "page": 6,
+      "type": "story",
+      "text": "But wait! Nat can see!",
+      "scene": "Close-up: Nat the bat opening his eyes wide with surprised expression. One wing uncurling from his body. Around him, the dark cave is visible in soft blue-gray tones - he can see everything clearly. Moment of realization.",
+      "image_prompt": "Single scene illustration: Close-up: Nat the bat opening his eyes wide with surprised expression. One wing uncurling from his body. Around him, the dark cave is visible in soft blue-gray tones - he can see everything clearly. Moment of realization.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: soft digital children's book illustration, gentle glowing light, warm cave tones, cozy atmosphere, magical nighttime\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/nat-the-bat/page06.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T15:30:25.982504",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_strategy": "multi-3ref"
+      }
+    },
+    {
+      "page": 7,
+      "type": "story",
+      "text": "Nat can see the rocks.",
+      "scene": "Medium shot: Nat standing on cave floor, wings slightly spread, looking at detailed rock formations. The rocks are clearly visible to him in the darkness. Expression of wonder.",
+      "image_prompt": "Single scene illustration: Medium shot: Nat standing on cave floor, wings slightly spread, looking at detailed rock formations. The rocks are clearly visible to him in the darkness. Expression of wonder.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: soft digital children's book illustration, gentle glowing light, warm cave tones, cozy atmosphere, magical nighttime\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/nat-the-bat/page07.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T15:25:50.687650",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
+    },
+    {
+      "page": 8,
+      "type": "story",
+      "text": "Nat can see the bugs!",
+      "scene": "Dynamic shot: Nat flying through the cave, eyes fixed on small glowing fireflies and moths. Wings spread wide in flight. Excited expression. Several insects visible in the air.",
+      "image_prompt": "Single scene illustration: Dynamic shot: Nat flying through the cave, eyes fixed on small glowing fireflies and moths. Wings spread wide in flight. Excited expression. Several insects visible in the air.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: soft digital children's book illustration, gentle glowing light, warm cave tones, cozy atmosphere, magical nighttime\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/nat-the-bat/page08.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T15:17:35.154108",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
+    },
+    {
+      "page": 9,
+      "type": "story",
+      "text": "Nat can see it all!",
+      "scene": "Wide shot: Nat flying out of cave into starry night sky. Wings fully spread. Below him, moonlit landscape visible - trees, hills, a pond reflecting stars. Amazed, joyful expression.",
+      "image_prompt": "Single scene illustration: Wide shot: Nat flying out of cave into starry night sky. Wings fully spread. Below him, moonlit landscape visible - trees, hills, a pond reflecting stars. Amazed, joyful expression.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: soft digital children's book illustration, gentle glowing light, warm cave tones, cozy atmosphere, magical nighttime\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/nat-the-bat/page09.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T15:31:04.555975",
+        "model": "wan2.6-image",
+        "provider": "mulerouter",
+        "used_reference": true,
+        "reference_strategy": "multi-3ref"
+      }
+    },
+    {
+      "page": 10,
+      "type": "story",
+      "text": "Nat is glad. The dark is not bad!",
+      "scene": "Close-up: Nat the bat flying with big happy smile. Starry night sky behind him. Moon glowing. Eyes bright and cheerful. Wings outstretched in confident flight. Pure joy.",
+      "image_prompt": "Single scene illustration: Close-up: Nat the bat flying with big happy smile. Starry night sky behind him. Moon glowing. Eyes bright and cheerful. Wings outstretched in confident flight. Pure joy.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: soft digital children's book illustration, gentle glowing light, warm cave tones, cozy atmosphere, magical nighttime\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/nat-the-bat/page10.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T15:26:40.231015",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
+    },
+    {
+      "page": 11,
+      "type": "end",
+      "text": "The End",
+      "scene": "Wide shot: Nat the bat soaring through beautiful starry night sky. Full moon in background. Silhouette of trees below. Peaceful, magical nighttime scene. Bat flying freely and happily.",
+      "image_prompt": "Single scene illustration: Wide shot: Nat the bat soaring through beautiful starry night sky. Full moon in background. Silhouette of trees below. Peaceful, magical nighttime scene. Bat flying freely and happily.\n\nCOMPOSITION: One cohesive illustration filling the entire canvas.\nFull-bleed image with the scene filling edge to edge.\n\nSTYLE: soft digital children's book illustration, gentle glowing light, warm cave tones, cozy atmosphere, magical nighttime\n\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image. Pure illustration only.",
+      "image": "/books/images/nat-the-bat/page11.png",
+      "generation_metadata": {
+        "generated_at": "2026-01-22T15:27:11.531926",
+        "model": "nano-banana-pro",
+        "provider": "mulerouter",
+        "used_reference": false,
+        "reference_version": null
+      }
+    }
+  ],
+  "multi_reference_metadata": {
+    "strategy": "scene-based-cascade",
+    "generated_at": "2026-01-22T22:44:00.000000",
+    "provider": "mulerouter",
+    "cost": "$0.21",
+    "sheets": {
+      "style_guide": {
+        "path": "books/references/nat-the-bat_multi/style_guide.png",
+        "model": "nano-banana-pro",
+        "type": "character-sheet",
+        "description": "9-panel character reference showing Nat from different angles and expressions"
+      },
+      "opening_scenes": {
+        "path": "books/references/nat-the-bat_multi/opening_scenes.png",
+        "model": "wan2.6-image",
+        "type": "scene-based",
+        "description": "9-panel showing actual scenes from pages 2-6 (first half of story)",
+        "use_for_pages": [1, 2, 3, 4, 5, 6]
+      },
+      "closing_scenes": {
+        "path": "books/references/nat-the-bat_multi/closing_scenes.png",
+        "model": "wan2.6-image",
+        "type": "scene-based",
+        "description": "9-panel showing actual scenes from pages 7-11 (second half of story)",
+        "use_for_pages": [7, 8, 9, 10, 11]
+      }
+    }
+  },
+  "multiRefs": {
+    "styleGuide": "/books/references/nat-the-bat_multi/style_guide.png",
+    "openingScenes": "/books/references/nat-the-bat_multi/opening_scenes.png",
+    "closingScenes": "/books/references/nat-the-bat_multi/closing_scenes.png"
+  }
+}

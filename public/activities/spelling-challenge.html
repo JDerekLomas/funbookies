@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Spelling Challenge - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .game-header h1 { font-size: 1.4rem; }
+
+    .stats-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .timer-badge {
+      background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .timer-badge.warning {
+      animation: pulse-timer 0.5s infinite;
+    }
+
+    @keyframes pulse-timer {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .activity-area {
+      text-align: center;
+      padding: var(--space-sm) 0;
+    }
+
+    .word-prompt {
+      margin-bottom: var(--space-md);
+    }
+
+    .word-image {
+      font-size: 4rem;
+      margin-bottom: var(--space-sm);
+      cursor: pointer;
+    }
+
+    .hear-btn {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      font-size: 2rem;
+      margin: 0 auto var(--space-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hint-text {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Input field */
+    .spelling-input {
+      width: 100%;
+      max-width: 300px;
+      padding: 16px 20px;
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 600;
+      text-align: center;
+      border: 3px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      margin: 0 auto var(--space-md);
+      display: block;
+      letter-spacing: 0.1em;
+      transition: all 0.2s;
+    }
+
+    .spelling-input:focus {
+      outline: none;
+      border-color: var(--color-sage);
+      box-shadow: 0 0 0 4px rgba(159, 199, 170, 0.2);
+    }
+
+    .spelling-input.correct {
+      border-color: var(--color-sage-dark);
+      background: #e8f5e9;
+    }
+
+    .spelling-input.incorrect {
+      border-color: #e74c3c;
+      background: #ffebee;
+      animation: shake 0.3s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* Difficulty indicator */
+    .difficulty {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: var(--space-md);
+    }
+
+    .difficulty-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-border);
+    }
+
+    .difficulty-dot.active {
+      background: var(--color-terracotta);
+    }
+
+    /* Feedback */
+    .feedback {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      min-height: 40px;
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback.correct { color: var(--color-sage-dark); }
+    .feedback.incorrect { color: #e74c3c; }
+    .feedback.waiting { color: var(--color-text-muted); }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Game over screen */
+    .game-over {
+      text-align: center;
+      padding: var(--space-lg);
+      background: linear-gradient(135deg, var(--color-sage-light), #e8f5e9);
+      border-radius: var(--border-radius-lg);
+    }
+
+    .game-over h2 {
+      color: var(--color-sage-dark);
+      margin-bottom: var(--space-md);
+    }
+
+    .final-stats {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-md);
+    }
+
+    .final-stat {
+      text-align: center;
+    }
+
+    .final-stat .value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--color-sage-dark);
+    }
+
+    .final-stat .label {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Streak display */
+    .streak-display {
+      text-align: center;
+      margin-top: var(--space-md);
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    .streak-display span {
+      color: var(--color-terracotta);
+      font-weight: 700;
+    }
+
+    /* Celebration */
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      animation: celebrate 0.5s ease-out;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes celebrate {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .spelling-input { font-size: 1.5rem; padding: 14px 16px; }
+      .final-stats { gap: var(--space-md); }
+      .final-stat .value { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <script src="/js/audio-utils.js"></script>
+  <script src="/js/toast.js"></script>
+  <script src="/js/progress-tracker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Spelling Challenge <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div class="stats-row">
+          <div class="score-badge">Score: <span id="score">0</span></div>
+          <div class="timer-badge" id="timerBadge">⏱️ <span id="timer">60</span>s</div>
+        </div>
+      </div>
+
+      <div class="level-select">
+        <button class="chip active" data-level="vowel-teams">Vowel Teams</button>
+        <button class="chip" data-level="r-controlled">R-Controlled</button>
+        <button class="chip" data-level="multisyllable">Multi-Syllable</button>
+        <button class="chip" data-level="tricky">Tricky Words</button>
+      </div>
+
+      <div class="activity-area" id="gameArea">
+        <div class="word-prompt">
+          <div class="word-image" id="wordImage" onclick="playCurrentWord()">📝</div>
+          <button class="btn btn-primary hear-btn" onclick="playCurrentWord()">🔊</button>
+          <p class="hint-text" id="hintText">Type the word you hear</p>
+        </div>
+
+        <div class="difficulty" id="difficulty"></div>
+
+        <input type="text" class="spelling-input" id="spellingInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type here...">
+
+        <div class="feedback waiting" id="feedback">Listen and spell!</div>
+
+        <div class="controls">
+          <button class="btn btn-secondary" onclick="playCurrentWord()">🔊 Hear Again</button>
+          <button class="btn btn-primary" onclick="checkSpelling()">Check</button>
+          <button class="btn btn-outline" onclick="skipWord()">Skip</button>
+        </div>
+
+        <div class="streak-display">
+          Streak: <span id="streak">0</span> | Best: <span id="bestStreak">0</span>
+        </div>
+      </div>
+
+      <div class="game-over hidden" id="gameOver">
+        <h2>Time's Up!</h2>
+        <div class="final-stats">
+          <div class="final-stat">
+            <div class="value" id="finalScore">0</div>
+            <div class="label">Score</div>
+          </div>
+          <div class="final-stat">
+            <div class="value" id="finalWords">0</div>
+            <div class="label">Words</div>
+          </div>
+          <div class="final-stat">
+            <div class="value" id="finalStreak">0</div>
+            <div class="label">Best Streak</div>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="startGame()">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Word banks with difficulty ratings
+    const wordBanks = {
+      'vowel-teams': [
+        { word: 'rain', image: '🌧️', difficulty: 1 },
+        { word: 'boat', image: '⛵', difficulty: 1 },
+        { word: 'team', image: '👥', difficulty: 1 },
+        { word: 'leaf', image: '🍃', difficulty: 1 },
+        { word: 'paint', image: '🎨', difficulty: 2 },
+        { word: 'beach', image: '🏖️', difficulty: 2 },
+        { word: 'dream', image: '💭', difficulty: 2 },
+        { word: 'float', image: '🎈', difficulty: 2 },
+        { word: 'sneaker', image: '👟', difficulty: 3 },
+        { word: 'rainbow', image: '🌈', difficulty: 3 },
+        { word: 'oatmeal', image: '🥣', difficulty: 3 },
+        { word: 'seaweed', image: '🌿', difficulty: 3 },
+      ],
+      'r-controlled': [
+        { word: 'star', image: '⭐', difficulty: 1 },
+        { word: 'bird', image: '🐦', difficulty: 1 },
+        { word: 'corn', image: '🌽', difficulty: 1 },
+        { word: 'fern', image: '🌿', difficulty: 1 },
+        { word: 'sharp', image: '🔪', difficulty: 2 },
+        { word: 'storm', image: '⛈️', difficulty: 2 },
+        { word: 'nurse', image: '👩‍⚕️', difficulty: 2 },
+        { word: 'church', image: '⛪', difficulty: 2 },
+        { word: 'birthday', image: '🎂', difficulty: 3 },
+        { word: 'airport', image: '✈️', difficulty: 3 },
+        { word: 'superstar', image: '🌟', difficulty: 3 },
+        { word: 'thunderstorm', image: '🌩️', difficulty: 3 },
+      ],
+      'multisyllable': [
+        { word: 'rabbit', image: '🐰', difficulty: 1 },
+        { word: 'kitten', image: '🐱', difficulty: 1 },
+        { word: 'button', image: '🔘', difficulty: 1 },
+        { word: 'mitten', image: '🧤', difficulty: 1 },
+        { word: 'happen', image: '✨', difficulty: 2 },
+        { word: 'basket', image: '🧺', difficulty: 2 },
+        { word: 'puppet', image: '🎭', difficulty: 2 },
+        { word: 'trumpet', image: '🎺', difficulty: 2 },
+        { word: 'adventure', image: '🗺️', difficulty: 3 },
+        { word: 'butterfly', image: '🦋', difficulty: 3 },
+        { word: 'cucumber', image: '🥒', difficulty: 3 },
+        { word: 'wonderful', image: '😊', difficulty: 3 },
+      ],
+      'tricky': [
+        { word: 'know', image: '🧠', difficulty: 1 },
+        { word: 'write', image: '✍️', difficulty: 1 },
+        { word: 'night', image: '🌙', difficulty: 1 },
+        { word: 'through', image: '🚪', difficulty: 2 },
+        { word: 'thought', image: '💭', difficulty: 2 },
+        { word: 'laugh', image: '😂', difficulty: 2 },
+        { word: 'enough', image: '✅', difficulty: 2 },
+        { word: 'daughter', image: '👧', difficulty: 3 },
+        { word: 'beautiful', image: '🌺', difficulty: 3 },
+        { word: 'neighbor', image: '🏠', difficulty: 3 },
+        { word: 'although', image: '🤔', difficulty: 3 },
+        { word: 'caught', image: '🎣', difficulty: 2 },
+      ]
+    };
+
+    // Game state
+    let currentLevel = 'vowel-teams';
+    let currentWord = null;
+    let score = 0;
+    let streak = 0;
+    let bestStreak = 0;
+    let wordsSpelled = 0;
+    let timeLeft = 60;
+    let timerInterval = null;
+    let gameActive = false;
+    let usedWords = new Set();
+    let currentStudent = null;
+    let sessionStartTime = null;
+    let sessionStats = { correct: 0, wrong: 0 };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupLevelButtons();
+
+      // Enter key to check
+      document.getElementById('spellingInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkSpelling();
+      });
+
+      // Student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is taking the challenge?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+        }
+      }
+
+      sessionStartTime = Date.now();
+      startGame();
+    });
+
+    function setupLevelButtons() {
+      document.querySelectorAll('.chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLevel = btn.dataset.level;
+          startGame();
+        });
+      });
+    }
+
+    function startGame() {
+      score = 0;
+      streak = 0;
+      wordsSpelled = 0;
+      timeLeft = 60;
+      usedWords.clear();
+      gameActive = true;
+
+      document.getElementById('score').textContent = score;
+      document.getElementById('streak').textContent = streak;
+      document.getElementById('timer').textContent = timeLeft;
+      document.getElementById('gameArea').classList.remove('hidden');
+      document.getElementById('gameOver').classList.add('hidden');
+      document.getElementById('timerBadge').classList.remove('warning');
+
+      // Start timer
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(updateTimer, 1000);
+
+      loadWord();
+      document.getElementById('spellingInput').focus();
+    }
+
+    function updateTimer() {
+      timeLeft--;
+      document.getElementById('timer').textContent = timeLeft;
+
+      if (timeLeft <= 10) {
+        document.getElementById('timerBadge').classList.add('warning');
+      }
+
+      if (timeLeft <= 0) {
+        endGame();
+      }
+    }
+
+    function loadWord() {
+      const bank = wordBanks[currentLevel];
+      const available = bank.filter(w => !usedWords.has(w.word));
+
+      if (available.length === 0) {
+        usedWords.clear();
+      }
+
+      const words = available.length > 0 ? available : bank;
+
+      // Prefer harder words as score increases
+      let filtered = words;
+      if (score > 50) {
+        filtered = words.filter(w => w.difficulty >= 2);
+      }
+      if (score > 100) {
+        filtered = words.filter(w => w.difficulty >= 3);
+      }
+      if (filtered.length === 0) filtered = words;
+
+      currentWord = filtered[Math.floor(Math.random() * filtered.length)];
+      usedWords.add(currentWord.word);
+
+      // Update UI
+      document.getElementById('wordImage').textContent = currentWord.image;
+      document.getElementById('spellingInput').value = '';
+      document.getElementById('spellingInput').classList.remove('correct', 'incorrect');
+      document.getElementById('feedback').textContent = 'Listen and spell!';
+      document.getElementById('feedback').className = 'feedback waiting';
+
+      // Render difficulty
+      renderDifficulty(currentWord.difficulty);
+
+      // Auto-play word
+      setTimeout(() => playCurrentWord(), 300);
+    }
+
+    function renderDifficulty(level) {
+      const container = document.getElementById('difficulty');
+      container.innerHTML = '';
+
+      for (let i = 1; i <= 3; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'difficulty-dot';
+        if (i <= level) dot.classList.add('active');
+        container.appendChild(dot);
+      }
+    }
+
+    function playCurrentWord() {
+      AudioUtils.playWord(currentWord.word).catch(() => {});
+    }
+
+    function checkSpelling() {
+      if (!gameActive) return;
+
+      const input = document.getElementById('spellingInput');
+      const spelled = input.value.trim().toLowerCase();
+
+      if (spelled === '') return;
+
+      if (spelled === currentWord.word.toLowerCase()) {
+        // Correct!
+        sessionStats.correct++;
+        const points = 10 * currentWord.difficulty + streak * 2;
+        score += points;
+        streak++;
+        wordsSpelled++;
+
+        if (streak > bestStreak) bestStreak = streak;
+
+        document.getElementById('score').textContent = score;
+        document.getElementById('streak').textContent = streak;
+        document.getElementById('bestStreak').textContent = bestStreak;
+
+        input.classList.add('correct');
+        document.getElementById('feedback').textContent = `+${points} points!`;
+        document.getElementById('feedback').className = 'feedback correct';
+
+        showCelebration();
+
+        // Bonus time for streaks
+        if (streak % 5 === 0) {
+          timeLeft += 5;
+          document.getElementById('timer').textContent = timeLeft;
+          Toast.success('+5 seconds bonus!');
+        }
+
+        setTimeout(loadWord, 800);
+      } else {
+        // Incorrect
+        sessionStats.wrong++;
+        streak = 0;
+        document.getElementById('streak').textContent = streak;
+
+        input.classList.add('incorrect');
+        document.getElementById('feedback').textContent = `It was "${currentWord.word}"`;
+        document.getElementById('feedback').className = 'feedback incorrect';
+
+        setTimeout(() => {
+          input.classList.remove('incorrect');
+          loadWord();
+        }, 1500);
+      }
+    }
+
+    function skipWord() {
+      if (!gameActive) return;
+
+      streak = 0;
+      document.getElementById('streak').textContent = streak;
+      document.getElementById('feedback').textContent = `Skipped: "${currentWord.word}"`;
+      document.getElementById('feedback').className = 'feedback waiting';
+
+      setTimeout(loadWord, 1000);
+    }
+
+    function endGame() {
+      gameActive = false;
+      clearInterval(timerInterval);
+
+      document.getElementById('gameArea').classList.add('hidden');
+      document.getElementById('gameOver').classList.remove('hidden');
+
+      document.getElementById('finalScore').textContent = score;
+      document.getElementById('finalWords').textContent = wordsSpelled;
+      document.getElementById('finalStreak').textContent = bestStreak;
+
+      // Multiple celebrations
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => showCelebration(), i * 200);
+      }
+
+      // Record progress
+      recordProgressToTracker();
+    }
+
+    function showCelebration() {
+      const emojis = ['⭐', '🌟', '✨', '🎉', '🏆', '🔥'];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      celebration.textContent = emoji;
+      celebration.style.left = (30 + Math.random() * 40) + '%';
+      document.body.appendChild(celebration);
+
+      setTimeout(() => celebration.remove(), 500);
+    }
+
+    function recordProgressToTracker() {
+      if (typeof ProgressTracker === 'undefined') return;
+      const total = sessionStats.correct + sessionStats.wrong;
+      if (total === 0) return;
+
+      const accuracy = sessionStats.correct / total;
+      ProgressTracker.recordSession('spelling-challenge', 'D', accuracy, {
+        correct: sessionStats.correct,
+        wrong: sessionStats.wrong,
+        level: currentLevel,
+        score: score,
+        bestStreak: bestStreak,
+        duration: Math.round((Date.now() - sessionStartTime) / 1000)
+      });
+
+      // Check for band completion
+      const promotion = ProgressTracker.checkBandPromotion('D');
+      if (promotion.ready) {
+        Toast.success('Congratulations! You have mastered all reading bands!');
+      }
+
+      // Reset for next game
+      sessionStats = { correct: 0, wrong: 0 };
+    }
+
+    // Save progress on page unload
+    window.addEventListener('beforeunload', () => {
+      if (gameActive) endGame();
+      recordProgressToTracker();
+      saveActivity();
+    });
+
+    async function saveActivity() {
+      if (!currentStudent || wordsSpelled === 0) return;
+      try {
+        await window.FunBookiesDB.saveActivity({
+          studentId: currentStudent.id,
+          type: 'spelling-challenge',
+          level: currentLevel,
+          score: sessionStats.correct,
+          total: sessionStats.correct + sessionStats.wrong,
+          duration: Math.round((Date.now() - sessionStartTime) / 1000),
+          details: { finalScore: score, bestStreak }
+        });
+      } catch (e) {
+        console.error('Failed to save:', e);
+      }
+    }
+  </script>
+</body>
+</html>

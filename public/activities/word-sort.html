@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Word Sort - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .game-header h1 { font-size: 1.4rem; }
+
+    .activity-area {
+      padding: var(--space-sm) 0;
+    }
+
+    .instruction {
+      text-align: center;
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Sort buckets */
+    .sort-buckets {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: var(--space-lg);
+    }
+
+    .sort-bucket {
+      background: var(--color-cream);
+      border: 3px dashed var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-md);
+      min-height: 180px;
+      transition: all 0.2s;
+    }
+
+    .sort-bucket.drag-over {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+      transform: scale(1.02);
+    }
+
+    .bucket-header {
+      text-align: center;
+      margin-bottom: var(--space-sm);
+    }
+
+    .bucket-pattern {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--color-charcoal);
+      background: white;
+      padding: 8px 20px;
+      border-radius: var(--border-radius);
+      display: inline-block;
+      border: 2px solid var(--color-sage);
+    }
+
+    .bucket-words {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      min-height: 60px;
+    }
+
+    /* Word tiles */
+    .word-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+      min-height: 60px;
+      padding: var(--space-md);
+      background: var(--color-cream);
+      border-radius: var(--border-radius-lg);
+    }
+
+    .word-tile {
+      padding: 12px 20px;
+      background: white;
+      border: 2px solid var(--color-sage);
+      border-radius: var(--border-radius);
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--color-charcoal);
+      cursor: grab;
+      transition: all 0.2s;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .word-tile:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(159, 199, 170, 0.3);
+    }
+
+    .word-tile:active {
+      cursor: grabbing;
+    }
+
+    .word-tile.dragging {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
+
+    .word-tile.sorted {
+      background: var(--color-sage-light);
+      border-color: var(--color-sage);
+      cursor: pointer;
+    }
+
+    .word-tile.correct {
+      background: #e8f5e9;
+      border-color: var(--color-sage-dark);
+    }
+
+    .word-tile.incorrect {
+      background: #ffebee;
+      border-color: #e74c3c;
+      animation: shake 0.3s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* Feedback */
+    .feedback {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      min-height: 40px;
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback.correct { color: var(--color-sage-dark); }
+    .feedback.incorrect { color: #e74c3c; }
+    .feedback.waiting { color: var(--color-text-muted); }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Round complete */
+    .round-complete {
+      text-align: center;
+      padding: var(--space-lg);
+      background: linear-gradient(135deg, var(--color-sage-light), #e8f5e9);
+      border-radius: var(--border-radius-lg);
+      margin-bottom: var(--space-md);
+    }
+
+    .round-complete h2 {
+      color: var(--color-sage-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .round-stats {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-md);
+    }
+
+    .round-stat {
+      text-align: center;
+    }
+
+    .round-stat .value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-sage-dark);
+    }
+
+    .round-stat .label {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Celebration */
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      animation: celebrate 0.5s ease-out;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes celebrate {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .sort-buckets { grid-template-columns: 1fr; }
+      .bucket-pattern { font-size: 1.4rem; }
+      .word-tile { padding: 10px 16px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <script src="/js/audio-utils.js"></script>
+  <script src="/js/toast.js"></script>
+  <script src="/js/progress-tracker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Word Sort <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div class="score-badge">Rounds: <span id="roundCount">0</span></div>
+      </div>
+
+      <div class="level-select">
+        <button class="chip active" data-level="short-a-i">-at / -it</button>
+        <button class="chip" data-level="short-o-u">-ot / -ut</button>
+        <button class="chip" data-level="blends">bl- / cl-</button>
+        <button class="chip" data-level="cvce">-ake / -ike</button>
+        <button class="chip" data-level="digraphs">sh- / ch-</button>
+      </div>
+
+      <div class="activity-area">
+        <p class="instruction" id="instruction">Drag each word to the correct bucket!</p>
+
+        <div class="sort-buckets" id="sortBuckets"></div>
+
+        <div class="word-bank" id="wordBank"></div>
+
+        <div class="feedback waiting" id="feedback">Sort all the words!</div>
+
+        <div class="controls">
+          <button class="btn btn-secondary" onclick="resetRound()">Reset</button>
+          <button class="btn btn-primary hidden" id="nextBtn" onclick="nextRound()">Next Round →</button>
+          <button class="btn btn-outline" onclick="skipRound()">Skip</button>
+        </div>
+
+        <div class="round-complete hidden" id="roundComplete">
+          <h2>Round Complete!</h2>
+          <div class="round-stats">
+            <div class="round-stat">
+              <div class="value" id="correctCount">0</div>
+              <div class="label">Correct</div>
+            </div>
+            <div class="round-stat">
+              <div class="value" id="totalCount">0</div>
+              <div class="label">Total</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Word sort categories by level
+    const sortLevels = {
+      'short-a-i': {
+        buckets: ['-at', '-it'],
+        words: {
+          '-at': ['cat', 'bat', 'hat', 'mat', 'rat', 'sat', 'pat', 'fat'],
+          '-it': ['sit', 'bit', 'hit', 'fit', 'kit', 'pit', 'lit', 'wit']
+        }
+      },
+      'short-o-u': {
+        buckets: ['-ot', '-ut'],
+        words: {
+          '-ot': ['hot', 'pot', 'dot', 'got', 'lot', 'not', 'cot', 'rot'],
+          '-ut': ['cut', 'but', 'nut', 'hut', 'gut', 'rut', 'jut', 'put']
+        }
+      },
+      'blends': {
+        buckets: ['bl-', 'cl-'],
+        words: {
+          'bl-': ['blue', 'black', 'blend', 'block', 'blow', 'blank', 'blip', 'blob'],
+          'cl-': ['clap', 'club', 'clip', 'clock', 'class', 'clean', 'clam', 'claw']
+        }
+      },
+      'cvce': {
+        buckets: ['-ake', '-ike'],
+        words: {
+          '-ake': ['cake', 'lake', 'make', 'take', 'bake', 'wake', 'rake', 'fake'],
+          '-ike': ['bike', 'like', 'hike', 'mike', 'pike', 'spike', 'strike', 'trike']
+        }
+      },
+      'digraphs': {
+        buckets: ['sh-', 'ch-'],
+        words: {
+          'sh-': ['ship', 'shop', 'shell', 'shut', 'shed', 'shake', 'shine', 'shape'],
+          'ch-': ['chip', 'chop', 'chat', 'chin', 'check', 'chase', 'chest', 'chose']
+        }
+      }
+    };
+
+    // State
+    let currentLevel = 'short-a-i';
+    let currentWords = [];
+    let sortedWords = {};
+    let roundsCompleted = 0;
+    let currentStudent = null;
+    let sessionStartTime = null;
+    let sessionStats = { correct: 0, wrong: 0 };
+    let draggedWord = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupLevelButtons();
+
+      // Student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is sorting words?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+        }
+      }
+
+      sessionStartTime = Date.now();
+      startRound();
+
+      // Play intro
+      const lastIntro = localStorage.getItem('word-sort-intro');
+      const oneDay = 24 * 60 * 60 * 1000;
+      if (!lastIntro || Date.now() - parseInt(lastIntro) > oneDay) {
+        setTimeout(() => {
+          AudioUtils.playInstruction('word-sort-intro', 'Sort the words by their spelling pattern!');
+          localStorage.setItem('word-sort-intro', Date.now().toString());
+        }, 500);
+      }
+    });
+
+    function setupLevelButtons() {
+      document.querySelectorAll('.chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLevel = btn.dataset.level;
+          startRound();
+        });
+      });
+    }
+
+    function startRound() {
+      const level = sortLevels[currentLevel];
+      sortedWords = {};
+      level.buckets.forEach(b => sortedWords[b] = []);
+
+      // Pick random words from each bucket
+      currentWords = [];
+      level.buckets.forEach(bucket => {
+        const words = [...level.words[bucket]];
+        shuffleArray(words);
+        currentWords.push(...words.slice(0, 4).map(w => ({ word: w, bucket })));
+      });
+      shuffleArray(currentWords);
+
+      // Reset UI
+      document.getElementById('roundComplete').classList.add('hidden');
+      document.getElementById('nextBtn').classList.add('hidden');
+      document.getElementById('feedback').textContent = 'Sort all the words!';
+      document.getElementById('feedback').className = 'feedback waiting';
+
+      renderBuckets();
+      renderWordBank();
+    }
+
+    function renderBuckets() {
+      const container = document.getElementById('sortBuckets');
+      container.innerHTML = '';
+
+      const level = sortLevels[currentLevel];
+      level.buckets.forEach(pattern => {
+        const bucket = document.createElement('div');
+        bucket.className = 'sort-bucket';
+        bucket.dataset.pattern = pattern;
+
+        bucket.innerHTML = `
+          <div class="bucket-header">
+            <span class="bucket-pattern">${pattern}</span>
+          </div>
+          <div class="bucket-words" data-pattern="${pattern}"></div>
+        `;
+
+        // Drag and drop events
+        bucket.addEventListener('dragover', handleDragOver);
+        bucket.addEventListener('dragleave', handleDragLeave);
+        bucket.addEventListener('drop', handleDrop);
+
+        // Touch events for mobile
+        bucket.addEventListener('touchmove', handleTouchMove);
+        bucket.addEventListener('touchend', handleTouchEnd);
+
+        container.appendChild(bucket);
+      });
+    }
+
+    function renderWordBank() {
+      const container = document.getElementById('wordBank');
+      container.innerHTML = '';
+
+      currentWords.forEach(item => {
+        if (!Object.values(sortedWords).flat().includes(item.word)) {
+          const tile = createWordTile(item.word, item.bucket);
+          container.appendChild(tile);
+        }
+      });
+    }
+
+    function createWordTile(word, correctBucket) {
+      const tile = document.createElement('div');
+      tile.className = 'word-tile';
+      tile.textContent = word;
+      tile.dataset.word = word;
+      tile.dataset.bucket = correctBucket;
+      tile.draggable = true;
+
+      // Click to hear word
+      tile.addEventListener('click', (e) => {
+        if (!tile.classList.contains('dragging')) {
+          AudioUtils.playWord(word).catch(() => {});
+        }
+      });
+
+      // Drag events
+      tile.addEventListener('dragstart', handleDragStart);
+      tile.addEventListener('dragend', handleDragEnd);
+
+      // Touch events for mobile
+      tile.addEventListener('touchstart', handleTouchStart);
+      tile.addEventListener('touchmove', handleTouchMoveWord);
+      tile.addEventListener('touchend', handleTouchEndWord);
+
+      return tile;
+    }
+
+    // Drag handlers
+    function handleDragStart(e) {
+      draggedWord = {
+        word: e.target.dataset.word,
+        bucket: e.target.dataset.bucket,
+        element: e.target
+      };
+      e.target.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleDragEnd(e) {
+      e.target.classList.remove('dragging');
+      draggedWord = null;
+      document.querySelectorAll('.sort-bucket').forEach(b => b.classList.remove('drag-over'));
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('drag-over');
+    }
+
+    function handleDragLeave(e) {
+      e.currentTarget.classList.remove('drag-over');
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('drag-over');
+
+      if (!draggedWord) return;
+
+      const targetBucket = e.currentTarget.dataset.pattern;
+      placeWord(draggedWord.word, draggedWord.bucket, targetBucket);
+    }
+
+    // Touch handlers for mobile
+    let touchStartX, touchStartY, touchElement;
+
+    function handleTouchStart(e) {
+      const touch = e.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      touchElement = e.target;
+      draggedWord = {
+        word: e.target.dataset.word,
+        bucket: e.target.dataset.bucket,
+        element: e.target
+      };
+    }
+
+    function handleTouchMoveWord(e) {
+      if (!draggedWord) return;
+      e.preventDefault();
+
+      const touch = e.touches[0];
+      const element = draggedWord.element;
+
+      element.style.position = 'fixed';
+      element.style.left = (touch.clientX - 50) + 'px';
+      element.style.top = (touch.clientY - 25) + 'px';
+      element.style.zIndex = '1000';
+      element.classList.add('dragging');
+
+      // Highlight bucket under finger
+      const buckets = document.querySelectorAll('.sort-bucket');
+      buckets.forEach(bucket => {
+        const rect = bucket.getBoundingClientRect();
+        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+          bucket.classList.add('drag-over');
+        } else {
+          bucket.classList.remove('drag-over');
+        }
+      });
+    }
+
+    function handleTouchEndWord(e) {
+      if (!draggedWord) return;
+
+      const element = draggedWord.element;
+      element.style.position = '';
+      element.style.left = '';
+      element.style.top = '';
+      element.style.zIndex = '';
+      element.classList.remove('dragging');
+
+      // Find bucket under finger
+      const touch = e.changedTouches[0];
+      const buckets = document.querySelectorAll('.sort-bucket');
+      let targetBucket = null;
+
+      buckets.forEach(bucket => {
+        bucket.classList.remove('drag-over');
+        const rect = bucket.getBoundingClientRect();
+        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+          targetBucket = bucket.dataset.pattern;
+        }
+      });
+
+      if (targetBucket) {
+        placeWord(draggedWord.word, draggedWord.bucket, targetBucket);
+      }
+
+      draggedWord = null;
+    }
+
+    function handleTouchMove(e) {
+      e.preventDefault();
+    }
+
+    function handleTouchEnd(e) {
+      e.currentTarget.classList.remove('drag-over');
+    }
+
+    function placeWord(word, correctBucket, targetBucket) {
+      const isCorrect = correctBucket === targetBucket;
+
+      if (isCorrect) {
+        sessionStats.correct++;
+        sortedWords[targetBucket].push(word);
+
+        // Add to bucket display
+        const bucketWords = document.querySelector(`.bucket-words[data-pattern="${targetBucket}"]`);
+        const tile = document.createElement('div');
+        tile.className = 'word-tile sorted correct';
+        tile.textContent = word;
+        tile.onclick = () => AudioUtils.playWord(word).catch(() => {});
+        bucketWords.appendChild(tile);
+
+        // Remove from word bank
+        const bankTile = document.querySelector(`.word-bank .word-tile[data-word="${word}"]`);
+        if (bankTile) bankTile.remove();
+
+        document.getElementById('feedback').textContent = 'Correct!';
+        document.getElementById('feedback').className = 'feedback correct';
+
+        showCelebration();
+
+        // Check if round is complete
+        checkRoundComplete();
+      } else {
+        sessionStats.wrong++;
+
+        // Show error on the word
+        const bankTile = document.querySelector(`.word-bank .word-tile[data-word="${word}"]`);
+        if (bankTile) {
+          bankTile.classList.add('incorrect');
+          setTimeout(() => bankTile.classList.remove('incorrect'), 500);
+        }
+
+        document.getElementById('feedback').textContent = `Try again! "${word}" doesn't go there.`;
+        document.getElementById('feedback').className = 'feedback incorrect';
+      }
+    }
+
+    function checkRoundComplete() {
+      const totalSorted = Object.values(sortedWords).flat().length;
+      const totalWords = currentWords.length;
+
+      if (totalSorted === totalWords) {
+        roundsCompleted++;
+        document.getElementById('roundCount').textContent = roundsCompleted;
+
+        document.getElementById('correctCount').textContent = totalSorted;
+        document.getElementById('totalCount').textContent = totalWords;
+        document.getElementById('roundComplete').classList.remove('hidden');
+        document.getElementById('nextBtn').classList.remove('hidden');
+
+        document.getElementById('feedback').textContent = 'All sorted! Great job!';
+        document.getElementById('feedback').className = 'feedback correct';
+
+        // Multiple celebrations
+        for (let i = 0; i < 3; i++) {
+          setTimeout(() => showCelebration(), i * 200);
+        }
+
+        // Record progress
+        recordProgressToTracker();
+      }
+    }
+
+    function resetRound() {
+      startRound();
+    }
+
+    function nextRound() {
+      startRound();
+    }
+
+    function skipRound() {
+      startRound();
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function showCelebration() {
+      const emojis = ['⭐', '🌟', '✨', '🎉', '📚', '🔤'];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      celebration.textContent = emoji;
+      celebration.style.left = (30 + Math.random() * 40) + '%';
+      document.body.appendChild(celebration);
+
+      setTimeout(() => celebration.remove(), 500);
+    }
+
+    function recordProgressToTracker() {
+      if (typeof ProgressTracker === 'undefined') return;
+      const total = sessionStats.correct + sessionStats.wrong;
+      if (total === 0) return;
+
+      const accuracy = sessionStats.correct / total;
+      ProgressTracker.recordSession('word-sort', 'C', accuracy, {
+        correct: sessionStats.correct,
+        wrong: sessionStats.wrong,
+        level: currentLevel,
+        roundsCompleted: roundsCompleted,
+        duration: Math.round((Date.now() - sessionStartTime) / 1000)
+      });
+
+      // Check for band promotion
+      const promotion = ProgressTracker.checkBandPromotion('C');
+      if (promotion.ready && promotion.justUnlocked) {
+        Toast.success('Amazing progress! Band D is now unlocked!');
+      }
+    }
+
+    // Save progress on page unload
+    window.addEventListener('beforeunload', () => {
+      recordProgressToTracker();
+      saveActivity();
+    });
+
+    async function saveActivity() {
+      if (!currentStudent || roundsCompleted === 0) return;
+      try {
+        await window.FunBookiesDB.saveActivity({
+          studentId: currentStudent.id,
+          type: 'word-sort',
+          level: currentLevel,
+          score: sessionStats.correct,
+          total: sessionStats.correct + sessionStats.wrong,
+          duration: Math.round((Date.now() - sessionStartTime) / 1000),
+          details: { roundsCompleted }
+        });
+      } catch (e) {
+        console.error('Failed to save:', e);
+      }
+    }
+  </script>
+</body>
+</html>

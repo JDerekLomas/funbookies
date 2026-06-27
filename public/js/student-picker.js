@@ -12,7 +12,7 @@ class StudentPicker {
         this.options = {
             title: options.title || 'Who is practicing today?',
             allowCreate: options.allowCreate !== false,
-            allowSkip: options.allowSkip || false,
+            allowSkip: options.allowSkip !== false,
             ...options
         };
         this.modal = null;
@@ -26,6 +26,12 @@ class StudentPicker {
     async show() {
         // Wait for DB to be ready
         await window.FunBookiesDB.ready;
+
+        // Auto-skip if no students exist — don't block gameplay
+        const students = await window.FunBookiesDB.getStudents();
+        if (students.length === 0) {
+            return null;
+        }
 
         return new Promise((resolve) => {
             this.resolvePromise = resolve;

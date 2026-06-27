@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Fill the Gap - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .game-header h1 { font-size: 1.4rem; }
+
+    .activity-area {
+      text-align: center;
+      padding: var(--space-sm) 0;
+    }
+
+    /* Sentence display */
+    .sentence-card {
+      background: white;
+      border: 2px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sentence-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 4vw, 1.8rem);
+      line-height: 1.6;
+      color: var(--color-charcoal);
+    }
+
+    .gap {
+      display: inline-block;
+      min-width: 100px;
+      height: 45px;
+      background: var(--color-cream);
+      border: 3px dashed var(--color-terracotta);
+      border-radius: var(--border-radius);
+      vertical-align: middle;
+      margin: 0 6px;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .gap.filled {
+      border-style: solid;
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+    }
+
+    .gap.correct {
+      border-color: var(--color-sage-dark);
+      background: #e8f5e9;
+    }
+
+    .gap.incorrect {
+      border-color: #e74c3c;
+      background: #ffebee;
+      animation: shake 0.3s;
+    }
+
+    .gap-word {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* Image hint */
+    .image-hint {
+      font-size: 4rem;
+      margin-bottom: var(--space-sm);
+      cursor: pointer;
+    }
+
+    .image-hint:hover {
+      transform: scale(1.1);
+    }
+
+    /* Word choices */
+    .word-choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .word-choice {
+      padding: 14px 24px;
+      background: var(--color-sage);
+      border: none;
+      border-radius: var(--border-radius);
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .word-choice:hover {
+      background: var(--color-sage-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(159, 199, 170, 0.4);
+    }
+
+    .word-choice:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .word-choice.selected {
+      background: var(--color-terracotta);
+    }
+
+    .word-choice.correct {
+      background: var(--color-sage-dark);
+    }
+
+    .word-choice.incorrect {
+      background: #e74c3c;
+      animation: shake 0.3s;
+    }
+
+    .word-choice:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Feedback */
+    .feedback {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      min-height: 40px;
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback.correct { color: var(--color-sage-dark); }
+    .feedback.incorrect { color: #e74c3c; }
+    .feedback.waiting { color: var(--color-text-muted); }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--color-cream);
+      border-radius: 4px;
+      margin-top: var(--space-md);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-sage), var(--color-sage-dark));
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    .progress-text {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-top: 6px;
+    }
+
+    /* Celebration */
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      animation: celebrate 0.5s ease-out;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes celebrate {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .word-choice { padding: 12px 18px; font-size: 1rem; }
+      .gap { min-width: 80px; height: 38px; }
+      .gap-word { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <script src="/js/audio-utils.js"></script>
+  <script src="/js/toast.js"></script>
+  <script src="/js/progress-tracker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Fill the Gap <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div class="score-badge">Score: <span id="score">0</span></div>
+      </div>
+
+      <div class="level-select">
+        <button class="chip active" data-level="easy">Easy</button>
+        <button class="chip" data-level="medium">Medium</button>
+        <button class="chip" data-level="hard">Hard</button>
+      </div>
+
+      <div class="activity-area">
+        <div class="image-hint" id="imageHint" onclick="hearSentence()">🐱</div>
+
+        <div class="sentence-card">
+          <div class="sentence-text" id="sentenceText">
+            The cat sat on the <span class="gap" id="gap"></span>.
+          </div>
+        </div>
+
+        <div class="word-choices" id="wordChoices"></div>
+
+        <div class="feedback waiting" id="feedback">Pick the word that fits!</div>
+
+        <div class="controls">
+          <button class="btn btn-secondary" onclick="hearSentence()">🔊 Hear It</button>
+          <button class="btn btn-outline" onclick="skipSentence()">Skip</button>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text"><span id="current">0</span> / <span id="total">10</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sentence banks by difficulty
+    const sentenceBanks = {
+      easy: [
+        { sentence: 'The ___ sat on the mat.', answer: 'cat', choices: ['cat', 'bat', 'hat', 'rat'], image: '🐱' },
+        { sentence: 'I can see the ___.', answer: 'sun', choices: ['sun', 'run', 'fun', 'bun'], image: '☀️' },
+        { sentence: 'The dog likes to ___.', answer: 'run', choices: ['run', 'sun', 'fun', 'bun'], image: '🐕' },
+        { sentence: 'She has a red ___.', answer: 'hat', choices: ['hat', 'cat', 'bat', 'mat'], image: '🎩' },
+        { sentence: 'The pig is in the ___.', answer: 'mud', choices: ['mud', 'bud', 'hug', 'rug'], image: '🐷' },
+        { sentence: 'I like to eat ___.', answer: 'jam', choices: ['jam', 'ham', 'yam', 'ram'], image: '🍓' },
+        { sentence: 'The bug is on the ___.', answer: 'rug', choices: ['rug', 'bug', 'mug', 'hug'], image: '🐛' },
+        { sentence: 'We went on a ___.', answer: 'bus', choices: ['bus', 'us', 'fuss', 'plus'], image: '🚌' },
+        { sentence: 'The hen is in the ___.', answer: 'pen', choices: ['pen', 'hen', 'ten', 'men'], image: '🐔' },
+        { sentence: 'I can hop and ___.', answer: 'skip', choices: ['skip', 'trip', 'drip', 'flip'], image: '🦘' },
+      ],
+      medium: [
+        { sentence: 'The frog jumped into the ___.', answer: 'pond', choices: ['pond', 'bond', 'wand', 'fond'], image: '🐸' },
+        { sentence: 'We played a fun ___.', answer: 'game', choices: ['game', 'came', 'name', 'same'], image: '🎮' },
+        { sentence: 'The ship sailed on the ___.', answer: 'sea', choices: ['sea', 'tea', 'pea', 'bee'], image: '🚢' },
+        { sentence: 'I rode my ___ to school.', answer: 'bike', choices: ['bike', 'like', 'hike', 'mike'], image: '🚲' },
+        { sentence: 'The king wore a golden ___.', answer: 'crown', choices: ['crown', 'brown', 'frown', 'down'], image: '👑' },
+        { sentence: 'She baked a chocolate ___.', answer: 'cake', choices: ['cake', 'bake', 'lake', 'make'], image: '🎂' },
+        { sentence: 'The bird built a ___.', answer: 'nest', choices: ['nest', 'best', 'rest', 'test'], image: '🐦' },
+        { sentence: 'We saw a bright ___ in the sky.', answer: 'star', choices: ['star', 'car', 'far', 'bar'], image: '⭐' },
+        { sentence: 'The train runs on the ___.', answer: 'track', choices: ['track', 'black', 'stack', 'crack'], image: '🚂' },
+        { sentence: 'I like to read a good ___.', answer: 'book', choices: ['book', 'look', 'cook', 'hook'], image: '📚' },
+      ],
+      hard: [
+        { sentence: 'The knight rode his ___ into battle.', answer: 'horse', choices: ['horse', 'course', 'force', 'source'], image: '🐴' },
+        { sentence: 'The scientist made an important ___.', answer: 'discovery', choices: ['discovery', 'recovery', 'delivery', 'mystery'], image: '🔬' },
+        { sentence: 'The mountain was covered in ___.', answer: 'snow', choices: ['snow', 'glow', 'flow', 'grow'], image: '🏔️' },
+        { sentence: 'We need to ___ the problem together.', answer: 'solve', choices: ['solve', 'involve', 'resolve', 'evolve'], image: '🧩' },
+        { sentence: 'The butterfly has colorful ___.', answer: 'wings', choices: ['wings', 'things', 'rings', 'sings'], image: '🦋' },
+        { sentence: 'She played a beautiful ___ on the piano.', answer: 'melody', choices: ['melody', 'remedy', 'comedy', 'steady'], image: '🎹' },
+        { sentence: 'The ocean waves crashed against the ___.', answer: 'shore', choices: ['shore', 'more', 'store', 'core'], image: '🌊' },
+        { sentence: 'We planted seeds in the ___.', answer: 'garden', choices: ['garden', 'pardon', 'warden', 'harden'], image: '🌻' },
+        { sentence: 'The treasure was hidden in a secret ___.', answer: 'cave', choices: ['cave', 'wave', 'save', 'brave'], image: '💎' },
+        { sentence: 'The thunder made a loud ___.', answer: 'sound', choices: ['sound', 'round', 'found', 'ground'], image: '⛈️' },
+      ]
+    };
+
+    // State
+    let currentLevel = 'easy';
+    let currentSentences = [];
+    let sentenceIndex = 0;
+    let score = 0;
+    let currentStudent = null;
+    let sessionStartTime = null;
+    let sessionStats = { correct: 0, wrong: 0 };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupLevelButtons();
+
+      // Student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is filling gaps today?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+        }
+      }
+
+      sessionStartTime = Date.now();
+      startRound();
+
+      // Play intro
+      const lastIntro = localStorage.getItem('fill-the-gap-intro');
+      const oneDay = 24 * 60 * 60 * 1000;
+      if (!lastIntro || Date.now() - parseInt(lastIntro) > oneDay) {
+        setTimeout(() => {
+          AudioUtils.playInstruction('fill-the-gap-intro', 'Read the sentence and pick the missing word!');
+          localStorage.setItem('fill-the-gap-intro', Date.now().toString());
+        }, 500);
+      }
+    });
+
+    function setupLevelButtons() {
+      document.querySelectorAll('.chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLevel = btn.dataset.level;
+          startRound();
+        });
+      });
+    }
+
+    function startRound() {
+      sentenceIndex = 0;
+      currentSentences = shuffleArray([...sentenceBanks[currentLevel]]).slice(0, 10);
+      document.getElementById('total').textContent = currentSentences.length;
+      loadSentence();
+    }
+
+    function loadSentence() {
+      if (sentenceIndex >= currentSentences.length) {
+        endRound();
+        return;
+      }
+
+      const item = currentSentences[sentenceIndex];
+
+      // Update image
+      document.getElementById('imageHint').textContent = item.image;
+
+      // Render sentence with gap
+      const parts = item.sentence.split('___');
+      document.getElementById('sentenceText').innerHTML =
+        `${parts[0]}<span class="gap" id="gap"></span>${parts[1] || ''}`;
+
+      // Render choices
+      renderChoices(item);
+
+      // Update progress
+      document.getElementById('current').textContent = sentenceIndex + 1;
+      updateProgress();
+
+      // Reset feedback
+      document.getElementById('feedback').textContent = 'Pick the word that fits!';
+      document.getElementById('feedback').className = 'feedback waiting';
+    }
+
+    function renderChoices(item) {
+      const container = document.getElementById('wordChoices');
+      container.innerHTML = '';
+
+      const shuffledChoices = shuffleArray([...item.choices]);
+
+      shuffledChoices.forEach(word => {
+        const btn = document.createElement('button');
+        btn.className = 'word-choice';
+        btn.textContent = word;
+        btn.onclick = () => selectWord(word, item.answer);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectWord(selected, correct) {
+      const buttons = document.querySelectorAll('.word-choice');
+      const gap = document.getElementById('gap');
+
+      // Disable all buttons
+      buttons.forEach(btn => btn.disabled = true);
+
+      // Show selected word in gap
+      gap.classList.add('filled');
+      gap.innerHTML = `<span class="gap-word">${selected}</span>`;
+
+      if (selected === correct) {
+        // Correct!
+        sessionStats.correct++;
+        score += 10;
+        document.getElementById('score').textContent = score;
+
+        gap.classList.add('correct');
+        buttons.forEach(btn => {
+          if (btn.textContent === selected) btn.classList.add('correct');
+        });
+
+        document.getElementById('feedback').textContent = 'Correct!';
+        document.getElementById('feedback').className = 'feedback correct';
+
+        showCelebration();
+
+        setTimeout(() => {
+          sentenceIndex++;
+          loadSentence();
+        }, 1200);
+      } else {
+        // Incorrect
+        sessionStats.wrong++;
+
+        gap.classList.add('incorrect');
+        buttons.forEach(btn => {
+          if (btn.textContent === selected) btn.classList.add('incorrect');
+          if (btn.textContent === correct) btn.classList.add('correct');
+        });
+
+        document.getElementById('feedback').textContent = `The answer was "${correct}"`;
+        document.getElementById('feedback').className = 'feedback incorrect';
+
+        setTimeout(() => {
+          sentenceIndex++;
+          loadSentence();
+        }, 2000);
+      }
+    }
+
+    function skipSentence() {
+      const item = currentSentences[sentenceIndex];
+      document.getElementById('feedback').textContent = `Skipped. Answer: "${item.answer}"`;
+      document.getElementById('feedback').className = 'feedback waiting';
+
+      setTimeout(() => {
+        sentenceIndex++;
+        loadSentence();
+      }, 1500);
+    }
+
+    function hearSentence() {
+      const item = currentSentences[sentenceIndex];
+      const fullSentence = item.sentence.replace('___', item.answer);
+      AudioUtils.playWord(fullSentence).catch(() => {});
+    }
+
+    function updateProgress() {
+      const percent = (sentenceIndex / currentSentences.length) * 100;
+      document.getElementById('progressFill').style.width = percent + '%';
+    }
+
+    function endRound() {
+      document.getElementById('feedback').textContent = `Round complete! Score: ${score}`;
+      document.getElementById('feedback').className = 'feedback correct';
+
+      // Record progress
+      recordProgressToTracker();
+
+      // Multiple celebrations
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => showCelebration(), i * 150);
+      }
+
+      // Start new round after delay
+      setTimeout(() => {
+        score = 0;
+        document.getElementById('score').textContent = score;
+        startRound();
+      }, 3000);
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function showCelebration() {
+      const emojis = ['⭐', '🌟', '✨', '🎉', '📝', '✅'];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      celebration.textContent = emoji;
+      celebration.style.left = (30 + Math.random() * 40) + '%';
+      document.body.appendChild(celebration);
+
+      setTimeout(() => celebration.remove(), 500);
+    }
+
+    function recordProgressToTracker() {
+      if (typeof ProgressTracker === 'undefined') return;
+      const total = sessionStats.correct + sessionStats.wrong;
+      if (total === 0) return;
+
+      const accuracy = sessionStats.correct / total;
+      ProgressTracker.recordSession('fill-the-gap', 'D', accuracy, {
+        correct: sessionStats.correct,
+        wrong: sessionStats.wrong,
+        level: currentLevel,
+        score: score,
+        duration: Math.round((Date.now() - sessionStartTime) / 1000)
+      });
+
+      // Check for band completion (D is final)
+      const promotion = ProgressTracker.checkBandPromotion('D');
+      if (promotion.ready) {
+        Toast.success('Congratulations! You have mastered all reading bands!');
+      }
+
+      // Reset for next round
+      sessionStats = { correct: 0, wrong: 0 };
+    }
+
+    // Save progress on page unload
+    window.addEventListener('beforeunload', () => {
+      recordProgressToTracker();
+      saveActivity();
+    });
+
+    async function saveActivity() {
+      if (!currentStudent || sessionStats.correct === 0) return;
+      try {
+        await window.FunBookiesDB.saveActivity({
+          studentId: currentStudent.id,
+          type: 'fill-the-gap',
+          level: currentLevel,
+          score: sessionStats.correct,
+          total: sessionStats.correct + sessionStats.wrong,
+          duration: Math.round((Date.now() - sessionStartTime) / 1000),
+          details: { finalScore: score }
+        });
+      } catch (e) {
+        console.error('Failed to save:', e);
+      }
+    }
+  </script>
+</body>
+</html>

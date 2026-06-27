@@ -1,0 +1,71 @@
+        .level-badge.band-b { background: var(--color-dusty-blue); }
+        .level-badge.band-c { background: var(--color-terracotta); }
+        .level-badge.band-d { background: var(--color-charcoal); }
+
+        .level-name {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            font-weight: 400;
+--
+                </div>
+                <div class="band-card">
+                    <h3><span class="level-badge band-d">D</span> Fluent</h3>
+                    <p class="purpose">Fluency, comprehension, reading to learn</p>
+                    <p class="meta"><strong>Levels:</strong> D1&ndash;D6<br><strong>Grades:</strong> 3&ndash;6<br><strong>Lexile:</strong> 450L&ndash;800L</p>
+                </div>
+            </div>
+        </section>
+--
+                    </tr>
+                    <tr>
+                        <td><div class="level-cell"><span class="level-badge band-d">D1</span> <span class="level-name">Sentence Variety</span></div></td>
+                        <td>4</td>
+                        <td class="approx">U&ndash;V</td>
+                        <td class="approx">44&ndash;50</td>
+                        <td class="approx">450&ndash;500L</td>
+                        <td class="approx">&mdash;</td>
+--
+                    </tr>
+                    <tr>
+                        <td><div class="level-cell"><span class="level-badge band-d">D2</span> <span class="level-name">Inference</span></div></td>
+                        <td>4&ndash;5</td>
+                        <td class="approx">V&ndash;W</td>
+                        <td class="approx">50</td>
+                        <td class="approx">500&ndash;550L</td>
+                        <td class="approx">&mdash;</td>
+--
+                    </tr>
+                    <tr>
+                        <td><div class="level-cell"><span class="level-badge band-d">D3</span> <span class="level-name">Latin Roots</span></div></td>
+                        <td>5</td>
+                        <td class="approx">W&ndash;X</td>
+                        <td class="approx">&mdash;</td>
+                        <td class="approx">550&ndash;600L</td>
+                        <td class="approx">&mdash;</td>
+--
+                    </tr>
+                    <tr>
+                        <td><div class="level-cell"><span class="level-badge band-d">D4</span> <span class="level-name">Greek Roots</span></div></td>
+                        <td>5&ndash;6</td>
+                        <td class="approx">X&ndash;Y</td>
+                        <td class="approx">&mdash;</td>
+                        <td class="approx">600&ndash;650L</td>
+                        <td class="approx">&mdash;</td>
+--
+                    </tr>
+                    <tr>
+                        <td><div class="level-cell"><span class="level-badge band-d">D5</span> <span class="level-name">Figurative Language</span></div></td>
+                        <td>5&ndash;6</td>
+                        <td class="approx">Y&ndash;Z</td>
+                        <td class="approx">&mdash;</td>
+                        <td class="approx">650&ndash;700L</td>
+                        <td class="approx">&mdash;</td>
+--
+                    </tr>
+                    <tr>
+                        <td><div class="level-cell"><span class="level-badge band-d">D6</span> <span class="level-name">Grade-Level Prose</span></div></td>
+                        <td>6</td>
+                        <td class="approx">Z</td>
+                        <td class="approx">&mdash;</td>
+                        <td class="approx">700&ndash;800L</td>
+                        <td class="approx">&mdash;</td>

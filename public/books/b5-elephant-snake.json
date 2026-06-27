@@ -1,0 +1,315 @@
+{
+  "id": "b5-elephant-snake",
+  "title": "Elephant Snake",
+  "slug": "b5-elephant-snake",
+  "level": "B5",
+  "band": "B",
+  "targetPhonics": "Digraphs (sh, ch, th, wh, ck, ng)",
+  "wordFamilies": [
+    "-sh",
+    "-ch",
+    "-th",
+    "-wh",
+    "-ck",
+    "-ng"
+  ],
+  "skill": "Digraphs",
+  "skill_description": "Practice reading words with consonant digraphs: sh, ch, th, wh, ck, ng.",
+  "age_range": "K-1",
+  "created": "2026-02-20",
+  "author": "FunBookies",
+  "illustrator": "AI Generated",
+  "summary": "Peanut the elephant snake wants to play in the forest. His mom tells him to come back before dark. But he gets lost! Then he meets Fluffy, and together they find their way home.",
+  "visual_style": "Playful watercolor with soft greens and warm golds. The elephant snakes are whimsical creatures \u2014 elephant heads with long serpentine bodies, no legs, wrapping and coiling through the scenes. Gentle, cozy, and magical.",
+  "characters": {
+    "main": {
+      "name": "Peanut",
+      "type": "elephant snake",
+      "visual_shorthand": "Young elephant snake with a small elephant head (no tusks), big floppy ears, kind eyes, and a long serpentine body covered in soft grey-blue skin with pink inside the ears. No legs \u2014 moves by slithering and coiling.",
+      "distinctive_features": [
+        "small elephant head",
+        "no tusks",
+        "big floppy ears with pink inside",
+        "long serpentine body",
+        "soft grey-blue skin",
+        "no legs",
+        "kind round eyes"
+      ]
+    },
+    "friend": {
+      "name": "Fluffy",
+      "type": "elephant snake",
+      "visual_shorthand": "Young elephant snake friend, same form as Peanut but slightly different coloring \u2014 warmer brown-grey skin with a lighter belly. Small elephant head, no tusks, big ears, long body, no legs.",
+      "distinctive_features": [
+        "small elephant head",
+        "no tusks",
+        "big floppy ears",
+        "long serpentine body",
+        "warm brown-grey skin",
+        "no legs",
+        "cheerful expression"
+      ]
+    },
+    "mother": {
+      "name": "Mama",
+      "type": "elephant snake",
+      "visual_shorthand": "Large adult elephant snake with a mature elephant head featuring elegant curved ivory tusks, wise kind eyes, very big floppy ears with pink inside, and an extremely long serpentine body in deep grey-blue. Big enough to wrap around both children.",
+      "distinctive_features": [
+        "large mature elephant head",
+        "ivory tusks",
+        "very big floppy ears",
+        "extremely long serpentine body",
+        "deep grey-blue skin",
+        "no legs",
+        "warm maternal expression"
+      ]
+    }
+  },
+  "word_list": {
+    "sound_out": [
+      "shell",
+      "wish",
+      "shop",
+      "ship",
+      "fish",
+      "shut",
+      "shin",
+      "shack",
+      "chat",
+      "chin",
+      "chop",
+      "chip",
+      "much",
+      "such",
+      "rich",
+      "chest",
+      "this",
+      "that",
+      "them",
+      "then",
+      "thin",
+      "thick",
+      "with",
+      "thing",
+      "sing",
+      "ring",
+      "long",
+      "song",
+      "hung",
+      "king",
+      "back",
+      "black",
+      "neck",
+      "duck",
+      "luck",
+      "stick",
+      "rock",
+      "kick",
+      "when",
+      "where",
+      "what",
+      "white",
+      "which",
+      "whip"
+    ],
+    "sight": [
+      "a",
+      "I",
+      "the",
+      "is",
+      "to",
+      "and",
+      "it",
+      "in",
+      "on",
+      "my",
+      "see",
+      "he",
+      "she",
+      "we",
+      "be",
+      "you",
+      "are",
+      "was",
+      "for",
+      "said",
+      "have",
+      "they",
+      "come",
+      "there",
+      "what",
+      "from"
+    ],
+    "new": [
+      "Peanut",
+      "Fluffy",
+      "Mama"
+    ]
+  },
+  "wordsearch_words": [
+    "shell",
+    "chat",
+    "thing",
+    "back",
+    "when",
+    "thin",
+    "neck",
+    "long"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "type": "cover",
+      "text": "Elephant Snake",
+      "scene": "Peanut the elephant snake slithering through a sunny forest. Elephant snake has a small elephant head with big floppy pink ears, a long snake-like body with NO LEGS, grey-blue skin. Playful watercolor. NO TEXT.",
+      "image": "images/covers/b5-elephant-snake.png"
+    },
+    {
+      "page": 2,
+      "type": "copyright"
+    },
+    {
+      "page": 3,
+      "type": "parent_guide"
+    },
+    {
+      "page": 4,
+      "type": "level_wordlist"
+    },
+    {
+      "page": 5,
+      "story_page": 1,
+      "type": "story",
+      "text": "Peanut was an elephant snake.\nHe had a long body and big ears.\nHe had NO LEGS!",
+      "scene": "Peanut the elephant snake on grass by a dirt hill. Elephant head with big pink-lined ears, long snake body slithering on ground, grey-blue skin, absolutely NO LEGS. Watercolor. NO TEXT.",
+      "image": "images/b5-elephant-snake/page01.png"
+    },
+    {
+      "page": 6,
+      "story_page": 2,
+      "type": "story",
+      "text": "\"I wish to go to the forest!\" said Peanut.\n\"Come back when the sun is low,\" said Mama.",
+      "scene": "Mama elephant snake with ivory tusks coiled by dirt hill hole, looking at small Peanut. Both have elephant heads, long snake bodies, NO LEGS. Morning light. Watercolor. NO TEXT.",
+      "image": "images/b5-elephant-snake/page02.png"
+    },
+    {
+      "page": 7,
+      "story_page": 3,
+      "type": "story",
+      "text": "Peanut went this way and that.\nHe saw a thick tree, a thin bush, a black rock.",
+      "scene": "Peanut slithering through sunny forest past thick tree and black rock. Long snake body on ground, elephant head with big ears, NO LEGS. Watercolor. NO TEXT.",
+      "image": "images/b5-elephant-snake/page03.png"
+    },
+    {
+      "page": 8,
+      "story_page": 4,
+      "type": "story",
+      "text": "He sang a long song.\n\"I sing! I sing!\"",
+      "scene": "Peanut coiled on rock, elephant head raised singing, big ears spread, long snake body, NO LEGS. Forest sunlight. Watercolor. NO TEXT.",
+      "image": "images/b5-elephant-snake/page04.png"
+    },
+    {
+      "page": 9,
+      "story_page": 5,
+      "type": "story",
+      "text": "Then he looked back.\nWhich way was home?\nHe was lost.",
+      "scene": "Peanut coiled nervously, looking back worriedly in forest at sunset. Elephant head with droopy ears, long snake body, NO LEGS. Orange sky. Watercolor. NO TEXT.",
+      "image": "images/b5-elephant-snake/page05.png"
+    },
+    {
+      "page": 10,
+      "story_page": 6,
+      "type": "story",
+      "text": "It was dark.\nThe sky was black.\nPeanut was sad.",
+      "scene": "Dark forest at night, crescent moon. Peanut coiled sadly at tree base, elephant head down, long snake body, NO LEGS. Blue moonlight. Watercolor. NO TEXT.",
+      "image": "images/b5-elephant-snake/page06.png"
+    },
+    {
+      "page": 11,
+      "story_page": 7,
+      "type": "story",
+      "text": "Then \u2014 chat, chat, chat!\nA friend came up.\n\"I am Fluffy!\"",
+      "scene": "Fluffy the elephant snake appearing in moonlit forest, brown-grey skin, elephant head with big ears, long snake body, NO LEGS. Peanut looks up hopeful. Watercolor. NO TEXT.",
+      "image": "images/b5-elephant-snake/page07.png"
+    },
+    {
+      "page": 12,
+      "story_page": 8,
+      "type": "story",
+      "text": "\"I know the way back,\" said Fluffy.\nThey went together.",
+      "scene": "Two elephant snakes slithering side by side through moonlit forest. Peanut grey-blue, Fluffy brown-grey. Both have elephant heads, long snake bodies, NO LEGS. Watercolor. NO TEXT.",
+      "image": "images/b5-elephant-snake/page08.png"
+    },
+    {
+      "page": 13,
+      "story_page": 9,
+      "type": "story",
+      "text": "There was the hill!\nThe big dirt hill with a hole.\nThat was home!",
+      "scene": "Big dirt hill with round hole glowing warm light inside. Two elephant snakes approaching happily, elephant heads, long snake bodies, NO LEGS. Moonlight. Watercolor. NO TEXT.",
+      "image": "images/b5-elephant-snake/page09.png"
+    },
+    {
+      "page": 14,
+      "story_page": 10,
+      "type": "story",
+      "text": "Mama came out.\nShe wrapped them in a ring.\nThey were safe.",
+      "scene": "Mama elephant snake with tusks coiled in big ring wrapping Peanut and Fluffy inside. All have elephant heads, long snake bodies, NO LEGS. Stars above, dirt hill behind. Cozy watercolor. NO TEXT.",
+      "image": "images/b5-elephant-snake/page10.png"
+    },
+    {
+      "page": 15,
+      "type": "end",
+      "text": "The End",
+      "scene": "Mama elephant snake with tusks coiled warm ring wrapping two small elephant snakes. All peaceful, elephant heads, long snake bodies, NO LEGS. Moonlight, stars, dirt hill home. Cozy watercolor. NO TEXT.",
+      "image": "images/b5-elephant-snake/page_end.png"
+    },
+    {
+      "page": 16,
+      "type": "wordsearch"
+    },
+    {
+      "page": 17,
+      "type": "series_info"
+    },
+    {
+      "page": 18,
+      "type": "back_cover",
+      "text": "Peanut gets lost in the dark forest. Will he find his way home?"
+    }
+  ],
+  "reference_prompt": "9-panel children's book reference sheet, playful watercolor style with soft greens, warm golds, and gentle greys.\n\nRow 1 - CHARACTER:\n[1] Peanut front view: young elephant snake, small elephant head (no tusks), big floppy ears with pink inside, kind round eyes, long serpentine grey-blue body coiled in front, no legs. Whimsical and cute.\n[2] Peanut in motion: slithering through grass, body making S-curves, ears flapping slightly, happy expression. Dynamic movement.\n[3] Peanut expressions: happy (ears up, eyes bright), sad (ears droopy, eyes down), surprised (ears wide, mouth open). Same character, three emotions.\n\nRow 2 - KEY ELEMENTS:\n[4] Fluffy: friend elephant snake, same form but warmer brown-grey coloring, cheerful expression, slightly different ear shape. Coiled beside Peanut.\n[5] **HERO SHOT**: Mama's protective embrace \u2014 large adult elephant snake with elegant ivory tusks coiled in a big warm ring around Peanut and Fluffy, both small elephant snakes nestled safely inside her coils. Moonlight scene, cozy and loving.\n[6] The home: a big dirt hill with a dark round hole near the top, grass and small flowers growing on it, warm lamp glow coming from inside the hole. Cozy burrow home.\n\nRow 3 - SETTINGS:\n[7] Sun-dappled forest: tall trees with thick trunks, ferns on the ground, shafts of golden sunlight filtering through leaves. Peaceful and inviting.\n[8] Dark forest: same trees but now in shadow, black sky visible through branches, moon providing dim blue light. Mysterious but not scary.\n[9] Forest floor details: thick tree roots, thin bushes, black rocks, white shells scattered among moss and fallen leaves. Natural textures.\n\nPalette: soft grey-blue for Peanut, warm brown-grey for Fluffy, deep grey-blue for Mama, ivory white for tusks, forest greens, warm golds for sunlight, cool blues for moonlight, pink for ear insides.\nFormat: Square 1:1, 3x3 grid, thin white borders between panels.\nCRITICAL: NO TEXT, NO WORDS, NO LETTERS anywhere in the image.",
+  "parent_tips": {
+    "before_reading": "Look at the cover together. Ask: What kind of animal is this? What do you notice about its body? Where do you think it lives?",
+    "during_reading": "When Peanut gets lost, ask: How do you think he feels? When Fluffy appears, ask: How does having a friend help? Point out the digraphs: sh in shell, ch in chat, th in this/that, ng in sing/long, ck in back/black/neck.",
+    "after_reading": "Talk about what Peanut learned. Why is it important to come home when it gets dark? How did Fluffy help? What would you do if you got lost?"
+  },
+  "comprehension_questions": [
+    {
+      "question": "What did Peanut look like?",
+      "answer": "He was an elephant snake with a long neck, a long body, big ears, and no legs."
+    },
+    {
+      "question": "What did Mama tell Peanut?",
+      "answer": "To come back when the sun is low."
+    },
+    {
+      "question": "What happened when it got dark?",
+      "answer": "Peanut was lost and sad."
+    },
+    {
+      "question": "Who helped Peanut find his way home?",
+      "answer": "Fluffy, another elephant snake."
+    },
+    {
+      "question": "What did Mama do at the end?",
+      "answer": "She wrapped Peanut and Fluffy in a ring to keep them warm and safe."
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-02-20T00:00:00.000Z",
+    "levelSpecs": "v2",
+    "wordCount": 180,
+    "decodabilityTarget": "85%+",
+    "storyPages": 10
+  }
+}

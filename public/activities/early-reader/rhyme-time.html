@@ -21,14 +21,6 @@
 
     .game-header h1 { font-size: 1.5rem; }
 
-    .score-badge {
-      background: var(--color-sage-light);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: 600;
-      color: var(--color-sage-dark);
-    }
-
     .activity-area {
       text-align: center;
       padding: var(--space-md) 0;
@@ -264,6 +256,7 @@
 <body>
   <script src="/js/data-service.js"></script>
   <script src="/js/student-picker.js"></script>
+  <script src="/js/progress-tracker.js"></script>
   <div class="container-narrow">
     <div class="page-header">
       <a href="/activities/early-reader/" class="back-link">&larr; Back to Early Reader</a>
@@ -360,6 +353,9 @@
     let currentStudent = null;
     let sessionStartTime = null;
     const ROUND_SIZE = 10;
+
+    // Progress tracking for Band A mastery
+    let sessionStats = { correct: 0, wrong: 0, attempts: 0 };
 
     document.addEventListener('DOMContentLoaded', async () => {
       // Show student picker
@@ -488,6 +484,11 @@
     function handleCorrect() {
       score++;
       streak++;
+
+      // Track for progress tracker
+      sessionStats.correct++;
+      sessionStats.attempts++;
+
       document.getElementById('score').textContent = score;
 
       if (streak >= 3) {
@@ -512,6 +513,10 @@
     function handleIncorrect() {
       streak = 0;
       document.getElementById('streakBadge').classList.add('hidden');
+
+      // Track for progress tracker
+      sessionStats.wrong++;
+      sessionStats.attempts++;
 
       if (isRhyming) {
         document.getElementById('feedback').innerHTML =
@@ -578,7 +583,11 @@
           }
         }
 
+        // Record to progress tracker
+        recordProgressToTracker();
+
         score = 0;
+        sessionStats = { correct: 0, wrong: 0, attempts: 0 };
         setTimeout(() => {
           document.getElementById('rhymeButtons').style.visibility = 'visible';
           startRound();
@@ -587,6 +596,29 @@
         loadPair();
       }
     }
+
+    // Record progress to Band A mastery tracker
+    function recordProgressToTracker() {
+      if (typeof ProgressTracker === 'undefined') return;
+      if (sessionStats.attempts === 0) return;
+
+      const accuracy = sessionStats.correct / sessionStats.attempts;
+      ProgressTracker.recordSession('rhyme-time', 'A', accuracy, {
+        score: sessionStats.correct,
+        correct: sessionStats.correct,
+        wrong: sessionStats.wrong,
+        duration: Math.round((Date.now() - sessionStartTime) / 1000)
+      });
+
+      // Check for band promotion
+      const promotion = ProgressTracker.checkBandPromotion('A');
+      if (promotion.ready && promotion.justUnlocked) {
+        alert('Amazing progress! Band B is now unlocked! 🎉');
+      }
+    }
+
+    // Save progress when leaving
+    window.addEventListener('beforeunload', recordProgressToTracker);
   </script>
 </body>
 </html>

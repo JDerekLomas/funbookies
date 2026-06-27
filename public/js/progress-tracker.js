@@ -21,13 +21,13 @@ const ProgressTracker = (function() {
             unlocks: 'C'
         },
         C: {
-            activities: ['chop-it-up', 'word-chains-c', 'sentence-scramble', 'read-aloud'],
+            activities: ['chop-it-up', 'spelling-bee', 'word-sort', 'sentence-scramble', 'read-aloud'],
             requiredAccuracy: 0.80,
             requiredSessions: 3,
             unlocks: 'D'
         },
         D: {
-            activities: ['read-aloud-d', 'sentence-scramble-d', 'word-chains-d'],
+            activities: ['fill-the-gap', 'story-sequencing', 'spelling-challenge', 'word-detective'],
             requiredAccuracy: 0.75,
             requiredSessions: 3,
             unlocks: null // Final band

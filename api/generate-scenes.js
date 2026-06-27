@@ -116,11 +116,24 @@ RULES FOR SCENE DESCRIPTIONS:
    BAD: "no ball", "without tractor", "not raining"
    GOOD: Only describe what you want to see
 
-4. TRACK PHYSICAL STATE - If character got muddy on page 3, they're STILL muddy on page 4 unless cleaned.
+4. TRACK PHYSICAL STATE - Continuity matters for BOTH characters AND objects:
+   - Characters: If they got muddy on page 3, they're STILL muddy on page 4 unless cleaned.
+   - Objects: Explicitly state the current state of key objects in EVERY scene where they appear.
+     * Box/chest/container: "CLOSED box" or "OPEN box with lid raised"
+     * Door/gate: "SHUT door" or "door standing OPEN"
+     * Light/lamp: "LIT lantern" or "UNLIT lamp"
+   - State changes: Before the action that changes state, describe the object in its CURRENT state.
+     Example: If box opens on page 6, pages 3-5 must say "CLOSED box" or "box with LID SHUT".
 
 5. EXPLICIT CHARACTER PRESENCE - Always say who IS in the scene.
 
 6. END EVERY SCENE WITH: "NO TEXT, NO WORDS, NO LETTERS anywhere in image."
+
+7. COMMON OBJECT STATE ERRORS TO AVOID:
+   - Box appearing OPEN before it's opened in the story
+   - Door appearing OPEN before character opens it
+   - Item appearing visible before it's revealed/discovered
+   When in doubt, explicitly state "CLOSED", "SHUT", "SEALED", "HIDDEN" for objects not yet interacted with.
 
 SHOT TYPES:
 - Wide shot: Establishing location, multiple characters

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Story Sequencing - FunBookies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <style>
+    .page-header { padding-top: var(--space-md); }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .game-header h1 { font-size: 1.4rem; }
+
+    .activity-area {
+      padding: var(--space-sm) 0;
+    }
+
+    .story-title {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--color-charcoal);
+      margin-bottom: var(--space-sm);
+    }
+
+    .story-emoji {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .instruction {
+      text-align: center;
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Sequence slots */
+    .sequence-slots {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: var(--space-md);
+    }
+
+    .sequence-slot {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: var(--color-cream);
+      border: 2px dashed var(--color-border);
+      border-radius: var(--border-radius);
+      min-height: 60px;
+      transition: all 0.2s;
+    }
+
+    .sequence-slot.drag-over {
+      border-color: var(--color-sage);
+      background: var(--color-sage-light);
+      transform: scale(1.02);
+    }
+
+    .sequence-slot.filled {
+      border-style: solid;
+      border-color: var(--color-sage);
+    }
+
+    .sequence-slot.correct {
+      border-color: var(--color-sage-dark);
+      background: #e8f5e9;
+    }
+
+    .sequence-slot.incorrect {
+      border-color: #e74c3c;
+      background: #ffebee;
+    }
+
+    .slot-number {
+      width: 36px;
+      height: 36px;
+      background: var(--color-charcoal);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .sequence-slot.correct .slot-number {
+      background: var(--color-sage-dark);
+    }
+
+    .sequence-slot.incorrect .slot-number {
+      background: #e74c3c;
+    }
+
+    .slot-content {
+      flex: 1;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--color-text-muted);
+    }
+
+    .slot-content.has-sentence {
+      color: var(--color-charcoal);
+      font-weight: 500;
+    }
+
+    /* Sentence cards */
+    .sentence-bank {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: var(--space-md);
+      padding: var(--space-md);
+      background: var(--color-cream);
+      border-radius: var(--border-radius-lg);
+      min-height: 100px;
+    }
+
+    .sentence-card {
+      padding: 14px 18px;
+      background: white;
+      border: 2px solid var(--color-sage);
+      border-radius: var(--border-radius);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--color-charcoal);
+      cursor: grab;
+      transition: all 0.2s;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .sentence-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(159, 199, 170, 0.3);
+    }
+
+    .sentence-card:active {
+      cursor: grabbing;
+    }
+
+    .sentence-card.dragging {
+      opacity: 0.5;
+      transform: scale(1.05);
+    }
+
+    .sentence-card.placed {
+      background: var(--color-sage-light);
+      cursor: pointer;
+    }
+
+    /* Feedback */
+    .feedback {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      min-height: 40px;
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback.correct { color: var(--color-sage-dark); }
+    .feedback.incorrect { color: #e74c3c; }
+    .feedback.waiting { color: var(--color-text-muted); }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Celebration */
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      animation: celebrate 0.5s ease-out;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes celebrate {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
+    .student-badge {
+      font-size: 0.8rem;
+      background: var(--color-sage-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: var(--color-sage-dark);
+      margin-left: 8px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .sentence-card { padding: 12px 14px; font-size: 0.95rem; }
+      .slot-number { width: 30px; height: 30px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="/js/data-service.js"></script>
+  <script src="/js/student-picker.js"></script>
+  <script src="/js/audio-utils.js"></script>
+  <script src="/js/toast.js"></script>
+  <script src="/js/progress-tracker.js"></script>
+  <div class="container-narrow">
+    <div class="page-header">
+      <a href="/activities/" class="back-link">&larr; Back to Activities</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-header">
+        <h1>Story Sequencing <span id="studentBadge" class="student-badge hidden"></span></h1>
+        <div class="score-badge">Stories: <span id="storyCount">0</span></div>
+      </div>
+
+      <div class="level-select">
+        <button class="chip active" data-level="3steps">3 Steps</button>
+        <button class="chip" data-level="4steps">4 Steps</button>
+        <button class="chip" data-level="5steps">5 Steps</button>
+      </div>
+
+      <div class="activity-area">
+        <div class="story-title" id="storyTitle">The Lost Puppy</div>
+        <div class="story-emoji" id="storyEmoji">🐕</div>
+
+        <p class="instruction">Drag the sentences into the correct order!</p>
+
+        <div class="sequence-slots" id="sequenceSlots"></div>
+
+        <div class="sentence-bank" id="sentenceBank"></div>
+
+        <div class="feedback waiting" id="feedback">Put the story in order!</div>
+
+        <div class="controls">
+          <button class="btn btn-secondary" onclick="resetStory()">Reset</button>
+          <button class="btn btn-primary" onclick="checkOrder()">Check Order</button>
+          <button class="btn btn-outline" onclick="skipStory()">Skip</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Story banks by number of steps
+    const storyBanks = {
+      '3steps': [
+        {
+          title: 'The Lost Puppy',
+          emoji: '🐕',
+          sentences: [
+            'A puppy got lost in the park.',
+            'A kind girl found the puppy.',
+            'She took it home to its owner.'
+          ]
+        },
+        {
+          title: 'Making a Sandwich',
+          emoji: '🥪',
+          sentences: [
+            'Get two slices of bread.',
+            'Put cheese and ham on one slice.',
+            'Put the other slice on top.'
+          ]
+        },
+        {
+          title: 'The Rainy Day',
+          emoji: '🌧️',
+          sentences: [
+            'Dark clouds filled the sky.',
+            'Rain began to fall.',
+            'Everyone ran inside to stay dry.'
+          ]
+        },
+        {
+          title: 'Planting a Seed',
+          emoji: '🌱',
+          sentences: [
+            'Dig a small hole in the soil.',
+            'Put the seed in the hole.',
+            'Water the seed every day.'
+          ]
+        },
+        {
+          title: 'The Birthday Party',
+          emoji: '🎂',
+          sentences: [
+            'Friends came to the party.',
+            'They sang happy birthday.',
+            'Everyone ate cake together.'
+          ]
+        },
+      ],
+      '4steps': [
+        {
+          title: 'Going to School',
+          emoji: '🏫',
+          sentences: [
+            'The alarm clock rang in the morning.',
+            'Tom got dressed and ate breakfast.',
+            'He walked to the bus stop.',
+            'The bus took him to school.'
+          ]
+        },
+        {
+          title: 'The Butterfly',
+          emoji: '🦋',
+          sentences: [
+            'A caterpillar ate many leaves.',
+            'It made a cocoon around itself.',
+            'It stayed inside for many days.',
+            'A beautiful butterfly came out.'
+          ]
+        },
+        {
+          title: 'Baking Cookies',
+          emoji: '🍪',
+          sentences: [
+            'Mix flour, sugar, and butter together.',
+            'Roll the dough into small balls.',
+            'Put them on a baking tray.',
+            'Bake them until golden brown.'
+          ]
+        },
+        {
+          title: 'The Snowman',
+          emoji: '⛄',
+          sentences: [
+            'Snow fell all night long.',
+            'The children rolled three big snowballs.',
+            'They stacked them on top of each other.',
+            'They added a carrot nose and button eyes.'
+          ]
+        },
+        {
+          title: 'Going Swimming',
+          emoji: '🏊',
+          sentences: [
+            'Pack your swimsuit and towel.',
+            'Go to the swimming pool.',
+            'Change into your swimsuit.',
+            'Jump into the water and swim!'
+          ]
+        },
+      ],
+      '5steps': [
+        {
+          title: 'The Camping Trip',
+          emoji: '🏕️',
+          sentences: [
+            'The family drove to the campsite.',
+            'They set up their tent together.',
+            'Dad made a fire for cooking.',
+            'They roasted marshmallows after dinner.',
+            'Everyone slept under the stars.'
+          ]
+        },
+        {
+          title: 'Growing Tomatoes',
+          emoji: '🍅',
+          sentences: [
+            'Plant tomato seeds in small pots.',
+            'Water them and put them in the sun.',
+            'Move the plants to the garden.',
+            'Watch the tomatoes grow and turn red.',
+            'Pick the ripe tomatoes to eat.'
+          ]
+        },
+        {
+          title: 'The Magic Show',
+          emoji: '🎩',
+          sentences: [
+            'The magician walked onto the stage.',
+            'He waved his magic wand in the air.',
+            'He pulled a rabbit from his hat.',
+            'The rabbit hopped around the stage.',
+            'Everyone clapped and cheered loudly.'
+          ]
+        },
+        {
+          title: 'Building a Sandcastle',
+          emoji: '🏰',
+          sentences: [
+            'Find a good spot on the beach.',
+            'Fill a bucket with wet sand.',
+            'Turn the bucket upside down.',
+            'Add towers and decorate with shells.',
+            'Take a photo before the waves come.'
+          ]
+        },
+        {
+          title: 'The Library Visit',
+          emoji: '📚',
+          sentences: [
+            'Walk into the quiet library.',
+            'Look at the books on the shelves.',
+            'Choose three books you want to read.',
+            'Take them to the librarian.',
+            'Check out the books and take them home.'
+          ]
+        },
+      ]
+    };
+
+    // State
+    let currentLevel = '3steps';
+    let currentStory = null;
+    let placedSentences = [];
+    let storiesCompleted = 0;
+    let currentStudent = null;
+    let sessionStartTime = null;
+    let sessionStats = { correct: 0, wrong: 0 };
+    let draggedSentence = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupLevelButtons();
+
+      // Student picker
+      if (window.StudentPicker) {
+        const picker = new StudentPicker({
+          title: 'Who is sequencing stories?',
+          allowSkip: true
+        });
+        currentStudent = await picker.show();
+
+        if (currentStudent) {
+          const badge = document.getElementById('studentBadge');
+          badge.textContent = `${currentStudent.avatar} ${currentStudent.name}`;
+          badge.classList.remove('hidden');
+        }
+      }
+
+      sessionStartTime = Date.now();
+      loadStory();
+
+      // Play intro
+      const lastIntro = localStorage.getItem('story-sequencing-intro');
+      const oneDay = 24 * 60 * 60 * 1000;
+      if (!lastIntro || Date.now() - parseInt(lastIntro) > oneDay) {
+        setTimeout(() => {
+          AudioUtils.playInstruction('story-sequencing-intro', 'Put the story events in the right order!');
+          localStorage.setItem('story-sequencing-intro', Date.now().toString());
+        }, 500);
+      }
+    });
+
+    function setupLevelButtons() {
+      document.querySelectorAll('.chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLevel = btn.dataset.level;
+          loadStory();
+        });
+      });
+    }
+
+    function loadStory() {
+      const bank = storyBanks[currentLevel];
+      currentStory = bank[Math.floor(Math.random() * bank.length)];
+      placedSentences = new Array(currentStory.sentences.length).fill(null);
+
+      // Update title and emoji
+      document.getElementById('storyTitle').textContent = currentStory.title;
+      document.getElementById('storyEmoji').textContent = currentStory.emoji;
+
+      // Reset feedback
+      document.getElementById('feedback').textContent = 'Put the story in order!';
+      document.getElementById('feedback').className = 'feedback waiting';
+
+      renderSlots();
+      renderSentenceBank();
+    }
+
+    function renderSlots() {
+      const container = document.getElementById('sequenceSlots');
+      container.innerHTML = '';
+
+      for (let i = 0; i < currentStory.sentences.length; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'sequence-slot';
+        slot.dataset.index = i;
+
+        const placed = placedSentences[i];
+        if (placed !== null) {
+          slot.classList.add('filled');
+        }
+
+        slot.innerHTML = `
+          <div class="slot-number">${i + 1}</div>
+          <div class="slot-content ${placed !== null ? 'has-sentence' : ''}">${placed !== null ? currentStory.sentences[placed] : 'Drop a sentence here...'}</div>
+        `;
+
+        // Drag and drop events
+        slot.addEventListener('dragover', handleDragOver);
+        slot.addEventListener('dragleave', handleDragLeave);
+        slot.addEventListener('drop', handleDrop);
+
+        // Click to remove
+        if (placed !== null) {
+          slot.style.cursor = 'pointer';
+          slot.onclick = () => removeSentence(i);
+        }
+
+        container.appendChild(slot);
+      }
+    }
+
+    function renderSentenceBank() {
+      const container = document.getElementById('sentenceBank');
+      container.innerHTML = '';
+
+      // Shuffle sentences
+      const indices = currentStory.sentences.map((_, i) => i);
+      shuffleArray(indices);
+
+      indices.forEach(originalIndex => {
+        // Skip if already placed
+        if (placedSentences.includes(originalIndex)) return;
+
+        const card = document.createElement('div');
+        card.className = 'sentence-card';
+        card.textContent = currentStory.sentences[originalIndex];
+        card.dataset.index = originalIndex;
+        card.draggable = true;
+
+        // Drag events
+        card.addEventListener('dragstart', handleDragStart);
+        card.addEventListener('dragend', handleDragEnd);
+
+        // Touch events for mobile
+        card.addEventListener('touchstart', handleTouchStart);
+        card.addEventListener('touchmove', handleTouchMove);
+        card.addEventListener('touchend', handleTouchEnd);
+
+        // Click to hear
+        card.addEventListener('click', () => {
+          AudioUtils.playWord(currentStory.sentences[originalIndex]).catch(() => {});
+        });
+
+        container.appendChild(card);
+      });
+
+      if (container.children.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: var(--color-text-muted);">All sentences placed! Click "Check Order"</p>';
+      }
+    }
+
+    // Drag handlers
+    function handleDragStart(e) {
+      draggedSentence = parseInt(e.target.dataset.index);
+      e.target.classList.add('dragging');
+    }
+
+    function handleDragEnd(e) {
+      e.target.classList.remove('dragging');
+      draggedSentence = null;
+      document.querySelectorAll('.sequence-slot').forEach(s => s.classList.remove('drag-over'));
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('drag-over');
+    }
+
+    function handleDragLeave(e) {
+      e.currentTarget.classList.remove('drag-over');
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('drag-over');
+
+      if (draggedSentence === null) return;
+
+      const slotIndex = parseInt(e.currentTarget.dataset.index);
+      placeSentence(draggedSentence, slotIndex);
+    }
+
+    // Touch handlers
+    let touchElement = null;
+
+    function handleTouchStart(e) {
+      draggedSentence = parseInt(e.target.dataset.index);
+      touchElement = e.target;
+    }
+
+    function handleTouchMove(e) {
+      if (!touchElement) return;
+      e.preventDefault();
+
+      const touch = e.touches[0];
+      touchElement.style.position = 'fixed';
+      touchElement.style.left = (touch.clientX - 100) + 'px';
+      touchElement.style.top = (touch.clientY - 25) + 'px';
+      touchElement.style.zIndex = '1000';
+      touchElement.style.width = '200px';
+      touchElement.classList.add('dragging');
+
+      // Highlight slot under finger
+      const slots = document.querySelectorAll('.sequence-slot');
+      slots.forEach(slot => {
+        const rect = slot.getBoundingClientRect();
+        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+          slot.classList.add('drag-over');
+        } else {
+          slot.classList.remove('drag-over');
+        }
+      });
+    }
+
+    function handleTouchEnd(e) {
+      if (!touchElement) return;
+
+      touchElement.style.position = '';
+      touchElement.style.left = '';
+      touchElement.style.top = '';
+      touchElement.style.zIndex = '';
+      touchElement.style.width = '';
+      touchElement.classList.remove('dragging');
+
+      // Find slot under finger
+      const touch = e.changedTouches[0];
+      const slots = document.querySelectorAll('.sequence-slot');
+      let targetSlot = null;
+
+      slots.forEach(slot => {
+        slot.classList.remove('drag-over');
+        const rect = slot.getBoundingClientRect();
+        if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+            touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+          targetSlot = parseInt(slot.dataset.index);
+        }
+      });
+
+      if (targetSlot !== null && draggedSentence !== null) {
+        placeSentence(draggedSentence, targetSlot);
+      }
+
+      touchElement = null;
+      draggedSentence = null;
+    }
+
+    function placeSentence(sentenceIndex, slotIndex) {
+      // If slot already has a sentence, swap back to bank
+      if (placedSentences[slotIndex] !== null) {
+        // Just replace it
+      }
+
+      placedSentences[slotIndex] = sentenceIndex;
+      renderSlots();
+      renderSentenceBank();
+    }
+
+    function removeSentence(slotIndex) {
+      placedSentences[slotIndex] = null;
+      renderSlots();
+      renderSentenceBank();
+    }
+
+    function checkOrder() {
+      // Check if all slots are filled
+      if (placedSentences.includes(null)) {
+        document.getElementById('feedback').textContent = 'Fill all the slots first!';
+        document.getElementById('feedback').className = 'feedback waiting';
+        return;
+      }
+
+      // Check if order is correct
+      const isCorrect = placedSentences.every((sentenceIndex, slotIndex) => sentenceIndex === slotIndex);
+
+      const slots = document.querySelectorAll('.sequence-slot');
+
+      if (isCorrect) {
+        sessionStats.correct++;
+        storiesCompleted++;
+        document.getElementById('storyCount').textContent = storiesCompleted;
+
+        slots.forEach(slot => slot.classList.add('correct'));
+        document.getElementById('feedback').textContent = 'Perfect! You got the order right!';
+        document.getElementById('feedback').className = 'feedback correct';
+
+        // Celebrations
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => showCelebration(), i * 150);
+        }
+
+        // Record progress
+        recordProgressToTracker();
+
+        setTimeout(loadStory, 2500);
+      } else {
+        sessionStats.wrong++;
+
+        // Show which are correct/incorrect
+        slots.forEach((slot, i) => {
+          if (placedSentences[i] === i) {
+            slot.classList.add('correct');
+          } else {
+            slot.classList.add('incorrect');
+          }
+        });
+
+        document.getElementById('feedback').textContent = 'Not quite right. Green ones are correct!';
+        document.getElementById('feedback').className = 'feedback incorrect';
+
+        setTimeout(() => {
+          slots.forEach(slot => {
+            slot.classList.remove('correct', 'incorrect');
+          });
+        }, 2000);
+      }
+    }
+
+    function resetStory() {
+      placedSentences = new Array(currentStory.sentences.length).fill(null);
+      document.getElementById('feedback').textContent = 'Put the story in order!';
+      document.getElementById('feedback').className = 'feedback waiting';
+      renderSlots();
+      renderSentenceBank();
+    }
+
+    function skipStory() {
+      // Show correct order
+      document.getElementById('feedback').textContent = 'Skipped. Here\'s the correct order.';
+      document.getElementById('feedback').className = 'feedback waiting';
+
+      placedSentences = currentStory.sentences.map((_, i) => i);
+      renderSlots();
+      renderSentenceBank();
+
+      setTimeout(loadStory, 3000);
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function showCelebration() {
+      const emojis = ['⭐', '🌟', '✨', '🎉', '📖', '📚'];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const celebration = document.createElement('div');
+      celebration.className = 'celebration';
+      celebration.textContent = emoji;
+      celebration.style.left = (30 + Math.random() * 40) + '%';
+      document.body.appendChild(celebration);
+
+      setTimeout(() => celebration.remove(), 500);
+    }
+
+    function recordProgressToTracker() {
+      if (typeof ProgressTracker === 'undefined') return;
+      const total = sessionStats.correct + sessionStats.wrong;
+      if (total === 0) return;
+
+      const accuracy = sessionStats.correct / total;
+      ProgressTracker.recordSession('story-sequencing', 'D', accuracy, {
+        correct: sessionStats.correct,
+        wrong: sessionStats.wrong,
+        level: currentLevel,
+        storiesCompleted: storiesCompleted,
+        duration: Math.round((Date.now() - sessionStartTime) / 1000)
+      });
+
+      // Check for band completion
+      const promotion = ProgressTracker.checkBandPromotion('D');
+      if (promotion.ready) {
+        Toast.success('Congratulations! You have mastered all reading bands!');
+      }
+    }
+
+    // Save progress on page unload
+    window.addEventListener('beforeunload', () => {
+      recordProgressToTracker();
+      saveActivity();
+    });
+
+    async function saveActivity() {
+      if (!currentStudent || storiesCompleted === 0) return;
+      try {
+        await window.FunBookiesDB.saveActivity({
+          studentId: currentStudent.id,
+          type: 'story-sequencing',
+          level: currentLevel,
+          score: sessionStats.correct,
+          total: sessionStats.correct + sessionStats.wrong,
+          duration: Math.round((Date.now() - sessionStartTime) / 1000),
+          details: { storiesCompleted }
+        });
+      } catch (e) {
+        console.error('Failed to save:', e);
+      }
+    }
+  </script>
+</body>
+</html>
